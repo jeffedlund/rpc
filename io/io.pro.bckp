@@ -1,0 +1,77 @@
+#-------------------------------------------------
+#
+# Project created by QtCreator 2011-07-22T19:04:15
+#
+#-------------------------------------------------
+
+QT       += core
+
+QT       -= gui
+
+QT += network
+
+TARGET = io
+CONFIG   += console
+CONFIG   -= app_bundle
+
+TEMPLATE = app
+
+
+INCLUDEPATH += \
+	src/main/cpp/jcpp/lang \
+	src/main/cpp/jcpp/exception \
+	src/main/cpp/jcpp/lang/reflect \
+	src/main/cpp/jcpp/util \
+	src/main/cpp/jcpp/io\
+	src/test/cpp/jcpp
+
+SOURCES += \
+    src/main/cpp/jcpp/lang/MClassLoader.cpp \
+    src/main/cpp/jcpp/lang/MInterface.cpp \
+    src/main/cpp/jcpp/lang/MObject.cpp \
+    src/main/cpp/jcpp/io/MSerializable.cpp\
+    src/main/cpp/jcpp/lang/MEnum.cpp \
+    src/main/cpp/jcpp/lang/MString.cpp \
+    src/main/cpp/jcpp/lang/exception\MEOFException.cpp \
+    src/main/cpp/jcpp/lang/exception\MIndexOutOfBoundsException.cpp \
+    src/main/cpp/jcpp/lang/exception\MIOException.cpp \
+    src/main/cpp/jcpp/lang/exception\MNullPointerException.cpp \
+    src/main/cpp/jcpp/lang/exception\MException.cpp \
+    src/main/cpp/jcpp/lang/exception\MUTFDataFormatException.cpp \
+    src/main/cpp/jcpp/lang/reflect/MInvocationHandler.cpp \
+    src/main/cpp/jcpp/lang/reflect/MMethod.cpp \
+    src/main/cpp/jcpp/lang/reflect/Introspector.cpp \
+    src/main/cpp/jcpp/lang/reflect/MProxy.cpp \
+    src/main/cpp/jcpp/util/ArrayList.cpp \
+    src/main/cpp/jcpp/util/JavaMapper.cpp \
+    src/main/cpp/jcpp/lang/MArray.cpp \
+    src/test/cpp/jcpp/main.cpp \
+    src/main/cpp/jcpp/lang/MClass.cpp
+    
+LIBS += -lws2_32
+
+HEADERS += \
+ src/main/cpp/jcpp/lang/MClassLoader.h \
+    src/main/cpp/jcpp/lang/MInterface.h \
+    src/main/cpp/jcpp/lang/MObject.h \
+    src/main/cpp/jcpp/io/MSerializable.h\
+    src/main/cpp/jcpp/lang/MEnum.h \
+    src/main/cpp/jcpp/lang/MString.h \
+    src/main/cpp/jcpp/lang/exception\MEOFException.h \
+    src/main/cpp/jcpp/lang/exception\MIndexOutOfBoundsException.h \
+    src/main/cpp/jcpp/lang/exception\MIOException.h \
+    src/main/cpp/jcpp/lang/exception\MNullPointerException.h \
+    src/main/cpp/jcpp/lang/exception\MException.h \
+    src/main/cpp/jcpp/lang/exception\MUTFDataFormatException.h \
+    src/main/cpp/jcpp/lang/reflect/MInvocationHandler.h \
+    src/main/cpp/jcpp/lang/reflect/MMethod.h \
+    src/main/cpp/jcpp/lang/reflect/Introspector.h \
+    src/main/cpp/jcpp/lang/reflect/MProxy.h \
+    src/main/cpp/jcpp/lang/reflect/MQtMeta.h \
+    src/main/cpp/jcpp/util/ArrayList.h \
+    src/main/cpp/jcpp/util/JavaMapper.h \
+    src/main/cpp/jcpp/lang/MArray.h \
+    src/main/cpp/jcpp/util/MBits.h \
+    src/main/cpp/jcpp/util/MCollection.h \
+    src/main/cpp/jcpp/lang/MClass.h
+    
