@@ -19,7 +19,7 @@ public:
 
     JObject* get(JObject* object);
 
-    void set(JObject* object, JObject *value);
+    void set(JObject* object, JObject* value);
 
     std::string toString();
 };

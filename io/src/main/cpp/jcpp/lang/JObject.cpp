@@ -8,6 +8,7 @@ class JObjectClass : public JClass{
 JClass* JObject::clazz=new JObjectClass();
 
 JObject::JObject(){
+    this->_class=clazz;
 }
 
 

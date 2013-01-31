@@ -19,11 +19,11 @@ JClass* JField::getType(){
     return type;
 }
 
-JObject* get(JObject* object){
+JObject* JField::get(JObject* object){
     return NULL;//TODO
 }
 
-void set(JObject* object, JObject *value){
+void JField::set(JObject* object, JObject *value){
     //TODO
 }
 

@@ -16,6 +16,10 @@ JObject* JClassLoader::createObject(string string){
     return NULL;//TODO
 }
 
+JClass* JClassLoader::loadClass(string string){
+    return NULL;//TODO
+}
+
 JClassLoader::~JClassLoader() {
 }
 

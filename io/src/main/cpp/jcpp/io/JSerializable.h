@@ -2,7 +2,7 @@
 #define JSERIALIZABLE_H
 
 #include "JObject.h"
-//#include "MObjectInputStream.h"
+#include "JObjectInputStream.h"
 //#include "MObjectOutputStream.h"
 
 class JSerializable{
@@ -11,8 +11,8 @@ public:
         return true;
     }
 
-  //  virtual void writeObject(MObjectOutputStream*) = 0;
-  //  virtual void readObject(MObjectInputStream*) = 0;
+    //virtual void writeObject(MObjectOutputStream*);
+    virtual void readObject(JObjectInputStream*);
 };
 
 #endif // JSERIALIZABLE_H

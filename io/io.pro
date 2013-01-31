@@ -61,7 +61,16 @@ SOURCES += \
     src/main/cpp/jcpp/lang/JPrimitiveLong.cpp \
     src/main/cpp/jcpp/lang/JLong.cpp \
     src/main/cpp/jcpp/lang/JPrimitiveShort.cpp \
-    src/main/cpp/jcpp/lang/JShort.cpp
+    src/main/cpp/jcpp/lang/JShort.cpp \
+    src/main/cpp/jcpp/io/JInputStream.cpp \
+    src/main/cpp/jcpp/io/JDataInputStream.cpp \
+    src/main/cpp/jcpp/io/QtDataInputStream.cpp \
+    src/main/cpp/jcpp/io/JObjectStreamClass.cpp \
+    src/main/cpp/jcpp/io/JObjectInputStream.cpp \
+    src/main/cpp/jcpp/io/SerialCallbackContext.cpp \
+    src/main/cpp/jcpp/io/HandleList.cpp \
+    src/main/cpp/jcpp/io/HandleTable.cpp \
+    src/main/cpp/jcpp/io/BlockDataInputStream.cpp
     
     
 LIBS += -lws2_32
@@ -105,5 +114,14 @@ HEADERS += \
     src/main/cpp/jcpp/lang/JLong.h \
     src/main/cpp/jcpp/lang/JPrimitiveShort.h \
     src/main/cpp/jcpp/lang/JShort.h \
-    src/main/cpp/jcpp/io/JObjectStreamConstants.h
+    src/main/cpp/jcpp/io/JObjectStreamConstants.h \
+    src/main/cpp/jcpp/io/JInputStream.h \
+    src/main/cpp/jcpp/io/JDataInputStream.h \
+    src/main/cpp/jcpp/io/QtDataInputStream.h \
+    src/main/cpp/jcpp/io/JObjectStreamClass.h \
+    src/main/cpp/jcpp/io/JObjectInputStream.h \
+    src/main/cpp/jcpp/io/SerialCallbackContext.h \
+    src/main/cpp/jcpp/io/HandleList.h \
+    src/main/cpp/jcpp/io/HandleTable.h \
+    src/main/cpp/jcpp/io/BlockDataInputStream.h
     

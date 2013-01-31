@@ -19,6 +19,8 @@ public:
 
     JObject* createObject(string string);
 
+    JClass* loadClass(string string);
+
     ~JClassLoader();
 };
 
