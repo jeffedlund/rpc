@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <sstream>
 using namespace std;
 
 class JPrimitiveLongClass : public JClass{
@@ -12,15 +13,33 @@ class JPrimitiveLongClass : public JClass{
         this->canonicalName="long";
         this->name="long";
         this->simpleName="long";
-        this->superClass=JObject::clazz;
         this->bIsPrimitive=true;
+    }
+
+    JClass* getSuperclass(){
+        return JObject::getClazz();
+    }
+
+    JObject* newInstance(){
+        return new JPrimitiveLong(0);
     }
 };
 
-JClass* JPrimitiveLong::clazz=new JPrimitiveLongClass();
+static JClass* clazz;
 
-JPrimitiveLong::JPrimitiveLong(qint64 value):JObject(clazz){
+JClass* JPrimitiveLong::getClazz(){
+    if (clazz==NULL){
+        clazz=new JPrimitiveLongClass();
+    }
+    return clazz;
+}
+
+JPrimitiveLong::JPrimitiveLong(qint64 value):JObject(getClazz()){
     this->value=value;
+}
+
+JPrimitiveLong::JPrimitiveLong():JObject(getClazz()){
+    this->value=0;
 }
 
 void JPrimitiveLong::set(qint64 value){
@@ -31,12 +50,10 @@ qint64 JPrimitiveLong::get(){
     return value;
 }
 
-qint64 JPrimitiveLong::getSerialVersionUID(){
-    return 1;
-}
-
 string JPrimitiveLong::toString(){
-    return "[PrimitiveLong:";//TODO +value+"]";
+    stringstream ss;
+    ss<<value;
+    return ss.str();
 }
 
 JPrimitiveLong::~JPrimitiveLong(){

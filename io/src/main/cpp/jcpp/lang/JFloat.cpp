@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <sstream>
 using namespace std;
 
 class JFloatClass : public JClass{
@@ -11,15 +12,34 @@ class JFloatClass : public JClass{
     JFloatClass(){
         this->canonicalName="java.lang.Float";
         this->name="java.lang.Float";
-        this->simpleName="java.lang.Float";
-        this->superClass=JObject::clazz;
+        this->simpleName="Float";
+        this->serialVersionUID=-2671257302660747028L;
+    }
+
+    JClass* getSuperclass(){
+        return JNumber::getClazz();
+    }
+
+    JObject* newInstance(){
+        return new JFloat(0);
     }
 };
 
-JClass* JFloat::clazz=new JFloatClass();
+static JClass* clazz;
 
-JFloat::JFloat(float value):JObject(clazz){
+JClass* JFloat::getClazz(){
+    if (clazz==NULL){
+        clazz=new JFloatClass();
+    }
+    return clazz;
+}
+
+JFloat::JFloat(float value):JNumber(getClazz()){
     this->value=value;
+}
+
+JFloat::JFloat():JNumber(getClazz()){
+    this->value=0;
 }
 
 void JFloat::set(float value){
@@ -30,12 +50,10 @@ float JFloat::get(){
     return value;
 }
 
-qint64 JFloat::getSerialVersionUID(){
-    return 1;
-}
-
 string JFloat::toString(){
-    return "TODO";
+    stringstream ss;
+    ss<<value;
+    return ss.str();
 }
 
 JFloat::~JFloat(){

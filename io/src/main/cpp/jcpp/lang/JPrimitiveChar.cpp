@@ -12,15 +12,33 @@ class JPrimitiveCharClass : public JClass{
         this->canonicalName="char";
         this->name="char";
         this->simpleName="char";
-        this->superClass=JObject::clazz;
         this->bIsPrimitive=true;
+    }
+
+    JClass* getSuperclass(){
+        return JObject::getClazz();
+    }
+
+    JObject* newInstance(){
+        return new JPrimitiveChar(0);
     }
 };
 
-JClass* JPrimitiveChar::clazz=new JPrimitiveCharClass();
+static JClass* clazz;
 
-JPrimitiveChar::JPrimitiveChar(char value):JObject(clazz){
+JClass* JPrimitiveChar::getClazz(){
+    if (clazz==NULL){
+        clazz=new JPrimitiveCharClass();
+    }
+    return clazz;
+}
+
+JPrimitiveChar::JPrimitiveChar(char value):JObject(getClazz()){
     this->value=value;
+}
+
+JPrimitiveChar::JPrimitiveChar():JObject(getClazz()){
+    this->value=0;
 }
 
 void JPrimitiveChar::set(char value){
@@ -31,12 +49,8 @@ char JPrimitiveChar::get(){
     return value;
 }
 
-qint64 JPrimitiveChar::getSerialVersionUID(){
-    return 1;
-}
-
 string JPrimitiveChar::toString(){
-    return "[PrimitiveChar:"+string(&value)+"]";
+    return ""+value;
 }
 
 JPrimitiveChar::~JPrimitiveChar(){

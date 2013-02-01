@@ -12,14 +12,33 @@ class JCharClass : public JClass{
         this->canonicalName="java.lang.Character";
         this->name="java.lang.Character";
         this->simpleName="Character";
-        this->superClass=JObject::clazz;
+        this->serialVersionUID=3786198910865385080L;
+    }
+
+    JClass* getSuperclass(){
+        return JObject::getClazz();
+    }
+
+    JObject* newInstance(){
+        return new JChar(0);
     }
 };
 
-JClass* JChar::clazz=new JCharClass();
+static JClass* clazz;
 
-JChar::JChar(char value):JObject(clazz){
+JClass* JChar::getClazz(){
+    if (clazz==NULL){
+        clazz=new JCharClass();
+    }
+    return clazz;
+}
+
+JChar::JChar(char value):JObject(getClazz()){
     this->value=value;
+}
+
+JChar::JChar():JObject(getClazz()){
+    this->value=0;
 }
 
 void JChar::set(char value){
@@ -30,12 +49,8 @@ char JChar::get(){
     return value;
 }
 
-qint64 JChar::getSerialVersionUID(){
-    return 1;
-}
-
 string JChar::toString(){
-    return "[Char:"+string(&value)+"]";
+    return ""+value;
 }
 
 JChar::~JChar(){

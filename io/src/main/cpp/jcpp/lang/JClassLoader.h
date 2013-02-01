@@ -6,18 +6,16 @@
 
 using namespace std;
 
-class JClassLoader {
+class JClassLoader {//TODO exetnds JOBject
 protected:
-    map<string, JClassBuilder> classBuilders;
+    map<string, JClass*>* classes;
 
 public:
     JClassLoader();
 
-    static JClassLoader* BOOT_CLASS_LOADER;
+    static JClassLoader* getBootClassLoader();
 
-    void addClassBuilder(string className,JClassBuilder jClassBuilder);
-
-    JObject* createObject(string string);
+    void addClasses(JClassBuilder* jClassBuilder);
 
     JClass* loadClass(string string);
 

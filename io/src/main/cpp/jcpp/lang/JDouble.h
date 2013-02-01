@@ -2,26 +2,26 @@
 #define JDOUBLE_H
 
 #include "JObject.h"
+#include "JNumber.h"
 #include <QtGlobal>
 #include <vector>
 #include <iostream>
 using namespace std;
 
-class JDouble : public JObject{
+class JDouble : public JNumber{
 
     protected:
         double value;
 
     public:
+        JDouble();
         JDouble(double value);
 
-        static JClass* clazz;
+        static JClass* getClazz();
 
         void set(double value);
 
         double get();
-
-        qint64 getSerialVersionUID();
 
         string toString();
 

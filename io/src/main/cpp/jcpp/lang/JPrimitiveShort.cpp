@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <sstream>
 using namespace std;
 
 class JPrimitiveShortClass : public JClass{
@@ -12,15 +13,33 @@ class JPrimitiveShortClass : public JClass{
         this->canonicalName="short";
         this->name="short";
         this->simpleName="short";
-        this->superClass=JObject::clazz;
         this->bIsPrimitive=true;
+    }
+
+    JClass* getSuperclass(){
+        return JObject::getClazz();
+    }
+
+    JObject* newInstance(){
+        return new JPrimitiveShort(0);
     }
 };
 
-JClass* JPrimitiveShort::clazz=new JPrimitiveShortClass();
+static JClass* clazz;
 
-JPrimitiveShort::JPrimitiveShort(qint16 value):JObject(clazz){
+JClass* JPrimitiveShort::getClazz(){
+    if (clazz==NULL){
+        clazz=new JPrimitiveShortClass();
+    }
+    return clazz;
+}
+
+JPrimitiveShort::JPrimitiveShort(qint16 value):JObject(getClazz()){
     this->value=value;
+}
+
+JPrimitiveShort::JPrimitiveShort():JObject(getClazz()){
+    this->value=0;
 }
 
 void JPrimitiveShort::set(qint16 value){
@@ -31,12 +50,10 @@ qint16 JPrimitiveShort::get(){
     return value;
 }
 
-qint64 JPrimitiveShort::getSerialVersionUID(){
-    return 1;
-}
-
 string JPrimitiveShort::toString(){
-    return "[PrimitiveShort:";//TODO +value+"]";
+    stringstream ss;
+    ss<<value;
+    return ss.str();
 }
 
 JPrimitiveShort::~JPrimitiveShort(){

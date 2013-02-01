@@ -9,9 +9,9 @@ private:
     JClass* type;
 
 public:
-    static JClass* clazz;
-
     JField(std::string name,JClass* type);
+
+    static JClass* getClazz();
 
     std::string getName();
 

@@ -2,26 +2,26 @@
 #define JINTEGER_H
 
 #include "JObject.h"
+#include "JNumber.h"
 #include <QtGlobal>
 #include <vector>
 #include <iostream>
 using namespace std;
 
-class JInteger : public JObject{
+class JInteger : public JNumber{
 
     protected:
         qint32 value;
 
     public:
+        JInteger();
         JInteger(qint32 value);
 
-        static JClass* clazz;
+        static JClass* getClazz();
 
         void set(qint32 value);
 
         qint32 get();
-
-        qint64 getSerialVersionUID();
 
         string toString();
 

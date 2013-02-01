@@ -10,7 +10,7 @@ class JProxy : public JObject
     JInvocationHandler *invocationHandler;
 
 public:
-    static JClass* clazz;
+    static JClass* getClazz();
 
     JProxy();
 

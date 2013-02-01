@@ -13,15 +13,14 @@ class JChar : public JObject{
         char value;
 
     public:
+        JChar();
         JChar(char value);
 
-        static JClass* clazz;
+        static JClass* getClazz();
 
         void set(char value);
 
         char get();
-
-        qint64 getSerialVersionUID();
 
         string toString();
 

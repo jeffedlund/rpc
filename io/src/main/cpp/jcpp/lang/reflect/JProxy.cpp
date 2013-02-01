@@ -5,11 +5,33 @@
 #include <string>
 
 class JProxyClass : public JClass{
+public:
+    JProxyClass():JClass(JClassLoader::getBootClassLoader()){
+        canonicalName="java.lang.reflect.Proxy";
+        name="java.lang.reflect.Proxy";
+        simpleName="Proxy";
+        serialVersionUID=-2222568056686623797L;
+    }
+
+    JClass* getSuperclass(){
+        return JObject::getClazz();
+    }
+
+    JObject* newInstance(){
+        return new JProxy();
+    }
 };
 
-JClass* JProxy::clazz=new JProxyClass();
+static JClass* clazz;
 
-JProxy::JProxy():JObject(clazz){}
+JClass* JProxy::getClazz(){
+    if (clazz==NULL){
+        clazz=new JProxyClass();
+    }
+    return clazz;
+}
+
+JProxy::JProxy():JObject(getClazz()){}
 
 JObject* invoke(){return NULL;}
 
@@ -25,7 +47,7 @@ bool JProxy::isProxy(){
     return true;
 }
 
-std::vector<std::string>* JProxy::getInterfaces(){
+std::vector<std::string>* JProxy::getInterfaces(){//TODO
     std::vector<std::string>* v=new std::vector<std::string>();
     v->clear();
     return v;

@@ -16,7 +16,7 @@ private:
     std::vector<JObject*>* objects;
 
 public:
-    JArray(JArrayClass* arrayClass);
+    JArray(JArrayClass* arrayClass);//TODO
 
     ~JArray();
 };

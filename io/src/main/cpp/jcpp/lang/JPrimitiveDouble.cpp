@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <sstream>
 using namespace std;
 
 class JPrimitiveDoubleClass : public JClass{
@@ -12,15 +13,33 @@ class JPrimitiveDoubleClass : public JClass{
         this->canonicalName="double";
         this->name="double";
         this->simpleName="double";
-        this->superClass=JObject::clazz;
         this->bIsPrimitive=true;
+    }
+
+    JClass* getSuperclass(){
+        return JObject::getClazz();//TODO all primitive should have their superclass null...
+    }
+
+    JObject* newInstance(){
+        return new JPrimitiveDouble(0);
     }
 };
 
-JClass* JPrimitiveDouble::clazz=new JPrimitiveDoubleClass();
+static JClass* clazz;
 
-JPrimitiveDouble::JPrimitiveDouble(double value):JObject(clazz){
+JClass* JPrimitiveDouble::getClazz(){
+    if (clazz==NULL){
+        clazz=new JPrimitiveDoubleClass();
+    }
+    return clazz;
+}
+
+JPrimitiveDouble::JPrimitiveDouble(double value):JObject(getClazz()){
     this->value=value;
+}
+
+JPrimitiveDouble::JPrimitiveDouble():JObject(getClazz()){
+    this->value=0;
 }
 
 void JPrimitiveDouble::set(double value){
@@ -31,12 +50,10 @@ double JPrimitiveDouble::get(){
     return value;
 }
 
-qint64 JPrimitiveDouble::getSerialVersionUID(){
-    return 1;
-}
-
 string JPrimitiveDouble::toString(){
-    return "[PrimitiveDouble:";//TODO +value+"]";
+    stringstream ss;
+    ss<<value;
+    return ss.str();
 }
 
 JPrimitiveDouble::~JPrimitiveDouble(){

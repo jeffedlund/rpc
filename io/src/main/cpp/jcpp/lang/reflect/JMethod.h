@@ -11,7 +11,7 @@ private:
     std::vector<JClass>* parameterType;
 
 public:
-    static JClass* clazz;
+    static JClass* getClazz();
 
     JMethod(std::string name,JClass* declaringClass,JClass* returnType);
 

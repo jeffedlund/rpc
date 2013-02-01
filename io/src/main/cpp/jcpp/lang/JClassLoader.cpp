@@ -1,26 +1,42 @@
 #include "JClassLoader.h"
+#include "Collections.h"
+#include "JClassNotFoundException.h"
 
 using namespace std;
 
 
-JClassLoader* JClassLoader::BOOT_CLASS_LOADER=new JClassLoader();//TODO
+static JClassLoader* bootClassLoader;
+
+//implement a tree of classloaders ...
+JClassLoader* JClassLoader::getBootClassLoader(){
+    if (bootClassLoader==NULL){
+        bootClassLoader=new JClassLoader();
+    }
+    return bootClassLoader;
+}
 
 JClassLoader::JClassLoader(){
+    classes=new map<string,JClass*>();
 }
 
-void JClassLoader::addClassBuilder(string className,JClassBuilder jClassBuilder){
-   classBuilders[className]=jClassBuilder;
+void JClassLoader::addClasses(JClassBuilder* jClassBuilder){
+    vector<JClass*>* c=jClassBuilder->getClasses();
+    for (int i=0;i<c->size();i++){
+        JClass* jClass=c->at(i);
+        classes->insert(pair<string,JClass*>(jClass->getName(),jClass));
+    }
 }
 
-JObject* JClassLoader::createObject(string string){
-    return NULL;//TODO
-}
-
-JClass* JClassLoader::loadClass(string string){
-    return NULL;//TODO
+JClass* JClassLoader::loadClass(string name){
+    JClass* jClass=classes->at(name);
+    if (jClass==NULL){
+        throw new JClassNotFoundException("class "+name+" not found");
+    }
+    return jClass;
 }
 
 JClassLoader::~JClassLoader() {
+    deleteMapOfValuePointer(classes);
 }
 
 

@@ -13,15 +13,14 @@ class JPrimitiveBoolean : public JObject{
         bool value;
 
     public:
+        JPrimitiveBoolean();
         JPrimitiveBoolean(bool value);
 
-        static JClass* clazz;
+        static JClass* getClazz();
 
         void set(bool value);
 
         bool get();
-
-        qint64 getSerialVersionUID();
 
         string toString();
 

@@ -12,14 +12,33 @@ class JByteClass : public JClass{
         this->canonicalName="java.lang.Byte";
         this->name="java.lang.Byte";
         this->simpleName="Byte";
-        this->superClass=JObject::clazz;
+        this->serialVersionUID=-7183698231559129828L;
+    }
+
+    JClass* getSuperclass(){
+        return JNumber::getClazz();
+    }
+
+    JObject* newInstance(){
+        return new JByte(0);
     }
 };
 
-JClass* JByte::clazz=new JByteClass();
+static JClass* clazz;
 
-JByte::JByte(qint8 value):JObject(clazz){
+JClass* JByte::getClazz(){
+    if (clazz==NULL){
+        clazz=new JByteClass();
+    }
+    return clazz;
+}
+
+JByte::JByte(qint8 value):JNumber(getClazz()){
     this->value=value;
+}
+
+JByte::JByte():JNumber(getClazz()){
+    this->value=0;
 }
 
 void JByte::set(qint8 value){
@@ -30,12 +49,8 @@ qint8 JByte::get(){
     return value;
 }
 
-qint64 JByte::getSerialVersionUID(){
-    return 1;
-}
-
 string JByte::toString(){
-    return "TODO";
+    return ""+value;
 }
 
 JByte::~JByte(){

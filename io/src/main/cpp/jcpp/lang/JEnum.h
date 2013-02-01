@@ -3,32 +3,44 @@
 
 #include "JObject.h"
 #include "JClass.h"
+#include "JInstantiationException.h"
 using namespace std;
 
-class JEnum;
 
-class JEnumClass : public JClass{
-    private :
-      vector<JEnum*>* enums;
-
-    public:
-      JEnumClass();
-
-      JEnum* valueOf(string value);
-};
-
-class JEnum: public JObject
-{
+class JEnum: public JObject{
 
 protected:
+
+    class JEnumClass : public JClass{
+      public:
+        JEnumClass(){
+            this->canonicalName="java.lang.Enum";
+            this->name="java.lang.Enum";
+            this->simpleName="Enum";
+            this->bIsEnum=true;
+        }
+
+        JClass* getSuperclass(){
+            return JObject::getClazz();
+        }
+
+        virtual JObject* newInstance(){
+            throw new JInstantiationException("cannot instantiate enum of class "+getName());
+        }
+    };
+
     int ordinal;
     string name;
-    JEnum(JEnumClass* enumClass,string name,int ordinal);
+    JEnum(JEnumClass* _class,string name,int ordinal);
 
 public:
+    static JClass* getClazz();
+
     string getName();
 
     int getOrdinal();
+
+    string toString();
 
     ~JEnum();
 };

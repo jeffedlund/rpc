@@ -4,6 +4,7 @@
 #include "JObject.h"
 #include <map>
 
+//TODO
 template <class Key, class Value> class JHashtable : public JObject
 {
     std::map<Key,Value>* hashtable;

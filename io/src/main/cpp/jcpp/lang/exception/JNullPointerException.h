@@ -1,11 +1,15 @@
 #ifndef JNULLPOINTEREXCEPTION_H
 #define JNULLPOINTEREXCEPTION_H
-#include "JException.h"
+#include "JRuntimeException.h"
+using namespace std;
 
-class JNullPointerException : public JException
-{
+class JNullPointerException : public JRuntimeException{
+
 public:
     JNullPointerException();
+    JNullPointerException(string message);
+
+    static JClass* getClazz();
 };
 
 #endif // JNULLPOINTEREXCEPTION_H

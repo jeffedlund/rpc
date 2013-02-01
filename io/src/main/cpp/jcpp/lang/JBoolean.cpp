@@ -12,14 +12,33 @@ class JBooleanClass : public JClass{
         this->canonicalName="java.lang.Boolean";
         this->name="java.lang.Boolean";
         this->simpleName="Boolean";
-        this->superClass=JObject::clazz;
+        this->serialVersionUID=-3665804199014368530L;
+    }
+
+    JClass* getSuperclass(){
+        return JObject::getClazz();
+    }
+
+    JObject* newInstance(){
+        return new JBoolean(false);
     }
 };
 
-JClass* JBoolean::clazz=new JBooleanClass();
+static JClass* clazz;
 
-JBoolean::JBoolean(bool value):JObject(clazz){
+JClass* JBoolean::getClazz(){
+    if (clazz==NULL){
+        clazz=new JBooleanClass();
+    }
+    return clazz;
+}
+
+JBoolean::JBoolean(bool value):JObject(getClazz()){
     this->value=value;
+}
+
+JBoolean::JBoolean():JObject(getClazz()){
+    this->value=false;
 }
 
 void JBoolean::set(bool value){
@@ -30,12 +49,8 @@ bool JBoolean::get(){
     return value;
 }
 
-qint64 JBoolean::getSerialVersionUID(){
-    return 1;
-}
-
 string JBoolean::toString(){
-    return "[Boolean:"+(this->value?string("true]"):string("false]"));
+    return (this->value?"true":"false");
 }
 
 JBoolean::~JBoolean(){

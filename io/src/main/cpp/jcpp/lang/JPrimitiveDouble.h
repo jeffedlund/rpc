@@ -13,15 +13,14 @@ class JPrimitiveDouble : public JObject{
         double value;
 
     public:
+        JPrimitiveDouble();
         JPrimitiveDouble(double value);
 
-        static JClass* clazz;
+        static JClass* getClazz();
 
         void set(double value);
 
         double get();
-
-        qint64 getSerialVersionUID();
 
         string toString();
 

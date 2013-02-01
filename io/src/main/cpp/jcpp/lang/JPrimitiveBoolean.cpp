@@ -12,15 +12,33 @@ class JPrimitiveBooleanClass : public JClass{
         this->canonicalName="boolean";
         this->name="boolean";
         this->simpleName="boolean";
-        this->superClass=JObject::clazz;
         this->bIsPrimitive=true;
+    }
+
+    JClass* getSuperclass(){
+        return JObject::getClazz();
+    }
+
+    JObject* newInstance(){
+        return new JPrimitiveBoolean(false);
     }
 };
 
-JClass* JPrimitiveBoolean::clazz=new JPrimitiveBooleanClass();
+static JClass* clazz;
 
-JPrimitiveBoolean::JPrimitiveBoolean(bool value):JObject(clazz){
+JClass* JPrimitiveBoolean::getClazz(){
+    if (clazz==NULL){
+        clazz=new JPrimitiveBooleanClass();
+    }
+    return clazz;
+}
+
+JPrimitiveBoolean::JPrimitiveBoolean(bool value):JObject(getClazz()){
     this->value=value;
+}
+
+JPrimitiveBoolean::JPrimitiveBoolean():JObject(getClazz()){
+    this->value=false;
 }
 
 void JPrimitiveBoolean::set(bool value){
@@ -31,12 +49,8 @@ bool JPrimitiveBoolean::get(){
     return value;
 }
 
-qint64 JPrimitiveBoolean::getSerialVersionUID(){
-    return 1;
-}
-
 string JPrimitiveBoolean::toString(){
-    return "[PrimitiveBoolean:"+(this->value?string("true]"):string("false]"));
+    return (this->value?"true":"false");
 }
 
 JPrimitiveBoolean::~JPrimitiveBoolean(){

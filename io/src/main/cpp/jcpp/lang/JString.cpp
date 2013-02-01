@@ -7,18 +7,33 @@ public:
       this->canonicalName="java.lang.String";
       this->name="java.lang.String";
       this->simpleName="String";
-      this->superClass=JObject::clazz;
+      this->serialVersionUID=-6849794470754667710L;
+  }
+
+  JClass* getSuperclass(){
+      return JObject::getClazz();
+  }
+
+  JObject* newInstance(){
+      return new JString();
   }
 };
 
-JString::JString(): JObject(clazz){
+static JClass* clazz;
+
+JClass* JString::getClazz(){
+    if (clazz==NULL){
+        clazz=new JStringClass();
+    }
+    return clazz;
 }
 
-JString::JString(string str): JObject(clazz){
+JString::JString(): JObject(getClazz()){
+}
+
+JString::JString(string str): JObject(getClazz()){
     this->str=str;
 }
-
-JClass* JString::clazz=new JStringClass();
 
 JString::~JString() {
 }
@@ -29,4 +44,8 @@ string JString::getString(){
 
 void JString::setString(string str) {
     this->str = str;
+}
+
+string JString::toString(){
+    return str;
 }

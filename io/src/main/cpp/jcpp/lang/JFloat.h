@@ -2,26 +2,26 @@
 #define JFLOAT_H
 
 #include "JObject.h"
+#include "JNumber.h"
 #include <QtGlobal>
 #include <vector>
 #include <iostream>
 using namespace std;
 
-class JFloat : public JObject{
+class JFloat : public JNumber{
 
     protected:
         float value;
 
     public:
+        JFloat();
         JFloat(float value);
 
-        static JClass* clazz;
+        static JClass* getClazz();
 
         void set(float value);
 
         float get();
-
-        qint64 getSerialVersionUID();
 
         string toString();
 

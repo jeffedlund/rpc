@@ -7,30 +7,20 @@
 #include <iostream>
 using namespace std;
 
-/*
-simplecharacter, character  =>char
-simpledouble, double        =>double
-simplefloat, float          =>float
-simpleinteger, integer      =>qint32
-simplelong, long            =>qint64
-simpleshort, short          =>qint16
-
-*/
 class JPrimitiveByte : public JObject{
 
     protected:
         qint8 value;
 
     public:
+        JPrimitiveByte();
         JPrimitiveByte(qint8 value);
 
-        static JClass* clazz;
+        static JClass* getClazz();
 
         void set(qint8 value);
 
         qint8 get();
-
-        qint64 getSerialVersionUID();
 
         string toString();
 

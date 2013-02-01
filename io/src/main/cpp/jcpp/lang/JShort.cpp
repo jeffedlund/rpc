@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <sstream>
 using namespace std;
 
 class JShortClass : public JClass{
@@ -12,14 +13,33 @@ class JShortClass : public JClass{
         this->canonicalName="java.lang.Short";
         this->name="java.lang.Short";
         this->simpleName="Short";
-        this->superClass=JObject::clazz;
+        this->serialVersionUID=7515723908773894738L;
+    }
+
+    JClass* getSuperclass(){
+        return JNumber::getClazz();
+    }
+
+    JObject* newInstance(){
+        return new JShort(0);
     }
 };
 
-JClass* JShort::clazz=new JShortClass();
+static JClass* clazz;
 
-JShort::JShort(qint16 value):JObject(clazz){
+JClass* JShort::getClazz(){
+    if (clazz==NULL){
+        clazz=new JShortClass();
+    }
+    return clazz;
+}
+
+JShort::JShort(qint16 value):JNumber(getClazz()){
     this->value=value;
+}
+
+JShort::JShort():JNumber(getClazz()){
+    this->value=0;
 }
 
 void JShort::set(qint16 value){
@@ -30,12 +50,10 @@ qint16 JShort::get(){
     return value;
 }
 
-qint64 JShort::getSerialVersionUID(){
-    return 1;
-}
-
 string JShort::toString(){
-    return "TODO";
+    stringstream ss;
+    ss<<value;
+    return ss.str();
 }
 
 JShort::~JShort(){

@@ -13,15 +13,14 @@ class JPrimitiveChar : public JObject{
         char value;
 
     public:
+        JPrimitiveChar();
         JPrimitiveChar(char value);
 
-        static JClass* clazz;
+        static JClass* getClazz();
 
         void set(char value);
 
         char get();
-
-        qint64 getSerialVersionUID();
 
         string toString();
 

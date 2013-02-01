@@ -1,18 +1,18 @@
 #include "JEnum.h"
 #include "JClass.h"
 
-JEnumClass::JEnumClass():JClass(){
-    this->enums=new vector<JEnum*>;
-    this->bIsEnum=true;
-}
-
-JEnum* JEnumClass::valueOf(string value){
-    return NULL;//TODO
-}
-
-JEnum::JEnum(JEnumClass* enumClass,string name,int ordinal):JObject(enumClass){
+JEnum::JEnum(JEnumClass* _class,string name,int ordinal):JObject(_class){
     this->name=name;
     this->ordinal=ordinal;
+}
+
+static JClass* clazz;
+
+JClass* JEnum::getClazz(){
+    if (clazz==NULL){
+        clazz=new JEnumClass();
+    }
+    return clazz;
 }
 
 string JEnum::getName(){
@@ -21,6 +21,10 @@ string JEnum::getName(){
 
 int JEnum::getOrdinal(){
     return ordinal;
+}
+
+string JEnum::toString(){
+    return name;
 }
 
 JEnum::~JEnum() {

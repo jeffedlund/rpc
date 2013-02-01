@@ -34,12 +34,9 @@ SOURCES += \
     src/main/cpp/jcpp/lang/reflect/JProxy.cpp \
     src/main/cpp/jcpp/lang/reflect/JInvocationHandler.cpp \
     src/main/cpp/jcpp/lang/reflect/JField.cpp \
-    src/main/cpp/jcpp/lang/exception/JUTFDataFormatException.cpp \
     src/main/cpp/jcpp/lang/exception/JNullPointerException.cpp \
-    src/main/cpp/jcpp/lang/exception/JIOException.cpp \
     src/main/cpp/jcpp/lang/exception/JIndexOutOfBoundsException.cpp \
     src/main/cpp/jcpp/lang/exception/JException.cpp \
-    src/main/cpp/jcpp/lang/exception/JEOFException.cpp \
     src/main/cpp/jcpp/lang/JString.cpp \
     src/main/cpp/jcpp/lang/JArray.cpp \
     src/main/cpp/jcpp/lang/JEnum.cpp \
@@ -70,7 +67,19 @@ SOURCES += \
     src/main/cpp/jcpp/io/SerialCallbackContext.cpp \
     src/main/cpp/jcpp/io/HandleList.cpp \
     src/main/cpp/jcpp/io/HandleTable.cpp \
-    src/main/cpp/jcpp/io/BlockDataInputStream.cpp
+    src/main/cpp/jcpp/io/BlockDataInputStream.cpp \
+    src/main/cpp/jcpp/lang/exception/JNoSuchFieldException.cpp \
+    src/main/cpp/jcpp/lang/exception/JNoSuchMethodException.cpp \
+    src/main/cpp/jcpp/lang/exception/JInstantiationException.cpp \
+    src/main/cpp/jcpp/lang/exception/JClassNotFoundException.cpp \
+    src/main/cpp/jcpp/lang/JNumber.cpp \
+    src/main/cpp/jcpp/lang/exception/JIllegalArgumentException.cpp \
+    src/main/cpp/jcpp/lang/JStackTraceElement.cpp \
+    src/main/cpp/jcpp/lang/exception/JThrowable.cpp \
+    src/main/cpp/jcpp/lang/exception/JRuntimeException.cpp \
+    src/main/cpp/jcpp/io/JUTFDataFormatException.cpp \
+    src/main/cpp/jcpp/io/JIOException.cpp \
+    src/main/cpp/jcpp/io/JEOFException.cpp
     
     
 LIBS += -lws2_32
@@ -84,12 +93,9 @@ HEADERS += \
     src/main/cpp/jcpp/lang/reflect/JProxy.h \
     src/main/cpp/jcpp/lang/reflect/JInvocationHandler.h \
     src/main/cpp/jcpp/lang/reflect/JField.h \
-    src/main/cpp/jcpp/lang/exception/JUTFDataFormatException.h \
     src/main/cpp/jcpp/lang/exception/JNullPointerException.h \
-    src/main/cpp/jcpp/lang/exception/JIOException.h \
     src/main/cpp/jcpp/lang/exception/JIndexOutOfBoundsException.h \
     src/main/cpp/jcpp/lang/exception/JException.h \
-    src/main/cpp/jcpp/lang/exception/JEOFException.h \
     src/main/cpp/jcpp/lang/JString.h \
     src/main/cpp/jcpp/lang/JArray.h \
     src/main/cpp/jcpp/lang/JEnum.h \
@@ -123,5 +129,18 @@ HEADERS += \
     src/main/cpp/jcpp/io/SerialCallbackContext.h \
     src/main/cpp/jcpp/io/HandleList.h \
     src/main/cpp/jcpp/io/HandleTable.h \
-    src/main/cpp/jcpp/io/BlockDataInputStream.h
+    src/main/cpp/jcpp/io/BlockDataInputStream.h \
+    src/main/cpp/jcpp/util/Collections.h \
+    src/main/cpp/jcpp/lang/exception/JNoSuchFieldException.h \
+    src/main/cpp/jcpp/lang/exception/JNoSuchMethodException.h \
+    src/main/cpp/jcpp/lang/exception/JInstantiationException.h \
+    src/main/cpp/jcpp/lang/exception/JClassNotFoundException.h \
+    src/main/cpp/jcpp/lang/JNumber.h \
+    src/main/cpp/jcpp/lang/exception/JIllegalArgumentException.h \
+    src/main/cpp/jcpp/lang/exception/JThrowable.h \
+    src/main/cpp/jcpp/lang/JStackTraceElement.h \
+    src/main/cpp/jcpp/lang/exception/JRuntimeException.h \
+    src/main/cpp/jcpp/io/JUTFDataFormatException.h \
+    src/main/cpp/jcpp/io/JIOException.h \
+    src/main/cpp/jcpp/io/JEOFException.h
     

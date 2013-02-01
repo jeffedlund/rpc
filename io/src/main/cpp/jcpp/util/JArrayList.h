@@ -6,6 +6,7 @@
 #include "JSerializable.h"
 #include <QtGlobal>
 
+//TODO
 class JArrayList : public JObject, public JSerializable, public JCollection
 {
     std::vector<JObject*>* items;
@@ -17,7 +18,7 @@ class JArrayList : public JObject, public JSerializable, public JCollection
 public:
     JArrayList(int initialCapacity = 10);
 
-    static JClass* clazz;
+    static JClass* getClazz();
 
     //virtual qint64 getSerialVersionUID() const;
 

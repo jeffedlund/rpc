@@ -8,14 +8,7 @@ using namespace  std;
 class JClassBuilder {
 
 public:
-    virtual JClass* createClass(string className){
-        return NULL;
-    }
-
-    virtual JObject* createObject(JClass* clazz){
-        return NULL;
-    }
-
+    virtual vector<JClass*>* getClasses()=0;
 };
 
 #endif // JCLASSBUILDER_H

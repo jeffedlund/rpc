@@ -9,12 +9,15 @@ JArrayClass::JArrayClass(JClass* componentType){
   }
   this->name="TODO";
   this->simpleName=componentType->getSimpleName()+"[]";
-  this->superClass=JObject::clazz;
   this->bIsArray=true;
 }
 
 JArray::JArray(JArrayClass* arrayClass):JObject(arrayClass){
     objects=new vector<JObject*>;
+}
+
+JClass* getSuperclass(){
+    return JObject::getClazz();
 }
 
 JArray::~JArray(){

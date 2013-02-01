@@ -20,13 +20,27 @@ class JObjectStreamClassClass : public JClass{
           this->canonicalName="java.io.ObjectStreamClass";
           this->name="java.io.ObjectStreamClass";
           this->simpleName="ObjectStreamClass";
-          this->superClass=JObject::clazz;
+      }
+
+      JClass* getSuperclass(){
+          return JObject::getClazz();
+      }
+
+      JObject* newInstance(){
+          return new JObjectStreamClass();
       }
 };
 
-JClass* JObjectStreamClass::clazz=new JObjectStreamClassClass();
+static JClass* clazz;
 
-JObjectStreamClass::JObjectStreamClass():JObject(clazz){
+JClass* JObjectStreamClass::getClazz(){
+    if (clazz==NULL){
+        clazz=new JObjectStreamClassClass();
+    }
+    return clazz;
+}
+
+JObjectStreamClass::JObjectStreamClass():JObject(getClazz()){
     this->name="";
     this->suid=-1;
     this->isProxy=false;

@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <sstream>
 using namespace std;
 
 class JPrimitiveFloatClass : public JClass{
@@ -12,15 +13,33 @@ class JPrimitiveFloatClass : public JClass{
         this->canonicalName="float";
         this->name="float";
         this->simpleName="float";
-        this->superClass=JObject::clazz;
         this->bIsPrimitive=true;
+    }
+
+    JClass* getSuperclass(){
+        return JObject::getClazz();
+    }
+
+    JObject* newInstance(){
+        return new JPrimitiveFloat(0);
     }
 };
 
-JClass* JPrimitiveFloat::clazz=new JPrimitiveFloatClass();
+static JClass* clazz;
 
-JPrimitiveFloat::JPrimitiveFloat(float value):JObject(clazz){
+JClass* JPrimitiveFloat::getClazz(){
+    if (clazz==NULL){
+        clazz=new JPrimitiveFloatClass();
+    }
+    return clazz;
+}
+
+JPrimitiveFloat::JPrimitiveFloat(float value):JObject(getClazz()){
     this->value=value;
+}
+
+JPrimitiveFloat::JPrimitiveFloat():JObject(getClazz()){
+    this->value=0;
 }
 
 void JPrimitiveFloat::set(float value){
@@ -31,12 +50,10 @@ float JPrimitiveFloat::get(){
     return value;
 }
 
-qint64 JPrimitiveFloat::getSerialVersionUID(){
-    return 1;
-}
-
 string JPrimitiveFloat::toString(){
-    return "[PrimitiveFloat:";//TODO +value+"]";
+    stringstream ss;
+    ss<<value;
+    return ss.str();
 }
 
 JPrimitiveFloat::~JPrimitiveFloat(){

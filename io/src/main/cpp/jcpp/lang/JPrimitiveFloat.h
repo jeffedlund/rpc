@@ -13,15 +13,14 @@ class JPrimitiveFloat : public JObject{
         float value;
 
     public:
+        JPrimitiveFloat();
         JPrimitiveFloat(float value);
 
-        static JClass* clazz;
+        static JClass* getClazz();
 
         void set(float value);
 
         float get();
-
-        qint64 getSerialVersionUID();
 
         string toString();
 

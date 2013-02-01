@@ -13,15 +13,33 @@ class JPrimitiveIntClass : public JClass{
         this->canonicalName="int";
         this->name="int";
         this->simpleName="int";
-        this->superClass=JObject::clazz;
         this->bIsPrimitive=true;
+    }
+
+    JClass* getSuperclass(){
+        return JObject::getClazz();
+    }
+
+    JObject* newInstance(){
+        return new JPrimitiveInt(0);
     }
 };
 
-JClass* JPrimitiveInt::clazz=new JPrimitiveIntClass();
+static JClass* clazz;
 
-JPrimitiveInt::JPrimitiveInt(qint32 value):JObject(clazz){
+JClass* JPrimitiveInt::getClazz(){
+    if (clazz==NULL){
+        clazz=new JPrimitiveIntClass();
+    }
+    return clazz;
+}
+
+JPrimitiveInt::JPrimitiveInt(qint32 value):JObject(getClazz()){
     this->value=value;
+}
+
+JPrimitiveInt::JPrimitiveInt():JObject(getClazz()){
+    this->value=0;
 }
 
 void JPrimitiveInt::set(qint32 value){
@@ -32,13 +50,9 @@ qint32 JPrimitiveInt::get(){
     return value;
 }
 
-qint64 JPrimitiveInt::getSerialVersionUID(){
-    return 1;
-}
-
 string JPrimitiveInt::toString(){
     stringstream sstr;
-    sstr<<"[PrimitiveInt:"<<value<<"]";
+    sstr<<value;
     return sstr.str();
 }
 

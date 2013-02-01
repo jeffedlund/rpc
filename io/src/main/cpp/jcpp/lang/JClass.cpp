@@ -4,32 +4,85 @@
 #include "JClass.h"
 #include "JClassLoader.h"
 #include "JMethod.h"
+#include "JEnum.h"
 #include <QtGlobal>
+#include "Collections.h"
+#include "JNoSuchFieldException.h"
+#include "JNoSuchMethodException.h"
+#include "JIllegalArgumentException.h"
 using namespace std;
 
-JClass* JClass::clazz=new JClass(JClassLoader::BOOT_CLASS_LOADER);
+class JClassClass : public JClass{
+    public:
+    JClassClass():JClass(true){
+        this->canonicalName="java.lang.Class";
+        this->name="java.lang.Class";
+        this->simpleName="Class";
+        this->serialVersionUID=3206093459760846163;
+    }
 
-JClass::JClass(JClassLoader* classLoader):JObject(this){
+    JClass* getSuperclass(){
+        return JObject::getClazz();
+    }
+
+    JObject* newInstance(){
+        return this;//returning itself, bof ...
+    }
+
+};
+
+static JClass* clazz;
+
+JClass* JClass::getClazz(){
+    if (clazz==NULL){
+        clazz=new JClassClass();
+    }
+    return clazz;
+}
+
+JClass::JClass(JClassLoader* classLoader):JObject(JClass::getClazz()){
     this->classLoader=classLoader;
     this->bIsArray=false;
     this->bIsProxy=false;
     this->bIsEnum=false;
     this->bIsInterface=false;
     this->bIsPrimitive=false;
+    this->enumConstants=new vector<JEnum*>;
+    this->fields=new map<string,JField*>;
+    this->fieldsList=new vector<JField*>;
+    this->methods=new map<string,JMethod*>;
+    this->methodsList=new vector<JMethod*>;
+    this->interfaces=new vector<JClass*>;
 }
 
-JClass::JClass():JObject(this){
-    this->classLoader=JClassLoader::BOOT_CLASS_LOADER;
+JClass::JClass():JObject(JClass::getClazz()){
+    this->classLoader=JClassLoader::getBootClassLoader();
     this->bIsArray=false;
     this->bIsProxy=false;
     this->bIsEnum=false;
     this->bIsInterface=false;
     this->bIsPrimitive=false;
+    this->enumConstants=new vector<JEnum*>;
+    this->fields=new map<string,JField*>;
+    this->fieldsList=new vector<JField*>;
+    this->methods=new map<string,JMethod*>;
+    this->methodsList=new vector<JMethod*>;
+    this->interfaces=new vector<JClass*>;
 }
 
-void JClass::setName(string name){
-    this->name=name;
-    //name.find_last_of() TODO
+JClass::JClass(bool root):JObject(root){
+    this->classLoader=JClassLoader::getBootClassLoader();
+    this->bIsArray=false;
+    this->bIsProxy=false;
+    this->bIsEnum=false;
+    this->bIsInterface=false;
+    this->bIsPrimitive=false;
+    this->enumConstants=new vector<JEnum*>;
+    this->fields=new map<string,JField*>;
+    this->fieldsList=new vector<JField*>;
+    this->methods=new map<string,JMethod*>;
+    this->methodsList=new vector<JMethod*>;
+    this->interfaces=new vector<JClass*>;
 }
 
 string JClass::getCanonicalName(){
@@ -52,16 +105,30 @@ JClass* JClass::getComponentType(){
     return componentType;
 }
 
-vector<JObject*>* JClass::getEnumConstants(){
+vector<JEnum*>* JClass::getEnumConstants(){
     return enumConstants;
 }
 
+JEnum* JClass::valueOf(string value){
+    for (int i=0;i<enumConstants->size();i++){
+        JEnum* e=enumConstants->at(i);
+        if (e->getName()==value){
+            return e;
+        }
+    }
+    throw new JIllegalArgumentException("No enum constant "+value+" in enum "+getName());
+}
+
 JField* JClass::getField(string name){
-    return fields->at(name);
+    JField* field=fields->at(name);
+    if (field==NULL){
+        throw JNoSuchFieldException("field "+name+" not delared in "+getName());
+    }
+    return field;
 }
 
 vector<JField*>* JClass::getFields(){
-    return NULL;//TODO
+    return fieldsList;
 }
 
 vector<JClass*>* JClass::getInterfaces(){
@@ -69,15 +136,33 @@ vector<JClass*>* JClass::getInterfaces(){
 }
 
 JMethod* JClass::getMethod(string name, vector<JClass*>* parameterTypes){
-    return NULL;//TODO
+    JMethod* method=methods->at(name);
+    if (method==NULL){
+        throw JNoSuchMethodException("method "+name+" not declared in "+getName());//we should check using signature ...
+    }
+    return method;
 }
 
 vector<JMethod*>* JClass::getMethods(){
-    return NULL;//TODO
+    return methodsList;
 }
 
-JClass* JClass::getSuperclass(){
-    return superClass;
+void JClass::addEnumConstant(JEnum* enumConstant){
+    enumConstants->push_back(enumConstant);
+}
+
+void JClass::addField(JField* field){
+    fieldsList->push_back(field);
+    fields->insert(pair<string,JField*>(field->getName(),field));//TODO use better map container
+}
+
+void JClass::addMethod(JMethod* method){
+    methodsList->push_back(method);
+    methods->insert(pair<string,JMethod*>(method->getName(),method));
+}
+
+void JClass::addInterface(JClass* interface){
+    interfaces->push_back(interface);
 }
 
 bool JClass::isArray(){
@@ -93,7 +178,14 @@ bool JClass::isEnum(){
 }
 
 bool JClass::isAssignableFrom(JClass* clazz){
-    return false;//TODO
+    JClass* current=clazz;
+    while (current!=NULL){
+        if (current==this){
+            return true;
+        }
+        current=current->getSuperclass();//check also interfaces
+    }
+    return false;
 }
 
 bool JClass::isInstance(JObject* object){
@@ -108,19 +200,21 @@ bool JClass::isPrimitive(){
     return bIsPrimitive;
 }
 
-JObject* JClass::newInstance(){
-    return NULL;//TODO
-}
-
 qint64 JClass::getSerialVersionUID(){
-    return 1;//TODO
+    return serialVersionUID;
 }
 
 string JClass::toString(){
-    return "[Class:"+name+"]";
+    return (isInterface()?"interface ":(isPrimitive()?"":"class "))+getName();
 }
 
 JClass::~JClass(){
+    deleteVectorOfPointers(this->enumConstants);
+    deleteVectorOfPointers(this->interfaces);
+    deleteMapOfValuePointer(fields);
+    deleteVectorOfPointers(fieldsList);
+    deleteMapOfValuePointer(methods);
+    deleteVectorOfPointers(methodsList);
 }
 
 #endif // JCLASS_CPP

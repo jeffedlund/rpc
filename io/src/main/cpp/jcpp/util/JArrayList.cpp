@@ -3,14 +3,34 @@
 #include <cstdio>
 #include <QtGlobal>
 
-//const qint64 ArrayList::serialVersionUID = 8683452581122892189;
-
 class JArrayListClass : public JClass{
-};//TODO
+public:
+  JArrayListClass(){
+      this->canonicalName="java.util.ArrayList";
+      this->name="java.util.ArrayList";
+      this->simpleName="ArrayList";
+      this->serialVersionUID=8683452581122892189L;
+  }
 
-JClass* JArrayList::clazz=new JArrayListClass();
+  JClass* getSuperclass(){
+      return JObject::getClazz();//TODO java.util.AbstractList
+  }
 
-JArrayList::JArrayList(int initialCapacity):JObject(clazz)
+  JObject* newInstance(){
+      return new JArrayList();
+  }
+};
+
+static JClass* clazz;
+
+JClass* JArrayList::getClazz(){
+    if (clazz==NULL){
+        clazz=new JArrayListClass();
+    }
+    return clazz;
+}
+
+JArrayList::JArrayList(int initialCapacity):JObject(getClazz())
 {
     items=new std::vector<JObject*>();
 }

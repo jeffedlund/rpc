@@ -37,7 +37,7 @@ class JObjectStreamClass : public JObject
 public:
     JObjectStreamClass();
 
-    static JClass* clazz;
+    static JClass* getClazz();
 
     JClass* getJClass() const;
     qint16 getNumFields() const;

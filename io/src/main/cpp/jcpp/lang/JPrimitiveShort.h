@@ -13,15 +13,14 @@ class JPrimitiveShort : public JObject{
         qint16 value;
 
     public:
+        JPrimitiveShort();
         JPrimitiveShort(qint16 value);
 
-        static JClass* clazz;
+        static JClass* getClazz();
 
         void set(qint16 value);
 
         qint16 get();
-
-        qint64 getSerialVersionUID();
 
         string toString();
 

@@ -13,15 +13,14 @@ class JPrimitiveLong : public JObject{
         qint64 value;
 
     public:
+        JPrimitiveLong();
         JPrimitiveLong(qint64 value);
 
-        static JClass* clazz;
+        static JClass* getClazz();
 
         void set(qint64 value);
 
         qint64 get();
-
-        qint64 getSerialVersionUID();
 
         string toString();
 

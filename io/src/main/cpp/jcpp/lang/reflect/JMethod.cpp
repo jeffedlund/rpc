@@ -1,12 +1,34 @@
 #include "JMethod.h"
 #include "JClass.h"
+#include "JInstantiationException.h"
 
 class JMethodClass : public JClass{
+    public:
+        JMethodClass():JClass(JClassLoader::getBootClassLoader()){
+            canonicalName="java.lang.reflect.Method";
+            name="java.lang.reflect.Method";
+            simpleName="Method";
+        }
+
+        JClass* getSuperclass(){
+            return JObject::getClazz();//TODO "java.lang.reflect.AccessibleObject";
+        }
+
+        JObject* newInstance(){
+            throw new JInstantiationException("cannot instantiate object of class "+getName());
+        }
 };
 
-JClass* JMethod::clazz = new JMethodClass();
+static JClass* clazz;
 
-JMethod::JMethod(std::string name,JClass* declaringClass,JClass* returnType):JObject(clazz){
+JClass* JMethod::getClazz(){
+    if (clazz==NULL){
+        clazz= new JMethodClass();
+    }
+    return clazz;
+}
+
+JMethod::JMethod(std::string name,JClass* declaringClass,JClass* returnType):JObject(getClazz()){
     this->name=name;
     this->declaringClass=declaringClass;
     this->returnType=returnType;

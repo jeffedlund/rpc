@@ -2,26 +2,26 @@
 #define JBYTE_H
 
 #include "JObject.h"
+#include "JNumber.h"
 #include <QtGlobal>
 #include <vector>
 #include <iostream>
 using namespace std;
 
-class JByte : public JObject{
+class JByte : public JNumber{
 
     protected:
         qint8 value;
 
     public:
+        JByte();
         JByte(qint8 value);
 
-        static JClass* clazz;
+        static JClass* getClazz();
 
         void set(qint8 value);
 
         qint8 get();
-
-        qint64 getSerialVersionUID();
 
         string toString();
 

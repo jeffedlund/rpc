@@ -2,24 +2,19 @@
 #define JEXCEPTION_H
 
 #include "JObject.h"
+#include "JThrowable.h"
+using namespace std;
 
-class JException: public JObject {
-    //TODO use all the fields of Java exception (getCause)
-
-    std::string message;
-    JException *cause;
+class JException: public JThrowable {
+protected:
+    JException(JClass* _class);
 
 public:
     JException();
-    JException(std::string message);
-    JException(std::string, JException *cause);
+    JException(string message);
+    JException(string message, JThrowable *cause);
 
-    static JClass* clazz;
-
-    JException *getCause();
-    void setMessage(std::string message);
-
-    std::string getMessage();
+    static JClass* getClazz();
 
     ~JException();
 };

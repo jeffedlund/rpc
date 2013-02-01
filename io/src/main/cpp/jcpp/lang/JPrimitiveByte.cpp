@@ -12,15 +12,33 @@ class JPrimitiveByteClass : public JClass{
         this->canonicalName="byte";
         this->name="byte";
         this->simpleName="byte";
-        this->superClass=JObject::clazz;
         this->bIsPrimitive=true;
+    }
+
+    JClass* getSuperclass(){
+        return JObject::getClazz();
+    }
+
+    JObject* newInstance(){
+        return new JPrimitiveByte(0);
     }
 };
 
-JClass* JPrimitiveByte::clazz=new JPrimitiveByteClass();
+static JClass* clazz;
 
-JPrimitiveByte::JPrimitiveByte(qint8 value):JObject(clazz){
+JClass* JPrimitiveByte::getClazz(){
+    if (clazz==NULL){
+        clazz=new JPrimitiveByteClass();
+    }
+    return clazz;
+}
+
+JPrimitiveByte::JPrimitiveByte(qint8 value):JObject(getClazz()){
     this->value=value;
+}
+
+JPrimitiveByte::JPrimitiveByte():JObject(getClazz()){
+    this->value=0;
 }
 
 void JPrimitiveByte::set(qint8 value){
@@ -31,13 +49,8 @@ qint8 JPrimitiveByte::get(){
     return value;
 }
 
-qint64 JPrimitiveByte::getSerialVersionUID(){
-    return 1;
-}
-
 string JPrimitiveByte::toString(){
-    return "TODO";
-    //TODO return "[PrimitiveByte:"+value+"]";
+    return ""+value;
 }
 
 JPrimitiveByte::~JPrimitiveByte(){

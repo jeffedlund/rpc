@@ -4,6 +4,7 @@
 #include "JObject.h"
 #include "JMethod.h"
 #include "JField.h"
+class JEnum;
 #include "JClassLoader.h"
 class JClassLoader;
 #include <vector>
@@ -13,6 +14,7 @@ class JClassLoader;
 #include <QtGlobal>
 using namespace std;
 
+
 class JClass : public JObject{
  protected:
     string canonicalName;
@@ -20,23 +22,30 @@ class JClass : public JObject{
     string simpleName;
     JClassLoader* classLoader;
     JClass* componentType;
-    vector<JObject*>* enumConstants;
+    vector<JEnum*>* enumConstants;
     map<string,JField*>* fields;
+    vector<JField*>* fieldsList;
     map<string,JMethod*>* methods;
+    vector<JMethod*>* methodsList;
     vector<JClass*>* interfaces;
-    JClass* superClass;
     bool bIsArray;
     bool bIsProxy;
     bool bIsEnum;
     bool bIsInterface;
     bool bIsPrimitive;
+    qint64 serialVersionUID;
     JClass(JClassLoader* classLoader);
     JClass();
-    void setName(string name);
+    JClass(bool root);
+
+    void addEnumConstant(JEnum* enumConstant);
+    void addField(JField* field);
+    void addMethod(JMethod* method);
+    void addInterface(JClass* interface);
 
  public:
 
-    static JClass* clazz;
+    static JClass* getClazz();
 
     string getCanonicalName();
 
@@ -48,7 +57,9 @@ class JClass : public JObject{
 
     JClass* getComponentType();
 
-    vector<JObject*>* getEnumConstants();
+    vector<JEnum*>* getEnumConstants();
+
+    JEnum* valueOf(string value);
 
     JField* getField(string name);
 
@@ -60,7 +71,7 @@ class JClass : public JObject{
 
     vector<JMethod*>* getMethods();
 
-    JClass* getSuperclass();
+    virtual JClass* getSuperclass()=0;
 
     bool isArray();
 
@@ -76,7 +87,7 @@ class JClass : public JObject{
 
     bool isPrimitive();
 
-    JObject* newInstance();
+    virtual JObject* newInstance()=0;
 
     qint64 getSerialVersionUID();
 

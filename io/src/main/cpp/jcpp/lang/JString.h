@@ -10,11 +10,16 @@ class JString : public JObject
 
 public:
     JString();
+
     JString(string str);
-    static JClass* clazz;
+
+    static JClass* getClazz();
 
     string getString();
+
     void setString(string str);
+
+    string toString();
 
     ~JString();
 };

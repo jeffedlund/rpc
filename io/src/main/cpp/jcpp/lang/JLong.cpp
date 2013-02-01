@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <sstream>
 using namespace std;
 
 class JLongClass : public JClass{
@@ -12,14 +13,33 @@ class JLongClass : public JClass{
         this->canonicalName="java.lang.Long";
         this->name="java.lang.Long";
         this->simpleName="Long";
-        this->superClass=JObject::clazz;
+        this->serialVersionUID=4290774380558885855L;
+    }
+
+    JClass* getSuperclass(){
+        return JNumber::getClazz();
+    }
+
+    JObject* newInstance(){
+        return new JLong(0);
     }
 };
 
-JClass* JLong::clazz=new JLongClass();
+static JClass* clazz;
 
-JLong::JLong(qint64 value):JObject(clazz){
+JClass* JLong::getClazz(){
+    if (clazz==NULL){
+        clazz=new JLongClass();
+    }
+    return clazz;
+}
+
+JLong::JLong(qint64 value):JNumber(getClazz()){
     this->value=value;
+}
+
+JLong::JLong():JNumber(getClazz()){
+    this->value=0;
 }
 
 void JLong::set(qint64 value){
@@ -30,12 +50,10 @@ qint64 JLong::get(){
     return value;
 }
 
-qint64 JLong::getSerialVersionUID(){
-    return 1;
-}
-
 string JLong::toString(){
-    return "TODO";
+    stringstream ss;
+    ss<<value;
+    return ss.str();
 }
 
 JLong::~JLong(){
