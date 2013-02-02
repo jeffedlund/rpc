@@ -6,10 +6,17 @@ using namespace std;
 
 class JClassLoaderClass : public JClass{
   public:
-    JClassLoaderClass(){
+    JClassLoaderClass():JClass(){
         this->canonicalName="java.lang.ClassLoader";
         this->name="java.lang.ClassLoader";
         this->simpleName="ClassLoader";
+    }
+
+    JClassLoaderClass(JClassLoader* classLoader):JClass(true){
+        this->canonicalName="java.lang.ClassLoader";
+        this->name="java.lang.ClassLoader";
+        this->simpleName="ClassLoader";
+        this->classLoader=classLoader;
     }
 
     JClass* getSuperclass(){
@@ -30,6 +37,13 @@ JClass* JClassLoader::getClazz(){
     return clazz;
 }
 
+JClass* JClassLoader::getClazz(JClassLoader* classLoader){
+    if (clazz==NULL){
+        clazz=new JClassLoaderClass(classLoader);
+    }
+    return clazz;
+}
+
 
 static JClassLoader* bootClassLoader;
 
@@ -41,8 +55,14 @@ JClassLoader* JClassLoader::getBootClassLoader(){
     return bootClassLoader;
 }
 
-JClassLoader::JClassLoader():JObject(getClazz()){
+JClassLoader::JClassLoader():JObject(true){
     classes=new map<string,JClass*>();
+    this->_class=getClazz(this);
+}
+
+JClassLoader::JClassLoader(bool root):JObject(true){
+    classes=new map<string,JClass*>();
+    this->_class=getClazz(this);
 }
 
 void JClassLoader::addClasses(JClassBuilder* jClassBuilder){

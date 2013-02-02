@@ -5,11 +5,12 @@
 #include "JCollection.h"
 #include "JSerializable.h"
 #include <QtGlobal>
+using namespace std;
 
 //TODO
-class JArrayList : public JObject, public JSerializable, public JCollection
+class JArrayList : public JObject, public JCollection//public JSerializable,
 {
-    std::vector<JObject*>* items;
+    vector<JObject*>* items;
 
  //   void writeObject(MObjectOutputStream *s);
 

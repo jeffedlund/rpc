@@ -10,9 +10,14 @@ using namespace std;
 class JPrimitiveArray : public JObject{
 private:
     vector<JObject*>* objects;
+    int len;
 
 public:
-    JPrimitiveArray(JClass* arrayClass);
+    JPrimitiveArray(JClass* arrayClass,int len=10);//TODO passer size total+getSize+use native array[]
+
+    int size();
+
+    void setSize(int len);
 
     JObject* get(int i);
 

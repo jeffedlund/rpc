@@ -46,7 +46,7 @@ JObjectStreamClass::JObjectStreamClass():JObject(getClazz()){
     this->name="";
     this->suid=-1;
     this->isProxy=false;
-    this->isEnum=false;
+    this->bIsEnum=false;
     this->serializable=false;
     this->externalizable=false;
     this->writeObjectData=false;
@@ -55,6 +55,10 @@ JObjectStreamClass::JObjectStreamClass():JObject(getClazz()){
     this->primDataSize=0;
     this->numObjFields=0;
     this->fields = NULL;
+}
+
+bool JObjectStreamClass::isEnum(){
+    return bIsEnum;
 }
 
 bool JObjectStreamClass::hasReadObjectMethod() {
@@ -109,16 +113,16 @@ void JObjectStreamClass::readNonProxy(JObjectInputStream *in) {
     if (externalizable && sflag) {
         throw new JInvalidClassException(""+name+" : serializable and externalizable flags conflict");
     }
-    isEnum = ((flags & JObjectStreamConstants::SC_ENUM) != 0);
+    bIsEnum = ((flags & JObjectStreamConstants::SC_ENUM) != 0);
     serializable = externalizable || sflag;
-    if (isEnum && suid != 0) {
+    if (bIsEnum && suid != 0) {
         stringstream ss;
         ss<<"enum "<<name<<" descriptor has non-zero serialVersionUID: " << suid;
         throw new JInvalidClassException(ss.str());
     }
 
     numFields = in->readShort();
-    if (isEnum && numFields != 0) {
+    if (bIsEnum && numFields != 0) {
         stringstream ss;
         ss<<"enum "<<name<<" descriptor has non-zero field count: " << numFields;
         throw new JInvalidClassException(ss.str());
@@ -142,7 +146,7 @@ void JObjectStreamClass::initNonProxy(JObjectStreamClass * const model,JClass* j
     name = model->name;
     suid = model->suid;
     isProxy = false;
-    isEnum = model->isEnum;
+    bIsEnum = model->bIsEnum;
     serializable = model->serializable;
     externalizable = model->externalizable;
     blockExternalData= model->blockExternalData;

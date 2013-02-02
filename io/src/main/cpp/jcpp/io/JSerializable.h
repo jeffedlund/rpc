@@ -2,11 +2,16 @@
 #define JSERIALIZABLE_H
 
 #include "JObject.h"
+#include "JClass.h"
 #include "JObjectInputStream.h"
 //#include "JObjectOutputStream.h"
 
-class JSerializable{
+class JSerializable:JObject{
+protected:
+    JSerializable();
 public:
+
+    static JClass* getClazz();
 
     //virtual void writeObject(JObjectOutputStream*);
     virtual void readObject(JObjectInputStream*);

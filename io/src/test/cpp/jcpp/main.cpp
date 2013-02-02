@@ -1,14 +1,31 @@
 #include "JClass.h"
 #include "JDouble.h"
 #include <iostream>
+#include "JIO.h"
+#include "QtDataInputStream.h"
+#include "JSampleObject.h"
+#include <QtGlobal>
+#include <QFile>
+#include <QString>
+#include <QDataStream>
 
 using namespace std;
 
 
-
+void testSampleObject(){
+    QString name("E:\\project\\rpc\\io\\src\\main\\java\\output.b");
+    QFile* file=new QFile(name);
+    QDataStream* qs=new QDataStream(file);
+    QtDataInputStream* qis=new QtDataInputStream(qs);
+    JObjectInputStream ois=new JObjectInputStream(qis);
+    JSampleObject* sample=(JSampleObject*)ois.readObject();
+    cout<<sample->toString();
+}
 
 int main(int argc, char *argv[])
 {
+    testSampleObject();
+
     JClass* toto = JClass::getClazz();
     JObject object;
     cout<<object.toString();

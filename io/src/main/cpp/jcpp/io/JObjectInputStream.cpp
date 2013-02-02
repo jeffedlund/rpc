@@ -6,7 +6,17 @@
 #include "JStreamCorruptedException.h"
 #include "JOptionalDataException.h"
 #include "JNotActiveException.h"
+#include "JInvalidClassException.h"
 #include "JInternalError.h"
+#include "JPrimitiveArray.h"
+#include "JPrimitiveBoolean.h"
+#include "JPrimitiveByte.h"
+#include "JPrimitiveChar.h"
+#include "JPrimitiveDouble.h"
+#include "JPrimitiveFloat.h"
+#include "JPrimitiveInt.h"
+#include "JPrimitiveLong.h"
+#include "JPrimitiveShort.h"
 #include <cstdio>
 #include <QtGlobal>
 #include <QList>
@@ -84,6 +94,7 @@ bool JObjectInputStream::enableResolveObject(bool enable) {
 }
 
 JObject* JObjectInputStream::readObject() {
+    //TODO enableOverrid+other stuff
     return readObject0();
 }
 
@@ -115,6 +126,7 @@ JObject* JObjectInputStream::readObject0() {
         obj = readHandle();
         break;
 
+    //TODO case TC_CLASS, TC_CLASSDESC, TC_PROXYCLASSDESC
     case TC_STRING:
     case TC_LONGSTRING:
         obj = checkResolve(readString());
@@ -131,6 +143,9 @@ JObject* JObjectInputStream::readObject0() {
     case TC_OBJECT:
         obj = checkResolve(readOrdinaryObject());
         break;
+
+    //TODO case TC_Exception
+    //TODO case TC_BLOCKDATALONG
 
     case TC_ENDBLOCKDATA:
         if (oldMode) {
@@ -151,7 +166,7 @@ JObject* JObjectInputStream::readObject0() {
 }
 
 JObject* JObjectInputStream::checkResolve(JObject *obj) {
-    if (!enableResolve) {
+    if (!enableResolve) {//TODO lookup exception
         return obj;
     }
     JObject* rep = resolveObject(obj);
@@ -193,6 +208,7 @@ void JObjectInputStream::defaultReadObject() {
     if (!curDesc->hasWriteObjectData()) {
         defaultDataEnd = true;
     }
+    //TODO check ClassNotFoundException
 }
 
 JObject* JObjectInputStream::resolveObject(JObject *obj) {
@@ -220,129 +236,100 @@ JObject* JObjectInputStream::readHandle() {
     return obj;
 }
 
-JObject* JObjectInputStream::readArray()
-{//TODO
+JObject* JObjectInputStream::readArray(){
     if (bin->readByte() != TC_ARRAY) {
-        throw "new Internal error";
+        throw new JInternalError();
     }
 
-//    JObjectStreamClass* desc = readClassDesc();
-//    int len = bin->readInt();
+    JObjectStreamClass* desc = readClassDesc();
+    int len = bin->readInt();
 
-//    QVariant* qv = new QVariant;
-//    JObject** arrayObj = NULL;
-//    void* array;
-//    const char *className = desc->getName();
-//    char componentType = className[1];
+    JPrimitiveArray* pArray = NULL;
+    JClass* cl=desc->getJClass();
+    JClass* ccl=NULL;
+    if (cl != NULL) {
+        ccl = cl->getComponentType();
+        pArray = new JPrimitiveArray(ccl,len);
+    }
 
-//    MArray* marray = new MArray(qv,len);
-//    int arrayHandle = handles->assign(marray);
+    int arrayHandle = handles->assign(pArray);
+    //TODO handle ResolveException ...
 
-//    if(className[0] != '[') {
-//        // TODO to be validated
-//        for (int i = 0; i < len; i++) {
-//            readObject0();
-//        }
-//    }
-//    else if (/*componentType.isPrimitive*/ componentType != 'L' && componentType != '[')
-//    {
-//        if (componentType == 'B') {
-//            array = new qint8[len];
-//            for (int i = 0; i < len; ++i) {
-//                ((qint8*)array)[i] = readByte();
-//            }
-//            qv->setValue<qint8*>((qint8*) array);
-//        }
-//        else if (componentType == 'C') {
-//            array = new char[len];
-//            for (int i = 0; i < len; ++i) {
-//                ((char*)array)[i] = readChar();
-//            }
-//            qv->setValue<char*>((char*) array);
-//        }
-//        else if (componentType == 'D') {
-//            array = new double[len];
-//            for (int i = 0; i < len; ++i) {
-//                ((double*)array)[i] = readDouble();
-//            }
-//            qv->setValue<double*>((double*) array);
-//        }
-//        else if (componentType == 'F') {
-//            array = new float[len];
-//            for (int i = 0; i < len; ++i) {
-//                ((float*)array)[i] = readFloat();
-//            }
-//            qv->setValue<float*>((float*) array);
-//        }
-//        else if (componentType == 'I') {
-//            array = new qint32[len];
-//            for (int i = 0; i < len; ++i) {
-//                ((qint32*)array)[i] = readInt();
-//            }
-//            qv->setValue<qint32*>((qint32*) array);
-//        }
-//        else if (componentType == 'J') {
-//            array = new qint64[len];
-//            for (int i = 0; i < len; ++i) {
-//                ((qint64*)array)[i] = readLong();
-//            }
-//            qv->setValue<qint64*>((qint64*) array);
-//        }
-//        else if (componentType == 'S') {
-//            array = new qint16;
-//            for (int i = 0; i < len; ++i) {
-//                ((qint16*)array)[i] = readShort();
-//            }
-//            qv->setValue<qint16*>((qint16*) array);
-//        }
-//        else if (componentType == 'Z') {
-//            array = new bool[len];
-//            for (int i = 0; i < len; ++i) {
-//                ((bool*)array)[i] = readBool();
-//            }
-//            qv->setValue<bool*>((bool*) array);
-//        }
-//        else {
-//            throw "new InternalError()";
-//        }
-//    }
-//    else if (componentType == 'L') {
-//        arrayObj = ArrayLoader::toArray(desc->getName(),len);
-//        if (arrayObj != NULL) {
-//            for (int i = 0 ; i < len; ++i) {
-//                arrayObj[i] = readObject0();
-//            }
-//        }
-//        qv->setValue<JObject**>((JObject**) arrayObj);
-//    }
-//    else /* component type is array*/ {
-//        // TODO need to find a way to handle arrays in arrays.
-//        // MArray is not up to the job yet
-//    }
+    if(ccl==NULL) {
+        for (int i = 0; i < len; i++) {
+            readObject0();
+        }
+    }else if (ccl->isPrimitive()){
+        if (ccl == JPrimitiveByte::getClazz()) {
+            for (int i = 0; i < len; ++i) {
+                pArray->set(i,new JPrimitiveByte(readByte()));
+            }
 
-//    handles->finish(arrayHandle);
-//    passHandle = arrayHandle;
-//    return marray;
-    return NULL;
+        }else if (ccl==JPrimitiveChar::getClazz()) {
+            for (int i = 0; i < len; ++i) {
+                pArray->set(i,new JPrimitiveChar(readChar()));
+            }
+
+        }else if (ccl==JPrimitiveDouble::getClazz()) {
+            for (int i = 0; i < len; ++i) {
+                pArray->set(i,new JPrimitiveDouble(readDouble()));
+            }
+
+        }else if (ccl==JPrimitiveFloat::getClazz()) {
+            for (int i = 0; i < len; ++i) {
+                pArray->set(i,new JPrimitiveFloat(readFloat()));
+            }
+
+        }else if (ccl == JPrimitiveInt::getClazz()) {
+            for (int i = 0; i < len; ++i) {
+                pArray->set(i,new JPrimitiveInt(readInt()));
+            }
+
+        }else if (ccl==JPrimitiveLong::getClazz()) {
+            for (int i = 0; i < len; ++i) {
+                pArray->set(i,new JPrimitiveLong(readLong()));
+            }
+
+        }else if (ccl==JPrimitiveShort::getClazz()) {
+            for (int i = 0; i < len; ++i) {
+                pArray->set(i,new JPrimitiveShort(readShort()));
+            }
+
+        }else if (ccl==JPrimitiveBoolean::getClazz()) {
+            for (int i = 0; i < len; ++i) {
+                pArray->set(i,new JPrimitiveBoolean(readBool()));
+            }
+
+        }else {
+            throw new JInternalError();
+        }
+    }else{
+        for (int i = 0 ; i < len; ++i) {
+            pArray->set(i,readObject0());
+        }
+        //TODO handle.markDependency
+    }
+
+    handles->finish(arrayHandle);
+    passHandle = arrayHandle;
+    return pArray;
 }
 
 JObject* JObjectInputStream::readEnum() {
     if (bin->readByte() != TC_ENUM) {
-        throw "new Internal error";
+        throw new JInternalError();
     }
     JObjectStreamClass* desc = readClassDesc();
+    if (!desc->isEnum()){
+        throw new JInvalidClassException("non-enum class: " + desc->toString());
+    }
 
     int enumHandle = handles->assign(NULL);
+    //TODO handle exception
 
     JString* mname = readString();
     string name = mname->getString();
-    JEnum* en = NULL;
-//    JClass metaObj = desc->getMetaObject(); //TODO
-//    en = (MEnum*) metaObj.newInstance();
-//    if (en != NULL) {
-//        en = en->valueOf(name);
-//    }
-
+    JEnum* en = desc->getJClass()->valueOf(name);
     handles->finish(enumHandle);
     passHandle = enumHandle;
     return en;
@@ -365,13 +352,15 @@ JObjectStreamClass* JObjectInputStream::readClassDesc() {
         return readProxyDesc();
 
     default:
-        return NULL;
+        stringstream ss;
+        ss<<"invalid type code: "<<tc;
+        throw new JStreamCorruptedException(ss.str());
     }
 }
 
 JObjectStreamClass* JObjectInputStream::readProxyDesc() {
     if (bin->readByte() != TC_PROXYCLASSDESC) {
-        throw "new Internal error";
+        throw new JInternalError();
     }
     JObjectStreamClass* desc = new JObjectStreamClass;
     qint32 descHandle = handles->assign(desc);
@@ -401,12 +390,13 @@ JObjectStreamClass* JObjectInputStream::readProxyDesc() {
 
 JObjectStreamClass* JObjectInputStream::readNonProxyDesc() {
     if (bin->readByte() != TC_CLASSDESC) {
-        throw "new Internal error";
+        throw new JInternalError();
     }
     JObjectStreamClass* desc = new JObjectStreamClass;
     qint32 descHandle = handles->assign(desc);
     passHandle = NULL_HANDLE;
 
+    //TODO factoriser en readClassDescriptor
     JObjectStreamClass *readDesc = new JObjectStreamClass;
     readDesc->readNonProxy(this);
 
@@ -427,16 +417,22 @@ JObjectStreamClass* JObjectInputStream::readNonProxyDesc() {
 
 JObject* JObjectInputStream::readOrdinaryObject() {
     if (bin->readByte() != TC_OBJECT) {
-        throw "new Internal error";
+        throw new JInternalError();
     }
     JObjectStreamClass* desc = readClassDesc();
+    //TODO check deserialize
 
     JObject* obj = desc->newInstance();
     passHandle = handles->assign(obj);
 
+    //TODO handle exception
+
+    //TODO do serializable+externalizable
     readSerialData(obj, desc);
 
     handles->finish(passHandle);
+
+    //TODO handle exception + clone + handle.setObject???
 
     return obj;
 }
@@ -462,6 +458,7 @@ void JObjectInputStream::readSerialData(JObject *obj, JObjectStreamClass *desc) 
                 SerialCallbackContext oldContext = curContext;
                 curContext.setContext(obj,d);
                 bin->setBlockDataMode(true);
+                //TODO handle exception
                 ((JSerializable*)obj)->readObject(this);
                 curContext = oldContext;
 
@@ -601,7 +598,9 @@ JString* JObjectInputStream::readString() {
         break;
 
     default:
-        throw "new StreamCorruptedException(String.format(\"invalid type code: %02X\", tc))";
+        stringstream ss;
+        ss<<"invalid type code: "<<tc;
+        throw new JStreamCorruptedException(ss.str());
     }
     JString* mstr = new JString(str);
     passHandle = handles->assign((JObject*) mstr);
@@ -625,7 +624,7 @@ JClass *JObjectInputStream::resolveProxyClass(string *ifaces, int numIfaces) {
     for (int i = 0; i < numIfaces; ++i) {
         proxySignature += ifaces[i];
     }
-    return classLoader->loadClass(proxySignature);//TODO loadProxyClass ...
+    return classLoader->loadClass(proxySignature);//TODO create Proxy class that contain all the passed interfaces
 }
 
 void JObjectInputStream::close(){

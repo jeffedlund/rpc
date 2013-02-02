@@ -8,6 +8,8 @@ using namespace std;
 class JClassLoader : public JObject{
 protected:
     map<string, JClass*>* classes;
+    static JClass* getClazz(JClassLoader* classLoader);
+    JClassLoader(bool root);
 
 public:
     JClassLoader();

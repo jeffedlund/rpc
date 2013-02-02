@@ -1,7 +1,7 @@
 #ifndef JINVALIDCLASSEXCEPTION_H
 #define JINVALIDCLASSEXCEPTION_H
 
-#include "JObjectStreamException.h""
+#include "JObjectStreamException.h"
 #include "JClass.h"
 using namespace std;
 

@@ -19,7 +19,7 @@ class JObjectStreamClass : public JObject{
     string name;
     qint64 suid;
     bool isProxy;
-    bool isEnum;
+    bool bIsEnum;
     bool serializable;
     bool externalizable;
     bool writeObjectData;
@@ -39,6 +39,7 @@ public:
     static JClass* getClazz();
 
     JClass* getJClass();
+    bool isEnum();
     qint16 getNumFields();
     qint32 getNumObjFields();
     Field getField(int i);

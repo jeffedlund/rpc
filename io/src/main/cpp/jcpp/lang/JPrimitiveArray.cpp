@@ -38,10 +38,18 @@ static JPrimitiveArray* getJPrimitiveArray(JClass* jclass){//TODO use mutex
     return jPrimitiveArray;
 }
 
-JPrimitiveArray::JPrimitiveArray(JClass* arrayClass):JObject(getJPrimitiveArray(arrayClass)){
-    objects=new vector<JObject*>;
+JPrimitiveArray::JPrimitiveArray(JClass* arrayClass,int len):JObject(getJPrimitiveArray(arrayClass)){
+    objects=new vector<JObject*>(len);
+    this->len=len;
 }
 
+int JPrimitiveArray::size(){
+    return len;
+}
+
+void JPrimitiveArray::setSize(int len){
+    this->len=len;
+}
 
 JObject* JPrimitiveArray::get(int i){
     return objects->at(i);

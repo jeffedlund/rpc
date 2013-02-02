@@ -88,7 +88,9 @@ SOURCES += \
     src/main/cpp/jcpp/lang/exception/JInternalError.cpp \
     src/main/cpp/jcpp/io/JStreamCorruptedException.cpp \
     src/main/cpp/jcpp/io/JOptionalDataException.cpp \
-    src/main/cpp/jcpp/io/JNotActiveException.cpp
+    src/main/cpp/jcpp/io/JNotActiveException.cpp \
+    src/test/cpp/jcpp/JSampleObject.cpp \
+    src/main/cpp/jcpp/lang/JBootClassBuilder.cpp
     
     
 LIBS += -lws2_32
@@ -159,5 +161,11 @@ HEADERS += \
     src/main/cpp/jcpp/lang/exception/JInternalError.h \
     src/main/cpp/jcpp/io/JStreamCorruptedException.h \
     src/main/cpp/jcpp/io/JOptionalDataException.h \
-    src/main/cpp/jcpp/io/JNotActiveException.h
+    src/main/cpp/jcpp/io/JNotActiveException.h \
+    src/test/cpp/jcpp/JSampleObject.h \
+    src/main/cpp/jcpp/lang/JBootClassBuilder.h \
+    src/main/cpp/jcpp/lang/JLang.h \
+    src/main/cpp/jcpp/util/JUtil.h \
+    src/main/cpp/jcpp/lang/reflect/JLangReflect.h \
+    src/main/cpp/jcpp/io/JIO.h
     
