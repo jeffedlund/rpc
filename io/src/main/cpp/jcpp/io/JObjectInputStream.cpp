@@ -2,17 +2,46 @@
 #include <stack>
 #include "JObject.h"
 #include "JSerializable.h"
+#include "JInstantiationException.h"
+#include "JStreamCorruptedException.h"
+#include "JOptionalDataException.h"
+#include "JNotActiveException.h"
+#include "JInternalError.h"
 #include <cstdio>
 #include <QtGlobal>
 #include <QList>
+#include <sstream>
 
 using namespace std;
 
-//JObjectInputStream implementation
-JObjectInputStream::JObjectInputStream(JInputStream *in, JClassLoader* cl)
-{
+class JObjectInputStreamClass : public JClass{
+public:
+    JObjectInputStreamClass():JClass(JClassLoader::getBootClassLoader()){
+        canonicalName="java.io.ObjectInputStream";
+        name="java.io.ObjectInputStream";
+        simpleName="ObjectInputStream";
+    }
+
+    JClass* getSuperclass(){
+        return JInputStream::getClazz();
+    }
+
+    JObject* newInstance(){
+        throw new JInstantiationException("cannot instantiate object of class "+getName());
+    }
+};
+
+static JClass* clazz;
+
+JClass* JObjectInputStream::getClazz(){
+    if (clazz==NULL){
+        clazz=new JObjectInputStreamClass();
+    }
+    return clazz;
+}
+
+JObjectInputStream::JObjectInputStream(JInputStream *in):JInputStream(getClazz()){
     bin = new BlockDataInputStream(in);
-    classLoader = cl;
     passHandle = NULL_HANDLE;
     handles = new HandleTable(100);
     primVals = NULL;
@@ -22,9 +51,15 @@ JObjectInputStream::JObjectInputStream(JInputStream *in, JClassLoader* cl)
     qint16 s0 = readShort();
     qint16 s1 = readShort();
     if (s0 != STREAM_MAGIC || s1 != STREAM_VERSION) {
-        throw "invalid stream header";
+        stringstream ss;
+        ss<<"invalid stream header "<<s0<<","<<s1;
+        throw new JStreamCorruptedException(ss.str());
     }
     bin->setBlockDataMode(true);
+}
+
+void JObjectInputStream::setClassLoader(JClassLoader* classLoader){
+    this->classLoader=classLoader;
 }
 
 JObjectInputStream::~JObjectInputStream() {
@@ -57,7 +92,9 @@ JObject* JObjectInputStream::readObject0() {
     if (oldMode) {
         int remain = bin->currentBlockRemaining();
         if (remain > 0) {
-            throw "new OptionnalDataException(remain)";
+            stringstream ss;
+            ss<<remain;
+            throw new JOptionalDataException(ss.str());
         }
         bin->setBlockDataMode(false);
     }
@@ -96,15 +133,18 @@ JObject* JObjectInputStream::readObject0() {
         break;
 
     case TC_ENDBLOCKDATA:
-        // this case should not be tolerated and should throw an exception.
-        // TODO figure out what causes this when an ArrayList is empty
+        if (oldMode) {
+            throw new JOptionalDataException();
+        } else {
+            throw new JStreamCorruptedException("unexpected end of block data");
+        }
         break;
 
     default:
         bin->setBlockDataMode(oldMode);
-        char* ex = new char[100];
-        sprintf(ex, "invalid type code: %d", tc);
-        throw ex;
+        stringstream ss;
+        ss<<"invalid type code:"<<tc;
+        throw new JStreamCorruptedException(ss.str());
     }
     bin->setBlockDataMode(oldMode);
     return obj;
@@ -135,13 +175,15 @@ JString* JObjectInputStream::readTypeString() {
         return (JString*) (readHandle());
 
     default:
-        throw "stream corrupted: invalid typecode";
+        stringstream ss;
+        ss<<"stream corrupted: invalid typecode "<<tc;
+        throw new JStreamCorruptedException(ss.str());
     }
 }
 
 void JObjectInputStream::defaultReadObject() {
     if (!curContext.isUpcall()) {
-        throw "new NotActiveException(\"not in call to readObject\")";
+        throw new JNotActiveException("not in call to readObject");
     }
     JObject* curObj = curContext.getObj();
     JObjectStreamClass* curDesc = curContext.getDesc();
@@ -159,7 +201,7 @@ JObject* JObjectInputStream::resolveObject(JObject *obj) {
 
 JObject* JObjectInputStream::readNull() {
     if (bin->readByte() != TC_NULL) {
-        throw "new Internal error";
+        throw new JInternalError();
     }
     passHandle = NULL_HANDLE;
     return NULL;
@@ -167,18 +209,19 @@ JObject* JObjectInputStream::readNull() {
 
 JObject* JObjectInputStream::readHandle() {
     if (bin->readByte() != TC_REFERENCE) {
-        throw "new Internal error";
+        throw new JInternalError();
     }
     passHandle = bin->readInt() - baseWireHandle;
     if (passHandle < 0 || passHandle >= handles->getSize()) {
-        throw "invalid handle value";
+        throw new JStreamCorruptedException("invalid handle value");
     }
 
     JObject* obj = handles->lookupObject(passHandle);
     return obj;
 }
 
-JObject* JObjectInputStream::readArray() {//TODO
+JObject* JObjectInputStream::readArray()
+{//TODO
     if (bin->readByte() != TC_ARRAY) {
         throw "new Internal error";
     }

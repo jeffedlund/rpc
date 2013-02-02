@@ -3,13 +3,16 @@
 
 #include "JInputStream.h"
 #include "QDataStream"
+#include "JClass.h"
 
-class QtDataInputStream : public JInputStream
-{
+class QtDataInputStream : public JInputStream{
     QDataStream* in;
 public:
+    QtDataInputStream();
     QtDataInputStream(QDataStream*);
+    static JClass* getClazz();
     QDataStream* getStream();
+    void setStream(QDataStream* in);
     virtual qint64 available();
     virtual bool waitForReadyRead(int = 30000);
     virtual qint32 read();

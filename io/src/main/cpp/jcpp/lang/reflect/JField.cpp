@@ -28,12 +28,12 @@ JClass* JField::getClazz(){//TODO use mutex
     return clazz;
 }
 
-JField::JField(std::string name,JClass* type):JObject(getClazz()){
+JField::JField(string name,JClass* type):JObject(getClazz()){
     this->name=name;
     this->type=type;
 }
 
-std::string JField::getName(){
+string JField::getName(){
     return name;
 }
 
@@ -41,14 +41,6 @@ JClass* JField::getType(){
     return type;
 }
 
-JObject* JField::get(JObject* object){
-    return NULL;//TODO
-}
-
-void JField::set(JObject* object, JObject *value){
-    //TODO
-}
-
-std::string JField::toString(){
-    return "JField";//TODO
+string JField::toString(){
+    return getType()->getName()+"."+getName();
 }

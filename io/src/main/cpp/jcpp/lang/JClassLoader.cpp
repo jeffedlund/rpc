@@ -4,6 +4,32 @@
 
 using namespace std;
 
+class JClassLoaderClass : public JClass{
+  public:
+    JClassLoaderClass(){
+        this->canonicalName="java.lang.ClassLoader";
+        this->name="java.lang.ClassLoader";
+        this->simpleName="ClassLoader";
+    }
+
+    JClass* getSuperclass(){
+        return JObject::getClazz();
+    }
+
+    JObject* newInstance(){
+        return new JClassLoader();
+    }
+};
+
+static JClass* clazz;
+
+JClass* JClassLoader::getClazz(){
+    if (clazz==NULL){
+        clazz=new JClassLoaderClass();
+    }
+    return clazz;
+}
+
 
 static JClassLoader* bootClassLoader;
 
@@ -15,7 +41,7 @@ JClassLoader* JClassLoader::getBootClassLoader(){
     return bootClassLoader;
 }
 
-JClassLoader::JClassLoader(){
+JClassLoader::JClassLoader():JObject(getClazz()){
     classes=new map<string,JClass*>();
 }
 
@@ -38,6 +64,3 @@ JClass* JClassLoader::loadClass(string name){
 JClassLoader::~JClassLoader() {
     deleteMapOfValuePointer(classes);
 }
-
-
-

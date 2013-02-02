@@ -3,13 +3,12 @@
 
 #include "JObject.h"
 #include "JMethod.h"
+using namespace std;
 
-//TODO
-class JInvocationHandler
-{
+class JInvocationHandler : public JObject{
 public:
-    virtual JObject *invoke(JObject *proxy, JMethod method, JObject *args[]) = 0;
+    virtual JObject *invoke(JObject* proxy, JMethod* method, vector<JObject*>* args) = 0;
 };
 
 
-#endif // MINVOCATIONHANDLER_H
+#endif // JINVOCATIONHANDLER_H

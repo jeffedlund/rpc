@@ -22,8 +22,7 @@ class JObjectStreamClass;
 
 static const int NULL_HANDLE = -1;
 
-class JObjectInputStream : public JInputStream, public JObjectStreamConstants
-{
+class JObjectInputStream : public JInputStream, public JObjectStreamConstants{
 
     /** Data input stream */
     BlockDataInputStream *bin;
@@ -96,15 +95,18 @@ protected:
     virtual JObject* resolveObject(JObject* jobject);
 
 public:
-    JObjectInputStream(JInputStream* inputStrean,JClassLoader* classLoader);
-    virtual ~JObjectInputStream();
+    JObjectInputStream(JInputStream* inputStrean);
 
+    void setClassLoader(JClassLoader* classLoader);
+
+    static JClass* getClazz();
+
+    virtual JObject* readObject();
+    virtual JString* readString();
+    virtual JString* readTypeString();
+    virtual void defaultReadObject();
     virtual qint64 available();
     virtual bool waitForReadyRead(int = 30000);
-
-    JObject* readObject();
-    void defaultReadObject();
-
     virtual int read();
     virtual int read(qint8 b[], int off, int len);
     virtual qint8 readByte();
@@ -119,8 +121,7 @@ public:
     virtual string readLongUTF();
     virtual void close();
 
-    JString* readString();
-    JString* readTypeString();
+    ~JObjectInputStream();
 };
 
 #endif // JOBJECTINPUTSTREAM_H

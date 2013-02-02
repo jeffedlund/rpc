@@ -1,12 +1,44 @@
 #include "QtDataInputStream.h"
 
-QtDataInputStream::QtDataInputStream(QDataStream* in)
-{
+class QtDataInputStreamClass : public JClass{
+public:
+    QtDataInputStreamClass():JClass(JClassLoader::getBootClassLoader()){
+        canonicalName="java.io.QtInputStream";//not usefull...
+        name="java.io.QtDataInputStream";
+        simpleName="QtDataInputStream";
+    }
+
+    JClass* getSuperclass(){
+        return JInputStream::getClazz();
+    }
+
+    JObject* newInstance(){
+        return new QtDataInputStream();
+    }
+};
+
+static JClass* clazz;
+
+JClass* QtDataInputStream::getClazz(){
+    if (clazz==NULL){
+        clazz=new QtDataInputStreamClass();
+    }
+    return clazz;
+}
+
+QtDataInputStream::QtDataInputStream():JInputStream(getClazz()){
+}
+
+QtDataInputStream::QtDataInputStream(QDataStream* in):JInputStream(getClazz()){
     this->in = in;
 }
 
 QDataStream* QtDataInputStream::getStream(){
     return this->in;
+}
+
+void QtDataInputStream::setStream(QDataStream* in){
+    this->in=in;
 }
 
 qint64 QtDataInputStream::available() {

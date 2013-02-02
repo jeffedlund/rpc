@@ -2,30 +2,32 @@
 #define JMETHOD_H
 
 #include "JObject.h"
+using namespace std;
 
 class JMethod : public JObject{
 private:
-    std::string name;
+    string name;
     JClass* declaringClass;
     JClass* returnType;
-    std::vector<JClass>* parameterType;
+    vector<JClass*>* parameterType;
+
+protected:
+    JMethod(string name,JClass* declaringClass,JClass* returnType,vector<JClass*>* parameterType);
 
 public:
     static JClass* getClazz();
 
-    JMethod(std::string name,JClass* declaringClass,JClass* returnType);
-
-    std::string getName();
+    string getName();
 
     JClass* getDeclaringClass();
 
     JClass* getReturnType();
 
-    std::vector<JClass>* getParameterType();
+    vector<JClass*>* getParameterType();
 
-    JObject* invoke(JObject* object, JObject *args[]);
+    virtual JObject* invoke(JObject* object, vector<JObject*>*args)=0;
 
-    std::string toString();
+    virtual string toString();
 };
 
 #endif // JMETHOD_H

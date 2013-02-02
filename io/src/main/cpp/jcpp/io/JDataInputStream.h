@@ -2,16 +2,22 @@
 #define JDATAINPUTSTREAM_H
 
 #include "JInputStream.h"
+#include "JClass.h"
+using namespace std;
 
-class JDataInputStream : public JInputStream
-{
+class JDataInputStream : public JInputStream{
     JInputStream *in;
 
 public:
+    JDataInputStream();
     JDataInputStream(JInputStream *in);
 
+    static JClass* getClazz();
+
+    void setInputStream(JInputStream *in);
+
     void readFully(qint8 b[], qint32 off, qint32 len);
-    virtual std::string readUTF();
+    virtual string readUTF();
 
     virtual qint64 available();
     virtual bool waitForReadyRead(int = 30000);

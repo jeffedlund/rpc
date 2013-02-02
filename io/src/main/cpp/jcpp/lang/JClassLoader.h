@@ -3,10 +3,9 @@
 
 #include "JClassBuilder.h"
 #include <map>
-
 using namespace std;
 
-class JClassLoader {//TODO exetnds JOBject
+class JClassLoader : public JObject{
 protected:
     map<string, JClass*>* classes;
 
@@ -18,6 +17,8 @@ public:
     void addClasses(JClassBuilder* jClassBuilder);
 
     JClass* loadClass(string string);
+
+    static JClass* getClazz();
 
     ~JClassLoader();
 };

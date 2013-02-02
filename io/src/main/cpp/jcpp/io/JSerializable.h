@@ -3,15 +3,12 @@
 
 #include "JObject.h"
 #include "JObjectInputStream.h"
-//#include "MObjectOutputStream.h"
+//#include "JObjectOutputStream.h"
 
 class JSerializable{
 public:
-    bool isSerializable() const {
-        return true;
-    }
 
-    //virtual void writeObject(MObjectOutputStream*);
+    //virtual void writeObject(JObjectOutputStream*);
     virtual void readObject(JObjectInputStream*);
 };
 

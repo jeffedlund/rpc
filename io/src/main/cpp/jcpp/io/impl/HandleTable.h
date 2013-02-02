@@ -27,51 +27,6 @@ class HandleTable {
     int length;
 
     /**
-     * Associates a ClassNotFoundException (if one not already associated)
-     * with the currently active handle and propagates it to other
-     * referencing objects as appropriate.  The specified handle must be
-     * "open" (i.e., assigned, but not finished yet).
-     */
-//        void markException(int handle, MJavaException* ex) {
-//            switch (status[handle]) {
-//            case STATUS_UNKNOWN:
-//            {
-//                status[handle] = STATUS_EXCEPTION;
-//                entries[handle] = ex;
-
-//                // propagate exception to dependents
-//                HandleList *dlist = deps[handle];
-//                if (dlist != NULL) {
-//                    int ndeps = dlist->getSize();
-//                    for (int i = 0; i < ndeps; ++i) {
-//                        markException(dlist->get(i), ex);
-//                    }
-//                    delete deps[handle];
-//                    deps[handle] = NULL;
-//                }
-//            }
-//                break;
-
-//            case STATUS_EXCEPTION:
-//                break;
-
-//            default:
-//                throw "new InternalError()";
-//            }
-//        }
-
-    /**
-     * Looks up and returns ClassNotFoundException associated with the
-     * given handle.  Returns null if the given handle is NULL_HANDLE, or
-     * if there is no ClassNotFoundException associated with the handle.
-     */
-//        MJavaException* lookupException(int handle) {
-//            return (handle != NULL_HANDLE &&
-//                    status[handle] == STATUS_EXCEPTION) ?
-//                        (MJavaException*) entries[handle] : NULL;
-//        }
-
-    /**
      * Expands capacity of internal arrays.
      */
     void grow();

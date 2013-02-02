@@ -3,24 +3,58 @@
 #include "JEOFException.h"
 #include "JUTFDataFormatException.h"
 
-JDataInputStream::JDataInputStream(JInputStream *in)
-{
+class JDataInputStreamClass : public JClass{
+public:
+    JDataInputStreamClass():JClass(JClassLoader::getBootClassLoader()){
+        canonicalName="java.io.DataInputStream";
+        name="java.io.DataInputStream";
+        simpleName="DataInputStream";
+    }
+
+    JClass* getSuperclass(){
+        return JInputStream::getClazz();
+    }
+
+    JObject* newInstance(){
+        return new JDataInputStream();
+    }
+};
+
+static JClass* clazz;
+
+JClass* JDataInputStream::getClazz(){
+    if (clazz==NULL){
+        clazz=new JDataInputStreamClass();
+    }
+    return clazz;
+}
+
+JDataInputStream::JDataInputStream():JInputStream(getClazz()){
+}
+
+JDataInputStream::JDataInputStream(JInputStream *in):JInputStream(getClazz()){
     this->in = in;
 }
 
+void JDataInputStream::setInputStream(JInputStream *in){
+    this->in=in;
+}
+
 void JDataInputStream::readFully(qint8 b[], qint32 off, qint32 len) {
-    if (len < 0)
+    if (len < 0){
         throw new JIndexOutOfBoundsException;
+    }
     int n = 0;
     while (n < len) {
         qint32 count = in->read(b, off + n, len - n);
-        if (count < 0)
+        if (count < 0){
             throw new JEOFException;
+        }
         n += count;
     }
 }
 
-std::string JDataInputStream::readUTF() {
+string JDataInputStream::readUTF() {
     quint16 utflen = in->readUnsignedShort();
     qint8 *bytearr = new qint8[utflen*2];
     char *chararr = new char[utflen*2+1];
@@ -49,18 +83,21 @@ std::string JDataInputStream::readUTF() {
         case 12: case 13:
             /* 110x xxx  10xx xxx*/
             count += 2;
-            if (count > utflen)
+            if (count > utflen){
                 throw new JUTFDataFormatException();
+            }
             char2 = (qint32) bytearr[count-1];
-            if ((char2 & 0xC0) != 0x80)
+            if ((char2 & 0xC0) != 0x80){
                 throw new JUTFDataFormatException;
+            }
             chararr[chararr_count++] = (char)(((c & 0x1F) << 6) | (char2 & 0x3F));
             break;
         case 14:
             /* 1110 xxxx  10xx xxxx  10xx xxxx */
             count += 3;
-            if (count > utflen)
+            if (count > utflen){
                 throw new JUTFDataFormatException;
+            }
             char2 = (qint32) bytearr[count-2];
             char3 = (qint32) bytearr[count-1];
             if (((char2 & 0xC0) != 0x80) || ((char3 & 0xC0) != 0x80))
@@ -79,7 +116,7 @@ std::string JDataInputStream::readUTF() {
 
     // The number of chars produced may be less than utflen
     chararr[chararr_count] = '\0';
-    std::string str(chararr);//TODO faire new
+    string str(chararr);
     return str;
 }
 

@@ -1,6 +1,7 @@
 #include "JMethod.h"
 #include "JClass.h"
 #include "JInstantiationException.h"
+#include <sstream>
 
 class JMethodClass : public JClass{
     public:
@@ -28,14 +29,14 @@ JClass* JMethod::getClazz(){
     return clazz;
 }
 
-JMethod::JMethod(std::string name,JClass* declaringClass,JClass* returnType):JObject(getClazz()){
+JMethod::JMethod(string name,JClass* declaringClass,JClass* returnType,vector<JClass*>* parameterType):JObject(getClazz()){
     this->name=name;
     this->declaringClass=declaringClass;
     this->returnType=returnType;
-    this->parameterType=NULL;//TODO
+    this->parameterType=parameterType;
 }
 
-std::string JMethod::getName(){
+string JMethod::getName(){
     return name;
 }
 
@@ -47,14 +48,20 @@ JClass* JMethod::getReturnType(){
     return returnType;
 }
 
-std::vector<JClass>* JMethod::getParameterType(){
+vector<JClass*>* JMethod::getParameterType(){
     return parameterType;
 }
 
-JObject* JMethod::invoke(JObject* object, JObject *args[]){
-    return NULL;
-}
-
-std::string JMethod::toString(){
-    return "JMethod";
+string JMethod::toString(){
+    stringstream ss;
+    ss<<returnType->getName()<<" ";
+    ss<<declaringClass<<"."<<name;
+    if (parameterType!=NULL){
+        ss<<"(";
+        for (int i=0;i<parameterType->size();i++){
+            JClass* param=parameterType->at(i);
+            ss<<param->getName()+",";
+        }
+    }
+    return ss.str();
 }

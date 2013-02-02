@@ -1,8 +1,11 @@
 #include "JProxy.h"
 #include "JObject.h"
 #include "JClass.h"
+#include "JNoSuchMethodException.h"
 #include <vector>
 #include <string>
+#include "Collections.h"
+#include <sstream>
 
 class JProxyClass : public JClass{
 public:
@@ -10,6 +13,7 @@ public:
         canonicalName="java.lang.reflect.Proxy";
         name="java.lang.reflect.Proxy";
         simpleName="Proxy";
+        bIsProxy=true;
         serialVersionUID=-2222568056686623797L;
     }
 
@@ -31,9 +35,23 @@ JClass* JProxy::getClazz(){
     return clazz;
 }
 
-JProxy::JProxy():JObject(getClazz()){}
+JProxy::JProxy():JObject(getClazz()){
+}
 
-JObject* invoke(){return NULL;}
+JObject* JProxy::invoke(string method,vector<JObject*>* args){
+    JMethod* jMethod=NULL;
+    for (int i=0;i<interfaces->size();i++){
+        JClass* jclass=interfaces->at(i);
+        if (jclass->hasMethod(method,NULL)){//should pass paramtype too
+            jMethod=jclass->getMethod(method,NULL);
+            break;
+        }
+    }
+    if (jMethod==NULL){
+        throw JNoSuchMethodException("method "+method+" not declared in "+toString());
+    }
+    return invocationHandler->invoke(this,jMethod,args);
+}
 
 JInvocationHandler* JProxy::getInvocationHandler(){
     return invocationHandler;
@@ -43,15 +61,27 @@ void JProxy::setInvocationHandler(JInvocationHandler* invocationHandler) {
     this->invocationHandler = invocationHandler;
 }
 
-bool JProxy::isProxy(){
-    return true;
+vector<JClass*>* JProxy::getInterfaces(){
+    return interfaces;
 }
 
-std::vector<std::string>* JProxy::getInterfaces(){//TODO
-    std::vector<std::string>* v=new std::vector<std::string>();
-    v->clear();
-    return v;
+void JProxy::setInterfaces(vector<JClass*>* interfaces){
+    this->interfaces=interfaces;
+}
+
+string JProxy::toString(){
+    stringstream ss;
+    ss<<"Proxy[InvocationHandler:"<<invocationHandler->toString()<<"][Interfaces:";
+    for (int i=0;i<interfaces->size();i++){
+        JClass* jclass=interfaces->at(i);
+        ss<<jclass->getName()<<",";
+    }
+    ss<<"]";
+    return ss.str();
 }
 
 JProxy::~JProxy() {
+    if (interfaces!=NULL){
+        deleteVectorOfPointers(interfaces);
+    }
 }

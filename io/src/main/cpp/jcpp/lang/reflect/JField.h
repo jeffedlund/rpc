@@ -2,25 +2,28 @@
 #define JFIELD_H
 
 #include "JObject.h"
+using namespace std;
 
 class JField: public JObject{
 private:
-    std::string name;
+    string name;
     JClass* type;
 
+protected:
+    JField(string name,JClass* type);
+
 public:
-    JField(std::string name,JClass* type);
 
     static JClass* getClazz();
 
-    std::string getName();
+    string getName();
 
     JClass* getType();
 
-    JObject* get(JObject* object);
+    virtual JObject* get(JObject* object)=0;
 
-    void set(JObject* object, JObject* value);
+    virtual void set(JObject* object, JObject* value)=0;
 
-    std::string toString();
+    string toString();
 };
 #endif // JFIELD_H

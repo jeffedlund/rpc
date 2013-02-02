@@ -10,8 +10,7 @@ using namespace std;
 
 class JObjectInputStream;
 
-class JObjectStreamClass : public JObject
-{
+class JObjectStreamClass : public JObject{
     struct Field {
         char type;
         string name;
@@ -39,13 +38,13 @@ public:
 
     static JClass* getClazz();
 
-    JClass* getJClass() const;
-    qint16 getNumFields() const;
-    qint32 getNumObjFields() const;
-    Field getField(int) const;
-    const char* getName() const;
-    int getPrimDataSize() const;
-    JObjectStreamClass* getSuperDesc() const;
+    JClass* getJClass();
+    qint16 getNumFields();
+    qint32 getNumObjFields();
+    Field getField(int i);
+    const char* getName();
+    int getPrimDataSize();
+    JObjectStreamClass* getSuperDesc();
 
     void setPrimFieldValues(JObject *obj,qint8 *buf);
     void setObjectFieldValues(JObject* jobject, JObject** values);
@@ -59,7 +58,7 @@ public:
     bool hasReadObjectMethod();
     bool hasWriteObjectData();
 
-    string toString() const;
+    string toString();
     ~JObjectStreamClass();
 };
 

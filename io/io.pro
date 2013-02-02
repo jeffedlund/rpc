@@ -20,6 +20,7 @@ TEMPLATE = app
 INCLUDEPATH += \
 	src/main/cpp/jcpp/lang \
 	src/main/cpp/jcpp/io \
+	src/main/cpp/jcpp/io/impl \
 	src/main/cpp/jcpp/util \
 	src/main/cpp/jcpp/lang/exception \
 	src/main/cpp/jcpp/lang/reflect \
@@ -38,7 +39,6 @@ SOURCES += \
     src/main/cpp/jcpp/lang/exception/JIndexOutOfBoundsException.cpp \
     src/main/cpp/jcpp/lang/exception/JException.cpp \
     src/main/cpp/jcpp/lang/JString.cpp \
-    src/main/cpp/jcpp/lang/JArray.cpp \
     src/main/cpp/jcpp/lang/JEnum.cpp \
     src/main/cpp/jcpp/util/JArrayList.cpp \
     src/main/cpp/jcpp/io/JSerializable.cpp \
@@ -64,10 +64,6 @@ SOURCES += \
     src/main/cpp/jcpp/io/QtDataInputStream.cpp \
     src/main/cpp/jcpp/io/JObjectStreamClass.cpp \
     src/main/cpp/jcpp/io/JObjectInputStream.cpp \
-    src/main/cpp/jcpp/io/SerialCallbackContext.cpp \
-    src/main/cpp/jcpp/io/HandleList.cpp \
-    src/main/cpp/jcpp/io/HandleTable.cpp \
-    src/main/cpp/jcpp/io/BlockDataInputStream.cpp \
     src/main/cpp/jcpp/lang/exception/JNoSuchFieldException.cpp \
     src/main/cpp/jcpp/lang/exception/JNoSuchMethodException.cpp \
     src/main/cpp/jcpp/lang/exception/JInstantiationException.cpp \
@@ -79,7 +75,20 @@ SOURCES += \
     src/main/cpp/jcpp/lang/exception/JRuntimeException.cpp \
     src/main/cpp/jcpp/io/JUTFDataFormatException.cpp \
     src/main/cpp/jcpp/io/JIOException.cpp \
-    src/main/cpp/jcpp/io/JEOFException.cpp
+    src/main/cpp/jcpp/io/JEOFException.cpp \
+    src/main/cpp/jcpp/lang/JPrimitiveArray.cpp \
+    src/main/cpp/jcpp/io/impl/SerialCallbackContext.cpp \
+    src/main/cpp/jcpp/io/impl/HandleTable.cpp \
+    src/main/cpp/jcpp/io/impl/HandleList.cpp \
+    src/main/cpp/jcpp/io/impl/BlockDataInputStream.cpp \
+    src/main/cpp/jcpp/io/JObjectStreamException.cpp \
+    src/main/cpp/jcpp/io/JInvalidClassException.cpp \
+    src/main/cpp/jcpp/lang/exception/JError.cpp \
+    src/main/cpp/jcpp/lang/exception/JVirtualMachineError.cpp \
+    src/main/cpp/jcpp/lang/exception/JInternalError.cpp \
+    src/main/cpp/jcpp/io/JStreamCorruptedException.cpp \
+    src/main/cpp/jcpp/io/JOptionalDataException.cpp \
+    src/main/cpp/jcpp/io/JNotActiveException.cpp
     
     
 LIBS += -lws2_32
@@ -97,7 +106,6 @@ HEADERS += \
     src/main/cpp/jcpp/lang/exception/JIndexOutOfBoundsException.h \
     src/main/cpp/jcpp/lang/exception/JException.h \
     src/main/cpp/jcpp/lang/JString.h \
-    src/main/cpp/jcpp/lang/JArray.h \
     src/main/cpp/jcpp/lang/JEnum.h \
     src/main/cpp/jcpp/util/JArrayList.h \
     src/main/cpp/jcpp/io/JSerializable.h \
@@ -126,10 +134,6 @@ HEADERS += \
     src/main/cpp/jcpp/io/QtDataInputStream.h \
     src/main/cpp/jcpp/io/JObjectStreamClass.h \
     src/main/cpp/jcpp/io/JObjectInputStream.h \
-    src/main/cpp/jcpp/io/SerialCallbackContext.h \
-    src/main/cpp/jcpp/io/HandleList.h \
-    src/main/cpp/jcpp/io/HandleTable.h \
-    src/main/cpp/jcpp/io/BlockDataInputStream.h \
     src/main/cpp/jcpp/util/Collections.h \
     src/main/cpp/jcpp/lang/exception/JNoSuchFieldException.h \
     src/main/cpp/jcpp/lang/exception/JNoSuchMethodException.h \
@@ -142,5 +146,18 @@ HEADERS += \
     src/main/cpp/jcpp/lang/exception/JRuntimeException.h \
     src/main/cpp/jcpp/io/JUTFDataFormatException.h \
     src/main/cpp/jcpp/io/JIOException.h \
-    src/main/cpp/jcpp/io/JEOFException.h
+    src/main/cpp/jcpp/io/JEOFException.h \
+    src/main/cpp/jcpp/lang/JPrimitiveArray.h \
+    src/main/cpp/jcpp/io/impl/SerialCallbackContext.h \
+    src/main/cpp/jcpp/io/impl/HandleTable.h \
+    src/main/cpp/jcpp/io/impl/HandleList.h \
+    src/main/cpp/jcpp/io/impl/BlockDataInputStream.h \
+    src/main/cpp/jcpp/io/JObjectStreamException.h \
+    src/main/cpp/jcpp/io/JInvalidClassException.h \
+    src/main/cpp/jcpp/lang/exception/JError.h \
+    src/main/cpp/jcpp/lang/exception/JVirtualMachineError.h \
+    src/main/cpp/jcpp/lang/exception/JInternalError.h \
+    src/main/cpp/jcpp/io/JStreamCorruptedException.h \
+    src/main/cpp/jcpp/io/JOptionalDataException.h \
+    src/main/cpp/jcpp/io/JNotActiveException.h
     

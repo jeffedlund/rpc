@@ -3,24 +3,26 @@
 
 #include "JObject.h"
 #include "JInvocationHandler.h"
+using namespace std;
 
-//TODO
-class JProxy : public JObject
-{
+class JProxy : public JObject{
     JInvocationHandler *invocationHandler;
+    vector<JClass*>* interfaces;
 
 public:
-    static JClass* getClazz();
-
     JProxy();
-
-    JObject* invoke(){return NULL;}
 
     JInvocationHandler* getInvocationHandler();
     void setInvocationHandler(JInvocationHandler* invocationHandler);
 
-    std::vector<std::string>* getInterfaces();
-    bool isProxy();
+    vector<JClass*>* getInterfaces();
+    void setInterfaces(vector<JClass*>* interfaces);
+
+    static JClass* getClazz();
+
+    JObject* invoke(string method, vector<JObject*>* args);
+
+    string toString();
 
     ~JProxy();
 };

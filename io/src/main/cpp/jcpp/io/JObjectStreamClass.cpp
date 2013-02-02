@@ -11,6 +11,8 @@
 #include "JPrimitiveFloat.h"
 #include "JPrimitiveLong.h"
 #include "JPrimitiveDouble.h"
+#include "JInvalidClassException.h"
+#include "JInternalError.h"
 #include "JBits.h"
 #include <sstream>
 
@@ -63,34 +65,34 @@ bool JObjectStreamClass::hasWriteObjectData() {
     return writeObjectData;
 }
 
-JClass* JObjectStreamClass::getJClass() const {
+JClass* JObjectStreamClass::getJClass(){
     return jClass;
 }
 
-qint16 JObjectStreamClass::getNumFields() const {
+qint16 JObjectStreamClass::getNumFields(){
     return numFields;
 }
 
-qint32 JObjectStreamClass::getNumObjFields() const {
+qint32 JObjectStreamClass::getNumObjFields(){
     return numObjFields;
 }
 
-JObjectStreamClass::Field JObjectStreamClass::getField(int i) const {
+JObjectStreamClass::Field JObjectStreamClass::getField(int i){
     if (fields == NULL) {
-        throw "no fields!";
+        throw new JInternalError("no fields!");
     }
     return fields[i];
 }
 
-const char *JObjectStreamClass::getName() const {
+const char* JObjectStreamClass::getName(){
     return name.c_str();
 }
 
-int JObjectStreamClass::getPrimDataSize() const {
+int JObjectStreamClass::getPrimDataSize(){
     return primDataSize;
 }
 
-JObjectStreamClass *JObjectStreamClass::getSuperDesc() const{
+JObjectStreamClass *JObjectStreamClass::getSuperDesc(){
     return superDesc;
 }
 
@@ -105,17 +107,21 @@ void JObjectStreamClass::readNonProxy(JObjectInputStream *in) {
     externalizable = ((flags & JObjectStreamConstants::SC_EXTERNALIZABLE) != 0);
     bool sflag = ((flags & JObjectStreamConstants::SC_SERIALIZABLE) != 0);
     if (externalizable && sflag) {
-        throw "new InvalidClassException(name, \"serializable and externalizable flags conflict\")";//TODO
+        throw new JInvalidClassException(""+name+" : serializable and externalizable flags conflict");
     }
     isEnum = ((flags & JObjectStreamConstants::SC_ENUM) != 0);
     serializable = externalizable || sflag;
     if (isEnum && suid != 0) {
-        throw "new InvalidClassException(name, \"enum descriptor has non-zero serialVersionUID: \" + suid)";//TODO
+        stringstream ss;
+        ss<<"enum "<<name<<" descriptor has non-zero serialVersionUID: " << suid;
+        throw new JInvalidClassException(ss.str());
     }
 
     numFields = in->readShort();
     if (isEnum && numFields != 0) {
-        throw "new InvalidClassException(name, \"enum descriptor has non-zero field count: \" + numFields)";//TODO
+        stringstream ss;
+        ss<<"enum "<<name<<" descriptor has non-zero field count: " << numFields;
+        throw new JInvalidClassException(ss.str());
     }
     if (numFields > 0) {
         fields = new Field[numFields];
@@ -203,11 +209,11 @@ void JObjectStreamClass::computeFieldOffsets() {
             break;
 
         default:
-            throw "new InternalError()";//TODO
+            throw new JInternalError();
         }
     }
     if (firstObjIndex != -1 && firstObjIndex + numObjFields != numFields) {
-        throw "new InvalidClassException(name, \"illegal field order \")";//TODO
+        throw new JInvalidClassException(name+" : illegal field order");
     }
 }
 
@@ -263,7 +269,7 @@ void JObjectStreamClass::setPrimFieldValues(JObject* obj, qint8 *buf) {
                 break;
 
             }default:{
-                throw "setPrimFieldValue: invalid type code";//TODO
+                throw new JInternalError();
             }
         }
     }
@@ -276,7 +282,7 @@ void JObjectStreamClass::setObjectFieldValues(JObject* jObject,JObject** values)
     }
 }
 
-string JObjectStreamClass::toString() const {
+string JObjectStreamClass::toString(){
     stringstream sstr;
     sstr<<"Class description :\nClass name : "<<name;
     sstr<<", SUID = "<<suid<<endl;

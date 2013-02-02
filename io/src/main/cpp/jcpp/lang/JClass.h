@@ -67,6 +67,8 @@ class JClass : public JObject{
 
     vector<JClass*>* getInterfaces();
 
+    bool hasMethod(string name, vector<JClass*>* parameterTypes);
+
     JMethod* getMethod(string name, vector<JClass*>* parameterTypes);
 
     vector<JMethod*>* getMethods();

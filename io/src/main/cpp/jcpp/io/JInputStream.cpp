@@ -1,6 +1,35 @@
 #include "JInputStream.h"
 
-JInputStream::JInputStream(){
+class JInputStreamClass : public JClass{
+public:
+    JInputStreamClass():JClass(JClassLoader::getBootClassLoader()){
+        canonicalName="java.io.InputStream";
+        name="java.io.InputStream";
+        simpleName="InputStream";
+    }
+
+    JClass* getSuperclass(){
+        return JObject::getClazz();
+    }
+
+    JObject* newInstance(){
+        return new JInputStream();
+    }
+};
+
+static JClass* clazz;
+
+JClass* JInputStream::getClazz(){
+    if (clazz==NULL){
+        clazz=new JInputStreamClass();
+    }
+    return clazz;
+}
+
+JInputStream::JInputStream():JObject(getClazz()){
+}
+
+JInputStream::JInputStream(JClass* _class):JObject(_class){
 }
 
 qint64 JInputStream::available() {

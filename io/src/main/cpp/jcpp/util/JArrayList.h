@@ -20,8 +20,6 @@ public:
 
     static JClass* getClazz();
 
-    //virtual qint64 getSerialVersionUID() const;
-
     qint32 getSize();
 
     bool isEmpty();

@@ -8,7 +8,7 @@ using namespace std;
 class JUTFDataFormatException : public JIOException{
 public:
     JUTFDataFormatException();
-    JUTFDataFormatException(std::string message);
+    JUTFDataFormatException(string message);
 
      static JClass* getClazz();
 };

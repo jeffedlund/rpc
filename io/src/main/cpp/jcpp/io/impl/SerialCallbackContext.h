@@ -9,6 +9,7 @@ class SerialCallbackContext {
     JObject* curObj;
     JObjectStreamClass* curDesc;
     bool upcall;
+
 public:
     SerialCallbackContext();
 

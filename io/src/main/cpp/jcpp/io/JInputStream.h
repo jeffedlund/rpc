@@ -3,12 +3,18 @@
 
 #include <QtGlobal>
 #include <string>
+#include "JObject.h"
+#include "JClass.h"
 
-//TODO extends JObject+avoir JClass?
-class JInputStream
-{
+class JInputStream : public JObject{
+protected:
+    JInputStream(JClass* _class);
+
 public:
     JInputStream();
+
+    static JClass* getClazz();
+
     virtual qint64 available();
     virtual bool waitForReadyRead(int = 30000);
     virtual qint32 read();

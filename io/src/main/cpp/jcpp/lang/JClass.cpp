@@ -135,6 +135,14 @@ vector<JClass*>* JClass::getInterfaces(){
     return interfaces;
 }
 
+bool JClass::hasMethod(string name, vector<JClass*>* parameterTypes){
+    JMethod* method=methods->at(name);
+    if (method==NULL){
+        return false;
+    }
+    return true;
+}
+
 JMethod* JClass::getMethod(string name, vector<JClass*>* parameterTypes){
     JMethod* method=methods->at(name);
     if (method==NULL){
