@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <sstream>
 using namespace std;
 
 class JPrimitiveCharClass : public JClass{
@@ -50,7 +51,9 @@ char JPrimitiveChar::get(){
 }
 
 string JPrimitiveChar::toString(){
-    return ""+value;
+    stringstream ss;
+    ss<<value;
+    return ss.str();
 }
 
 JPrimitiveChar::~JPrimitiveChar(){

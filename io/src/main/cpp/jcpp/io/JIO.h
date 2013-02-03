@@ -17,7 +17,9 @@
 #include "QtDataInputStream.h"
 using namespace std;
 
-static JClass* CLASSES[] = {
+static int IO_CLASSES_SIZE = 14;
+
+static JClass* IO_CLASSES[] = {
     JDataInputStream::getClazz(),
     JEOFException::getClazz(),
     JInputStream::getClazz(),

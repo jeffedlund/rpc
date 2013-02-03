@@ -11,6 +11,8 @@ class JBootClassBuilder : public JClassBuilder {
 public:
     JBootClassBuilder();
 
+    static JClassBuilder* getBootClassBuilder();
+
     void addClass(JClass* clazz);
     vector<JClass*>* getClasses();
 };

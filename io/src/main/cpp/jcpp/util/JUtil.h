@@ -5,7 +5,7 @@
 #include "JCollection.h"
 #include "JHashtable.h"
 
-static int UTL_CLASSES_SIZE = 1;
+static int UTIL_CLASSES_SIZE = 1;
 
 static JClass* UTIL_CLASSES[] = {
     JArrayList::getClazz()

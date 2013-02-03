@@ -30,7 +30,7 @@ class JPrimitiveArrayClass : public JClass{
 static map<string,JPrimitiveArray*>* jPrimitiveArrays=new map<string,JPrimitiveArray*>();
 
 static JPrimitiveArray* getJPrimitiveArray(JClass* jclass){//TODO use mutex
-    JPrimitiveArray* jPrimitiveArray=jPrimitiveArrays->at(jclass->getName());
+    JPrimitiveArray* jPrimitiveArray=getFromMap(jPrimitiveArrays,jclass->getName());
     if (jPrimitiveArray==NULL){
         jPrimitiveArray=new JPrimitiveArray(jclass);
         jPrimitiveArrays->insert(pair<string,JPrimitiveArray*>(jclass->getName(),jPrimitiveArray));

@@ -28,7 +28,7 @@ class JObjectInputStream : public JInputStream, public JObjectStreamConstants{
     BlockDataInputStream *bin;
 
     /** class loader */
-    JClassLoader* classLoader;
+    JClassLoader* inputClassLoader;
 
     /** wire handle -> obj/exception map */
     HandleTable* handles;
@@ -97,7 +97,7 @@ protected:
 public:
     JObjectInputStream(JInputStream* inputStrean);
 
-    void setClassLoader(JClassLoader* classLoader);
+    void setInputClassLoader(JClassLoader* inputClassLoader);
 
     static JClass* getClazz();
 

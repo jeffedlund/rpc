@@ -51,6 +51,7 @@ JClass* JObjectInputStream::getClazz(){
 }
 
 JObjectInputStream::JObjectInputStream(JInputStream *in):JInputStream(getClazz()){
+    inputClassLoader=JClassLoader::getBootClassLoader();
     bin = new BlockDataInputStream(in);
     passHandle = NULL_HANDLE;
     handles = new HandleTable(100);
@@ -68,8 +69,8 @@ JObjectInputStream::JObjectInputStream(JInputStream *in):JInputStream(getClazz()
     bin->setBlockDataMode(true);
 }
 
-void JObjectInputStream::setClassLoader(JClassLoader* classLoader){
-    this->classLoader=classLoader;
+void JObjectInputStream::setInputClassLoader(JClassLoader* inputClassLoader){
+    this->inputClassLoader=inputClassLoader;
 }
 
 JObjectInputStream::~JObjectInputStream() {
@@ -410,7 +411,6 @@ JObjectStreamClass* JObjectInputStream::readNonProxyDesc() {
     passHandle = descHandle;
 
     delete readDesc;
-    delete metaObj;
 
     return desc;
 }
@@ -616,7 +616,7 @@ void JObjectInputStream::clear() {
 }
 
 JClass *JObjectInputStream::resolveClass(JObjectStreamClass* desc) {
-    return (classLoader->loadClass(desc->getName()));
+    return (inputClassLoader->loadClass(desc->getName()));
 }
 
 JClass *JObjectInputStream::resolveProxyClass(string *ifaces, int numIfaces) {
@@ -624,7 +624,7 @@ JClass *JObjectInputStream::resolveProxyClass(string *ifaces, int numIfaces) {
     for (int i = 0; i < numIfaces; ++i) {
         proxySignature += ifaces[i];
     }
-    return classLoader->loadClass(proxySignature);//TODO create Proxy class that contain all the passed interfaces
+    return inputClassLoader->loadClass(proxySignature);//TODO create Proxy class that contain all the passed interfaces
 }
 
 void JObjectInputStream::close(){

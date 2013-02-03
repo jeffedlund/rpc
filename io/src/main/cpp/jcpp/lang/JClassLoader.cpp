@@ -1,12 +1,13 @@
 #include "JClassLoader.h"
 #include "Collections.h"
 #include "JClassNotFoundException.h"
+#include "JBootClassBuilder.h"
 
 using namespace std;
 
 class JClassLoaderClass : public JClass{
   public:
-    JClassLoaderClass():JClass(){
+    JClassLoaderClass():JClass(true){
         this->canonicalName="java.lang.ClassLoader";
         this->name="java.lang.ClassLoader";
         this->simpleName="ClassLoader";
@@ -17,6 +18,14 @@ class JClassLoaderClass : public JClass{
         this->name="java.lang.ClassLoader";
         this->simpleName="ClassLoader";
         this->classLoader=classLoader;
+    }
+
+    JClassLoader* getClassLoader(){
+        if (classLoader==NULL){
+            return JClassLoader::getBootClassLoader();
+        }else{
+            return classLoader;
+        }
     }
 
     JClass* getSuperclass(){
@@ -56,12 +65,12 @@ JClassLoader* JClassLoader::getBootClassLoader(){
 }
 
 JClassLoader::JClassLoader():JObject(true){
-    classes=new map<string,JClass*>();
+    this->classes=new map<string,JClass*>();
     this->_class=getClazz(this);
 }
 
 JClassLoader::JClassLoader(bool root):JObject(true){
-    classes=new map<string,JClass*>();
+    this->classes=new map<string,JClass*>();
     this->_class=getClazz(this);
 }
 
@@ -74,7 +83,7 @@ void JClassLoader::addClasses(JClassBuilder* jClassBuilder){
 }
 
 JClass* JClassLoader::loadClass(string name){
-    JClass* jClass=classes->at(name);
+    JClass* jClass=getFromMap(classes,name);
     if (jClass==NULL){
         throw new JClassNotFoundException("class "+name+" not found");
     }

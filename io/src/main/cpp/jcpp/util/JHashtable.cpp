@@ -14,7 +14,7 @@ int JHashtable<Key,Value>::size(){
 
 template<typename Key, typename Value>
 Value JHashtable<Key,Value>::get(const Key & key){
-    return hashtable->at(key);
+    return hashtable->at(key);//TODO bugged
 }
 
 template<typename Key, typename Value>

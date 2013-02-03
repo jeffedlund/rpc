@@ -1,5 +1,7 @@
 #include "HandleList.h"
 #include "memory.h"
+#include "JIndexOutOfBoundsException.h"
+#include <sstream>
 
 //HandleList
 bool HandleList::operator==(const HandleList &h){
@@ -38,7 +40,9 @@ void HandleList::add(int handle) {
 
 int HandleList::get(int index) {
     if (index >= size || index < 0) {
-        throw "HandleList: ArrayIndexOutOfBounds.";//TODO
+        stringstream ss;
+        ss<<"size:"<<size<<" index:"<<index;
+        throw new JIndexOutOfBoundsException(ss.str());
     }
     return list[index];
 }

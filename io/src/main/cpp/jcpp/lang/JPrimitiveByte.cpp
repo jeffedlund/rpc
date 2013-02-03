@@ -3,6 +3,7 @@
 #include <QtGlobal>
 #include <vector>
 #include <iostream>
+#include <sstream>
 #include <string>
 using namespace std;
 
@@ -50,7 +51,9 @@ qint8 JPrimitiveByte::get(){
 }
 
 string JPrimitiveByte::toString(){
-    return ""+value;
+    stringstream ss;
+    ss<<value;//TODO pas top
+    return ss.str();
 }
 
 JPrimitiveByte::~JPrimitiveByte(){

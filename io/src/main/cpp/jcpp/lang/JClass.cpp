@@ -21,6 +21,10 @@ class JClassClass : public JClass{
         this->serialVersionUID=3206093459760846163;
     }
 
+    JClassLoader* getClassLoader(){
+        JClassLoader::getBootClassLoader();
+    }
+
     JClass* getSuperclass(){
         return JObject::getClazz();
     }
@@ -71,7 +75,6 @@ JClass::JClass():JObject(JClass::getClazz()){
 }
 
 JClass::JClass(bool root):JObject(root){
-    this->classLoader=JClassLoader::getBootClassLoader();
     this->bIsArray=false;
     this->bIsProxy=false;
     this->bIsEnum=false;
@@ -120,7 +123,7 @@ JEnum* JClass::valueOf(string value){
 }
 
 JField* JClass::getField(string name){
-    JField* field=fields->at(name);
+    JField* field=getFromMap(fields,name);
     if (field==NULL){
         throw JNoSuchFieldException("field "+name+" not delared in "+getName());
     }
@@ -136,7 +139,7 @@ vector<JClass*>* JClass::getInterfaces(){
 }
 
 bool JClass::hasMethod(string name, vector<JClass*>* parameterTypes){
-    JMethod* method=methods->at(name);
+    JMethod* method=getFromMap(methods,name);
     if (method==NULL){
         return false;
     }
@@ -144,7 +147,7 @@ bool JClass::hasMethod(string name, vector<JClass*>* parameterTypes){
 }
 
 JMethod* JClass::getMethod(string name, vector<JClass*>* parameterTypes){
-    JMethod* method=methods->at(name);
+    JMethod* method=getFromMap(methods,name);
     if (method==NULL){
         throw JNoSuchMethodException("method "+name+" not declared in "+getName());//we should check using signature ...
     }

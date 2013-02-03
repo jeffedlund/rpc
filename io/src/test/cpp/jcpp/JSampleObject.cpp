@@ -1,5 +1,134 @@
 #include "JSampleObject.h"
 #include <sstream>
+#include "JField.h"
+
+class JBool1Field : public JField{
+public:
+    JBool1Field():JField("bool1",JPrimitiveBoolean::getClazz()){
+    }
+
+    JObject* get(JObject *object){
+        JSampleObject* sampleObject=(JSampleObject*)object;
+        return sampleObject->getBool1();
+    }
+
+    void set(JObject *object, JObject *value){
+        JSampleObject* sampleObject=(JSampleObject*)object;
+        sampleObject->setBool1((JPrimitiveBoolean*)value);
+    }
+};
+
+class JByte1Field : public JField{
+public:
+    JByte1Field():JField("byte1",JPrimitiveByte::getClazz()){
+    }
+
+    JObject* get(JObject *object){
+        JSampleObject* sampleObject=(JSampleObject*)object;
+        return sampleObject->getByte1();
+    }
+
+    void set(JObject *object, JObject *value){
+        JSampleObject* sampleObject=(JSampleObject*)object;
+        sampleObject->setByte1((JPrimitiveByte*)value);
+    }
+};
+
+class JChar1Field : public JField{
+public:
+    JChar1Field():JField("c1",JPrimitiveChar::getClazz()){
+    }
+
+    JObject* get(JObject *object){
+        JSampleObject* sampleObject=(JSampleObject*)object;
+        return sampleObject->getC1();
+    }
+
+    void set(JObject *object, JObject *value){
+        JSampleObject* sampleObject=(JSampleObject*)object;
+        sampleObject->setC1((JPrimitiveChar*)value);
+    }
+};
+
+class JDouble1Field : public JField{
+public:
+    JDouble1Field():JField("d1",JPrimitiveDouble::getClazz()){
+    }
+
+    JObject* get(JObject *object){
+        JSampleObject* sampleObject=(JSampleObject*)object;
+        return sampleObject->getD1();
+    }
+
+    void set(JObject *object, JObject *value){
+        JSampleObject* sampleObject=(JSampleObject*)object;
+        sampleObject->setD1((JPrimitiveDouble*)value);
+    }
+};
+
+class JFloat1Field : public JField{
+public:
+    JFloat1Field():JField("f1",JPrimitiveFloat::getClazz()){
+    }
+
+    JObject* get(JObject *object){
+        JSampleObject* sampleObject=(JSampleObject*)object;
+        return sampleObject->getF1();
+    }
+
+    void set(JObject *object, JObject *value){
+        JSampleObject* sampleObject=(JSampleObject*)object;
+        sampleObject->setF1((JPrimitiveFloat*)value);
+    }
+};
+
+class JLong1Field : public JField{
+public:
+    JLong1Field():JField("l1",JPrimitiveLong::getClazz()){
+    }
+
+    JObject* get(JObject *object){
+        JSampleObject* sampleObject=(JSampleObject*)object;
+        return sampleObject->getL1();
+    }
+
+    void set(JObject *object, JObject *value){
+        JSampleObject* sampleObject=(JSampleObject*)object;
+        sampleObject->setL1((JPrimitiveLong*)value);
+    }
+};
+
+class JShort1Field : public JField{
+public:
+    JShort1Field():JField("s1",JPrimitiveShort::getClazz()){
+    }
+
+    JObject* get(JObject *object){
+        JSampleObject* sampleObject=(JSampleObject*)object;
+        return sampleObject->getS1();
+    }
+
+    void set(JObject *object, JObject *value){
+        JSampleObject* sampleObject=(JSampleObject*)object;
+        sampleObject->setS1((JPrimitiveShort*)value);
+    }
+};
+
+class JInt1Field : public JField{
+public:
+    JInt1Field():JField("i1",JPrimitiveInt::getClazz()){
+    }
+
+    JObject* get(JObject *object){
+        JSampleObject* sampleObject=(JSampleObject*)object;
+        return sampleObject->getI1();
+    }
+
+    void set(JObject *object, JObject *value){
+        JSampleObject* sampleObject=(JSampleObject*)object;
+        sampleObject->setI1((JPrimitiveInt*)value);
+    }
+};
 
 class JSampleObjectClass : public JClass{
   public:
@@ -8,6 +137,14 @@ class JSampleObjectClass : public JClass{
         this->name="SampleObject";
         this->simpleName="SampleObject";
         this->serialVersionUID=40;
+        addField(new JBool1Field());
+        addField(new JByte1Field());
+        addField(new JChar1Field());
+        addField(new JDouble1Field());
+        addField(new JFloat1Field());
+        addField(new JLong1Field());
+        addField(new JShort1Field());
+        addField(new JInt1Field());
     }
 
     JClass* getSuperclass(){
@@ -25,7 +162,7 @@ JClass* JSampleObject::getClazz(){
     if (clazz==NULL){
         clazz=new JSampleObjectClass();
     }
-    return NULL;
+    return clazz;
 }
 
 JSampleObject::JSampleObject():JObject(getClazz()){
@@ -97,14 +234,14 @@ void JSampleObject::setI1(JPrimitiveInt* i1){
 
 string JSampleObject::toString(){
     stringstream ss;
-    ss<<"bool1="<<bool1<<"\r\n";
-    ss<<"byte1="<<byte1<<"\r\n";
-    ss<<"c1="<<c1<<"\r\n";
-    ss<<"d1="<<d1<<"\r\n";
-    ss<<"f1="<<f1<<"\r\n";
-    ss<<"l1="<<l1<<"\r\n";
-    ss<<"s1="<<s1<<"\r\n";
-    ss<<"i1="<<i1<<"\r\n";
+    ss<<"bool1="<<bool1->toString()<<"\r\n";
+    ss<<"byte1="<<byte1->toString()<<"\r\n";
+    ss<<"c1="<<c1->toString()<<"\r\n";
+    ss<<"d1="<<d1->toString()<<"\r\n";
+    ss<<"f1="<<f1->toString()<<"\r\n";
+    ss<<"l1="<<l1->toString()<<"\r\n";
+    ss<<"s1="<<s1->toString()<<"\r\n";
+    ss<<"i1="<<i1->toString()<<"\r\n";
     return ss.str();
 }
 
