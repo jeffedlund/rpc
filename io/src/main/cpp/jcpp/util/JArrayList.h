@@ -7,7 +7,7 @@
 #include <QtGlobal>
 using namespace std;
 
-//TODO
+//TODO implement most of util classes ...
 class JArrayList : public JObject, public JCollection//public JSerializable,
 {
     vector<JObject*>* items;

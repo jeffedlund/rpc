@@ -2,46 +2,7 @@
 #include "JObject.h"
 #include "memory.h"
 #include "JObjectInputStream.h"
-
-//HandleTable implementation
-//        void markException(int handle, MJavaException* ex) {
-//            switch (status[handle]) {
-//            case STATUS_UNKNOWN:
-//            {
-//                status[handle] = STATUS_EXCEPTION;
-//                entries[handle] = ex;
-
-//                // propagate exception to dependents
-//                HandleList *dlist = deps[handle];
-//                if (dlist != NULL) {
-//                    int ndeps = dlist->getSize();
-//                    for (int i = 0; i < ndeps; ++i) {
-//                        markException(dlist->get(i), ex);
-//                    }
-//                    delete deps[handle];
-//                    deps[handle] = NULL;
-//                }
-//            }
-//                break;
-
-//            case STATUS_EXCEPTION:
-//                break;
-
-//            default:
-//                throw "new InternalError()";
-//            }
-//        }
-
-    /**
-     * Looks up and returns ClassNotFoundException associated with the
-     * given handle.  Returns null if the given handle is NULL_HANDLE, or
-     * if there is no ClassNotFoundException associated with the handle.
-     */
-//        MJavaException* lookupException(int handle) {
-//            return (handle != NULL_HANDLE &&
-//                    status[handle] == STATUS_EXCEPTION) ?
-//                        (MJavaException*) entries[handle] : NULL;
-//        }
+#include "JInternalError.h"
 
 void HandleTable::grow() {
     int newCapacity = (length*2) +1;
@@ -93,49 +54,6 @@ HandleTable::~HandleTable() {
     delete[] deps;
 }
 
-//        void markDependency(int dependent, int target) {
-//            if (dependent == NULL_HANDLE || target == NULL_HANDLE) {
-//                return;
-//            }
-//            switch (status[dependent]) {
-
-//            case STATUS_UNKNOWN:
-//                switch (status[target]) {
-//                case STATUS_OK:
-//                    // ignore dependencies on objs with no exception
-//                    break;
-
-//                case STATUS_EXCEPTION:
-//                    // eagerly propagate exception
-//                    markException(dependent,(MJavaException*) entries[target]);
-//                    break;
-
-//                case STATUS_UNKNOWN:
-//                    // add dependency list of target
-//                    if (deps[target] == NULL) {
-//                        deps[target] = new HandleList;
-//                    }
-//                    deps[target]->add(dependent);
-
-//                    // remember lowest unresolved target seen
-//                    if (lowDep < 0 || lowDep > target) {
-//                        lowDep = target;
-//                    }
-//                    break;
-
-//                default:
-//                    throw "new InternalError()";
-//                }
-//                break;
-
-//            case STATUS_EXCEPTION:
-//                break;
-
-//            default:
-//                throw "new InternalError()";
-//            }
-//        }
-
 int HandleTable::assign(JObject *obj) {
     if (size >= length) {
         grow();
@@ -143,6 +61,76 @@ int HandleTable::assign(JObject *obj) {
     status [size] = STATUS_UNKNOWN;
     entries[size] = obj;
     return size++;
+}
+
+void HandleTable::markDependency(int dependent, int target) {
+    if (dependent == NULL_HANDLE || target == NULL_HANDLE) {
+        return;
+    }
+    switch (status[dependent]) {
+        case STATUS_UNKNOWN:
+            switch (status[target]) {
+            case STATUS_OK:
+                // ignore dependencies on objs with no exception
+                break;
+
+            case STATUS_EXCEPTION:
+                // eagerly propagate exception
+                markException(dependent,(JClassNotFoundException*) entries[target]);
+                break;
+
+            case STATUS_UNKNOWN:
+                // add dependency list of target
+                if (deps[target] == NULL) {
+                    deps[target] = new HandleList;
+                }
+                deps[target]->add(dependent);
+
+                // remember lowest unresolved target seen
+                if (lowDep < 0 || lowDep > target) {
+                    lowDep = target;
+                }
+                break;
+
+            default:
+                throw new JInternalError();
+            }
+            break;
+
+        case STATUS_EXCEPTION:
+            break;
+
+        default:
+            throw new JInternalError();
+        }
+}
+
+void HandleTable::markException(int handle, JClassNotFoundException* ex) {
+    switch (status[handle]) {
+        case STATUS_UNKNOWN:
+        {
+            status[handle] = STATUS_EXCEPTION;
+            entries[handle] = ex;
+
+            // propagate exception to dependents
+            HandleList *dlist = deps[handle];
+            if (dlist != NULL) {
+                int ndeps = dlist->getSize();
+                for (int i = 0; i < ndeps; ++i) {
+                    markException(dlist->get(i), ex);
+                }
+                delete deps[handle];
+                deps[handle] = NULL;
+            }
+        }
+            break;
+
+        case STATUS_EXCEPTION:
+            break;
+
+        default:
+            throw new JInternalError();
+    }
 }
 
 void HandleTable::setObject(int handle, JObject* obj) {
@@ -156,7 +144,7 @@ void HandleTable::setObject(int handle, JObject* obj) {
         break;
 
     default:
-        throw "new InternalError()";//TODO
+        throw new JInternalError();
     }
 }
 
@@ -188,7 +176,7 @@ void HandleTable::finish(int handle) {
             break;
 
         default:
-            throw "new InternalError()";//TODO
+            throw new JInternalError();
         }
     }
 }
@@ -200,6 +188,11 @@ int HandleTable::getSize(){
 JObject* HandleTable::lookupObject(int handle) {
     return (handle != NULL_HANDLE && status[handle] != STATUS_EXCEPTION) ? entries[handle] : NULL;
 }
+
+JClassNotFoundException* HandleTable::lookupException(int handle) {
+    return (handle != NULL_HANDLE && status[handle] == STATUS_EXCEPTION) ? (JClassNotFoundException*) entries[handle] : NULL;
+}
+
 
 void HandleTable::clear() {
     for (int i = 0; i < size; ++i) {

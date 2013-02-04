@@ -13,9 +13,12 @@
 #include "JPrimitiveDouble.h"
 #include "JInvalidClassException.h"
 #include "JInternalError.h"
+#include "JUnsupportedOperationException.h"
 #include "JBits.h"
 #include <sstream>
 
+
+//TODO missing methods : getSerialVersionUID,ObjectStreamClass(JClass*),writeNonProxy,
 class JObjectStreamClassClass : public JClass{
     public:
       JObjectStreamClassClass(){
@@ -55,6 +58,10 @@ JObjectStreamClass::JObjectStreamClass():JObject(getClazz()){
     this->primDataSize=0;
     this->numObjFields=0;
     this->fields = NULL;
+    this->superDesc=NULL;
+    this->resolveEx=NULL;
+    this->jClass=NULL;
+    this->readObjectMethod=NULL;
 }
 
 bool JObjectStreamClass::isEnum(){
@@ -62,11 +69,19 @@ bool JObjectStreamClass::isEnum(){
 }
 
 bool JObjectStreamClass::hasReadObjectMethod() {
-    return writeObjectData;
+    return readObjectMethod!=NULL;
 }
 
 bool JObjectStreamClass::hasWriteObjectData() {
     return writeObjectData;
+}
+
+bool JObjectStreamClass::isExternalizable(){
+    return this->externalizable;
+}
+
+bool JObjectStreamClass::hasBlockExternalData(){
+    return this->blockExternalData;
 }
 
 JClass* JObjectStreamClass::getJClass(){
@@ -98,6 +113,10 @@ int JObjectStreamClass::getPrimDataSize(){
 
 JObjectStreamClass *JObjectStreamClass::getSuperDesc(){
     return superDesc;
+}
+
+JClassNotFoundException* JObjectStreamClass::getResolveException(){
+    return resolveEx;
 }
 
 void JObjectStreamClass::readNonProxy(JObjectInputStream *in) {
@@ -140,8 +159,9 @@ void JObjectStreamClass::readNonProxy(JObjectInputStream *in) {
     computeFieldOffsets();
 }
 
-void JObjectStreamClass::initNonProxy(JObjectStreamClass * const model,JClass* jClass,JObjectStreamClass* superDesc){
+void JObjectStreamClass::initNonProxy(JObjectStreamClass * const model,JClass* jClass,JClassNotFoundException* resolveEx,JObjectStreamClass* superDesc){
     this->jClass = jClass;
+    this->resolveEx=resolveEx;
     this->superDesc = superDesc;
     name = model->name;
     suid = model->suid;
@@ -158,16 +178,37 @@ void JObjectStreamClass::initNonProxy(JObjectStreamClass * const model,JClass* j
     }
     primDataSize = model->primDataSize;
     numObjFields = model->numObjFields;
+
+    //TODO set externalizable by checking interface
+
+    vector<JClass*> args;
+    args.push_back(JObjectInputStream::getClazz());
+    if (jClass->hasMethod("readObject",&args)){
+        readObjectMethod = jClass->getMethod("readObject",&args);
+    }
 }
 
-void JObjectStreamClass::initProxy(JClass* jClass,JObjectStreamClass* superDesc) {
+void JObjectStreamClass::initProxy(JClass* jClass,JClassNotFoundException* resolveEx,JObjectStreamClass* superDesc) {
     this->jClass= jClass;
+    this->resolveEx=resolveEx;
     this->superDesc = superDesc;
     isProxy = true;
     serializable = true;
     suid = 0;
     fields = NULL;
     name = jClass->getName();
+
+    //TODO should correct readObjectMethod for the proxy
+}
+
+void JObjectStreamClass::invokeReadObject(JObject* object, JObjectInputStream* in){
+    if (readObjectMethod!=NULL){
+        vector<JObject*> args;
+        args.push_back(in);
+        readObjectMethod->invoke(object,&args);
+    }else{
+        throw new JUnsupportedOperationException();
+    }
 }
 
 JObject *JObjectStreamClass::newInstance() {

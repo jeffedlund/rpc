@@ -2,6 +2,7 @@
 #include "JObjectStreamClass.h"
 #include "JObject.h"
 
+//TODO missing thread handling
 //SerialCallbackContext implementation
 SerialCallbackContext::SerialCallbackContext() {
     curObj = NULL;

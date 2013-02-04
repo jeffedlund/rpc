@@ -234,14 +234,14 @@ void JSampleObject::setI1(JPrimitiveInt* i1){
 
 string JSampleObject::toString(){
     stringstream ss;
-    ss<<"bool1="<<bool1->toString()<<"\r\n";
-    ss<<"byte1="<<byte1->toString()<<"\r\n";
-    ss<<"c1="<<c1->toString()<<"\r\n";
-    ss<<"d1="<<d1->toString()<<"\r\n";
-    ss<<"f1="<<f1->toString()<<"\r\n";
-    ss<<"l1="<<l1->toString()<<"\r\n";
-    ss<<"s1="<<s1->toString()<<"\r\n";
-    ss<<"i1="<<i1->toString()<<"\r\n";
+    ss<<"bool1="<<(bool1!=NULL?bool1->toString():"")<<"\r\n";
+    ss<<"byte1="<<(byte1!=NULL?byte1->toString():"")<<"\r\n";
+    ss<<"c1="<<(c1!=NULL?c1->toString():"NULL")<<"\r\n";
+    ss<<"d1="<<(d1!=NULL?d1->toString():"NULL")<<"\r\n";
+    ss<<"f1="<<(f1!=NULL?f1->toString():"NULL")<<"\r\n";
+    ss<<"l1="<<(l1!=NULL?l1->toString():"NULL")<<"\r\n";
+    ss<<"s1="<<(s1!=NULL?s1->toString():"NULL")<<"\r\n";
+    ss<<"i1="<<(i1!=NULL?i1->toString():"NULL")<<"\r\n";
     return ss.str();
 }
 

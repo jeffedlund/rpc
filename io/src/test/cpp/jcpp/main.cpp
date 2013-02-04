@@ -10,6 +10,7 @@
 #include <QDataStream>
 #include <map>
 #include "JBootClassBuilder.h"
+#include "JThrowable.h"
 
 using namespace std;
 
@@ -34,15 +35,19 @@ void registerClasses(){
 }
 
 void testSampleObject(){
-    registerClasses();
-    QString name("E:\\project\\rpc\\io\\src\\main\\java\\output.b");
-    QFile* file=new QFile(name);
-    file->open(QIODevice::ReadOnly);
-    QDataStream* qs=new QDataStream(file);
-    QtDataInputStream* qis=new QtDataInputStream(qs);
-    JObjectInputStream* ois=new JObjectInputStream(qis);
-    JSampleObject* sample=(JSampleObject*)ois->readObject();
-    cout<<sample->toString();
+    try{
+        registerClasses();
+        QString name("E:\\project\\rpc\\io\\src\\main\\java\\output.b");
+        QFile* file=new QFile(name);
+        file->open(QIODevice::ReadOnly);
+        QDataStream* qs=new QDataStream(file);
+        QtDataInputStream* qis=new QtDataInputStream(qs);
+        JObjectInputStream* ois=new JObjectInputStream(qis);
+        JSampleObject* sample=(JSampleObject*)ois->readObject();
+        cout<<sample->toString();
+    }catch(JThrowable* thr){
+        cout<<thr->toString();
+    }
 }
 
 void testMap(){

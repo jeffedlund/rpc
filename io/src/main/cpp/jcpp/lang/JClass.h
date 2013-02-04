@@ -99,3 +99,55 @@ class JClass : public JObject{
 };
 
 #endif // JCLASS_H
+
+/*
+TODO put somewhere:
+
+static String getClassSignature(Class cl) {
+        StringBuilder sbuf = new StringBuilder();
+        while (cl.isArray()) {
+            sbuf.append('[');
+            cl = cl.getComponentType();
+        }
+        if (cl.isPrimitive()) {
+            if (cl == Integer.TYPE) {
+                sbuf.append('I');
+            } else if (cl == Byte.TYPE) {
+                sbuf.append('B');
+            } else if (cl == Long.TYPE) {
+                sbuf.append('J');
+            } else if (cl == Float.TYPE) {
+                sbuf.append('F');
+            } else if (cl == Double.TYPE) {
+                sbuf.append('D');
+            } else if (cl == Short.TYPE) {
+                sbuf.append('S');
+            } else if (cl == Character.TYPE) {
+                sbuf.append('C');
+            } else if (cl == Boolean.TYPE) {
+                sbuf.append('Z');
+            } else if (cl == Void.TYPE) {
+                sbuf.append('V');
+            } else {
+                throw new InternalError();
+            }
+        } else {
+            sbuf.append('L' + cl.getName().replace('.', '/') + ';');
+        }
+        return sbuf.toString();
+    }
+
+private static String getMethodSignature(Class[] paramTypes,
+                                             Class retType)
+    {
+        StringBuilder sbuf = new StringBuilder();
+        sbuf.append('(');
+        for (int i = 0; i < paramTypes.length; i++) {
+            sbuf.append(getClassSignature(paramTypes[i]));
+        }
+        sbuf.append(')');
+        sbuf.append(getClassSignature(retType));
+        return sbuf.toString();
+    }
+
+*/

@@ -90,7 +90,10 @@ SOURCES += \
     src/main/cpp/jcpp/io/JOptionalDataException.cpp \
     src/main/cpp/jcpp/io/JNotActiveException.cpp \
     src/test/cpp/jcpp/JSampleObject.cpp \
-    src/main/cpp/jcpp/lang/JBootClassBuilder.cpp
+    src/main/cpp/jcpp/lang/JBootClassBuilder.cpp \
+    src/main/cpp/jcpp/lang/exception/JIllegalStateException.cpp \
+    src/main/cpp/jcpp/lang/exception/JUnsupportedOperationException.cpp \
+    src/main/cpp/jcpp/lang/exception/JClassCastException.cpp
     
     
 LIBS += -lws2_32
@@ -167,5 +170,8 @@ HEADERS += \
     src/main/cpp/jcpp/lang/JLang.h \
     src/main/cpp/jcpp/util/JUtil.h \
     src/main/cpp/jcpp/lang/reflect/JLangReflect.h \
-    src/main/cpp/jcpp/io/JIO.h
+    src/main/cpp/jcpp/io/JIO.h \
+    src/main/cpp/jcpp/lang/exception/JIllegalStateException.h \
+    src/main/cpp/jcpp/lang/exception/JUnsupportedOperationException.h \
+    src/main/cpp/jcpp/lang/exception/JClassCastException.h
     

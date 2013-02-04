@@ -16,6 +16,7 @@
 #include "JPrimitiveFloat.h"
 #include "JPrimitiveInt.h"
 #include "JPrimitiveLong.h"
+#include "JClassCastException.h"
 #include "JPrimitiveShort.h"
 #include <cstdio>
 #include <QtGlobal>
@@ -95,8 +96,15 @@ bool JObjectInputStream::enableResolveObject(bool enable) {
 }
 
 JObject* JObjectInputStream::readObject() {
-    //TODO enableOverrid+other stuff
-    return readObject0();
+    int outerHandle=passHandle;
+    JObject* obj=readObject0();
+    handles->markDependency(outerHandle,passHandle);
+    JClassNotFoundException* ex=handles->lookupException(passHandle);
+    if (ex!=NULL){
+        throw ex;
+    }
+    passHandle=outerHandle;
+    return obj;
 }
 
 JObject* JObjectInputStream::readObject0() {
@@ -127,7 +135,15 @@ JObject* JObjectInputStream::readObject0() {
         obj = readHandle();
         break;
 
-    //TODO case TC_CLASS, TC_CLASSDESC, TC_PROXYCLASSDESC
+    case TC_CLASS:
+        obj=readClass();
+        break;
+
+    case TC_CLASSDESC:
+    case TC_PROXYCLASSDESC:
+        obj=readClassDesc();
+        break;
+
     case TC_STRING:
     case TC_LONGSTRING:
         obj = checkResolve(readString());
@@ -145,8 +161,23 @@ JObject* JObjectInputStream::readObject0() {
         obj = checkResolve(readOrdinaryObject());
         break;
 
-    //TODO case TC_Exception
-    //TODO case TC_BLOCKDATALONG
+    case TC_EXCEPTION:{
+            JIOException* ex1 = readFatalException();
+            throw ex1;
+        }
+        break;
+
+    case TC_BLOCKDATA:
+    case TC_BLOCKDATALONG:
+        if (oldMode){
+            bin->setBlockDataMode(true);
+            bin->peek();
+            stringstream ss;
+            ss<<"remaining data block "<<bin->currentBlockRemaining();
+            throw new JOptionalDataException(ss.str());
+        }else{
+            throw new JStreamCorruptedException("unexpected block data");
+        }
 
     case TC_ENDBLOCKDATA:
         if (oldMode) {
@@ -167,7 +198,7 @@ JObject* JObjectInputStream::readObject0() {
 }
 
 JObject* JObjectInputStream::checkResolve(JObject *obj) {
-    if (!enableResolve) {//TODO lookup exception
+    if (!enableResolve || handles->lookupException(passHandle)) {
         return obj;
     }
     JObject* rep = resolveObject(obj);
@@ -198,18 +229,21 @@ JString* JObjectInputStream::readTypeString() {
 }
 
 void JObjectInputStream::defaultReadObject() {
-    if (!curContext.isUpcall()) {
+    if (!curContext->isUpcall()) {
         throw new JNotActiveException("not in call to readObject");
     }
-    JObject* curObj = curContext.getObj();
-    JObjectStreamClass* curDesc = curContext.getDesc();
+    JObject* curObj = curContext->getObj();
+    JObjectStreamClass* curDesc = curContext->getDesc();
     bin->setBlockDataMode(false);
     defaultReadFields(curObj, curDesc);
     bin->setBlockDataMode(true);
     if (!curDesc->hasWriteObjectData()) {
         defaultDataEnd = true;
     }
-    //TODO check ClassNotFoundException
+    JClassNotFoundException* ex=handles->lookupException(passHandle);
+    if (ex!=NULL){
+        throw ex;
+    }
 }
 
 JObject* JObjectInputStream::resolveObject(JObject *obj) {
@@ -237,6 +271,23 @@ JObject* JObjectInputStream::readHandle() {
     return obj;
 }
 
+JObject* JObjectInputStream::readClass(){
+    if (bin->readByte() != TC_CLASS){
+        throw new JInternalError();
+    }
+    JObjectStreamClass* desc=readClassDesc();
+    JClass* jClass=desc->getJClass();
+    passHandle=handles->assign(jClass);
+
+    JClassNotFoundException* resolveEx = desc->getResolveException();
+    if (resolveEx!=NULL){
+        handles->markException(passHandle,resolveEx);
+    }
+
+    handles->finish(passHandle);
+    return jClass;
+}
+
 JObject* JObjectInputStream::readArray(){
     if (bin->readByte() != TC_ARRAY) {
         throw new JInternalError();
@@ -254,7 +305,10 @@ JObject* JObjectInputStream::readArray(){
     }
 
     int arrayHandle = handles->assign(pArray);
-    //TODO handle ResolveException ...
+    JClassNotFoundException* resolveEx=desc->getResolveException();
+    if (resolveEx!=NULL){
+        handles->markException(arrayHandle,resolveEx);
+    }
 
     if(ccl==NULL) {
         for (int i = 0; i < len; i++) {
@@ -307,8 +361,8 @@ JObject* JObjectInputStream::readArray(){
     }else{
         for (int i = 0 ; i < len; ++i) {
             pArray->set(i,readObject0());
+            handles->markDependency(arrayHandle,passHandle);
         }
-        //TODO handle.markDependency
     }
 
     handles->finish(arrayHandle);
@@ -326,11 +380,15 @@ JObject* JObjectInputStream::readEnum() {
     }
 
     int enumHandle = handles->assign(NULL);
-    //TODO handle exception
+    JClassNotFoundException* resolveEx=desc->getResolveException();
+    if (resolveEx!=NULL){
+        handles->markException(enumHandle,resolveEx);
+    }
 
     JString* mname = readString();
     string name = mname->getString();
     JEnum* en = desc->getJClass()->valueOf(name);
+    handles->setObject(enumHandle,en);
     handles->finish(enumHandle);
     passHandle = enumHandle;
     return en;
@@ -373,12 +431,20 @@ JObjectStreamClass* JObjectInputStream::readProxyDesc() {
         ifaces[i] = bin->readUTF();
     }
 
+    JClass* metaObj=NULL;
+    JClassNotFoundException* resolveEx=NULL;
     bin->setBlockDataMode(true);
-    JClass *metaObj = resolveProxyClass(ifaces,numIfaces);
-
+    try{
+        metaObj = resolveProxyClass(ifaces,numIfaces);
+        if(metaObj==NULL){
+            resolveEx=new JClassNotFoundException("null class");
+        }
+    }catch(JClassNotFoundException* ex){
+        resolveEx=ex;
+    }
     skipCustomData();
 
-    desc->initProxy(metaObj, readClassDesc());
+    desc->initProxy(metaObj, resolveEx,readClassDesc());
 
     handles->finish(descHandle);
     passHandle = descHandle;
@@ -397,15 +463,23 @@ JObjectStreamClass* JObjectInputStream::readNonProxyDesc() {
     qint32 descHandle = handles->assign(desc);
     passHandle = NULL_HANDLE;
 
-    //TODO factoriser en readClassDescriptor
     JObjectStreamClass *readDesc = new JObjectStreamClass;
     readDesc->readNonProxy(this);
 
-    JClass *metaObj = resolveClass(readDesc);
-
+    JClass* metaObj=NULL;
+    JClassNotFoundException* resolveEx=NULL;
+    bin->setBlockDataMode(true);
+    try{
+        metaObj = resolveClass(readDesc);
+        if (metaObj==NULL){
+            resolveEx=new JClassNotFoundException("null class");
+        }
+    }catch(JClassNotFoundException* ex){
+        resolveEx=ex;
+    }
     skipCustomData();
 
-    desc->initNonProxy(readDesc, metaObj, readClassDesc());
+    desc->initNonProxy(readDesc, metaObj, resolveEx,readClassDesc());
 
     handles->finish(descHandle);
     passHandle = descHandle;
@@ -420,30 +494,44 @@ JObject* JObjectInputStream::readOrdinaryObject() {
         throw new JInternalError();
     }
     JObjectStreamClass* desc = readClassDesc();
-    //TODO check deserialize
 
     JObject* obj = desc->newInstance();
     passHandle = handles->assign(obj);
+    JClassNotFoundException* resolveEx=desc->getResolveException();
+    if (resolveEx!=NULL){
+        handles->markException(passHandle,resolveEx);
+    }
 
-    //TODO handle exception
-
-    //TODO do serializable+externalizable
-    readSerialData(obj, desc);
+    if (desc->isExternalizable()){
+        readExternalData(obj,desc);
+    }else{
+        readSerialData(obj, desc);
+    }
 
     handles->finish(passHandle);
-
-    //TODO handle exception + clone + handle.setObject???
-
     return obj;
 }
 
-/**
- * Reads in values of serializable fields declared by given class
- * descriptor. If obj is non-null, sets field values in obj.  Expects that
- * passHandle is set to obj's handle before this method is called.
- */
-void JObjectInputStream::readSerialData(JObject *obj, JObjectStreamClass *desc) {
+void JObjectInputStream::readExternalData(JObject* obj, JObjectStreamClass* desc){
+    SerialCallbackContext* oldContext=curContext;
+    curContext=NULL;//TODO leak, check all new calls and see objet lifecycle
+    bool blocked=desc->hasBlockExternalData();
+    if (blocked){
+        bin->setBlockDataMode(true);
+    }
+    if (obj!=NULL){
+        JMethod* method=NULL;//TODO desc->getReadExternalMethod()
+        vector<JObject*> args;
+        args.push_back(this);
+        method->invoke(obj,&args);
+    }
+    if (blocked){
+        skipCustomData();
+    }
+    curContext=oldContext;
+}
 
+void JObjectInputStream::readSerialData(JObject *obj, JObjectStreamClass *desc) {
     QList<JObjectStreamClass*> list;
     for (JObjectStreamClass *d = desc; d != NULL; d = d->getSuperDesc()) {
         list.append(d);
@@ -453,36 +541,39 @@ void JObjectInputStream::readSerialData(JObject *obj, JObjectStreamClass *desc) 
     for (int i = 0; i < size; ++i) {
         JObjectStreamClass *d = list.last();
         list.removeLast();
-        if (d->getNumFields() > 0) {
-            if (obj != NULL && d->hasReadObjectMethod()) {
-                SerialCallbackContext oldContext = curContext;
-                curContext.setContext(obj,d);
+        if (d->getNumFields() > 0 && obj != NULL &&
+            d->hasReadObjectMethod() && handles->lookupException(passHandle)==NULL) {
+            SerialCallbackContext* oldContext = curContext;
+            try{
+                curContext=new SerialCallbackContext();
+                curContext->setContext(obj,d);
                 bin->setBlockDataMode(true);
-                //TODO handle exception
-                ((JSerializable*)obj)->readObject(this);
-                curContext = oldContext;
+                d->invokeReadObject(obj,this);
+            }catch(JClassNotFoundException* ex){
+                handles->markException(passHandle,ex);
+            }
+            delete curContext;
+            curContext=oldContext;
 
-                /*
-                 * defaultDataEnd may have been set indirectly by custom
-                 * readObject() method when calling defaultReadObject() or
-                 * readFields(); clear it to restore normal read behavior.
-                 */
-                defaultDataEnd = false;
-            }
-            else {
-                defaultReadFields(obj,d);
-            }
-            if (d->hasWriteObjectData()) {
-                skipCustomData();
-            }
-            else {
-                bin->setBlockDataMode(false);
-            }
+            defaultDataEnd = false;
+
+        }else {
+            defaultReadFields(obj,d);
+        }
+        if (d->hasWriteObjectData()) {
+            skipCustomData();
+        }else {
+            bin->setBlockDataMode(false);
         }
     }
 }
 
 void JObjectInputStream::defaultReadFields(JObject *obj, JObjectStreamClass *desc) {
+    JClass* cl=desc->getJClass();
+    if (cl!=NULL && obj!=NULL && !cl->isInstance(obj)){
+        throw new JClassCastException("object "+obj->toString()+" of class "+obj->getClass()->toString()+" is not instance of "+cl->toString());
+    }
+
     int primDataSize = desc->getPrimDataSize();
     delete[] primVals; // make sure it is NULL or has been previously allocated with new
     primVals = new qint8[primDataSize];
@@ -503,6 +594,14 @@ void JObjectInputStream::defaultReadFields(JObject *obj, JObjectStreamClass *des
     }
     delete[] objVals;
     passHandle = objHandle;
+}
+
+JIOException* JObjectInputStream::readFatalException(){
+    if (bin->readByte()!=TC_EXCEPTION){
+        throw new JInternalError();
+    }
+    clear();
+    return (JIOException*)readObject0();
 }
 
 /**

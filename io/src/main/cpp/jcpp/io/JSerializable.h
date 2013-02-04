@@ -6,6 +6,7 @@
 #include "JObjectInputStream.h"
 //#include "JObjectOutputStream.h"
 
+//TODO implement correctly serializable + externalizable
 class JSerializable:JObject{
 protected:
     JSerializable();

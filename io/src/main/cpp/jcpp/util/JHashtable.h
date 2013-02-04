@@ -4,7 +4,7 @@
 #include "JObject.h"
 #include <map>
 
-//TODO
+//TODO implement most of util classes
 template <class Key, class Value> class JHashtable : public JObject
 {
     std::map<Key,Value>* hashtable;

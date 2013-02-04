@@ -6,6 +6,7 @@
 #include "JInputStream.h"
 #include "JObjectStreamConstants.h"
 #include "JObjectInputStream.h"
+#include "JClassNotFoundException.h"
 using namespace std;
 
 class JObjectInputStream;
@@ -29,7 +30,9 @@ class JObjectStreamClass : public JObject{
     int primDataSize;
     int numObjFields;
     JObjectStreamClass* superDesc;
+    JClassNotFoundException* resolveEx;
     JClass* jClass;
+    JMethod* readObjectMethod;
 
     void computeFieldOffsets();
 
@@ -46,18 +49,22 @@ public:
     const char* getName();
     int getPrimDataSize();
     JObjectStreamClass* getSuperDesc();
+    JClassNotFoundException* getResolveException();
 
     void setPrimFieldValues(JObject *obj,qint8 *buf);
     void setObjectFieldValues(JObject* jobject, JObject** values);
 
     void readNonProxy(JObjectInputStream* objectInputStream);
-    void initNonProxy(JObjectStreamClass* const objectStreamClass,JClass* jClass,JObjectStreamClass* jObjectStreamClass);
-    void initProxy(JClass* jClass,JObjectStreamClass* jObjectStreamClass);
+    void initNonProxy(JObjectStreamClass* const objectStreamClass,JClass* jClass,JClassNotFoundException* resolveEx,JObjectStreamClass* jObjectStreamClass);
+    void initProxy(JClass* jClass,JClassNotFoundException* resolveEx,JObjectStreamClass* jObjectStreamClass);
+    void invokeReadObject(JObject* objet, JObjectInputStream* in);
 
     JObject* newInstance();
 
     bool hasReadObjectMethod();
     bool hasWriteObjectData();
+    bool isExternalizable();
+    bool hasBlockExternalData();
 
     string toString();
     ~JObjectStreamClass();

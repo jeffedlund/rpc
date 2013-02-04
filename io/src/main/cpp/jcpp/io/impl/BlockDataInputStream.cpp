@@ -1,5 +1,10 @@
 #include "BlockDataInputStream.h"
+#include "JIllegalStateException.h"
+#include "JStreamCorruptedException.h"
+#include "JEOFException.h"
+#include <sstream>
 
+//TODO missing following methods : skip,skipBytes,readUnsignedByte,readUTFSpan,readUTFChar
 //BlockDataInputStream implementation
 BlockDataInputStream::BlockDataInputStream(JInputStream *in): blkmode(false), pos(0), end (-1), unread(0) {
     this->in = in;
@@ -13,9 +18,8 @@ bool BlockDataInputStream::setBlockDataMode(bool newmode) {
         pos = 0;
         end = 0;
         unread = 0;
-    }
-    else if (pos < end) {
-        throw "new IllegalStateException(\"unread block dat\"";//TODO
+    }else if (pos < end) {
+        throw new JIllegalStateException("unread block dat");
     }
     blkmode = newmode;
     return !blkmode;
@@ -27,7 +31,7 @@ bool BlockDataInputStream::getBlockDataMode() {
 
 void BlockDataInputStream::skipBlockData() {
     if (!blkmode) {
-        throw "new IllegalStateException(\"not in block data mode\")";//TODO
+        throw new JIllegalStateException("not in block data mode");
     }
     while (end >= 0) {
         refill();
@@ -68,7 +72,9 @@ qint32 BlockDataInputStream::readBlockHeader(bool canBlock) {
             in->read(hbuf,0,5);
             qint32 len = JBits::getInt(hbuf,1);
             if (len < 0) {
-                throw "new StreamCorruptedException(\"illegal block data header length: \" + len)";//TODO
+                stringstream ss;
+                ss<<"illegal block data header length: "<< len;
+                throw new JStreamCorruptedException(ss.str());
             }
             return len;
         }
@@ -85,7 +91,9 @@ qint32 BlockDataInputStream::readBlockHeader(bool canBlock) {
 
         default:
             if (tc >= 0 && (tc < JObjectStreamConstants::TC_BASE || tc > JObjectStreamConstants::TC_MAX)) {
-                throw "new StreamCorruptedException(String.format(\"invalid type code: %02X\", tc))";//TODO
+                stringstream ss;
+                ss<<"invalid type code: "<<tc;
+                throw new JStreamCorruptedException(ss.str());
             }
             return -1;
         }
@@ -102,16 +110,14 @@ void BlockDataInputStream::refill() {
                 unread -= n;
             }
             else {
-                throw "new StreamCorruptedException(\"unexpected EOF in middle of data block\")";//TODO
+                throw new JStreamCorruptedException("unexpected EOF in middle of data block");
             }
-        }
-        else {
+        }else {
             qint32 n = readBlockHeader(false);
             if (n >= 0) {
                 end = 0;
                 unread = n;
-            }
-            else {
+            }else {
                 end = -1;
                 unread = 0;
             }
@@ -122,9 +128,8 @@ void BlockDataInputStream::refill() {
 qint32 BlockDataInputStream::currentBlockRemaining() {
     if (blkmode) {
         return (end >= 0) ? (end - pos) + unread : 0;
-    }
-    else {
-        throw "new IllegalStateException";//TODO
+    }else {
+        throw new JIllegalStateException();
     }
 }
 
@@ -134,8 +139,7 @@ int BlockDataInputStream::peek() {
             refill();
         }
         return (end >= 0) ? (buf[pos] & 0xFF) : -1;
-    }
-    else {
+    }else {
         return in->peekByte();
     }
 }
@@ -143,7 +147,7 @@ int BlockDataInputStream::peek() {
 qint8 BlockDataInputStream::peekByte() {
     int val = peek();
     if (val < 0) {
-        throw "new EOFException()";//TODO
+        throw new JEOFException();
     }
     return (qint8) val;
 }
@@ -154,8 +158,7 @@ qint32 BlockDataInputStream::read() {
             refill();
         }
         return (end >= 0) ? (buf[pos++] & 0xFF) : -1;
-    }
-    else {
+    }else {
         return in->readByte();
     }
 }
@@ -188,8 +191,7 @@ qint64 BlockDataInputStream::available() {
         // avoid unnecessary call to in.available() if possible
         qint64 unreadAvail = (unread > 0) ? min(in->available(), (qint64) unread) : 0;
         return (end >= 0) ? (end - pos) + unreadAvail : 0;
-    }
-    else {
+    }else {
         return in->available();
     }
 }
@@ -210,8 +212,7 @@ void BlockDataInputStream::close() {
 int BlockDataInputStream::read(qint8 b[], int off, int len, bool copy) {
     if (len == 0) {
         return 0;
-    }
-    else if (blkmode) {
+    }else if (blkmode) {
         if (pos == end) {
             refill();
         }
@@ -222,15 +223,13 @@ int BlockDataInputStream::read(qint8 b[], int off, int len, bool copy) {
         memcpy(b+off,buf+pos,nread);
         pos += read();
         return nread;
-    }
-    else if (copy) {
+    }else if (copy) {
         int nread = in->read(buf,0,min(len, MAX_BLOCK_SIZE));
         if (nread > 0) {
             memcpy((char*)b+off,buf,nread);
         }
         return nread;
-    }
-    else {
+    }else {
         return in->read(b,off,len);
     }
 }
@@ -243,7 +242,7 @@ void BlockDataInputStream::readFully(qint8 *b, int off, int len, bool copy) {
     while (len > 0) {
         int n = read(b, off, len, copy);
         if (n < 0) {
-            throw "new EOFException()";//TODO
+            throw new JEOFException();
         }
         off += n;
         len -= n;
@@ -253,7 +252,7 @@ void BlockDataInputStream::readFully(qint8 *b, int off, int len, bool copy) {
 qint8 BlockDataInputStream::readByte() {
     quint32 v = read();
     if (v < 0) {
-        throw "new EOFException()";//TODO
+        throw new JEOFException();
     }
     return (qint8) v;
 }
@@ -360,7 +359,7 @@ char BlockDataInputStream::readChar() {
 bool BlockDataInputStream::readBool() {
     int v = read();
     if (v < 0) {
-        throw "new EOFException";
+        throw new JEOFException();
     }
     return (v != 0);
 }
@@ -394,12 +393,10 @@ void BlockDataInputStream::readBools(bool *v, int off, int len) {
             in->read(buf,0, span);
             stop = off + span;
             pos = 0;
-        }
-        else if (end - pos < 1) {
+        }else if (end - pos < 1) {
             v[off++] = in->readBool();
             continue;
-        }
-        else {
+        }else {
             stop = min(endoff, off + end - pos);
         }
         while (off < stop) {
@@ -416,12 +413,10 @@ void BlockDataInputStream::readChars(char *v, int off, int len) {
             in->read(buf,0, span << 1);
             stop = off + span;
             pos = 0;
-        }
-        else if (end - pos < 2) {
+        }else if (end - pos < 2) {
             v[off++] = in->readChar();
             continue;
-        }
-        else {
+        }else {
             stop = min(endoff, off + ((end - pos) >> 1));
         }
         while (off < stop) {

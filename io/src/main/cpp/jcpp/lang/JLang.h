@@ -13,6 +13,7 @@
 #include "JNullPointerException.h"
 #include "JRuntimeException.h"
 #include "JThrowable.h"
+#include "JUnsupportedOperationException.h"
 #include "JVirtualMachineError.h"
 #include "JBoolean.h"
 #include "JByte.h"
@@ -38,14 +39,18 @@
 #include "JShort.h"
 #include "JStackTraceElement.h"
 #include "JString.h"
+#include "JIllegalStateException.h"
+#include "JClassCastException.h"
 
-static int LANG_CLASSES_SIZE = 37;
+static int LANG_CLASSES_SIZE = 40;
 
 static JClass* LANG_CLASSES[] = {
+    JClassCastException::getClazz(),
     JClassNotFoundException::getClazz(),
     JError::getClazz(),
     JException::getClazz(),
     JIllegalArgumentException::getClazz(),
+    JIllegalStateException::getClazz(),
     JIndexOutOfBoundsException::getClazz(),
     JInstantiationException::getClazz(),
     JInternalError::getClazz(),
@@ -54,6 +59,7 @@ static JClass* LANG_CLASSES[] = {
     JNullPointerException::getClazz(),
     JRuntimeException::getClazz(),
     JThrowable::getClazz(),
+    JUnsupportedOperationException::getClazz(),
     JVirtualMachineError::getClazz(),
     JBoolean::getClazz(),
     JByte::getClazz(),

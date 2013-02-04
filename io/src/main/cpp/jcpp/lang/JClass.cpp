@@ -22,7 +22,7 @@ class JClassClass : public JClass{
     }
 
     JClassLoader* getClassLoader(){
-        JClassLoader::getBootClassLoader();
+        return JClassLoader::getBootClassLoader();
     }
 
     JClass* getSuperclass(){
