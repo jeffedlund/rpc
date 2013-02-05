@@ -93,7 +93,15 @@ SOURCES += \
     src/main/cpp/jcpp/lang/JBootClassBuilder.cpp \
     src/main/cpp/jcpp/lang/exception/JIllegalStateException.cpp \
     src/main/cpp/jcpp/lang/exception/JUnsupportedOperationException.cpp \
-    src/main/cpp/jcpp/lang/exception/JClassCastException.cpp
+    src/main/cpp/jcpp/lang/exception/JClassCastException.cpp \
+    src/main/cpp/jcpp/io/JOutputStream.cpp \
+    src/main/cpp/jcpp/io/JDataOutputStream.cpp \
+    src/main/cpp/jcpp/io/impl/BlockDataOutputStream.cpp \
+    src/main/cpp/jcpp/io/impl/OutputHandleTable.cpp \
+    src/main/cpp/jcpp/io/JObjectOutputStream.cpp \
+    src/main/cpp/jcpp/io/JObjectStreamField.cpp \
+    src/main/cpp/jcpp/lang/JVoid.cpp \
+    src/main/cpp/jcpp/io/JExternalizable.cpp
     
     
 LIBS += -lws2_32
@@ -173,5 +181,13 @@ HEADERS += \
     src/main/cpp/jcpp/io/JIO.h \
     src/main/cpp/jcpp/lang/exception/JIllegalStateException.h \
     src/main/cpp/jcpp/lang/exception/JUnsupportedOperationException.h \
-    src/main/cpp/jcpp/lang/exception/JClassCastException.h
+    src/main/cpp/jcpp/lang/exception/JClassCastException.h \
+    src/main/cpp/jcpp/io/JOutputStream.h \
+    src/main/cpp/jcpp/io/JDataOutputStream.h \
+    src/main/cpp/jcpp/io/impl/BlockDataOutputStream.h \
+    src/main/cpp/jcpp/io/impl/OutputHandleTable.h \
+    src/main/cpp/jcpp/io/JObjectOutputStream.h \
+    src/main/cpp/jcpp/io/JObjectStreamField.h \
+    src/main/cpp/jcpp/lang/JVoid.h \
+    src/main/cpp/jcpp/io/JExternalizable.h
     

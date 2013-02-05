@@ -14,7 +14,6 @@ static const qint32 MAX_HEADER_SIZE = 5;
 static const qint32 CHAR_BUF_SIZE = 256;
 static const qint32 HEADER_BLOCKED = -2;
 
-//BlockDataInputStream
 class BlockDataInputStream : public JInputStream, public JObjectStreamConstants {
 public:
     qint8 buf[MAX_BLOCK_SIZE];

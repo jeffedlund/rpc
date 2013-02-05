@@ -33,5 +33,5 @@ JSerializable::JSerializable():JObject(getClazz()){
 }
 
 
-void JSerializable::readObject(JObjectInputStream* jObjectInputStream){
-}
+//void JSerializable::readObject(JObjectInputStream* jObjectInputStream){
+//}

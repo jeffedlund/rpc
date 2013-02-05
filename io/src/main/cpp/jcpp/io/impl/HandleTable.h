@@ -6,7 +6,7 @@
 #include "JClassNotFoundException.h"
 
 
-//HandleTable
+//Input HandleTable
 class HandleTable {
     static const qint8 STATUS_OK = 1;
     static const qint8 STATUS_UNKNOWN = 2;

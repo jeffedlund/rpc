@@ -22,7 +22,7 @@ void deleteMapOfValuePointer(map<K,V*>* elements){
 }
 
 template<class K, class V>
-V* getFromMap(map<K,V*>* elements, K k){
+V* getFromMap(map<K,V*>* elements, K k){//TODO use map->count
     typename map<K,V*>::const_iterator i;
     i= elements->find(k);
     if (i!=elements->end()){

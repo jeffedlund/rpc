@@ -34,6 +34,13 @@ void registerClasses(){
     JClassLoader::getBootClassLoader()->addClasses(new JSampleClassBuilder());
 }
 
+/*TODO have test cases for input stream:
+  1-primitive arrays of primitive type
+  2-primitive arrays of object
+  3-primitive array of primitive array
+  4-object of object of object
+  5-object containing proxy
+*/
 void testSampleObject(){
     try{
         registerClasses();

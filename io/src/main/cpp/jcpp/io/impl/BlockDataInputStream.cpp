@@ -5,7 +5,6 @@
 #include <sstream>
 
 //TODO missing following methods : skip,skipBytes,readUnsignedByte,readUTFSpan,readUTFChar
-//BlockDataInputStream implementation
 BlockDataInputStream::BlockDataInputStream(JInputStream *in): blkmode(false), pos(0), end (-1), unread(0) {
     this->in = in;
 }
