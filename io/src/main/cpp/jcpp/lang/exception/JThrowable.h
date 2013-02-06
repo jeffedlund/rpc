@@ -6,6 +6,7 @@
 #include "JStackTraceElement.h"
 using namespace std;
 
+//TODO printStackTrace(out)
 class JThrowable: public JObject {
 protected:
     string message;

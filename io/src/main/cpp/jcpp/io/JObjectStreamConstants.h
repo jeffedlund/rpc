@@ -3,6 +3,7 @@
 
 #include <QtGlobal>
 
+//TODO add getClazz()
 class JObjectStreamConstants {
 
 public:

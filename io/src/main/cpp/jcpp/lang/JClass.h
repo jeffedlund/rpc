@@ -14,7 +14,7 @@ class JClassLoader;
 #include <QtGlobal>
 using namespace std;
 
-
+//TODO implement forName,
 class JClass : public JObject{
  protected:
     string canonicalName;

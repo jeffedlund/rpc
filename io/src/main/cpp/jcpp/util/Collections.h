@@ -2,7 +2,11 @@
 #define COLLECTIONS_H
 
 using namespace std;
-
+/*
+TODO :
+    -centralize qt dependencies by definiing jbyte,...
+    -review all new calls and chek delete is called
+*/
 template <class T>
 void deleteVectorOfPointers(T *vector) {
   typename T::iterator i;
@@ -22,7 +26,7 @@ void deleteMapOfValuePointer(map<K,V*>* elements){
 }
 
 template<class K, class V>
-V* getFromMap(map<K,V*>* elements, K k){//TODO use map->count
+V* getFromMap(map<K,V*>* elements, K k){
     typename map<K,V*>::const_iterator i;
     i= elements->find(k);
     if (i!=elements->end()){

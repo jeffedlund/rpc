@@ -4,7 +4,7 @@
 class JObjectStreamClass;
 #include "JObject.h"
 
-// Equivalent to SerialCallBackContext in Java
+//TODO implement getClazz
 class SerialCallbackContext {
     JObject* curObj;
     JObjectStreamClass* curDesc;

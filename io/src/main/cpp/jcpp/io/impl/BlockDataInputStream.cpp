@@ -4,7 +4,7 @@
 #include "JEOFException.h"
 #include <sstream>
 
-//TODO missing following methods : skip,skipBytes,readUnsignedByte,readUTFSpan,readUTFChar
+//TODO missing following methods : skip,skipBytes,readUnsignedByte,readUnsignedShort,readUTFSpan,readUTFChar,readLine
 BlockDataInputStream::BlockDataInputStream(JInputStream *in): blkmode(false), pos(0), end (-1), unread(0) {
     this->in = in;
 }
@@ -537,4 +537,7 @@ void BlockDataInputStream::readDoubles(double *v, int off, int len) {
 
 BlockDataInputStream::~BlockDataInputStream() {
     close();
+    delete buf;
+    delete hbuf;
+    delete cbuf;
 }

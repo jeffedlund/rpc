@@ -6,6 +6,7 @@
 
 static JBootClassBuilder* bootClassBuilder;
 
+//TODO review how to fill JClassLoader and avoid cyclic stuff...
 JClassBuilder* JBootClassBuilder::getBootClassBuilder(){
     if (bootClassBuilder==NULL){
         bootClassBuilder=new JBootClassBuilder();

@@ -6,6 +6,7 @@
 #include "JDataOutputStream.h"
 #include "JBits.h"
 
+//TODO implement getClazz,
 class JBlockDataOutputStream : public JOutputStream{
 private:
     static const qint32 MAX_BLOCK_SIZE = 1024;

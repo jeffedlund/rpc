@@ -1,6 +1,8 @@
 #include <iostream>
 #include "JDataOutputStream.h"
 #include "JBits.h"
+#include "JUTFDataFormatException.h"
+#include <sstream>
 
 class JDataOutputStreamClass : public JClass{
 public:
@@ -51,7 +53,6 @@ void JDataOutputStream::write(qint32 b){
 void JDataOutputStream::write(qint8 b[], int off, int len){
     out->write(b, off, len);
     incCount(len);
-    delete[] b;
 }
 
 void JDataOutputStream::flush(){
@@ -89,7 +90,6 @@ void JDataOutputStream::writeInt(qint32 v){
     out->write(((quint32)v >> 16) & 0xFF);
     out->write(((quint32)v >>  8) & 0xFF);
     out->write(((quint32)v >>  0) & 0xFF);
-    delete[] (qint32*)v;
     incCount(4);
 }
 
@@ -111,7 +111,6 @@ void JDataOutputStream::writeFloat(float v){/* unresolved issue. */
     JBits::putFloat(b, 0, v);
     qint32* val = (qint32*)b;
     writeInt(*val);
-    delete[] b;
     incCount(4);
 }
 
@@ -120,7 +119,6 @@ void JDataOutputStream::writeDouble(double v){ /* unresolved issue. */
     JBits::putDouble(b, 0, v);
     double* val = (double*)b;
     writeLong(*val);
-    delete[] b;
     incCount(8);
 }
 
@@ -163,16 +161,22 @@ qint32 JDataOutputStream::writeUTF(string str, JOutputStream *out){
         }
     }
 
-    if (utflen > 65535)
-        throw;
+    if (utflen > 65535){
+        stringstream ss;
+        ss<<"encoded string too long "<<utflen;
+        throw new JUTFDataFormatException(ss.str());
+    }
 
-        JDataOutputStream* dos = (JDataOutputStream*)out;
-        if(dos->bytearr == NULL || (sizeof(dos->bytearr) < (utflen+2))){
-            dos->length  = (utflen*2) + 2;
-            dos->bytearr = new qint8[dos->length];
+    JDataOutputStream* dos = (JDataOutputStream*)out;
+    if(dos->bytearr == NULL || (sizeof(dos->bytearr) < (utflen+2))){
+        dos->length  = (utflen*2) + 2;
+        if (dos->bytearr!=NULL){
+            delete dos->bytearr;
         }
-        length = dos->length;
-        qint8* bytearr = dos->bytearr;
+        dos->bytearr = new qint8[dos->length];
+    }
+    length = dos->length;
+    qint8* bytearr = dos->bytearr;
 
     bytearr[count++] = (qint8) (((quint8)utflen >> 8) & 0xFF);
     bytearr[count++] = (qint8) (((quint8)utflen >> 0) & 0xFF);

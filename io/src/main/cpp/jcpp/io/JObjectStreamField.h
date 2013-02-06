@@ -8,6 +8,7 @@
 #include <string.h>
 using namespace std;
 
+//TODO add getClazz
 class JObjectStreamField{
 private:
     string name;

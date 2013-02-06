@@ -3,7 +3,7 @@
 class QtDataInputStreamClass : public JClass{
 public:
     QtDataInputStreamClass():JClass(JClassLoader::getBootClassLoader()){
-        canonicalName="java.io.QtInputStream";//not usefull...
+        canonicalName="java.io.QtDataInputStream";//not usefull...
         name="java.io.QtDataInputStream";
         simpleName="QtDataInputStream";
     }

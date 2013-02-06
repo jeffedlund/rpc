@@ -5,6 +5,7 @@
 #include "JClass.h"
 using namespace std;
 
+//TODO add private serializable field int length, boolean eof
 class JOptionalDataException : public JObjectStreamException{
 protected:
     JOptionalDataException(JClass* _clazz);

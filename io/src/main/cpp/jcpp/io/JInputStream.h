@@ -6,6 +6,7 @@
 #include "JObject.h"
 #include "JClass.h"
 
+//TODO implement skip(long n),mark,reset,markSupported
 class JInputStream : public JObject{
 protected:
     JInputStream(JClass* _class);

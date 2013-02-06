@@ -3,6 +3,7 @@
 #include "JEOFException.h"
 #include "JUTFDataFormatException.h"
 
+//TODO implement skipBytes,readUnsignedByte,readLine
 class JDataInputStreamClass : public JClass{
 public:
     JDataInputStreamClass():JClass(JClassLoader::getBootClassLoader()){
@@ -84,11 +85,11 @@ string JDataInputStream::readUTF() {
             /* 110x xxx  10xx xxx*/
             count += 2;
             if (count > utflen){
-                throw new JUTFDataFormatException();
+                throw new JUTFDataFormatException("malformed input: partial character at end");
             }
             char2 = (qint32) bytearr[count-1];
             if ((char2 & 0xC0) != 0x80){
-                throw new JUTFDataFormatException;
+                throw new JUTFDataFormatException("malformed input around byte ");
             }
             chararr[chararr_count++] = (char)(((c & 0x1F) << 6) | (char2 & 0x3F));
             break;
@@ -96,27 +97,27 @@ string JDataInputStream::readUTF() {
             /* 1110 xxxx  10xx xxxx  10xx xxxx */
             count += 3;
             if (count > utflen){
-                throw new JUTFDataFormatException;
+                throw new JUTFDataFormatException("malformed input: partial character at end");
             }
             char2 = (qint32) bytearr[count-2];
             char3 = (qint32) bytearr[count-1];
             if (((char2 & 0xC0) != 0x80) || ((char3 & 0xC0) != 0x80))
-                throw new JUTFDataFormatException;
+                throw new JUTFDataFormatException("malformed input around byte ");
             chararr[chararr_count++] = (char) (((c     & 0x0F) << 12) |
                                                ((char2 & 0x3F) << 6)  |
                                                ((char3 & 0x3F) << 0));
             break;
         default:
             /* 10xx xxxx,  1111 xxxx */
-            throw new JUTFDataFormatException;
+            throw new JUTFDataFormatException("malformed input around byte ");
         }
     }
-    delete[] bytearr;
-    delete[] chararr;
 
     // The number of chars produced may be less than utflen
     chararr[chararr_count] = '\0';
     string str(chararr);
+    delete[] bytearr;
+    delete[] chararr;
     return str;
 }
 

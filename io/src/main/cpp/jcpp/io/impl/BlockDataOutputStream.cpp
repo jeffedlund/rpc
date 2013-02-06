@@ -1,5 +1,7 @@
 #include "BlockDataOutputStream.h"
 #include "JBits.h"
+#include "JUTFDataFormatException.h"
+using namespace std;
 
 JBlockDataOutputStream::JBlockDataOutputStream(){
 }
@@ -74,7 +76,6 @@ void JBlockDataOutputStream::write(qint8 b[], int off, int len, bool copy) {
             len -= wlen;
         }
     }
-    delete[] b;
 }
 
 void JBlockDataOutputStream::arraycopy(qint8 src[],qint32 srcPos, qint8 dest[], qint32 destPos, qint32 length){
@@ -176,7 +177,7 @@ void JBlockDataOutputStream::writeDouble(double v){
     }
 }
 
-void JBlockDataOutputStream::writeBytes(std::string s){
+void JBlockDataOutputStream::writeBytes(string s){
     int endoff = s.length();
     int cpos = 0;
     int csize = 0;
@@ -199,14 +200,14 @@ void JBlockDataOutputStream::writeBytes(std::string s){
 
 }
 
-void JBlockDataOutputStream::getChars(std:: string s,qint32 srcBegin, qint32 srcEnd, quint16 dest[], qint32 dstBegin){
+void JBlockDataOutputStream::getChars( string s,qint32 srcBegin, qint32 srcEnd, quint16 dest[], qint32 dstBegin){
     const char* str = s.c_str();
     for( qint32 i = 0; i < srcEnd - srcBegin; ++i){
         dest[dstBegin + i] = str[ srcBegin+i];
     }
 }
 
-void JBlockDataOutputStream::writeChars(std::string s){
+void JBlockDataOutputStream::writeChars(string s){
     int endoff = s.length();
     for (int off = 0; off < endoff; ) {
         int csize = (endoff - off) < CHAR_BUF_SIZE ? endoff - off : CHAR_BUF_SIZE;
@@ -216,7 +217,7 @@ void JBlockDataOutputStream::writeChars(std::string s){
     }
 }
 
-qint64 JBlockDataOutputStream::getUTFLength(std::string s){
+qint64 JBlockDataOutputStream::getUTFLength(string s){
     qint32 len = s.length();
     qint64 utflen = 0;
     for (qint32 off = 0; off < len; ) {
@@ -237,7 +238,7 @@ qint64 JBlockDataOutputStream::getUTFLength(std::string s){
     return utflen;
 }
 
-void JBlockDataOutputStream::writeUTF(std::string s){
+void JBlockDataOutputStream::writeUTF(string s){
     writeUTF(s, getUTFLength(s));
 }
 
@@ -312,7 +313,7 @@ void JBlockDataOutputStream::writeFloats(float v[], int off, int len){
         if (pos <= limit) {
             qint32 avail = (MAX_BLOCK_SIZE - pos) >> 2;
             int chunklen = endoff - off < avail ? endoff - off : avail ;
-//                floatsToBytes(v, off, buf, pos, chunklen);
+            //floatsToBytes(v, off, buf, pos, chunklen); TODO something should be done...
             off += chunklen;
             pos += chunklen << 2;
         } else {
@@ -345,7 +346,7 @@ void JBlockDataOutputStream::writeDoubles(double v[], int off, int len){
         if (pos <= limit) {
             qint32 avail = (MAX_BLOCK_SIZE - pos) >> 3;
             int chunklen = endoff - off < avail ? endoff - off : avail;
-//                doublesToBytes(v, off, buf, pos, chunklen);
+            //doublesToBytes(v, off, buf, pos, chunklen);  TODO something should be done...
             off += chunklen;
             pos += chunklen << 3;
         } else {
@@ -354,9 +355,9 @@ void JBlockDataOutputStream::writeDoubles(double v[], int off, int len){
     }
 }
 
-void JBlockDataOutputStream::writeUTF(std::string s, qint64 utflen){
+void JBlockDataOutputStream::writeUTF(string s, qint64 utflen){
     if (utflen > 0xFFFFL) {
-        throw; // UTFDataFormatException. TODO
+        throw new JUTFDataFormatException();
     }
     writeShort((qint16) utflen);
     if (utflen == (qint64) s.length()) {
@@ -366,11 +367,11 @@ void JBlockDataOutputStream::writeUTF(std::string s, qint64 utflen){
     }
 }
 
-void JBlockDataOutputStream::writeLongUTF(std::string s){
+void JBlockDataOutputStream::writeLongUTF(string s){
     writeLongUTF(s, getUTFLength(s));
 }
 
-void JBlockDataOutputStream::writeLongUTF(std::string s, qint64 utflen){
+void JBlockDataOutputStream::writeLongUTF(string s, qint64 utflen){
     writeLong(utflen);
     if (utflen == (qint64) s.length()) {
         writeBytes(s);
@@ -379,7 +380,7 @@ void JBlockDataOutputStream::writeLongUTF(std::string s, qint64 utflen){
     }
 }
 
-void JBlockDataOutputStream::writeUTFBody(std::string s){
+void JBlockDataOutputStream::writeUTFBody(string s){
     int limit = MAX_BLOCK_SIZE - 3;
     int len = s.length();
     for (int off = 0; off < len; ) {

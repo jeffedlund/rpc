@@ -146,6 +146,7 @@ static JObjectStreamField** createFields(JClass* cl) {
             return &(fields->at(0));
         }
     }
+    return NULL;
 }
 
 static JObjectStreamField** getSerialFields(JClass* cl){

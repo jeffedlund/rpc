@@ -13,7 +13,7 @@ private:
     int len;
 
 public:
-    JPrimitiveArray(JClass* arrayClass,int len=10);//TODO passer size total+getSize+use native array[]
+    JPrimitiveArray(JClass* arrayClass,int len=10);
 
     int size();
 

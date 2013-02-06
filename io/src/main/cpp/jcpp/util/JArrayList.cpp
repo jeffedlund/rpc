@@ -32,7 +32,7 @@ JClass* JArrayList::getClazz(){
 
 JArrayList::JArrayList(int initialCapacity):JObject(getClazz())
 {
-    items=new std::vector<JObject*>();
+    items=new vector<JObject*>();
 }
 
 qint32 JArrayList::getSize(){

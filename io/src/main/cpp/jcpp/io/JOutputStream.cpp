@@ -48,17 +48,15 @@ void JOutputStream::write(qint8 b[], int off, int len){
         throw new JNullPointerException();
     } else {
         qint32 length = len;
-        if ((off < 0) || (off > length) || (len < 0) ||
-               ((off + len) > length) || ((off + len) < 0)) {
+        if ((off < 0) || (off > length) || (len < 0) || ((off + len) > length) || ((off + len) < 0)) {
             throw new JIndexOutOfBoundsException();
-    } else if (len == 0) {
-        return;
+        } else if (len == 0) {
+            return;
+        }
+        for (int i = 0 ; i < len ; i++) {
+            write(b[off + i]);
+        }
     }
-    for (int i = 0 ; i < len ; i++) {
-        write(b[off + i]);
-    }
-    }
-    delete[] b;
 }
 
 
