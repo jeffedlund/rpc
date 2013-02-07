@@ -22,15 +22,18 @@
 #include "JNullPointerException.h"
 #include "Collections.h"
 #include <sstream>
+#include <vector>
+#include <algorithm>
+using namespace std;
 
 
-//TODO missing methods : getSerialVersionUID,ObjectStreamClass(JClass*),writeNonProxy,
 class JObjectStreamClassClass : public JClass{
     public:
       JObjectStreamClassClass(){
           this->canonicalName="java.io.ObjectStreamClass";
           this->name="java.io.ObjectStreamClass";
           this->simpleName="ObjectStreamClass";
+          this->serialVersionUID=6120832682080437368L;
       }
 
       JClass* getSuperclass(){
@@ -51,26 +54,23 @@ JClass* JObjectStreamClass::getClazz(){
     return clazz;
 }
 
-static map<string, JObjectStreamClass*>* allObjectStreamClass;
+static map<JClass*, JObjectStreamClass*>* allObjectStreamClass;
 
-JObjectStreamClass* JObjectStreamClass::lookup(JObject* obj){
-    //TODO return NULL if !JSerializable
+JObjectStreamClass* JObjectStreamClass::lookup(JClass* meta){
+    if(meta == NULL){
+        return NULL;
+    }
+    if (!JSerializable::getClazz()->isAssignableFrom(meta)){
+        return NULL;
+    }
     if (allObjectStreamClass==NULL){
-        allObjectStreamClass=new map<string,JObjectStreamClass*>();
+        allObjectStreamClass=new map<JClass*,JObjectStreamClass*>();
     }
-    if(obj == NULL){
-        return NULL;
-    }
-    JClass* meta = obj->getClass();
-    if (meta==JObject::getClazz()){
-        return NULL;
-    }
-    string name= meta->getName();
-    if (allObjectStreamClass->count(name)==1){
-        return allObjectStreamClass->at(name);
+    if (allObjectStreamClass->count(meta)==1){
+        return allObjectStreamClass->at(meta);
     }
     JObjectStreamClass* desc = new JObjectStreamClass(meta);
-    allObjectStreamClass->insert(pair<string,JObjectStreamClass*>(name, desc));
+    allObjectStreamClass->insert(pair<JClass*,JObjectStreamClass*>(meta, desc));
     return desc;
 }
 
@@ -103,8 +103,10 @@ string JObjectStreamClass::getClassSignature(JClass* _class){
             throw new JInternalError();
         }
     }else{
-        string name=_class->getName();//TODO replace '.' by '/'
-        ss<<'L'<<name<<";";
+        string name=_class->getName();
+        string newName(name);
+        replace(newName.begin(),newName.end(),'.','/');
+        ss<<'L'<<newName<<";";
     }
     return ss.str();
 }
@@ -118,18 +120,17 @@ JObjectStreamClass::JObjectStreamClass():JObject(getClazz()){
     this->externalizable=false;
     this->writeObjectData=false;
     this->blockExternalData=true;
-    this->numFields=0;
     this->primDataSize=0;
     this->numObjFields=0;
     this->fields = NULL;
-    this->hierarchy = new vector<JObjectStreamClass*>();
     this->superDesc=NULL;
     this->resolveEx=NULL;
     this->jClass=NULL;
     this->readObjectMethod=NULL;
+    this->dataLayout=NULL;
 }
 
-static JObjectStreamField** createFields(JClass* cl) {
+static vector<JObjectStreamField*>* getDefaultSerialFields(JClass* cl) {
     vector<JField*>* clFields = cl->getFields();
     if (clFields!=NULL){
         vector<JObjectStreamField*>* fields=new vector<JObjectStreamField*>;
@@ -143,24 +144,25 @@ static JObjectStreamField** createFields(JClass* cl) {
         if (fields->size()==0){
             return NULL;
         }else{
-            return &(fields->at(0));
+            return fields;
         }
     }
     return NULL;
 }
 
-static JObjectStreamField** getSerialFields(JClass* cl){
-    JObjectStreamField** fields=NULL;
+static vector<JObjectStreamField*>* getSerialFields(JClass* cl){
+    vector<JObjectStreamField*>* fields=NULL;
     if (JSerializable::getClazz()->isAssignableFrom(cl) && !JExternalizable::getClazz()->isAssignableFrom(cl) &&
         !cl->isProxy() && !cl->isInterface()){
-        fields = createFields(cl);
-        //Arrays.sort(fields);
+        fields = getDefaultSerialFields(cl);
+        if (fields!=NULL){
+            sort(fields->begin(),fields->end(),JObjectStreamField::comparator);
+        }
    }
    return fields;
 }
 
 JObjectStreamClass::JObjectStreamClass(JClass* _class):JObject(getClazz()){
-    this->numFields=0;
     this->primDataSize = 0;
     this->numObjFields = 0;
     this->jClass=_class;
@@ -169,6 +171,15 @@ JObjectStreamClass::JObjectStreamClass(JClass* _class):JObject(getClazz()){
     this->bIsEnum = _class->isEnum();
     this->serializable=JSerializable::getClazz()->isAssignableFrom(_class);
     this->externalizable=JExternalizable::getClazz()->isAssignableFrom(_class);
+    this->suid=0;
+    this->writeObjectData=false;
+    this->blockExternalData=true;
+    this->superDesc=NULL;
+    this->resolveEx=NULL;
+    this->readObjectMethod=NULL;
+    this->writeObjectMethod=NULL;
+    this->dataLayout=NULL;
+
 
     JClass* superCl=_class->getSuperclass();
     superDesc=(superCl != NULL)?lookup(superCl):NULL;
@@ -232,7 +243,7 @@ JClass* JObjectStreamClass::getJClass(){
 }
 
 qint16 JObjectStreamClass::getNumFields(){
-    return numFields;
+    return (fields==NULL?0:fields->size());
 }
 
 qint32 JObjectStreamClass::getNumObjFields(){
@@ -243,11 +254,11 @@ JObjectStreamField* JObjectStreamClass::getField(int i){
     if (fields == NULL) {
         throw new JInternalError("no fields!");
     }
-    return fields[i];
+    return fields->at(i);
 }
 
-const char* JObjectStreamClass::getName(){
-    return name.c_str();
+string JObjectStreamClass::getName(){
+    return name;
 }
 
 int JObjectStreamClass::getPrimDataSize(){
@@ -283,23 +294,24 @@ void JObjectStreamClass::readNonProxy(JObjectInputStream *in) {
         throw new JInvalidClassException(ss.str());
     }
 
-    numFields = in->readShort();
+    qint16 numFields = in->readShort();
     if (bIsEnum && numFields != 0) {
         stringstream ss;
         ss<<"enum "<<name<<" descriptor has non-zero field count: " << numFields;
         throw new JInvalidClassException(ss.str());
     }
     if (numFields > 0) {
-        fields = new JObjectStreamField*[numFields];
+        fields = new vector<JObjectStreamField*>();
         for (int i = 0; i < numFields; ++i) {
             char tcode=(char) in->readByte();;
             string fname=in->readUTF();
             string signature(&tcode);
             if ((tcode=='L' || (tcode=='['))){
                 JString* readString=in->readTypeString();
-                signature=readString->getString();//TODO detele object
+                signature=readString->getString();
+                delete readString;
             }
-            fields[i]=new JObjectStreamField(fname,signature,false);
+            fields->push_back(new JObjectStreamField(fname,signature,false));
         }
     }
     computeFieldOffsets();
@@ -317,20 +329,23 @@ void JObjectStreamClass::initNonProxy(JObjectStreamClass * const model,JClass* j
     externalizable = model->externalizable;
     blockExternalData= model->blockExternalData;
     writeObjectData = model->writeObjectData;
-    numFields = model->numFields;
-    fields = new JObjectStreamField*[numFields];
-    for (int i = 0; i < numFields; ++i) {
-        fields[i] = model->fields[i];
+    fields = new vector<JObjectStreamField*>;
+    for (int i = 0; i < model->getNumFields(); ++i) {
+        fields->push_back(model->fields->at(i));
     }
     primDataSize = model->primDataSize;
     numObjFields = model->numObjFields;
 
-    //TODO set externalizable by checking interface
-
-    vector<JClass*> args;
-    args.push_back(JObjectInputStream::getClazz());
-    if (jClass->hasMethod("readObject",&args)){
-        readObjectMethod = jClass->getMethod("readObject",&args);
+    if (jClass!=NULL){
+        JObjectStreamClass* localDesc=lookup(jClass);
+        if (localDesc->isProxy()) {
+            throw new JInvalidClassException("cannot bind non-proxy descriptor to a proxy class");
+        }
+        if (bIsEnum != localDesc->isEnum()) {
+            throw new JInvalidClassException(isEnum() ? "cannot bind enum descriptor to a non-enum class" : "cannot bind non-enum descriptor to an enum class");
+        }
+        this->writeObjectMethod= localDesc->writeObjectMethod;
+        this->readObjectMethod = localDesc->readObjectMethod;
     }
 }
 
@@ -342,9 +357,14 @@ void JObjectStreamClass::initProxy(JClass* jClass,JClassNotFoundException* resol
     serializable = true;
     suid = 0;
     fields = NULL;
-    name = jClass->getName();
-
-    //TODO should correct readObjectMethod for the proxy
+    if (jClass!=NULL){
+        JObjectStreamClass* localDesc=lookup(jClass);
+        if (!localDesc->isProxy()){
+            throw new JInvalidClassException("cannot bind proxy descriptor to a non-proxy class");
+        }
+        name = localDesc->getName();
+        externalizable=localDesc->externalizable;
+    }
 }
 
 void JObjectStreamClass::invokeReadObject(JObject* object, JObjectInputStream* in){
@@ -357,39 +377,43 @@ void JObjectStreamClass::invokeReadObject(JObject* object, JObjectInputStream* i
     }
 }
 
+void JObjectStreamClass::invokeWriteObject(JObject* object, JObjectOutputStream* out){
+    if (writeObjectMethod!=NULL){
+        vector<JObject*> args;
+        args.push_back(out);
+        writeObjectMethod->invoke(object,&args);
+    }else{
+        throw new JUnsupportedOperationException();
+    }
+}
+
 void JObjectStreamClass::writeNonProxy(JObjectOutputStream* out){
-    /*  TODO
-        out.writeUTF(name);
-        out.writeLong(getSerialVersionUID());
+    out->writeUTF(name);
+    out->writeLong(suid);
 
-        byte flags = 0;
-        if (externalizable) {
-            flags |= ObjectStreamConstants.SC_EXTERNALIZABLE;
-            int protocol = out.getProtocolVersion();
-            if (protocol != ObjectStreamConstants.PROTOCOL_VERSION_1) {
-                flags |= ObjectStreamConstants.SC_BLOCK_DATA;
-            }
-        } else if (serializable) {
-            flags |= ObjectStreamConstants.SC_SERIALIZABLE;
-        }
-        if (hasWriteObjectData) {
-            flags |= ObjectStreamConstants.SC_WRITE_METHOD;
-        }
-        if (isEnum) {
-            flags |= ObjectStreamConstants.SC_ENUM;
-        }
-        out.writeByte(flags);
+    qint8 flags = 0;
+    if (externalizable) {
+        flags |= JObjectStreamConstants::SC_EXTERNALIZABLE;
+    } else if (serializable) {
+        flags |= JObjectStreamConstants::SC_SERIALIZABLE;
+    }
+    if (hasWriteObjectData()) {
+        flags |= JObjectStreamConstants::SC_WRITE_METHOD;
+    }
+    if (isEnum()) {
+        flags |= JObjectStreamConstants::SC_ENUM;
+    }
+    out->writeByte(flags);
 
-        out.writeShort(fields.length);
-        for (int i = 0; i < fields.length; i++) {
-            ObjectStreamField f = fields[i];
-            out.writeByte(f.getTypeCode());
-            out.writeUTF(f.getName());
-            if (!f.isPrimitive()) {
-                out.writeTypeString(f.getTypeString());
-            }
+    out->writeShort(getNumFields());
+    for (int i = 0; i < getNumFields(); i++) {
+        JObjectStreamField* f = fields->at(i);
+        out->writeByte(f->getTypeCode());
+        out->writeUTF(f->getName());
+        if (!f->isPrimitive()) {
+            out->writeTypeString(f->getTypeString());
         }
-*/
+    }
 }
 
 JObject *JObjectStreamClass::newInstance() {
@@ -401,34 +425,34 @@ void JObjectStreamClass::computeFieldOffsets() {
     numObjFields = 0;
     int firstObjIndex = -1;
 
-    for (int i = 0; i < numFields; ++i) {
-        switch (fields[i]->getTypeCode()) {
+    for (int i = 0; i < getNumFields(); ++i) {
+        switch (fields->at(i)->getTypeCode()) {
         case 'Z':
         case 'B':
-            fields[i]->setOffset(primDataSize++);
+            fields->at(i)->setOffset(primDataSize++);
             break;
 
         case 'C':
         case 'S':
-            fields[i]->setOffset(primDataSize);
+            fields->at(i)->setOffset(primDataSize);
             primDataSize += 2;
             break;
 
         case 'I':
         case 'F':
-            fields[i]->setOffset(primDataSize);
+            fields->at(i)->setOffset(primDataSize);
             primDataSize += 4;
             break;
 
         case 'J':
         case 'D':
-            fields[i]->setOffset(primDataSize);
+            fields->at(i)->setOffset(primDataSize);
             primDataSize += 8;
             break;
 
         case '[':
         case 'L':
-            fields[i]->setOffset(numObjFields++);
+            fields->at(i)->setOffset(numObjFields++);
             if (firstObjIndex == -1) {
                 firstObjIndex = i;
             }
@@ -438,15 +462,71 @@ void JObjectStreamClass::computeFieldOffsets() {
             throw new JInternalError();
         }
     }
-    if (firstObjIndex != -1 && firstObjIndex + numObjFields != numFields) {
+    if (firstObjIndex != -1 && firstObjIndex + numObjFields != getNumFields()) {
         throw new JInvalidClassException(name+" : illegal field order");
     }
 }
 
+JObjectStreamClass* JObjectStreamClass::getVariantFor(JClass* cl) {
+    if (this->jClass== cl) {
+        return this;
+    }
+    JObjectStreamClass* desc = new JObjectStreamClass();
+    if (isProxy()) {
+        desc->initProxy(cl, NULL, superDesc);
+    } else {
+        desc->initNonProxy(this, cl, NULL, superDesc);
+    }
+    return desc;
+}
+
+vector<JObjectStreamClass::ClassDataSlot*>* JObjectStreamClass::getClassDataLayout(){//TODO use mutex
+    if (dataLayout == NULL) {
+        dataLayout = getClassDataLayout0();
+    }
+    return dataLayout;
+}
+
+vector<JObjectStreamClass::ClassDataSlot*>* JObjectStreamClass::getClassDataLayout0(){
+    vector<JObjectStreamClass::ClassDataSlot*>* classDataSlots = new vector<JObjectStreamClass::ClassDataSlot*>;
+    JClass* start = jClass;
+    JClass* end = jClass;
+
+    while (end != NULL && JSerializable::getClazz()->isAssignableFrom(end)) {
+        end = end->getSuperclass();
+    }
+
+    for (JObjectStreamClass* d = this; d != NULL; d = d->superDesc) {
+        string searchName = (d->getJClass() != NULL) ? d->getJClass()->getName() : d->getName();
+        JClass* match = NULL;
+        for (JClass* c = start; c != end; c = c->getSuperclass()) {
+            if (searchName==c->getName()) {
+                match = c;
+                break;
+            }
+        }
+
+        if (match != NULL) {
+            for (JClass* c = start; c != match; c = c->getSuperclass()) {
+                classDataSlots->push_back(new ClassDataSlot(JObjectStreamClass::lookup(c), false));
+            }
+            start = match->getSuperclass();
+        }
+        classDataSlots->push_back(new ClassDataSlot(d->getVariantFor(match), true));
+    }
+
+    for (JClass* c = start; c != end; c = c->getSuperclass()) {
+        classDataSlots->push_back(new ClassDataSlot(JObjectStreamClass::lookup(c), false));
+    }
+
+    reverse(classDataSlots->begin(),classDataSlots->end());
+    return classDataSlots;
+}
+
 void JObjectStreamClass::setPrimFieldValues(JObject* obj, qint8 *buf) {
     int pos = 0;
-    for (int i = 0; i < numFields-numObjFields; ++i) {
-        JObjectStreamField* f = fields[i];
+    for (int i = 0; i < getNumFields()-numObjFields; ++i) {
+        JObjectStreamField* f = fields->at(i);
         switch (f->getTypeCode()) {
             case 'Z': {
                 JPrimitiveBoolean* jPrimitiveBoolean=new JPrimitiveBoolean(JBits::getBool(buf,pos++));
@@ -501,12 +581,12 @@ void JObjectStreamClass::setPrimFieldValues(JObject* obj, qint8 *buf) {
     }
 }
 
-void JObjectStreamClass::getPrimFieldValues(JObject* obj,qint8* buf,JObjectOutputStream* out){
+void JObjectStreamClass::writePrimFieldValues(JObject* obj,qint8* buf,JObjectOutputStream* out){
     if (obj==NULL){
         throw new JNullPointerException();
     }
-    for (int i=0 ; i< numFields-numObjFields ; i++){//TODO check corret size
-        JObjectStreamField* f=fields[i];
+    for (int i=0 ; i< getNumFields()-numObjFields ; i++){
+        JObjectStreamField* f=fields->at(i);
         JField* field=obj->getClass()->getField(f->getName());
         int off=f->getOffset();
         switch(f->getTypeCode()){
@@ -569,36 +649,37 @@ void JObjectStreamClass::getPrimFieldValues(JObject* obj,qint8* buf,JObjectOutpu
     }
 }
 
+void JObjectStreamClass::getObjectFieldValues(JObject* jobject, JObject** values){
+    if (jobject==NULL){
+        throw new JNullPointerException;
+    }
+    for (int i=getNumFields() - numObjFields;i<getNumFields();i++){
+        switch (fields->at(i)->getTypeCode() ){
+            case 'L':
+            case '[':{
+                JObject* current=jobject->getClass()->getField(fields->at(i)->getName())->get(jobject);
+                values[i-getNumFields()+numObjFields]=current;
+                break;
+            }default:
+                throw new JInternalError();
+        }
+    }
+}
+
 void JObjectStreamClass::setObjectFieldValues(JObject* jObject,JObject** values) {
-    for (int i = numFields - numObjFields; i < numFields; ++i) {
-        JObject* current = values[i-numFields+numObjFields];
-        jObject->getClass()->getField(fields[i]->getName())->set(jObject,current);
+    for (int i = getNumFields() - numObjFields; i < getNumFields(); ++i) {
+        JObject* current = values[i-getNumFields()+numObjFields];
+        jObject->getClass()->getField(fields->at(i)->getName())->set(jObject,current);
     }
-}
-
-vector<JObjectStreamClass*>* JObjectStreamClass::getClassDataLayout(){
-    if(!hierarchy->empty()){
-        hierarchy->clear();
-    }
-    JObjectStreamClass* copy = new JObjectStreamClass(*this);
-    while(copy != NULL && copy->getJClass()!=JObject::getClazz() ){
-        hierarchy->push_back(copy);
-        copy = copy->getSuperDesc();
-    }
-    return hierarchy;
-}
-
-vector<JObjectStreamClass*>* JObjectStreamClass::getHierarchy(){
-    return this->hierarchy;
 }
 
 string JObjectStreamClass::toString(){
     stringstream sstr;
     sstr<<"Class description :\nClass name : "<<name;
     sstr<<", SUID = "<<suid<<endl;
-    sstr<<"Fields description :\nNumber of serializable fields = "<<numFields<<endl;
-    for (int i = 0; i < numFields; ++i) {
-        sstr<<"type code : "<<fields[i]->getTypeCode()<<", name : "<<fields[i]->getName()<<endl;
+    sstr<<"Fields description :\nNumber of serializable fields = "<<getNumFields()<<endl;
+    for (int i = 0; i < getNumFields(); ++i) {
+        sstr<<"type code : "<<fields->at(i)->getTypeCode()<<", name : "<<fields->at(i)->getName()<<endl;
     }
     sstr<<"Super ";
     if (superDesc == NULL) {
@@ -611,6 +692,5 @@ string JObjectStreamClass::toString(){
 }
 
 JObjectStreamClass::~JObjectStreamClass() {
-    //deleteVectorOfPointers(fields);
-    //TODO deleteVectorOfPointers(hierarchy);
+    delete fields;
 }

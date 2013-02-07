@@ -11,8 +11,9 @@
 #include "JPrimitiveInt.h"
 #include "JPrimitiveLong.h"
 #include "JPrimitiveShort.h"
+#include "JSerializable.h"
 
-class JSampleObject : public JObject{
+class JSampleObject : public JObject, public JSerializable{
 private:
     JPrimitiveBoolean* bool1;
     JPrimitiveByte* byte1;

@@ -145,6 +145,7 @@ class JSampleObjectClass : public JClass{
         addField(new JLong1Field());
         addField(new JShort1Field());
         addField(new JInt1Field());
+        addInterface(JSerializable::getClazz());
     }
 
     JClass* getSuperclass(){

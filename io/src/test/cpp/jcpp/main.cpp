@@ -11,6 +11,7 @@
 #include <map>
 #include "JBootClassBuilder.h"
 #include "JThrowable.h"
+#include "QtDataOutputStream.h"
 
 using namespace std;
 
@@ -41,7 +42,7 @@ void registerClasses(){
   4-object of object of object
   5-object containing proxy
 */
-void testSampleObject(){
+JSampleObject* testReadSampleObject(){
     try{
         registerClasses();
         QString name("E:\\project\\rpc\\io\\src\\main\\java\\output.b");
@@ -52,9 +53,21 @@ void testSampleObject(){
         JObjectInputStream* ois=new JObjectInputStream(qis);
         JSampleObject* sample=(JSampleObject*)ois->readObject();
         cout<<sample->toString();
+        return sample;
     }catch(JThrowable* thr){
         cout<<thr->toString();
     }
+}
+
+void testWriteSampleObject(JSampleObject* sample){
+    QString name("E:\\project\\rpc\\io\\src\\main\\java\\output2.b");
+    QFile* file=new QFile(name);
+    file->open(QIODevice::WriteOnly);
+    QDataStream* qs=new QDataStream(file);
+    QtDataOutputStream* qos=new QtDataOutputStream(qs);
+    JObjectOutputStream* oos=new JObjectOutputStream(qos);
+    oos->writeObject(sample);
+    file->close();
 }
 
 void testMap(){
@@ -90,7 +103,8 @@ void testMap(){
 int main(int argc, char *argv[])
 {
     //testMap();
-    testSampleObject();
+    JSampleObject* sample=testReadSampleObject();
+    testWriteSampleObject(sample);
 
     JClass* toto = JClass::getClazz();
     JObject object;

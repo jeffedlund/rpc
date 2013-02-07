@@ -25,6 +25,11 @@ public:
     JObjectStreamField(string name,string signature,bool unshared);
     JObjectStreamField(JField* field,bool unshared,bool showType);
 
+
+    static bool comparator (JObjectStreamField* f1,JObjectStreamField* f2) {
+        return (f1->getName()<f2->getName());
+    }
+
     string getName();
     JClass* getType();
     char getTypeCode();

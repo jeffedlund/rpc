@@ -15,6 +15,10 @@ void OutputHandleTable::clear(){
     handleByObject->clear();
 }
 
+int OutputHandleTable::size(){
+    return handleByObject->size();
+}
+
 qint32 OutputHandleTable::lookup(JObject* obj){
     if (handleByObject->count(obj)==1){
         return handleByObject->at(obj);

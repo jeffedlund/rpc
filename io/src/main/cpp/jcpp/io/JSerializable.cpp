@@ -29,7 +29,7 @@ JClass* JSerializable::getClazz(){
     return clazz;
 }
 
-JSerializable::JSerializable():JObject(getClazz()){
+JSerializable::JSerializable(){//TODO :JObject(getClazz()){
 }
 
 

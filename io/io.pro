@@ -101,7 +101,9 @@ SOURCES += \
     src/main/cpp/jcpp/io/JObjectOutputStream.cpp \
     src/main/cpp/jcpp/io/JObjectStreamField.cpp \
     src/main/cpp/jcpp/lang/JVoid.cpp \
-    src/main/cpp/jcpp/io/JExternalizable.cpp
+    src/main/cpp/jcpp/io/JExternalizable.cpp \
+    src/main/cpp/jcpp/io/JNotSerializableException.cpp \
+    src/main/cpp/jcpp/io/QtDataOutputStream.cpp
     
     
 LIBS += -lws2_32
@@ -189,5 +191,7 @@ HEADERS += \
     src/main/cpp/jcpp/io/JObjectOutputStream.h \
     src/main/cpp/jcpp/io/JObjectStreamField.h \
     src/main/cpp/jcpp/lang/JVoid.h \
-    src/main/cpp/jcpp/io/JExternalizable.h
+    src/main/cpp/jcpp/io/JExternalizable.h \
+    src/main/cpp/jcpp/io/JNotSerializableException.h \
+    src/main/cpp/jcpp/io/QtDataOutputStream.h
     

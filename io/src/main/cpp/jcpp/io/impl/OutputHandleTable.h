@@ -5,6 +5,7 @@
 #include <map>
 using namespace std;
 
+//TODO getClazz
 class OutputHandleTable{
 private:
     qint32 handle;
@@ -14,6 +15,7 @@ public:
     OutputHandleTable();
 
     qint32 assign(JObject *obj);
+    int size();
     void clear();
     qint32 lookup(JObject* obj);
     ~OutputHandleTable();

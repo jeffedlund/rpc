@@ -7,7 +7,7 @@
 #include "JObjectOutputStream.h"
 
 //TODO implement correctly serializable + externalizable
-class JSerializable:JObject{
+class JSerializable{//TODO define JInterface : public virtual JObject{
 protected:
     JSerializable();
 public:

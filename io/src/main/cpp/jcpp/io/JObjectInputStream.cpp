@@ -209,23 +209,31 @@ JObject* JObjectInputStream::checkResolve(JObject *obj) {
 }
 
 JString* JObjectInputStream::readTypeString() {
+    JString* jstring=NULL;
+    int oldHandle=passHandle;
     qint8 tc = bin->peekByte();
     switch (tc) {
     case TC_STRING:
     case TC_LONGSTRING:
-        return readString();
+        jstring=readString();
+        break;
 
     case TC_NULL:
-        return (JString*) (readNull());
+        jstring=(JString*) (readNull());
+        break;
 
     case TC_REFERENCE:
-        return (JString*) (readHandle());
+        jstring=(JString*) (readHandle());
+        break;
 
     default:
+        passHandle=oldHandle;
         stringstream ss;
         ss<<"stream corrupted: invalid typecode "<<tc;
         throw new JStreamCorruptedException(ss.str());
     }
+    passHandle=oldHandle;
+    return jstring;
 }
 
 void JObjectInputStream::defaultReadObject() {
@@ -450,7 +458,6 @@ JObjectStreamClass* JObjectInputStream::readProxyDesc() {
     passHandle = descHandle;
 
     delete ifaces;
-    delete metaObj;
 
     return desc;
 }
@@ -532,23 +539,17 @@ void JObjectInputStream::readExternalData(JObject* obj, JObjectStreamClass* desc
 }
 
 void JObjectInputStream::readSerialData(JObject *obj, JObjectStreamClass *desc) {
-    QList<JObjectStreamClass*> list;
-    for (JObjectStreamClass *d = desc; d != NULL; d = d->getSuperDesc()) {
-        list.append(d);
-    }
-
-    int size = list.size();
-    for (int i = 0; i < size; ++i) {
-        JObjectStreamClass *d = list.last();
-        list.removeLast();
-        if (d->getNumFields() > 0 && obj != NULL &&
-            d->hasReadObjectMethod() && handles->lookupException(passHandle)==NULL) {
+    vector<JObjectStreamClass::ClassDataSlot*>* dataSlots=desc->getClassDataLayout();
+    for (int i=0;i<dataSlots->size();i++){
+        JObjectStreamClass::ClassDataSlot* dataSlot=dataSlots->at(i);
+        JObjectStreamClass* slotDesc=dataSlot->desc;
+        if (obj!=NULL && slotDesc->hasReadObjectMethod() && handles->lookupException(passHandle)==NULL){
             SerialCallbackContext* oldContext = curContext;
             try{
                 curContext=new SerialCallbackContext();
-                curContext->setContext(obj,d);
+                curContext->setContext(obj,slotDesc);
                 bin->setBlockDataMode(true);
-                d->invokeReadObject(obj,this);
+                slotDesc->invokeReadObject(obj,this);
             }catch(JClassNotFoundException* ex){
                 handles->markException(passHandle,ex);
             }
@@ -558,9 +559,9 @@ void JObjectInputStream::readSerialData(JObject *obj, JObjectStreamClass *desc) 
             defaultDataEnd = false;
 
         }else {
-            defaultReadFields(obj,d);
+            defaultReadFields(obj,slotDesc);
         }
-        if (d->hasWriteObjectData()) {
+        if (slotDesc->hasWriteObjectData()) {
             skipCustomData();
         }else {
             bin->setBlockDataMode(false);
@@ -585,9 +586,14 @@ void JObjectInputStream::defaultReadFields(JObject *obj, JObjectStreamClass *des
     int objHandle = passHandle;
     int numObjFields = desc->getNumObjFields();
     JObject **objVals = new JObject*[numObjFields];
+    int numPrimFields=desc->getNumFields()-desc->getNumObjFields();
     for (int i = 0; i < numObjFields; ++i) {
+        JObjectStreamField* f=desc->getField(numPrimFields+i);
         JObject* readObj = readObject0();
         objVals[i] = readObj;
+        if (f->getField()!=NULL){
+            handles->markDependency(objHandle,passHandle);
+        }
     }
     if (obj != NULL) {
         desc->setObjectFieldValues(obj,objVals);

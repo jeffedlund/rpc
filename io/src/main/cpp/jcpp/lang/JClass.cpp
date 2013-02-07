@@ -194,6 +194,12 @@ bool JClass::isAssignableFrom(JClass* clazz){
         if (current==this){
             return true;
         }
+        for (int i=0;i<current->getInterfaces()->size();i++){
+             JClass* interf=current->getInterfaces()->at(i);
+             if (this==interf){
+                return true;
+             }
+        }
         current=current->getSuperclass();//check also interfaces
     }
     return false;
