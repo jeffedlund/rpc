@@ -34,6 +34,6 @@ JStreamCorruptedException::JStreamCorruptedException():JObjectStreamException(ge
 }
 
 JStreamCorruptedException::JStreamCorruptedException(string message) : JObjectStreamException(getClazz()){
-    this->message=message;
+    this->message=new JString(message);
 }
 

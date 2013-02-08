@@ -32,7 +32,7 @@ JUnsupportedOperationException::JUnsupportedOperationException():JRuntimeExcepti
 }
 
 JUnsupportedOperationException::JUnsupportedOperationException(string message):JRuntimeException(getClazz()){
-    this->message=message;
+    this->message=new JString(message);
 }
 
 

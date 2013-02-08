@@ -1,6 +1,7 @@
 #include "JField.h"
 #include "JClass.h"
 #include "JInstantiationException.h"
+#include "JException.h"
 
 class JFieldClass : public JClass{
 public:
@@ -31,6 +32,15 @@ JClass* JField::getClazz(){//TODO use mutex
 JField::JField(string name,JClass* type):JObject(getClazz()){
     this->name=name;
     this->type=type;
+    this->g=NULL;
+    this->s=NULL;
+}
+
+JField::JField(string name,JClass* type,getter g,setter s):JObject(getClazz()){
+    this->name=name;
+    this->type=type;
+    this->g=g;
+    this->s=s;
 }
 
 string JField::getName(){
@@ -39,6 +49,22 @@ string JField::getName(){
 
 JClass* JField::getType(){
     return type;
+}
+
+JObject* JField::get(JObject* object){
+    if (g!=NULL){
+        return g(object);
+    }else{
+        throw new JException("field "+toString()+" not implemented");
+    }
+}
+
+void JField::set(JObject* object, JObject* value){
+    if (s!=NULL){
+        s(object,value);
+    }else{
+        throw new JException("field "+toString()+" not implemented");
+    }
 }
 
 string JField::toString(){

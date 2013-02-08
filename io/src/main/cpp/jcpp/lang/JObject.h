@@ -3,7 +3,6 @@
 
 class JClass;
 
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
 using namespace std;

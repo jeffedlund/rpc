@@ -4,31 +4,40 @@
 
 #include "JObject.h"
 #include "JStackTraceElement.h"
+#include "JString.h"
+#include "JPrimitiveArray.h"
+#include "JSerializable.h"
 using namespace std;
 
-//TODO printStackTrace(out)
-class JThrowable: public JObject {
+class JThrowable: public JObject, public JSerializable {
 protected:
-    string message;
+    JString* message;
     JThrowable* cause;
-    vector<JStackTraceElement*>* stackTrace;
+    JPrimitiveArray* stackTrace;
     JThrowable(JClass* _class);
 
 public:
     JThrowable();
     JThrowable(string message);
+    JThrowable(JString* message);
     JThrowable(string, JThrowable *cause);
+    JThrowable(JString*, JThrowable *cause);
+    bool operator==(JThrowable &other);
 
     static JClass* getClazz();
 
     JThrowable *getCause();
     void setCause(JThrowable* throwable);
 
-    void setMessage(string message);
-    string getMessage();
+    void setMessage(JString* message);
+    JString* getMessage();
 
-    vector<JStackTraceElement*>* getStackTrace();
-    void setStackTrace(vector<JStackTraceElement*>* stackTrace);
+    JPrimitiveArray* getStackTrace();
+    void setStackTrace(JPrimitiveArray* stackTrace);
+
+    void printStackTrace(ostream* os);
+
+    string toString();
 
     ~JThrowable();
 };

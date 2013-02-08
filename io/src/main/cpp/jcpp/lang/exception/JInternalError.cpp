@@ -35,11 +35,11 @@ JInternalError::JInternalError(JClass* _class):JVirtualMachineError(_class){
 }
 
 JInternalError::JInternalError(std::string message):JVirtualMachineError(getClazz()){
-    this->message = message;
+    this->message = new JString(message);
 }
 
 JInternalError::JInternalError(std::string message, JThrowable *cause):JVirtualMachineError(getClazz()){
-    this->message = message;
+    this->message = new JString(message);
     this->cause = cause;
 }
 

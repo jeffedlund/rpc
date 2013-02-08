@@ -12,7 +12,7 @@ public:
     }
 
     JClass* getSuperclass(){
-        return JObject::getClazz();
+        return JInterface::getClazz();
     }
 
     JObject* newInstance(){
@@ -29,9 +29,5 @@ JClass* JSerializable::getClazz(){
     return clazz;
 }
 
-JSerializable::JSerializable(){//TODO :JObject(getClazz()){
+JSerializable::JSerializable():JInterface(){
 }
-
-
-//void JSerializable::readObject(JObjectInputStream* jObjectInputStream){
-//}

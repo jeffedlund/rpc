@@ -5,8 +5,7 @@
 #include "JClass.h"
 using namespace std;
 
-class JClassNotFoundException : public JException
-{
+class JClassNotFoundException : public JException{
 public:
     JClassNotFoundException();
     JClassNotFoundException(string message);

@@ -8,6 +8,7 @@ class JNullPointerException : public JRuntimeException{
 public:
     JNullPointerException();
     JNullPointerException(string message);
+    JNullPointerException(JString* message);
 
     static JClass* getClazz();
 };

@@ -32,5 +32,9 @@ JIndexOutOfBoundsException::JIndexOutOfBoundsException():JRuntimeException(getCl
 }
 
 JIndexOutOfBoundsException::JIndexOutOfBoundsException(string message):JRuntimeException(getClazz()){
+    this->message=new JString(message);
+}
+
+JIndexOutOfBoundsException::JIndexOutOfBoundsException(JString* message):JRuntimeException(getClazz()){
     this->message=message;
 }

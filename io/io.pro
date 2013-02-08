@@ -24,7 +24,8 @@ INCLUDEPATH += \
 	src/main/cpp/jcpp/util \
 	src/main/cpp/jcpp/lang/exception \
 	src/main/cpp/jcpp/lang/reflect \
-	src/test/cpp/jcpp
+	src/test/cpp/jcpp\
+    src/test/cpp/jcpp/lang
 
 SOURCES += \
     src/test/cpp/jcpp/main.cpp \
@@ -103,7 +104,8 @@ SOURCES += \
     src/main/cpp/jcpp/lang/JVoid.cpp \
     src/main/cpp/jcpp/io/JExternalizable.cpp \
     src/main/cpp/jcpp/io/JNotSerializableException.cpp \
-    src/main/cpp/jcpp/io/QtDataOutputStream.cpp
+    src/main/cpp/jcpp/io/QtDataOutputStream.cpp \
+    src/main/cpp/jcpp/lang/JInterface.cpp
     
     
 LIBS += -lws2_32
@@ -193,5 +195,8 @@ HEADERS += \
     src/main/cpp/jcpp/lang/JVoid.h \
     src/main/cpp/jcpp/io/JExternalizable.h \
     src/main/cpp/jcpp/io/JNotSerializableException.h \
-    src/main/cpp/jcpp/io/QtDataOutputStream.h
+    src/main/cpp/jcpp/io/QtDataOutputStream.h \
+    src/main/cpp/jcpp/lang/Object.h \
+    src/main/cpp/jcpp/lang/JInterface.h \
+    src/test/cpp/jcpp/lang/JThrowableTest.h
     

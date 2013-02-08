@@ -31,5 +31,5 @@ JUTFDataFormatException::JUTFDataFormatException():JIOException(getClazz()){
 }
 
 JUTFDataFormatException::JUTFDataFormatException(string message) : JIOException(getClazz()){
-    this->message=message;
+    this->message=new JString(message);
 }

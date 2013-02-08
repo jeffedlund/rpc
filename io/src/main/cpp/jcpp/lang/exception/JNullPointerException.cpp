@@ -31,5 +31,9 @@ JNullPointerException::JNullPointerException():JRuntimeException(getClazz()){
 }
 
 JNullPointerException::JNullPointerException(string message):JRuntimeException(getClazz()){
+    this->message=new JString(message);
+}
+
+JNullPointerException::JNullPointerException(JString* message):JRuntimeException(getClazz()){
     this->message=message;
 }

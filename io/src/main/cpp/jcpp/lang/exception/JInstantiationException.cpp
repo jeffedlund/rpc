@@ -32,6 +32,6 @@ JInstantiationException::JInstantiationException():JException(getClazz()){
 }
 
 JInstantiationException::JInstantiationException(string message):JException(getClazz()){
-    this->message=message;
+    this->message=new JString(message);
 }
 

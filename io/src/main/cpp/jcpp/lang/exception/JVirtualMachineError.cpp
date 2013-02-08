@@ -34,12 +34,12 @@ JVirtualMachineError::JVirtualMachineError():JError(getClazz()){
 JVirtualMachineError::JVirtualMachineError(JClass* _class):JError(_class){
 }
 
-JVirtualMachineError::JVirtualMachineError(std::string message):JError(getClazz()){
-    this->message = message;
+JVirtualMachineError::JVirtualMachineError(string message):JError(getClazz()){
+    this->message = new JString(message);
 }
 
-JVirtualMachineError::JVirtualMachineError(std::string message, JThrowable *cause):JError(getClazz()){
-    this->message = message;
+JVirtualMachineError::JVirtualMachineError(string message, JThrowable *cause):JError(getClazz()){
+    this->message = new JString(message);
     this->cause = cause;
 }
 

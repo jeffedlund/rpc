@@ -34,7 +34,7 @@ JNotActiveException::JNotActiveException():JObjectStreamException(getClazz()){
 }
 
 JNotActiveException::JNotActiveException(string message) : JObjectStreamException(getClazz()){
-    this->message=message;
+    this->message=new JString(message);
 }
 
 

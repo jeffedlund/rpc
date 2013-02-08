@@ -27,20 +27,37 @@ class JPrimitiveArrayClass : public JClass{
       }
 };
 
-static map<string,JPrimitiveArray*>* jPrimitiveArrays=new map<string,JPrimitiveArray*>();
+static map<string,JPrimitiveArrayClass*>* jPrimitiveArrayClasses;
 
-static JPrimitiveArray* getJPrimitiveArray(JClass* jclass){//TODO use mutex
-    JPrimitiveArray* jPrimitiveArray=getFromMap(jPrimitiveArrays,jclass->getName());
-    if (jPrimitiveArray==NULL){
-        jPrimitiveArray=new JPrimitiveArray(jclass);
-        jPrimitiveArrays->insert(pair<string,JPrimitiveArray*>(jclass->getName(),jPrimitiveArray));
+JClass* JPrimitiveArray::getClazz(JClass* componentType){//TODO use mutex
+    if (jPrimitiveArrayClasses==NULL){
+        jPrimitiveArrayClasses=new map<string,JPrimitiveArrayClass*>();
     }
-    return jPrimitiveArray;
+    JPrimitiveArrayClass* jPrimitiveArrayClass=getFromMap(jPrimitiveArrayClasses,componentType->getName());
+    if (jPrimitiveArrayClass==NULL){
+        jPrimitiveArrayClass=new JPrimitiveArrayClass(componentType);
+        jPrimitiveArrayClasses->insert(pair<string,JPrimitiveArrayClass*>(componentType->getName(),jPrimitiveArrayClass));
+    }
+    return jPrimitiveArrayClass;
 }
 
-JPrimitiveArray::JPrimitiveArray(JClass* arrayClass,int len):JObject(getJPrimitiveArray(arrayClass)){
+JPrimitiveArray::JPrimitiveArray(JClass* arrayClass,int len):JObject(getClazz(arrayClass)){
     objects=new vector<JObject*>(len);
     this->len=len;
+}
+
+bool JPrimitiveArray::operator==(JPrimitiveArray &other){
+    if (other.size()==size()){
+        for (int i=0;i<other.size();i++){
+            JObject* object1=other.get(i);
+            JObject* object2=get(i);
+            if (!(object1==object2)){
+                return false;
+            }
+        }
+        return true;
+    }
+    return false;
 }
 
 int JPrimitiveArray::size(){

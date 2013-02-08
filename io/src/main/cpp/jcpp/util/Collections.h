@@ -36,11 +36,6 @@ V* getFromMap(map<K,V*>* elements, K k){
     }
 }
 
-//template <class BidirectionalIterator>
-//void reverse (BidirectionalIterator first, BidirectionalIterator last){
-//  while ((first!=last)&&(first!=--last)) {
-//    std::iter_swap (first,last);
-//    ++first;
-//  }
-//}
+#define arrayLength(a) ( sizeof ( a ) / sizeof ( *a ) )
+
 #endif // COLLECTIONS_H

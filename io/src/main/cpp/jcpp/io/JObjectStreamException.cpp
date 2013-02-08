@@ -34,5 +34,5 @@ JObjectStreamException::JObjectStreamException():JIOException(getClazz()){
 }
 
 JObjectStreamException::JObjectStreamException(string message) : JIOException(getClazz()){
-    this->message=message;
+    this->message=new JString(message);
 }

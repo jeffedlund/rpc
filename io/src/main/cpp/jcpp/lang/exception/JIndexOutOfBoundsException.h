@@ -10,6 +10,7 @@ class JIndexOutOfBoundsException : public JRuntimeException{
 public:
     JIndexOutOfBoundsException();
     JIndexOutOfBoundsException(string message);
+    JIndexOutOfBoundsException(JString* message);
 
     static JClass* getClazz();
 };

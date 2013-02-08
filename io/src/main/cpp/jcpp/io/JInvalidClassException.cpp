@@ -31,5 +31,5 @@ JInvalidClassException::JInvalidClassException():JObjectStreamException(getClazz
 }
 
 JInvalidClassException::JInvalidClassException(string message) : JObjectStreamException(getClazz()){
-    this->message=message;
+    this->message=new JString(message);
 }

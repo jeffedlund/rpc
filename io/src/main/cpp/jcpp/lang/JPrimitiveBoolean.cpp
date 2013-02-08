@@ -33,7 +33,7 @@ JClass* JPrimitiveBoolean::getClazz(){
     return clazz;
 }
 
-JPrimitiveBoolean::JPrimitiveBoolean(bool value):JObject(getClazz()){
+JPrimitiveBoolean::JPrimitiveBoolean(jbool value):JObject(getClazz()){
     this->value=value;
 }
 
@@ -41,11 +41,11 @@ JPrimitiveBoolean::JPrimitiveBoolean():JObject(getClazz()){
     this->value=false;
 }
 
-void JPrimitiveBoolean::set(bool value){
+void JPrimitiveBoolean::set(jbool value){
     this->value=value;
 }
 
-bool JPrimitiveBoolean::get(){
+jbool JPrimitiveBoolean::get(){
     return value;
 }
 

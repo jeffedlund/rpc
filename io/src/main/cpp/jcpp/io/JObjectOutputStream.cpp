@@ -112,7 +112,7 @@ void JObjectOutputStream::writeObject0(JObject* obj){
             JObjectStreamClass* desc = JObjectStreamClass::lookup(obj->getClass());
             curContext = new SerialCallbackContext();
             curContext->setContext(obj,desc);
-            if (obj->getClazz()==JString::getClazz()){
+            if (obj->getClass()==JString::getClazz()){
                 writeString((JString*)obj);
 
             }else if(obj->getClass()->isArray()){
@@ -263,43 +263,43 @@ void JObjectOutputStream::writeArrayProperties(JObject* array){
     if (ccl->isPrimitive()){
         if (ccl==JPrimitiveInt::getClazz()){
             for (int i=0;i<primitiveArray->size();i++){
-                JPrimitiveInt* jint=(JPrimitiveInt*)primitiveArray->get(i);
-                bout->writeInt(jint->get());
+                JPrimitiveInt* ji=(JPrimitiveInt*)primitiveArray->get(i);
+                bout->writeInt(ji->get());
             }
         }else if (ccl==JPrimitiveByte::getClazz()){
             for (int i=0;i<primitiveArray->size();i++){
-                JPrimitiveByte* jbyte=(JPrimitiveByte*)primitiveArray->get(i);
-                bout->writeByte(jbyte->get());
+                JPrimitiveByte* jb=(JPrimitiveByte*)primitiveArray->get(i);
+                bout->writeByte(jb->get());
             }
         }else if (ccl==JPrimitiveLong::getClazz()){
             for (int i=0;i<primitiveArray->size();i++){
-                JPrimitiveLong* jlong=(JPrimitiveLong*)primitiveArray->get(i);
-                bout->writeLong(jlong->get());
+                JPrimitiveLong* jl=(JPrimitiveLong*)primitiveArray->get(i);
+                bout->writeLong(jl->get());
             }
         }else if (ccl==JPrimitiveFloat::getClazz()){
             for (int i=0;i<primitiveArray->size();i++){
-                JPrimitiveFloat* jfloat=(JPrimitiveFloat*)primitiveArray->get(i);
-                bout->writeFloat(jfloat->get());
+                JPrimitiveFloat* jf=(JPrimitiveFloat*)primitiveArray->get(i);
+                bout->writeFloat(jf->get());
             }
         }else if (ccl==JPrimitiveDouble::getClazz()){
             for (int i=0;i<primitiveArray->size();i++){
-                JPrimitiveDouble* jdouble=(JPrimitiveDouble*)primitiveArray->get(i);
-                bout->writeDouble(jdouble->get());
+                JPrimitiveDouble* jd=(JPrimitiveDouble*)primitiveArray->get(i);
+                bout->writeDouble(jd->get());
             }
         }else if (ccl==JPrimitiveShort::getClazz()){
             for (int i=0;i<primitiveArray->size();i++){
-                JPrimitiveShort* jshort=(JPrimitiveShort*)primitiveArray->get(i);
-                bout->writeShort(jshort->get());
+                JPrimitiveShort* js=(JPrimitiveShort*)primitiveArray->get(i);
+                bout->writeShort(js->get());
             }
         }else if (ccl==JPrimitiveChar::getClazz()){
             for (int i=0;i<primitiveArray->size();i++){
-                JPrimitiveChar* jchar=(JPrimitiveChar*)primitiveArray->get(i);
-                bout->writeChar(jchar->get());
+                JPrimitiveChar* jc=(JPrimitiveChar*)primitiveArray->get(i);
+                bout->writeChar(jc->get());
             }
         }else if (ccl==JPrimitiveBoolean::getClazz()){
             for (int i=0;i<primitiveArray->size();i++){
-                JPrimitiveBoolean* jbool=(JPrimitiveBoolean*)primitiveArray->get(i);
-                bout->writeBoolean(jbool->get());
+                JPrimitiveBoolean* jb=(JPrimitiveBoolean*)primitiveArray->get(i);
+                bout->writeBoolean(jb->get());
             }
         }else{
             throw new JInternalError();

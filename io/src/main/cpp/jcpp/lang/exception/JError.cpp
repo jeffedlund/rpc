@@ -34,12 +34,12 @@ JError::JError():JThrowable(getClazz()){
 JError::JError(JClass* _class):JThrowable(_class){
 }
 
-JError::JError(std::string message):JThrowable(getClazz()){
-    this->message = message;
+JError::JError(string message):JThrowable(getClazz()){
+    this->message = new JString(message);
 }
 
-JError::JError(std::string message, JThrowable *cause):JThrowable(getClazz()){
-    this->message = message;
+JError::JError(string message, JThrowable *cause):JThrowable(getClazz()){
+    this->message = new JString(message);
     this->cause = cause;
 }
 

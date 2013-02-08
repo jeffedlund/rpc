@@ -1,36 +1,41 @@
 #ifndef JSTACKTRACEELEMENT_H
 #define JSTACKTRACEELEMENT_H
 
+#include "Object.h"
 #include "JObject.h"
+#include "JString.h"
+#include "JSerializable.h"
+#include "JPrimitiveInt.h"
 using namespace std;
 
-class JStackTraceElement: public JObject {
+class JStackTraceElement: public JObject, public JSerializable {
 private:
-    string declaringClass;
-    string methodName;
-    string fileName;
-    int lineNumber;
+    JString* declaringClass;
+    JString* methodName;
+    JString* fileName;
+    JPrimitiveInt* lineNumber;
 
 public:
     JStackTraceElement();
+    JStackTraceElement(JString* declaringClass,JString* methodName,JString* fileName,JPrimitiveInt* lineNumber);
 
     static JClass* getClazz();
 
-    string getDeclaringClass();
+    JString* getDeclaringClass();
 
-    void setDeclaringClass(string declaringClass);
+    void setDeclaringClass(JString* declaringClass);
 
-    string getMethodName();
+    JString* getMethodName();
 
-    void setMethodName(string methodName);
+    void setMethodName(JString* methodName);
 
-    string getFileName();
+    JString* getFileName();
 
-    void setFileName(string fileName);
+    void setFileName(JString* fileName);
 
-    int getLineNumber();
+    JPrimitiveInt* getLineNumber();
 
-    void setLineNumber(int lineNumber);
+    void setLineNumber(JPrimitiveInt* lineNumber);
 
     string toString();
 

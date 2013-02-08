@@ -15,6 +15,10 @@ private:
 public:
     JPrimitiveArray(JClass* arrayClass,int len=10);
 
+    bool operator==(JPrimitiveArray &other);
+
+    static JClass* getClazz(JClass* componentType);
+
     int size();
 
     void setSize(int len);

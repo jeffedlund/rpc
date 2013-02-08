@@ -5,14 +5,19 @@
 using namespace std;
 
 class JField: public JObject{
+public:
+    typedef JObject* (*getter)(JObject* objet);
+    typedef void (*setter)(JObject* object,JObject* value);
+
 private:
     string name;
     JClass* type;
-
-protected:
-    JField(string name,JClass* type);
+    getter g;
+    setter s;
 
 public:
+    JField(string name,JClass* type);
+    JField(string name,JClass* type,getter g,setter s);
 
     static JClass* getClazz();
 
@@ -20,9 +25,9 @@ public:
 
     JClass* getType();
 
-    virtual JObject* get(JObject* object)=0;
+    virtual JObject* get(JObject* object);
 
-    virtual void set(JObject* object, JObject* value)=0;
+    virtual void set(JObject* object, JObject* value);
 
     string toString();
 };

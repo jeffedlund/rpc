@@ -34,7 +34,7 @@ JOptionalDataException::JOptionalDataException():JObjectStreamException(getClazz
 }
 
 JOptionalDataException::JOptionalDataException(string message) : JObjectStreamException(getClazz()){
-    this->message=message;
+    this->message=new JString(message);
 }
 
 

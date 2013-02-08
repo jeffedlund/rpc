@@ -34,12 +34,12 @@ JException::JException():JThrowable(getClazz()){
 JException::JException(JClass* _class):JThrowable(_class){
 }
 
-JException::JException(std::string message):JThrowable(getClazz()){
-    this->message = message;
+JException::JException(string message):JThrowable(getClazz()){
+    this->message = new JString(message);
 }
 
-JException::JException(std::string message, JThrowable *cause):JThrowable(getClazz()){
-    this->message = message;
+JException::JException(string message, JThrowable *cause):JThrowable(getClazz()){
+    this->message = new JString(message);
     this->cause = cause;
 }
 

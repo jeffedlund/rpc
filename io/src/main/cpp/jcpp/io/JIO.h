@@ -9,6 +9,7 @@
 #include "JIOException.h"
 #include "JNotActiveException.h"
 #include "JObjectInputStream.h"
+#include "JObjectOutputStream.h"
 #include "JObjectStreamClass.h"
 #include "JObjectStreamException.h"
 #include "JOptionalDataException.h"
@@ -19,7 +20,7 @@
 #include "QtDataInputStream.h"
 using namespace std;
 
-static int IO_CLASSES_SIZE = 16;
+static int IO_CLASSES_SIZE = 17;
 
 static JClass* IO_CLASSES[] = {
     JDataInputStream::getClazz(),
@@ -30,6 +31,7 @@ static JClass* IO_CLASSES[] = {
     JIOException::getClazz(),
     JNotActiveException::getClazz(),
     JObjectInputStream::getClazz(),
+    JObjectOutputStream::getClazz(),
     JObjectStreamClass::getClazz(),
     JObjectStreamException::getClazz(),
     JOptionalDataException::getClazz(),

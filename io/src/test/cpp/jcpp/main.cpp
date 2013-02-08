@@ -12,6 +12,7 @@
 #include "JBootClassBuilder.h"
 #include "JThrowable.h"
 #include "QtDataOutputStream.h"
+#include "JThrowableTest.h"
 
 using namespace std;
 
@@ -102,6 +103,9 @@ void testMap(){
 
 int main(int argc, char *argv[])
 {
+
+    testThrowable();
+
     //testMap();
     JSampleObject* sample=testReadSampleObject();
     testWriteSampleObject(sample);
@@ -113,13 +117,13 @@ int main(int argc, char *argv[])
     cin>>str;
     cout<<object.getClass()->getSerialVersionUID();
     cin>>str;
-    JDouble* jdouble=new JDouble(45);
-    cout<<jdouble->toString();
+    JDouble* jd=new JDouble(45);
+    cout<<jd->toString();
     cin>>str;
-    cout<<jdouble->getClass()->getSerialVersionUID();
+    cout<<jd->getClass()->getSerialVersionUID();
     cout<<"clazz=="<<JClass::getClazz()->getName();
-    cout<<"jdouble class=="<<jdouble->getClass()->getName();
-    cout<<"jdouble class.class=="<<jdouble->getClass()->getClass()->getName();
+    cout<<"jdouble class=="<<jd->getClass()->getName();
+    cout<<"jdouble class.class=="<<jd->getClass()->getClass()->getName();
     cin>>str;
     return 0;
 }

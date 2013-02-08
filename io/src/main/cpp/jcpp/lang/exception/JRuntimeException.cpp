@@ -35,11 +35,11 @@ JRuntimeException::JRuntimeException(JClass* _class):JException(_class){
 }
 
 JRuntimeException::JRuntimeException(string message):JException(getClazz()){
-    this->message=message;
+    this->message=new JString(message);
 }
 
 JRuntimeException::JRuntimeException(string message,JThrowable* cause):JException(getClazz()){
-    this->message=message;
+    this->message=new JString(message);
     this->cause=cause;
 }
 

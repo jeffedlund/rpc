@@ -34,5 +34,5 @@ JIOException::JIOException(JClass* _class):JException(_class){
 }
 
 JIOException::JIOException(string message) : JException(getClazz()){
-    this->message=message;
+    this->message=new JString(message);
 }

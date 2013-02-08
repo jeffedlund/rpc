@@ -42,7 +42,7 @@
 #include "JIllegalStateException.h"
 #include "JClassCastException.h"
 
-static int LANG_CLASSES_SIZE = 40;
+static int LANG_CLASSES_SIZE = 39;
 
 static JClass* LANG_CLASSES[] = {
     JClassCastException::getClazz(),
@@ -73,7 +73,6 @@ static JClass* LANG_CLASSES[] = {
     JLong::getClazz(),
     JNumber::getClazz(),
     JObject::getClazz(),
-    JPrimitiveArray::getClazz(),
     JPrimitiveBoolean::getClazz(),
     JPrimitiveByte::getClazz(),
     JPrimitiveChar::getClazz(),

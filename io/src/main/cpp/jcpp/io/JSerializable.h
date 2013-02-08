@@ -3,11 +3,9 @@
 
 #include "JObject.h"
 #include "JClass.h"
-#include "JObjectInputStream.h"
-#include "JObjectOutputStream.h"
+#include "JInterface.h"
 
-//TODO implement correctly serializable + externalizable
-class JSerializable{//TODO define JInterface : public virtual JObject{
+class JSerializable : public JInterface{
 protected:
     JSerializable();
 public:

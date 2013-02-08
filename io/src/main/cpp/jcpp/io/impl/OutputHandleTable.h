@@ -1,6 +1,7 @@
 #ifndef OUTPUTHANDLETABLE_H
 #define OUTPUTHANDLETABLE_H
 
+#include <QtGlobal>
 #include "JObject.h"
 #include <map>
 using namespace std;

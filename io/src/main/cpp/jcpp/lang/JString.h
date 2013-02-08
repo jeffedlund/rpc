@@ -13,6 +13,8 @@ public:
 
     JString(string str);
 
+    bool operator==(JString &other);
+
     static JClass* getClazz();
 
     string getString();

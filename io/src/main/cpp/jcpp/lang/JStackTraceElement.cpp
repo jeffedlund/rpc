@@ -5,7 +5,49 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "JSerializable.h"
+#include "JPrimitiveInt.h"
 using namespace std;
+
+static JObject* getDeclaringClass(JObject* object){
+    JStackTraceElement* e=(JStackTraceElement*)object;
+    return e->getDeclaringClass();
+}
+
+static void setDeclaringClass(JObject* object,JObject* value){
+    JStackTraceElement* th=(JStackTraceElement*)object;
+    th->setDeclaringClass((JString*)value);
+}
+
+static JObject* getMethodName(JObject* object){
+    JStackTraceElement* e=(JStackTraceElement*)object;
+    return e->getMethodName();
+}
+
+static void setMethodName(JObject* object,JObject* value){
+    JStackTraceElement* th=(JStackTraceElement*)object;
+    th->setMethodName((JString*)value);
+}
+
+static JObject* getFileName(JObject* object){
+    JStackTraceElement* e=(JStackTraceElement*)object;
+    return e->getFileName();
+}
+
+static void setFileName(JObject* object,JObject* value){
+    JStackTraceElement* th=(JStackTraceElement*)object;
+    th->setFileName((JString*)value);
+}
+
+static JObject* getLineNumber(JObject* object){
+    JStackTraceElement* e=(JStackTraceElement*)object;
+    return e->getLineNumber();
+}
+
+static void setLineNumber(JObject* object,JObject* value){
+    JStackTraceElement* th=(JStackTraceElement*)object;
+    th->setLineNumber((JPrimitiveInt*)value);
+}
 
 class JStackTraceElementClass : public JClass{
   public:
@@ -14,6 +56,11 @@ class JStackTraceElementClass : public JClass{
         this->name="java.lang.StackTraceElement";
         this->simpleName="StackTraceElement";
         this->serialVersionUID=6992337162326171013L;
+        addField(new JField("declaringClass",JString::getClazz(),getDeclaringClass,setDeclaringClass));
+        addField(new JField("methodName",JString::getClazz(),getMethodName,setMethodName));
+        addField(new JField("fileName",JString::getClazz(),getFileName,setFileName));
+        addField(new JField("lineNumber",JPrimitiveInt::getClazz(),getLineNumber,setLineNumber));
+        addInterface(JSerializable::getClazz());
     }
 
     JClass* getSuperclass(){
@@ -37,45 +84,56 @@ JClass* JStackTraceElement::getClazz(){
 JStackTraceElement::JStackTraceElement():JObject(getClazz()){
 }
 
-string JStackTraceElement::getDeclaringClass(){
+JStackTraceElement::JStackTraceElement(JString* declaringClass,JString* methodName,JString* fileName,JPrimitiveInt* lineNumber):JObject(getClazz()){
+    this->declaringClass=declaringClass;
+    this->methodName=methodName;
+    this->fileName=fileName;
+    this->lineNumber=lineNumber;
+}
+
+JString* JStackTraceElement::getDeclaringClass(){
     return declaringClass;
 }
 
-void JStackTraceElement::setDeclaringClass(string declaringClass){
+void JStackTraceElement::setDeclaringClass(JString* declaringClass){
     this->declaringClass=declaringClass;
 }
 
-string JStackTraceElement::getMethodName(){
+JString* JStackTraceElement::getMethodName(){
     return methodName;
 }
 
-void JStackTraceElement::setMethodName(string methodName){
+void JStackTraceElement::setMethodName(JString* methodName){
     this->methodName=methodName;
 }
 
-string JStackTraceElement::getFileName(){
+JString* JStackTraceElement::getFileName(){
     return fileName;
 }
 
-void JStackTraceElement::setFileName(string fileName){
+void JStackTraceElement::setFileName(JString* fileName){
     this->fileName=fileName;
 }
 
-int JStackTraceElement::getLineNumber(){
+JPrimitiveInt* JStackTraceElement::getLineNumber(){
     return lineNumber;
 }
 
-void JStackTraceElement::setLineNumber(int lineNumber){
+void JStackTraceElement::setLineNumber(JPrimitiveInt* lineNumber){
     this->lineNumber=lineNumber;
 }
 
 string JStackTraceElement::toString(){
     stringstream ss;
-    ss<<getDeclaringClass()<<"."<<getMethodName();
-    ss<<"("<<getFileName()<<":"<<getLineNumber()<<")";
+    ss<<getDeclaringClass()->getString()<<"."<<getMethodName()->getString();
+    ss<<"("<<getFileName()->getString()<<":"<<getLineNumber()->toString()<<")";
     return ss.str();
 }
 
 JStackTraceElement::~JStackTraceElement(){
+    delete declaringClass;
+    delete methodName;
+    delete fileName;
+    delete lineNumber;
 }
 

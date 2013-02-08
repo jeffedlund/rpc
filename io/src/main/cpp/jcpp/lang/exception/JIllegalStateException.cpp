@@ -32,7 +32,7 @@ JIllegalStateException::JIllegalStateException():JRuntimeException(getClazz()){
 }
 
 JIllegalStateException::JIllegalStateException(string message):JRuntimeException(getClazz()){
-    this->message=message;
+    this->message=new JString(message);
 }
 
 

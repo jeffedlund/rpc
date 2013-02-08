@@ -1,6 +1,7 @@
 #ifndef JPRIMITIVEBOOLEAN_H
 #define JPRIMITIVEBOOLEAN_H
 
+#include "Object.h"
 #include "JObject.h"
 #include <QtGlobal>
 #include <vector>
@@ -10,15 +11,15 @@ using namespace std;
 class JPrimitiveBoolean : public JObject{
 
     protected:
-        bool value;
+        jbool value;
 
     public:
         JPrimitiveBoolean();
-        JPrimitiveBoolean(bool value);
+        JPrimitiveBoolean(jbool value);
 
         static JClass* getClazz();
 
-        void set(bool value);
+        void set(jbool value);
 
         bool get();
 

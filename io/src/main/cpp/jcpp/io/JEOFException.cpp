@@ -31,5 +31,5 @@ JEOFException::JEOFException():JIOException(getClazz()){
 }
 
 JEOFException::JEOFException(string message) : JIOException(getClazz()){
-    this->message=message;
+    this->message=new JString(message);
 }
