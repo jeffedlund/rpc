@@ -316,7 +316,6 @@ void JObjectOutputStream::defaultWriteFields(JObject *obj, JObjectStreamClass* d
     delete primVals;
     primVals = new qint8[primDataSize];
     desc->writePrimFieldValues(obj, primVals,this);
-    bout->write(primVals, 0, primDataSize, false);
 
     if (desc->getNumObjFields() > 0){
         writeObjectValues(obj, desc);
@@ -336,7 +335,6 @@ void JObjectOutputStream::writePrimitiveData(JObject *obj, JObjectStreamClass *d
         primVals = new qint8[primDataSize];
     }
     desc->writePrimFieldValues(obj, primVals,this);
-    bout->write(primVals, 0, primDataSize, false);
 }
 
 void JObjectOutputStream::writeObjectValues(JObject *obj, JObjectStreamClass *desc){
@@ -355,18 +353,10 @@ void JObjectOutputStream::writeClassDescriptor(JObjectStreamClass* desc){
 
 void JObjectOutputStream::writeTypeString(JString* str){
     qint32 handle;
-    if(str->getString().size() == 0){
+    if(str==NULL){
         writeNull();
     } else if((handle = handles->lookup(str) != -1)){
         writeHandle(handle);
-    } else{
-        writeString(str);
-    }
-}
-
-void JObjectOutputStream::writeTypeString(string str){
-    if(str.size() == 0){
-        writeNull();
     } else{
         writeString(str);
     }

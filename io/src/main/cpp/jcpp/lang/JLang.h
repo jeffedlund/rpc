@@ -1,10 +1,12 @@
 #ifndef JLANG_H
 #define JLANG_H
 
+#include "JClassCastException.h"
 #include "JClassNotFoundException.h"
 #include "JError.h"
 #include "JException.h"
 #include "JIllegalArgumentException.h"
+#include "JIllegalStateException.h"
 #include "JIndexOutOfBoundsException.h"
 #include "JInstantiationException.h"
 #include "JInternalError.h"
@@ -40,7 +42,7 @@
 #include "JStackTraceElement.h"
 #include "JString.h"
 #include "JIllegalStateException.h"
-#include "JClassCastException.h"
+#include "JVoid.h"
 
 static int LANG_CLASSES_SIZE = 39;
 
@@ -83,7 +85,8 @@ static JClass* LANG_CLASSES[] = {
     JPrimitiveShort::getClazz(),
     JShort::getClazz(),
     JStackTraceElement::getClazz(),
-    JString::getClazz()
+    JString::getClazz(),
+    JVoid::getClazz()
 };
 
 #endif // JLANG_H

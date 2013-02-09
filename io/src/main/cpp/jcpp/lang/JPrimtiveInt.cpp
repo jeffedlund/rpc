@@ -9,7 +9,7 @@ using namespace std;
 
 class JPrimitiveIntClass : public JClass{
   public:
-    JPrimitiveIntClass(){
+    JPrimitiveIntClass():JClass(){
         this->canonicalName="int";
         this->name="int";
         this->simpleName="int";

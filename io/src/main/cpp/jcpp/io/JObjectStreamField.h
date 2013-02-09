@@ -27,6 +27,10 @@ public:
 
 
     static bool comparator (JObjectStreamField* f1,JObjectStreamField* f2) {
+        bool isPrim = f1->getType()->isPrimitive();
+        if (isPrim != f2->getType()->isPrimitive()) {
+            return isPrim ? true : false;
+        }
         return (f1->getName()<f2->getName());
     }
 

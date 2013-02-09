@@ -45,7 +45,6 @@ void registerClasses(){
 */
 JSampleObject* testReadSampleObject(){
     try{
-        registerClasses();
         QString name("E:\\project\\rpc\\io\\src\\main\\java\\output.b");
         QFile* file=new QFile(name);
         file->open(QIODevice::ReadOnly);
@@ -57,6 +56,7 @@ JSampleObject* testReadSampleObject(){
         return sample;
     }catch(JThrowable* thr){
         cout<<thr->toString();
+        throw thr;
     }
 }
 
@@ -103,6 +103,8 @@ void testMap(){
 
 int main(int argc, char *argv[])
 {
+    //TODO should be done by default ...
+    registerClasses();
 
     testThrowable();
 

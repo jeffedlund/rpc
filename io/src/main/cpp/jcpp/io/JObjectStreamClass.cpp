@@ -24,6 +24,7 @@
 #include <sstream>
 #include <vector>
 #include <algorithm>
+#include "JNotSerializableException.h"
 using namespace std;
 
 
@@ -411,7 +412,7 @@ void JObjectStreamClass::writeNonProxy(JObjectOutputStream* out){
         out->writeByte(f->getTypeCode());
         out->writeUTF(f->getName());
         if (!f->isPrimitive()) {
-            out->writeTypeString(f->getTypeString());
+            out->writeTypeString(new JString(f->getTypeString()));//TODO pas bon
         }
     }
 }

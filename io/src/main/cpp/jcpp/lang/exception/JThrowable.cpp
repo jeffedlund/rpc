@@ -36,7 +36,7 @@ static void setStackTrace(JObject* object,JObject* value){
 
 class JThrowableClass : public JClass{
 public:
-    JThrowableClass():JClass(JClassLoader::getBootClassLoader()){
+    JThrowableClass():JClass(){
         canonicalName="java.lang.Throwable";
         name="java.lang.Throwable";
         simpleName="Throwable";

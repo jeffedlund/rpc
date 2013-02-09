@@ -151,18 +151,14 @@ void HandleTable::setObject(int handle, JObject* obj) {
 void HandleTable::finish(int handle) {
     int end = 0;
     if (lowDep < 0) {
-        // no pending unknowns, only resolve current handle
         end = handle + 1;
     } else if (lowDep >= handle) {
-        // pending unknowns now clearable, resolve all upward handles
         end = size;
         lowDep = -1;
     } else {
-        // unresolved backrefs present, can't resolve anything yet
         return;
     }
 
-    // change STATUS_UNKNOWN -> STATUS_OK in selected span of handles
     for (int i = handle; i < end; i++) {
         switch (status[i]) {
         case STATUS_UNKNOWN:

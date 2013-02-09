@@ -3,6 +3,7 @@
 #include "Collections.h"
 #include <map>
 #include <vector>
+#include "JSerializable.h"
 using namespace std;
 
 class JPrimitiveArrayClass : public JClass{
@@ -16,6 +17,7 @@ class JPrimitiveArrayClass : public JClass{
           this->name=componentType->getSimpleName()+"[]";//not extra
           this->simpleName=componentType->getSimpleName()+"[]";
           this->bIsArray=true;
+          addInterface(JSerializable::getClazz());
         }
 
       JClass* getSuperclass(){

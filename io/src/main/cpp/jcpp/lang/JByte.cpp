@@ -8,7 +8,7 @@ using namespace std;
 
 class JByteClass : public JClass{
   public:
-    JByteClass(){
+    JByteClass():JClass(){
         this->canonicalName="java.lang.Byte";
         this->name="java.lang.Byte";
         this->simpleName="Byte";

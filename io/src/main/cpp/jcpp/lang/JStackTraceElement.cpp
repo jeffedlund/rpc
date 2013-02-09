@@ -51,7 +51,7 @@ static void setLineNumber(JObject* object,JObject* value){
 
 class JStackTraceElementClass : public JClass{
   public:
-    JStackTraceElementClass(){
+    JStackTraceElementClass():JClass(){
         this->canonicalName="java.lang.StackTraceElement";
         this->name="java.lang.StackTraceElement";
         this->simpleName="StackTraceElement";
