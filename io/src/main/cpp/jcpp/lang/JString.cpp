@@ -8,7 +8,7 @@ public:
       this->canonicalName="java.lang.String";
       this->name="java.lang.String";
       this->simpleName="String";
-      this->serialVersionUID=-6849794470754667710L;
+      this->serialVersionUID=-6849794470754667710ULL;
       addInterface(JSerializable::getClazz());
   }
 

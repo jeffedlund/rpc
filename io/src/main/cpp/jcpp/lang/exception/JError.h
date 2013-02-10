@@ -7,6 +7,14 @@ using namespace std;
 
 class JError : public JThrowable {
 protected:
+//    class JErrorClass : public JThrowableClass{
+//    public :
+//        JErrorClass();
+
+//        virtual JClass* getSuperclass();
+
+//        virtual JObject* newInstance();
+//    };
     JError(JClass* _class);
 
 public:

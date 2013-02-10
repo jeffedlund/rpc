@@ -7,7 +7,7 @@ public:
         canonicalName="java.lang.IllegalArgumentException";
         name="java.lang.IllegalArgumentException";
         simpleName="IllegalArgumentException";
-        serialVersionUID=-5365630128856068164L;
+        serialVersionUID=-5365630128856068164ULL;
     }
 
     JClass* getSuperclass(){

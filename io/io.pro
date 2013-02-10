@@ -107,7 +107,8 @@ SOURCES += \
     src/main/cpp/jcpp/io/QtDataOutputStream.cpp \
     src/main/cpp/jcpp/lang/JInterface.cpp \
     src/test/cpp/jcpp/JTest.cpp \
-    src/test/cpp/jcpp/lang/JThrowableTest.cpp
+    src/test/cpp/jcpp/lang/JThrowableTest.cpp \
+    src/test/cpp/jcpp/lang/JErrorTest.cpp
     
     
 LIBS += -lws2_32
@@ -201,5 +202,6 @@ HEADERS += \
     src/main/cpp/jcpp/lang/Object.h \
     src/main/cpp/jcpp/lang/JInterface.h \
     src/test/cpp/jcpp/lang/JThrowableTest.h \
-    src/test/cpp/jcpp/JTest.h
+    src/test/cpp/jcpp/JTest.h \
+    src/test/cpp/jcpp/lang/JErrorTest.h
     

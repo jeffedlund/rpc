@@ -7,7 +7,7 @@ public:
         canonicalName="java.lang.IndexOutOfBoundsException";
         name="java.lang.IndexOutOfBoundsException";
         simpleName="IndexOutOfBoundsException";
-        serialVersionUID=-7034897190745766939L;
+        serialVersionUID=-7034897190745766939ULL;
     }
 
     JClass* getSuperclass(){

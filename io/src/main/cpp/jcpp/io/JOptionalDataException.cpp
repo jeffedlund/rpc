@@ -6,7 +6,7 @@ public:
         canonicalName="java.io.OptionalDataException";
         name="java.io.OptionalDataException";
         simpleName="OptionalDataException";
-        serialVersionUID=-8011121865681257820L;
+        serialVersionUID=-8011121865681257820ULL;
     }
 
     JClass* getSuperclass(){

@@ -13,7 +13,7 @@ class JIntegerClass : public JClass{
         this->canonicalName="java.lang.Integer";
         this->name="java.lang.Integer";
         this->simpleName="Integer";
-        this->serialVersionUID=1360826667806852920L;
+        this->serialVersionUID=1360826667806852920ULL;
     }
 
     JClass* getSuperclass(){

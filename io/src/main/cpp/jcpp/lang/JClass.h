@@ -16,7 +16,10 @@ using namespace std;
 
 //TODO implement forName,
 class JClass : public JObject{
- protected:
+private:
+    void initFields();
+    void initMethods();
+protected:
     string canonicalName;
     string name;
     string simpleName;
@@ -25,8 +28,12 @@ class JClass : public JObject{
     vector<JEnum*>* enumConstants;
     map<string,JField*>* fields;
     vector<JField*>* fieldsList;
+    map<string,JField*>* declaredFields;
+    vector<JField*>* declaredFieldsList;
     map<string,JMethod*>* methods;
     vector<JMethod*>* methodsList;
+    map<string,JMethod*>* declaredMethods;
+    vector<JMethod*>* declaredMethodsList;
     vector<JClass*>* interfaces;
     bool bIsArray;
     bool bIsProxy;
@@ -56,10 +63,15 @@ class JClass : public JObject{
     JEnum* valueOf(string value);
     JField* getField(string name);
     vector<JField*>* getFields();
+    JField* getDeclaredField(string name);
+    vector<JField*>* getDeclaredFields();
     vector<JClass*>* getInterfaces();
     bool hasMethod(string name, vector<JClass*>* parameterTypes);
     JMethod* getMethod(string name, vector<JClass*>* parameterTypes);
     vector<JMethod*>* getMethods();
+    bool hasDeclaredMethod(string name, vector<JClass*>* parameterTypes);
+    JMethod* getDeclaredMethod(string name, vector<JClass*>* parameterTypes);
+    vector<JMethod*>* getDeclaredMethods();
     virtual JClass* getSuperclass()=0;
     bool isArray();
     bool isProxy();

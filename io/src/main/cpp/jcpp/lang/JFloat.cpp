@@ -13,7 +13,7 @@ class JFloatClass : public JClass{
         this->canonicalName="java.lang.Float";
         this->name="java.lang.Float";
         this->simpleName="Float";
-        this->serialVersionUID=-2671257302660747028L;
+        this->serialVersionUID=-2671257302660747028ULL;
     }
 
     JClass* getSuperclass(){

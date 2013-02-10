@@ -540,7 +540,7 @@ void JObjectInputStream::readExternalData(JObject* obj, JObjectStreamClass* desc
 
 void JObjectInputStream::readSerialData(JObject *obj, JObjectStreamClass *desc) {
     vector<JObjectStreamClass::ClassDataSlot*>* dataSlots=desc->getClassDataLayout();
-    for (int i=0;i<dataSlots->size();i++){
+    for (unsigned int i=0;i<dataSlots->size();i++){
         JObjectStreamClass::ClassDataSlot* dataSlot=dataSlots->at(i);
         JObjectStreamClass* slotDesc=dataSlot->desc;
         if (obj!=NULL && slotDesc->hasReadObjectMethod() && handles->lookupException(passHandle)==NULL){

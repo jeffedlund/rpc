@@ -14,7 +14,7 @@ class JDoubleClass : public JClass{
         this->canonicalName="java.lang.Double";
         this->name="java.lang.Double";
         this->simpleName="Double";
-        this->serialVersionUID=-9172774392245257468L;
+        this->serialVersionUID=-9172774392245257468ULL;
     }
 
     JClass* getSuperclass(){

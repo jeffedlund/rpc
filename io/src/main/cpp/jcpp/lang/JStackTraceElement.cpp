@@ -55,7 +55,7 @@ class JStackTraceElementClass : public JClass{
         this->canonicalName="java.lang.StackTraceElement";
         this->name="java.lang.StackTraceElement";
         this->simpleName="StackTraceElement";
-        this->serialVersionUID=6992337162326171013L;
+        this->serialVersionUID=6992337162326171013ULL;
         addField(new JField("declaringClass",JString::getClazz(),getDeclaringClass,setDeclaringClass));
         addField(new JField("methodName",JString::getClazz(),getMethodName,setMethodName));
         addField(new JField("fileName",JString::getClazz(),getFileName,setFileName));

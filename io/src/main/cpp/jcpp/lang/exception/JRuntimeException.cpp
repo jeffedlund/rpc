@@ -7,7 +7,7 @@ public:
         canonicalName="java.lang.RuntimeException";
         name="java.lang.RuntimeException";
         simpleName="RuntimeException";
-        serialVersionUID=-7034897190745766939L;
+        serialVersionUID=-7034897190745766939ULL;
     }
 
     JClass* getSuperclass(){

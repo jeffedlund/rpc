@@ -23,6 +23,7 @@
 #include "QtDataOutputStream.h"
 using namespace std;
 
+//TODO define h and cpp file that contains all that + metadata on packages ...
 static int IO_CLASSES_SIZE = 20;
 
 static JClass* IO_CLASSES[] = {

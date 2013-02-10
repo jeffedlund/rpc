@@ -6,7 +6,7 @@ public:
         canonicalName="java.io.IOException";
         name="java.io.IOException";
         simpleName="IOException";
-        serialVersionUID=7818375828146090155L;
+        serialVersionUID=7818375828146090155ULL;
     }
 
     JClass* getSuperclass(){

@@ -6,7 +6,7 @@ public:
         canonicalName="java.io.InvalidClassException";
         name="java.io.InvalidClassException";
         simpleName="InvalidClassException";
-        serialVersionUID=-4333316296251054416L;
+        serialVersionUID=-4333316296251054416ULL;
     }
 
     JClass* getSuperclass(){

@@ -77,7 +77,7 @@ JClassLoader::JClassLoader(bool root):JObject(true){
 
 void JClassLoader::addClasses(JClassBuilder* jClassBuilder){
     vector<JClass*>* c=jClassBuilder->getClasses();
-    for (int i=0;i<c->size();i++){
+    for (unsigned int i=0;i<c->size();i++){
         JClass* jClass=c->at(i);
         classes->insert(pair<string,JClass*>(jClass->getName(),jClass));
     }

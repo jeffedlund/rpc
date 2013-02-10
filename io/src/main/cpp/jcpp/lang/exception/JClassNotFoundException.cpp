@@ -7,7 +7,7 @@ public:
         canonicalName="java.lang.ClassNotFoundException";
         name="java.lang.ClassNotFoundException";
         simpleName="ClassNotFoundException";
-        serialVersionUID=-9176873029745254542L;
+        serialVersionUID=-9176873029745254542ULL;
     }
 
     JClass* getSuperclass(){

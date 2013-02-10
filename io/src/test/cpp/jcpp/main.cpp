@@ -14,12 +14,13 @@
 #include "QtDataOutputStream.h"
 #include "JThrowableTest.h"
 #include "JTest.h"
+#include "JErrorTest.h"
 
 using namespace std;
 
 
-static int TEST_SIZE = 1;
-static JTest* tests[] = {new JThrowableTest()};
+static int TEST_SIZE = 2;
+static JTest* tests[] = {new JThrowableTest(),new JErrorTest()};
 
 class JSampleClassBuilder : public JClassBuilder{
     vector<JClass*> * classes;
@@ -118,7 +119,6 @@ int main(int argc, char *argv[])
     JSampleObject* sample=testReadSampleObject();
     testWriteSampleObject(sample);
 
-    JClass* toto = JClass::getClazz();
     JObject object;
     cout<<object.toString();
     string str;

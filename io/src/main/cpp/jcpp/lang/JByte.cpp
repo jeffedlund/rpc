@@ -12,7 +12,7 @@ class JByteClass : public JClass{
         this->canonicalName="java.lang.Byte";
         this->name="java.lang.Byte";
         this->simpleName="Byte";
-        this->serialVersionUID=-7183698231559129828L;
+        this->serialVersionUID=-7183698231559129828ULL;
     }
 
     JClass* getSuperclass(){

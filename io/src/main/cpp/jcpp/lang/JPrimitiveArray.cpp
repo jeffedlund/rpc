@@ -61,7 +61,7 @@ JClass* JPrimitiveArray::getClass(JClassLoader* classLoader,string name){
     if (name.at(0)=='['){
         int nbArray=0;
         string classname;
-        for (int i=0;i<name.size();i++){
+        for (unsigned int i=0;i<name.size();i++){
             if (name.at(i)=='['){
                 nbArray++;
             }else{

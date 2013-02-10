@@ -6,7 +6,7 @@ public:
         canonicalName="java.lang.NoSuchMethodException";
         name="java.lang.NoSuchMethodException";
         simpleName="NoSuchMethodException";
-        serialVersionUID=-3387516993124229948L;
+        serialVersionUID=-3387516993124229948ULL;
     }
 
     JClass* getSuperclass(){

@@ -6,7 +6,7 @@ public:
         canonicalName="java.io.UTFDataFormatException";
         name="java.io.UTFDataFormatException";
         simpleName="UTFDataFormatException";
-        serialVersionUID=7818375828146090155L;
+        serialVersionUID=7818375828146090155ULL;
     }
 
     JClass* getSuperclass(){

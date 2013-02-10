@@ -6,7 +6,7 @@ public:
         canonicalName="java.io.EOFException";
         name="java.io.EOFException";
         simpleName="EOFException";
-        serialVersionUID=7818375828146090155L;
+        serialVersionUID=7818375828146090155ULL;
     }
 
     JClass* getSuperclass(){

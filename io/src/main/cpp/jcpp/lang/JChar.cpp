@@ -12,7 +12,7 @@ class JCharClass : public JClass{
         this->canonicalName="java.lang.Character";
         this->name="java.lang.Character";
         this->simpleName="Character";
-        this->serialVersionUID=3786198910865385080L;
+        this->serialVersionUID=3786198910865385080ULL;
     }
 
     JClass* getSuperclass(){

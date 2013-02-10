@@ -14,7 +14,7 @@ class JNumberClass : public JClass{
         this->canonicalName="java.lang.Number";
         this->name="java.lang.Number";
         this->simpleName="Number";
-        this->serialVersionUID=-8742448824652078965L;
+        this->serialVersionUID=-8742448824652078965ULL;
     }
 
     JClass* getSuperclass(){

@@ -58,7 +58,7 @@ string JMethod::toString(){
     ss<<declaringClass<<"."<<name;
     if (parameterType!=NULL){
         ss<<"(";
-        for (int i=0;i<parameterType->size();i++){
+        for (unsigned int i=0;i<parameterType->size();i++){
             JClass* param=parameterType->at(i);
             ss<<param->getName()+",";
         }

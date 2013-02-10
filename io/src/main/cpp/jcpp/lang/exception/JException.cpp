@@ -7,7 +7,7 @@ public:
         canonicalName="java.lang.Exception";
         name="java.lang.Exception";
         simpleName="Exception";
-        serialVersionUID=-3387516993124229948L;
+        serialVersionUID=-3387516993124229948ULL;
     }
 
     JClass* getSuperclass(){

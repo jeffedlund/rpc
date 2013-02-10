@@ -7,7 +7,7 @@ public:
         canonicalName="java.lang.VirtualMachineError";
         name="java.lang.VirtualMachineError";
         simpleName="VirtualMachineError";
-        serialVersionUID=4980196508277280342L;
+        serialVersionUID=4980196508277280342ULL;
     }
 
     JClass* getSuperclass(){

@@ -168,7 +168,7 @@ qint32 JDataOutputStream::writeUTF(string str, JOutputStream *out){
     }
 
     JDataOutputStream* dos = (JDataOutputStream*)out;
-    if(dos->bytearr == NULL || (sizeof(dos->bytearr) < (utflen+2))){
+    if(dos->bytearr == NULL || (sizeof(dos->bytearr) < (unsigned )(utflen+2))){
         dos->length  = (utflen*2) + 2;
         if (dos->bytearr!=NULL){
             delete dos->bytearr;

@@ -3,64 +3,61 @@
 #include "Collections.h"
 #include "JString.h"
 
-static JObject* getDetailMessage(JObject* object){
+static JObject* staticGetDetailMessage(JObject* object){
     JThrowable* th=(JThrowable*)object;
     return th->getMessage();
 }
 
-static void setDetailMessage(JObject* object,JObject* value){
+static void staticSetDetailMessage(JObject* object,JObject* value){
     JThrowable* th=(JThrowable*)object;
     th->setMessage((JString*)value);
 }
 
-static JObject* getCause(JObject* object){
+static JObject* staticGetCause(JObject* object){
     JThrowable* th=(JThrowable*)object;
     return th->getCause();
 }
 
-static void setCause(JObject* object,JObject* value){
+static void staticSetCause(JObject* object,JObject* value){
     JThrowable* th=(JThrowable*)object;
     th->setCause((JThrowable*)value);
 }
 
-static JObject* getStackTrace(JObject* object){
+static JObject* staticGetStackTrace(JObject* object){
     JThrowable* th=(JThrowable*)object;
     return th->getStackTrace();
 }
 
 
-static void setStackTrace(JObject* object,JObject* value){
+static void staticSetStackTrace(JObject* object,JObject* value){
     JThrowable* th=(JThrowable*)object;
     th->setStackTrace((JPrimitiveArray*)value);
 }
 
-class JThrowableClass : public JClass{
-public:
-    JThrowableClass():JClass(){
-        canonicalName="java.lang.Throwable";
-        name="java.lang.Throwable";
-        simpleName="Throwable";
-        serialVersionUID=-3042686055658047285L;
-        addField(new JField("detailMessage",JString::getClazz(),getDetailMessage,setDetailMessage));
-        addField(new JField("cause",this,getCause,setCause));
-        addField(new JField("stackTrace",JPrimitiveArray::getClazz(JStackTraceElement::getClazz()),getStackTrace,setStackTrace));
-        addInterface(JSerializable::getClazz());
-    }
+JThrowable::JThrowableClass::JThrowableClass():JClass(){
+    this->canonicalName="java.lang.Throwable";
+    this->name="java.lang.Throwable";
+    this->simpleName="Throwable";
+    this->serialVersionUID=-3042686055658047285ULL;
+    this->addField(new JField("detailMessage",JString::getClazz(),staticGetDetailMessage,staticSetDetailMessage));
+    this->addField(new JField("cause",this,staticGetCause,staticSetCause));
+    this->addField(new JField("stackTrace",JPrimitiveArray::getClazz(JStackTraceElement::getClazz()),staticGetStackTrace,staticSetStackTrace));
+    this->addInterface(JSerializable::getClazz());
+}
 
-    JClass* getSuperclass(){
-        return JObject::getClazz();
-    }
+JClass* JThrowable::JThrowableClass::getSuperclass(){
+    return JObject::getClazz();
+}
 
-    JObject* newInstance(){
-        return new JThrowable();
-    }
-};
+JObject* JThrowable::JThrowableClass::newInstance(){
+    return new JThrowable();
+}
 
 static JClass* clazz;
 
 JClass* JThrowable::getClazz(){
     if (clazz==NULL){
-        clazz=new JThrowableClass();
+        clazz=new JThrowable::JThrowableClass();
     }
     return clazz;
 }
@@ -102,7 +99,7 @@ JThrowable::JThrowable(JString* message, JThrowable *cause):JObject(getClazz()){
 }
 
 bool JThrowable::operator==(JObject &other){
-    if (other.getClass()==JThrowable::getClazz()){
+    if (other.getClass()==getClass()){
         JThrowable se=dynamic_cast<JThrowable&>(other);
         return (*this)==se;
     }
@@ -177,7 +174,7 @@ void JThrowable::printStackTrace(ostream* os){
 }
 
 string JThrowable::toString(){
-    return getClass()->getName()+":"+message->getString();
+    return getClass()->getName()+":"+(message!=NULL?message->getString():"");
 }
 
 JThrowable::~JThrowable(){

@@ -17,15 +17,20 @@ void JTest::testWrite(JObject* object){
 }
 
 JObject* JTest::testRead(){
-    QString name=QString::fromStdString(getFileName());
-    QFile* file=new QFile(name);
-    file->open(QIODevice::ReadOnly);
-    QDataStream* qs=new QDataStream(file);
-    QtDataInputStream* qis=new QtDataInputStream(qs);
-    JObjectInputStream* ois=new JObjectInputStream(qis);
-    JObject* read=ois->readObject();
-    file->close();
-    return read;
+    try{
+        QString name=QString::fromStdString(getFileName());
+        QFile* file=new QFile(name);
+        file->open(QIODevice::ReadOnly);
+        QDataStream* qs=new QDataStream(file);
+        QtDataInputStream* qis=new QtDataInputStream(qs);
+        JObjectInputStream* ois=new JObjectInputStream(qis);
+        JObject* read=ois->readObject();
+        file->close();
+        return read;
+    }catch(JThrowable* th){
+        th->printStackTrace(&cout);
+        throw th;
+    }
 }
 
 void JTest::test(){

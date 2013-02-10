@@ -6,7 +6,7 @@ public:
         canonicalName="java.lang.NullPointerException";
         name="java.lang.NullPointerException";
         simpleName="NullPointerException";
-        serialVersionUID=-7034897190745766939L;
+        serialVersionUID=-7034897190745766939ULL;
     }
 
     JClass* getSuperclass(){

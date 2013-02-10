@@ -6,7 +6,7 @@ public:
         canonicalName="java.io.StreamCorruptedException";
         name="java.io.StreamCorruptedException";
         simpleName="StreamCorruptedException";
-        serialVersionUID=8983558202217591746L;
+        serialVersionUID=8983558202217591746ULL;
     }
 
     JClass* getSuperclass(){

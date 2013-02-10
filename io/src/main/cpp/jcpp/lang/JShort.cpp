@@ -13,7 +13,7 @@ class JShortClass : public JClass{
         this->canonicalName="java.lang.Short";
         this->name="java.lang.Short";
         this->simpleName="Short";
-        this->serialVersionUID=7515723908773894738L;
+        this->serialVersionUID=7515723908773894738ULL;
     }
 
     JClass* getSuperclass(){

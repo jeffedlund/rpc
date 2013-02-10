@@ -6,7 +6,7 @@ public:
         canonicalName="java.io.ObjectStreamException";
         name="java.io.ObjectStreamException";
         simpleName="ObjectStreamException";
-        serialVersionUID=7260898174833392607L;
+        serialVersionUID=7260898174833392607ULL;
     }
 
     JClass* getSuperclass(){

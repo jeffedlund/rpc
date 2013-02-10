@@ -14,7 +14,7 @@ public:
         name="java.lang.reflect.Proxy";
         simpleName="Proxy";
         bIsProxy=true;
-        serialVersionUID=-2222568056686623797L;
+        serialVersionUID=-2222568056686623797ULL;
     }
 
     JClass* getSuperclass(){
@@ -40,7 +40,7 @@ JProxy::JProxy():JObject(getClazz()){
 
 JObject* JProxy::invoke(string method,vector<JObject*>* args){
     JMethod* jMethod=NULL;
-    for (int i=0;i<interfaces->size();i++){
+    for (unsigned int i=0;i<interfaces->size();i++){
         JClass* jclass=interfaces->at(i);
         if (jclass->hasMethod(method,NULL)){//should pass paramtype too
             jMethod=jclass->getMethod(method,NULL);
@@ -72,7 +72,7 @@ void JProxy::setInterfaces(vector<JClass*>* interfaces){
 string JProxy::toString(){
     stringstream ss;
     ss<<"Proxy[InvocationHandler:"<<invocationHandler->toString()<<"][Interfaces:";
-    for (int i=0;i<interfaces->size();i++){
+    for (unsigned int i=0;i<interfaces->size();i++){
         JClass* jclass=interfaces->at(i);
         ss<<jclass->getName()<<",";
     }

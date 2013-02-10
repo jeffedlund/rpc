@@ -12,7 +12,7 @@ class JBooleanClass : public JClass{
         this->canonicalName="java.lang.Boolean";
         this->name="java.lang.Boolean";
         this->simpleName="Boolean";
-        this->serialVersionUID=-3665804199014368530L;
+        this->serialVersionUID=-3665804199014368530ULL;
     }
 
     JClass* getSuperclass(){

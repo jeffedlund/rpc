@@ -11,6 +11,14 @@ using namespace std;
 
 class JThrowable: public JObject, public JSerializable {
 protected:
+    class JThrowableClass : public JClass{
+    public :
+        JThrowableClass();
+
+        virtual JClass* getSuperclass();
+
+        virtual JObject* newInstance();
+    };
     JString* message;
     JThrowable* cause;
     JPrimitiveArray* stackTrace;

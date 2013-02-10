@@ -13,7 +13,7 @@ class JLongClass : public JClass{
         this->canonicalName="java.lang.Long";
         this->name="java.lang.Long";
         this->simpleName="Long";
-        this->serialVersionUID=4290774380558885855L;
+        this->serialVersionUID=4290774380558885855ULL;
     }
 
     JClass* getSuperclass(){

@@ -6,7 +6,7 @@ public:
         canonicalName="java.io.NotSerializableException";
         name="java.io.NotSerializableException";
         simpleName="NotSerializableException";
-        serialVersionUID=2906642554793891381L;
+        serialVersionUID=2906642554793891381ULL;
     }
 
     JClass* getSuperclass(){

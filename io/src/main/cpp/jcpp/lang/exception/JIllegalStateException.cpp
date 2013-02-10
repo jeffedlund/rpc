@@ -7,7 +7,7 @@ public:
         canonicalName="java.lang.IllegalStateException";
         name="java.lang.IllegalStateException";
         simpleName="IllegalStateException";
-        serialVersionUID=-1848914673093119416L;
+        serialVersionUID=-1848914673093119416ULL;
     }
 
     JClass* getSuperclass(){

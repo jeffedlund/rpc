@@ -220,7 +220,7 @@ void JObjectOutputStream::writeExternalData(JObject* obj){
 
 void JObjectOutputStream::writeSerialData(JObject *obj, JObjectStreamClass* desc){
     vector<JObjectStreamClass::ClassDataSlot*>* classDataSlots=desc->getClassDataLayout();
-    for (int i=0;i<classDataSlots->size();i++){
+    for (unsigned int i=0;i<classDataSlots->size();i++){
         JObjectStreamClass::ClassDataSlot* dataSlot=classDataSlots->at(i);
         JObjectStreamClass* slotDesc=dataSlot->desc;
         if (slotDesc->hasWriteObjectMethod()) {
@@ -331,7 +331,7 @@ void JObjectOutputStream::writeFatalException(JIOException* ex){
 
 void JObjectOutputStream::writePrimitiveData(JObject *obj, JObjectStreamClass *desc){
     int primDataSize = desc->getPrimDataSize();
-    if (primVals == NULL || sizeof(primVals) < primDataSize) {
+    if (primVals == NULL || sizeof(primVals) < (unsigned)primDataSize) {
         primVals = new qint8[primDataSize];
     }
     desc->writePrimFieldValues(obj, primVals,this);

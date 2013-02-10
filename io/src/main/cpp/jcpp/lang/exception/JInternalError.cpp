@@ -7,7 +7,7 @@ public:
         canonicalName="java.lang.InternalError";
         name="java.lang.InternalError";
         simpleName="InternalError";
-        serialVersionUID=4980196508277280342L;
+        serialVersionUID=4980196508277280342ULL;
     }
 
     JClass* getSuperclass(){

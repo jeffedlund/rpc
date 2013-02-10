@@ -2,12 +2,12 @@
 #include "JClass.h"
 
 class JErrorClass : public JClass{
-public:
-    JErrorClass():JClass(JClassLoader::getBootClassLoader()){
+public :
+    JErrorClass(){
         canonicalName="java.lang.Error";
         name="java.lang.Error";
         simpleName="Error";
-        serialVersionUID=4980196508277280342L;
+        serialVersionUID=4980196508277280342ULL;
     }
 
     JClass* getSuperclass(){

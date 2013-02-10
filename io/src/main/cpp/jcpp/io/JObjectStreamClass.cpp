@@ -34,7 +34,7 @@ class JObjectStreamClassClass : public JClass{
           this->canonicalName="java.io.ObjectStreamClass";
           this->name="java.io.ObjectStreamClass";
           this->simpleName="ObjectStreamClass";
-          this->serialVersionUID=6120832682080437368L;
+          this->serialVersionUID=6120832682080437368ULL;
       }
 
       JClass* getSuperclass(){
@@ -95,10 +95,10 @@ JObjectStreamClass::JObjectStreamClass():JObject(getClazz()){
 }
 
 static vector<JObjectStreamField*>* getDefaultSerialFields(JClass* cl) {
-    vector<JField*>* clFields = cl->getFields();
+    vector<JField*>* clFields = cl->getDeclaredFields();
     if (clFields!=NULL){
         vector<JObjectStreamField*>* fields=new vector<JObjectStreamField*>;
-        for (int i = 0; i < clFields->size(); i++) {
+        for (unsigned int i = 0; i < clFields->size(); i++) {
             JField* f=clFields->at(i);
             if (true){//TODO !f->isStatic() && !f->isTransient()) {
                 JObjectStreamField* ff=new JObjectStreamField(f,false,true);
@@ -269,11 +269,13 @@ void JObjectStreamClass::readNonProxy(JObjectInputStream *in) {
         for (int i = 0; i < numFields; ++i) {
             char tcode=(char) in->readByte();;
             string fname=in->readUTF();
-            string signature(&tcode);
+            string signature;
             if ((tcode=='L' || (tcode=='['))){
                 JString* readString=in->readTypeString();
                 signature=readString->getString();
                 delete readString;
+            }else{
+                signature.push_back(tcode);
             }
             fields->push_back(new JObjectStreamField(fname,signature,false));
         }

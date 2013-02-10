@@ -6,7 +6,7 @@ public:
         canonicalName="java.lang.NoSuchFieldException";
         name="java.lang.NoSuchFieldException";
         simpleName="NoSuchFieldException";
-        serialVersionUID=-3387516993124229948L;
+        serialVersionUID=-3387516993124229948ULL;
     }
 
     JClass* getSuperclass(){

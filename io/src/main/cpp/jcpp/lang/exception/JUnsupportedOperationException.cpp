@@ -7,7 +7,7 @@ public:
         canonicalName="java.lang.UnsupportedOperationException";
         name="java.lang.UnsupportedOperationException";
         simpleName="UnsupportedOperationException";
-        serialVersionUID=-1242599979055084673L;
+        serialVersionUID=-1242599979055084673ULL;
     }
 
     JClass* getSuperclass(){

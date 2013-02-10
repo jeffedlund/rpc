@@ -7,7 +7,7 @@ public:
         canonicalName="java.lang.InstantiationException";
         name="java.lang.InstantiationException";
         simpleName="InstantiationException";
-        serialVersionUID=-3387516993124229948L;
+        serialVersionUID=-3387516993124229948ULL;
     }
 
     JClass* getSuperclass(){

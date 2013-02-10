@@ -22,6 +22,7 @@
 #include <sstream>
 #include "JInternalError.h"
 #include <algorithm>
+#include "JNullPointerException.h"
 using namespace std;
 
 class JClassClass : public JClass{
@@ -30,7 +31,7 @@ class JClassClass : public JClass{
         this->canonicalName="java.lang.Class";
         this->name="java.lang.Class";
         this->simpleName="Class";
-        this->serialVersionUID=3206093459760846163;
+        this->serialVersionUID=3206093459760846163ULL;
     }
 
     JClassLoader* getClassLoader(){
@@ -100,11 +101,16 @@ JClass::JClass(JClassLoader* classLoader):JObject(JClass::getClazz()){
     this->bIsEnum=false;
     this->bIsInterface=false;
     this->bIsPrimitive=false;
+    this->componentType=NULL;
     this->enumConstants=new vector<JEnum*>;
     this->fields=new map<string,JField*>;
     this->fieldsList=new vector<JField*>;
+    this->declaredFields=new map<string,JField*>;
+    this->declaredFieldsList=new vector<JField*>;
     this->methods=new map<string,JMethod*>;
     this->methodsList=new vector<JMethod*>;
+    this->declaredMethods=new map<string,JMethod*>;
+    this->declaredMethodsList=new vector<JMethod*>;
     this->interfaces=new vector<JClass*>;
 }
 
@@ -115,11 +121,16 @@ JClass::JClass():JObject(JClass::getClazz()){
     this->bIsEnum=false;
     this->bIsInterface=false;
     this->bIsPrimitive=false;
+    this->componentType=NULL;
     this->enumConstants=new vector<JEnum*>;
     this->fields=new map<string,JField*>;
     this->fieldsList=new vector<JField*>;
+    this->declaredFields=new map<string,JField*>;
+    this->declaredFieldsList=new vector<JField*>;
     this->methods=new map<string,JMethod*>;
     this->methodsList=new vector<JMethod*>;
+    this->declaredMethods=new map<string,JMethod*>;
+    this->declaredMethodsList=new vector<JMethod*>;
     this->interfaces=new vector<JClass*>;
 }
 
@@ -129,11 +140,16 @@ JClass::JClass(bool root):JObject(root){
     this->bIsEnum=false;
     this->bIsInterface=false;
     this->bIsPrimitive=false;
+    this->componentType=NULL;
     this->enumConstants=new vector<JEnum*>;
     this->fields=new map<string,JField*>;
     this->fieldsList=new vector<JField*>;
+    this->declaredFields=new map<string,JField*>;
+    this->declaredFieldsList=new vector<JField*>;
     this->methods=new map<string,JMethod*>;
     this->methodsList=new vector<JMethod*>;
+    this->declaredMethods=new map<string,JMethod*>;
+    this->declaredMethodsList=new vector<JMethod*>;
     this->interfaces=new vector<JClass*>;
 }
 
@@ -162,7 +178,7 @@ vector<JEnum*>* JClass::getEnumConstants(){
 }
 
 JEnum* JClass::valueOf(string value){
-    for (int i=0;i<enumConstants->size();i++){
+    for (unsigned int i=0;i<enumConstants->size();i++){
         JEnum* e=enumConstants->at(i);
         if (e->getName()->getString()==value){
             return e;
@@ -172,15 +188,49 @@ JEnum* JClass::valueOf(string value){
 }
 
 JField* JClass::getField(string name){
-    JField* field=getFromMap(fields,name);
+    JClass* current=this;
+    while (current!=NULL){
+        JField* field=getFromMap(current->declaredFields,name);
+        if (field!=NULL){
+            return field;
+        }
+        if (current->getSuperclass()==NULL){
+            throw JNoSuchFieldException("field "+name+" not delared in "+getName());
+        }
+        current=current->getSuperclass();
+    }
+    return NULL;
+}
+
+JField* JClass::getDeclaredField(string name){
+    JField* field=getFromMap(declaredFields,name);
     if (field==NULL){
         throw JNoSuchFieldException("field "+name+" not delared in "+getName());
     }
     return field;
 }
 
+void JClass::initFields(){
+    if (fieldsList->size()==0){
+        JClass* current=this;
+        while (current!=NULL){
+            for (unsigned int i=0;i<current->declaredFieldsList->size();i++){
+                JField* f=current->declaredFieldsList->at(i);//TODO add it or check before ...
+                fieldsList->push_back(f);
+                fields->insert(pair<string,JField*>(f->getName(),f));
+            }
+            current=current->getSuperclass();
+        }
+    }
+}
+
 vector<JField*>* JClass::getFields(){
+    initFields();
     return fieldsList;
+}
+
+vector<JField*>* JClass::getDeclaredFields(){
+    return declaredFieldsList;
 }
 
 vector<JClass*>* JClass::getInterfaces(){
@@ -188,7 +238,22 @@ vector<JClass*>* JClass::getInterfaces(){
 }
 
 bool JClass::hasMethod(string name, vector<JClass*>* parameterTypes){
-    JMethod* method=getFromMap(methods,name);
+    JClass* current=this;
+    while (current!=NULL){
+        JMethod* method=getFromMap(current->declaredMethods,name);
+        if (method!=NULL){
+            return true;
+        }
+        if (current->getSuperclass()==NULL){
+            return false;
+        }
+        current=current->getSuperclass();
+    }
+    return false;
+}
+
+bool JClass::hasDeclaredMethod(string name, vector<JClass*>* parameterTypes){
+    JMethod* method=getFromMap(declaredMethods,name);
     if (method==NULL){
         return false;
     }
@@ -196,15 +261,49 @@ bool JClass::hasMethod(string name, vector<JClass*>* parameterTypes){
 }
 
 JMethod* JClass::getMethod(string name, vector<JClass*>* parameterTypes){
-    JMethod* method=getFromMap(methods,name);
+    JClass* current=this;
+    while (current!=NULL){
+        JMethod* method=getFromMap(current->declaredMethods,name);
+        if (method!=NULL){
+            return method;
+        }
+        if (current->getSuperclass()==NULL){
+            throw JNoSuchMethodException("method "+name+" not declared in "+getName());//we should check using signature ...
+        }
+        current=current->getSuperclass();
+    }
+    return NULL;
+}
+
+JMethod* JClass::getDeclaredMethod(string name, vector<JClass*>* parameterTypes){
+    JMethod* method=getFromMap(declaredMethods,name);
     if (method==NULL){
         throw JNoSuchMethodException("method "+name+" not declared in "+getName());//we should check using signature ...
     }
     return method;
 }
 
+void JClass::initMethods(){
+    if (methodsList->size()==0){
+        JClass* current=this;
+        while (current!=NULL){
+            for (unsigned int i=0;i<current->declaredMethodsList->size();i++){
+                JMethod* m=current->declaredMethodsList->at(i);//TODO add it or check before ...
+                methodsList->push_back(m);
+                methods->insert(pair<string,JMethod*>(m->getName(),m));
+            }
+            current=current->getSuperclass();
+        }
+    }
+}
+
 vector<JMethod*>* JClass::getMethods(){
+    initMethods();
     return methodsList;
+}
+
+vector<JMethod*>* JClass::getDeclaredMethods(){
+    return declaredMethodsList;
 }
 
 void JClass::addEnumConstant(JEnum* enumConstant){
@@ -212,13 +311,13 @@ void JClass::addEnumConstant(JEnum* enumConstant){
 }
 
 void JClass::addField(JField* field){
-    fieldsList->push_back(field);
-    fields->insert(pair<string,JField*>(field->getName(),field));//TODO use better map container
+    declaredFieldsList->push_back(field);
+    declaredFields->insert(pair<string,JField*>(field->getName(),field));//TODO use better map container
 }
 
 void JClass::addMethod(JMethod* method){
-    methodsList->push_back(method);
-    methods->insert(pair<string,JMethod*>(method->getName(),method));
+    declaredMethodsList->push_back(method);
+    declaredMethods->insert(pair<string,JMethod*>(method->getName(),method));
 }
 
 void JClass::addInterface(JClass* interface){
@@ -243,7 +342,7 @@ bool JClass::isAssignableFrom(JClass* clazz){
         if (current==this){
             return true;
         }
-        for (int i=0;i<current->getInterfaces()->size();i++){
+        for (unsigned int i=0;i<current->getInterfaces()->size();i++){
              JClass* interf=current->getInterfaces()->at(i);
              if (this==interf){
                 return true;
@@ -255,7 +354,11 @@ bool JClass::isAssignableFrom(JClass* clazz){
 }
 
 bool JClass::isInstance(JObject* object){
-    return object->getClass()==this;
+    if (object==NULL){
+        throw new JNullPointerException();
+    }
+    JClass* classObject=object->getClass();
+    return isAssignableFrom(classObject);
 }
 
 bool JClass::isInterface(){
@@ -279,8 +382,12 @@ JClass::~JClass(){
     deleteVectorOfPointers(this->interfaces);
     deleteMapOfValuePointer(fields);
     deleteVectorOfPointers(fieldsList);
+    deleteMapOfValuePointer(declaredFields);
+    deleteVectorOfPointers(declaredFieldsList);
     deleteMapOfValuePointer(methods);
     deleteVectorOfPointers(methodsList);
+    deleteMapOfValuePointer(declaredMethods);
+    deleteVectorOfPointers(declaredMethodsList);
 }
 
 #endif // JCLASS_CPP

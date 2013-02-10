@@ -9,7 +9,13 @@ class JThrowableTest : public JTest{
 public:
     JThrowableTest();
 
-    string getFileName();
+    virtual string getFileName();
+
+    virtual JThrowable* createFirstCause();
+
+    virtual JThrowable* createSecondCause();
+
+    virtual string getThrowableClassName();
 
     JObject* testReflect();
 };

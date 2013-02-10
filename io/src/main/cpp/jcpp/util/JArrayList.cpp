@@ -9,7 +9,7 @@ public:
       this->canonicalName="java.util.ArrayList";
       this->name="java.util.ArrayList";
       this->simpleName="ArrayList";
-      this->serialVersionUID=8683452581122892189L;
+      this->serialVersionUID=8683452581122892189ULL;
   }
 
   JClass* getSuperclass(){

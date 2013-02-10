@@ -6,7 +6,7 @@ public:
         canonicalName="java.io.NotActiveException";
         name="java.io.NotActiveException";
         simpleName="NotActiveException";
-        serialVersionUID=-3893467273049808895L;
+        serialVersionUID=-3893467273049808895ULL;
     }
 
     JClass* getSuperclass(){
