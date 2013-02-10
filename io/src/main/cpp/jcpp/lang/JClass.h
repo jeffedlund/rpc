@@ -46,55 +46,31 @@ class JClass : public JObject{
  public:
 
     static JClass* getClazz();
-
+    static string getClassSignature(JClass* _class);
     string getCanonicalName();
-
     string getName();
-
     string getSimpleName();
-
     JClassLoader* getClassLoader();
-
     JClass* getComponentType();
-
     vector<JEnum*>* getEnumConstants();
-
     JEnum* valueOf(string value);
-
     JField* getField(string name);
-
     vector<JField*>* getFields();
-
     vector<JClass*>* getInterfaces();
-
     bool hasMethod(string name, vector<JClass*>* parameterTypes);
-
     JMethod* getMethod(string name, vector<JClass*>* parameterTypes);
-
     vector<JMethod*>* getMethods();
-
     virtual JClass* getSuperclass()=0;
-
     bool isArray();
-
     bool isProxy();
-
     bool isEnum();
-
     bool isAssignableFrom(JClass* clazz);
-
     bool isInstance(JObject* object);
-
     bool isInterface();
-
     bool isPrimitive();
-
     virtual JObject* newInstance()=0;
-
     qint64 getSerialVersionUID();
-
     string toString();
-
     ~JClass();
 };
 

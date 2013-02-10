@@ -55,7 +55,6 @@ public:
     JObjectStreamClass(JClass* _class);
     static JClass* getClazz();
     static JObjectStreamClass* lookup(JClass* obj);
-    static string getClassSignature(JClass* _class);
 
     JClass* getJClass();
     bool isEnum();

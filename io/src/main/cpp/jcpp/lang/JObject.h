@@ -21,6 +21,8 @@ class JObject{
 
         JClass* getClass();
 
+        virtual bool operator==(JObject &other);
+
         virtual string toString();
 
         ~JObject();

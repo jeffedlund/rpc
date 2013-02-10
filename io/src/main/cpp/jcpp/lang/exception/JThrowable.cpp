@@ -101,8 +101,38 @@ JThrowable::JThrowable(JString* message, JThrowable *cause):JObject(getClazz()){
     this->stackTrace=NULL;
 }
 
+bool JThrowable::operator==(JObject &other){
+    if (other.getClass()==JThrowable::getClazz()){
+        JThrowable se=dynamic_cast<JThrowable&>(other);
+        return (*this)==se;
+    }
+    return false;
+}
+
 bool JThrowable::operator==(JThrowable &other){
-    return (other.message==message && other.cause==cause && other.stackTrace==stackTrace);
+    bool eq=true;
+    if (other.message!=NULL && message!=NULL){
+        eq=(*other.message)==(*message);
+    }else{
+        eq=other.message==NULL && message==NULL;
+    }
+    if (!eq){
+        return false;
+    }
+    if (other.cause!=NULL && cause!=NULL){
+        eq=(*other.cause)==(*cause);
+    }else{
+        eq=other.cause==NULL && cause==NULL;
+    }
+    if (!eq){
+        return false;
+    }
+    if (other.stackTrace!=NULL && stackTrace!=NULL){
+        eq=(*other.stackTrace)==(*stackTrace);
+    }else{
+        eq=other.stackTrace==NULL && stackTrace==NULL;
+    }
+    return eq;
 }
 
 JThrowable *JThrowable::getCause() {
@@ -135,11 +165,11 @@ void JThrowable::printStackTrace(ostream* os){
     if (stackTrace!=NULL){
         for (int i=0;i<stackTrace->size();i++){
             JStackTraceElement* s=(JStackTraceElement*)stackTrace->get(i);
-            string str="\tat "+s->toString()+"\r\n";
+            str="\tat "+s->toString()+"\r\n";
             os->write(str.c_str(),str.size());
         }
         if (getCause()!=NULL){
-            string str="\r\nCaused by:\r\n";
+            str="\r\nCaused by:\r\n";
             os->write(str.c_str(),str.size());
             getCause()->printStackTrace(os);
         }

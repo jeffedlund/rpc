@@ -105,7 +105,9 @@ SOURCES += \
     src/main/cpp/jcpp/io/JExternalizable.cpp \
     src/main/cpp/jcpp/io/JNotSerializableException.cpp \
     src/main/cpp/jcpp/io/QtDataOutputStream.cpp \
-    src/main/cpp/jcpp/lang/JInterface.cpp
+    src/main/cpp/jcpp/lang/JInterface.cpp \
+    src/test/cpp/jcpp/JTest.cpp \
+    src/test/cpp/jcpp/lang/JThrowableTest.cpp
     
     
 LIBS += -lws2_32
@@ -198,5 +200,6 @@ HEADERS += \
     src/main/cpp/jcpp/io/QtDataOutputStream.h \
     src/main/cpp/jcpp/lang/Object.h \
     src/main/cpp/jcpp/lang/JInterface.h \
-    src/test/cpp/jcpp/lang/JThrowableTest.h
+    src/test/cpp/jcpp/lang/JThrowableTest.h \
+    src/test/cpp/jcpp/JTest.h
     

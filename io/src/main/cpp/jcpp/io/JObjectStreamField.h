@@ -6,6 +6,7 @@
 #include "JField.h"
 #include <iostream>
 #include <string.h>
+#include "JString.h"
 using namespace std;
 
 //TODO add getClazz
@@ -17,6 +18,9 @@ private:
     bool unshared;
     JField* field;
     qint32 offset;
+    JString* typeString;
+
+    void setTypeString();
 
 public:
     JObjectStreamField();
@@ -37,7 +41,7 @@ public:
     string getName();
     JClass* getType();
     char getTypeCode();
-    string getTypeString();
+    JString* getTypeString();
     qint32 getOffset();
     void setOffset(qint32 offset);
     bool isPrimitive();

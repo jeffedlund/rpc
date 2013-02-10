@@ -10,6 +10,18 @@
 #include "JNoSuchFieldException.h"
 #include "JNoSuchMethodException.h"
 #include "JIllegalArgumentException.h"
+#include "JPrimitiveBoolean.h"
+#include "JPrimitiveByte.h"
+#include "JPrimitiveChar.h"
+#include "JPrimitiveDouble.h"
+#include "JPrimitiveFloat.h"
+#include "JPrimitiveInt.h"
+#include "JPrimitiveLong.h"
+#include "JPrimitiveShort.h"
+#include "JVoid.h"
+#include <sstream>
+#include "JInternalError.h"
+#include <algorithm>
 using namespace std;
 
 class JClassClass : public JClass{
@@ -42,6 +54,43 @@ JClass* JClass::getClazz(){
         clazz=new JClassClass();
     }
     return clazz;
+}
+
+string JClass::getClassSignature(JClass* _class){
+    stringstream ss;
+    while (_class->isArray()){
+        ss<<"[";
+        _class=_class->getComponentType();
+    }
+    if (_class->isPrimitive()){
+        if (_class== JPrimitiveInt::getClazz()) {
+            ss<<'I';
+        }else if (_class == JPrimitiveByte::getClazz()) {
+            ss<<'B';
+        } else if (_class == JPrimitiveLong::getClazz()) {
+            ss<<'J';
+        } else if (_class == JPrimitiveFloat::getClazz()) {
+            ss<<'F';
+        } else if (_class == JPrimitiveDouble::getClazz()) {
+            ss<<'D';
+        } else if (_class == JPrimitiveShort::getClazz()) {
+            ss<<'S';
+        } else if (_class == JPrimitiveChar::getClazz()) {
+            ss<<'C';
+        } else if (_class == JPrimitiveBoolean::getClazz()) {
+            ss<<'Z';
+        } else if (_class == JVoid::getClazz()) {
+            ss<<'V';
+        } else {
+            throw new JInternalError();
+        }
+    }else{
+        string name=_class->getName();
+        string newName(name);
+        replace(newName.begin(),newName.end(),'/','.');
+        ss<<'L'<<newName<<";";
+    }
+    return ss.str();
 }
 
 JClass::JClass(JClassLoader* classLoader):JObject(JClass::getClazz()){
@@ -115,7 +164,7 @@ vector<JEnum*>* JClass::getEnumConstants(){
 JEnum* JClass::valueOf(string value){
     for (int i=0;i<enumConstants->size();i++){
         JEnum* e=enumConstants->at(i);
-        if (e->getName()==value){
+        if (e->getName()->getString()==value){
             return e;
         }
     }

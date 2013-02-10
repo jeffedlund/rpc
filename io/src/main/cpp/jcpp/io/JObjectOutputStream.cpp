@@ -378,17 +378,6 @@ void JObjectOutputStream::writeString(JString* str){
     }
 }
 
-void JObjectOutputStream::writeString(string str){
-    qint64 utflen = bout->getUTFLength(str);
-    if(utflen <= 0xFFFF){
-        bout->writeByte(TC_STRING);
-        bout->writeUTF(str, utflen);
-    }else{
-        bout->writeByte(TC_LONGSTRING);
-        bout->writeLongUTF(str, utflen);
-    }
-}
-
 void JObjectOutputStream::writeUTF(string str){
     bout->writeUTF(str);
 }
@@ -410,7 +399,6 @@ void JObjectOutputStream::writeSerialVersionUID(){
 JObjectOutputStream::~JObjectOutputStream(){
     delete handles;
     delete bout;
-    //delete[] fields; TODO
-    //TODO delete fields;
     delete curContext;
+    delete primVals;
 }

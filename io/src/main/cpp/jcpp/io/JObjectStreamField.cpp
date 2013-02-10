@@ -6,22 +6,25 @@ JObjectStreamField::JObjectStreamField(){
     this->type=NULL;
     this->unshared=false;
     this->field=NULL;
+    setTypeString();
 }
 
 JObjectStreamField::JObjectStreamField(string name,JClass* type){
     this->name=name;
     this->type=type;
     this->unshared=false;
-    this->signature=JObjectStreamClass::getClassSignature(type);
+    this->signature=JClass::getClassSignature(type);
     this->field=NULL;
+    setTypeString();
 }
 
 JObjectStreamField::JObjectStreamField(string name,JClass* type,bool unshared){
     this->name=name;
     this->type=type;
     this->unshared=unshared;
-    this->signature=JObjectStreamClass::getClassSignature(type);
+    this->signature=JClass::getClassSignature(type);
     this->field=NULL;
+    setTypeString();
 }
 
 JObjectStreamField::JObjectStreamField(string name,string signature,bool unshared){
@@ -61,6 +64,7 @@ JObjectStreamField::JObjectStreamField(string name,string signature,bool unshare
         default:
             throw new JIllegalArgumentException("illegal signature");
     }
+    setTypeString();
 }
 
 JObjectStreamField::JObjectStreamField(JField* field,bool unshared,bool showType){
@@ -69,7 +73,8 @@ JObjectStreamField::JObjectStreamField(JField* field,bool unshared,bool showType
     this->name=field->getName();
     JClass* ftype=field->getType();
     type=(showType||ftype->isPrimitive()?ftype:JObject::getClazz());
-    signature=JObjectStreamClass::getClassSignature(ftype);
+    signature=JClass::getClassSignature(ftype);
+    setTypeString();
 }
 
 string JObjectStreamField::getName(){
@@ -84,8 +89,12 @@ char JObjectStreamField::getTypeCode(){
     return signature.at(0);
 }
 
-string JObjectStreamField::getTypeString(){
-    return isPrimitive()?"":signature;
+void JObjectStreamField::setTypeString(){
+    typeString=new JString(isPrimitive()?"":signature);
+}
+
+JString* JObjectStreamField::getTypeString(){
+    return typeString;
 }
 
 qint32 JObjectStreamField::getOffset(){
@@ -114,4 +123,5 @@ string JObjectStreamField::getSignature(){
 }
 
 JObjectStreamField::~JObjectStreamField(){
+    delete typeString;
 }

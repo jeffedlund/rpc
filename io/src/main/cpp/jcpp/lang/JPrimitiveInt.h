@@ -16,6 +16,8 @@ class JPrimitiveInt : public JObject{
         JPrimitiveInt();
         JPrimitiveInt(qint32 value);
 
+        bool operator==(JPrimitiveInt &other);
+
         static JClass* getClazz();
 
         void set(qint32 value);

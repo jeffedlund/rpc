@@ -3,6 +3,8 @@
 
 #include "JObject.h"
 #include "JClass.h"
+#include "JPrimitiveInt.h"
+#include "JString.h"
 #include "JInstantiationException.h"
 using namespace std;
 
@@ -29,16 +31,16 @@ protected:
         }
     };
 
-    int ordinal;
-    string name;
-    JEnum(JEnumClass* _class,string name,int ordinal);
+    JPrimitiveInt* ordinal;
+    JString* name;
+    JEnum(JEnumClass* _class,JString* name,JPrimitiveInt* ordinal);
 
 public:
     static JClass* getClazz();
 
-    string getName();
+    JString* getName();
 
-    int getOrdinal();
+    JPrimitiveInt* getOrdinal();
 
     string toString();
 

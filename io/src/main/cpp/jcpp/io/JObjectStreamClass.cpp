@@ -75,43 +75,6 @@ JObjectStreamClass* JObjectStreamClass::lookup(JClass* meta){
     return desc;
 }
 
-string JObjectStreamClass::getClassSignature(JClass* _class){
-    stringstream ss;
-    while (_class->isArray()){
-        ss<<"[";
-        _class=_class->getComponentType();
-    }
-    if (_class->isPrimitive()){
-        if (_class== JPrimitiveInt::getClazz()) {
-            ss<<'I';
-        }else if (_class == JPrimitiveByte::getClazz()) {
-            ss<<'B';
-        } else if (_class == JPrimitiveLong::getClazz()) {
-            ss<<'J';
-        } else if (_class == JPrimitiveFloat::getClazz()) {
-            ss<<'F';
-        } else if (_class == JPrimitiveDouble::getClazz()) {
-            ss<<'D';
-        } else if (_class == JPrimitiveShort::getClazz()) {
-            ss<<'S';
-        } else if (_class == JPrimitiveChar::getClazz()) {
-            ss<<'C';
-        } else if (_class == JPrimitiveBoolean::getClazz()) {
-            ss<<'Z';
-        } else if (_class == JVoid::getClazz()) {//TODO
-            ss<<'V';
-        } else {
-            throw new JInternalError();
-        }
-    }else{
-        string name=_class->getName();
-        string newName(name);
-        replace(newName.begin(),newName.end(),'.','/');
-        ss<<'L'<<newName<<";";
-    }
-    return ss.str();
-}
-
 JObjectStreamClass::JObjectStreamClass():JObject(getClazz()){
     this->name="";
     this->suid=-1;
@@ -412,7 +375,7 @@ void JObjectStreamClass::writeNonProxy(JObjectOutputStream* out){
         out->writeByte(f->getTypeCode());
         out->writeUTF(f->getName());
         if (!f->isPrimitive()) {
-            out->writeTypeString(new JString(f->getTypeString()));//TODO pas bon
+            out->writeTypeString(f->getTypeString());
         }
     }
 }

@@ -1,7 +1,7 @@
 #include "JEnum.h"
 #include "JClass.h"
 
-JEnum::JEnum(JEnumClass* _class,string name,int ordinal):JObject(_class){
+JEnum::JEnum(JEnumClass* _class,JString* name,JPrimitiveInt* ordinal):JObject(_class){
     this->name=name;
     this->ordinal=ordinal;
 }
@@ -15,17 +15,19 @@ JClass* JEnum::getClazz(){
     return clazz;
 }
 
-string JEnum::getName(){
+JString* JEnum::getName(){
     return name;
 }
 
-int JEnum::getOrdinal(){
+JPrimitiveInt* JEnum::getOrdinal(){
     return ordinal;
 }
 
 string JEnum::toString(){
-    return name;
+    return name->toString();
 }
 
 JEnum::~JEnum() {
+    delete name;
+    delete ordinal;
 }

@@ -91,6 +91,52 @@ JStackTraceElement::JStackTraceElement(JString* declaringClass,JString* methodNa
     this->lineNumber=lineNumber;
 }
 
+bool JStackTraceElement::operator==(JObject &other){
+    if (other.getClass()==JStackTraceElement::getClazz()){
+        JStackTraceElement se=dynamic_cast<JStackTraceElement&>(other);
+        return (*this)==se;
+    }
+    return false;
+}
+
+bool JStackTraceElement::operator==(JStackTraceElement &other){
+    bool eq=true;
+    if (other.declaringClass!=NULL && declaringClass!=NULL){
+        eq=((*other.declaringClass)==(*declaringClass));
+    }else{
+        eq=other.declaringClass==NULL && declaringClass==NULL;
+    }
+    if (!eq){
+        return false;
+    }
+    if (other.methodName!=NULL && methodName!=NULL){
+        eq=((*other.methodName)==(*methodName));
+    }else{
+        eq=other.methodName==NULL && methodName==NULL;
+    }
+    if (!eq){
+        return false;
+    }
+    if (other.fileName!=NULL && fileName!=NULL){
+        eq=((*other.fileName)==(*fileName));
+    }else{
+        eq=other.fileName==NULL && fileName==NULL;
+    }
+    if (!eq){
+        return false;
+    }
+    if (other.lineNumber!=NULL && lineNumber!=NULL){
+        eq=((*other.lineNumber)==(*lineNumber));
+    }else{
+        eq=other.lineNumber==NULL && lineNumber==NULL;
+    }
+    if (!eq){
+        return false;
+    }else{
+        return true;
+    }
+}
+
 JString* JStackTraceElement::getDeclaringClass(){
     return declaringClass;
 }

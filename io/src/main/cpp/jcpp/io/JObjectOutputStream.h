@@ -54,9 +54,7 @@ public:
     void writeStreamHeader();
     void writeNull();
     void writeTypeString(JString* str);
-    void writeTypeString(string str);
     void writeString(JString* str);
-    void writeString(string str);
     void writeOrdinaryObject(JObject* object, JObjectStreamClass* desc);
     void writeClass(JClass* cl);
     void writeClassDesc(JObjectStreamClass* desc);

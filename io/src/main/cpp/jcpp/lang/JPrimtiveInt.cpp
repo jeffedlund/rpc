@@ -42,6 +42,10 @@ JPrimitiveInt::JPrimitiveInt():JObject(getClazz()){
     this->value=0;
 }
 
+bool JPrimitiveInt::operator==(JPrimitiveInt &other){
+    return value==other.value;
+}
+
 void JPrimitiveInt::set(qint32 value){
     this->value=value;
 }

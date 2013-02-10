@@ -2,6 +2,7 @@
 #include "Collections.h"
 #include "JClassNotFoundException.h"
 #include "JBootClassBuilder.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -83,6 +84,9 @@ void JClassLoader::addClasses(JClassBuilder* jClassBuilder){
 }
 
 JClass* JClassLoader::loadClass(string name){
+    if (name.at(0)=='['){
+        return JPrimitiveArray::getClass(this,name);
+    }
     JClass* jClass=getFromMap(classes,name);
     if (jClass==NULL){
         throw new JClassNotFoundException("class "+name+" not found");

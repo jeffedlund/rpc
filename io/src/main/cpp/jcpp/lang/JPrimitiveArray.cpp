@@ -4,6 +4,18 @@
 #include <map>
 #include <vector>
 #include "JSerializable.h"
+#include "JPrimitiveBoolean.h"
+#include "JPrimitiveByte.h"
+#include "JPrimitiveChar.h"
+#include "JPrimitiveDouble.h"
+#include "JPrimitiveFloat.h"
+#include "JPrimitiveInt.h"
+#include "JPrimitiveLong.h"
+#include "JPrimitiveShort.h"
+#include "JVoid.h"
+#include <sstream>
+#include "JInternalError.h"
+#include <algorithm>
 using namespace std;
 
 class JPrimitiveArrayClass : public JClass{
@@ -13,8 +25,10 @@ class JPrimitiveArrayClass : public JClass{
           string cn=componentType->getCanonicalName();
           if (!cn.empty()){
               this->canonicalName=cn+"[]";
+          }else{
+              canonicalName="";
           }
-          this->name=componentType->getSimpleName()+"[]";//not extra
+          this->name="["+getClassSignature(componentType);
           this->simpleName=componentType->getSimpleName()+"[]";
           this->bIsArray=true;
           addInterface(JSerializable::getClazz());
@@ -43,6 +57,53 @@ JClass* JPrimitiveArray::getClazz(JClass* componentType){//TODO use mutex
     return jPrimitiveArrayClass;
 }
 
+JClass* JPrimitiveArray::getClass(JClassLoader* classLoader,string name){
+    if (name.at(0)=='['){
+        int nbArray=0;
+        string classname;
+        for (int i=0;i<name.size();i++){
+            if (name.at(i)=='['){
+                nbArray++;
+            }else{
+                classname=name.substr(i,name.size());
+                break;
+            }
+        }
+        JClass* componentClass;
+        if (classname=="I"){
+            componentClass= JPrimitiveInt::getClazz();
+        }else if (classname=="B"){
+            componentClass= JPrimitiveByte::getClazz();
+        }else if (classname=="J"){
+            componentClass= JPrimitiveLong::getClazz();
+        }else if (classname=="F"){
+            componentClass= JPrimitiveFloat::getClazz();
+        }else if (classname=="D"){
+            componentClass= JPrimitiveDouble::getClazz();
+        }else if (classname=="S"){
+            componentClass= JPrimitiveShort::getClazz();
+        }else if (classname=="C"){
+            componentClass= JPrimitiveChar::getClazz();
+        }else if (classname=="Z"){
+            componentClass= JPrimitiveBoolean::getClazz();
+        }else if (classname=="V"){
+            componentClass= JVoid::getClazz();
+        }else if (classname.at(0)=='L'){
+            classname=classname.substr(1,classname.size()-2);//remove ;
+            replace(classname.begin(),classname.end(),'/','.');
+            componentClass=classLoader->loadClass(classname);
+        }else{
+            throw new JInternalError();
+        }
+        JClass* current=componentClass;
+        for (int i=0;i<nbArray;i++){
+            current=getClazz(current);
+        }
+        return current;
+    }
+    throw new JInternalError();
+}
+
 JPrimitiveArray::JPrimitiveArray(JClass* arrayClass,int len):JObject(getClazz(arrayClass)){
     objects=new vector<JObject*>(len);
     this->len=len;
@@ -53,7 +114,7 @@ bool JPrimitiveArray::operator==(JPrimitiveArray &other){
         for (int i=0;i<other.size();i++){
             JObject* object1=other.get(i);
             JObject* object2=get(i);
-            if (!(object1==object2)){
+            if (!((*object1)==(*object2))){
                 return false;
             }
         }

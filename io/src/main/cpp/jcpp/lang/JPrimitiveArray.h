@@ -19,6 +19,8 @@ public:
 
     static JClass* getClazz(JClass* componentType);
 
+    static JClass* getClass(JClassLoader* classLoader,string name);
+
     int size();
 
     void setSize(int len);

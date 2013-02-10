@@ -13,9 +13,13 @@
 #include "JThrowable.h"
 #include "QtDataOutputStream.h"
 #include "JThrowableTest.h"
+#include "JTest.h"
 
 using namespace std;
 
+
+static int TEST_SIZE = 1;
+static JTest* tests[] = {new JThrowableTest()};
 
 class JSampleClassBuilder : public JClassBuilder{
     vector<JClass*> * classes;
@@ -106,7 +110,9 @@ int main(int argc, char *argv[])
     //TODO should be done by default ...
     registerClasses();
 
-    testThrowable();
+    for (int i=0;i<TEST_SIZE;i++){
+        tests[i]->test();
+    }
 
     //testMap();
     JSampleObject* sample=testReadSampleObject();

@@ -45,6 +45,10 @@ JClass* JObject::getClass(){
     return this->_class;
 }
 
+bool JObject::operator==(JObject &other){
+    return this==&other;
+}
+
 string JObject::toString(){
     stringstream ss;
     ss<<getClass()->getName();
