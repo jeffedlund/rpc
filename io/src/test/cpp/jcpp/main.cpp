@@ -15,12 +15,45 @@
 #include "JThrowableTest.h"
 #include "JTest.h"
 #include "JErrorTest.h"
-
+#include "JExceptionTest.h"
+#include "JRuntimeExceptionTest.h"
+#include "JClassCastExceptionTest.h"
+#include "JClassNotFoundExceptionTest.h"
+#include "JIllegalArgumentExceptionTest.h"
+#include "JIllegalStateExceptionTest.h"
+#include "JIndexOutOfBoundsExceptionTest.h"
+#include "JInstantiationExceptionTest.h"
+#include "JVirtualMachineErrorTest.h"
+#include "JInternalErrorTest.h"
+#include "JNoSuchFieldExceptionTest.h"
+#include "JNoSuchMethodExceptionTest.h"
+#include "JNullPointerExceptionTest.h"
+#include "JUnsupportedOperationExceptionTest.h"
+#include "JIOExceptionTest.h"
+#include "JObjectStreamExceptionTest.h"
+#include "JInvalidClassExceptionTest.h"
+#include "JNotActiveExceptionTest.h"
+#include "JNotSerializableExceptionTest.h"
+#include "JOptionalDataExceptionTest.h"
+#include "JStreamCorruptedExceptionTest.h"
+#include "JUTFDataFormatExceptionTest.h"
+#include "JObjectStreamExceptionTest.h"
+#include "JShortTest.h"
 using namespace std;
+using namespace jcpp::util;
+using namespace jcpp::lang;
+using namespace jcpp;
 
-
-static int TEST_SIZE = 2;
-static JTest* tests[] = {new JThrowableTest(),new JErrorTest()};
+static int TEST_SIZE = 26;
+static JTest* tests[] = {new JThrowableTest(),new JErrorTest(),new JExceptionTest(),new JRuntimeExceptionTest(),
+                         new JClassCastExceptionTest(),new JClassNotFoundExceptionTest(),new JIllegalArgumentExceptionTest(),
+                         new JIllegalStateExceptionTest(),new JIndexOutOfBoundsExceptionTest(),new JInstantiationExceptionTest(),
+                         new JVirtualMachineErrorTest(),new JInternalErrorTest(),new JNoSuchFieldExceptionTest(),
+                         new JNoSuchMethodExceptionTest(),new JNullPointerExceptionTest(),new JUnsupportedOperationExceptionTest(),
+                         new JIOExceptionTest(),new JObjectStreamExceptionTest(),new JInvalidClassExceptionTest(),
+                         new JNotActiveExceptionTest(),new JNotSerializableExceptionTest(),new JOptionalDataExceptionTest(),
+                         new JStreamCorruptedExceptionTest(),new JUTFDataFormatExceptionTest(),new JObjectStreamExceptionTest(),
+                         new JShortTest()};
 
 class JSampleClassBuilder : public JClassBuilder{
     vector<JClass*> * classes;

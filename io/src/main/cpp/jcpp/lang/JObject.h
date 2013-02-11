@@ -1,31 +1,34 @@
 #ifndef JOBJECT_H
 #define JOBJECT_H
 
-class JClass;
-
 #include <vector>
 #include <iostream>
 using namespace std;
 
-class JObject{
+namespace jcpp{
+    namespace lang{
+        class JClass;
 
-    protected:
-        JClass* _class;
-        JObject(JClass* _class);
-        JObject(bool root);
+        class JObject{
 
-    public:
-        JObject();
+            protected:
+                JClass* _class;
+                JObject(JClass* _class);
+                JObject(bool root);
 
-        static JClass* getClazz();
+            public:
+                JObject();
 
-        JClass* getClass();
+                static JClass* getClazz();
 
-        virtual bool operator==(JObject &other);
+                JClass* getClass();
 
-        virtual string toString();
+                virtual bool operator==(JObject &other);
 
-        ~JObject();
-};
+                virtual string toString();
 
+                ~JObject();
+        };
+    }
+}
 #endif // JOBJECT_H

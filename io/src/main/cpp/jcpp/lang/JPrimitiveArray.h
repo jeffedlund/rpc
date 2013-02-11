@@ -6,30 +6,33 @@
 #include <vector>
 using namespace std;
 
+namespace jcpp{
+    namespace lang{
+        class JPrimitiveArray : public JObject{
+        private:
+            vector<JObject*>* objects;
+            int len;
 
-class JPrimitiveArray : public JObject{
-private:
-    vector<JObject*>* objects;
-    int len;
+        public:
+            JPrimitiveArray(JClass* arrayClass,int len=10);
 
-public:
-    JPrimitiveArray(JClass* arrayClass,int len=10);
+            bool operator==(JPrimitiveArray &other);
 
-    bool operator==(JPrimitiveArray &other);
+            static JClass* getClazz(JClass* componentType);
 
-    static JClass* getClazz(JClass* componentType);
+            static JClass* getClass(JClassLoader* classLoader,string name);
 
-    static JClass* getClass(JClassLoader* classLoader,string name);
+            int size();
 
-    int size();
+            void setSize(int len);
 
-    void setSize(int len);
+            JObject* get(int i);
 
-    JObject* get(int i);
+            void set(int i,JObject* value);
 
-    void set(int i,JObject* value);
-
-    ~JPrimitiveArray();
-};
+            ~JPrimitiveArray();
+        };
+    }
+}
 
 #endif // JPRIMITIVEARRAY_H

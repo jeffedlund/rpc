@@ -7,31 +7,35 @@
 #include <QtGlobal>
 using namespace std;
 
-//TODO implement most of util classes ...
-class JArrayList : public JObject, public JCollection//public JSerializable,
-{
-    vector<JObject*>* items;
+namespace jcpp{
+    namespace util{
+        //TODO implement most of util classes ...
+        class JArrayList : public JObject, public JCollection//public JSerializable,
+        {
+            vector<JObject*>* items;
 
- //   void writeObject(MObjectOutputStream *s);
+         //   void writeObject(MObjectOutputStream *s);
 
- //   void readObject(MObjectInputStream *s);
+         //   void readObject(MObjectInputStream *s);
 
-public:
-    JArrayList(int initialCapacity = 10);
+        public:
+            JArrayList(int initialCapacity = 10);
 
-    static JClass* getClazz();
+            static JClass* getClazz();
 
-    qint32 getSize();
+            qint32 getSize();
 
-    bool isEmpty();
+            bool isEmpty();
 
-    JObject* get(int index);
+            JObject* get(int index);
 
-    void add(JObject* item);
+            void add(JObject* item);
 
-    void clear();
+            void clear();
 
-    ~JArrayList();
-};
+            ~JArrayList();
+        };
+    }
+}
 
 #endif // JARRAYLIST_H

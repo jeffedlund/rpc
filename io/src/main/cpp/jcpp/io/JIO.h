@@ -23,30 +23,34 @@
 #include "QtDataOutputStream.h"
 using namespace std;
 
-//TODO define h and cpp file that contains all that + metadata on packages ...
-static int IO_CLASSES_SIZE = 20;
+namespace jcpp{
+    namespace io{
+        //TODO define h and cpp file that contains all that + metadata on packages ...
+        static int IO_CLASSES_SIZE = 20;
 
-static JClass* IO_CLASSES[] = {
-    JDataInputStream::getClazz(),
-    JDataOutputStream::getClazz(),
-    JEOFException::getClazz(),
-    JExternalizable::getClazz(),
-    JInputStream::getClazz(),
-    JInvalidClassException::getClazz(),
-    JIOException::getClazz(),
-    JNotActiveException::getClazz(),
-    JNotSerializableException::getClazz(),
-    JObjectInputStream::getClazz(),
-    JObjectOutputStream::getClazz(),
-    JObjectStreamClass::getClazz(),
-    JObjectStreamException::getClazz(),
-    JOptionalDataException::getClazz(),
-    JOutputStream::getClazz(),
-    JSerializable::getClazz(),
-    JStreamCorruptedException::getClazz(),
-    JUTFDataFormatException::getClazz(),
-    QtDataInputStream::getClazz(),
-    QtDataOutputStream::getClazz()
-};
+        static JClass* IO_CLASSES[] = {
+            JDataInputStream::getClazz(),
+            JDataOutputStream::getClazz(),
+            JEOFException::getClazz(),
+            JExternalizable::getClazz(),
+            JInputStream::getClazz(),
+            JInvalidClassException::getClazz(),
+            JIOException::getClazz(),
+            JNotActiveException::getClazz(),
+            JNotSerializableException::getClazz(),
+            JObjectInputStream::getClazz(),
+            JObjectOutputStream::getClazz(),
+            JObjectStreamClass::getClazz(),
+            JObjectStreamException::getClazz(),
+            JOptionalDataException::getClazz(),
+            JOutputStream::getClazz(),
+            JSerializable::getClazz(),
+            JStreamCorruptedException::getClazz(),
+            JUTFDataFormatException::getClazz(),
+            QtDataInputStream::getClazz(),
+            QtDataOutputStream::getClazz()
+        };
+    }
+}
 
 #endif // JIO_H

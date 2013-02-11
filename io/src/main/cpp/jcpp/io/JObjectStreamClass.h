@@ -11,81 +11,85 @@
 #include "map"
 using namespace std;
 
-class JObjectInputStream;
-class JObjectOutputStream;
+namespace jcpp{
+    namespace io{
+        class JObjectInputStream;
+        class JObjectOutputStream;
 
-class JObjectStreamClass : public JObject{
-public:
-    class ClassDataSlot{
+        class JObjectStreamClass : public JObject{
         public:
-            JObjectStreamClass* desc;
-            bool hasData;
+            class ClassDataSlot{
+                public:
+                    JObjectStreamClass* desc;
+                    bool hasData;
 
-            ClassDataSlot(JObjectStreamClass* desc, bool hasData) {
-                this->desc = desc;
-                this->hasData = hasData;
-            }
-    };
+                    ClassDataSlot(JObjectStreamClass* desc, bool hasData) {
+                        this->desc = desc;
+                        this->hasData = hasData;
+                    }
+            };
 
-private:
-    string name;
-    qint64 suid;
-    bool bIsProxy;
-    bool bIsEnum;
-    bool serializable;
-    bool externalizable;
-    bool writeObjectData;
-    bool blockExternalData;
-    vector<JObjectStreamField*>* fields;
-    int primDataSize;
-    int numObjFields;
-    JObjectStreamClass* superDesc;
-    JClassNotFoundException* resolveEx;
-    JClass* jClass;
-    JMethod* readObjectMethod;
-    JMethod* writeObjectMethod;
+        private:
+            string name;
+            qint64 suid;
+            bool bIsProxy;
+            bool bIsEnum;
+            bool serializable;
+            bool externalizable;
+            bool writeObjectData;
+            bool blockExternalData;
+            vector<JObjectStreamField*>* fields;
+            int primDataSize;
+            int numObjFields;
+            JObjectStreamClass* superDesc;
+            JClassNotFoundException* resolveEx;
+            JClass* jClass;
+            JMethod* readObjectMethod;
+            JMethod* writeObjectMethod;
 
-    void computeFieldOffsets();
-    JObjectStreamClass* getVariantFor(JClass* cl);
-    vector<ClassDataSlot*>* dataLayout;
-    vector<ClassDataSlot*>* getClassDataLayout0();
+            void computeFieldOffsets();
+            JObjectStreamClass* getVariantFor(JClass* cl);
+            vector<ClassDataSlot*>* dataLayout;
+            vector<ClassDataSlot*>* getClassDataLayout0();
 
-public:
-    JObjectStreamClass();
-    JObjectStreamClass(JClass* _class);
-    static JClass* getClazz();
-    static JObjectStreamClass* lookup(JClass* obj);
+        public:
+            JObjectStreamClass();
+            JObjectStreamClass(JClass* _class);
+            static JClass* getClazz();
+            static JObjectStreamClass* lookup(JClass* obj);
 
-    JClass* getJClass();
-    bool isEnum();
-    bool isProxy();
-    qint16 getNumFields();
-    qint32 getNumObjFields();
-    JObjectStreamField* getField(int i);
-    string getName();
-    int getPrimDataSize();
-    JObjectStreamClass* getSuperDesc();
-    JClassNotFoundException* getResolveException();
-    void setPrimFieldValues(JObject *obj,qint8 *buf);
-    void writePrimFieldValues(JObject* obj,qint8* buf,JObjectOutputStream* out);
-    void getObjectFieldValues(JObject* jobject, JObject** values);
-    void setObjectFieldValues(JObject* jobject, JObject** values);
-    void readNonProxy(JObjectInputStream* objectInputStream);
-    void initNonProxy(JObjectStreamClass* const objectStreamClass,JClass* jClass,JClassNotFoundException* resolveEx,JObjectStreamClass* jObjectStreamClass);
-    void initProxy(JClass* jClass,JClassNotFoundException* resolveEx,JObjectStreamClass* jObjectStreamClass);
-    void invokeReadObject(JObject* objet, JObjectInputStream* in);
-    void invokeWriteObject(JObject* object, JObjectOutputStream* out);
-    void writeNonProxy(JObjectOutputStream* out);
-    JObject* newInstance();
-    bool hasReadObjectMethod();
-    bool hasWriteObjectMethod();
-    bool hasWriteObjectData();
-    bool isExternalizable();
-    bool hasBlockExternalData();
-    vector<ClassDataSlot*>* getClassDataLayout();
-    vector<JObjectStreamClass*>* getHierarchy();
-    string toString();
-    ~JObjectStreamClass();
-};
+            JClass* getJClass();
+            bool isEnum();
+            bool isProxy();
+            qint16 getNumFields();
+            qint32 getNumObjFields();
+            JObjectStreamField* getField(int i);
+            string getName();
+            int getPrimDataSize();
+            JObjectStreamClass* getSuperDesc();
+            JClassNotFoundException* getResolveException();
+            void setPrimFieldValues(JObject *obj,qint8 *buf);
+            void writePrimFieldValues(JObject* obj,qint8* buf,JObjectOutputStream* out);
+            void getObjectFieldValues(JObject* jobject, JObject** values);
+            void setObjectFieldValues(JObject* jobject, JObject** values);
+            void readNonProxy(JObjectInputStream* objectInputStream);
+            void initNonProxy(JObjectStreamClass* const objectStreamClass,JClass* jClass,JClassNotFoundException* resolveEx,JObjectStreamClass* jObjectStreamClass);
+            void initProxy(JClass* jClass,JClassNotFoundException* resolveEx,JObjectStreamClass* jObjectStreamClass);
+            void invokeReadObject(JObject* objet, JObjectInputStream* in);
+            void invokeWriteObject(JObject* object, JObjectOutputStream* out);
+            void writeNonProxy(JObjectOutputStream* out);
+            JObject* newInstance();
+            bool hasReadObjectMethod();
+            bool hasWriteObjectMethod();
+            bool hasWriteObjectData();
+            bool isExternalizable();
+            bool hasBlockExternalData();
+            vector<ClassDataSlot*>* getClassDataLayout();
+            vector<JObjectStreamClass*>* getHierarchy();
+            string toString();
+            ~JObjectStreamClass();
+        };
+    }
+}
 
 #endif // JOBJECTSTREAMCLASS_H

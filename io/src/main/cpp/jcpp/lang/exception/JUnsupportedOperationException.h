@@ -5,14 +5,19 @@
 #include "JRuntimeException.h"
 using namespace std;
 
-class JUnsupportedOperationException : public JRuntimeException
-{
-public:
-    JUnsupportedOperationException();
-    JUnsupportedOperationException(string message);
-    JUnsupportedOperationException(string message,JThrowable* cause);
+namespace jcpp{
+    namespace lang{
 
-    static JClass* getClazz();
-};
+        class JUnsupportedOperationException : public JRuntimeException
+        {
+        public:
+            JUnsupportedOperationException();
+            JUnsupportedOperationException(string message);
+            JUnsupportedOperationException(string message,JThrowable* cause);
+
+            static JClass* getClazz();
+        };
+    }
+}
 
 #endif // JUNSUPPORTEDOPERATIONEXCEPTION_H

@@ -5,12 +5,16 @@
 #include "JClass.h"
 using namespace std;
 
-class JEOFException : public JIOException{
-public:
-    JEOFException();
-    JEOFException(string message);
+namespace jcpp{
+    namespace io{
+        class JEOFException : public JIOException{
+        public:
+            JEOFException();
+            JEOFException(string message);
 
-    static JClass* getClazz();
-};
+            static JClass* getClazz();
+        };
+    }
+}
 
 #endif // JEOFEXCEPTION_H

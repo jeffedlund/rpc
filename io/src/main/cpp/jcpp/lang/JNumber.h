@@ -9,15 +9,19 @@
 #include <iostream>
 using namespace std;
 
-class JNumber: public JObject{
-    protected :
-        JNumber(JClass* _class);
+namespace jcpp{
+    namespace lang{
+        class JNumber: public JObject{
+            protected :
+                JNumber(JClass* _class);
 
-    public:
+            public:
 
-        static JClass* getClazz();
+                static JClass* getClazz();
 
-        virtual string toString()=0;
+                virtual string toString()=0;
 
-};
+        };
+    }
+}
 #endif // JNUMBER_H

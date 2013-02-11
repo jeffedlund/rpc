@@ -6,27 +6,36 @@
 #include <QtGlobal>
 #include <vector>
 #include <iostream>
+#include "JPrimitiveShort.h"
 using namespace std;
 
-class JShort : public JNumber{
+namespace jcpp{
+    namespace lang{
+        class JShort : public JNumber{
+            protected:
+                JPrimitiveShort* value;
 
-    protected:
-        qint16 value;
+            public:
+                JShort();
+                JShort(qint16 value);
+                bool operator==(JObject &other);
 
-    public:
-        JShort();
-        JShort(qint16 value);
+                static JClass* getClazz();
 
-        static JClass* getClazz();
+                void set(qint16 value);
 
-        void set(qint16 value);
+                qint16 get();
 
-        qint16 get();
+                void setPrimitiveShort(JPrimitiveShort* value);
 
-        string toString();
+                JPrimitiveShort* getPrimitiveShort();
 
-        ~JShort();
-};
+                string toString();
+
+                ~JShort();
+        };
+    }
+}
 
 #endif // JSHORT_H
 

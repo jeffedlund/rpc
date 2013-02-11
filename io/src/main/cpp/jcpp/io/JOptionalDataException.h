@@ -5,15 +5,19 @@
 #include "JClass.h"
 using namespace std;
 
-//TODO add private serializable field int length, boolean eof
-class JOptionalDataException : public JObjectStreamException{
-protected:
-    JOptionalDataException(JClass* _clazz);
-public:
-    JOptionalDataException();
-    JOptionalDataException(string message);
+namespace jcpp{
+    namespace io{
+        //TODO add private serializable field int length, boolean eof
+        class JOptionalDataException : public JObjectStreamException{
+        protected:
+            JOptionalDataException(JClass* _clazz);
+        public:
+            JOptionalDataException();
+            JOptionalDataException(string message);
 
-    static JClass* getClazz();
-};
+            static JClass* getClazz();
+        };
+    }
+}
 
 #endif // JOPTIONALDATAEXCEPTION_H

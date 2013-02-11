@@ -5,12 +5,16 @@
 #include "JClass.h"
 using namespace std;
 
-class JInvalidClassException : public JObjectStreamException{
-public:
-    JInvalidClassException();
-    JInvalidClassException(string message);
+namespace jcpp{
+    namespace io{
+        class JInvalidClassException : public JObjectStreamException{
+        public:
+            JInvalidClassException();
+            JInvalidClassException(string message);
 
-     static JClass* getClazz();
-};
+             static JClass* getClazz();
+        };
+    }
+}
 
 #endif // JINVALIDCLASSEXCEPTION_H

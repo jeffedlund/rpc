@@ -4,30 +4,34 @@
 #include <sstream>
 #include "JInstantiationException.h"
 
-class JInterfaceClass : public JClass{
-    public:
-        JInterfaceClass():JClass(){
-            canonicalName="java.lang.Interface";
-            name="java.lang.Interface";//bof...
-            simpleName="Interface";
-            bIsInterface=true;
+namespace jcpp{
+    namespace lang{
+        class JInterfaceClass : public JClass{
+            public:
+                JInterfaceClass():JClass(){
+                    canonicalName="java.lang.Interface";
+                    name="java.lang.Interface";//bof...
+                    simpleName="Interface";
+                    bIsInterface=true;
+                }
+
+                JClass* getSuperclass(){
+                    return NULL;
+                }
+
+                JObject* newInstance(){
+                    throw new JInstantiationException("cannot instantiate object of class "+getName());
+                }
+        };
+
+        static JClass* clazz;
+
+        JClass* JInterface::getClazz(){
+            if (clazz==NULL){
+                clazz=new JInterfaceClass();
+            }
+            return clazz;
         }
-
-        JClass* getSuperclass(){
-            return NULL;
-        }
-
-        JObject* newInstance(){
-            throw new JInstantiationException("cannot instantiate object of class "+getName());
-        }
-};
-
-static JClass* clazz;
-
-JClass* JInterface::getClazz(){
-    if (clazz==NULL){
-        clazz=new JInterfaceClass();
     }
-    return clazz;
 }
 

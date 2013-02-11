@@ -7,26 +7,30 @@
 #include <iostream>
 using namespace std;
 
-class JPrimitiveInt : public JObject{
+namespace jcpp{
+    namespace lang{
+        class JPrimitiveInt : public JObject{
 
-    protected:
-        qint32 value;
+            protected:
+                qint32 value;
 
-    public:
-        JPrimitiveInt();
-        JPrimitiveInt(qint32 value);
+            public:
+                JPrimitiveInt();
+                JPrimitiveInt(qint32 value);
 
-        bool operator==(JPrimitiveInt &other);
+                bool operator==(JPrimitiveInt &other);
 
-        static JClass* getClazz();
+                static JClass* getClazz();
 
-        void set(qint32 value);
+                void set(qint32 value);
 
-        qint32 get();
+                qint32 get();
 
-        string toString();
+                string toString();
 
-        ~JPrimitiveInt();
-};
+                ~JPrimitiveInt();
+        };
+    }
+}
 
 #endif // JPRIMITIVEINT_H

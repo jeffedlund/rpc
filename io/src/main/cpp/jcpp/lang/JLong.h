@@ -8,24 +8,28 @@
 #include <iostream>
 using namespace std;
 
-class JLong : public JNumber{
+namespace jcpp{
+    namespace lang{
+        class JLong : public JNumber{
 
-    protected:
-        qint64 value;
+            protected:
+                qint64 value;
 
-    public:
-        JLong();
-        JLong(qint64 value);
+            public:
+                JLong();
+                JLong(qint64 value);
 
-        static JClass* getClazz();
+                static JClass* getClazz();
 
-        void set(qint64 value);
+                void set(qint64 value);
 
-        qint64 get();
+                qint64 get();
 
-        string toString();
+                string toString();
 
-        ~JLong();
-};
+                ~JLong();
+        };
+    }
+}
 
 #endif // JLONG_H

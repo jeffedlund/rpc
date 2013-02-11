@@ -2,33 +2,40 @@
 #define JFIELD_H
 
 #include "JObject.h"
+#include "JAccessibleObject.h"
 using namespace std;
 
-class JField: public JObject{
-public:
-    typedef JObject* (*getter)(JObject* objet);
-    typedef void (*setter)(JObject* object,JObject* value);
+namespace jcpp{
+    namespace lang{
+        namespace reflect{
+            class JField: public JAccessibleObject{
+            public:
+                typedef JObject* (*getter)(JObject* objet);
+                typedef void (*setter)(JObject* object,JObject* value);
 
-private:
-    string name;
-    JClass* type;
-    getter g;
-    setter s;
+            private:
+                string name;
+                JClass* type;
+                getter g;
+                setter s;
 
-public:
-    JField(string name,JClass* type);
-    JField(string name,JClass* type,getter g,setter s);
+            public:
+                JField(string name,JClass* type);
+                JField(string name,JClass* type,getter g,setter s);
 
-    static JClass* getClazz();
+                static JClass* getClazz();
 
-    string getName();
+                string getName();
 
-    JClass* getType();
+                JClass* getType();
 
-    virtual JObject* get(JObject* object);
+                virtual JObject* get(JObject* object);
 
-    virtual void set(JObject* object, JObject* value);
+                virtual void set(JObject* object, JObject* value);
 
-    string toString();
-};
+                string toString();
+            };
+        }
+    }
+}
 #endif // JFIELD_H

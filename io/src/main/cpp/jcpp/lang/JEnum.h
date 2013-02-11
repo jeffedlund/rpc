@@ -8,43 +8,46 @@
 #include "JInstantiationException.h"
 using namespace std;
 
+namespace jcpp{
+    namespace lang{
+        class JEnum: public JObject{
 
-class JEnum: public JObject{
+        protected:
 
-protected:
+            class JEnumClass : public JClass{
+              public:
+                JEnumClass(){
+                    this->canonicalName="java.lang.Enum";
+                    this->name="java.lang.Enum";
+                    this->simpleName="Enum";
+                    this->bIsEnum=true;
+                }
 
-    class JEnumClass : public JClass{
-      public:
-        JEnumClass(){
-            this->canonicalName="java.lang.Enum";
-            this->name="java.lang.Enum";
-            this->simpleName="Enum";
-            this->bIsEnum=true;
-        }
+                JClass* getSuperclass(){
+                    return JObject::getClazz();
+                }
 
-        JClass* getSuperclass(){
-            return JObject::getClazz();
-        }
+                virtual JObject* newInstance(){
+                    throw new JInstantiationException("cannot instantiate enum of class "+getName());
+                }
+            };
 
-        virtual JObject* newInstance(){
-            throw new JInstantiationException("cannot instantiate enum of class "+getName());
-        }
-    };
+            JPrimitiveInt* ordinal;
+            JString* name;
+            JEnum(JEnumClass* _class,JString* name,JPrimitiveInt* ordinal);
 
-    JPrimitiveInt* ordinal;
-    JString* name;
-    JEnum(JEnumClass* _class,JString* name,JPrimitiveInt* ordinal);
+        public:
+            static JClass* getClazz();
 
-public:
-    static JClass* getClazz();
+            JString* getName();
 
-    JString* getName();
+            JPrimitiveInt* getOrdinal();
 
-    JPrimitiveInt* getOrdinal();
+            string toString();
 
-    string toString();
-
-    ~JEnum();
-};
+            ~JEnum();
+        };
+    }
+}
 
 #endif // JENUM_H

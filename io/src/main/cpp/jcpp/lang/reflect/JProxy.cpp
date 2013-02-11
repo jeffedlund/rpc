@@ -6,82 +6,103 @@
 #include <string>
 #include "Collections.h"
 #include <sstream>
+using namespace jcpp::util;
+using namespace jcpp::io;
+using namespace jcpp::lang::reflect;
 
-class JProxyClass : public JClass{
-public:
-    JProxyClass():JClass(JClassLoader::getBootClassLoader()){
-        canonicalName="java.lang.reflect.Proxy";
-        name="java.lang.reflect.Proxy";
-        simpleName="Proxy";
-        bIsProxy=true;
-        serialVersionUID=-2222568056686623797ULL;
-    }
+//TODO implement a test
+//TODO think about how to detect a proxy in a serialized CPP object ...
+namespace jcpp{
+    namespace lang{
+        namespace reflect{
+            static JObject* staticGetInvocationHandler(JObject* obj){
+                JProxy* proxy=(JProxy*)obj;
+                return proxy->getInvocationHandler();
+            }
 
-    JClass* getSuperclass(){
-        return JObject::getClazz();
-    }
+            static void staticSetInvocationHandler(JObject* obj,JObject* value){
+                JProxy* proxy=(JProxy*)obj;
+                proxy->setInvocationHandler((JInvocationHandler*)value);
+            }
 
-    JObject* newInstance(){
-        return new JProxy();
-    }
-};
+            class JProxyClass : public JClass{
+            public:
+                JProxyClass():JClass(JClassLoader::getBootClassLoader()){
+                    canonicalName="java.lang.reflect.Proxy";
+                    name="java.lang.reflect.Proxy";
+                    simpleName="Proxy";
+                    bIsProxy=true;
+                    serialVersionUID=-2222568056686623797ULL;
+                    addField(new JField("h",JInvocationHandler::getClazz(),staticGetInvocationHandler,staticSetInvocationHandler));
+                    addInterface(JSerializable::getClazz());
+                }
 
-static JClass* clazz;
+                JClass* getSuperclass(){
+                    return JObject::getClazz();
+                }
 
-JClass* JProxy::getClazz(){
-    if (clazz==NULL){
-        clazz=new JProxyClass();
-    }
-    return clazz;
-}
+                JObject* newInstance(){
+                    return new JProxy();
+                }
+            };
 
-JProxy::JProxy():JObject(getClazz()){
-}
+            static JClass* clazz;
 
-JObject* JProxy::invoke(string method,vector<JObject*>* args){
-    JMethod* jMethod=NULL;
-    for (unsigned int i=0;i<interfaces->size();i++){
-        JClass* jclass=interfaces->at(i);
-        if (jclass->hasMethod(method,NULL)){//should pass paramtype too
-            jMethod=jclass->getMethod(method,NULL);
-            break;
+            JClass* JProxy::getClazz(){
+                if (clazz==NULL){
+                    clazz=new JProxyClass();
+                }
+                return clazz;
+            }
+
+            JProxy::JProxy():JObject(getClazz()){
+            }
+
+            JObject* JProxy::invoke(string method,vector<JObject*>* args){
+                JMethod* jMethod=NULL;
+                for (unsigned int i=0;i<interfaces->size();i++){
+                    JClass* jclass=interfaces->at(i);
+                    if (jclass->hasMethod(method,NULL)){//should pass paramtype too
+                        jMethod=jclass->getMethod(method,NULL);
+                        break;
+                    }
+                }
+                if (jMethod==NULL){
+                    throw JNoSuchMethodException("method "+method+" not declared in "+toString());
+                }
+                return invocationHandler->invoke(this,jMethod,args);
+            }
+
+            JInvocationHandler* JProxy::getInvocationHandler(){
+                return invocationHandler;
+            }
+
+            void JProxy::setInvocationHandler(JInvocationHandler* invocationHandler) {
+                this->invocationHandler = invocationHandler;
+            }
+
+            vector<JClass*>* JProxy::getInterfaces(){
+                return interfaces;
+            }
+
+            void JProxy::setInterfaces(vector<JClass*>* interfaces){
+                this->interfaces=interfaces;
+            }
+
+            string JProxy::toString(){
+                stringstream ss;
+                ss<<"Proxy[InvocationHandler:"<<invocationHandler->toString()<<"][Interfaces:";
+                for (unsigned int i=0;i<interfaces->size();i++){
+                    JClass* jclass=interfaces->at(i);
+                    ss<<jclass->getName()<<",";
+                }
+                ss<<"]";
+                return ss.str();
+            }
+
+            JProxy::~JProxy() {
+                deleteVectorOfPointers(interfaces);
+            }
         }
-    }
-    if (jMethod==NULL){
-        throw JNoSuchMethodException("method "+method+" not declared in "+toString());
-    }
-    return invocationHandler->invoke(this,jMethod,args);
-}
-
-JInvocationHandler* JProxy::getInvocationHandler(){
-    return invocationHandler;
-}
-
-void JProxy::setInvocationHandler(JInvocationHandler* invocationHandler) {
-    this->invocationHandler = invocationHandler;
-}
-
-vector<JClass*>* JProxy::getInterfaces(){
-    return interfaces;
-}
-
-void JProxy::setInterfaces(vector<JClass*>* interfaces){
-    this->interfaces=interfaces;
-}
-
-string JProxy::toString(){
-    stringstream ss;
-    ss<<"Proxy[InvocationHandler:"<<invocationHandler->toString()<<"][Interfaces:";
-    for (unsigned int i=0;i<interfaces->size();i++){
-        JClass* jclass=interfaces->at(i);
-        ss<<jclass->getName()<<",";
-    }
-    ss<<"]";
-    return ss.str();
-}
-
-JProxy::~JProxy() {
-    if (interfaces!=NULL){
-        deleteVectorOfPointers(interfaces);
     }
 }

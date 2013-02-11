@@ -1,9 +1,14 @@
 #ifndef JCOLLECTION_H
 #define JCOLLECTION_H
 
-class JCollection {
-public:
 
-};
+namespace jcpp{
+    namespace util{
+        class JCollection {
+        public:
+
+        };
+    }
+}
 
 #endif // JCOLLECTION_H

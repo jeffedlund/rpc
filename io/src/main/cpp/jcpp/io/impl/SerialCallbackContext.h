@@ -1,29 +1,34 @@
 #ifndef SERIALCALLBACKCONTEXT_H
 #define SERIALCALLBACKCONTEXT_H
 
-class JObjectStreamClass;
 #include "JObject.h"
+using namespace jcpp::lang;
 
-//TODO implement getClazz
-class SerialCallbackContext {
-    JObject* curObj;
-    JObjectStreamClass* curDesc;
-    bool upcall;
+namespace jcpp{
+    namespace io{
+        class JObjectStreamClass;
+        //TODO implement getClazz
+        class SerialCallbackContext {
+            JObject* curObj;
+            JObjectStreamClass* curDesc;
+            bool upcall;
 
-public:
-    SerialCallbackContext();
+        public:
+            SerialCallbackContext();
 
-    bool setUpcall(bool v);
+            bool setUpcall(bool v);
 
-    bool isUpcall();
+            bool isUpcall();
 
-    JObject* getObj();
+            JObject* getObj();
 
-    JObjectStreamClass* getDesc();
+            JObjectStreamClass* getDesc();
 
-    void setContext(JObject* obj, JObjectStreamClass* desc);
+            void setContext(JObject* obj, JObjectStreamClass* desc);
 
-    void clear();
-};
+            void clear();
+        };
+    }
+}
 
 #endif // SERIALCALLBACKCONTEXT_H

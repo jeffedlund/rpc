@@ -5,12 +5,16 @@
 #include "JClass.h"
 using namespace std;
 
-class JClassNotFoundException : public JException{
-public:
-    JClassNotFoundException();
-    JClassNotFoundException(string message);
+namespace jcpp{
+    namespace lang{
+        class JClassNotFoundException : public JException{
+        public:
+            JClassNotFoundException();
+            JClassNotFoundException(string message);
 
-    static JClass* getClazz();
-};
+            static JClass* getClazz();
+        };
+    }
+}
 
 #endif // JCLASSNOTFOUNDEXCEPTION_H

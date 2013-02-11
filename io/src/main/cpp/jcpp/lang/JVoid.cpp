@@ -2,30 +2,34 @@
 #include "JInstantiationException.h"
 using namespace std;
 
-class JVoidClass : public JClass{
-  public:
-    JVoidClass(){
-        this->canonicalName="java.lang.Void";
-        this->name="java.lang.Void";
-        this->simpleName="Void";
-        this->bIsPrimitive=false;
-    }
+namespace jcpp{
+    namespace lang{
+        class JVoidClass : public JClass{
+          public:
+            JVoidClass(){
+                this->canonicalName="java.lang.Void";
+                this->name="java.lang.Void";
+                this->simpleName="Void";
+                this->bIsPrimitive=false;
+            }
 
-    JClass* getSuperclass(){
-        return JObject::getClazz();
-    }
+            JClass* getSuperclass(){
+                return JObject::getClazz();
+            }
 
-    JObject* newInstance(){
-        throw new JInstantiationException("cannot instantiate object of class "+getName());
-    }
-};
+            JObject* newInstance(){
+                throw new JInstantiationException("cannot instantiate object of class "+getName());
+            }
+        };
 
-static JClass* clazz;
+        static JClass* clazz;
 
-JClass* JVoid::getClazz(){
-    if (clazz==NULL){
-        clazz=new JVoidClass();
+        JClass* JVoid::getClazz(){
+            if (clazz==NULL){
+                clazz=new JVoidClass();
+            }
+            return clazz;
+        }
     }
-    return clazz;
 }
 

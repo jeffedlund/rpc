@@ -5,10 +5,14 @@
 #include "JMethod.h"
 using namespace std;
 
-class JInvocationHandler : public JObject{
-public:
-    virtual JObject *invoke(JObject* proxy, JMethod* method, vector<JObject*>* args) = 0;
-};
-
-
+namespace jcpp{
+    namespace lang{
+        namespace reflect{
+            class JInvocationHandler : public JObject{
+            public:
+                virtual JObject *invoke(JObject* proxy, JMethod* method, vector<JObject*>* args) = 0;
+            };
+        }
+    }
+}
 #endif // JINVOCATIONHANDLER_H

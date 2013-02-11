@@ -7,24 +7,28 @@
 #include <iostream>
 using namespace std;
 
-class JPrimitiveLong : public JObject{
+namespace jcpp{
+    namespace lang{
+        class JPrimitiveLong : public JObject{
 
-    protected:
-        qint64 value;
+            protected:
+                qint64 value;
 
-    public:
-        JPrimitiveLong();
-        JPrimitiveLong(qint64 value);
+            public:
+                JPrimitiveLong();
+                JPrimitiveLong(qint64 value);
 
-        static JClass* getClazz();
+                static JClass* getClazz();
 
-        void set(qint64 value);
+                void set(qint64 value);
 
-        qint64 get();
+                qint64 get();
 
-        string toString();
+                string toString();
 
-        ~JPrimitiveLong();
-};
+                ~JPrimitiveLong();
+        };
+    }
+}
 
 #endif // JPRIMITIVELONG_H

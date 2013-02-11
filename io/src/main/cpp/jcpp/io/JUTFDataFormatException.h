@@ -5,12 +5,16 @@
 #include "JClass.h"
 using namespace std;
 
-class JUTFDataFormatException : public JIOException{
-public:
-    JUTFDataFormatException();
-    JUTFDataFormatException(string message);
+namespace jcpp{
+    namespace io{
+        class JUTFDataFormatException : public JIOException{
+        public:
+            JUTFDataFormatException();
+            JUTFDataFormatException(string message);
 
-     static JClass* getClazz();
-};
+             static JClass* getClazz();
+        };
+    }
+}
 
 #endif // JUTFDATAFORMATEXCEPTION_H

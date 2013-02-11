@@ -7,24 +7,27 @@
 #include <iostream>
 using namespace std;
 
-class JChar : public JObject{
+namespace jcpp{
+    namespace lang{
+        class JChar : public JObject{
 
-    protected:
-        char value;
+            protected:
+                char value;
 
-    public:
-        JChar();
-        JChar(char value);
+            public:
+                JChar();
+                JChar(char value);
 
-        static JClass* getClazz();
+                static JClass* getClazz();
 
-        void set(char value);
+                void set(char value);
 
-        char get();
+                char get();
 
-        string toString();
+                string toString();
 
-        ~JChar();
-};
-
+                ~JChar();
+        };
+    }
+}
 #endif // JCHAR_H

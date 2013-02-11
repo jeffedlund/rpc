@@ -8,24 +8,27 @@
 #include <iostream>
 using namespace std;
 
-class JPrimitiveBoolean : public JObject{
+namespace jcpp{
+    namespace lang{
+        class JPrimitiveBoolean : public JObject{
 
-    protected:
-        jbool value;
+            protected:
+                jbool value;
 
-    public:
-        JPrimitiveBoolean();
-        JPrimitiveBoolean(jbool value);
+            public:
+                JPrimitiveBoolean();
+                JPrimitiveBoolean(jbool value);
 
-        static JClass* getClazz();
+                static JClass* getClazz();
 
-        void set(jbool value);
+                void set(jbool value);
 
-        bool get();
+                bool get();
 
-        string toString();
+                string toString();
 
-        ~JPrimitiveBoolean();
-};
-
+                ~JPrimitiveBoolean();
+        };
+    }
+}
 #endif // JPRIMITIVEBOOLEAN_H

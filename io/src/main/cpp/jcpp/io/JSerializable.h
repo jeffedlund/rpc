@@ -4,13 +4,19 @@
 #include "JObject.h"
 #include "JClass.h"
 #include "JInterface.h"
+using namespace jcpp::lang;
+using namespace jcpp::lang::reflect;
 
-class JSerializable : public JInterface{
-protected:
-    JSerializable();
-public:
+namespace jcpp{
+    namespace io{
+        class JSerializable : public JInterface{
+        protected:
+            JSerializable();
+        public:
 
-    static JClass* getClazz();
-};
+            static JClass* getClazz();
+        };
+    }
+}
 
 #endif // JSERIALIZABLE_H

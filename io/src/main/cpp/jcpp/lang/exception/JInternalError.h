@@ -5,18 +5,22 @@
 #include "JVirtualMachineError.h"
 using namespace std;
 
-class JInternalError : public JVirtualMachineError {
-protected:
-    JInternalError(JClass* _class);
+namespace jcpp{
+    namespace lang{
+        class JInternalError : public JVirtualMachineError {
+        protected:
+            JInternalError(JClass* _class);
 
-public:
-    JInternalError();
-    JInternalError(string message);
-    JInternalError(string message, JThrowable *cause);
+        public:
+            JInternalError();
+            JInternalError(string message);
+            JInternalError(string message, JThrowable *cause);
 
-    static JClass* getClazz();
+            static JClass* getClazz();
 
-    ~JInternalError();
-};
+            ~JInternalError();
+        };
+    }
+}
 
 #endif // JINTERNALERROR_H

@@ -5,14 +5,18 @@
 #include "JClass.h"
 using namespace std;
 
-class JObjectStreamException : public JIOException{
-protected:
-    JObjectStreamException(JClass* _clazz);
-public:
-    JObjectStreamException();
-    JObjectStreamException(string message);
+namespace jcpp{
+    namespace io{
+        class JObjectStreamException : public JIOException{
+        protected:
+            JObjectStreamException(JClass* _clazz);
+        public:
+            JObjectStreamException();
+            JObjectStreamException(string message);
 
-     static JClass* getClazz();
-};
+             static JClass* getClazz();
+        };
+    }
+}
 
 #endif // JOBJECTSTREAMEXCEPTION_H

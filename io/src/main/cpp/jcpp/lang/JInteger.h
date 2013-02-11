@@ -8,24 +8,28 @@
 #include <iostream>
 using namespace std;
 
-class JInteger : public JNumber{
+namespace jcpp{
+    namespace lang{
+        class JInteger : public JNumber{
 
-    protected:
-        qint32 value;
+            protected:
+                qint32 value;
 
-    public:
-        JInteger();
-        JInteger(qint32 value);
+            public:
+                JInteger();
+                JInteger(qint32 value);
 
-        static JClass* getClazz();
+                static JClass* getClazz();
 
-        void set(qint32 value);
+                void set(qint32 value);
 
-        qint32 get();
+                qint32 get();
 
-        string toString();
+                string toString();
 
-        ~JInteger();
-};
+                ~JInteger();
+        };
+    }
+}
 
 #endif // JINTEGER_H

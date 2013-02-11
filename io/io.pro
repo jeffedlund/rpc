@@ -25,7 +25,8 @@ INCLUDEPATH += \
 	src/main/cpp/jcpp/lang/exception \
 	src/main/cpp/jcpp/lang/reflect \
 	src/test/cpp/jcpp\
-    src/test/cpp/jcpp/lang
+	src/test/cpp/jcpp/lang \
+	src/test/cpp/jcpp/io
 
 SOURCES += \
     src/test/cpp/jcpp/main.cpp \
@@ -108,7 +109,31 @@ SOURCES += \
     src/main/cpp/jcpp/lang/JInterface.cpp \
     src/test/cpp/jcpp/JTest.cpp \
     src/test/cpp/jcpp/lang/JThrowableTest.cpp \
-    src/test/cpp/jcpp/lang/JErrorTest.cpp
+    src/test/cpp/jcpp/lang/JErrorTest.cpp \
+    src/test/cpp/jcpp/lang/JExceptionTest.cpp \
+    src/test/cpp/jcpp/lang/JRuntimeExceptionTest.cpp \
+    src/test/cpp/jcpp/lang/JClassCastExceptionTest.cpp \
+    src/test/cpp/jcpp/lang/JClassNotFoundExceptionTest.cpp \
+    src/test/cpp/jcpp/lang/JIllegalArgumentExceptionTest.cpp \
+    src/test/cpp/jcpp/lang/JIllegalStateExceptionTest.cpp \
+    src/test/cpp/jcpp/lang/JIndexOutOfBoundsExceptionTest.cpp \
+    src/test/cpp/jcpp/lang/JInstantiationExceptionTest.cpp \
+    src/test/cpp/jcpp/lang/JVirtualMachineErrorTest.cpp \
+    src/test/cpp/jcpp/lang/JInternalErrorTest.cpp \
+    src/test/cpp/jcpp/lang/JNoSuchFieldExceptionTest.cpp \
+    src/test/cpp/jcpp/lang/JNoSuchMethodExceptionTest.cpp \
+    src/test/cpp/jcpp/lang/JNullPointerExceptionTest.cpp \
+    src/test/cpp/jcpp/lang/JUnsupportedOperationExceptionTest.cpp \
+    src/test/cpp/jcpp/io/JIOExceptionTest.cpp \
+    src/test/cpp/jcpp/io/JObjectStreamExceptionTest.cpp \
+    src/test/cpp/jcpp/io/JInvalidClassExceptionTest.cpp \
+    src/test/cpp/jcpp/io/JNotActiveExceptionTest.cpp \
+    src/test/cpp/jcpp/io/JNotSerializableExceptionTest.cpp \
+    src/test/cpp/jcpp/io/JOptionalDataExceptionTest.cpp \
+    src/test/cpp/jcpp/io/JStreamCorruptedExceptionTest.cpp \
+    src/test/cpp/jcpp/io/JUTFDataFormatExceptionTest.cpp \
+    src/main/cpp/jcpp/lang/reflect/JAccessibleObject.cpp \
+    src/test/cpp/jcpp/lang/JShortTest.cpp
     
     
 LIBS += -lws2_32
@@ -203,5 +228,29 @@ HEADERS += \
     src/main/cpp/jcpp/lang/JInterface.h \
     src/test/cpp/jcpp/lang/JThrowableTest.h \
     src/test/cpp/jcpp/JTest.h \
-    src/test/cpp/jcpp/lang/JErrorTest.h
+    src/test/cpp/jcpp/lang/JErrorTest.h \
+    src/test/cpp/jcpp/lang/JExceptionTest.h \
+    src/test/cpp/jcpp/lang/JRuntimeExceptionTest.h \
+    src/test/cpp/jcpp/lang/JClassCastExceptionTest.h \
+    src/test/cpp/jcpp/lang/JClassNotFoundExceptionTest.h \
+    src/test/cpp/jcpp/lang/JIllegalArgumentExceptionTest.h \
+    src/test/cpp/jcpp/lang/JIllegalStateExceptionTest.h \
+    src/test/cpp/jcpp/lang/JIndexOutOfBoundsExceptionTest.h \
+    src/test/cpp/jcpp/lang/JInstantiationExceptionTest.h \
+    src/test/cpp/jcpp/lang/JVirtualMachineErrorTest.h \
+    src/test/cpp/jcpp/lang/JInternalErrorTest.h \
+    src/test/cpp/jcpp/lang/JNoSuchFieldExceptionTest.h \
+    src/test/cpp/jcpp/lang/JNoSuchMethodExceptionTest.h \
+    src/test/cpp/jcpp/lang/JNullPointerExceptionTest.h \
+    src/test/cpp/jcpp/lang/JUnsupportedOperationExceptionTest.h \
+    src/test/cpp/jcpp/io/JIOExceptionTest.h \
+    src/test/cpp/jcpp/io/JObjectStreamExceptionTest.h \
+    src/test/cpp/jcpp/io/JInvalidClassExceptionTest.h \
+    src/test/cpp/jcpp/io/JNotActiveExceptionTest.h \
+    src/test/cpp/jcpp/io/JNotSerializableExceptionTest.h \
+    src/test/cpp/jcpp/io/JOptionalDataExceptionTest.h \
+    src/test/cpp/jcpp/io/JStreamCorruptedExceptionTest.h \
+    src/test/cpp/jcpp/io/JUTFDataFormatExceptionTest.h \
+    src/main/cpp/jcpp/lang/reflect/JAccessibleObject.h \
+    src/test/cpp/jcpp/lang/JShortTest.h
     

@@ -5,25 +5,29 @@
 #include <map>
 using namespace std;
 
-class JClassLoader : public JObject{
-protected:
-    map<string, JClass*>* classes;
-    static JClass* getClazz(JClassLoader* classLoader);
-    JClassLoader(bool root);
+namespace jcpp{
+    namespace lang{
+        class JClassLoader : public JObject{
+        protected:
+            map<string, JClass*>* classes;
+            static JClass* getClazz(JClassLoader* classLoader);
+            JClassLoader(bool root);
 
-public:
-    JClassLoader();
+        public:
+            JClassLoader();
 
-    static JClassLoader* getBootClassLoader();
+            static JClassLoader* getBootClassLoader();
 
-    void addClasses(JClassBuilder* jClassBuilder);
+            void addClasses(JClassBuilder* jClassBuilder);
 
-    JClass* loadClass(string string);
+            JClass* loadClass(string string);
 
-    static JClass* getClazz();
+            static JClass* getClazz();
 
-    ~JClassLoader();
-};
+            ~JClassLoader();
+        };
+    }
+}
 
 
 #endif // JCLASSLOADER__H

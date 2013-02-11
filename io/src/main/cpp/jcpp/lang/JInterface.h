@@ -1,14 +1,18 @@
 #ifndef JINTERFACE_H
 #define JINTERFACE_H
 
-class JClass;
-
 #include <iostream>
 using namespace std;
 
-class JInterface{
-    public:
-        static JClass* getClazz();
-};
+namespace jcpp{
+    namespace lang{
+        class JClass;
+
+        class JInterface{
+            public:
+                static JClass* getClazz();
+        };
+    }
+}
 
 #endif // JINTERFACE_H

@@ -9,46 +9,42 @@
 #include "JSerializable.h"
 using namespace std;
 
-class JThrowable: public JObject, public JSerializable {
-protected:
-    class JThrowableClass : public JClass{
-    public :
-        JThrowableClass();
+namespace jcpp{
+    namespace lang{
+        class JThrowable: public JObject, public JSerializable {
+        protected:
+            JString* message;
+            JThrowable* cause;
+            JPrimitiveArray* stackTrace;
+            JThrowable(JClass* _class);
 
-        virtual JClass* getSuperclass();
+        public:
+            JThrowable();
+            JThrowable(string message);
+            JThrowable(JString* message);
+            JThrowable(string, JThrowable *cause);
+            JThrowable(JString*, JThrowable *cause);
+            bool operator==(JThrowable &other);
+            bool operator==(JObject &other);
 
-        virtual JObject* newInstance();
-    };
-    JString* message;
-    JThrowable* cause;
-    JPrimitiveArray* stackTrace;
-    JThrowable(JClass* _class);
+            static JClass* getClazz();
 
-public:
-    JThrowable();
-    JThrowable(string message);
-    JThrowable(JString* message);
-    JThrowable(string, JThrowable *cause);
-    JThrowable(JString*, JThrowable *cause);
-    bool operator==(JThrowable &other);
-    bool operator==(JObject &other);
+            JThrowable *getCause();
+            void setCause(JThrowable* throwable);
 
-    static JClass* getClazz();
+            void setMessage(JString* message);
+            JString* getMessage();
 
-    JThrowable *getCause();
-    void setCause(JThrowable* throwable);
+            JPrimitiveArray* getStackTrace();
+            void setStackTrace(JPrimitiveArray* stackTrace);
 
-    void setMessage(JString* message);
-    JString* getMessage();
+            void printStackTrace(ostream* os);
 
-    JPrimitiveArray* getStackTrace();
-    void setStackTrace(JPrimitiveArray* stackTrace);
+            string toString();
 
-    void printStackTrace(ostream* os);
-
-    string toString();
-
-    ~JThrowable();
-};
+            ~JThrowable();
+        };
+    }
+}
 
 #endif // JTHROWABLE_H

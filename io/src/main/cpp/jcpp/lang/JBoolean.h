@@ -2,31 +2,37 @@
 #define JBOOLEAN_H
 
 #include "JObject.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
+#include "JPrimitiveBoolean.h"
 using namespace std;
 
-//TODO fill JField for in/out marshalling
-//TODO add more public methods for all JBool,JFloat,...
-class JBoolean : public JObject{
+namespace jcpp{
+    namespace lang{
+        class JBoolean : public JObject{
 
-    protected:
-        bool value;
+            protected:
+                JPrimitiveBoolean* value;
 
-    public:
-        JBoolean();
-        JBoolean(bool value);
+            public:
+                JBoolean();
+                JBoolean(bool value);
+                JBoolean(JPrimitiveBoolean* value);
 
-        static JClass* getClazz();
+                static JClass* getClazz();
 
-        void set(bool value);
+                void set(bool value);
 
-        bool get();
+                bool get();
 
-        string toString();
+                void setPrimitiveBoolean(JPrimitiveBoolean* value);
 
-        ~JBoolean();
-};
+                JPrimitiveBoolean* getPrimitiveBoolean();
 
+                string toString();
+
+                ~JBoolean();
+        };
+    }
+}
 #endif // JBOOLEAN_H

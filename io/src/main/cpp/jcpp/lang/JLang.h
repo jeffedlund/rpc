@@ -44,49 +44,54 @@
 #include "JIllegalStateException.h"
 #include "JVoid.h"
 
-static int LANG_CLASSES_SIZE = 39;
+//TODO define instead JPackage for each namespace that contains usefull methods like the one below
+namespace jcpp{
+    namespace lang{
+        static int LANG_CLASSES_SIZE = 39;
 
-static JClass* LANG_CLASSES[] = {
-    JClassCastException::getClazz(),
-    JClassNotFoundException::getClazz(),
-    JError::getClazz(),
-    JException::getClazz(),
-    JIllegalArgumentException::getClazz(),
-    JIllegalStateException::getClazz(),
-    JIndexOutOfBoundsException::getClazz(),
-    JInstantiationException::getClazz(),
-    JInternalError::getClazz(),
-    JNoSuchFieldException::getClazz(),
-    JNoSuchMethodException::getClazz(),
-    JNullPointerException::getClazz(),
-    JRuntimeException::getClazz(),
-    JThrowable::getClazz(),
-    JUnsupportedOperationException::getClazz(),
-    JVirtualMachineError::getClazz(),
-    JBoolean::getClazz(),
-    JByte::getClazz(),
-    JChar::getClazz(),
-    JClass::getClazz(),
-    JClassLoader::getClazz(),
-    JDouble::getClazz(),
-    JEnum::getClazz(),
-    JFloat::getClazz(),
-    JInteger::getClazz(),
-    JLong::getClazz(),
-    JNumber::getClazz(),
-    JObject::getClazz(),
-    JPrimitiveBoolean::getClazz(),
-    JPrimitiveByte::getClazz(),
-    JPrimitiveChar::getClazz(),
-    JPrimitiveDouble::getClazz(),
-    JPrimitiveFloat::getClazz(),
-    JPrimitiveInt::getClazz(),
-    JPrimitiveLong::getClazz(),
-    JPrimitiveShort::getClazz(),
-    JShort::getClazz(),
-    JStackTraceElement::getClazz(),
-    JString::getClazz(),
-    JVoid::getClazz()
-};
+        static JClass* LANG_CLASSES[] = {
+            JClassCastException::getClazz(),
+            JClassNotFoundException::getClazz(),
+            JError::getClazz(),
+            JException::getClazz(),
+            JIllegalArgumentException::getClazz(),
+            JIllegalStateException::getClazz(),
+            JIndexOutOfBoundsException::getClazz(),
+            JInstantiationException::getClazz(),
+            JInternalError::getClazz(),
+            JNoSuchFieldException::getClazz(),
+            JNoSuchMethodException::getClazz(),
+            JNullPointerException::getClazz(),
+            JRuntimeException::getClazz(),
+            JThrowable::getClazz(),
+            JUnsupportedOperationException::getClazz(),
+            JVirtualMachineError::getClazz(),
+            JBoolean::getClazz(),
+            JByte::getClazz(),
+            JChar::getClazz(),
+            JClass::getClazz(),
+            JClassLoader::getClazz(),
+            JDouble::getClazz(),
+            JEnum::getClazz(),
+            JFloat::getClazz(),
+            JInteger::getClazz(),
+            JLong::getClazz(),
+            JNumber::getClazz(),
+            JObject::getClazz(),
+            JPrimitiveBoolean::getClazz(),
+            JPrimitiveByte::getClazz(),
+            JPrimitiveChar::getClazz(),
+            JPrimitiveDouble::getClazz(),
+            JPrimitiveFloat::getClazz(),
+            JPrimitiveInt::getClazz(),
+            JPrimitiveLong::getClazz(),
+            JPrimitiveShort::getClazz(),
+            JShort::getClazz(),
+            JStackTraceElement::getClazz(),
+            JString::getClazz(),
+            JVoid::getClazz()
+        };
+    }
+}
 
 #endif // JLANG_H

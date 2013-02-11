@@ -3,59 +3,66 @@
 #include "JClassLoader.h"
 #include <sstream>
 
-class JObjectClass : public JClass{
-    public:
-        JObjectClass():JClass(){
-            canonicalName="java.lang.Objet";
-            name="java.lang.Object";
-            simpleName="Object";
+namespace jcpp{
+    namespace lang{
+        class JObjectClass : public JClass{
+            public:
+                JObjectClass():JClass(){
+                    canonicalName="java.lang.Objet";
+                    name="java.lang.Object";
+                    simpleName="Object";
+                }
+
+                JClass* getSuperclass(){
+                    return NULL;
+                }
+
+                JObject* newInstance(){
+                    return new JObject();
+                }
+        };
+
+        static JClass* clazz;
+
+        JClass* JObject::getClazz(){
+            if (clazz==NULL){
+                clazz=new JObjectClass();
+            }
+            return clazz;
         }
 
-        JClass* getSuperclass(){
-            return NULL;
+        JObject::JObject(){
+            this->_class=JObject::getClazz();
         }
 
-        JObject* newInstance(){
-            return new JObject();
+
+        JObject::JObject(JClass* _class){
+            this->_class=_class;
         }
-};
 
-static JClass* clazz;
+        JObject::JObject(bool root){
+        }
 
-JClass* JObject::getClazz(){
-    if (clazz==NULL){
-        clazz=new JObjectClass();
+        JClass* JObject::getClass(){
+            return this->_class;
+        }
+
+        bool JObject::operator==(JObject &other){
+            if (getClass()!=other.getClass()){
+                return false;
+            }
+            return this==&other;
+        }
+
+        string JObject::toString(){
+            stringstream ss;
+            ss<<getClass()->getName();
+            ss<<"@";
+            ss<<(this);
+            return ss.str();
+        }
+
+        JObject::~JObject(){
+        }
     }
-    return clazz;
-}
-
-JObject::JObject(){
-    this->_class=JObject::getClazz();
-}
-
-
-JObject::JObject(JClass* _class){
-    this->_class=_class;
-}
-
-JObject::JObject(bool root){
-}
-
-JClass* JObject::getClass(){
-    return this->_class;
-}
-
-bool JObject::operator==(JObject &other){
-    return this==&other;
-}
-
-string JObject::toString(){
-    stringstream ss;
-    ss<<getClass()->getName();
-    ss<<"@";
-    ss<<(this);
-    return ss.str();
-}
-
-JObject::~JObject(){
 }

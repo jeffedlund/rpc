@@ -5,14 +5,18 @@
 #include "JClass.h"
 using namespace std;
 
-class JStreamCorruptedException : public JObjectStreamException{
-protected:
-    JStreamCorruptedException(JClass* _clazz);
-public:
-    JStreamCorruptedException();
-    JStreamCorruptedException(string message);
+namespace jcpp{
+    namespace io{
+        class JStreamCorruptedException : public JObjectStreamException{
+        protected:
+            JStreamCorruptedException(JClass* _clazz);
+        public:
+            JStreamCorruptedException();
+            JStreamCorruptedException(string message);
 
-    static JClass* getClazz();
-};
+            static JClass* getClazz();
+        };
+    }
+}
 
 #endif // JSTREAMCORRUPTEDEXCEPTION_H

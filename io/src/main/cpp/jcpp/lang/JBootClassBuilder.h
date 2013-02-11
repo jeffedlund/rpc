@@ -5,16 +5,20 @@
 #include "JClass.h"
 using namespace  std;
 
-class JBootClassBuilder : public JClassBuilder {
-    vector<JClass*> * classes;
+namespace jcpp{
+    namespace lang{
+        class JBootClassBuilder : public JClassBuilder {
+            vector<JClass*> * classes;
 
-public:
-    JBootClassBuilder();
+        public:
+            JBootClassBuilder();
 
-    static JClassBuilder* getBootClassBuilder();
+            static JClassBuilder* getBootClassBuilder();
 
-    void addClass(JClass* clazz);
-    vector<JClass*>* getClasses();
-};
+            void addClass(JClass* clazz);
+            vector<JClass*>* getClasses();
+        };
+    }
+}
 
 #endif // JBOOTCLASSBUILDER_H

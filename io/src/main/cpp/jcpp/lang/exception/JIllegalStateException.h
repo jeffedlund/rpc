@@ -5,13 +5,17 @@
 #include "JRuntimeException.h"
 using namespace std;
 
-class JIllegalStateException : public JRuntimeException
-{
-public:
-    JIllegalStateException();
-    JIllegalStateException(string message);
+namespace jcpp{
+    namespace lang{
+        class JIllegalStateException : public JRuntimeException
+        {
+        public:
+            JIllegalStateException();
+            JIllegalStateException(string message);
 
-    static JClass* getClazz();
-};
+            static JClass* getClazz();
+        };
+    }
+}
 
 #endif // JILLEGALSTATEEXCEPTION_H

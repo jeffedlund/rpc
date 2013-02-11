@@ -5,10 +5,14 @@
 #include "JClass.h"
 using namespace  std;
 
-class JClassBuilder {
+namespace jcpp{
+    namespace lang{
+        class JClassBuilder {
 
-public:
-    virtual vector<JClass*>* getClasses()=0;
-};
+        public:
+            virtual vector<JClass*>* getClasses()=0;
+        };
+    }
+}
 
 #endif // JCLASSBUILDER_H

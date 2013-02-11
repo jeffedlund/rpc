@@ -8,24 +8,28 @@
 #include <iostream>
 using namespace std;
 
-class JFloat : public JNumber{
+namespace jcpp{
+    namespace lang{
+        class JFloat : public JNumber{
 
-    protected:
-        float value;
+            protected:
+                float value;
 
-    public:
-        JFloat();
-        JFloat(float value);
+            public:
+                JFloat();
+                JFloat(float value);
 
-        static JClass* getClazz();
+                static JClass* getClazz();
 
-        void set(float value);
+                void set(float value);
 
-        float get();
+                float get();
 
-        string toString();
+                string toString();
 
-        ~JFloat();
-};
+                ~JFloat();
+        };
+    }
+}
 
 #endif // JFLOAT_H

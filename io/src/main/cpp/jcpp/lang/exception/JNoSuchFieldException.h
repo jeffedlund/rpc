@@ -5,13 +5,17 @@
 #include "JClass.h"
 using namespace std;
 
-class JNoSuchFieldException : public JException
-{
-public:
-    JNoSuchFieldException();
-    JNoSuchFieldException(string message);
+namespace jcpp{
+    namespace lang{
+        class JNoSuchFieldException : public JException
+        {
+        public:
+            JNoSuchFieldException();
+            JNoSuchFieldException(string message);
 
-    static JClass* getClazz();
-};
+            static JClass* getClazz();
+        };
+    }
+}
 
 #endif // JNOSUCHFIELDEXCEPTION_H

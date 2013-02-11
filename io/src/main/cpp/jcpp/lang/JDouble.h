@@ -8,24 +8,28 @@
 #include <iostream>
 using namespace std;
 
-class JDouble : public JNumber{
+namespace jcpp{
+    namespace lang{
+        class JDouble : public JNumber{
 
-    protected:
-        double value;
+            protected:
+                double value;
 
-    public:
-        JDouble();
-        JDouble(double value);
+            public:
+                JDouble();
+                JDouble(double value);
 
-        static JClass* getClazz();
+                static JClass* getClazz();
 
-        void set(double value);
+                void set(double value);
 
-        double get();
+                double get();
 
-        string toString();
+                string toString();
 
-        ~JDouble();
-};
+                ~JDouble();
+        };
+    }
+}
 
 #endif // JDOUBLE_H

@@ -3,11 +3,12 @@
 
 #include "JObject.h"
 
-class JVoid : public JObject{
-
-
-    public:
-
-        static JClass* getClazz();
-};
+namespace jcpp{
+    namespace lang{
+        class JVoid : public JObject{
+            public:
+                static JClass* getClazz();
+        };
+    }
+}
 #endif // JVOID_H

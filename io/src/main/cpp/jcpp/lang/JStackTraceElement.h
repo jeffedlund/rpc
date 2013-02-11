@@ -7,43 +7,48 @@
 #include "JSerializable.h"
 #include "JPrimitiveInt.h"
 using namespace std;
+using namespace jcpp::io;
 
-class JStackTraceElement: public JObject, public JSerializable {
-private:
-    JString* declaringClass;
-    JString* methodName;
-    JString* fileName;
-    JPrimitiveInt* lineNumber;
+namespace jcpp{
+    namespace lang{
+        class JStackTraceElement: public JObject, public JSerializable {
+        private:
+            JString* declaringClass;
+            JString* methodName;
+            JString* fileName;
+            JPrimitiveInt* lineNumber;
 
-public:
-    JStackTraceElement();
-    JStackTraceElement(JString* declaringClass,JString* methodName,JString* fileName,JPrimitiveInt* lineNumber);
+        public:
+            JStackTraceElement();
+            JStackTraceElement(JString* declaringClass,JString* methodName,JString* fileName,JPrimitiveInt* lineNumber);
 
-    bool operator==(JStackTraceElement &other);
-    bool operator==(JObject &other);
+            bool operator==(JStackTraceElement &other);
+            bool operator==(JObject &other);
 
-    static JClass* getClazz();
+            static JClass* getClazz();
 
-    JString* getDeclaringClass();
+            JString* getDeclaringClass();
 
-    void setDeclaringClass(JString* declaringClass);
+            void setDeclaringClass(JString* declaringClass);
 
-    JString* getMethodName();
+            JString* getMethodName();
 
-    void setMethodName(JString* methodName);
+            void setMethodName(JString* methodName);
 
-    JString* getFileName();
+            JString* getFileName();
 
-    void setFileName(JString* fileName);
+            void setFileName(JString* fileName);
 
-    JPrimitiveInt* getLineNumber();
+            JPrimitiveInt* getLineNumber();
 
-    void setLineNumber(JPrimitiveInt* lineNumber);
+            void setLineNumber(JPrimitiveInt* lineNumber);
 
-    string toString();
+            string toString();
 
-    ~JStackTraceElement();
-};
+            ~JStackTraceElement();
+        };
+    }
+}
 
 
 #endif // JSTACKTRACEELEMENT_H

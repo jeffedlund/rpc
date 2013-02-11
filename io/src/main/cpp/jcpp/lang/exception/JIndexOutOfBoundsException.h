@@ -6,13 +6,17 @@
 
 using namespace std;
 
-class JIndexOutOfBoundsException : public JRuntimeException{
-public:
-    JIndexOutOfBoundsException();
-    JIndexOutOfBoundsException(string message);
-    JIndexOutOfBoundsException(JString* message);
+namespace jcpp{
+    namespace lang{
+        class JIndexOutOfBoundsException : public JRuntimeException{
+        public:
+            JIndexOutOfBoundsException();
+            JIndexOutOfBoundsException(string message);
+            JIndexOutOfBoundsException(JString* message);
 
-    static JClass* getClazz();
-};
+            static JClass* getClazz();
+        };
+    }
+}
 
 #endif // JINDEXOUTOFBOUNDSEXCEPTION_H

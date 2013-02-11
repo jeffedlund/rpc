@@ -1,25 +1,29 @@
 #ifndef HANDLELIST_H
 #define HANDLELIST_H
 
-//HandleList
-class HandleList {
-    int* list;
-    int length;
-    int size;
-    bool operator==(const HandleList &h);
+namespace jcpp{
+    namespace io{
+        //HandleList
+        class HandleList {
+            int* list;
+            int length;
+            int size;
+            bool operator==(const HandleList &h);
 
-public:
-    HandleList();
+        public:
+            HandleList();
 
-    HandleList(const HandleList &h);
+            HandleList(const HandleList &h);
 
-    ~HandleList();
+            ~HandleList();
 
-    void add(int handle);
+            void add(int handle);
 
-    int get(int index);
+            int get(int index);
 
-    int getSize();
-};
+            int getSize();
+        };
+    }
+}
 
 #endif // HANDLELIST_H

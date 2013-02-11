@@ -5,26 +5,22 @@
 #include "JThrowable.h"
 using namespace std;
 
-class JError : public JThrowable {
-protected:
-//    class JErrorClass : public JThrowableClass{
-//    public :
-//        JErrorClass();
+namespace jcpp{
+    namespace lang{
+        class JError : public JThrowable {
+        protected:
+            JError(JClass* _class);
 
-//        virtual JClass* getSuperclass();
+        public:
+            JError();
+            JError(string message);
+            JError(string message, JThrowable *cause);
 
-//        virtual JObject* newInstance();
-//    };
-    JError(JClass* _class);
+            static JClass* getClazz();
 
-public:
-    JError();
-    JError(string message);
-    JError(string message, JThrowable *cause);
-
-    static JClass* getClazz();
-
-    ~JError();
-};
+            ~JError();
+        };
+    }
+}
 
 #endif // JERROR_H

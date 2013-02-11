@@ -4,26 +4,21 @@
 #include "JObject.h"
 using namespace std;
 
-class JString : public JObject
-{
-    string str;
+namespace jcpp{
+    namespace lang{
+        class JString : public JObject{
+            string str;
 
-public:
-    JString();
-
-    JString(string str);
-
-    bool operator==(JString &other);
-
-    static JClass* getClazz();
-
-    string getString();
-
-    void setString(string str);
-
-    string toString();
-
-    ~JString();
-};
-
+        public:
+            JString();
+            JString(string str);
+            bool operator==(JString &other);
+            static JClass* getClazz();
+            string getString();
+            void setString(string str);
+            string toString();
+            ~JString();
+        };
+    }
+}
 #endif // JSTRING_H

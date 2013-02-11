@@ -7,24 +7,28 @@
 #include <iostream>
 using namespace std;
 
-class JPrimitiveFloat : public JObject{
+namespace jcpp{
+    namespace lang{
+        class JPrimitiveFloat : public JObject{
 
-    protected:
-        float value;
+            protected:
+                float value;
 
-    public:
-        JPrimitiveFloat();
-        JPrimitiveFloat(float value);
+            public:
+                JPrimitiveFloat();
+                JPrimitiveFloat(float value);
 
-        static JClass* getClazz();
+                static JClass* getClazz();
 
-        void set(float value);
+                void set(float value);
 
-        float get();
+                float get();
 
-        string toString();
+                string toString();
 
-        ~JPrimitiveFloat();
-};
+                ~JPrimitiveFloat();
+        };
+    }
+}
 
 #endif // JPRIMITIVEFLOAT_H

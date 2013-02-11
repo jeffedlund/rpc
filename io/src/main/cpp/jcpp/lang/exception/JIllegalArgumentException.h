@@ -5,14 +5,18 @@
 #include "JRuntimeException.h"
 using namespace std;
 
-class JIllegalArgumentException : public JRuntimeException
-{
-public:
-    JIllegalArgumentException();
-    JIllegalArgumentException(string message);
-    JIllegalArgumentException(string message,JThrowable* cause);
+namespace jcpp{
+    namespace lang{
+        class JIllegalArgumentException : public JRuntimeException
+        {
+        public:
+            JIllegalArgumentException();
+            JIllegalArgumentException(string message);
+            JIllegalArgumentException(string message,JThrowable* cause);
 
-    static JClass* getClazz();
-};
+            static JClass* getClazz();
+        };
+    }
+}
 
 #endif // JILLEGALARGUMENTEXCEPTION_H

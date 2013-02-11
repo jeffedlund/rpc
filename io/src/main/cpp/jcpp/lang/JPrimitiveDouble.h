@@ -7,24 +7,28 @@
 #include <iostream>
 using namespace std;
 
-class JPrimitiveDouble : public JObject{
+namespace jcpp{
+    namespace lang{
+        class JPrimitiveDouble : public JObject{
 
-    protected:
-        double value;
+            protected:
+                double value;
 
-    public:
-        JPrimitiveDouble();
-        JPrimitiveDouble(double value);
+            public:
+                JPrimitiveDouble();
+                JPrimitiveDouble(double value);
 
-        static JClass* getClazz();
+                static JClass* getClazz();
 
-        void set(double value);
+                void set(double value);
 
-        double get();
+                double get();
 
-        string toString();
+                string toString();
 
-        ~JPrimitiveDouble();
-};
+                ~JPrimitiveDouble();
+        };
+    }
+}
 
 #endif // JPRIMITIVEDOUBLE_H

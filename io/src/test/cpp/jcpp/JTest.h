@@ -11,18 +11,20 @@
 #include <QString>
 #include <QDataStream>
 
-class JTest{
-public :
+namespace jcpp{
+    class JTest{
+    public :
 
-    virtual string getFileName()=0;
+        virtual string getFileName()=0;
 
-    virtual JObject* testReflect()=0;
+        virtual JObject* testReflect()=0;
 
-    void testWrite(JObject* object);
+        void testWrite(JObject* object);
 
-    JObject* testRead();
+        JObject* testRead();
 
-    void test();
-};
+        void test();
+    };
+}
 
 #endif // JTEST_H

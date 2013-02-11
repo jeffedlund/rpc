@@ -3,14 +3,18 @@
 #include "JRuntimeException.h"
 using namespace std;
 
-class JNullPointerException : public JRuntimeException{
+namespace jcpp{
+    namespace lang{
+        class JNullPointerException : public JRuntimeException{
 
-public:
-    JNullPointerException();
-    JNullPointerException(string message);
-    JNullPointerException(JString* message);
+        public:
+            JNullPointerException();
+            JNullPointerException(string message);
+            JNullPointerException(JString* message);
 
-    static JClass* getClazz();
-};
+            static JClass* getClazz();
+        };
+    }
+}
 
 #endif // JNULLPOINTEREXCEPTION_H

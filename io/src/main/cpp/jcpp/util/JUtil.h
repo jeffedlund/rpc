@@ -5,12 +5,16 @@
 #include "JCollection.h"
 #include "JHashtable.h"
 
-static int UTIL_CLASSES_SIZE = 1;
+namespace jcpp{
+    namespace util{
+        static int UTIL_CLASSES_SIZE = 1;
 
-static JClass* UTIL_CLASSES[] = {
-    JArrayList::getClazz()
-    //TODO JCollection::
-    //TODO JHashtable::getC
-};
+        static JClass* UTIL_CLASSES[] = {
+            JArrayList::getClazz()
+            //TODO JCollection::
+            //TODO JHashtable::getC
+        };
 
+    }
+}
 #endif // JUTIL_H

@@ -7,24 +7,27 @@
 #include <iostream>
 using namespace std;
 
-class JPrimitiveChar : public JObject{
+namespace jcpp{
+    namespace lang{
+        class JPrimitiveChar : public JObject{
 
-    protected:
-        char value;
+            protected:
+                char value;
 
-    public:
-        JPrimitiveChar();
-        JPrimitiveChar(char value);
+            public:
+                JPrimitiveChar();
+                JPrimitiveChar(char value);
 
-        static JClass* getClazz();
+                static JClass* getClazz();
 
-        void set(char value);
+                void set(char value);
 
-        char get();
+                char get();
 
-        string toString();
+                string toString();
 
-        ~JPrimitiveChar();
-};
-
+                ~JPrimitiveChar();
+        };
+    }
+}
 #endif // JPRIMITIVECHAR_H

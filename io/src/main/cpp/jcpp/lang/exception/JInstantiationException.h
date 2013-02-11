@@ -5,13 +5,17 @@
 #include "JClass.h"
 using namespace std;
 
-class JInstantiationException : public JException
-{
-public:
-    JInstantiationException();
-    JInstantiationException(string message);
+namespace jcpp{
+    namespace lang{
+        class JInstantiationException : public JException
+        {
+        public:
+            JInstantiationException();
+            JInstantiationException(string message);
 
-    static JClass* getClazz();
-};
+            static JClass* getClazz();
+        };
+    }
+}
 
 #endif // JINSTANTIATIONEXCEPTION_H

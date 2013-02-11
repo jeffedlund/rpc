@@ -5,18 +5,22 @@
 #include "JError.h"
 using namespace std;
 
-class JVirtualMachineError : public JError {
-protected:
-    JVirtualMachineError(JClass* _class);
+namespace jcpp{
+    namespace lang{
+        class JVirtualMachineError : public JError {
+        protected:
+            JVirtualMachineError(JClass* _class);
 
-public:
-    JVirtualMachineError();
-    JVirtualMachineError(string message);
-    JVirtualMachineError(string message, JThrowable *cause);
+        public:
+            JVirtualMachineError();
+            JVirtualMachineError(string message);
+            JVirtualMachineError(string message, JThrowable *cause);
 
-    static JClass* getClazz();
+            static JClass* getClazz();
 
-    ~JVirtualMachineError();
-};
+            ~JVirtualMachineError();
+        };
+    }
+}
 
 #endif // JVIRTUALMACHINEERROR_H

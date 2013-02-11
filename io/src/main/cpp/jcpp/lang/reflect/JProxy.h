@@ -5,26 +5,33 @@
 #include "JInvocationHandler.h"
 using namespace std;
 
-class JProxy : public JObject{
-    JInvocationHandler *invocationHandler;
-    vector<JClass*>* interfaces;
 
-public:
-    JProxy();
+namespace jcpp{
+    namespace lang{
+        namespace reflect{
+            class JProxy : public JObject{
+                JInvocationHandler *invocationHandler;
+                vector<JClass*>* interfaces;
 
-    JInvocationHandler* getInvocationHandler();
-    void setInvocationHandler(JInvocationHandler* invocationHandler);
+            public:
+                JProxy();
 
-    vector<JClass*>* getInterfaces();
-    void setInterfaces(vector<JClass*>* interfaces);
+                JInvocationHandler* getInvocationHandler();
+                void setInvocationHandler(JInvocationHandler* invocationHandler);
 
-    static JClass* getClazz();
+                vector<JClass*>* getInterfaces();
+                void setInterfaces(vector<JClass*>* interfaces);
 
-    JObject* invoke(string method, vector<JObject*>* args);
+                static JClass* getClazz();
 
-    string toString();
+                JObject* invoke(string method, vector<JObject*>* args);
 
-    ~JProxy();
-};
+                string toString();
+
+                ~JProxy();
+            };
+        }
+    }
+}
 
 #endif // JPROXY_H

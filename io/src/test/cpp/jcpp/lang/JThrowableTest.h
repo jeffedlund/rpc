@@ -4,21 +4,24 @@
 #include "JThrowable.h"
 #include "JTest.h"
 
+namespace jcpp{
+    namespace lang{
+        class JThrowableTest : public JTest{
+        public:
+            JThrowableTest();
 
-class JThrowableTest : public JTest{
-public:
-    JThrowableTest();
+            virtual string getFileName();
 
-    virtual string getFileName();
+            virtual JThrowable* createFirstCause();
 
-    virtual JThrowable* createFirstCause();
+            virtual JThrowable* createSecondCause();
 
-    virtual JThrowable* createSecondCause();
+            virtual string getThrowableClassName();
 
-    virtual string getThrowableClassName();
-
-    JObject* testReflect();
-};
+            JObject* testReflect();
+        };
+    }
+}
 
 
 #endif

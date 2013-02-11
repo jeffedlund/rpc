@@ -7,24 +7,27 @@
 #include <iostream>
 using namespace std;
 
-class JPrimitiveByte : public JObject{
+namespace jcpp{
+    namespace lang{
+        class JPrimitiveByte : public JObject{
 
-    protected:
-        qint8 value;
+            protected:
+                qint8 value;
 
-    public:
-        JPrimitiveByte();
-        JPrimitiveByte(qint8 value);
+            public:
+                JPrimitiveByte();
+                JPrimitiveByte(qint8 value);
 
-        static JClass* getClazz();
+                static JClass* getClazz();
 
-        void set(qint8 value);
+                void set(qint8 value);
 
-        qint8 get();
+                qint8 get();
 
-        string toString();
+                string toString();
 
-        ~JPrimitiveByte();
-};
-
+                ~JPrimitiveByte();
+        };
+    }
+}
 #endif // JPRIMITIVEBYTE_H
