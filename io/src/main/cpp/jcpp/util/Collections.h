@@ -12,11 +12,15 @@ namespace jcpp{
         */
         template <class T>
         void deleteVectorOfPointers(T *vector) {
-          typename T::iterator i;
-          for (i = vector->begin(); i < vector->end(); ++i) {
-            delete *i;
-          }
-          delete vector;
+            if (vector!=NULL){
+              typename T::iterator i;
+              for (i = vector->begin(); i < vector->end(); ++i) {
+                  if ((*i)!=NULL){
+                    delete *i;
+                  }
+              }
+              delete vector;
+            }
         }
 
         template<class K,class V>

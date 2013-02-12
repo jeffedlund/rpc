@@ -94,43 +94,39 @@ namespace jcpp{
         }
 
         bool JStackTraceElement::operator==(JObject &other){
-            if (other.getClass()==JStackTraceElement::getClazz()){
-                JStackTraceElement se=dynamic_cast<JStackTraceElement&>(other);
-                return (*this)==se;
+            if (other.getClass()!=JStackTraceElement::getClazz()){
+                return false;
             }
-            return false;
-        }
-
-        bool JStackTraceElement::operator==(JStackTraceElement &other){
+            JStackTraceElement* se=dynamic_cast<JStackTraceElement*>(&other);
             bool eq=true;
-            if (other.declaringClass!=NULL && declaringClass!=NULL){
-                eq=((*other.declaringClass)==(*declaringClass));
+            if (se->declaringClass!=NULL && declaringClass!=NULL){
+                eq=((*se->declaringClass)==(*declaringClass));
             }else{
-                eq=other.declaringClass==NULL && declaringClass==NULL;
+                eq=se->declaringClass==NULL && declaringClass==NULL;
             }
             if (!eq){
                 return false;
             }
-            if (other.methodName!=NULL && methodName!=NULL){
-                eq=((*other.methodName)==(*methodName));
+            if (se->methodName!=NULL && methodName!=NULL){
+                eq=((*se->methodName)==(*methodName));
             }else{
-                eq=other.methodName==NULL && methodName==NULL;
+                eq=se->methodName==NULL && methodName==NULL;
             }
             if (!eq){
                 return false;
             }
-            if (other.fileName!=NULL && fileName!=NULL){
-                eq=((*other.fileName)==(*fileName));
+            if (se->fileName!=NULL && fileName!=NULL){
+                eq=((*se->fileName)==(*fileName));
             }else{
-                eq=other.fileName==NULL && fileName==NULL;
+                eq=se->fileName==NULL && fileName==NULL;
             }
             if (!eq){
                 return false;
             }
-            if (other.lineNumber!=NULL && lineNumber!=NULL){
-                eq=((*other.lineNumber)==(*lineNumber));
+            if (se->lineNumber!=NULL && lineNumber!=NULL){
+                eq=((*se->lineNumber)==(*lineNumber));
             }else{
-                eq=other.lineNumber==NULL && lineNumber==NULL;
+                eq=se->lineNumber==NULL && lineNumber==NULL;
             }
             if (!eq){
                 return false;

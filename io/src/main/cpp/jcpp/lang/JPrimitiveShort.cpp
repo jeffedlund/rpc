@@ -44,8 +44,12 @@ namespace jcpp{
             this->value=0;
         }
 
-        bool JPrimitiveShort::operator==(JPrimitiveShort &other){//TODO use JObject
-            return value==other.value;
+        bool JPrimitiveShort::operator==(JObject &other){
+            if (other.getClass()!=getClazz()){
+                return false;
+            }
+            JPrimitiveShort* s=dynamic_cast<JPrimitiveShort*>(&other);
+            return value==s->value;
         }
 
         void JPrimitiveShort::set(qint16 value){

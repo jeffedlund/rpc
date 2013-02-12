@@ -37,6 +37,38 @@ namespace jcpp{
             return !enableReplace;
         }
 
+        void JObjectOutputStream::writeBoolean(JPrimitiveBoolean* b){
+            writeBoolean(b->get());
+        }
+
+        void JObjectOutputStream::writeByte(JPrimitiveByte* b){
+            writeByte(b->get());
+        }
+
+        void JObjectOutputStream::writeChar(JPrimitiveChar* c){
+            writeChar(c->get());
+        }
+
+        void JObjectOutputStream::writeDouble(JPrimitiveDouble* d){
+            writeDouble(d->get());
+        }
+
+        void JObjectOutputStream::writeFloat(JPrimitiveFloat* f){
+            writeFloat(f->get());
+        }
+
+        void JObjectOutputStream::writeLong(JPrimitiveLong* l){
+            writeLong(l->get());
+        }
+
+        void JObjectOutputStream::writeShort(JPrimitiveShort* s){
+            writeShort(s->get());
+        }
+
+        void JObjectOutputStream::writeInt(JPrimitiveInt* i){
+            writeInt(i->get());
+        }
+
         void JObjectOutputStream::writeBoolean(bool b){
             bout->writeBoolean(b);
         }

@@ -18,6 +18,7 @@ class SerialCallbackContext;
 #include "HandleTable.h"
 #include "BlockDataInputStream.h"
 #include "JIOException.h"
+#include "JLang.h"
 
 namespace jcpp{
     namespace io{
@@ -79,6 +80,14 @@ namespace jcpp{
             virtual qint64 readLong();
             virtual qint16 readShort();
             virtual bool readBool();
+            virtual JPrimitiveByte* readPrimitiveByte();
+            virtual JPrimitiveChar* readPrimitiveChar();
+            virtual JPrimitiveDouble* readPrimitiveDouble();
+            virtual JPrimitiveFloat* readPrimitiveFloat();
+            virtual JPrimitiveInt* readPrimitiveInt();
+            virtual JPrimitiveLong* readPrimitiveLong();
+            virtual JPrimitiveShort* readPrimitiveShort();
+            virtual JPrimitiveBoolean* readPrimitiveBool();
             virtual string readUTF();
             virtual string readLongUTF();
             virtual void close();

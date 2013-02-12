@@ -5,10 +5,22 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "JSerializable.h"
 using namespace std;
+using namespace jcpp::io;
 
 namespace jcpp{
     namespace lang{
+        static JObject* staticGetValue(JObject* object){
+            JFloat* b=(JFloat*)object;
+            return b->getPrimitiveFloat();
+        }
+
+        static void staticSetValue(JObject* obj,JObject* value){
+            JFloat* b=(JFloat*)obj;
+            b->setPrimitiveFloat((JPrimitiveFloat*)value);
+        }
+
         class JFloatClass : public JClass{
           public:
             JFloatClass(){
@@ -16,6 +28,8 @@ namespace jcpp{
                 this->name="java.lang.Float";
                 this->simpleName="Float";
                 this->serialVersionUID=-2671257302660747028ULL;
+                addInterface(JSerializable::getClazz());
+                addField(new JField("value",JPrimitiveFloat::getClazz(),staticGetValue,staticSetValue));
             }
 
             JClass* getSuperclass(){
@@ -37,28 +51,46 @@ namespace jcpp{
         }
 
         JFloat::JFloat(float value):JNumber(getClazz()){
-            this->value=value;
+            this->value=new JPrimitiveFloat(value);
         }
 
         JFloat::JFloat():JNumber(getClazz()){
-            this->value=0;
+            this->value=new JPrimitiveFloat(0);
+        }
+
+        bool JFloat::operator==(JObject &other){
+            if (other.getClass()==getClazz()){
+                JFloat* s=dynamic_cast<JFloat*>(&other);
+                return (*value)==(*s->value);
+            }
+            return false;
         }
 
         void JFloat::set(float value){
-            this->value=value;
+            this->value->set(value);
         }
 
         float JFloat::get(){
+            return value->get();
+        }
+
+        void JFloat::setPrimitiveFloat(JPrimitiveFloat* value){
+            delete this->value;
+            this->value=value;
+        }
+
+        JPrimitiveFloat* JFloat::getPrimitiveFloat(){
             return value;
         }
 
         string JFloat::toString(){
             stringstream ss;
-            ss<<value;
+            ss<<value->get();
             return ss.str();
         }
 
         JFloat::~JFloat(){
+            delete value;
         }
     }
 }

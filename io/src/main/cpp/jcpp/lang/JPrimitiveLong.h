@@ -17,6 +17,7 @@ namespace jcpp{
             public:
                 JPrimitiveLong();
                 JPrimitiveLong(qint64 value);
+                bool operator==(JObject &other);
 
                 static JClass* getClazz();
 

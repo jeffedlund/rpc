@@ -4,7 +4,9 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include "JSerializable.h"
 using namespace std;
+using namespace jcpp::io;
 
 namespace jcpp{
     namespace lang{
@@ -15,6 +17,7 @@ namespace jcpp{
                 this->name="boolean";
                 this->simpleName="boolean";
                 this->bIsPrimitive=true;
+                addInterface(JSerializable::getClazz());
             }
 
             JClass* getSuperclass(){
@@ -41,6 +44,14 @@ namespace jcpp{
 
         JPrimitiveBoolean::JPrimitiveBoolean():JObject(getClazz()){
             this->value=false;
+        }
+
+        bool JPrimitiveBoolean::operator==(JObject &other){
+            if (other.getClass()!=getClazz()){
+                return false;
+            }
+            JPrimitiveBoolean* s=dynamic_cast<JPrimitiveBoolean*>(&other);
+            return value==s->value;
         }
 
         void JPrimitiveBoolean::set(jbool value){

@@ -17,6 +17,7 @@ namespace jcpp{
             public:
                 JPrimitiveDouble();
                 JPrimitiveDouble(double value);
+                bool operator==(JObject &other);
 
                 static JClass* getClazz();
 

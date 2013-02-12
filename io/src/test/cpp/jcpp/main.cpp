@@ -39,12 +39,28 @@
 #include "JUTFDataFormatExceptionTest.h"
 #include "JObjectStreamExceptionTest.h"
 #include "JShortTest.h"
+#include "JBooleanTest.h"
+#include "JByteTest.h"
+#include "JCharTest.h"
+#include "JDoubleTest.h"
+#include "JFloatTest.h"
+#include "JIntegerTest.h"
+#include "JLongTest.h"
+#include "JStringTest.h"
+#include "JPrimitiveBooleanTest.h"
+#include "JPrimitiveByteTest.h"
+#include "JPrimitiveCharTest.h"
+#include "JPrimitiveDoubleTest.h"
+#include "JPrimitiveFloatTest.h"
+#include "JPrimitiveLongTest.h"
+#include "JPrimitiveShortTest.h"
+#include "JPrimitiveIntTest.h"
 using namespace std;
 using namespace jcpp::util;
 using namespace jcpp::lang;
 using namespace jcpp;
 
-static int TEST_SIZE = 26;
+static int TEST_SIZE = 42;
 static JTest* tests[] = {new JThrowableTest(),new JErrorTest(),new JExceptionTest(),new JRuntimeExceptionTest(),
                          new JClassCastExceptionTest(),new JClassNotFoundExceptionTest(),new JIllegalArgumentExceptionTest(),
                          new JIllegalStateExceptionTest(),new JIndexOutOfBoundsExceptionTest(),new JInstantiationExceptionTest(),
@@ -53,7 +69,11 @@ static JTest* tests[] = {new JThrowableTest(),new JErrorTest(),new JExceptionTes
                          new JIOExceptionTest(),new JObjectStreamExceptionTest(),new JInvalidClassExceptionTest(),
                          new JNotActiveExceptionTest(),new JNotSerializableExceptionTest(),new JOptionalDataExceptionTest(),
                          new JStreamCorruptedExceptionTest(),new JUTFDataFormatExceptionTest(),new JObjectStreamExceptionTest(),
-                         new JShortTest()};
+                         new JShortTest(),new JBooleanTest(),new JByteTest(),new JCharTest(),new JDoubleTest(),
+                         new JFloatTest(),new JIntegerTest(),new JLongTest(),new JStringTest(),
+                         new JPrimitiveBooleanTest(),new JPrimitiveByteTest(),new JPrimitiveCharTest(),
+                         new JPrimitiveDoubleTest(),new JPrimitiveFloatTest(),new JPrimitiveLongTest(),
+                         new JPrimitiveShortTest(),new JPrimitiveIntTest()};
 
 class JSampleClassBuilder : public JClassBuilder{
     vector<JClass*> * classes;
@@ -145,7 +165,11 @@ int main(int argc, char *argv[])
     registerClasses();
 
     for (int i=0;i<TEST_SIZE;i++){
+        cout<<"testing in file"<<tests[i]->getFileName();
+        cout.flush();
         tests[i]->test();
+        cout<<"end testing in file"<<tests[i]->getFileName();
+        cout.flush();
     }
 
     //testMap();

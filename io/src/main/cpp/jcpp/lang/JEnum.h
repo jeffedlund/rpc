@@ -8,6 +8,7 @@
 #include "JInstantiationException.h"
 using namespace std;
 
+//TODO write enum test case
 namespace jcpp{
     namespace lang{
         class JEnum: public JObject{
@@ -38,6 +39,7 @@ namespace jcpp{
 
         public:
             static JClass* getClazz();
+            bool operator==(JObject &other);
 
             JString* getName();
 

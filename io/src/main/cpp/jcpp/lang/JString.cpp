@@ -40,8 +40,12 @@ namespace jcpp{
             this->str=str;
         }
 
-        bool JString::operator==(JString &other){
-            return (str==other.str);
+        bool JString::operator==(JObject &other){
+            if (other.getClass()==getClazz()){
+                JString* s=dynamic_cast<JString*>(&other);
+                return (str==s->str);
+            }
+            return false;
         }
 
         JString::~JString() {

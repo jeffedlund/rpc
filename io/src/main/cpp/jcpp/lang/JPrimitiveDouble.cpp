@@ -44,6 +44,14 @@ namespace jcpp{
             this->value=0;
         }
 
+        bool JPrimitiveDouble::operator==(JObject &other){
+            if (other.getClass()!=getClazz()){
+                return false;
+            }
+            JPrimitiveDouble* s=dynamic_cast<JPrimitiveDouble*>(&other);
+            return value==s->value;
+        }
+
         void JPrimitiveDouble::set(double value){
             this->value=value;
         }

@@ -112,10 +112,14 @@ namespace jcpp{
             this->len=len;
         }
 
-        bool JPrimitiveArray::operator==(JPrimitiveArray &other){
-            if (other.size()==size()){
-                for (int i=0;i<other.size();i++){
-                    JObject* object1=other.get(i);
+        bool JPrimitiveArray::operator==(JObject &other){
+            if (!other.getClass()->isArray()){
+                return false;
+            }
+            JPrimitiveArray* s=dynamic_cast<JPrimitiveArray*>(&other);
+            if (s->size()==size()){
+                for (int i=0;i<s->size();i++){
+                    JObject* object1=s->get(i);
                     JObject* object2=get(i);
                     if (!((*object1)==(*object2))){
                         return false;
@@ -143,7 +147,10 @@ namespace jcpp{
         }
 
         JPrimitiveArray::~JPrimitiveArray(){
-            deleteVectorOfPointers(objects);
+            len=0;
+            if (objects!=NULL){
+                deleteVectorOfPointers(objects);
+            }
         }
     }
 }

@@ -44,6 +44,14 @@ namespace jcpp{
             this->value=0;
         }
 
+        bool JPrimitiveLong::operator==(JObject &other){
+            if (other.getClass()!=getClazz()){
+                return false;
+            }
+            JPrimitiveLong* s=dynamic_cast<JPrimitiveLong*>(&other);
+            return value==s->value;
+        }
+
         void JPrimitiveLong::set(qint64 value){
             this->value=value;
         }

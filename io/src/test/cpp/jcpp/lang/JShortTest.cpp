@@ -2,7 +2,7 @@
 
 namespace jcpp{
     namespace lang{
-        JShortTest::JShortTest(){
+        JShortTest::JShortTest():JTest(){
         }
 
         string JShortTest::getFileName(){

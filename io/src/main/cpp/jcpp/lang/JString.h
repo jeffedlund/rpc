@@ -12,7 +12,7 @@ namespace jcpp{
         public:
             JString();
             JString(string str);
-            bool operator==(JString &other);
+            bool operator==(JObject &other);
             static JClass* getClazz();
             string getString();
             void setString(string str);

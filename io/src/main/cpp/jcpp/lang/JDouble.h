@@ -6,6 +6,7 @@
 #include <QtGlobal>
 #include <vector>
 #include <iostream>
+#include "JPrimitiveDouble.h"
 using namespace std;
 
 namespace jcpp{
@@ -13,17 +14,22 @@ namespace jcpp{
         class JDouble : public JNumber{
 
             protected:
-                double value;
+                JPrimitiveDouble* value;
 
             public:
                 JDouble();
                 JDouble(double value);
+                bool operator==(JObject &other);
 
                 static JClass* getClazz();
 
                 void set(double value);
 
                 double get();
+
+                void setPrimitiveDouble(JPrimitiveDouble* value);
+
+                JPrimitiveDouble* getPrimitiveDouble();
 
                 string toString();
 

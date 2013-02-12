@@ -21,8 +21,6 @@ namespace jcpp{
         public:
             JStackTraceElement();
             JStackTraceElement(JString* declaringClass,JString* methodName,JString* fileName,JPrimitiveInt* lineNumber);
-
-            bool operator==(JStackTraceElement &other);
             bool operator==(JObject &other);
 
             static JClass* getClazz();

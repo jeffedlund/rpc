@@ -133,7 +133,23 @@ SOURCES += \
     src/test/cpp/jcpp/io/JStreamCorruptedExceptionTest.cpp \
     src/test/cpp/jcpp/io/JUTFDataFormatExceptionTest.cpp \
     src/main/cpp/jcpp/lang/reflect/JAccessibleObject.cpp \
-    src/test/cpp/jcpp/lang/JShortTest.cpp
+    src/test/cpp/jcpp/lang/JShortTest.cpp \
+    src/test/cpp/jcpp/lang/JBooleanTest.cpp \
+    src/test/cpp/jcpp/lang/JByteTest.cpp \
+    src/test/cpp/jcpp/lang/JCharTest.cpp \
+    src/test/cpp/jcpp/lang/JDoubleTest.cpp \
+    src/test/cpp/jcpp/lang/JFloatTest.cpp \
+    src/test/cpp/jcpp/lang/JIntegerTest.cpp \
+    src/test/cpp/jcpp/lang/JLongTest.cpp \
+    src/test/cpp/jcpp/lang/JStringTest.cpp \
+    src/test/cpp/jcpp/lang/JPrimitiveBooleanTest.cpp \
+    src/test/cpp/jcpp/lang/JPrimitiveByteTest.cpp \
+    src/test/cpp/jcpp/lang/JPrimitiveCharTest.cpp \
+    src/test/cpp/jcpp/lang/JPrimitiveDoubleTest.cpp \
+    src/test/cpp/jcpp/lang/JPrimitiveFloatTest.cpp \
+    src/test/cpp/jcpp/lang/JPrimitiveLongTest.cpp \
+    src/test/cpp/jcpp/lang/JPrimitiveShortTest.cpp \
+    src/test/cpp/jcpp/lang/JPrimitiveIntTest.cpp
     
     
 LIBS += -lws2_32
@@ -252,5 +268,21 @@ HEADERS += \
     src/test/cpp/jcpp/io/JStreamCorruptedExceptionTest.h \
     src/test/cpp/jcpp/io/JUTFDataFormatExceptionTest.h \
     src/main/cpp/jcpp/lang/reflect/JAccessibleObject.h \
-    src/test/cpp/jcpp/lang/JShortTest.h
+    src/test/cpp/jcpp/lang/JShortTest.h \
+    src/test/cpp/jcpp/lang/JBooleanTest.h \
+    src/test/cpp/jcpp/lang/JByteTest.h \
+    src/test/cpp/jcpp/lang/JCharTest.h \
+    src/test/cpp/jcpp/lang/JDoubleTest.h \
+    src/test/cpp/jcpp/lang/JFloatTest.h \
+    src/test/cpp/jcpp/lang/JIntegerTest.h \
+    src/test/cpp/jcpp/lang/JLongTest.h \
+    src/test/cpp/jcpp/lang/JStringTest.h \
+    src/test/cpp/jcpp/lang/JPrimitiveBooleanTest.h \
+    src/test/cpp/jcpp/lang/JPrimitiveCharTest.h \
+    src/test/cpp/jcpp/lang/JPrimitiveByteTest.h \
+    src/test/cpp/jcpp/lang/JPrimitiveDoubleTest.h \
+    src/test/cpp/jcpp/lang/JPrimitiveFloatTest.h \
+    src/test/cpp/jcpp/lang/JPrimitiveLongTest.h \
+    src/test/cpp/jcpp/lang/JPrimitiveShortTest.h \
+    src/test/cpp/jcpp/lang/JPrimitiveIntTest.h
     

@@ -14,6 +14,23 @@
 namespace jcpp{
     class JTest{
     public :
+        typedef void (*write)(JObjectOutputStream* out,JObject* o);
+        typedef JObject* (*read)(JObjectInputStream* in);
+        write w;
+        read r;
+
+        static void defaultWrite(JObjectOutputStream* out,JObject* o){
+            out->writeObject(o);
+        }
+
+        static JObject* defaultRead(JObjectInputStream* in){
+            return in->readObject();
+        }
+
+        JTest(){
+            w=defaultWrite;
+            r=defaultRead;
+        }
 
         virtual string getFileName()=0;
 
@@ -24,6 +41,14 @@ namespace jcpp{
         JObject* testRead();
 
         void test();
+
+        write getWrite(){
+            return w;
+        }
+
+        read getRead(){
+            return r;
+        }
     };
 }
 

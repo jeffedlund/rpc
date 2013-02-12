@@ -44,6 +44,14 @@ namespace jcpp{
             this->value=0;
         }
 
+        bool JPrimitiveChar::operator==(JObject &other){
+            if (other.getClass()!=getClazz()){
+                return false;
+            }
+            JPrimitiveChar* s=dynamic_cast<JPrimitiveChar*>(&other);
+            return value==s->value;
+        }
+
         void JPrimitiveChar::set(char value){
             this->value=value;
         }

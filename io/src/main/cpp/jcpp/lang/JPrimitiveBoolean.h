@@ -18,6 +18,7 @@ namespace jcpp{
             public:
                 JPrimitiveBoolean();
                 JPrimitiveBoolean(jbool value);
+                bool operator==(JObject &other);
 
                 static JClass* getClazz();
 

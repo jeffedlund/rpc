@@ -5,10 +5,22 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "JSerializable.h"
 using namespace std;
+using namespace jcpp::io;
 
 namespace jcpp{
     namespace lang{
+        static JObject* staticGetValue(JObject* object){
+            JLong* b=(JLong*)object;
+            return b->getPrimitiveLong();
+        }
+
+        static void staticSetValue(JObject* obj,JObject* value){
+            JLong* b=(JLong*)obj;
+            b->setPrimitiveLong((JPrimitiveLong*)value);
+        }
+
         class JLongClass : public JClass{
           public:
             JLongClass(){
@@ -16,6 +28,8 @@ namespace jcpp{
                 this->name="java.lang.Long";
                 this->simpleName="Long";
                 this->serialVersionUID=4290774380558885855ULL;
+                addInterface(JSerializable::getClazz());
+                addField(new JField("value",JPrimitiveLong::getClazz(),staticGetValue,staticSetValue));
             }
 
             JClass* getSuperclass(){
@@ -37,28 +51,46 @@ namespace jcpp{
         }
 
         JLong::JLong(qint64 value):JNumber(getClazz()){
-            this->value=value;
+            this->value=new JPrimitiveLong(value);
         }
 
         JLong::JLong():JNumber(getClazz()){
-            this->value=0;
+            this->value=new JPrimitiveLong(0);
+        }
+
+        bool JLong::operator==(JObject &other){
+            if (other.getClass()==getClazz()){
+                JLong* s=dynamic_cast<JLong*>(&other);
+                return (*value)==(*s->value);
+            }
+            return false;
         }
 
         void JLong::set(qint64 value){
-            this->value=value;
+            this->value->set(value);
         }
 
         qint64 JLong::get(){
+            return value->get();
+        }
+
+        void JLong::setPrimitiveLong(JPrimitiveLong* value){
+            delete this->value;
+            this->value=value;
+        }
+
+        JPrimitiveLong* JLong::getPrimitiveLong(){
             return value;
         }
 
         string JLong::toString(){
             stringstream ss;
-            ss<<value;
+            ss<<value->get();
             return ss.str();
         }
 
         JLong::~JLong(){
+            delete value;
         }
     }
 }

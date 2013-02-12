@@ -61,8 +61,8 @@ namespace jcpp{
 
         bool JShort::operator==(JObject &other){
             if (other.getClass()==getClazz()){
-                JShort s=dynamic_cast<JShort&>(other);
-                return (*value)==(*s.value);
+                JShort* s=dynamic_cast<JShort*>(&other);
+                return (*value)==(*s->value);
             }
             return false;
         }

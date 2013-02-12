@@ -44,6 +44,14 @@ namespace jcpp{
             this->value=0;
         }
 
+        bool JPrimitiveFloat::operator==(JObject &other){
+            if (other.getClass()!=getClazz()){
+                return false;
+            }
+            JPrimitiveFloat* s=dynamic_cast<JPrimitiveFloat*>(&other);
+            return value==s->value;
+        }
+
         void JPrimitiveFloat::set(float value){
             this->value=value;
         }

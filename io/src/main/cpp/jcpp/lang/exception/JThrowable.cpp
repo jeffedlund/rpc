@@ -104,36 +104,32 @@ namespace jcpp{
             this->stackTrace=NULL;
         }
 
-        bool JThrowable::operator==(JObject &other){
-            if (other.getClass()==getClass()){
-                JThrowable se=dynamic_cast<JThrowable&>(other);
-                return (*this)==se;
+        bool JThrowable::operator==(JObject &o){
+            if (!getClazz()->isAssignableFrom(o.getClass())){
+                return false;
             }
-            return false;
-        }
-
-        bool JThrowable::operator==(JThrowable &other){
+            JThrowable* other=dynamic_cast<JThrowable*>(&(o));
             bool eq=true;
-            if (other.message!=NULL && message!=NULL){
-                eq=(*other.message)==(*message);
+            if (other->message!=NULL && message!=NULL){
+                eq=(*other->message)==(*message);
             }else{
-                eq=other.message==NULL && message==NULL;
+                eq=other->message==NULL && message==NULL;
             }
             if (!eq){
                 return false;
             }
-            if (other.cause!=NULL && cause!=NULL){
-                eq=(*other.cause)==(*cause);
+            if (other->cause!=NULL && cause!=NULL){
+                eq=(*other->cause)==(*cause);
             }else{
-                eq=other.cause==NULL && cause==NULL;
+                eq=other->cause==NULL && cause==NULL;
             }
             if (!eq){
                 return false;
             }
-            if (other.stackTrace!=NULL && stackTrace!=NULL){
-                eq=(*other.stackTrace)==(*stackTrace);
+            if (other->stackTrace!=NULL && stackTrace!=NULL){
+                eq=(*other->stackTrace)==(*stackTrace);
             }else{
-                eq=other.stackTrace==NULL && stackTrace==NULL;
+                eq=other->stackTrace==NULL && stackTrace==NULL;
             }
             return eq;
         }

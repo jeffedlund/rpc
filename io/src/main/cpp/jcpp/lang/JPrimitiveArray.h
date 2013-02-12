@@ -16,7 +16,7 @@ namespace jcpp{
         public:
             JPrimitiveArray(JClass* arrayClass,int len=10);
 
-            bool operator==(JPrimitiveArray &other);
+            bool operator==(JObject &other);
 
             static JClass* getClazz(JClass* componentType);
 

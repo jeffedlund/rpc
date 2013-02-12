@@ -10,6 +10,7 @@
 #include "JDataOutputStream.h"
 #include "SerialCallbackContext.h"
 #include "OutputHandleTable.h"
+#include "JLang.h"
 
 namespace jcpp{
     namespace io{
@@ -38,6 +39,14 @@ namespace jcpp{
             JClassLoader* getOutputClassLoader();
 
             bool enableReplaceObject(bool enable);
+            void writeBoolean(JPrimitiveBoolean* b);
+            void writeByte(JPrimitiveByte* b);
+            void writeChar(JPrimitiveChar* c);
+            void writeDouble(JPrimitiveDouble* d);
+            void writeFloat(JPrimitiveFloat* f);
+            void writeLong(JPrimitiveLong* l);
+            void writeShort(JPrimitiveShort* s);
+            void writeInt(JPrimitiveInt* i);
             void writeByte(qint8 b);
             void writeChar(quint16 v);
             void writeShort(qint16 v);

@@ -17,7 +17,7 @@ namespace jcpp{
             public:
                 JPrimitiveShort();
                 JPrimitiveShort(qint16 value);
-                bool operator==(JPrimitiveShort &other);//TODO use JObject
+                bool operator==(JObject &other);
 
                 static JClass* getClazz();
 

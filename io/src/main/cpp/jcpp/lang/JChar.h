@@ -5,6 +5,7 @@
 #include <QtGlobal>
 #include <vector>
 #include <iostream>
+#include "JPrimitiveChar.h"
 using namespace std;
 
 namespace jcpp{
@@ -12,17 +13,22 @@ namespace jcpp{
         class JChar : public JObject{
 
             protected:
-                char value;
+                JPrimitiveChar* value;
 
             public:
                 JChar();
                 JChar(char value);
+                bool operator==(JObject &other);
 
                 static JClass* getClazz();
 
                 void set(char value);
 
                 char get();
+
+                void setPrimitiveChar(JPrimitiveChar* value);
+
+                JPrimitiveChar* getPrimitiveChar();
 
                 string toString();
 

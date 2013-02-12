@@ -6,6 +6,7 @@
 #include <QtGlobal>
 #include <vector>
 #include <iostream>
+#include "JPrimitiveByte.h"
 using namespace std;
 
 namespace jcpp{
@@ -13,17 +14,22 @@ namespace jcpp{
         class JByte : public JNumber{
 
             protected:
-                qint8 value;
+                JPrimitiveByte* value;
 
             public:
                 JByte();
                 JByte(qint8 value);
+                bool operator==(JObject &other);
 
                 static JClass* getClazz();
 
                 void set(qint8 value);
 
                 qint8 get();
+
+                void setPrimitiveByte(JPrimitiveByte* value);
+
+                JPrimitiveByte* getPrimitiveByte();
 
                 string toString();
 

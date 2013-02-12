@@ -6,6 +6,7 @@
 #include <QtGlobal>
 #include <vector>
 #include <iostream>
+#include "JPrimitiveFloat.h"
 using namespace std;
 
 namespace jcpp{
@@ -13,17 +14,22 @@ namespace jcpp{
         class JFloat : public JNumber{
 
             protected:
-                float value;
+                JPrimitiveFloat* value;
 
             public:
                 JFloat();
                 JFloat(float value);
+                bool operator==(JObject &other);
 
                 static JClass* getClazz();
 
                 void set(float value);
 
                 float get();
+
+                void setPrimitiveFloat(JPrimitiveFloat* value);
+
+                JPrimitiveFloat* getPrimitiveFloat();
 
                 string toString();
 

@@ -44,8 +44,12 @@ namespace jcpp{
             this->value=0;
         }
 
-        bool JPrimitiveInt::operator==(JPrimitiveInt &other){
-            return value==other.value;
+        bool JPrimitiveInt::operator==(JObject &other){
+            if (other.getClass()!=getClazz()){
+                return false;
+            }
+            JPrimitiveInt* s=dynamic_cast<JPrimitiveInt*>(&other);
+            return value==s->value;
         }
 
         void JPrimitiveInt::set(qint32 value){

@@ -2,7 +2,7 @@
 
 namespace jcpp{
     namespace lang{
-        JThrowableTest::JThrowableTest(){
+        JThrowableTest::JThrowableTest():JTest(){
         }
 
         string JThrowableTest::getFileName(){

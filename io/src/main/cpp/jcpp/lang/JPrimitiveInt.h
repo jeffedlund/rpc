@@ -17,8 +17,7 @@ namespace jcpp{
             public:
                 JPrimitiveInt();
                 JPrimitiveInt(qint32 value);
-
-                bool operator==(JPrimitiveInt &other);
+                bool operator==(JObject &other);
 
                 static JClass* getClazz();
 

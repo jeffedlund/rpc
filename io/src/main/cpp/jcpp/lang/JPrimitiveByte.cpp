@@ -44,6 +44,14 @@ namespace jcpp{
             this->value=0;
         }
 
+        bool JPrimitiveByte::operator==(JObject &other){
+            if (other.getClass()!=getClazz()){
+                return false;
+            }
+            JPrimitiveByte* s=dynamic_cast<JPrimitiveByte*>(&other);
+            return value==s->value;
+        }
+
         void JPrimitiveByte::set(qint8 value){
             this->value=value;
         }

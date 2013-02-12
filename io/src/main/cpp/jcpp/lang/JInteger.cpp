@@ -5,10 +5,22 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "JSerializable.h"
 using namespace std;
+using namespace jcpp::io;
 
 namespace jcpp{
     namespace lang{
+        static JObject* staticGetValue(JObject* object){
+            JInteger* b=(JInteger*)object;
+            return b->getPrimitiveInt();
+        }
+
+        static void staticSetValue(JObject* obj,JObject* value){
+            JInteger* b=(JInteger*)obj;
+            b->setPrimitiveInt((JPrimitiveInt*)value);
+        }
+
         class JIntegerClass : public JClass{
           public:
             JIntegerClass(){
@@ -16,6 +28,8 @@ namespace jcpp{
                 this->name="java.lang.Integer";
                 this->simpleName="Integer";
                 this->serialVersionUID=1360826667806852920ULL;
+                addInterface(JSerializable::getClazz());
+                addField(new JField("value",JPrimitiveInt::getClazz(),staticGetValue,staticSetValue));
             }
 
             JClass* getSuperclass(){
@@ -37,28 +51,46 @@ namespace jcpp{
         }
 
         JInteger::JInteger(qint32 value):JNumber(getClazz()){
-            this->value=value;
+            this->value=new JPrimitiveInt(value);
         }
 
         JInteger::JInteger():JNumber(getClazz()){
-            this->value=0;
+            this->value=new JPrimitiveInt(0);
+        }
+
+        bool JInteger::operator==(JObject &other){
+            if (other.getClass()==getClazz()){
+                JInteger* s=dynamic_cast<JInteger*>(&other);
+                return (*value)==(*s->value);
+            }
+            return false;
         }
 
         void JInteger::set(qint32 value){
-            this->value=value;
+            this->value->set(value);
         }
 
         qint32 JInteger::get(){
+            return value->get();
+        }
+
+        void JInteger::setPrimitiveInt(JPrimitiveInt* value){
+            delete this->value;
+            this->value=value;
+        }
+
+        JPrimitiveInt* JInteger::getPrimitiveInt(){
             return value;
         }
 
         string JInteger::toString(){
             stringstream ss;
-            ss<<value;
+            ss<<value->get();
             return ss.str();
         }
 
         JInteger::~JInteger(){
+            delete value;
         }
     }
 }

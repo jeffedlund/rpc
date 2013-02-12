@@ -17,6 +17,7 @@ namespace jcpp{
             public:
                 JPrimitiveByte();
                 JPrimitiveByte(qint8 value);
+                bool operator==(JObject &other);
 
                 static JClass* getClazz();
 

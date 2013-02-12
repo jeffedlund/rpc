@@ -55,7 +55,15 @@ namespace jcpp{
         }
 
         JBoolean::JBoolean():JObject(getClazz()){
-            this->value=false;
+            this->value=new JPrimitiveBoolean(false);
+        }
+
+        bool JBoolean::operator==(JObject &other){
+            if (other.getClass()!=getClazz()){
+                return false;
+            }
+            JBoolean* b=dynamic_cast<JBoolean*>(&other);
+            return (*value)==(*b->value);
         }
 
         void JBoolean::set(bool value){
@@ -71,6 +79,7 @@ namespace jcpp{
         }
 
         void JBoolean::setPrimitiveBoolean(JPrimitiveBoolean* value){
+            delete this->value;
             this->value=value;
         }
 

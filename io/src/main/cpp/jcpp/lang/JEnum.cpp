@@ -17,6 +17,14 @@ namespace jcpp{
             return clazz;
         }
 
+        bool JEnum::operator==(JObject &other){
+            if (other.getClass()==getClazz()){
+                JEnum* s=dynamic_cast<JEnum*>(&other);
+                return (*name)==(*s->name) && (*ordinal)==(*s->ordinal);
+            }
+            return false;
+        }
+
         JString* JEnum::getName(){
             return name;
         }

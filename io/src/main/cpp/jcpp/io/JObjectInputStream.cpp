@@ -684,6 +684,38 @@ namespace jcpp{
             return bin->readBool();
         }
 
+        JPrimitiveByte* JObjectInputStream::readPrimitiveByte(){
+            return new JPrimitiveByte(readByte());
+        }
+
+        JPrimitiveChar* JObjectInputStream::readPrimitiveChar(){
+            return new JPrimitiveChar(readChar());
+        }
+
+        JPrimitiveDouble* JObjectInputStream::readPrimitiveDouble(){
+            return new JPrimitiveDouble(readDouble());
+        }
+
+        JPrimitiveFloat* JObjectInputStream::readPrimitiveFloat(){
+            return new JPrimitiveFloat(readFloat());
+        }
+
+        JPrimitiveInt* JObjectInputStream::readPrimitiveInt(){
+            return new JPrimitiveInt(readInt());
+        }
+
+        JPrimitiveLong* JObjectInputStream::readPrimitiveLong(){
+            return new JPrimitiveLong(readLong());
+        }
+
+        JPrimitiveShort* JObjectInputStream::readPrimitiveShort(){
+            return new JPrimitiveShort(readLong());
+        }
+
+        JPrimitiveBoolean* JObjectInputStream::readPrimitiveBool(){
+            return new JPrimitiveBoolean(readBool());
+        }
+
         string JObjectInputStream::readUTF() {
             return bin->readUTF();
         }

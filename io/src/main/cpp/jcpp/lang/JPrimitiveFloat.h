@@ -17,6 +17,7 @@ namespace jcpp{
             public:
                 JPrimitiveFloat();
                 JPrimitiveFloat(float value);
+                bool operator==(JObject &other);
 
                 static JClass* getClazz();
 

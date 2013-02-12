@@ -4,10 +4,22 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include "JSerializable.h"
 using namespace std;
+using namespace jcpp::io;
 
 namespace jcpp{
     namespace lang{
+        static JObject* staticGetValue(JObject* object){
+            JByte* b=(JByte*)object;
+            return b->getPrimitiveByte();
+        }
+
+        static void staticSetValue(JObject* obj,JObject* value){
+            JByte* b=(JByte*)obj;
+            b->setPrimitiveByte((JPrimitiveByte*)value);
+        }
+
         class JByteClass : public JClass{
           public:
             JByteClass():JClass(){
@@ -15,6 +27,8 @@ namespace jcpp{
                 this->name="java.lang.Byte";
                 this->simpleName="Byte";
                 this->serialVersionUID=-7183698231559129828ULL;
+                addInterface(JSerializable::getClazz());
+                addField(new JField("value",JPrimitiveByte::getClazz(),staticGetValue,staticSetValue));
             }
 
             JClass* getSuperclass(){
@@ -36,26 +50,44 @@ namespace jcpp{
         }
 
         JByte::JByte(qint8 value):JNumber(getClazz()){
-            this->value=value;
+            this->value=new JPrimitiveByte(value);
         }
 
         JByte::JByte():JNumber(getClazz()){
-            this->value=0;
+            this->value=new JPrimitiveByte(0);
+        }
+
+        bool JByte::operator==(JObject &other){
+            if (other.getClass()!=getClazz()){
+                return false;
+            }
+            JByte* b=dynamic_cast<JByte*>(&other);
+            return (*value)==(*b->value);
         }
 
         void JByte::set(qint8 value){
-            this->value=value;
+            this->value->set(value);
         }
 
         qint8 JByte::get(){
+            return value->get();
+        }
+
+        void JByte::setPrimitiveByte(JPrimitiveByte* value){
+            delete this->value;
+            this->value=value;
+        }
+
+        JPrimitiveByte* JByte::getPrimitiveByte(){
             return value;
         }
 
         string JByte::toString(){
-            return ""+value;
+            return ""+value->get();
         }
 
         JByte::~JByte(){
+            delete value;
         }
     }
 }

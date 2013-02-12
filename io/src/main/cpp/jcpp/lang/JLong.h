@@ -6,6 +6,7 @@
 #include <QtGlobal>
 #include <vector>
 #include <iostream>
+#include "JPrimitiveLong.h"
 using namespace std;
 
 namespace jcpp{
@@ -13,17 +14,22 @@ namespace jcpp{
         class JLong : public JNumber{
 
             protected:
-                qint64 value;
+                JPrimitiveLong* value;
 
             public:
                 JLong();
                 JLong(qint64 value);
+                bool operator==(JObject &other);
 
                 static JClass* getClazz();
 
                 void set(qint64 value);
 
                 qint64 get();
+
+                void setPrimitiveLong(JPrimitiveLong* value);
+
+                JPrimitiveLong* getPrimitiveLong();
 
                 string toString();
 
