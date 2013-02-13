@@ -10,15 +10,21 @@ namespace jcpp{
         class JClassLoader : public JObject{
         protected:
             map<string, JClass*>* classes;
+            bool bIsBootClassLoader;
+            bool bInitialized;
             static JClass* getClazz(JClassLoader* classLoader);
             JClassLoader(bool root);
+
+            void initClasses();
 
         public:
             JClassLoader();
 
             static JClassLoader* getBootClassLoader();
 
-            void addClasses(JClassBuilder* jClassBuilder);
+            bool isBootClassLoader();
+
+            void addClass(JClass* jClass);
 
             JClass* loadClass(string string);
 

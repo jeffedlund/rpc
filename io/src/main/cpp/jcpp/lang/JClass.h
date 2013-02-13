@@ -44,6 +44,7 @@ namespace jcpp{
             bool bIsEnum;
             bool bIsInterface;
             bool bIsPrimitive;
+            bool bIsPackage;
             qint64 serialVersionUID;
             JClass(JClassLoader* classLoader);
             JClass();
@@ -57,7 +58,7 @@ namespace jcpp{
          public:
 
             static JClass* getClazz();
-            static string getClassSignature(JClass* _class);
+            string getSignature();
             string getCanonicalName();
             string getName();
             string getSimpleName();
@@ -84,6 +85,7 @@ namespace jcpp{
             bool isInstance(JObject* object);
             bool isInterface();
             bool isPrimitive();
+            bool isPackage();
             virtual JObject* newInstance()=0;
             qint64 getSerialVersionUID();
             string toString();

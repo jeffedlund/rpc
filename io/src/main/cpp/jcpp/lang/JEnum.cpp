@@ -18,7 +18,7 @@ namespace jcpp{
         }
 
         bool JEnum::operator==(JObject &other){
-            if (other.getClass()==getClazz()){
+            if (other.getClass()==getClass()){
                 JEnum* s=dynamic_cast<JEnum*>(&other);
                 return (*name)==(*s->name) && (*ordinal)==(*s->ordinal);
             }

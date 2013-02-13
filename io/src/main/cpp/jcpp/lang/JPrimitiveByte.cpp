@@ -62,7 +62,7 @@ namespace jcpp{
 
         string JPrimitiveByte::toString(){
             stringstream ss;
-            ss<<value;//TODO pas top
+            ss<<value;//TODO not extra!
             return ss.str();
         }
 

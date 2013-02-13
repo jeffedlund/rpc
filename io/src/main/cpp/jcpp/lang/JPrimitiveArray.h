@@ -20,7 +20,8 @@ namespace jcpp{
 
             static JClass* getClazz(JClass* componentType);
 
-            static JClass* getClass(JClassLoader* classLoader,string name);
+            //TODO test cases for this method
+            static JClass* loadClassBySignature(JClassLoader* classLoader,string name);
 
             int size();
 

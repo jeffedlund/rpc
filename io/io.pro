@@ -18,6 +18,7 @@ TEMPLATE = app
 
 
 INCLUDEPATH += \
+        src/main/cpp/jcpp/ \
 	src/main/cpp/jcpp/lang \
 	src/main/cpp/jcpp/io \
 	src/main/cpp/jcpp/io/impl \
@@ -92,7 +93,6 @@ SOURCES += \
     src/main/cpp/jcpp/io/JOptionalDataException.cpp \
     src/main/cpp/jcpp/io/JNotActiveException.cpp \
     src/test/cpp/jcpp/JSampleObject.cpp \
-    src/main/cpp/jcpp/lang/JBootClassBuilder.cpp \
     src/main/cpp/jcpp/lang/exception/JIllegalStateException.cpp \
     src/main/cpp/jcpp/lang/exception/JUnsupportedOperationException.cpp \
     src/main/cpp/jcpp/lang/exception/JClassCastException.cpp \
@@ -149,7 +149,13 @@ SOURCES += \
     src/test/cpp/jcpp/lang/JPrimitiveFloatTest.cpp \
     src/test/cpp/jcpp/lang/JPrimitiveLongTest.cpp \
     src/test/cpp/jcpp/lang/JPrimitiveShortTest.cpp \
-    src/test/cpp/jcpp/lang/JPrimitiveIntTest.cpp
+    src/test/cpp/jcpp/lang/JPrimitiveIntTest.cpp \
+    src/main/cpp/jcpp/lang/reflect/JPackage.cpp \
+    src/main/cpp/jcpp/JCPP.cpp \
+    src/main/cpp/jcpp/io/JIO.cpp \
+    src/main/cpp/jcpp/lang/JLANG.cpp \
+    src/main/cpp/jcpp/lang/reflect/JREFLECT.cpp \
+    src/main/cpp/jcpp/util/JUTIL.cpp
     
     
 LIBS += -lws2_32
@@ -222,10 +228,6 @@ HEADERS += \
     src/main/cpp/jcpp/io/JOptionalDataException.h \
     src/main/cpp/jcpp/io/JNotActiveException.h \
     src/test/cpp/jcpp/JSampleObject.h \
-    src/main/cpp/jcpp/lang/JBootClassBuilder.h \
-    src/main/cpp/jcpp/lang/JLang.h \
-    src/main/cpp/jcpp/util/JUtil.h \
-    src/main/cpp/jcpp/lang/reflect/JLangReflect.h \
     src/main/cpp/jcpp/io/JIO.h \
     src/main/cpp/jcpp/lang/exception/JIllegalStateException.h \
     src/main/cpp/jcpp/lang/exception/JUnsupportedOperationException.h \
@@ -284,5 +286,10 @@ HEADERS += \
     src/test/cpp/jcpp/lang/JPrimitiveFloatTest.h \
     src/test/cpp/jcpp/lang/JPrimitiveLongTest.h \
     src/test/cpp/jcpp/lang/JPrimitiveShortTest.h \
-    src/test/cpp/jcpp/lang/JPrimitiveIntTest.h
+    src/test/cpp/jcpp/lang/JPrimitiveIntTest.h \
+    src/main/cpp/jcpp/lang/reflect/JPackage.h \
+    src/main/cpp/jcpp/JCPP.h \
+    src/main/cpp/jcpp/lang/JLANG.h \
+    src/main/cpp/jcpp/lang/reflect/JREFLECT.h \
+    src/main/cpp/jcpp/util/JUTIL.h
     

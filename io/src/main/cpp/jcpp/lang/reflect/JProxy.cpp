@@ -101,7 +101,7 @@ namespace jcpp{
             }
 
             JProxy::~JProxy() {
-                deleteVectorOfPointers(interfaces);
+                delete interfaces;
             }
         }
     }

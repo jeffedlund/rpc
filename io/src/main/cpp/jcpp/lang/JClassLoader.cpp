@@ -1,9 +1,11 @@
 #include "JClassLoader.h"
 #include "Collections.h"
 #include "JClassNotFoundException.h"
-#include "JBootClassBuilder.h"
 #include <algorithm>
-
+#include "JIO.h"
+#include "JLANG.h"
+#include "JREFLECT.h"
+#include "JUTIL.h"
 using namespace std;
 using namespace jcpp::util;
 
@@ -63,7 +65,7 @@ namespace jcpp{
         //implement a tree of classloaders ...
         JClassLoader* JClassLoader::getBootClassLoader(){
             if (bootClassLoader==NULL){
-                bootClassLoader=new JClassLoader();
+                bootClassLoader=new JClassLoader(true);
             }
             return bootClassLoader;
         }
@@ -71,24 +73,49 @@ namespace jcpp{
         JClassLoader::JClassLoader():JObject(true){
             this->classes=new map<string,JClass*>();
             this->_class=getClazz(this);
+            this->bIsBootClassLoader=false;
+            this->bInitialized=false;
         }
 
         JClassLoader::JClassLoader(bool root):JObject(true){
             this->classes=new map<string,JClass*>();
             this->_class=getClazz(this);
+            this->bIsBootClassLoader=root;
+            this->bInitialized=false;
         }
 
-        void JClassLoader::addClasses(JClassBuilder* jClassBuilder){
-            vector<JClass*>* c=jClassBuilder->getClasses();
-            for (unsigned int i=0;i<c->size();i++){
-                JClass* jClass=c->at(i);
-                classes->insert(pair<string,JClass*>(jClass->getName(),jClass));
+        bool JClassLoader::isBootClassLoader(){
+            return bIsBootClassLoader;
+        }
+
+        void JClassLoader::addClass(JClass* jClass){
+            classes->insert(pair<string,JClass*>(jClass->getName(),jClass));
+        }
+
+        void JClassLoader::initClasses(){
+            if (!bInitialized){
+                for (unsigned int i=0;i<JLANG::getPackage()->getClasses()->size();i++){
+                    addClass(JLANG::getPackage()->getClasses()->at(i));
+                }
+                for (unsigned int i=0;i<JREFLECT::getPackage()->getClasses()->size();i++){
+                    addClass(JREFLECT::getPackage()->getClasses()->at(i));
+                }
+                for (unsigned int i=0;i<JUTIL::getPackage()->getClasses()->size();i++){
+                    addClass(JUTIL::getPackage()->getClasses()->at(i));
+                }
+                for (unsigned int i=0;i<JIO::getPackage()->getClasses()->size();i++){
+                    addClass(JIO::getPackage()->getClasses()->at(i));
+                }
+                bInitialized=true;
             }
         }
 
         JClass* JClassLoader::loadClass(string name){
+            if (bIsBootClassLoader){
+                initClasses();
+            }
             if (name.at(0)=='['){
-                return JPrimitiveArray::getClass(this,name);
+                return JPrimitiveArray::loadClassBySignature(this,name);
             }
             JClass* jClass=getFromMap(classes,name);
             if (jClass==NULL){

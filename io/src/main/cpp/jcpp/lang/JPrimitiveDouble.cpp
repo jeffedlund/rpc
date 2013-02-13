@@ -19,7 +19,7 @@ namespace jcpp{
             }
 
             JClass* getSuperclass(){
-                return JObject::getClazz();//TODO all primitive should have their superclass null...
+                return JObject::getClazz();
             }
 
             JObject* newInstance(){

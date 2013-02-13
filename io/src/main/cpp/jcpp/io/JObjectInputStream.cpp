@@ -22,6 +22,7 @@
 #include <QtGlobal>
 #include <QList>
 #include <sstream>
+#include "JExternalizable.h"
 
 using namespace std;
 
@@ -523,16 +524,13 @@ namespace jcpp{
 
         void JObjectInputStream::readExternalData(JObject* obj, JObjectStreamClass* desc){
             SerialCallbackContext* oldContext=curContext;
-            curContext=NULL;//TODO leak, check all new calls and see objet lifecycle
+            curContext=NULL;
             bool blocked=desc->hasBlockExternalData();
             if (blocked){
                 bin->setBlockDataMode(true);
             }
             if (obj!=NULL){
-                JMethod* method=NULL;//TODO desc->getReadExternalMethod()
-                vector<JObject*> args;
-                args.push_back(this);
-                method->invoke(obj,&args);
+                ((JExternalizable*)obj)->readExternal(this);
             }
             if (blocked){
                 skipCustomData();

@@ -15,7 +15,7 @@ namespace jcpp{
             this->name=name;
             this->type=type;
             this->unshared=false;
-            this->signature=JClass::getClassSignature(type);
+            this->signature=type->getSignature();
             this->field=NULL;
             setTypeString();
         }
@@ -24,7 +24,7 @@ namespace jcpp{
             this->name=name;
             this->type=type;
             this->unshared=unshared;
-            this->signature=JClass::getClassSignature(type);
+            this->signature=type->getSignature();
             this->field=NULL;
             setTypeString();
         }
@@ -75,7 +75,7 @@ namespace jcpp{
             this->name=field->getName();
             JClass* ftype=field->getType();
             type=(showType||ftype->isPrimitive()?ftype:JObject::getClazz());
-            signature=JClass::getClassSignature(ftype);
+            signature=ftype->getSignature();
             setTypeString();
         }
 

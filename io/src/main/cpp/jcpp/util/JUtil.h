@@ -4,17 +4,24 @@
 #include "JArrayList.h"
 #include "JCollection.h"
 #include "JHashtable.h"
+#include "JPackage.h"
+using namespace jcpp;
+using namespace jcpp::lang::reflect;
 
 namespace jcpp{
     namespace util{
-        static int UTIL_CLASSES_SIZE = 1;
+        class JUTIL : public JPackage{
+        protected:
+            JUTIL();
 
-        static JClass* UTIL_CLASSES[] = {
-            JArrayList::getClazz()
-            //TODO JCollection::
-            //TODO JHashtable::getC
+        public:
+            JPackage* getSuperPackage();
+
+            vector<JPackage*>* getPackages();
+
+            static JUTIL* getPackage();
         };
-
     }
 }
+
 #endif // JUTIL_H

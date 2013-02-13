@@ -60,7 +60,8 @@ namespace jcpp{
             return clazz;
         }
 
-        string JClass::getClassSignature(JClass* _class){
+        string JClass::getSignature(){
+            JClass* _class=this;
             stringstream ss;
             while (_class->isArray()){
                 ss<<"[";
@@ -104,6 +105,7 @@ namespace jcpp{
             this->bIsEnum=false;
             this->bIsInterface=false;
             this->bIsPrimitive=false;
+            this->bIsPackage=false;
             this->componentType=NULL;
             this->enumConstants=new vector<JEnum*>;
             this->fields=new map<string,JField*>;
@@ -124,6 +126,7 @@ namespace jcpp{
             this->bIsEnum=false;
             this->bIsInterface=false;
             this->bIsPrimitive=false;
+            this->bIsPackage=false;
             this->componentType=NULL;
             this->enumConstants=new vector<JEnum*>;
             this->fields=new map<string,JField*>;
@@ -143,6 +146,7 @@ namespace jcpp{
             this->bIsEnum=false;
             this->bIsInterface=false;
             this->bIsPrimitive=false;
+            this->bIsPackage=false;
             this->componentType=NULL;
             this->enumConstants=new vector<JEnum*>;
             this->fields=new map<string,JField*>;
@@ -191,18 +195,12 @@ namespace jcpp{
         }
 
         JField* JClass::getField(string name){
-            JClass* current=this;
-            while (current!=NULL){
-                JField* field=getFromMap(current->declaredFields,name);
-                if (field!=NULL){
-                    return field;
-                }
-                if (current->getSuperclass()==NULL){
-                    throw JNoSuchFieldException("field "+name+" not delared in "+getName());
-                }
-                current=current->getSuperclass();
+            initFields();
+            JField* field=getFromMap(fields,name);
+            if (field==NULL){
+                throw JNoSuchFieldException("field "+name+" not delared in "+getName());
             }
-            return NULL;
+            return field;
         }
 
         JField* JClass::getDeclaredField(string name){
@@ -218,7 +216,7 @@ namespace jcpp{
                 JClass* current=this;
                 while (current!=NULL){
                     for (unsigned int i=0;i<current->declaredFieldsList->size();i++){
-                        JField* f=current->declaredFieldsList->at(i);//TODO add it or check before ...
+                        JField* f=current->declaredFieldsList->at(i);//TODO add it or check before? ...
                         fieldsList->push_back(f);
                         fields->insert(pair<string,JField*>(f->getName(),f));
                     }
@@ -241,18 +239,12 @@ namespace jcpp{
         }
 
         bool JClass::hasMethod(string name, vector<JClass*>* parameterTypes){
-            JClass* current=this;
-            while (current!=NULL){
-                JMethod* method=getFromMap(current->declaredMethods,name);
-                if (method!=NULL){
-                    return true;
-                }
-                if (current->getSuperclass()==NULL){
-                    return false;
-                }
-                current=current->getSuperclass();
+            initMethods();
+            JMethod* method=getFromMap(methods,name);
+            if (method==NULL){
+                return false;
             }
-            return false;
+            return true;
         }
 
         bool JClass::hasDeclaredMethod(string name, vector<JClass*>* parameterTypes){
@@ -264,18 +256,12 @@ namespace jcpp{
         }
 
         JMethod* JClass::getMethod(string name, vector<JClass*>* parameterTypes){
-            JClass* current=this;
-            while (current!=NULL){
-                JMethod* method=getFromMap(current->declaredMethods,name);
-                if (method!=NULL){
-                    return method;
-                }
-                if (current->getSuperclass()==NULL){
-                    throw JNoSuchMethodException("method "+name+" not declared in "+getName());//we should check using signature ...
-                }
-                current=current->getSuperclass();
+            initMethods();
+            JMethod* method=getFromMap(methods,name);
+            if (method==NULL){
+                throw JNoSuchMethodException("method "+name+" not declared in "+getName());//we should check using signature ...
             }
-            return NULL;
+            return method;
         }
 
         JMethod* JClass::getDeclaredMethod(string name, vector<JClass*>* parameterTypes){
@@ -315,7 +301,7 @@ namespace jcpp{
 
         void JClass::addField(JField* field){
             declaredFieldsList->push_back(field);
-            declaredFields->insert(pair<string,JField*>(field->getName(),field));//TODO use better map container
+            declaredFields->insert(pair<string,JField*>(field->getName(),field));
         }
 
         void JClass::addMethod(JMethod* method){
@@ -370,6 +356,10 @@ namespace jcpp{
 
         bool JClass::isPrimitive(){
             return bIsPrimitive;
+        }
+
+        bool JClass::isPackage(){
+            return bIsPackage;
         }
 
         qint64 JClass::getSerialVersionUID(){

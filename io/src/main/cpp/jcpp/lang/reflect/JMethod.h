@@ -10,14 +10,17 @@ namespace jcpp{
         namespace reflect{
             //TODO write test classes. Maybe once we reach the server implementation ...
             class JMethod : public JAccessibleObject{
+            public:
+                typedef JObject* (*invocation)(JObject* objet,vector<JObject*>*args);
             private:
                 string name;
                 JClass* declaringClass;
                 JClass* returnType;
                 vector<JClass*>* parameterType;
+                invocation inv;
 
             protected:
-                JMethod(string name,JClass* declaringClass,JClass* returnType,vector<JClass*>* parameterType);
+                JMethod(string name,JClass* declaringClass,JClass* returnType,vector<JClass*>* parameterType,invocation inv);
 
             public:
                 static JClass* getClazz();
@@ -30,7 +33,7 @@ namespace jcpp{
 
                 vector<JClass*>* getParameterType();
 
-                virtual JObject* invoke(JObject* object, vector<JObject*>*args)=0;
+                JObject* invoke(JObject* object, vector<JObject*>*args);
 
                 virtual string toString();
             };

@@ -13,7 +13,7 @@ namespace jcpp{
             }
 
             JClass* getSuperclass(){
-                return JError::getClazz();
+                return JVirtualMachineError::getClazz();
             }
 
             JObject* newInstance(){

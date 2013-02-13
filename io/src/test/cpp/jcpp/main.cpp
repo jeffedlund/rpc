@@ -9,7 +9,6 @@
 #include <QString>
 #include <QDataStream>
 #include <map>
-#include "JBootClassBuilder.h"
 #include "JThrowable.h"
 #include "QtDataOutputStream.h"
 #include "JThrowableTest.h"
@@ -75,23 +74,8 @@ static JTest* tests[] = {new JThrowableTest(),new JErrorTest(),new JExceptionTes
                          new JPrimitiveDoubleTest(),new JPrimitiveFloatTest(),new JPrimitiveLongTest(),
                          new JPrimitiveShortTest(),new JPrimitiveIntTest()};
 
-class JSampleClassBuilder : public JClassBuilder{
-    vector<JClass*> * classes;
-
-public :
-    JSampleClassBuilder(){
-        classes=new vector<JClass*>();
-        classes->push_back(JSampleObject::getClazz());
-    }
-
-    vector<JClass*>* getClasses(){
-        return classes;
-    }
-};
-
 void registerClasses(){
-    JClassLoader::getBootClassLoader()->addClasses(JBootClassBuilder::getBootClassBuilder());
-    JClassLoader::getBootClassLoader()->addClasses(new JSampleClassBuilder());
+    JClassLoader::getBootClassLoader()->addClass(JSampleObject::getClazz());
 }
 
 /*TODO have test cases for input stream:

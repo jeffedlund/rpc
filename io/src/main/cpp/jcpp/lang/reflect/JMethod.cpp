@@ -33,11 +33,12 @@ namespace jcpp{
                 return clazz;
             }
 
-            JMethod::JMethod(string name,JClass* declaringClass,JClass* returnType,vector<JClass*>* parameterType):JAccessibleObject(getClazz()){
+            JMethod::JMethod(string name,JClass* declaringClass,JClass* returnType,vector<JClass*>* parameterType,invocation inv):JAccessibleObject(getClazz()){
                 this->name=name;
                 this->declaringClass=declaringClass;
                 this->returnType=returnType;
                 this->parameterType=parameterType;
+                this->inv=inv;
             }
 
             string JMethod::getName(){
@@ -54,6 +55,10 @@ namespace jcpp{
 
             vector<JClass*>* JMethod::getParameterType(){
                 return parameterType;
+            }
+
+            JObject* JMethod::invoke(JObject* object, vector<JObject*>*args){
+                return inv(object,args);
             }
 
             string JMethod::toString(){

@@ -21,34 +21,25 @@
 #include "JUTFDataFormatException.h"
 #include "QtDataInputStream.h"
 #include "QtDataOutputStream.h"
+#include "JPackage.h"
+#include "JCPP.h"
 using namespace std;
+using namespace std;
+using namespace jcpp::lang::reflect;
+using namespace jcpp;
 
 namespace jcpp{
     namespace io{
-        //TODO define h and cpp file that contains all that + metadata on packages ...
-        static int IO_CLASSES_SIZE = 20;
+        class JIO : public JPackage{
+        protected:
+            JIO();
 
-        static JClass* IO_CLASSES[] = {
-            JDataInputStream::getClazz(),
-            JDataOutputStream::getClazz(),
-            JEOFException::getClazz(),
-            JExternalizable::getClazz(),
-            JInputStream::getClazz(),
-            JInvalidClassException::getClazz(),
-            JIOException::getClazz(),
-            JNotActiveException::getClazz(),
-            JNotSerializableException::getClazz(),
-            JObjectInputStream::getClazz(),
-            JObjectOutputStream::getClazz(),
-            JObjectStreamClass::getClazz(),
-            JObjectStreamException::getClazz(),
-            JOptionalDataException::getClazz(),
-            JOutputStream::getClazz(),
-            JSerializable::getClazz(),
-            JStreamCorruptedException::getClazz(),
-            JUTFDataFormatException::getClazz(),
-            QtDataInputStream::getClazz(),
-            QtDataOutputStream::getClazz()
+        public:
+            JPackage* getSuperPackage();
+
+            vector<JPackage*>* getPackages();
+
+            static JIO* getPackage();
         };
     }
 }

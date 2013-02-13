@@ -31,7 +31,7 @@ namespace jcpp{
                   }else{
                       canonicalName="";
                   }
-                  this->name="["+getClassSignature(componentType);
+                  this->name="["+componentType->getSignature();
                   this->simpleName=componentType->getSimpleName()+"[]";
                   this->bIsArray=true;
                   addInterface(JSerializable::getClazz());
@@ -60,7 +60,7 @@ namespace jcpp{
             return jPrimitiveArrayClass;
         }
 
-        JClass* JPrimitiveArray::getClass(JClassLoader* classLoader,string name){
+        JClass* JPrimitiveArray::loadClassBySignature(JClassLoader* classLoader,string name){
             if (name.at(0)=='['){
                 int nbArray=0;
                 string classname;
