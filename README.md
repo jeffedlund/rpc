@@ -10,3 +10,6 @@ Let's list what it does or what it will do :
 Ideas:
   1. Define which license (contact if interested)
   2. More tests, more documentation, more samples,...
+
+
+Check the wiki for more detailed info
