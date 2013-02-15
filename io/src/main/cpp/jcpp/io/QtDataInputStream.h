@@ -4,6 +4,7 @@
 #include "JInputStream.h"
 #include "QDataStream"
 #include "JClass.h"
+#include "Object.h"
 
 namespace jcpp{
     namespace io{
@@ -15,16 +16,16 @@ namespace jcpp{
             static JClass* getClazz();
             QDataStream* getStream();
             void setStream(QDataStream* in);
-            virtual qint64 available();
+            virtual jlong available();
             virtual bool waitForReadyRead(int = 30000);
-            virtual qint32 read();
-            virtual qint32 read(qint8 b[], int off, int len);
-            virtual qint8 peekByte();
-            virtual qint8 readByte();
-            virtual qint16 readShort();
-            virtual quint16 readUnsignedShort();
-            virtual qint32 readInt();
-            virtual qint64 readLong();
+            virtual jint read();
+            virtual jint read(jbyte b[], int off, int len);
+            virtual jbyte peekByte();
+            virtual jbyte readByte();
+            virtual jshort readShort();
+            virtual jushort readUnsignedShort();
+            virtual jint readInt();
+            virtual jlong readLong();
             virtual float readFloat();
             virtual double readDouble();
             virtual char readChar();

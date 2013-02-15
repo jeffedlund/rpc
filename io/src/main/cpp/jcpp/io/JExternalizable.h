@@ -9,9 +9,8 @@
 namespace jcpp{
     namespace io{
         //TODO have a test case scenario
-        class JExternalizable:JObject{//TODO extends JInterface instead...
+        class JExternalizable:JInterface{
         protected:
-            JExternalizable();
         public:
 
             static JClass* getClazz();

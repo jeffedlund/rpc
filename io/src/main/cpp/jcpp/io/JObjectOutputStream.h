@@ -10,7 +10,8 @@
 #include "JDataOutputStream.h"
 #include "SerialCallbackContext.h"
 #include "OutputHandleTable.h"
-#include "JLang.h"
+#include "JLANG.h"
+#include "Object.h"
 
 namespace jcpp{
     namespace io{
@@ -21,13 +22,13 @@ namespace jcpp{
             JBlockDataOutputStream* bout;
             OutputHandleTable* handles;
             JClassLoader* outputClassLoader;
-            qint32 depth;
-            qint8* primVals;
+            jint depth;
+            jbyte* primVals;
             bool enableOverride;
             bool enableReplace;
             SerialCallbackContext* curContext;
 
-            void writeHandle(qint32 handle);
+            void writeHandle(jint handle);
 
         protected:
             virtual JObject* replaceObject(JObject *obj);
@@ -47,11 +48,11 @@ namespace jcpp{
             void writeLong(JPrimitiveLong* l);
             void writeShort(JPrimitiveShort* s);
             void writeInt(JPrimitiveInt* i);
-            void writeByte(qint8 b);
-            void writeChar(quint16 v);
-            void writeShort(qint16 v);
-            void writeInt(qint32 v);
-            void writeLong(qint64 v);
+            void writeByte(jbyte b);
+            void writeChar(jushort v);
+            void writeShort(jshort v);
+            void writeInt(jint v);
+            void writeLong(jlong v);
             void writeFloat(float v);
             void writeDouble(double v);
             void writeBoolean(bool b);

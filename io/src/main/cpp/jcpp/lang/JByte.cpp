@@ -1,6 +1,5 @@
 #include "JByte.h"
 #include "JClass.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
 #include <string>
@@ -49,7 +48,7 @@ namespace jcpp{
             return clazz;
         }
 
-        JByte::JByte(qint8 value):JNumber(getClazz()){
+        JByte::JByte(jbyte value):JNumber(getClazz()){
             this->value=new JPrimitiveByte(value);
         }
 
@@ -65,11 +64,11 @@ namespace jcpp{
             return (*value)==(*b->value);
         }
 
-        void JByte::set(qint8 value){
+        void JByte::set(jbyte value){
             this->value->set(value);
         }
 
-        qint8 JByte::get(){
+        jbyte JByte::get(){
             return value->get();
         }
 

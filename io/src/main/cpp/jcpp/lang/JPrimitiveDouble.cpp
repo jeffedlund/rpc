@@ -1,6 +1,5 @@
 #include "JPrimitiveDouble.h"
 #include "JClass.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
 #include <string>

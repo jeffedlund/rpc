@@ -3,10 +3,9 @@
 
 #include "assert.h"
 #include "JIO.h"
-#include "JLang.h"
-#include "JUtil.h"
+#include "JLANG.h"
+#include "JUTIL.h"
 #include "JObject.h"
-#include <QtGlobal>
 #include <QFile>
 #include <QString>
 #include <QDataStream>

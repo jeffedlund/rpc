@@ -7,7 +7,6 @@ using namespace std;
 
 namespace jcpp{
     namespace io{
-        //TODO add private serializable field int length, boolean eof
         class JNotSerializableException : public JObjectStreamException{
         protected:
             JNotSerializableException(JClass* _clazz);

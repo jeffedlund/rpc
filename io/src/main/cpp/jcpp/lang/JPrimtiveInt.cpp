@@ -1,10 +1,10 @@
 #include "JPrimitiveInt.h"
 #include "JClass.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
 #include <sstream>
 #include <string>
+#include "Object.h"
 using namespace std;
 
 namespace jcpp{
@@ -36,7 +36,7 @@ namespace jcpp{
             return clazz;
         }
 
-        JPrimitiveInt::JPrimitiveInt(qint32 value):JObject(getClazz()){
+        JPrimitiveInt::JPrimitiveInt(jint value):JObject(getClazz()){
             this->value=value;
         }
 
@@ -52,11 +52,11 @@ namespace jcpp{
             return value==s->value;
         }
 
-        void JPrimitiveInt::set(qint32 value){
+        void JPrimitiveInt::set(jint value){
             this->value=value;
         }
 
-        qint32 JPrimitiveInt::get(){
+        jint JPrimitiveInt::get(){
             return value;
         }
 

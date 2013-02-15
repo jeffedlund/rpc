@@ -3,13 +3,13 @@
 namespace jcpp{
     namespace io{
         OutputHandleTable::OutputHandleTable(){
-            this->handleByObject=new map<JObject*, qint32>();
+            this->handleByObject=new map<JObject*, jint>();
             handle = 0;
             clear();
         }
 
-        qint32 OutputHandleTable::assign(JObject *obj){
-            handleByObject->insert(pair<JObject*,qint32>(obj,handle));
+        jint OutputHandleTable::assign(JObject *obj){
+            handleByObject->insert(pair<JObject*,jint>(obj,handle));
             return handle++;
         }
 
@@ -21,7 +21,7 @@ namespace jcpp{
             return handleByObject->size();
         }
 
-        qint32 OutputHandleTable::lookup(JObject* obj){
+        jint OutputHandleTable::lookup(JObject* obj){
             if (handleByObject->count(obj)==1){
                 return handleByObject->at(obj);
             }else{

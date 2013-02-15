@@ -3,7 +3,6 @@
 
 #include "JObject.h"
 #include "JNumber.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
 #include "JPrimitiveShort.h"
@@ -17,14 +16,14 @@ namespace jcpp{
 
             public:
                 JShort();
-                JShort(qint16 value);
+                JShort(jshort value);
                 bool operator==(JObject &other);
 
                 static JClass* getClazz();
 
-                void set(qint16 value);
+                void set(jshort value);
 
-                qint16 get();
+                jshort get();
 
                 void setPrimitiveShort(JPrimitiveShort* value);
 

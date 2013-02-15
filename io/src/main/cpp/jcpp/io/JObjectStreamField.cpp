@@ -1,6 +1,7 @@
 #include "JObjectStreamField.h"
 #include "JObjectStreamClass.h"
-#include "JLang.h"
+#include "JLANG.h"
+#include "Object.h"
 
 namespace jcpp{
     namespace io{
@@ -99,11 +100,11 @@ namespace jcpp{
             return typeString;
         }
 
-        qint32 JObjectStreamField::getOffset(){
+        jint JObjectStreamField::getOffset(){
             return offset;
         }
 
-        void JObjectStreamField::setOffset(qint32 offset){
+        void JObjectStreamField::setOffset(jint offset){
             this->offset=offset;
         }
 

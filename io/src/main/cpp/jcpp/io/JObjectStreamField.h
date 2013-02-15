@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string.h>
 #include "JString.h"
+#include "Object.h"
 using namespace std;
 using namespace jcpp::lang::reflect;
 using namespace jcpp::lang;
@@ -21,7 +22,7 @@ namespace jcpp{
             JClass* type;
             bool unshared;
             JField* field;
-            qint32 offset;
+            jint offset;
             JString* typeString;
 
             void setTypeString();
@@ -46,8 +47,8 @@ namespace jcpp{
             JClass* getType();
             char getTypeCode();
             JString* getTypeString();
-            qint32 getOffset();
-            void setOffset(qint32 offset);
+            jint getOffset();
+            void setOffset(jint offset);
             bool isPrimitive();
             bool isUnshared();
             JField* getField();

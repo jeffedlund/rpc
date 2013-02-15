@@ -36,19 +36,19 @@ namespace jcpp{
         JOutputStream::JOutputStream(JClass* _class):JObject(_class){
         }
 
-        void JOutputStream::write(qint32 b){
+        void JOutputStream::write(jint b){
         }
 
-        void JOutputStream::write(qint8 b[]){
-            qint32 length = sizeof(b);
+        void JOutputStream::write(jbyte b[]){
+            jint length = sizeof(b);
             write(b, 0, length);
         }
 
-        void JOutputStream::write(qint8 b[], int off, int len){
+        void JOutputStream::write(jbyte b[], int off, int len){
             if (b == 0) {
                 throw new JNullPointerException();
             } else {
-                qint32 length = len;
+                jint length = len;
                 if ((off < 0) || (off > length) || (len < 0) || ((off + len) > length) || ((off + len) < 0)) {
                     throw new JIndexOutOfBoundsException();
                 } else if (len == 0) {
@@ -70,10 +70,10 @@ namespace jcpp{
         void JOutputStream::writeBoolean(bool v){
         }
 
-        void JOutputStream::writeByte(qint8 v){
+        void JOutputStream::writeByte(jbyte v){
         }
 
-        void JOutputStream::writeChar(quint16 v){
+        void JOutputStream::writeChar(jushort v){
         }
 
         void JOutputStream::writeDouble(double v){
@@ -82,13 +82,13 @@ namespace jcpp{
         void JOutputStream::writeFloat(float v){
         }
 
-        void JOutputStream::writeInt(qint32 v){
+        void JOutputStream::writeInt(jint v){
         }
 
-        void JOutputStream::writeLong(qint64 v){
+        void JOutputStream::writeLong(jlong v){
         }
 
-        void JOutputStream::writeShort(qint16 v){
+        void JOutputStream::writeShort(jshort v){
         }
     }
 }

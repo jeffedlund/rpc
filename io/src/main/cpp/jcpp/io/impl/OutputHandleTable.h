@@ -1,9 +1,9 @@
 #ifndef OUTPUTHANDLETABLE_H
 #define OUTPUTHANDLETABLE_H
 
-#include <QtGlobal>
 #include "JObject.h"
 #include <map>
+#include "Object.h"
 using namespace std;
 using namespace jcpp::lang;
 
@@ -12,16 +12,16 @@ namespace jcpp{
         //TODO getClazz
         class OutputHandleTable{
         private:
-            qint32 handle;
-            map<JObject*, qint32>*  handleByObject;
+            jint handle;
+            map<JObject*, jint>*  handleByObject;
 
         public:
             OutputHandleTable();
 
-            qint32 assign(JObject *obj);
+            jint assign(JObject *obj);
             int size();
             void clear();
-            qint32 lookup(JObject* obj);
+            jint lookup(JObject* obj);
             ~OutputHandleTable();
         };
     }

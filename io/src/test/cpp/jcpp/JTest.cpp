@@ -9,7 +9,7 @@ namespace jcpp{
                 QFile* file=new QFile(name);
                 file->open(QIODevice::WriteOnly);
                 QDataStream* qs=new QDataStream(file);
-                QtDataOutputStream* qos=new QtDataOutputStream(qs);
+                QtDataOutputStream* qos=new QtDataOutputStream(qs,file);
                 JObjectOutputStream* oos=new JObjectOutputStream(qos);
                 ww(oos,object);
                 file->close();

@@ -9,11 +9,11 @@ namespace jcpp{
         void HandleTable::grow() {
             int newCapacity = (length*2) +1;
 
-            qint8 *newStatus = new qint8[newCapacity];
+            jbyte *newStatus = new jbyte[newCapacity];
             JObject **newEntries = new JObject*[newCapacity];
             HandleList **newDeps = new HandleList*[newCapacity];
 
-            memcpy(newStatus, status, size * sizeof(qint8));
+            memcpy(newStatus, status, size * sizeof(jbyte));
             delete[] status;
             memcpy(newEntries, entries, size * sizeof(JObject*));
             delete[] entries;
@@ -24,7 +24,7 @@ namespace jcpp{
             entries = newEntries;
             deps = newDeps;
             for (int i = length; i < newCapacity; ++i) {
-                status[i] = (qint8) 0;
+                status[i] = (jbyte) 0;
                 entries[i] = NULL;
                 deps[i] = NULL;
             }
@@ -35,13 +35,13 @@ namespace jcpp{
             length = initialCapacity;
             lowDep = -1;
             size = 0;
-            status = new qint8[initialCapacity];
+            status = new jbyte[initialCapacity];
             entries = new JObject*[initialCapacity];
             deps = new HandleList*[initialCapacity];
 
             // initialize
             for (int i = 0; i < initialCapacity; ++i) {
-                status[i] = (qint8) 0;
+                status[i] = (jbyte) 0;
                 entries[i] = NULL;
                 deps[i] = NULL;
             }
@@ -194,7 +194,7 @@ namespace jcpp{
 
         void HandleTable::clear() {
             for (int i = 0; i < size; ++i) {
-                status[i] = (qint8) 0;
+                status[i] = (jbyte) 0;
                 delete entries[i];
                 entries[i] = NULL;
                 delete deps[i];

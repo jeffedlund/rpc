@@ -9,7 +9,7 @@
 #include <map>
 #include <iostream>
 #include <string>
-#include <QtGlobal>
+#include "Object.h"
 using namespace std;
 using namespace jcpp::lang::reflect;
 
@@ -45,7 +45,7 @@ namespace jcpp{
             bool bIsInterface;
             bool bIsPrimitive;
             bool bIsPackage;
-            qint64 serialVersionUID;
+            jlong serialVersionUID;
             JClass(JClassLoader* classLoader);
             JClass();
             JClass(bool root);
@@ -87,7 +87,7 @@ namespace jcpp{
             bool isPrimitive();
             bool isPackage();
             virtual JObject* newInstance()=0;
-            qint64 getSerialVersionUID();
+            jlong getSerialVersionUID();
             string toString();
             ~JClass();
         };

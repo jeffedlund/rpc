@@ -2,9 +2,9 @@
 #define JPRIMITIVEBYTE_H
 
 #include "JObject.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
+#include "Object.h"
 using namespace std;
 
 namespace jcpp{
@@ -12,18 +12,18 @@ namespace jcpp{
         class JPrimitiveByte : public JObject{
 
             protected:
-                qint8 value;
+                jbyte value;
 
             public:
                 JPrimitiveByte();
-                JPrimitiveByte(qint8 value);
+                JPrimitiveByte(jbyte value);
                 bool operator==(JObject &other);
 
                 static JClass* getClazz();
 
-                void set(qint8 value);
+                void set(jbyte value);
 
-                qint8 get();
+                jbyte get();
 
                 string toString();
 

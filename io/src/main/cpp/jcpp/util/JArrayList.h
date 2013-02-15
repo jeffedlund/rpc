@@ -3,27 +3,34 @@
 
 #include "JObject.h"
 #include "JCollection.h"
-#include "JSerializable.h"
-#include <QtGlobal>
+#include "JExternalizable.h"
+#include "Object.h"
+#include "JObjectInputStream.h"
+#include "JObjectOutputStream.h"
+#include "JAbstractList.h"
 using namespace std;
+using namespace jcpp::io;
 
+//TODO implement most of util classes
 namespace jcpp{
     namespace util{
-        //TODO implement most of util classes ...
-        class JArrayList : public JObject, public JCollection//public JSerializable,
-        {
+        class JArrayList : public JAbstractList{
+        protected:
             vector<JObject*>* items;
-
-         //   void writeObject(MObjectOutputStream *s);
-
-         //   void readObject(MObjectInputStream *s);
+            JPrimitiveInt* size;
 
         public:
             JArrayList(int initialCapacity = 10);
 
             static JClass* getClazz();
 
-            qint32 getSize();
+            bool operator==(JObject &other);
+
+            jint getSize();
+
+            void setPSize(JPrimitiveInt* s);
+
+            JPrimitiveInt* getPSize();
 
             bool isEmpty();
 
@@ -31,7 +38,17 @@ namespace jcpp{
 
             void add(JObject* item);
 
+            void add(int index,JObject* item);
+
+            JObject* remove(int index);
+
+            bool remove(JObject* e);
+
             void clear();
+
+            virtual void writeObject(JObjectOutputStream* out);
+
+            virtual void readObject(JObjectInputStream* in);
 
             ~JArrayList();
         };

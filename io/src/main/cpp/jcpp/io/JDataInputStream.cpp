@@ -2,6 +2,7 @@
 #include "JIndexOutOfBoundsException.h"
 #include "JEOFException.h"
 #include "JUTFDataFormatException.h"
+#include "Object.h"
 
 namespace jcpp{
     namespace io{
@@ -43,13 +44,13 @@ namespace jcpp{
             this->in=in;
         }
 
-        void JDataInputStream::readFully(qint8 b[], qint32 off, qint32 len) {
+        void JDataInputStream::readFully(jbyte b[], jint off, jint len) {
             if (len < 0){
                 throw new JIndexOutOfBoundsException;
             }
             int n = 0;
             while (n < len) {
-                qint32 count = in->read(b, off + n, len - n);
+                jint count = in->read(b, off + n, len - n);
                 if (count < 0){
                     throw new JEOFException;
                 }
@@ -58,25 +59,25 @@ namespace jcpp{
         }
 
         string JDataInputStream::readUTF() {
-            quint16 utflen = in->readUnsignedShort();
-            qint8 *bytearr = new qint8[utflen*2];
+            jushort utflen = in->readUnsignedShort();
+            jbyte *bytearr = new jbyte[utflen*2];
             char *chararr = new char[utflen*2+1];
 
-            qint32 c, char2, char3;
-            qint32 count = 0;
-            qint32 chararr_count = 0;
+            jint c, char2, char3;
+            jint count = 0;
+            jint chararr_count = 0;
 
             readFully(bytearr, 0, utflen);
 
             while (count < utflen) {
-                c = (qint32) bytearr[count] & 0xff;
+                c = (jint) bytearr[count] & 0xff;
                 if (c > 127) break;
                 count++;
                 chararr[chararr_count++] = (char)c;
             }
 
             while (count < utflen) {
-                c = (qint32) bytearr[count] & 0xff;
+                c = (jint) bytearr[count] & 0xff;
                 switch (c >> 4) {
                 case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 7:
                     /* 0xxxxxxx*/
@@ -89,7 +90,7 @@ namespace jcpp{
                     if (count > utflen){
                         throw new JUTFDataFormatException("malformed input: partial character at end");
                     }
-                    char2 = (qint32) bytearr[count-1];
+                    char2 = (jint) bytearr[count-1];
                     if ((char2 & 0xC0) != 0x80){
                         throw new JUTFDataFormatException("malformed input around byte ");
                     }
@@ -101,8 +102,8 @@ namespace jcpp{
                     if (count > utflen){
                         throw new JUTFDataFormatException("malformed input: partial character at end");
                     }
-                    char2 = (qint32) bytearr[count-2];
-                    char3 = (qint32) bytearr[count-1];
+                    char2 = (jint) bytearr[count-2];
+                    char3 = (jint) bytearr[count-1];
                     if (((char2 & 0xC0) != 0x80) || ((char3 & 0xC0) != 0x80))
                         throw new JUTFDataFormatException("malformed input around byte ");
                     chararr[chararr_count++] = (char) (((c     & 0x0F) << 12) |
@@ -123,7 +124,7 @@ namespace jcpp{
             return str;
         }
 
-        qint64 JDataInputStream::available() {
+        jlong JDataInputStream::available() {
             return in->available();
         }
 
@@ -131,35 +132,35 @@ namespace jcpp{
             return in->waitForReadyRead(timeout);
         }
 
-        qint32 JDataInputStream::read() {
+        jint JDataInputStream::read() {
             return in->read();
         }
 
-        qint32 JDataInputStream::read(qint8 b[], int off, int len) {
+        jint JDataInputStream::read(jbyte b[], int off, int len) {
             return in->read(b,off,len);
         }
 
-        qint8 JDataInputStream::peekByte() {
+        jbyte JDataInputStream::peekByte() {
             return in->peekByte();
         }
 
-        qint8 JDataInputStream::readByte() {
+        jbyte JDataInputStream::readByte() {
             return in->readByte();
         }
 
-        qint16 JDataInputStream::readShort() {
+        jshort JDataInputStream::readShort() {
             return in->readShort();
         }
 
-        quint16 JDataInputStream::readUnsignedShort() {
+        jushort JDataInputStream::readUnsignedShort() {
             return in->readUnsignedShort();
         }
 
-        qint32 JDataInputStream::readInt() {
+        jint JDataInputStream::readInt() {
             return in->readInt();
         }
 
-        qint64 JDataInputStream::readLong() {
+        jlong JDataInputStream::readLong() {
             return in->readLong();
         }
 

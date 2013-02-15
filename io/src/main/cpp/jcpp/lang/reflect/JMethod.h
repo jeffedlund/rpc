@@ -19,10 +19,8 @@ namespace jcpp{
                 vector<JClass*>* parameterType;
                 invocation inv;
 
-            protected:
-                JMethod(string name,JClass* declaringClass,JClass* returnType,vector<JClass*>* parameterType,invocation inv);
-
             public:
+                JMethod(string name,JClass* declaringClass,JClass* returnType,vector<JClass*>* parameterType,invocation inv);
                 static JClass* getClazz();
 
                 string getName();

@@ -4,7 +4,6 @@
 #include "JObject.h"
 #include "JClass.h"
 #include "JSerializable.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
 using namespace std;

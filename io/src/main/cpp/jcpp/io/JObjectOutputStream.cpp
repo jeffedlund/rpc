@@ -10,8 +10,9 @@
 #include "JSerializable.h"
 #include "JArrayList.h"
 #include "JNotSerializableException.h"
-#include "JLang.h"
+#include "JLANG.h"
 #include "JExternalizable.h"
+#include "Object.h"
 
 namespace jcpp{
     namespace io{
@@ -73,11 +74,11 @@ namespace jcpp{
             bout->writeBoolean(b);
         }
 
-        void JObjectOutputStream::writeByte(qint8 b){
+        void JObjectOutputStream::writeByte(jbyte b){
             bout->writeByte(b);
         }
 
-        void JObjectOutputStream::writeChar(quint16 v){
+        void JObjectOutputStream::writeChar(jushort v){
             bout->writeChar(v);
         }
 
@@ -89,15 +90,15 @@ namespace jcpp{
             bout->writeFloat(v);
         }
 
-        void JObjectOutputStream::writeShort(qint16 v){
+        void JObjectOutputStream::writeShort(jshort v){
             bout->writeShort(v);
         }
 
-        void JObjectOutputStream::writeInt(qint32 v){
+        void JObjectOutputStream::writeInt(jint v){
             bout->writeInt(v);
         }
 
-        void JObjectOutputStream::writeLong(qint64 v){
+        void JObjectOutputStream::writeLong(jlong v){
             bout->writeLong(v);
         }
 
@@ -189,7 +190,7 @@ namespace jcpp{
         }
 
         void JObjectOutputStream::writeClassDesc(JObjectStreamClass* desc){
-            qint32 handle;
+            jint handle;
             if(desc == NULL){
                 writeNull();
             } else if( (handle = handles->lookup(desc)) != -1) {
@@ -219,7 +220,7 @@ namespace jcpp{
             writeClassDesc(desc->getSuperDesc());
         }
 
-        void JObjectOutputStream::writeHandle(qint32 handle){
+        void JObjectOutputStream::writeHandle(jint handle){
             bout->writeByte(TC_REFERENCE);
             bout->writeInt(baseWireHandle + handle);
         }
@@ -348,7 +349,7 @@ namespace jcpp{
         void JObjectOutputStream::defaultWriteFields(JObject *obj, JObjectStreamClass* desc){
             int primDataSize = desc->getPrimDataSize();
             delete primVals;
-            primVals = new qint8[primDataSize];
+            primVals = new jbyte[primDataSize];
             desc->writePrimFieldValues(obj, primVals,this);
 
             if (desc->getNumObjFields() > 0){
@@ -366,7 +367,7 @@ namespace jcpp{
         void JObjectOutputStream::writePrimitiveData(JObject *obj, JObjectStreamClass *desc){
             int primDataSize = desc->getPrimDataSize();
             if (primVals == NULL || sizeof(primVals) < (unsigned)primDataSize) {
-                primVals = new qint8[primDataSize];
+                primVals = new jbyte[primDataSize];
             }
             desc->writePrimFieldValues(obj, primVals,this);
         }
@@ -386,7 +387,7 @@ namespace jcpp{
         }
 
         void JObjectOutputStream::writeTypeString(JString* str){
-            qint32 handle;
+            jint handle;
             if(str==NULL){
                 writeNull();
             } else if((handle = handles->lookup(str) != -1)){
@@ -402,7 +403,7 @@ namespace jcpp{
 
         void JObjectOutputStream::writeString(JString* str){
             handles->assign(str);
-            qint64 utflen = bout->getUTFLength(str->getString());
+            jlong utflen = bout->getUTFLength(str->getString());
             if(utflen <= 0xFFFF){
                 bout->writeByte(TC_STRING);
                 bout->writeUTF(str->getString(), utflen);

@@ -4,6 +4,10 @@
 #include "JArrayList.h"
 #include "JCollection.h"
 #include "JHashtable.h"
+#include "JAbstractCollection.h"
+#include "JArrayList.h"
+#include "JCollection.h"
+#include "JList.h"
 #include "JPackage.h"
 using namespace jcpp;
 using namespace jcpp::lang::reflect;

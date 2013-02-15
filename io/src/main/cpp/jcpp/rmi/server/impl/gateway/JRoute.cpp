@@ -1,0 +1,142 @@
+#include "JRoute.h"
+#include "JSerializable.h"
+using namespace jcpp::io;
+
+namespace jcpp{
+    namespace rmi{
+        namespace server{
+            namespace impl{
+                namespace gateway{
+                    static JObject* staticGetAddressList(JObject* object){
+                        JRoute* s=(JRoute*)object;
+                        return s->getAddressList();
+                    }
+
+                    static void staticSetAddressList(JObject* object,JObject* value){
+                        JRoute* s=(JRoute*)object;
+                        s->setAddressList((JArrayList*)value);
+                    }
+
+                    static JObject* staticGetIsHttp(JObject* object){
+                        JRoute* s=(JRoute*)object;
+                        return s->getPIsHttp();
+                    }
+
+                    static void staticSetIsHttp(JObject* object,JObject* value){
+                        JRoute* s=(JRoute*)object;
+                        s->setPIsHttp((JPrimitiveBoolean*)value);
+                    }
+
+                    class JRouteClass : public JClass{
+                      public:
+                        JRouteClass(){
+                            this->canonicalName="jcpp.rmi.server.impl.gateway.JRoute";
+                            this->name="jcpp.rmi.server.impl.gateway.JRoute";
+                            this->simpleName="JRoute";
+                            this->serialVersionUID=2731749507109405573ULL;
+                            addInterface(JSerializable::getClazz());
+                            addField(new JField("addressList",JArrayList::getClazz(),staticGetAddressList,staticSetAddressList));
+                            addField(new JField("isHttp",JPrimitiveBoolean::getClazz(),staticGetIsHttp,staticSetIsHttp));
+                        }
+
+                        JClass* getSuperclass(){
+                            return JObject::getClazz();
+                        }
+
+                        JObject* newInstance(){
+                            throw new JRoute();
+                        }
+                    };
+
+                    static JClass* clazz;
+
+                    JClass* JRoute::getClazz(){
+                        if (clazz==NULL){
+                            clazz=new JRouteClass();
+                        }
+                        return clazz;
+                    }
+
+
+                    JRoute::JRoute(){
+                        this->addressList=new JArrayList(0);
+                        this->bIsHttp=new JPrimitiveBoolean();
+                    }
+
+                    bool JRoute::operator==(JObject &other){
+                        if (other.getClass()!=getClazz()){
+                            return false;
+                        }
+                        JRoute* s=dynamic_cast<JRoute*>(&other);
+                        return (*s->addressList)==(*addressList) && (*s->bIsHttp)==(*bIsHttp);
+                    }
+
+                    void JRoute::setIsHttp(bool h){
+                        bIsHttp->set(h);
+                    }
+
+                    bool JRoute::isHttp(){
+                        return bIsHttp->get();
+                    }
+
+                    JPrimitiveBoolean* JRoute::getPIsHttp(){
+                        return bIsHttp;
+                    }
+
+                    void JRoute::setPIsHttp(JPrimitiveBoolean* h){
+                        delete this->bIsHttp;
+                        this->bIsHttp=h;
+                    }
+
+                    void JRoute::addAddress(JAddress* a){
+                        addressList->add(a);
+                    }
+
+                    void JRoute::removeAddress(JAddress* a){
+                        addressList->remove(a);
+                    }
+
+                    JArrayList* JRoute::getAddressList(){
+                        return addressList;
+                    }
+
+                    void JRoute::setAddressList(JArrayList* al){
+                        delete this->addressList;
+                        this->addressList=al;
+                    }
+
+                    JAddress* JRoute::peakAddress(){
+                        return (JAddress*)addressList->get(0);
+                    }
+
+                    JAddress* JRoute::popAddress(){
+                        JAddress* a=(JAddress*)addressList->remove(0);
+                        return a;
+                    }
+
+                    void JRoute::pushAddress(JAddress* a){
+                        addressList->add(0,a);
+                    }
+
+                    int JRoute::addressSize(){
+                        return addressList->getSize();
+                    }
+
+                    void JRoute::clearAddress(){
+                        addressList->clear();
+                    }
+
+                    string JRoute::toString(){
+                        return "AddressList["+addressList->toString()+"][IsHttp:"+bIsHttp->toString()+"]";
+                    }
+
+                    JRoute::~JRoute(){
+                        delete addressList;
+                        delete bIsHttp;
+                    }
+                }
+            }
+        }
+    }
+}
+

@@ -4,7 +4,6 @@
 #include "JIO.h"
 #include "QtDataInputStream.h"
 #include "JSampleObject.h"
-#include <QtGlobal>
 #include <QFile>
 #include <QString>
 #include <QDataStream>
@@ -54,12 +53,13 @@
 #include "JPrimitiveLongTest.h"
 #include "JPrimitiveShortTest.h"
 #include "JPrimitiveIntTest.h"
+#include "JArrayListTest.h"
 using namespace std;
 using namespace jcpp::util;
 using namespace jcpp::lang;
 using namespace jcpp;
 
-static int TEST_SIZE = 42;
+static int TEST_SIZE = 43;
 static JTest* tests[] = {new JThrowableTest(),new JErrorTest(),new JExceptionTest(),new JRuntimeExceptionTest(),
                          new JClassCastExceptionTest(),new JClassNotFoundExceptionTest(),new JIllegalArgumentExceptionTest(),
                          new JIllegalStateExceptionTest(),new JIndexOutOfBoundsExceptionTest(),new JInstantiationExceptionTest(),
@@ -72,7 +72,7 @@ static JTest* tests[] = {new JThrowableTest(),new JErrorTest(),new JExceptionTes
                          new JFloatTest(),new JIntegerTest(),new JLongTest(),new JStringTest(),
                          new JPrimitiveBooleanTest(),new JPrimitiveByteTest(),new JPrimitiveCharTest(),
                          new JPrimitiveDoubleTest(),new JPrimitiveFloatTest(),new JPrimitiveLongTest(),
-                         new JPrimitiveShortTest(),new JPrimitiveIntTest()};
+                         new JPrimitiveShortTest(),new JPrimitiveIntTest(),new JArrayListTest()};
 
 void registerClasses(){
     JClassLoader::getBootClassLoader()->addClass(JSampleObject::getClazz());
@@ -107,7 +107,7 @@ void testWriteSampleObject(JSampleObject* sample){
     QFile* file=new QFile(name);
     file->open(QIODevice::WriteOnly);
     QDataStream* qs=new QDataStream(file);
-    QtDataOutputStream* qos=new QtDataOutputStream(qs);
+    QtDataOutputStream* qos=new QtDataOutputStream(qs,file);
     JObjectOutputStream* oos=new JObjectOutputStream(qos);
     oos->writeObject(sample);
     file->close();
@@ -157,23 +157,23 @@ int main(int argc, char *argv[])
     }
 
     //testMap();
-    JSampleObject* sample=testReadSampleObject();
-    testWriteSampleObject(sample);
+//    JSampleObject* sample=testReadSampleObject();
+//    testWriteSampleObject(sample);
 
-    JObject object;
-    cout<<object.toString();
-    string str;
-    cin>>str;
-    cout<<object.getClass()->getSerialVersionUID();
-    cin>>str;
-    JDouble* jd=new JDouble(45);
-    cout<<jd->toString();
-    cin>>str;
-    cout<<jd->getClass()->getSerialVersionUID();
-    cout<<"clazz=="<<JClass::getClazz()->getName();
-    cout<<"jdouble class=="<<jd->getClass()->getName();
-    cout<<"jdouble class.class=="<<jd->getClass()->getClass()->getName();
-    cin>>str;
+//    JObject object;
+//    cout<<object.toString();
+//    string str;
+//    cin>>str;
+//    cout<<object.getClass()->getSerialVersionUID();
+//    cin>>str;
+//    JDouble* jd=new JDouble(45);
+//    cout<<jd->toString();
+//    cin>>str;
+//    cout<<jd->getClass()->getSerialVersionUID();
+//    cout<<"clazz=="<<JClass::getClazz()->getName();
+//    cout<<"jdouble class=="<<jd->getClass()->getName();
+//    cout<<"jdouble class.class=="<<jd->getClass()->getClass()->getName();
+//    cin>>str;
     return 0;
 }
 

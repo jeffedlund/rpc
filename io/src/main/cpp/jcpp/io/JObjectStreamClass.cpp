@@ -25,6 +25,7 @@
 #include <vector>
 #include <algorithm>
 #include "JNotSerializableException.h"
+#include "Object.h"
 using namespace std;
 using namespace jcpp::util;
 
@@ -208,11 +209,11 @@ namespace jcpp{
             return jClass;
         }
 
-        qint16 JObjectStreamClass::getNumFields(){
+        jshort JObjectStreamClass::getNumFields(){
             return (fields==NULL?0:fields->size());
         }
 
-        qint32 JObjectStreamClass::getNumObjFields(){
+        jint JObjectStreamClass::getNumObjFields(){
             return numObjFields;
         }
 
@@ -244,7 +245,7 @@ namespace jcpp{
             suid = in->readLong();
             bIsProxy = false;
 
-            qint8 flags = in->readByte();
+            jbyte flags = in->readByte();
             writeObjectData = ((flags & JObjectStreamConstants::SC_WRITE_METHOD) != 0);
             blockExternalData = ((flags & JObjectStreamConstants::SC_BLOCK_DATA) != 0);
             externalizable = ((flags & JObjectStreamConstants::SC_EXTERNALIZABLE) != 0);
@@ -260,7 +261,7 @@ namespace jcpp{
                 throw new JInvalidClassException(ss.str());
             }
 
-            qint16 numFields = in->readShort();
+            jshort numFields = in->readShort();
             if (bIsEnum && numFields != 0) {
                 stringstream ss;
                 ss<<"enum "<<name<<" descriptor has non-zero field count: " << numFields;
@@ -359,7 +360,7 @@ namespace jcpp{
             out->writeUTF(name);
             out->writeLong(suid);
 
-            qint8 flags = 0;
+            jbyte flags = 0;
             if (externalizable) {
                 flags |= JObjectStreamConstants::SC_EXTERNALIZABLE;
             } else if (serializable) {
@@ -491,7 +492,7 @@ namespace jcpp{
             return classDataSlots;
         }
 
-        void JObjectStreamClass::setPrimFieldValues(JObject* obj, qint8 *buf) {
+        void JObjectStreamClass::setPrimFieldValues(JObject* obj, jbyte *buf) {
             int pos = 0;
             for (int i = 0; i < getNumFields()-numObjFields; ++i) {
                 JObjectStreamField* f = fields->at(i);
@@ -502,7 +503,7 @@ namespace jcpp{
                         break;
 
                     }case 'B':{
-                        JPrimitiveByte* jPrimitiveByte=new JPrimitiveByte((quint8) (buf[pos++]));
+                        JPrimitiveByte* jPrimitiveByte=new JPrimitiveByte((jubyte) (buf[pos++]));
                         obj->getClass()->getField(f->getName())->set(obj,jPrimitiveByte);
                         break;
 
@@ -549,7 +550,7 @@ namespace jcpp{
             }
         }
 
-        void JObjectStreamClass::writePrimFieldValues(JObject* obj,qint8* buf,JObjectOutputStream* out){
+        void JObjectStreamClass::writePrimFieldValues(JObject* obj,jbyte* buf,JObjectOutputStream* out){
             if (obj==NULL){
                 throw new JNullPointerException();
             }
@@ -567,28 +568,28 @@ namespace jcpp{
 
                     }case 'B' :{
                         JPrimitiveByte* b=(JPrimitiveByte*)field->get(obj);
-                        quint8 v=b->get();
+                        jubyte v=b->get();
                         out->writeByte(v);
                         buf[off] = v;
                         break;
 
                     }case 'C':{
                         JPrimitiveChar* b=(JPrimitiveChar*)field->get(obj);
-                        quint16 v = b->get();
+                        jushort v = b->get();
                         out->writeChar(v);
                         JBits::putChar(buf, off, v);
                         break;
 
                     } case 'S':{
                         JPrimitiveShort* b =(JPrimitiveShort*)field->get(obj);
-                        qint16 v = b->get();
+                        jshort v = b->get();
                         out->writeShort(v);
                         JBits::putShort(buf, off, v);
                         break;
 
                     }case 'I' :{
                         JPrimitiveInt* b=(JPrimitiveInt*)field->get(obj);
-                        qint32 v = b->get();
+                        jint v = b->get();
                         out->writeInt(v);
                         JBits::putInt(buf, off, v);
                         break;
@@ -602,7 +603,7 @@ namespace jcpp{
 
                     }case 'J': {
                         JPrimitiveLong* b=(JPrimitiveLong*)field->get(obj);
-                        qint64 v = b->get();
+                        jlong v = b->get();
                         out->writeLong(v);
                         JBits::putLong(buf, off, v);
                         break;

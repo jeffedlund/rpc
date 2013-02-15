@@ -1,10 +1,10 @@
 #ifndef JOUTPUTSTREAM_H
 #define JOUTPUTSTREAM_H
 
-#include<QtGlobal>
 #include <string>
 #include "JObject.h"
 #include "JClass.h"
+#include "Object.h"
 using namespace jcpp::lang;
 
 namespace jcpp{
@@ -16,18 +16,18 @@ namespace jcpp{
         public:
             JOutputStream();
             static JClass* getClazz();
-            virtual void write(qint32 b);
-            virtual void write(qint8 b[]);
-            virtual void write(qint8 b[], int off, int len);
+            virtual void write(jint b);
+            virtual void write(jbyte b[]);
+            virtual void write(jbyte b[], int off, int len);
             virtual void flush();
             virtual void close();
 
             virtual void writeBoolean(bool v);
-            virtual void writeByte(qint8 v);
-            virtual void writeShort(qint16 v);
-            virtual void writeChar(quint16 v);
-            virtual void writeInt(qint32 v);
-            virtual void writeLong(qint64 v);
+            virtual void writeByte(jbyte v);
+            virtual void writeShort(jshort v);
+            virtual void writeChar(jushort v);
+            virtual void writeInt(jint v);
+            virtual void writeLong(jlong v);
             virtual void writeFloat(float v);
             virtual void writeDouble(double v);
             ~JOutputStream(){}

@@ -3,7 +3,6 @@
 
 #include "JObject.h"
 #include "JNumber.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
 #include "JPrimitiveLong.h"
@@ -18,14 +17,14 @@ namespace jcpp{
 
             public:
                 JLong();
-                JLong(qint64 value);
+                JLong(jlong value);
                 bool operator==(JObject &other);
 
                 static JClass* getClazz();
 
-                void set(qint64 value);
+                void set(jlong value);
 
-                qint64 get();
+                jlong get();
 
                 void setPrimitiveLong(JPrimitiveLong* value);
 

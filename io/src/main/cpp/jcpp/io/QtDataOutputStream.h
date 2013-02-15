@@ -2,33 +2,36 @@
 #define QTDATAOUTPUTSTREAM_H
 
 #include <QDataStream>
+#include <QFile>
 #include "JOutputStream.h"
+#include "Object.h"
 
 namespace jcpp{
     namespace io{
         class QtDataOutputStream : public JOutputStream{
             QDataStream* out;
+            QFile* file;
         public:
             QtDataOutputStream();
-            QtDataOutputStream(QDataStream* out);
+            QtDataOutputStream(QDataStream* out,QFile* file);
 
             static JClass* getClazz();
 
             QDataStream* getStream();
             void setStream(QDataStream* in);
 
-            virtual void write(qint32 b);
-            virtual void write(qint8 b[]);
-            virtual void write(qint8 b[], int off, int len);
+            virtual void write(jint b);
+            virtual void write(jbyte b[]);
+            virtual void write(jbyte b[], int off, int len);
             virtual void flush();
             virtual void close();
 
             virtual void writeBoolean(bool v);
-            virtual void writeByte(qint8 v);
-            virtual void writeShort(qint16 v);
-            virtual void writeChar(quint16 v);
-            virtual void writeInt(qint32 v);
-            virtual void writeLong(qint64 v);
+            virtual void writeByte(jbyte v);
+            virtual void writeShort(jshort v);
+            virtual void writeChar(jushort v);
+            virtual void writeInt(jint v);
+            virtual void writeLong(jlong v);
             virtual void writeFloat(float v);
             virtual void writeDouble(double v);
             virtual ~QtDataOutputStream();

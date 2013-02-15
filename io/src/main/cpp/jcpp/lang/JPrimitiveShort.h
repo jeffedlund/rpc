@@ -2,9 +2,9 @@
 #define JPRIMITIVESHORT_H
 
 #include "JObject.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
+#include "Object.h"
 using namespace std;
 
 namespace jcpp{
@@ -12,18 +12,18 @@ namespace jcpp{
         class JPrimitiveShort : public JObject{
 
             protected:
-                qint16 value;
+                jshort value;
 
             public:
                 JPrimitiveShort();
-                JPrimitiveShort(qint16 value);
+                JPrimitiveShort(jshort value);
                 bool operator==(JObject &other);
 
                 static JClass* getClazz();
 
-                void set(qint16 value);
+                void set(jshort value);
 
-                qint16 get();
+                jshort get();
 
                 string toString();
 

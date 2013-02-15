@@ -4,7 +4,11 @@
 namespace jcpp{
     namespace util{
         JUTIL::JUTIL():JPackage("jcpp.util",JPackage::getClazz()){//better class
+            classes->push_back(JAbstractCollection::getClazz());
+            classes->push_back(JAbstractList::getClazz());
             classes->push_back(JArrayList::getClazz());
+            classes->push_back(JCollection::getClazz());
+            classes->push_back(JList::getClazz());
             //TODO JCollection::
             //TODO JHashtable::getC
         }

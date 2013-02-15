@@ -3,10 +3,10 @@
 
 #include "JObject.h"
 #include "JNumber.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
 #include "JPrimitiveInt.h"
+#include "Object.h"
 using namespace std;
 
 namespace jcpp{
@@ -18,14 +18,14 @@ namespace jcpp{
 
             public:
                 JInteger();
-                JInteger(qint32 value);
+                JInteger(jint value);
                 bool operator==(JObject &other);
 
                 static JClass* getClazz();
 
-                void set(qint32 value);
+                void set(jint value);
 
-                qint32 get();
+                jint get();
 
                 void setPrimitiveInt(JPrimitiveInt* value);
 

@@ -40,9 +40,9 @@ namespace jcpp{
             }
         }
 
-        qint32 BlockDataInputStream::readBlockHeader(bool canBlock) {
+        jint BlockDataInputStream::readBlockHeader(bool canBlock) {
             for (;;) {
-                qint64 avail;
+                jlong avail;
                 if (canBlock) {
                     avail = INT_MAX;
                 }
@@ -57,7 +57,7 @@ namespace jcpp{
                     return HEADER_BLOCKED;
                 }
 
-                qint32 tc = in->peekByte();
+                jint tc = in->peekByte();
                 switch (tc) {
                 case JObjectStreamConstants::TC_BLOCKDATA:
                     if (avail < 2) {
@@ -72,7 +72,7 @@ namespace jcpp{
                         return HEADER_BLOCKED;
                     }
                     in->read(hbuf,0,5);
-                    qint32 len = JBits::getInt(hbuf,1);
+                    jint len = JBits::getInt(hbuf,1);
                     if (len < 0) {
                         stringstream ss;
                         ss<<"illegal block data header length: "<< len;
@@ -115,7 +115,7 @@ namespace jcpp{
                         throw new JStreamCorruptedException("unexpected EOF in middle of data block");
                     }
                 }else {
-                    qint32 n = readBlockHeader(false);
+                    jint n = readBlockHeader(false);
                     if (n >= 0) {
                         end = 0;
                         unread = n;
@@ -127,7 +127,7 @@ namespace jcpp{
             } while (pos == end);
         }
 
-        qint32 BlockDataInputStream::currentBlockRemaining() {
+        jint BlockDataInputStream::currentBlockRemaining() {
             if (blkmode) {
                 return (end >= 0) ? (end - pos) + unread : 0;
             }else {
@@ -146,15 +146,15 @@ namespace jcpp{
             }
         }
 
-        qint8 BlockDataInputStream::peekByte() {
+        jbyte BlockDataInputStream::peekByte() {
             int val = peek();
             if (val < 0) {
                 throw new JEOFException();
             }
-            return (qint8) val;
+            return (jbyte) val;
         }
 
-        qint32 BlockDataInputStream::read() {
+        jint BlockDataInputStream::read() {
             if (blkmode) {
                 if (pos == end) {
                     refill();
@@ -165,14 +165,14 @@ namespace jcpp{
             }
         }
 
-        int BlockDataInputStream::read(qint8 b[], int off, int len) {
+        int BlockDataInputStream::read(jbyte b[], int off, int len) {
             return read(b, off, len, false);
         }
 
-        qint64 BlockDataInputStream::available() {
+        jlong BlockDataInputStream::available() {
             if (blkmode) {
                 if ((pos == end) && (unread == 0)) {
-                    qint32 n;
+                    jint n;
                     while ((n = readBlockHeader(false)) == 0);
                     switch (n) {
                     case HEADER_BLOCKED:
@@ -191,7 +191,7 @@ namespace jcpp{
                     }
                 }
                 // avoid unnecessary call to in.available() if possible
-                qint64 unreadAvail = (unread > 0) ? min(in->available(), (qint64) unread) : 0;
+                jlong unreadAvail = (unread > 0) ? min(in->available(), (jlong) unread) : 0;
                 return (end >= 0) ? (end - pos) + unreadAvail : 0;
             }else {
                 return in->available();
@@ -211,7 +211,7 @@ namespace jcpp{
             in->close();
         }
 
-        int BlockDataInputStream::read(qint8 b[], int off, int len, bool copy) {
+        int BlockDataInputStream::read(jbyte b[], int off, int len, bool copy) {
             if (len == 0) {
                 return 0;
             }else if (blkmode) {
@@ -236,11 +236,11 @@ namespace jcpp{
             }
         }
 
-        void BlockDataInputStream::readFully(qint8 *b, int off, int len) {
+        void BlockDataInputStream::readFully(jbyte *b, int off, int len) {
             readFully(b, off, len, false);
         }
 
-        void BlockDataInputStream::readFully(qint8 *b, int off, int len, bool copy) {
+        void BlockDataInputStream::readFully(jbyte *b, int off, int len, bool copy) {
             while (len > 0) {
                 int n = read(b, off, len, copy);
                 if (n < 0) {
@@ -251,43 +251,43 @@ namespace jcpp{
             }
         }
 
-        qint8 BlockDataInputStream::readByte() {
-            quint32 v = read();
+        jbyte BlockDataInputStream::readByte() {
+            juint v = read();
             if (v < 0) {
                 throw new JEOFException();
             }
-            return (qint8) v;
+            return (jbyte) v;
         }
 
-        qint16 BlockDataInputStream::readShort() {
+        jshort BlockDataInputStream::readShort() {
             if (!blkmode) {
                 pos = 0;
                 in->read(buf,0,2);
             }
             else if ( end - pos < 2) {
-                qint8 readBuffer[2];
+                jbyte readBuffer[2];
                 for (int i = 0; i < 2; ++i) {
                     readBuffer[i] = read();
                 }
                 return JBits::getShort(readBuffer,0);
             }
-            qint16 v = JBits::getShort(buf, pos);
+            jshort v = JBits::getShort(buf, pos);
             pos += 2;
             return v;
         }
 
-        qint32 BlockDataInputStream::readInt() {
+        jint BlockDataInputStream::readInt() {
             if (!blkmode) {
                 pos = 0;
                 in->read(buf, 0, 4);
             } else if (end - pos < 4) {
-                qint8 readBuffer[4];
+                jbyte readBuffer[4];
                 for (int i = 0; i < 4; ++i) {
                     readBuffer[i] = read();
                 }
                 return JBits::getInt(readBuffer,0);
             }
-            qint32 v = JBits::getInt(buf, pos);
+            jint v = JBits::getInt(buf, pos);
             pos += 4;
             return v;
         }
@@ -298,7 +298,7 @@ namespace jcpp{
                 in->read(buf, 0, 4);
             }
             else if (end - pos < 4) {
-                qint8 readBuffer[4];
+                jbyte readBuffer[4];
                 for (int i = 0; i < 4; ++i) {
                     readBuffer[i] = read();
                 }
@@ -309,19 +309,19 @@ namespace jcpp{
             return v;
         }
 
-        qint64 BlockDataInputStream::readLong() {
+        jlong BlockDataInputStream::readLong() {
             if (!blkmode) {
                 pos = 0;
                 in->read(buf, 0, 8);
             }
             else if (end - pos < 8) {
-                qint8 readBuffer[8];
+                jbyte readBuffer[8];
                 for (int i = 0; i < 8; ++i) {
                     readBuffer[i] = read();
                 }
                 return JBits::getLong(readBuffer,0);
             }
-            qint64 v = JBits::getLong(buf, pos);
+            jlong v = JBits::getLong(buf, pos);
             pos += 8;
             return v;
         }
@@ -331,7 +331,7 @@ namespace jcpp{
                 pos = 0;
                 in->read(buf, 0, 8);
             } else if (end - pos < 8) {
-                qint8 readBuffer[8];
+                jbyte readBuffer[8];
                 for (int i = 0; i < 8; ++i) {
                     readBuffer[i] = read();
                 }
@@ -347,7 +347,7 @@ namespace jcpp{
                pos = 0;
                in->read(buf, 0, 2);
            } else if (end - pos < 2) {
-                qint8 readBuffer[2];
+                jbyte readBuffer[2];
                 for (int i = 0; i < 2; ++i) {
                     readBuffer[i] = read();
                 }
@@ -366,14 +366,14 @@ namespace jcpp{
             return (v != 0);
         }
 
-        string BlockDataInputStream::readUTFBody(qint64 len) {
+        string BlockDataInputStream::readUTFBody(jlong len) {
             if (!blkmode) {
                 end = pos = 0;
             }
 
             char *cname = new char[len+1];
             cname[len] = '\0';
-            in->read((qint8*)cname, 0, len);
+            in->read((jbyte*)cname, 0, len);
             string str(cname);
             delete cname;
             return str;
@@ -428,7 +428,7 @@ namespace jcpp{
             }
         }
 
-        void BlockDataInputStream::readShorts(qint16 *v, int off, int len) {
+        void BlockDataInputStream::readShorts(jshort *v, int off, int len) {
             int stop, endoff = off + len;
             while (off < endoff) {
                 if (!blkmode) {
@@ -450,7 +450,7 @@ namespace jcpp{
             }
         }
 
-        void BlockDataInputStream::readInts(qint32 *v, int off, int len) {
+        void BlockDataInputStream::readInts(jint *v, int off, int len) {
             int stop, endoff = off + len;
             while (off < endoff) {
                 if (!blkmode) {
@@ -494,7 +494,7 @@ namespace jcpp{
             }
         }
 
-        void BlockDataInputStream::readLongs(qint64 *v, int off, int len) {
+        void BlockDataInputStream::readLongs(jlong *v, int off, int len) {
             int stop, endoff = off + len;
             while (off < endoff) {
                 if (!blkmode) {

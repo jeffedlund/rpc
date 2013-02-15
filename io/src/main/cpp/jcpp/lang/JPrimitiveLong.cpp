@@ -1,6 +1,5 @@
 #include "JPrimitiveLong.h"
 #include "JClass.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
 #include <string>
@@ -36,7 +35,7 @@ namespace jcpp{
             return clazz;
         }
 
-        JPrimitiveLong::JPrimitiveLong(qint64 value):JObject(getClazz()){
+        JPrimitiveLong::JPrimitiveLong(jlong value):JObject(getClazz()){
             this->value=value;
         }
 
@@ -52,11 +51,11 @@ namespace jcpp{
             return value==s->value;
         }
 
-        void JPrimitiveLong::set(qint64 value){
+        void JPrimitiveLong::set(jlong value){
             this->value=value;
         }
 
-        qint64 JPrimitiveLong::get(){
+        jlong JPrimitiveLong::get(){
             return value;
         }
 

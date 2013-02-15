@@ -1,4 +1,5 @@
 #include "JInputStream.h"
+#include "Object.h"
 
 namespace jcpp{
     namespace io{
@@ -34,7 +35,7 @@ namespace jcpp{
         JInputStream::JInputStream(JClass* _class):JObject(_class){
         }
 
-        qint64 JInputStream::available() {
+        jlong JInputStream::available() {
             return 0;
         }
 
@@ -42,35 +43,35 @@ namespace jcpp{
             return false;
         }
 
-        qint32 JInputStream::read() {
+        jint JInputStream::read() {
             return 0;
         }
 
-        qint32 JInputStream::read(qint8 b[], int off, int len) {
+        jint JInputStream::read(jbyte b[], int off, int len) {
             return 0;
         }
 
-        qint8 JInputStream::peekByte() {
+        jbyte JInputStream::peekByte() {
             return 0;
         }
 
-        qint8 JInputStream::readByte() {
+        jbyte JInputStream::readByte() {
             return 0;
         }
 
-        qint16 JInputStream::readShort() {
+        jshort JInputStream::readShort() {
             return 0;
         }
 
-        quint16 JInputStream::readUnsignedShort() {
+        jushort JInputStream::readUnsignedShort() {
             return 0;
         }
 
-        qint32 JInputStream::readInt() {
+        jint JInputStream::readInt() {
             return 0;
         }
 
-        qint64 JInputStream::readLong() {
+        jlong JInputStream::readLong() {
             return 0;
         }
 

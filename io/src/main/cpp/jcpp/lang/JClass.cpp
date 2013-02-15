@@ -5,7 +5,6 @@
 #include "JClassLoader.h"
 #include "JMethod.h"
 #include "JEnum.h"
-#include <QtGlobal>
 #include "Collections.h"
 #include "JNoSuchFieldException.h"
 #include "JNoSuchMethodException.h"
@@ -309,7 +308,7 @@ namespace jcpp{
             declaredMethods->insert(pair<string,JMethod*>(method->getName(),method));
         }
 
-        void JClass::addInterface(JClass* interface){
+        void JClass::addInterface(JClass* interface){//TODO check class is an interface by 2 ways...
             interfaces->push_back(interface);
         }
 
@@ -362,7 +361,7 @@ namespace jcpp{
             return bIsPackage;
         }
 
-        qint64 JClass::getSerialVersionUID(){
+        jlong JClass::getSerialVersionUID(){
             return serialVersionUID;
         }
 

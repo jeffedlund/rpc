@@ -3,7 +3,6 @@
 
 #include "JObject.h"
 #include "JNumber.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
 #include "JPrimitiveFloat.h"

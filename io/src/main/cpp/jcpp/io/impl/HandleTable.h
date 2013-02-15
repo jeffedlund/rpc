@@ -9,11 +9,11 @@ namespace jcpp{
     namespace io{
         //Input HandleTable
         class HandleTable {
-            static const qint8 STATUS_OK = 1;
-            static const qint8 STATUS_UNKNOWN = 2;
-            static const qint8 STATUS_EXCEPTION = 3;
+            static const jbyte STATUS_OK = 1;
+            static const jbyte STATUS_UNKNOWN = 2;
+            static const jbyte STATUS_EXCEPTION = 3;
 
-            qint8* status;
+            jbyte* status;
             JObject** entries;
             HandleList** deps;
             int lowDep;

@@ -43,7 +43,7 @@ namespace jcpp{
             this->in=in;
         }
 
-        qint64 QtDataInputStream::available() {
+        jlong QtDataInputStream::available() {
             return in->device()->bytesAvailable();
         }
 
@@ -51,19 +51,19 @@ namespace jcpp{
             return in->device()->waitForReadyRead(i);
         }
 
-        qint32 QtDataInputStream::read() {
+        jint QtDataInputStream::read() {
             return readByte();
         }
 
-        qint32 QtDataInputStream::read(qint8 b[], int off, int len) {
+        jint QtDataInputStream::read(jbyte b[], int off, int len) {
             if (available() < len) {
                 waitForReadyRead(-1);
             }
             return in->readRawData((char*)b+off,len);
         }
 
-        qint8 QtDataInputStream::peekByte() {
-            qint8 b;
+        jbyte QtDataInputStream::peekByte() {
+            jbyte b;
             while (available() < 1) {
                 waitForReadyRead(-1);
             }
@@ -71,8 +71,8 @@ namespace jcpp{
             return b;
         }
 
-        qint8 QtDataInputStream::readByte() {
-            qint8 b;
+        jbyte QtDataInputStream::readByte() {
+            jbyte b;
             while (available() < 1) {
                 waitForReadyRead(-1);
             }
@@ -80,8 +80,8 @@ namespace jcpp{
             return b;
         }
 
-        qint16 QtDataInputStream::readShort() {
-            qint16 s;
+        jshort QtDataInputStream::readShort() {
+            jshort s;
             while (available() < 2) {
                 waitForReadyRead(-1);
             }
@@ -89,8 +89,8 @@ namespace jcpp{
             return s;
         }
 
-        quint16 QtDataInputStream::readUnsignedShort() {
-            quint16 us;
+        jushort QtDataInputStream::readUnsignedShort() {
+            jushort us;
             while (available() < 2) {
                 waitForReadyRead(-1);
             }
@@ -98,8 +98,8 @@ namespace jcpp{
             return us;
         }
 
-        qint32 QtDataInputStream::readInt() {
-            qint32 i;
+        jint QtDataInputStream::readInt() {
+            jint i;
             while (available() < 4) {
                 waitForReadyRead(-1);
             }
@@ -107,8 +107,8 @@ namespace jcpp{
             return i;
         }
 
-        qint64 QtDataInputStream::readLong() {
-            qint64 l;
+        jlong QtDataInputStream::readLong() {
+            jlong l;
             while (available() < 8) {
                 waitForReadyRead(-1);
             }
@@ -143,7 +143,7 @@ namespace jcpp{
         }
 
         char QtDataInputStream::readChar() {
-            qint8 c;
+            jbyte c;
             while (available() < 2) {
                 waitForReadyRead(-1);
             }

@@ -27,7 +27,9 @@ INCLUDEPATH += \
 	src/main/cpp/jcpp/lang/reflect \
 	src/test/cpp/jcpp\
 	src/test/cpp/jcpp/lang \
-	src/test/cpp/jcpp/io
+        src/test/cpp/jcpp/io \
+        src/test/cpp/jcpp/util \
+        src/main/cpp/jcpp/rmi/server/impl/gateway
 
 SOURCES += \
     src/test/cpp/jcpp/main.cpp \
@@ -155,7 +157,18 @@ SOURCES += \
     src/main/cpp/jcpp/io/JIO.cpp \
     src/main/cpp/jcpp/lang/JLANG.cpp \
     src/main/cpp/jcpp/lang/reflect/JREFLECT.cpp \
-    src/main/cpp/jcpp/util/JUTIL.cpp
+    src/main/cpp/jcpp/util/JUTIL.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JAddress.cpp \
+    src/test/cpp/jcpp/util/JArrayListTest.cpp \
+    src/main/cpp/jcpp/util/JCollection.cpp \
+    src/main/cpp/jcpp/util/JList.cpp \
+    src/main/cpp/jcpp/util/JAbstractCollection.cpp \
+    src/main/cpp/jcpp/util/JAbstractList.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JRoute.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayInputStream.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayOutputStream.cpp \
+    src/main/cpp/jcpp/net/JInetAddress.cpp \
+    src/main/cpp/jcpp/net/JSocket.cpp
     
     
 LIBS += -lws2_32
@@ -291,5 +304,18 @@ HEADERS += \
     src/main/cpp/jcpp/JCPP.h \
     src/main/cpp/jcpp/lang/JLANG.h \
     src/main/cpp/jcpp/lang/reflect/JREFLECT.h \
-    src/main/cpp/jcpp/util/JUTIL.h
+    src/main/cpp/jcpp/util/JUTIL.h \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JAddress.h \
+    src/test/cpp/jcpp/util/JArrayListTest.h \
+    src/main/cpp/jcpp/util/JAbstractList.h \
+    src/main/cpp/jcpp/util/JList.h \
+    src/main/cpp/jcpp/util/JAbstractCollection.h \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JRoute.h \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayInputStream.h \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayOutputStream.h \
+    src/main/cpp/jcpp/net/JSocket.h \
+    src/main/cpp/jcpp/net/JInetAddress.h
     
+
+OTHER_FILES += \
+    todo.txt

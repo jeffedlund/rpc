@@ -33,8 +33,9 @@ namespace jcpp{
         QtDataOutputStream::QtDataOutputStream():JOutputStream(getClazz()){
         }
 
-        QtDataOutputStream::QtDataOutputStream(QDataStream* out):JOutputStream(getClazz()){
+        QtDataOutputStream::QtDataOutputStream(QDataStream* out,QFile* file):JOutputStream(getClazz()){
             this->out=out;
+            this->file=file;
         }
 
         QDataStream* QtDataOutputStream::getStream(){
@@ -45,18 +46,18 @@ namespace jcpp{
             this->out=out;
         }
 
-        void QtDataOutputStream::write(qint32 b){
-            (*out)<<((qint8)b);
+        void QtDataOutputStream::write(jint b){
+            (*out)<<((jbyte)b);
         }
 
-        void QtDataOutputStream::write(qint8 b[]){
-            qint32 length = sizeof(b);
+        void QtDataOutputStream::write(jbyte b[]){
+            jint length = sizeof(b);
             for (int i=0;i<length;i++){
                 (*out)<<b[i];
             }
         }
 
-        void QtDataOutputStream::write(qint8 b[], int off, int len){
+        void QtDataOutputStream::write(jbyte b[], int off, int len){
             if (b == NULL) {
                 throw new JNullPointerException();
             } else {
@@ -73,7 +74,7 @@ namespace jcpp{
         }
 
         void QtDataOutputStream::flush(){
-            //TODO
+            file->flush();
         }
 
         void QtDataOutputStream::close(){
@@ -84,7 +85,7 @@ namespace jcpp{
             (*out)<<v;
         }
 
-        void QtDataOutputStream::writeByte(qint8 v){
+        void QtDataOutputStream::writeByte(jbyte v){
             (*out) << v;
         }
 
@@ -92,7 +93,7 @@ namespace jcpp{
             (*out) << v;
         }
 
-        void QtDataOutputStream::writeChar(quint16 v){
+        void QtDataOutputStream::writeChar(jushort v){
             (*out) << v;
         }
 
@@ -100,15 +101,15 @@ namespace jcpp{
             (*out) << v;
         }
 
-        void QtDataOutputStream::writeInt(qint32 v){
+        void QtDataOutputStream::writeInt(jint v){
             (*out) << v;
         }
 
-        void QtDataOutputStream::writeLong(qint64 v){
+        void QtDataOutputStream::writeLong(jlong v){
             (*out) << v;
         }
 
-        void QtDataOutputStream::writeShort(qint16 v){
+        void QtDataOutputStream::writeShort(jshort v){
             (*out) << v;
         }
 

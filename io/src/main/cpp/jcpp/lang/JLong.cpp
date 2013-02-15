@@ -1,6 +1,5 @@
 #include "JLong.h"
 #include "JClass.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
 #include <string>
@@ -50,7 +49,7 @@ namespace jcpp{
             return clazz;
         }
 
-        JLong::JLong(qint64 value):JNumber(getClazz()){
+        JLong::JLong(jlong value):JNumber(getClazz()){
             this->value=new JPrimitiveLong(value);
         }
 
@@ -66,11 +65,11 @@ namespace jcpp{
             return false;
         }
 
-        void JLong::set(qint64 value){
+        void JLong::set(jlong value){
             this->value->set(value);
         }
 
-        qint64 JLong::get(){
+        jlong JLong::get(){
             return value->get();
         }
 

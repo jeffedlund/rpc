@@ -2,9 +2,9 @@
 #define JPRIMITIVELONG_H
 
 #include "JObject.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
+#include "Object.h"
 using namespace std;
 
 namespace jcpp{
@@ -12,18 +12,18 @@ namespace jcpp{
         class JPrimitiveLong : public JObject{
 
             protected:
-                qint64 value;
+                jlong value;
 
             public:
                 JPrimitiveLong();
-                JPrimitiveLong(qint64 value);
+                JPrimitiveLong(jlong value);
                 bool operator==(JObject &other);
 
                 static JClass* getClazz();
 
-                void set(qint64 value);
+                void set(jlong value);
 
-                qint64 get();
+                jlong get();
 
                 string toString();
 

@@ -1,7 +1,6 @@
 #include "JNumber.h"
 #include "JClass.h"
 #include "JInstantiationException.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
 #include <string>

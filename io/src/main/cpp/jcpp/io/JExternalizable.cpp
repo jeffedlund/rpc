@@ -31,7 +31,5 @@ namespace jcpp{
             return clazz;
         }
 
-        JExternalizable::JExternalizable():JObject(getClazz()){
-        }
     }
 }

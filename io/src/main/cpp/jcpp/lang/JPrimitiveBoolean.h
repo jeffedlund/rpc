@@ -3,7 +3,6 @@
 
 #include "Object.h"
 #include "JObject.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
 using namespace std;

@@ -2,9 +2,9 @@
 #define JPRIMITIVEINT_H
 
 #include "JObject.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
+#include "Object.h"
 using namespace std;
 
 namespace jcpp{
@@ -12,18 +12,18 @@ namespace jcpp{
         class JPrimitiveInt : public JObject{
 
             protected:
-                qint32 value;
+                jint value;
 
             public:
                 JPrimitiveInt();
-                JPrimitiveInt(qint32 value);
+                JPrimitiveInt(jint value);
                 bool operator==(JObject &other);
 
                 static JClass* getClazz();
 
-                void set(qint32 value);
+                void set(jint value);
 
-                qint32 get();
+                jint get();
 
                 string toString();
 

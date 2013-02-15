@@ -9,6 +9,7 @@
 #include "JClassNotFoundException.h"
 #include "JObjectStreamField.h"
 #include "map"
+#include "Object.h"
 using namespace std;
 
 namespace jcpp{
@@ -31,7 +32,7 @@ namespace jcpp{
 
         private:
             string name;
-            qint64 suid;
+            jlong suid;
             bool bIsProxy;
             bool bIsEnum;
             bool serializable;
@@ -61,15 +62,15 @@ namespace jcpp{
             JClass* getJClass();
             bool isEnum();
             bool isProxy();
-            qint16 getNumFields();
-            qint32 getNumObjFields();
+            jshort getNumFields();
+            jint getNumObjFields();
             JObjectStreamField* getField(int i);
             string getName();
             int getPrimDataSize();
             JObjectStreamClass* getSuperDesc();
             JClassNotFoundException* getResolveException();
-            void setPrimFieldValues(JObject *obj,qint8 *buf);
-            void writePrimFieldValues(JObject* obj,qint8* buf,JObjectOutputStream* out);
+            void setPrimFieldValues(JObject *obj,jbyte *buf);
+            void writePrimFieldValues(JObject* obj,jbyte* buf,JObjectOutputStream* out);
             void getObjectFieldValues(JObject* jobject, JObject** values);
             void setObjectFieldValues(JObject* jobject, JObject** values);
             void readNonProxy(JObjectInputStream* objectInputStream);

@@ -18,7 +18,8 @@ class SerialCallbackContext;
 #include "HandleTable.h"
 #include "BlockDataInputStream.h"
 #include "JIOException.h"
-#include "JLang.h"
+#include "JLANG.h"
+#include "Object.h"
 
 namespace jcpp{
     namespace io{
@@ -29,9 +30,9 @@ namespace jcpp{
             BlockDataInputStream *bin;
             JClassLoader* inputClassLoader;
             HandleTable* handles;
-            qint32 passHandle;
+            jint passHandle;
             bool defaultDataEnd;
-            qint8 *primVals;
+            jbyte *primVals;
             bool enableResolve;
             SerialCallbackContext* curContext;
 
@@ -68,17 +69,17 @@ namespace jcpp{
             virtual JString* readString();
             virtual JString* readTypeString();
             virtual void defaultReadObject();
-            virtual qint64 available();
+            virtual jlong available();
             virtual bool waitForReadyRead(int = 30000);
             virtual int read();
-            virtual int read(qint8 b[], int off, int len);
-            virtual qint8 readByte();
+            virtual int read(jbyte b[], int off, int len);
+            virtual jbyte readByte();
             virtual char readChar();
             virtual double readDouble();
             virtual float readFloat();
-            virtual qint32 readInt();
-            virtual qint64 readLong();
-            virtual qint16 readShort();
+            virtual jint readInt();
+            virtual jlong readLong();
+            virtual jshort readShort();
             virtual bool readBool();
             virtual JPrimitiveByte* readPrimitiveByte();
             virtual JPrimitiveChar* readPrimitiveChar();

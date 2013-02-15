@@ -3,7 +3,6 @@
 
 #include "JObject.h"
 #include "JNumber.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
 #include "JPrimitiveByte.h"
@@ -18,14 +17,14 @@ namespace jcpp{
 
             public:
                 JByte();
-                JByte(qint8 value);
+                JByte(jbyte value);
                 bool operator==(JObject &other);
 
                 static JClass* getClazz();
 
-                void set(qint8 value);
+                void set(jbyte value);
 
-                qint8 get();
+                jbyte get();
 
                 void setPrimitiveByte(JPrimitiveByte* value);
 

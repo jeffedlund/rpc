@@ -1,6 +1,5 @@
 #include "JInteger.h"
 #include "JClass.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
 #include <string>
@@ -50,7 +49,7 @@ namespace jcpp{
             return clazz;
         }
 
-        JInteger::JInteger(qint32 value):JNumber(getClazz()){
+        JInteger::JInteger(jint value):JNumber(getClazz()){
             this->value=new JPrimitiveInt(value);
         }
 
@@ -66,11 +65,11 @@ namespace jcpp{
             return false;
         }
 
-        void JInteger::set(qint32 value){
+        void JInteger::set(jint value){
             this->value->set(value);
         }
 
-        qint32 JInteger::get(){
+        jint JInteger::get(){
             return value->get();
         }
 

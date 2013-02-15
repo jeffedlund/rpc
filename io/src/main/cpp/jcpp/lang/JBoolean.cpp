@@ -1,6 +1,5 @@
 #include "JBoolean.h"
 #include "JClass.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
 #include <string>

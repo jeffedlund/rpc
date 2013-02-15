@@ -2,7 +2,6 @@
 #define JPRIMITIVEDOUBLE_H
 
 #include "JObject.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
 using namespace std;

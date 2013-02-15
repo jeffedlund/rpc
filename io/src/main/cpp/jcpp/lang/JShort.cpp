@@ -1,6 +1,5 @@
 #include "JShort.h"
 #include "JClass.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
 #include <string>
@@ -51,7 +50,7 @@ namespace jcpp{
             return clazz;
         }
 
-        JShort::JShort(qint16 value):JNumber(getClazz()){
+        JShort::JShort(jshort value):JNumber(getClazz()){
             this->value=new JPrimitiveShort(value);
         }
 
@@ -67,11 +66,11 @@ namespace jcpp{
             return false;
         }
 
-        void JShort::set(qint16 value){
+        void JShort::set(jshort value){
             this->value->set(value);
         }
 
-        qint16 JShort::get(){
+        jshort JShort::get(){
             return value->get();
         }
 

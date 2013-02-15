@@ -2,7 +2,6 @@
 #define JCHAR_H
 
 #include "JObject.h"
-#include <QtGlobal>
 #include <vector>
 #include <iostream>
 #include "JPrimitiveChar.h"

@@ -19,10 +19,9 @@
 #include "JClassCastException.h"
 #include "JPrimitiveShort.h"
 #include <cstdio>
-#include <QtGlobal>
-#include <QList>
 #include <sstream>
 #include "JExternalizable.h"
+#include "Object.h"
 
 using namespace std;
 
@@ -63,8 +62,8 @@ namespace jcpp{
             defaultDataEnd  = false;
 
             // check stream header
-            qint16 s0 = readShort();
-            qint16 s1 = readShort();
+            jshort s0 = readShort();
+            jshort s1 = readShort();
             if (s0 != STREAM_MAGIC || s1 != STREAM_VERSION) {
                 stringstream ss;
                 ss<<"invalid stream header "<<s0<<","<<s1;
@@ -82,7 +81,7 @@ namespace jcpp{
             delete bin;
         }
 
-        qint64 JObjectInputStream::available() {
+        jlong JObjectInputStream::available() {
             return bin->available();
         }
 
@@ -122,7 +121,7 @@ namespace jcpp{
                 bin->setBlockDataMode(false);
             }
 
-            qint8 tc;
+            jbyte tc;
             while ((tc = bin->peekByte()) == TC_RESET) {
                 tc = bin->readByte();
                 clear();
@@ -214,7 +213,7 @@ namespace jcpp{
         JString* JObjectInputStream::readTypeString() {
             JString* jstring=NULL;
             int oldHandle=passHandle;
-            qint8 tc = bin->peekByte();
+            jbyte tc = bin->peekByte();
             switch (tc) {
             case TC_STRING:
             case TC_LONGSTRING:
@@ -406,7 +405,7 @@ namespace jcpp{
         }
 
         JObjectStreamClass* JObjectInputStream::readClassDesc() {
-            qint8 tc = bin->peekByte();
+            jbyte tc = bin->peekByte();
 
             switch (tc) {
             case TC_NULL:
@@ -433,7 +432,7 @@ namespace jcpp{
                 throw new JInternalError();
             }
             JObjectStreamClass* desc = new JObjectStreamClass;
-            qint32 descHandle = handles->assign(desc);
+            jint descHandle = handles->assign(desc);
             passHandle = NULL_HANDLE;
 
             int numIfaces = bin->readInt();
@@ -470,7 +469,7 @@ namespace jcpp{
                 throw new JInternalError();
             }
             JObjectStreamClass* desc = new JObjectStreamClass;
-            qint32 descHandle = handles->assign(desc);
+            jint descHandle = handles->assign(desc);
             passHandle = NULL_HANDLE;
 
             JObjectStreamClass *readDesc = new JObjectStreamClass;
@@ -577,7 +576,7 @@ namespace jcpp{
 
             int primDataSize = desc->getPrimDataSize();
             delete[] primVals; // make sure it is NULL or has been previously allocated with new
-            primVals = new qint8[primDataSize];
+            primVals = new jbyte[primDataSize];
             bin->readFully(primVals,0,primDataSize,false);
             if (obj != NULL) {
                 desc->setPrimFieldValues(obj, primVals);
@@ -643,11 +642,11 @@ namespace jcpp{
             return bin->read();
         }
 
-        int JObjectInputStream::read(qint8 b[], int off, int len) {
+        int JObjectInputStream::read(jbyte b[], int off, int len) {
             return bin->read(b,off,len);
         }
 
-        qint8 JObjectInputStream::readByte() {
+        jbyte JObjectInputStream::readByte() {
             return bin->readByte();
         }
 
@@ -666,15 +665,15 @@ namespace jcpp{
             return bin->readFloat();
         }
 
-        qint32 JObjectInputStream::readInt() {
+        jint JObjectInputStream::readInt() {
             return bin->readInt();
         }
 
-        qint64 JObjectInputStream::readLong() {
+        jlong JObjectInputStream::readLong() {
             return bin->readLong();
         }
 
-        qint16 JObjectInputStream::readShort() {
+        jshort JObjectInputStream::readShort() {
             return bin->readShort();
         }
 
@@ -723,7 +722,7 @@ namespace jcpp{
         }
 
         JString* JObjectInputStream::readString() {
-            qint8 tc = bin->readByte();
+            jbyte tc = bin->readByte();
             string str;
             switch (tc) {
             case TC_STRING:
