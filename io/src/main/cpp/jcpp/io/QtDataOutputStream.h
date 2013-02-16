@@ -3,6 +3,7 @@
 
 #include <QDataStream>
 #include <QFile>
+#include <QAbstractSocket>
 #include "JOutputStream.h"
 #include "Object.h"
 
@@ -11,9 +12,11 @@ namespace jcpp{
         class QtDataOutputStream : public JOutputStream{
             QDataStream* out;
             QFile* file;
+            QAbstractSocket* socket;
         public:
             QtDataOutputStream();
             QtDataOutputStream(QDataStream* out,QFile* file);
+            QtDataOutputStream(QDataStream* out,QAbstractSocket* socket);
 
             static JClass* getClazz();
 

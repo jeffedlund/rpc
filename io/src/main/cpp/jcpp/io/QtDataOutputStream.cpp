@@ -36,6 +36,13 @@ namespace jcpp{
         QtDataOutputStream::QtDataOutputStream(QDataStream* out,QFile* file):JOutputStream(getClazz()){
             this->out=out;
             this->file=file;
+            this->socket=NULL;
+        }
+
+        QtDataOutputStream::QtDataOutputStream(QDataStream* out,QAbstractSocket* socket):JOutputStream(getClazz()){
+            this->out=out;
+            this->file=NULL;
+            this->socket=socket;
         }
 
         QDataStream* QtDataOutputStream::getStream(){
@@ -74,7 +81,12 @@ namespace jcpp{
         }
 
         void QtDataOutputStream::flush(){
-            file->flush();
+            if (file!=NULL){
+                file->flush();
+            }
+            if (socket!=NULL){
+                socket->flush();
+            }
         }
 
         void QtDataOutputStream::close(){

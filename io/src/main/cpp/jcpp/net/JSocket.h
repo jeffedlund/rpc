@@ -5,15 +5,25 @@
 #include "JInetAddress.h"
 #include "JIO.h"
 #include <QTcpSocket>
+#include "JServerSocket.h"
 
 namespace jcpp{
     namespace net{
+        class JServerSocket;
+
         class JSocket : public JObject{
         protected:
-            QTcpSocket* socket;
+            JString* host;
+            JPrimitiveInt* port;
+
+            JInputStream* in;
+            JOutputStream* out;
 
         public:
+            QTcpSocket* socket;
             JSocket(JString* host, JPrimitiveInt* port);
+            JSocket(QTcpSocket* socket, JServerSocket* serverSocket);
+            static JClass* getClazz();
 
             JInetAddress* getInetAddress();
             JInetAddress* getLocalAddress();
@@ -32,6 +42,7 @@ namespace jcpp{
             void setOOBInline(bool on);
             bool getOOBInline();
 
+            void setSoTimeout(int s);
             int getSoTimeout();
 
             void setSendBufferSize(int size);
@@ -50,6 +61,7 @@ namespace jcpp{
             bool getReuseAddress();
 
             void close();
+            ~JSocket();
 
         };
     }

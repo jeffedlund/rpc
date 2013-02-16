@@ -29,7 +29,11 @@ INCLUDEPATH += \
 	src/test/cpp/jcpp/lang \
         src/test/cpp/jcpp/io \
         src/test/cpp/jcpp/util \
-        src/main/cpp/jcpp/rmi/server/impl/gateway
+        src/main/cpp/jcpp/rmi/ \
+        src/main/cpp/jcpp/rmi/server \
+        src/main/cpp/jcpp/rmi/server/impl \
+	src/main/cpp/jcpp/rmi/server/impl/gateway \
+        src/main/cpp/jcpp/net
 
 SOURCES += \
     src/test/cpp/jcpp/main.cpp \
@@ -168,7 +172,15 @@ SOURCES += \
     src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayInputStream.cpp \
     src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayOutputStream.cpp \
     src/main/cpp/jcpp/net/JInetAddress.cpp \
-    src/main/cpp/jcpp/net/JSocket.cpp
+    src/main/cpp/jcpp/net/JSocket.cpp \
+    src/main/cpp/jcpp/net/JNET.cpp \
+    src/main/cpp/jcpp/rmi/JRMI.cpp \
+    src/main/cpp/jcpp/rmi/server/JSERVER.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/JIMPL.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGATEWAY.cpp \
+    src/main/cpp/jcpp/net/JServerSocket.cpp \
+    src/main/cpp/jcpp/lang/JRunnable.cpp \
+    src/main/cpp/jcpp/lang/JThread.cpp
     
     
 LIBS += -lws2_32
@@ -314,8 +326,16 @@ HEADERS += \
     src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayInputStream.h \
     src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayOutputStream.h \
     src/main/cpp/jcpp/net/JSocket.h \
-    src/main/cpp/jcpp/net/JInetAddress.h
+    src/main/cpp/jcpp/net/JInetAddress.h \
+    src/main/cpp/jcpp/net/JNET.h \
+    src/main/cpp/jcpp/rmi/JRMI.h \
+    src/main/cpp/jcpp/rmi/server/JSERVER.h \
+    src/main/cpp/jcpp/rmi/server/impl/JIMPL.h \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGATEWAY.h \
+    src/main/cpp/jcpp/net/JServerSocket.h \
+    src/main/cpp/jcpp/lang/JThread.h \
+    src/main/cpp/jcpp/lang/JRunnable.h
     
-
+    
 OTHER_FILES += \
     todo.txt

@@ -3,4 +3,4 @@
 -check all new/delete calls
 -test case on Externalizable (maybe by implementing JArrayList)
 -implement all jcpp.util classes (a quite big list :))
-
+-check delete[] for arrays
