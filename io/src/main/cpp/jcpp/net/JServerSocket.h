@@ -7,23 +7,25 @@
 #include <QTcpSocket>
 #include <QTcpServer>
 #include "JSocket.h"
+#include "QObjectAware.h"
 
 namespace jcpp{
     namespace net{
         class JSocket;
 
-        class JServerSocket : public JObject{
+        class JServerSocket : public JObject, public QObjectAware{
         protected:
             JString* host;
             JPrimitiveInt* port;
             JPrimitiveInt* backlog;
-
+            JInetAddress* localInetAddress;
+            QTcpServer* server;
 
         public:
-            QTcpServer* server;
             JServerSocket(JString* host, JPrimitiveInt* port,JPrimitiveInt* backlog);
             static JClass* getClazz();
 
+            virtual QObject* getQObject();
             JInetAddress* getInetAddress();
             JPrimitiveInt* getLocalPort();
             void connect();

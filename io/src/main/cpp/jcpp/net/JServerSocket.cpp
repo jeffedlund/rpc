@@ -37,14 +37,19 @@ namespace jcpp{
             this->backlog=backlog;
             server=new QTcpServer();
             server->setMaxPendingConnections(backlog->get());
+            this->localInetAddress=new JInetAddress(new JString(server->serverAddress().toString().toStdString()));
+        }
+
+        QObject* JServerSocket::getQObject(){
+            return server;
         }
 
         JInetAddress* JServerSocket::getInetAddress(){
-            return NULL;
+            return localInetAddress;
         }
 
         JPrimitiveInt* JServerSocket::getLocalPort(){
-            return NULL;
+            return port;
         }
 
         void JServerSocket::connect(){
@@ -54,7 +59,7 @@ namespace jcpp{
         }
 
         JSocket* JServerSocket::accept(){
-            while (true){//TODO closed ou non
+            while (server->isListening()){//TODO check error on all io operations
                 if (server->waitForNewConnection(100000,NULL)){
                     QTcpSocket* socket=server->nextPendingConnection();
                     return new JSocket(socket,this);
@@ -89,9 +94,8 @@ namespace jcpp{
         }
 
         JServerSocket::~JServerSocket() {
-            delete host;
-            delete port;
-            delete backlog;
+            delete server;
+            delete localInetAddress;
         }
     }
 }

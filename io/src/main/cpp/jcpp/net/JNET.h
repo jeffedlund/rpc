@@ -2,6 +2,8 @@
 #define JNET_H
 
 #include "JInetAddress.h"
+#include "JInet4Address.h"
+#include "JInet6Address.h"
 #include "JSocket.h"
 #include "JServerSocket.h"
 #include "JPackage.h"

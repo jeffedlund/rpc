@@ -214,11 +214,11 @@ public:
 void testSocket(){
     ServerSocketRunnable* ssr=new ServerSocketRunnable("localhost",12345);
     JThread* th=new JThread(ssr);
-    ssr->server->server->moveToThread(th->thread);
+    th->move(ssr->server);
     th->start();
     ClientSocketRunnable* csr=new ClientSocketRunnable("localhost",12345);
     JThread* th2=new JThread(csr);
-    csr->socket->socket->moveToThread(th2->thread);
+    th2->move(csr->socket);
     th2->start();
     JThread::sleep(100000);
 }

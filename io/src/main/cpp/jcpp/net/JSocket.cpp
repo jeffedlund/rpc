@@ -37,37 +37,45 @@ namespace jcpp{
             this->socket=new QTcpSocket();
             socket->connectToHost(QString::fromStdString(host->getString()),port->get());
             while (!socket->waitForConnected(300000)){
+                //TODO use connection timeout stuff
                 //throw new JIOException("cannot connect to hot "+host->toString()+" port "+port->toString());
             }
-            in=new QtDataInputStream(new QDataStream(socket));//TODO
-            out=new QtDataOutputStream(new QDataStream(socket),socket);//TODO
+            this->localInetAddress=new JInetAddress(new JString(socket->localAddress().toString().toStdString()));
+            this->remoteInetAddress=new JInetAddress(new JString(socket->peerAddress().toString().toStdString()));
+            this->in=new QtDataInputStream(new QDataStream(socket));
+            this->out=new QtDataOutputStream(new QDataStream(socket),socket);
+            this->remotePort=new JPrimitiveInt(socket->peerPort());
         }
 
         JSocket::JSocket(QTcpSocket* socket, JServerSocket* serverSocket){
-            //TODO set host, port
+            this->host=serverSocket->getInetAddress()->getHostName();
+            this->port=serverSocket->getLocalPort();
             this->socket=socket;
-            in=new QtDataInputStream(new QDataStream(this->socket));
-            out=new QtDataOutputStream(new QDataStream(this->socket),this->socket);
+            this->localInetAddress=new JInetAddress(new JString(socket->localAddress().toString().toStdString()));
+            this->remoteInetAddress=new JInetAddress(new JString(socket->peerAddress().toString().toStdString()));
+            this->in=new QtDataInputStream(new QDataStream(this->socket));
+            this->out=new QtDataOutputStream(new QDataStream(this->socket),this->socket);
+            this->remotePort=new JPrimitiveInt(socket->peerPort());
         }
 
-        //TODO
+        QObject* JSocket::getQObject(){
+            return socket;
+        }
+
         JInetAddress* JSocket::getInetAddress(){
-            return NULL;
+            return remoteInetAddress;
         }
 
-        //TODO
         JInetAddress* JSocket::getLocalAddress(){
-            return NULL;
+            return localInetAddress;
         }
 
-        //TODO
         JPrimitiveInt* JSocket::getPort(){
-            return NULL;
+            return remotePort;
         }
 
-        //TODO
         JPrimitiveInt* JSocket::getLocalPort(){
-            return NULL;
+            return this->port;
         }
 
         JInputStream* JSocket::getInputStream(){
@@ -158,16 +166,19 @@ namespace jcpp{
         }
 
         void JSocket::close(){
+            in->close();
+            out->close();
             socket->flush();
             socket->close();
         }
 
         JSocket::~JSocket() {
-            delete host;
-            delete port;
             delete socket;
+            delete localInetAddress;
+            delete remoteInetAddress;
             delete in;
             delete out;
+            delete remotePort;
         }
     }
 }

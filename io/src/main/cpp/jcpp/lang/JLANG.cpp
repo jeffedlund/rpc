@@ -40,9 +40,11 @@ namespace jcpp{
             classes->push_back(JPrimitiveInt::getClazz());
             classes->push_back(JPrimitiveLong::getClazz());
             classes->push_back(JPrimitiveShort::getClazz());
+            classes->push_back(JRunnable::getClazz());
             classes->push_back(JShort::getClazz());
             classes->push_back(JStackTraceElement::getClazz());
             classes->push_back(JString::getClazz());
+            classes->push_back(JThread::getClazz());
             classes->push_back(JVoid::getClazz());
         }
 

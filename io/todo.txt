@@ -4,3 +4,4 @@
 -test case on Externalizable (maybe by implementing JArrayList)
 -implement all jcpp.util classes (a quite big list :))
 -check delete[] for arrays
+-faire operator pour onvertir string a JString, int a JPrim..., etc

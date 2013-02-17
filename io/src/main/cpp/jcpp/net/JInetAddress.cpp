@@ -1,4 +1,5 @@
 #include "JInetAddress.h"
+#include <QHostInfo>
 
 namespace jcpp{
     namespace net{
@@ -77,10 +78,30 @@ namespace jcpp{
             this->family=NULL;
         }
 
-        JInetAddress::JInetAddress(JString* host, JPrimitiveInt* ad,JPrimitiveInt* family):JObject(getClazz()){
+        JInetAddress::JInetAddress(JClass* _class):JObject(_class){
+            this->hostName=NULL;
+            this->address=NULL;
+            this->family=NULL;
+        }
+
+        JInetAddress::JInetAddress(JString* host):JObject(getClazz()){
             this->hostName=host;
-            this->address=ad;
-            this->family=family;
+            this->address=NULL;
+            this->family=NULL;
+        }
+
+        JInetAddress* JInetAddress::getByName(string host){
+            QHostInfo h=QHostInfo::fromName(QString::fromStdString(host));
+            return new JInetAddress(new JString(h.hostName().toStdString()));
+        }
+
+        static JInetAddress* localHost=NULL;
+
+        JInetAddress* JInetAddress::getLocalHost(){
+            if (localHost==NULL){
+                localHost=new JInetAddress(new JString(QHostInfo::localHostName().toStdString()));
+            }
+            return localHost;
         }
 
         JString* JInetAddress::getHostName(){
@@ -110,6 +131,51 @@ namespace jcpp{
             this->family=f;
         }
 
+        //TODO all these ones
+        bool JInetAddress::isAnyLocalAddress(){
+            return false;
+        }
+
+        bool JInetAddress::isLinkLocalAddress(){
+            return false;
+        }
+
+        bool JInetAddress::isLoopbackAddress(){
+            return false;
+        }
+
+        bool JInetAddress::isMCGlobal(){
+            return false;
+        }
+
+        bool JInetAddress::isMCLinkLocal(){
+            return false;
+        }
+
+        bool JInetAddress::isMCNodeLocal(){
+            return false;
+        }
+
+        bool JInetAddress::isMCOrgLocal(){
+            return false;
+        }
+
+        bool JInetAddress::isMCSiteLocal(){
+            return false;
+        }
+
+        bool JInetAddress::isMulticastAddress(){
+            return false;
+        }
+
+        bool JInetAddress::isReachable(int timeout){
+            return false;
+        }
+
+        bool JInetAddress::isSiteLocalAddress(){
+            return false;
+        }
+
         string JInetAddress::toString(){
             return "InetAddress[HostName:"+hostName->toString()+" , Address:"+address->toString()+" , Family:"+family->toString()+"]";
         }
@@ -121,4 +187,3 @@ namespace jcpp{
         }
     }
 }
-

@@ -32,17 +32,28 @@ namespace jcpp{
             return clazz;
         }
 
-        JThread::JThread(QThread* thread):JObject(getClazz()){//TODO what happens if we delete it?
+        JThread::JThread(QThread* thread):JObject(getClazz()){
             this->thread=thread;
+            this->deletable=false;
         }
 
         JThread::JThread():JObject(getClazz()){
             this->thread=new JQThread(this);
+            this->deletable=true;
         }
 
         JThread::JThread(JRunnable* runnable):JObject(getClazz()){
             this->runnable=runnable;
             this->thread=new JQThread(runnable);
+        }
+
+        QObject* JThread::getQObject(){
+            return thread;
+        }
+
+        void JThread::move(QObjectAware* oa){
+            QObject* o=oa->getQObject();
+            o->moveToThread(thread);
         }
 
         JThread* JThread::currentThread(){
@@ -68,7 +79,9 @@ namespace jcpp{
         }
 
         JThread::~JThread(){
-            delete thread;
+            if (deletable){
+                delete thread;
+            }
         }
     }
 }

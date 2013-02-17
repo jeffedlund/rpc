@@ -4,6 +4,8 @@
 namespace jcpp{
     namespace net{
         JNET::JNET():JPackage("jcpp.net",JPackage::getClazz()){//better class
+            classes->push_back(JInet4Address::getClazz());
+            classes->push_back(JInet6Address::getClazz());
             classes->push_back(JInetAddress::getClazz());
             classes->push_back(JSocket::getClazz());
             classes->push_back(JServerSocket::getClazz());

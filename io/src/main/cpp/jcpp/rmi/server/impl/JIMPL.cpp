@@ -2,9 +2,11 @@
 #include "JCPP.h"
 #include "JPackage.h"
 #include "JGATEWAY.h"
+#include "JTRANSPORT.h"
 using namespace jcpp::lang;
 using namespace jcpp::rmi::server;
 using namespace jcpp::rmi::server::impl::gateway;
+using namespace jcpp::rmi::server::impl::transport;
 
 namespace jcpp{
     namespace rmi{
@@ -20,6 +22,7 @@ namespace jcpp{
                 vector<JPackage*>* JIMPL::getPackages(){
                     if (packages->size()==0){
                         packages->push_back(JGATEWAY::getPackage());
+                        packages->push_back(JTRANSPORT::getPackage());
                     }
                     return packages;
                 }

@@ -1,8 +1,8 @@
 #ifndef JCLASSLOADER_H
 #define JCLASSLOADER_H
 
-#include "JClassBuilder.h"
 #include <map>
+#include "JObject.h"
 using namespace std;
 
 namespace jcpp{

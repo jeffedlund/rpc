@@ -166,6 +166,7 @@ namespace jcpp{
         }
 
         QtDataInputStream::~QtDataInputStream() {
+            delete in;
         }
     }
 }

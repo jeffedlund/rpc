@@ -9,7 +9,6 @@ namespace jcpp{
             classes->push_back(JArrayList::getClazz());
             classes->push_back(JCollection::getClazz());
             classes->push_back(JList::getClazz());
-            //TODO JCollection::
             //TODO JHashtable::getC
         }
 

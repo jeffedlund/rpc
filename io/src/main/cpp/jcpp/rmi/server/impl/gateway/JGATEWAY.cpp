@@ -9,6 +9,8 @@ namespace jcpp{
                     JGATEWAY::JGATEWAY():JPackage("jcpp.rmi.server.impl.gateway",JPackage::getClazz()){
                         classes->push_back(JAddress::getClazz());
                         classes->push_back(JRoute::getClazz());
+                        classes->push_back(JGatewayInputStream::getClazz());
+                        classes->push_back(JGatewayOutputStream::getClazz());
                     }
 
                     JPackage* JGATEWAY::getSuperPackage(){

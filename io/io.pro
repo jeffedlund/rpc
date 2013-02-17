@@ -33,6 +33,7 @@ INCLUDEPATH += \
         src/main/cpp/jcpp/rmi/server \
         src/main/cpp/jcpp/rmi/server/impl \
 	src/main/cpp/jcpp/rmi/server/impl/gateway \
+        src/main/cpp/jcpp/rmi/server/impl/transport \
         src/main/cpp/jcpp/net
 
 SOURCES += \
@@ -180,7 +181,12 @@ SOURCES += \
     src/main/cpp/jcpp/rmi/server/impl/gateway/JGATEWAY.cpp \
     src/main/cpp/jcpp/net/JServerSocket.cpp \
     src/main/cpp/jcpp/lang/JRunnable.cpp \
-    src/main/cpp/jcpp/lang/JThread.cpp
+    src/main/cpp/jcpp/lang/JThread.cpp \
+    src/main/cpp/jcpp/lang/QObjectAware.cpp \
+    src/main/cpp/jcpp/net/JInet4Address.cpp \
+    src/main/cpp/jcpp/net/JInet6Address.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JEndPoint.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JTRANSPORT.cpp
     
     
 LIBS += -lws2_32
@@ -189,7 +195,6 @@ HEADERS += \
     src/main/cpp/jcpp/lang/JClass.h \
     src/main/cpp/jcpp/lang/JClassLoader.h \
     src/main/cpp/jcpp/lang/JObject.h \
-    src/main/cpp/jcpp/lang/JClassBuilder.h \
     src/main/cpp/jcpp/lang/reflect/JMethod.h \
     src/main/cpp/jcpp/lang/reflect/JProxy.h \
     src/main/cpp/jcpp/lang/reflect/JInvocationHandler.h \
@@ -334,7 +339,12 @@ HEADERS += \
     src/main/cpp/jcpp/rmi/server/impl/gateway/JGATEWAY.h \
     src/main/cpp/jcpp/net/JServerSocket.h \
     src/main/cpp/jcpp/lang/JThread.h \
-    src/main/cpp/jcpp/lang/JRunnable.h
+    src/main/cpp/jcpp/lang/JRunnable.h \
+    src/main/cpp/jcpp/lang/QObjectAware.h \
+    src/main/cpp/jcpp/net/JInet4Address.h \
+    src/main/cpp/jcpp/net/JInet6Address.h \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JEndPoint.h \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JTRANSPORT.h
     
     
 OTHER_FILES += \

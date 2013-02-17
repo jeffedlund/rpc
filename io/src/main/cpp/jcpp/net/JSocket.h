@@ -6,25 +6,31 @@
 #include "JIO.h"
 #include <QTcpSocket>
 #include "JServerSocket.h"
+#include "QObjectAware.h"
+#include "JInetAddress.h"
+using namespace jcpp::lang;
 
 namespace jcpp{
     namespace net{
         class JServerSocket;
 
-        class JSocket : public JObject{
+        class JSocket : public JObject, public QObjectAware{
         protected:
             JString* host;
             JPrimitiveInt* port;
-
+            JInetAddress* localInetAddress;
+            JPrimitiveInt* remotePort;
+            JInetAddress* remoteInetAddress;
+            QTcpSocket* socket;
             JInputStream* in;
             JOutputStream* out;
 
         public:
-            QTcpSocket* socket;
             JSocket(JString* host, JPrimitiveInt* port);
             JSocket(QTcpSocket* socket, JServerSocket* serverSocket);
             static JClass* getClazz();
 
+            virtual QObject* getQObject();
             JInetAddress* getInetAddress();
             JInetAddress* getLocalAddress();
             JPrimitiveInt* getPort();

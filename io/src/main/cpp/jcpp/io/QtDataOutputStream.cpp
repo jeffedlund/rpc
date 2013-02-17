@@ -126,6 +126,7 @@ namespace jcpp{
         }
 
         QtDataOutputStream::~QtDataOutputStream(){
+            delete out;
         }
     }
 }
