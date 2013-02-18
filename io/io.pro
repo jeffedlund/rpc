@@ -186,7 +186,19 @@ SOURCES += \
     src/main/cpp/jcpp/net/JInet4Address.cpp \
     src/main/cpp/jcpp/net/JInet6Address.cpp \
     src/main/cpp/jcpp/rmi/server/impl/transport/JEndPoint.cpp \
-    src/main/cpp/jcpp/rmi/server/impl/transport/JTRANSPORT.cpp
+    src/main/cpp/jcpp/rmi/server/impl/transport/JTRANSPORT.cpp \
+    src/main/cpp/jcpp/util/concurrent/JExecutor.cpp \
+    src/main/cpp/jcpp/util/concurrent/JCallable.cpp \
+    src/main/cpp/jcpp/util/concurrent/JExecutorService.cpp \
+    src/main/cpp/jcpp/util/concurrent/JFuture.cpp \
+    src/main/cpp/jcpp/util/concurrent/JRunnableFuture.cpp \
+    src/main/cpp/jcpp/util/concurrent/JAbstractExecutorService.cpp \
+    src/main/cpp/jcpp/util/concurrent/JThreadPoolExecutor.cpp \
+    src/main/cpp/jcpp/util/concurrent/JFutureTask.cpp \
+    src/main/cpp/jcpp/util/concurrent/JDelayed.cpp \
+    src/main/cpp/jcpp/util/concurrent/JScheduledFuture.cpp \
+    src/main/cpp/jcpp/util/concurrent/JScheduledExecutorService.cpp \
+    src/main/cpp/jcpp/util/concurrent/JScheduledThreadPoolExecutor.cpp
     
     
 LIBS += -lws2_32
@@ -344,7 +356,19 @@ HEADERS += \
     src/main/cpp/jcpp/net/JInet4Address.h \
     src/main/cpp/jcpp/net/JInet6Address.h \
     src/main/cpp/jcpp/rmi/server/impl/transport/JEndPoint.h \
-    src/main/cpp/jcpp/rmi/server/impl/transport/JTRANSPORT.h
+    src/main/cpp/jcpp/rmi/server/impl/transport/JTRANSPORT.h \
+    src/main/cpp/jcpp/util/concurrent/JExecutor.h \
+    src/main/cpp/jcpp/util/concurrent/JExecutorService.h \
+    src/main/cpp/jcpp/util/concurrent/JFuture.h \
+    src/main/cpp/jcpp/util/concurrent/JRunnableFuture.h \
+    src/main/cpp/jcpp/util/concurrent/JCallable.h \
+    src/main/cpp/jcpp/util/concurrent/JAbstractExecutorService.h \
+    src/main/cpp/jcpp/util/concurrent/JThreadPoolExecutor.h \
+    src/main/cpp/jcpp/util/concurrent/JFutureTask.h \
+    src/main/cpp/jcpp/util/concurrent/JDelayed.h \
+    src/main/cpp/jcpp/util/concurrent/JScheduledFuture.h \
+    src/main/cpp/jcpp/util/concurrent/JScheduledExecutorService.h \
+    src/main/cpp/jcpp/util/concurrent/JScheduledThreadPoolExecutor.h
     
     
 OTHER_FILES += \
