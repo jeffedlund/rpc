@@ -8,7 +8,10 @@
 #include "JArrayList.h"
 #include "JCollection.h"
 #include "JList.h"
+#include "JTimer.h"
+#include "JTimerTask.h"
 #include "JPackage.h"
+#include "JCONCURRENT.h"
 using namespace jcpp;
 using namespace jcpp::lang::reflect;
 

@@ -9,20 +9,20 @@ namespace jcpp{
             class JFutureTaskClass : public JClass{
 
             public:
-              JFutureTaskClass(){
-                  this->canonicalName="java.util.concurrent.FutureTask";
-                  this->name="java.util.concurrent.FutureTask";
-                  this->simpleName="FutureTask";
-                  addInterface(JRunnableFuture::getClazz());
-              }
+                JFutureTaskClass(){
+                    this->canonicalName="java.util.concurrent.FutureTask";
+                    this->name="java.util.concurrent.FutureTask";
+                    this->simpleName="FutureTask";
+                    addInterface(JRunnableFuture::getClazz());
+                }
 
-              JClass* getSuperclass(){
-                  return JObject::getClazz();
-              }
+                JClass* getSuperclass(){
+                    return JObject::getClazz();
+                }
 
-              JObject* newInstance(){
-                  return new JFutureTask();
-              }
+                JObject* newInstance(){
+                    throw new JInstantiationException("cannot instantiate object of class "+getName());
+                }
             };
 
             static JClass* clazz;
@@ -34,46 +34,61 @@ namespace jcpp{
                 return clazz;
             }
 
-            JFutureTask::JFutureTask():JObject(getClazz()){
+            JFutureTask::JFutureTask(JClass* _class):JObject(_class){
                 this->callable=NULL;
                 this->runnable=NULL;
                 this->result=NULL;
+                this->bCancel=false;
+                this->bDone=false;
             }
 
             JFutureTask::JFutureTask(JCallable* c):JObject(getClazz()){
                 this->callable=c;
+                this->runnable=NULL;
+                this->result=NULL;
+                this->bCancel=false;
+                this->bDone=false;
             }
 
             JFutureTask::JFutureTask(JRunnable* r,JObject* result):JObject(getClazz()){
+                this->callable=NULL;
                 this->runnable=r;
                 this->result=result;
+                this->bCancel=false;
+                this->bDone=false;
             }
 
-            void JFutureTask::run(){
-                if (callable!=NULL){
-                    result=callable->call();
-                }else{
-                    runnable->run();
+            void JFutureTask::run(){//TODO use mutex
+                if (!bCancel){
+                    if (callable!=NULL){
+                        result=callable->call();
+                    }else{
+                        runnable->run();
+                    }
                 }
+                bDone=true;
             }
 
-
+            //TODO use mutex
             bool JFutureTask::cancel(){
-                return false;//TODO
+                if (bDone){
+                    return false;
+                }
+                this->bCancel=true;
+                return true;
             }
 
             bool JFutureTask::isCancelled(){
-                return false;//TODO
+                return bCancel;
             }
 
             bool JFutureTask::isDone(){
-                return false;//TODO
+                return bDone;
             }
 
-            JObject* JFutureTask::get(){
+            JObject* JFutureTask::get(){//TODO should block till it is done
                 return result;
             }
         }
     }
 }
-

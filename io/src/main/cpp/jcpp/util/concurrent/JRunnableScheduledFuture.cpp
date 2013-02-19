@@ -1,4 +1,4 @@
-#include "JScheduledFuture.h"
+#include "JRunnableScheduledFuture.h"
 #include "JClass.h"
 #include "JInstantiationException.h"
 #include <cstdio>
@@ -6,16 +6,16 @@
 namespace jcpp{
     namespace util{
         namespace concurrent{
-            class JScheduledFutureClass : public JClass{
+            class JRunnableScheduledFutureClass : public JClass{
 
             public:
-              JScheduledFutureClass(){
-                  this->canonicalName="java.util.concurrent.ScheduledFuture";
-                  this->name="java.util.concurrent.ScheduledFuture";
-                  this->simpleName="ScheduledFuture";
+              JRunnableScheduledFutureClass(){
+                  this->canonicalName="java.util.concurrent.RunnableScheduledFuture";
+                  this->name="java.util.concurrent.RunnableScheduledFuture";
+                  this->simpleName="RunnableScheduledFuture";
                   this->bIsInterface=true;
-                  addInterface(JFuture::getClazz());
-                  addInterface(JDelayed::getClazz());
+                  addInterface(JRunnableFuture::getClazz());
+                  addInterface(JScheduledFuture::getClazz());
               }
 
               JClass* getSuperclass(){
@@ -29,12 +29,13 @@ namespace jcpp{
 
             static JClass* clazz;
 
-            JClass* JScheduledFuture::getClazz(){
+            JClass* JRunnableScheduledFuture::getClazz(){
                 if (clazz==NULL){
-                    clazz=new JScheduledFutureClass();
+                    clazz=new JRunnableScheduledFutureClass();
                 }
                 return clazz;
             }
         }
     }
 }
+

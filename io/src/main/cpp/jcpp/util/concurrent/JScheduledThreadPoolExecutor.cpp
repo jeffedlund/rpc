@@ -1,8 +1,8 @@
-
 #include "JScheduledThreadPoolExecutor.h"
 #include "JClass.h"
 #include "JInstantiationException.h"
 #include <cstdio>
+#include "JScheduledFutureTask.h"
 
 namespace jcpp{
     namespace util{
@@ -14,6 +14,7 @@ namespace jcpp{
                       this->canonicalName="java.util.concurrent.ScheduledThreadPoolExecutor";
                       this->name="java.util.concurrent.ScheduledThreadPoolExecutor";
                       this->simpleName="ScheduledThreadPoolExecutor";
+                      addInterface(JScheduledExecutorService::getClazz());
                   }
 
                   JClass* getSuperclass(){
@@ -35,9 +36,11 @@ namespace jcpp{
             }
 
             JScheduledThreadPoolExecutor::JScheduledThreadPoolExecutor():JThreadPoolExecutor(10,60000,getClazz()){//TODO use static int
+                timer=new JTimer();
             }
 
             JScheduledThreadPoolExecutor::JScheduledThreadPoolExecutor(int maxPoolSize,int expiryTimeout):JThreadPoolExecutor(maxPoolSize,expiryTimeout,getClazz()){
+                timer=new JTimer();
             }
 
             void JScheduledThreadPoolExecutor::execute(JRunnable *command){
@@ -49,6 +52,7 @@ namespace jcpp{
             }
 
             void JScheduledThreadPoolExecutor::shutdown(){
+                timer->cancel();
                 JThreadPoolExecutor::shutdown();
             }
 
@@ -65,6 +69,8 @@ namespace jcpp{
             }
 
             JScheduledFuture* JScheduledThreadPoolExecutor::schedule(JCallable* callable, jlong delay){
+                JScheduledFutureTask* scheduledFutureTask=new JScheduledFutureTask(callable,delay,0);
+                timer->schedule(scheduledFutureTask,delay,0);
                 return NULL;
             }
 
@@ -72,15 +78,16 @@ namespace jcpp{
                 return NULL;
             }
 
-            JScheduledFuture* JScheduledThreadPoolExecutor::scheduleAtFixedRate(JRunnable* command, jlong initialDelay, jlong period){
+            JScheduledFuture* JScheduledThreadPoolExecutor::schedule(JRunnable* command, jlong initialDelay, jlong period){
                 return NULL;
             }
 
-            JScheduledFuture* JScheduledThreadPoolExecutor::scheduleWithFixedDelay(JRunnable* command, jlong initialDelay, jlong delay){
+            JScheduledFuture* JScheduledThreadPoolExecutor::schedule(JCallable* callable, jlong initialDelay, jlong period){
                 return NULL;
             }
 
             JScheduledThreadPoolExecutor::~JScheduledThreadPoolExecutor(){
+                delete timer;
             }
         }
     }

@@ -11,14 +11,17 @@
 #include "JScheduledExecutorService.h"
 #include "JThreadPoolExecutor.h"
 #include <QThreadPool>
+#include "JTimer.h"
 using namespace std;
 using namespace jcpp::lang;
+using namespace jcpp::util;
 
 namespace jcpp{
     namespace util{
         namespace concurrent{
             class JScheduledThreadPoolExecutor : public JThreadPoolExecutor, public JScheduledExecutorService{
             protected:
+                JTimer* timer;
 
             public:
                 JScheduledThreadPoolExecutor();
@@ -32,8 +35,8 @@ namespace jcpp{
                 virtual JFuture* submit(JCallable* task);
                 virtual JScheduledFuture* schedule(JCallable* callable, jlong delay);
                 virtual JScheduledFuture* schedule(JRunnable* command, jlong delay);
-                virtual JScheduledFuture* scheduleAtFixedRate(JRunnable* command, jlong initialDelay, jlong period);
-                virtual JScheduledFuture* scheduleWithFixedDelay(JRunnable* command, jlong initialDelay, jlong delay);
+                virtual JScheduledFuture* schedule(JRunnable* command, jlong initialDelay, jlong period);
+                virtual JScheduledFuture* schedule(JCallable* callable, jlong initialDelay, jlong period);
                 ~JScheduledThreadPoolExecutor();
             };
         }

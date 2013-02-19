@@ -9,7 +9,7 @@ namespace jcpp{
     namespace lang{
         class JClass;
 
-        class JObject{
+        class JObject{//TODO implement wait/notifyAll/lock/unlock
 
             protected:
                 JClass* _class;

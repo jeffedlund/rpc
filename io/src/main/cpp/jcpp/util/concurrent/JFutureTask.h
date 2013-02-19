@@ -15,12 +15,15 @@ namespace jcpp{
     namespace util{
         namespace concurrent{
             class JFutureTask : public JRunnableFuture, public JObject{
+            protected:
+                bool bCancel;
+                bool bDone;
                 JCallable* callable;
                 JRunnable* runnable;
                 JObject* result;
+                JFutureTask(JClass* _class);
 
             public:
-                JFutureTask();
                 JFutureTask(JCallable* c);
                 JFutureTask(JRunnable* r,JObject* result);
                 static JClass* getClazz();

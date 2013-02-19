@@ -14,7 +14,6 @@ namespace jcpp{
                   this->canonicalName="java.util.concurrent.AbstractExecutorService";
                   this->name="java.util.concurrent.AbstractExecutorService";
                   this->simpleName="AbstractExecutorService";
-                  this->serialVersionUID=0;
                   addInterface(JExecutorService::getClazz());
               }
 

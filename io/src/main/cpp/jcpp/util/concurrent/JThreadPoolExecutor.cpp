@@ -52,30 +52,38 @@ namespace jcpp{
                 this->threadPool=new QThreadPool();
                 threadPool->setMaxThreadCount(maxPoolSize);
                 threadPool->setExpiryTimeout(expiryTimeout);
+                this->bShutdown=false;
             }
 
             JThreadPoolExecutor::JThreadPoolExecutor():JAbstractExecutorService(getClazz()){
                 this->threadPool=new QThreadPool();
                 threadPool->setMaxThreadCount(10);
                 threadPool->setExpiryTimeout(60000);
+                this->bShutdown=false;
             }
 
             JThreadPoolExecutor::JThreadPoolExecutor(int maxPoolSize,int expiryTimeout):JAbstractExecutorService(getClazz()){
                 this->threadPool=new QThreadPool();
                 threadPool->setMaxThreadCount(maxPoolSize);
                 threadPool->setExpiryTimeout(expiryTimeout);
+                this->bShutdown=false;
             }
 
             void JThreadPoolExecutor::execute(JRunnable *command){
-                threadPool->start(new JQRunnable(command));
+                if (!bShutdown){
+                    threadPool->start(new JQRunnable(command));
+                }
             }
 
             bool JThreadPoolExecutor::isShutdown(){
-                return false;//TODO?
+                return bShutdown;
             }
 
             void JThreadPoolExecutor::shutdown(){
-                threadPool->waitForDone();
+                if (!bShutdown){
+                    bShutdown=true;
+                    threadPool->waitForDone();
+                }
             }
 
             JThreadPoolExecutor::~JThreadPoolExecutor(){

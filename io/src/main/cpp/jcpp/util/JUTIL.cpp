@@ -1,6 +1,6 @@
 #include "JUTIL.h"
 #include "JCPP.h"
-
+using namespace jcpp::util::concurrent;
 namespace jcpp{
     namespace util{
         JUTIL::JUTIL():JPackage("jcpp.util",JPackage::getClazz()){//better class
@@ -9,6 +9,8 @@ namespace jcpp{
             classes->push_back(JArrayList::getClazz());
             classes->push_back(JCollection::getClazz());
             classes->push_back(JList::getClazz());
+            classes->push_back(JTimer::getClazz());
+            classes->push_back(JTimerTask::getClazz());
             //TODO JHashtable::getC
         }
 
@@ -18,6 +20,7 @@ namespace jcpp{
 
         vector<JPackage*>* JUTIL::getPackages(){
             if (packages->size()==0){
+                packages->push_back(JCONCURRENT::getPackage());
             }
             return packages;
         }

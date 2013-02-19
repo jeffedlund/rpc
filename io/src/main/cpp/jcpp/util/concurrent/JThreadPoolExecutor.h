@@ -18,6 +18,7 @@ namespace jcpp{
         namespace concurrent{
             class JThreadPoolExecutor : public JAbstractExecutorService{
             protected:
+                bool bShutdown;
                 QThreadPool* threadPool;
                 JThreadPoolExecutor(int maxPoolSize,int expiryTimeout,JClass* _class);
 

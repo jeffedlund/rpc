@@ -23,6 +23,7 @@ INCLUDEPATH += \
 	src/main/cpp/jcpp/io \
 	src/main/cpp/jcpp/io/impl \
 	src/main/cpp/jcpp/util \
+        src/main/cpp/jcpp/util/concurrent \
 	src/main/cpp/jcpp/lang/exception \
 	src/main/cpp/jcpp/lang/reflect \
 	src/test/cpp/jcpp\
@@ -198,7 +199,13 @@ SOURCES += \
     src/main/cpp/jcpp/util/concurrent/JDelayed.cpp \
     src/main/cpp/jcpp/util/concurrent/JScheduledFuture.cpp \
     src/main/cpp/jcpp/util/concurrent/JScheduledExecutorService.cpp \
-    src/main/cpp/jcpp/util/concurrent/JScheduledThreadPoolExecutor.cpp
+    src/main/cpp/jcpp/util/concurrent/JScheduledThreadPoolExecutor.cpp \
+    src/main/cpp/jcpp/util/concurrent/JCONCURRENT.cpp \
+    src/main/cpp/jcpp/util/JTimerTask.cpp \
+    src/main/cpp/jcpp/util/JTimer.cpp \
+    src/main/cpp/jcpp/lang/JSystem.cpp \
+    src/main/cpp/jcpp/util/concurrent/JRunnableScheduledFuture.cpp \
+    src/main/cpp/jcpp/util/concurrent/JScheduledFutureTask.cpp
     
     
 LIBS += -lws2_32
@@ -368,7 +375,13 @@ HEADERS += \
     src/main/cpp/jcpp/util/concurrent/JDelayed.h \
     src/main/cpp/jcpp/util/concurrent/JScheduledFuture.h \
     src/main/cpp/jcpp/util/concurrent/JScheduledExecutorService.h \
-    src/main/cpp/jcpp/util/concurrent/JScheduledThreadPoolExecutor.h
+    src/main/cpp/jcpp/util/concurrent/JScheduledThreadPoolExecutor.h \
+    src/main/cpp/jcpp/util/concurrent/JCONCURRENT.h \
+    src/main/cpp/jcpp/util/JTimer.h \
+    src/main/cpp/jcpp/util/JTimerTask.h \
+    src/main/cpp/jcpp/lang/JSystem.h \
+    src/main/cpp/jcpp/util/concurrent/JRunnableScheduledFuture.h \
+    src/main/cpp/jcpp/util/concurrent/JScheduledFutureTask.h
     
     
 OTHER_FILES += \

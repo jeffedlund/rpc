@@ -14,15 +14,15 @@ using namespace jcpp::lang;
 namespace jcpp{
     namespace util{
         namespace concurrent{
-            class JScheduledExecutorService : public JExecutorService{//TODO pas top
+            class JScheduledExecutorService : public JExecutorService{
             protected:
 
             public:
                 static JClass* getClazz();
                 virtual JScheduledFuture* schedule(JCallable* callable, jlong delay)=0;
                 virtual JScheduledFuture* schedule(JRunnable* command, jlong delay)=0;
-                virtual JScheduledFuture* scheduleAtFixedRate(JRunnable* command, jlong initialDelay, jlong period)=0;
-                virtual JScheduledFuture* scheduleWithFixedDelay(JRunnable* command, jlong initialDelay, jlong delay)=0;
+                virtual JScheduledFuture* schedule(JRunnable* command, jlong initialDelay, jlong period)=0;
+                virtual JScheduledFuture* schedule(JCallable* callable, jlong initialDelay, jlong period)=0;
             };
         }
     }

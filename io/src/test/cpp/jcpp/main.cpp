@@ -58,11 +58,15 @@
 #include "JServerSocket.h"
 #include "JThread.h"
 #include "QCoreApplication"
+#include "JTimerTask.h"
+#include "JTimer.h"
+#include "JSystem.h"
 using namespace std;
 using namespace jcpp::util;
 using namespace jcpp::lang;
 using namespace jcpp;
 using namespace jcpp::net;
+using namespace jcpp::util;
 
 static int TEST_SIZE = 43;
 static JTest* tests[] = {new JThrowableTest(),new JErrorTest(),new JExceptionTest(),new JRuntimeExceptionTest(),
@@ -239,13 +243,32 @@ void testThread(){
     JThread::sleep(600000000);
 }
 
+class MyTimerTask : public JTimerTask{
+public:
+    MyTimerTask():JTimerTask(NULL){
+    }
+
+    void run(){
+        cout<<"my run "<<JSystem::currentTimeMillis()<<"\r\n";
+        cout.flush();
+    }
+};
+
+void testTimer(){
+    JTimer* timer=new JTimer();
+    MyTimerTask* my=new MyTimerTask();
+    timer->schedule(my,5000, 3000);
+}
+
 int main(int argc, char *argv[]){
     QCoreApplication  a(argc,argv);
 
     //TODO should be done by default ...
     registerClasses();
 
-    testSocket();
+    testTimer();
+
+    //testSocket();
 
     //testThread();
 
