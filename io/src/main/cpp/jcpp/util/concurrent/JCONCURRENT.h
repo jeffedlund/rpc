@@ -11,8 +11,10 @@
 #include "JFuture.h"
 #include "JFutureTask.h"
 #include "JRunnableFuture.h"
+#include "JRunnableScheduledFuture.h"
 #include "JScheduledExecutorService.h"
 #include "JScheduledFuture.h"
+#include "JScheduledFutureTask.h"
 #include "JScheduledThreadPoolExecutor.h"
 #include "JThreadPoolExecutor.h"
 using namespace jcpp;

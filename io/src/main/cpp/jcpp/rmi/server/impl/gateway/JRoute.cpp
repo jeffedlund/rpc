@@ -58,7 +58,7 @@ namespace jcpp{
                     }
 
 
-                    JRoute::JRoute(){
+                    JRoute::JRoute():JObject(getClazz()){
                         this->addressList=new JArrayList(0);
                         this->bIsHttp=new JPrimitiveBoolean();
                     }
@@ -124,6 +124,12 @@ namespace jcpp{
 
                     void JRoute::clearAddress(){
                         addressList->clear();
+                    }
+
+                    JRoute* JRoute::clone(){
+                        JRoute* route=new JRoute();
+                        route->addressList=addressList->clone();
+                        return route;
                     }
 
                     string JRoute::toString(){

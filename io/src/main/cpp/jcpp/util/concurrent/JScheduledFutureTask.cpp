@@ -37,6 +37,7 @@ namespace jcpp{
             JScheduledFutureTask::JScheduledFutureTask(JCallable* c,long initialDelay, jlong period):JTimerTask(getClazz()){
                 this->callable=c;
                 this->runnable=NULL;
+                this->initialResult=NULL;
                 this->result=NULL;
                 this->initialDelay=initialDelay;
                 this->period=period;
@@ -45,32 +46,77 @@ namespace jcpp{
             JScheduledFutureTask::JScheduledFutureTask(JRunnable* r,JObject* result,long initialDelay, jlong period):JTimerTask(getClazz()){
                 this->callable=NULL;
                 this->runnable=r;
-                this->result=result;
+                this->initialResult=result;
+                this->result=NULL;
                 this->initialDelay=initialDelay;
                 this->period=period;
             }
 
             void JScheduledFutureTask::run(){
-                if (callable!=NULL){
-                    result=callable->call();
-                }else{
-                    runnable->run();
+                if (!JTimerTask::isCancelled()){
+                    if (!isPeriodic() && isDone()){
+                        return;
+                    }
+
+                    //reset it to not done
+                    lock();
+                    bDone=false;
+                    unlock();
+
+                    JObject* r=NULL;
+                    if (callable!=NULL){
+                        r=callable->call();
+                    }else{
+                        runnable->run();
+                        r=this->initialResult;
+                    }
+                    setResult(r);
                 }
             }
 
             bool JScheduledFutureTask::cancel(){
-                this->bCancel=true;
+                bool b=false;
+                lock();
+                if ((period<=0 && !bDone) || period>0){
+                    JTimerTask::cancel();
+                    b=true;
+                }
+                unlock();
+                return b;
             }
 
             bool JScheduledFutureTask::isCancelled(){
-                return bCancel;
+                return JTimerTask::isCancelled();
             }
 
             bool JScheduledFutureTask::isDone(){
-
+                bool b;
+                lock();
+                b=bDone;
+                unlock();
+                return b;
             }
 
+            void JScheduledFutureTask::setResult(JObject* result){
+                lock();
+                this->result=result;
+                bDone=true;
+                notifyAll();
+                unlock();
+            }
+
+
             JObject* JScheduledFutureTask::get(){
+                JObject* r=NULL;
+                lock();
+                while (!bDone && !isCancelled()){
+                    wait();
+                }
+                if (bDone){
+                    r=this->result;
+                }//TODO else throw cancelexeption stuff
+                unlock();
+                return r;
             }
 
             bool JScheduledFutureTask::isPeriodic(){

@@ -31,12 +31,25 @@ namespace jcpp{
             return clazz;
         }
 
-        JSocket::JSocket(JString* host, JPrimitiveInt* port){
+        JSocket::JSocket(JClass* _class):JObject(_class){
+            this->bIsClosed=false;
+            this->host=NULL;
+            this->port=0;
+            this->socket=NULL;
+            this->localInetAddress=NULL;
+            this->remoteInetAddress=NULL;
+            this->in=NULL;
+            this->out=NULL;
+            this->remotePort=NULL;
+        }
+
+        JSocket::JSocket(JString* host, JPrimitiveInt* port,jint timeout){
+            this->bIsClosed=false;
             this->host=host;
             this->port=port;
             this->socket=new QTcpSocket();
             socket->connectToHost(QString::fromStdString(host->getString()),port->get());
-            while (!socket->waitForConnected(300000)){
+            while (!socket->waitForConnected(300000)){//TODO use timeout
                 //TODO use connection timeout stuff
                 //throw new JIOException("cannot connect to hot "+host->toString()+" port "+port->toString());
             }
@@ -48,6 +61,7 @@ namespace jcpp{
         }
 
         JSocket::JSocket(QTcpSocket* socket, JServerSocket* serverSocket){
+            this->bIsClosed=false;
             this->host=serverSocket->getInetAddress()->getHostName();
             this->port=serverSocket->getLocalPort();
             this->socket=socket;
@@ -166,10 +180,15 @@ namespace jcpp{
         }
 
         void JSocket::close(){
+            bIsClosed=true;
             in->close();
             out->close();
             socket->flush();
             socket->close();
+        }
+
+        bool JSocket::isClosed(){
+            return bIsClosed;
         }
 
         JSocket::~JSocket() {

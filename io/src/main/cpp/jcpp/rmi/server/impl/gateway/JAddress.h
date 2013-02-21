@@ -23,6 +23,7 @@ namespace jcpp{
 
                         public:
                             JAddress();
+                            JAddress(JAddress* adr);
                             bool operator==(JObject &other);
 
                             static JClass* getClazz();
@@ -42,6 +43,8 @@ namespace jcpp{
                             void setPPort(JPrimitiveInt* port);
 
                             JPrimitiveInt* getPPort();
+
+                            virtual JAddress* clone();
 
                             string toString();
 

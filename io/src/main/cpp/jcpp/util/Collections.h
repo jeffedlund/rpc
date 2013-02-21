@@ -23,6 +23,20 @@ namespace jcpp{
             }
         }
 
+        template <class T, class E>
+        bool deleteFromVector(T *vector, E* e) {
+            if (vector!=NULL){
+              typename T::iterator i;
+              for (i = vector->begin(); i < vector->end(); ++i) {
+                  if ((*i)==e){
+                      vector->erase(i);
+                      return true;
+                  }
+              }
+            }
+            return false;
+        }
+
         template<class K,class V>
         void deleteMapOfValuePointer(map<K,V*>* elements){
             typename map<K,V*>::iterator i;

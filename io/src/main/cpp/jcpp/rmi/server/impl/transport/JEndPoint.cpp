@@ -30,9 +30,9 @@ namespace jcpp{
                     class JEndPointClass : public JClass{
                       public:
                         JEndPointClass(){
-                            this->canonicalName="jcpp.rmi.server.impl.transport.JEndPoint";
-                            this->name="jcpp.rmi.server.impl.transport.JEndPoint";
-                            this->simpleName="JEndPoint";
+                            this->canonicalName="jcpp.rmi.server.impl.transport.EndPoint";
+                            this->name="jcpp.rmi.server.impl.transport.EndPoint";
+                            this->simpleName="EndPoint";
                             addInterface(JSerializable::getClazz());
                             addField(new JField("address",JAddress::getClazz(),staticGetAddress,staticSetAddress));
                             addField(new JField("site",JString::getClazz(),staticGetSite,staticSetSite));
@@ -44,7 +44,7 @@ namespace jcpp{
                         }
 
                         JObject* newInstance(){
-                            throw new JEndPoint();
+                            return new JEndPoint();
                         }
                     };
 
@@ -57,10 +57,19 @@ namespace jcpp{
                         return clazz;
                     }
 
-                    JEndPoint::JEndPoint(){
+                    JEndPoint::JEndPoint():JObject(getClazz()){
                     }
 
-                    JEndPoint::JEndPoint(JAddress* a, JString* s){
+                    JEndPoint::JEndPoint(JDataInputStream* in):JObject(getClazz()){
+                        string host=in->readUTF();
+                        int port=in->readInt();
+                        this->site=new JString(in->readUTF());
+                        this->address=new JAddress();
+                        address->setHostName(host);
+                        address->setPort(port);
+                    }
+
+                    JEndPoint::JEndPoint(JAddress* a, JString* s):JObject(getClazz()){
                         this->address=a;
                         this->site=s;
                     }
@@ -71,6 +80,12 @@ namespace jcpp{
                         }
                         JEndPoint* s=dynamic_cast<JEndPoint*>(&other);
                         return (*s->address)==(*address) && (*s->site)==(*site);
+                    }
+
+                    void JEndPoint::write(JDataOutputStream* out){
+                        out->writeUTF(address->getHostName());
+                        out->writeInt(address->getPort());
+                        out->writeUTF(site->getString());
                     }
 
                     void JEndPoint::setAddress(JAddress* a){

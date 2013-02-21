@@ -22,7 +22,7 @@ namespace jcpp{
             static JClass* getClazz();
 
             void setTimer(JTimer* timer);
-            void cancel();
+            virtual bool cancel();
             bool isCancelled();
             virtual void run()=0;
         };

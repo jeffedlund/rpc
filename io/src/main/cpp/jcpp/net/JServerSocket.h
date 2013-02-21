@@ -15,6 +15,7 @@ namespace jcpp{
 
         class JServerSocket : public JObject, public QObjectAware{
         protected:
+            bool bIsClosed;
             JString* host;
             JPrimitiveInt* port;
             JPrimitiveInt* backlog;
@@ -29,7 +30,7 @@ namespace jcpp{
             JInetAddress* getInetAddress();
             JPrimitiveInt* getLocalPort();
             void connect();
-            JSocket* accept();
+            virtual JSocket* accept();
 
             void setSoTimeout(int s);
             int getSoTimeout();
@@ -43,6 +44,7 @@ namespace jcpp{
             //TODO static setSocketFactory()
 
             void close();
+            bool isClosed();
             ~JServerSocket();
 
         };

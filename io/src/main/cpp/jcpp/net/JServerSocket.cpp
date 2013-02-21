@@ -32,6 +32,7 @@ namespace jcpp{
         }
 
         JServerSocket::JServerSocket(JString* host, JPrimitiveInt* port,JPrimitiveInt* backlog){
+            this->bIsClosed=false;
             this->host=host;
             this->port=port;
             this->backlog=backlog;
@@ -90,7 +91,12 @@ namespace jcpp{
         }
 
         void JServerSocket::close(){
+            bIsClosed=true;
             server->close();
+        }
+
+        bool JServerSocket::isClosed(){
+            return bIsClosed;
         }
 
         JServerSocket::~JServerSocket() {

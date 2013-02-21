@@ -12,7 +12,8 @@ namespace jcpp{
     namespace util{
         namespace concurrent{
             class JFuture : public JInterface{
-
+            protected:
+                virtual void setResult(JObject* result)=0;
             public:
                 static JClass* getClazz();
                 virtual bool cancel()=0;

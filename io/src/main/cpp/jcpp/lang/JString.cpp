@@ -40,6 +40,10 @@ namespace jcpp{
             this->str=str;
         }
 
+        JString::JString(JString* str): JObject(getClazz()){
+            this->str=str->str.c_str();
+        }
+
         bool JString::operator==(JObject &other){
             if (other.getClass()==getClazz()){
                 JString* s=dynamic_cast<JString*>(&other);
@@ -57,6 +61,12 @@ namespace jcpp{
 
         void JString::setString(string str) {
             this->str = str;
+        }
+
+        JString* JString::clone(){
+            JString* jstr=new JString();
+            jstr->str=str.c_str();
+            return jstr;
         }
 
         string JString::toString(){

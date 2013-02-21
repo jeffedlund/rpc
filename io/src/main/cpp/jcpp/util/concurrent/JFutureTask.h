@@ -22,6 +22,7 @@ namespace jcpp{
                 JRunnable* runnable;
                 JObject* result;
                 JFutureTask(JClass* _class);
+                virtual void setResult(JObject* result);
 
             public:
                 JFutureTask(JCallable* c);

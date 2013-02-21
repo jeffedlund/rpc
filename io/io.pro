@@ -187,7 +187,6 @@ SOURCES += \
     src/main/cpp/jcpp/net/JInet4Address.cpp \
     src/main/cpp/jcpp/net/JInet6Address.cpp \
     src/main/cpp/jcpp/rmi/server/impl/transport/JEndPoint.cpp \
-    src/main/cpp/jcpp/rmi/server/impl/transport/JTRANSPORT.cpp \
     src/main/cpp/jcpp/util/concurrent/JExecutor.cpp \
     src/main/cpp/jcpp/util/concurrent/JCallable.cpp \
     src/main/cpp/jcpp/util/concurrent/JExecutorService.cpp \
@@ -205,7 +204,20 @@ SOURCES += \
     src/main/cpp/jcpp/util/JTimer.cpp \
     src/main/cpp/jcpp/lang/JSystem.cpp \
     src/main/cpp/jcpp/util/concurrent/JRunnableScheduledFuture.cpp \
-    src/main/cpp/jcpp/util/concurrent/JScheduledFutureTask.cpp
+    src/main/cpp/jcpp/util/concurrent/JScheduledFutureTask.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JITransportRouter.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JTransportRouter.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JConnection.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JConnections.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JTRANSPORT_PACKAGE.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JTransport.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JITransportDispatcher.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JConnectionHeaderReader.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayConfiguration.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewaySocketFactory.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JIGatewaySocket.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewaySocket.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayServerSocket.cpp
     
     
 LIBS += -lws2_32
@@ -363,7 +375,6 @@ HEADERS += \
     src/main/cpp/jcpp/net/JInet4Address.h \
     src/main/cpp/jcpp/net/JInet6Address.h \
     src/main/cpp/jcpp/rmi/server/impl/transport/JEndPoint.h \
-    src/main/cpp/jcpp/rmi/server/impl/transport/JTRANSPORT.h \
     src/main/cpp/jcpp/util/concurrent/JExecutor.h \
     src/main/cpp/jcpp/util/concurrent/JExecutorService.h \
     src/main/cpp/jcpp/util/concurrent/JFuture.h \
@@ -381,7 +392,21 @@ HEADERS += \
     src/main/cpp/jcpp/util/JTimerTask.h \
     src/main/cpp/jcpp/lang/JSystem.h \
     src/main/cpp/jcpp/util/concurrent/JRunnableScheduledFuture.h \
-    src/main/cpp/jcpp/util/concurrent/JScheduledFutureTask.h
+    src/main/cpp/jcpp/util/concurrent/JScheduledFutureTask.h \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JITransportRouter.h \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JTransportRouter.h \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JConnection.h \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JTransportConstants.h \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JConnections.h \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JTRANSPORT_PACKAGE.h \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JTransport.h \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JITransportDispatcher.h \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JConnectionHeaderReader.h \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewaySocketFactory.h \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayConfiguration.h \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JIGatewaySocket.h \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewaySocket.h \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayServerSocket.h
     
     
 OTHER_FILES += \

@@ -46,6 +46,8 @@ namespace jcpp{
 
             void clear();
 
+            virtual JArrayList* clone();
+
             virtual void writeObject(JObjectOutputStream* out);
 
             virtual void readObject(JObjectInputStream* in);

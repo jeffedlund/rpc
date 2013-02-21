@@ -61,12 +61,14 @@
 #include "JTimerTask.h"
 #include "JTimer.h"
 #include "JSystem.h"
+#include "JScheduledExecutorService.h"
+#include "JScheduledFutureTask.h"
 using namespace std;
 using namespace jcpp::util;
 using namespace jcpp::lang;
 using namespace jcpp;
 using namespace jcpp::net;
-using namespace jcpp::util;
+using namespace jcpp::util::concurrent;
 
 static int TEST_SIZE = 43;
 static JTest* tests[] = {new JThrowableTest(),new JErrorTest(),new JExceptionTest(),new JRuntimeExceptionTest(),
@@ -260,13 +262,36 @@ void testTimer(){
     timer->schedule(my,5000, 3000);
 }
 
+class MyCallable : public JCallable{
+public:
+    MyCallable():JCallable(){
+    }
+
+    JObject* call(){
+        cout<<"my run "<<JSystem::currentTimeMillis()<<"\r\n";
+        cout.flush();
+        return new JString("result");
+    }
+};
+
+void testScheduledExecutorService(){
+    JScheduledExecutorService* es=new JScheduledThreadPoolExecutor();
+    JScheduledFuture* future=es->schedule(new MyCallable(),5000, 3000);
+    JThread::sleep(20);
+    future->cancel();
+    cout<<"Canceled!\r\n";
+    cout.flush();
+    JThread::sleep(10000);
+}
+
 int main(int argc, char *argv[]){
     QCoreApplication  a(argc,argv);
 
     //TODO should be done by default ...
     registerClasses();
 
-    testTimer();
+    testScheduledExecutorService();
+    //testTimer();
 
     //testSocket();
 

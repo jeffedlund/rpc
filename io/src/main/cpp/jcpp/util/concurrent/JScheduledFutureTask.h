@@ -20,12 +20,13 @@ namespace jcpp{
             protected:
                 jlong initialDelay;
                 jlong period;
-                bool bCancel;
                 bool bDone;
                 JCallable* callable;
                 JRunnable* runnable;
+                JObject* initialResult;
                 JObject* result;
                 JScheduledFutureTask(JClass* _class);
+                virtual void setResult(JObject *result);
 
             public:
                 JScheduledFutureTask(JCallable* c,long initialDelay, jlong period);
@@ -33,8 +34,8 @@ namespace jcpp{
                 static JClass* getClazz();
 
                 virtual void run();
-                bool cancel();
-                bool isCancelled();
+                virtual bool cancel();
+                virtual bool isCancelled();
                 bool isDone();
                 JObject* get();
                 bool isPeriodic();

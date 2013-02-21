@@ -41,15 +41,22 @@ namespace jcpp{
             this->timer=timer;
         }
 
-        void JTimerTask::cancel(){
+        bool JTimerTask::cancel(){
+            lock();
+            this->bCancelled=true;
+            unlock();
             if (timer!=NULL){
                 timer->cancel(this);
             }
-            this->bCancelled=true;
+            return true;
         }
 
         bool JTimerTask::isCancelled(){
-            return bCancelled;
+            bool b;
+            lock();
+            b=bCancelled;
+            unlock();
+            return b;
         }
     }
 }

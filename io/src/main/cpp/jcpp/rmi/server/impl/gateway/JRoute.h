@@ -56,6 +56,8 @@ namespace jcpp{
 
                             void clearAddress();
 
+                            virtual JRoute* clone();
+
                             string toString();
 
                             ~JRoute();

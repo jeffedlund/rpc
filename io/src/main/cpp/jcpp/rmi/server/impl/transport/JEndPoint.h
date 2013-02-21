@@ -10,6 +10,8 @@
 #include "Object.h"
 #include "JSerializable.h"
 #include "JAddress.h"
+#include "JDataInputStream.h"
+#include "JDataOutputStream.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -27,11 +29,13 @@ namespace jcpp{
 
                         public:
                             JEndPoint();
+                            JEndPoint(JDataInputStream* in);
                             JEndPoint(JAddress* a, JString* s);
                             bool operator==(JObject &other);
 
                             static JClass* getClazz();
 
+                            void write(JDataOutputStream* out);
                             void setAddress(JAddress* a);
 
                             JAddress* getAddress();

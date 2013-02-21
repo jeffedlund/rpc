@@ -71,19 +71,25 @@ namespace jcpp{
             JScheduledFuture* JScheduledThreadPoolExecutor::schedule(JCallable* callable, jlong delay){
                 JScheduledFutureTask* scheduledFutureTask=new JScheduledFutureTask(callable,delay,0);
                 timer->schedule(scheduledFutureTask,delay,0);
-                return NULL;
+                return scheduledFutureTask;
             }
 
             JScheduledFuture* JScheduledThreadPoolExecutor::schedule(JRunnable* command, jlong delay){
-                return NULL;
+                JScheduledFutureTask* scheduledFutureTask=new JScheduledFutureTask(command,NULL,delay,0);
+                timer->schedule(scheduledFutureTask,delay,0);
+                return scheduledFutureTask;
             }
 
             JScheduledFuture* JScheduledThreadPoolExecutor::schedule(JRunnable* command, jlong initialDelay, jlong period){
-                return NULL;
+                JScheduledFutureTask* scheduledFutureTask=new JScheduledFutureTask(command,NULL,initialDelay,period);
+                timer->schedule(scheduledFutureTask,initialDelay,period);
+                return scheduledFutureTask;
             }
 
             JScheduledFuture* JScheduledThreadPoolExecutor::schedule(JCallable* callable, jlong initialDelay, jlong period){
-                return NULL;
+                JScheduledFutureTask* scheduledFutureTask=new JScheduledFutureTask(callable,initialDelay,period);
+                timer->schedule(scheduledFutureTask,initialDelay,period);
+                return scheduledFutureTask;
             }
 
             JScheduledThreadPoolExecutor::~JScheduledThreadPoolExecutor(){

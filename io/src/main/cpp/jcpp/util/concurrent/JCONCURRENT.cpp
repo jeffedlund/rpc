@@ -13,8 +13,10 @@ namespace jcpp{
                 classes->push_back(JFuture::getClazz());
                 classes->push_back(JFutureTask::getClazz());
                 classes->push_back(JRunnableFuture::getClazz());
+                classes->push_back(JRunnableScheduledFuture::getClazz());
                 classes->push_back(JScheduledExecutorService::getClazz());
                 classes->push_back(JScheduledFuture::getClazz());
+                classes->push_back(JScheduledFutureTask::getClazz());
                 classes->push_back(JScheduledThreadPoolExecutor::getClazz());
                 classes->push_back(JThreadPoolExecutor::getClazz());
             }

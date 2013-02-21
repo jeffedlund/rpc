@@ -126,6 +126,15 @@ namespace jcpp{
             size->set(0);
         }
 
+        JArrayList* JArrayList::clone(){
+            JArrayList* list=new JArrayList();
+            for (unsigned int i=0;i<items->size();i++){
+                JObject* o=items->at(i);
+                list->items->push_back(o->clone());
+            }
+            return list;
+        }
+
         void JArrayList::writeObject(JObjectOutputStream* out){
             out->defaultWriteObject();
             out->flush();

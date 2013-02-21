@@ -40,6 +40,10 @@ namespace jcpp{
             this->value=value;
         }
 
+        JPrimitiveInt::JPrimitiveInt(JPrimitiveInt* value):JObject(getClazz()){
+            this->value=value->value;
+        }
+
         JPrimitiveInt::JPrimitiveInt():JObject(getClazz()){
             this->value=0;
         }
@@ -58,6 +62,10 @@ namespace jcpp{
 
         jint JPrimitiveInt::get(){
             return value;
+        }
+
+        JPrimitiveInt* JPrimitiveInt::clone(){
+            return new JPrimitiveInt(value);
         }
 
         string JPrimitiveInt::toString(){

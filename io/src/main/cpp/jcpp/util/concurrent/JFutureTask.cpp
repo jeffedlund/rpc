@@ -58,36 +58,65 @@ namespace jcpp{
                 this->bDone=false;
             }
 
-            void JFutureTask::run(){//TODO use mutex
-                if (!bCancel){
+            void JFutureTask::run(){
+                JObject* r=NULL;
+                if (!isCancelled()){
                     if (callable!=NULL){
-                        result=callable->call();
+                        r=callable->call();
                     }else{
                         runnable->run();
+                        r=this->result;
                     }
+                    setResult(r);
                 }
-                bDone=true;
             }
 
-            //TODO use mutex
-            bool JFutureTask::cancel(){
-                if (bDone){
-                    return false;
+            bool JFutureTask::cancel(){//TODO not ideal, should call threadpool to avoid running it
+                bool r=false;
+                lock();
+                if (!bDone){
+                    this->bCancel=true;
+                    r=true;
                 }
-                this->bCancel=true;
-                return true;
+                unlock();
+                return r;
             }
 
             bool JFutureTask::isCancelled(){
-                return bCancel;
+                bool b;
+                lock();
+                b=this->bCancel;
+                unlock();
+                return b;
             }
 
             bool JFutureTask::isDone(){
-                return bDone;
+                bool b;
+                lock();
+                b=bDone;
+                unlock();
+                return b;
             }
 
-            JObject* JFutureTask::get(){//TODO should block till it is done
-                return result;
+            void JFutureTask::setResult(JObject* result){
+                lock();
+                this->result=result;
+                bDone=true;
+                notifyAll();
+                unlock();
+            }
+
+            JObject* JFutureTask::get(){
+                JObject* r=NULL;
+                lock();
+                while (!bDone && !bCancel){
+                    wait();
+                }
+                if (bDone){
+                    r=this->result;
+                }//TODO else throw cancelexeption stuff
+                unlock();
+                return r;
             }
         }
     }

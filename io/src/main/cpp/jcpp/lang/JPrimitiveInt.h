@@ -17,7 +17,9 @@ namespace jcpp{
             public:
                 JPrimitiveInt();
                 JPrimitiveInt(jint value);
+                JPrimitiveInt(JPrimitiveInt* value);
                 bool operator==(JObject &other);
+                bool operator<(JObject &other);
 
                 static JClass* getClazz();
 
@@ -26,6 +28,8 @@ namespace jcpp{
                 jint get();
 
                 string toString();
+
+                JPrimitiveInt* clone();
 
                 ~JPrimitiveInt();
         };

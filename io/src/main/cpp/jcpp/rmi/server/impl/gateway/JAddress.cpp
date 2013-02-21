@@ -30,9 +30,9 @@ namespace jcpp{
                     class JAddressClass : public JClass{
                       public:
                         JAddressClass(){
-                            this->canonicalName="jcpp.rmi.server.impl.gateway.JAddress";
-                            this->name="jcpp.rmi.server.impl.gateway.JAddress";
-                            this->simpleName="JAddress";
+                            this->canonicalName="jcpp.rmi.server.impl.gateway.Address";
+                            this->name="jcpp.rmi.server.impl.gateway.Address";
+                            this->simpleName="Address";
                             addInterface(JSerializable::getClazz());
                             addField(new JField("hostName",JString::getClazz(),staticGetHostName,staticSetHostName));
                             addField(new JField("port",JPrimitiveInt::getClazz(),staticGetPort,staticSetPort));
@@ -44,7 +44,7 @@ namespace jcpp{
                         }
 
                         JObject* newInstance(){
-                            throw new JAddress();
+                            return new JAddress();
                         }
                     };
 
@@ -58,9 +58,14 @@ namespace jcpp{
                     }
 
 
-                    JAddress::JAddress(){
+                    JAddress::JAddress():JObject(getClazz()){
                         this->hostName=new JString();
                         this->port=new JPrimitiveInt();
+                    }
+
+                    JAddress::JAddress(JAddress* adr):JObject(getClazz()){
+                        this->hostName=new JString(adr->hostName);
+                        this->port=new JPrimitiveInt(adr->port);
                     }
 
                     bool JAddress::operator==(JObject &other){
@@ -103,6 +108,13 @@ namespace jcpp{
 
                     JPrimitiveInt* JAddress::getPPort(){
                         return port;
+                    }
+
+                    JAddress* JAddress::clone(){
+                        JAddress* a=new JAddress();
+                        a->hostName=hostName->clone();
+                        a->port=port->clone();
+                        return a;
                     }
 
                     string JAddress::toString(){
