@@ -217,7 +217,10 @@ SOURCES += \
     src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewaySocketFactory.cpp \
     src/main/cpp/jcpp/rmi/server/impl/gateway/JIGatewaySocket.cpp \
     src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewaySocket.cpp \
-    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayServerSocket.cpp
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayServerSocket.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayCompressionInputStream.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayCompressionOutputStream.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JTransportConfiguration.cpp
     
     
 LIBS += -lws2_32
@@ -406,7 +409,10 @@ HEADERS += \
     src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayConfiguration.h \
     src/main/cpp/jcpp/rmi/server/impl/gateway/JIGatewaySocket.h \
     src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewaySocket.h \
-    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayServerSocket.h
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayServerSocket.h \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayCompressionInputStream.h \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayCompressionOutputStream.h \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JTransportConfiguration.h
     
     
 OTHER_FILES += \

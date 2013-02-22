@@ -33,15 +33,15 @@ namespace jcpp{
                         return clazz;
                     }
 
-                    JGatewayServerSocket::JGatewayServerSocket(JString* host, JPrimitiveInt* port,JGatewayConfiguration* gatewayConfiguration):JServerSocket(host,port,gatewayConfiguration->getBackLog()){//TODO pass getClazz
+                    JGatewayServerSocket::JGatewayServerSocket(JString* host, JPrimitiveInt* port,JGatewayConfiguration* gatewayConfiguration):JServerSocket(host,port,gatewayConfiguration->getBackLog()->getPrimitiveInt(),getClazz()){
                         this->gatewayConfiguration=gatewayConfiguration;
                     }
 
                     JSocket* JGatewayServerSocket::accept(){
                         JSocket* socket=JServerSocket::accept();
-                        socket->setReceiveBufferSize(gatewayConfiguration->getReceiveBufferSize());
-                        socket->setSendBufferSize(gatewayConfiguration->getSendBufferSize());
-                        socket->setSoTimeout(gatewayConfiguration->getReadTimeout());
+                        socket->setReceiveBufferSize(gatewayConfiguration->getReceiveBufferSize()->getPrimitiveInt()->get());
+                        socket->setSendBufferSize(gatewayConfiguration->getSendBufferSize()->getPrimitiveInt()->get());
+                        socket->setSoTimeout(gatewayConfiguration->getReadTimeout()->getPrimitiveInt()->get());
                         return new JGatewaySocket(socket,socket->getInputStream(),gatewayConfiguration);//TODO handle HTTP
                     }
 

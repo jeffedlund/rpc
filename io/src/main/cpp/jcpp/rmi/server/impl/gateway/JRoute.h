@@ -10,16 +10,18 @@
 #include "JString.h"
 #include "Object.h"
 #include "JAddress.h"
+#include "JSerializable.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::util;
+using namespace jcpp::io;
 
 namespace jcpp{
     namespace rmi{
         namespace server{
             namespace impl{
                 namespace gateway{
-                    class JRoute : public JObject{
+                    class JRoute : public JObject, public JSerializable{
                         protected:
                             JArrayList* addressList;
                             JPrimitiveBoolean* bIsHttp;

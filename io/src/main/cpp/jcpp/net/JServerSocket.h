@@ -21,6 +21,7 @@ namespace jcpp{
             JPrimitiveInt* backlog;
             JInetAddress* localInetAddress;
             QTcpServer* server;
+            JServerSocket(JString* host, JPrimitiveInt* port,JPrimitiveInt* backlog,JClass* _class);
 
         public:
             JServerSocket(JString* host, JPrimitiveInt* port,JPrimitiveInt* backlog);

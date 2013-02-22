@@ -12,6 +12,7 @@
 #include "JDataInputStream.h"
 #include "JRoute.h"
 #include "JConnections.h"
+#include "JGatewayConfiguration.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::rmi::server::impl::gateway;
@@ -33,11 +34,12 @@ namespace jcpp{
                             JDataInputStream* in;
                             bool opened;
                             JTransport* transport;
+                            JGatewayConfiguration* gatewayConfiguration;
                             void sendPing();
 
                         public:
-                            JConnection(JRoute* route, JConnections* connections);
-                            JConnection(JSocket* socket, JTransport* transport);
+                            JConnection(JRoute* route, JConnections* connections,JGatewayConfiguration* gatewayConfiguration);
+                            JConnection(JSocket* socket, JTransport* transport,JGatewayConfiguration* gatewayConfiguration);
                             static JClass* getClazz();
 
                             void free();

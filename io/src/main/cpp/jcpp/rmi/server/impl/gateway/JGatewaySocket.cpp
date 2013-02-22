@@ -38,7 +38,7 @@ namespace jcpp{
                         JAddress* address = route->popAddress();
                         this->gatewayConfiguration = gatewayConfiguration;
                         this->socket = new JSocket(address->getPHostName(),address->getPPort(),gatewayConfiguration->getEstablishConnectionMinTimeout()->get());
-                        this->output = new JGatewayCompressionOutputStream(socket->getOutputStream(), route, gatewayConfiguration->getSendBufferSize(), gatewayConfiguration->getSendBufferSize());//TODO sendbuffersize*2
+                        this->output = new JGatewayCompressionOutputStream(socket->getOutputStream(), route);
                         this->input = socket->getInputStream();
                         this->bSendSocket = true;
                         this->route = route;
@@ -51,7 +51,7 @@ namespace jcpp{
                         this->output = socket->getOutputStream();
                         this->input = new JGatewayCompressionInputStream(in, gatewayConfiguration);
                         this->bSendSocket = false;
-                        this->route = ((JGatewayCompressionInputStream) input)->getRoute();
+                        this->route = ((JGatewayCompressionInputStream*) input)->getRoute();
                         this->input = input;
                         setSocketSetting();
                     }
@@ -186,6 +186,10 @@ namespace jcpp{
                     }
 
                     JGatewaySocket::~JGatewaySocket(){
+                        delete socket;
+                        delete output;
+                        delete input;
+                        delete route;
                     }
                 }
             }

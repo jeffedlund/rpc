@@ -11,6 +11,8 @@
 #include "JIGatewaySocket.h"
 #include "JSocket.h"
 #include "JGatewayConfiguration.h"
+#include "JGatewayCompressionOutputStream.h"
+#include "JGatewayCompressionInputStream.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::net;

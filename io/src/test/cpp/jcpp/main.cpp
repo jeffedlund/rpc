@@ -63,12 +63,16 @@
 #include "JSystem.h"
 #include "JScheduledExecutorService.h"
 #include "JScheduledFutureTask.h"
+#include "JTransport.h"
+#include "JITransportDispatcher.h"
 using namespace std;
 using namespace jcpp::util;
 using namespace jcpp::lang;
 using namespace jcpp;
 using namespace jcpp::net;
 using namespace jcpp::util::concurrent;
+using namespace jcpp::rmi::server::impl::transport;
+using namespace jcpp::rmi::server::impl::gateway;
 
 static int TEST_SIZE = 43;
 static JTest* tests[] = {new JThrowableTest(),new JErrorTest(),new JExceptionTest(),new JRuntimeExceptionTest(),
@@ -191,7 +195,7 @@ public:
     JSocket* socket;
     ClientSocketRunnable(string host,int port){
         JThread::sleep(5);
-        this->socket=new JSocket(new JString(host),new JPrimitiveInt(port));
+        this->socket=new JSocket(new JString(host),new JPrimitiveInt(port),0);
     }
 
     void run(){
@@ -284,13 +288,41 @@ void testScheduledExecutorService(){
     JThread::sleep(10000);
 }
 
+class MyTransportRouter : public JITransportRouter{
+public:
+    JRoute* findRoute(JString* localSite, JEndPoint* remoteEndpoint){
+        return NULL;
+    }
+};
+
+class MyTransportDispatcher : public JITransportDispatcher{
+public:
+    void dispatch(JEndPoint* fromEndPoint, JEndPoint* toEndpoint,JConnection* connection){
+        cout<<fromEndPoint->toString()<<"\r\n";
+        cout<<toEndpoint->toString()<<"\r\n";
+    }
+};
+
+void testTransport(){
+    JEndPoint* localEndPoint=new JEndPoint();
+    localEndPoint->getAddress()->setHostName("localhost");
+    localEndPoint->getAddress()->setPort(9999);
+    localEndPoint->setSite(new JString("site1"));
+
+    JTransportConfiguration* transportConfiguration=new JTransportConfiguration();
+    JTransport* transport=new JTransport(localEndPoint,new MyTransportRouter(),new MyTransportDispatcher(),new JThreadPoolExecutor(),new JScheduledThreadPoolExecutor(),transportConfiguration);
+    transport->startExport();
+    JThread::sleep(100000);
+}
+
 int main(int argc, char *argv[]){
     QCoreApplication  a(argc,argv);
 
     //TODO should be done by default ...
     registerClasses();
 
-    testScheduledExecutorService();
+    testTransport();
+    //testScheduledExecutorService();
     //testTimer();
 
     //testSocket();

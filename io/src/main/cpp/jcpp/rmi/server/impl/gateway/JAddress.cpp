@@ -36,7 +36,7 @@ namespace jcpp{
                             addInterface(JSerializable::getClazz());
                             addField(new JField("hostName",JString::getClazz(),staticGetHostName,staticSetHostName));
                             addField(new JField("port",JPrimitiveInt::getClazz(),staticGetPort,staticSetPort));
-                            //TODO define serialVersionIUD
+                            serialVersionUID=1;
                         }
 
                         JClass* getSuperclass(){

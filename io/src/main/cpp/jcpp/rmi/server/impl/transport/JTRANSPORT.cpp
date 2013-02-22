@@ -2,6 +2,7 @@
 #include "JSystem.h"
 #include "Collections.h"
 #include "JConnectionHeaderReader.h"
+#include "JGatewaySocketFactory.h"
 using namespace jcpp::io;
 using namespace jcpp::lang;
 
@@ -37,25 +38,15 @@ namespace jcpp{
                         return clazz;
                     }
 
-                    static bool less(JEndPoint* e1, JEndPoint* e2){
-                        if (e1->getSite()->getString()<e2->getSite()->getString()){
-                            if (e1->getAddress()->getHostName()<e2->getAddress()->getHostName()){
-                                if (e1->getAddress()->getPort()<e2->getAddress()->getPort()){
-                                    return true;
-                                }
-                            }
-                        }
-                        return false;
-                    }
-
-                    JTransport::JTransport(JEndPoint* localEndPoint,JITransportRouter* transportRouter,JITransportDispatcher* transportDispatcher,JExecutorService* executorService,JScheduledExecutorService* scheduledExecutorService){
+                    JTransport::JTransport(JEndPoint* localEndPoint,JITransportRouter* transportRouter,JITransportDispatcher* transportDispatcher,JExecutorService* executorService,JScheduledExecutorService* scheduledExecutorService,JTransportConfiguration* transportConfiguration){
                         this->localEndPoint=localEndPoint;
                         this->transportRouter=transportRouter;
                         this->transportDispatcher=transportDispatcher;
                         this->scheduledExecutorService=scheduledExecutorService;
-                        this->remoteConnectionsMap=new map<JEndPoint*,JConnections*>();//TODO use correct key comparator
+                        this->remoteConnectionsMap=new map<JEndPoint*,JConnections*,lessEndPoint>();
                         this->connectionReaders=new vector<JConnectionHeaderReader*>();
                         this->executorService=executorService;
+                        this->transportConfiguration=transportConfiguration;
                     }
 
                     JConnections* JTransport::getConnections(JEndPoint* remoteEndPoint){
@@ -86,8 +77,13 @@ namespace jcpp{
                         return transportRouter;
                     }
 
+                    JTransportConfiguration* JTransport::getTransportConfiguration(){
+                        return transportConfiguration;
+                    }
+
                     void JTransport::startExport(){
-                        serverSocket = NULL;//TODO GatewaySocketFactory.createServerSocket(localEndPoint.getPort(), transportConfiguration.getGatewayConfiguration());
+                        serverSocket = JGatewaySocketFactory::createServerSocket(localEndPoint->getAddress()->getPHostName(),localEndPoint->getAddress()->getPPort(), transportConfiguration->getGatewayConfiguration());
+                        serverSocket->connect();
                         localEndPoint->getAddress()->setPPort(serverSocket->getLocalPort());
                         future=executorService->submit(this);
                     }
@@ -104,12 +100,21 @@ namespace jcpp{
                     }
 
                     void JTransport::stopExport(){
-                        lock();
-                        deleteMapOfValuePointer(remoteConnectionsMap);
-                        deleteVectorOfPointers(connectionReaders);
-                        unlock();
                         serverSocket->close();
                         future->cancel();
+                        lock();
+                        for (unsigned int i=0;i<connectionReaders->size();i++){
+                            JConnectionHeaderReader* reader=connectionReaders->at(i);
+                            reader->unexport();
+                        }
+                        map<JEndPoint*,JConnections*>::iterator i;
+                        for(i = remoteConnectionsMap->begin(); i != remoteConnectionsMap->end(); ++i){
+                            JConnections* conns=(*i).second;
+                            conns->killAll();
+                        }
+                        remoteConnectionsMap->clear();
+                        connectionReaders->clear();
+                        unlock();
                     }
 
                     void JTransport::remove(JConnectionHeaderReader* reader){
@@ -122,7 +127,6 @@ namespace jcpp{
                         remoteConnectionsMap->erase(connections->getRemoteEndPoint());
                     }
 
-                    //TODO check which pattern is better, stopExport in delete constructor?
                     JTransport::~JTransport(){
                         deleteMapOfValuePointer(remoteConnectionsMap);
                         deleteVectorOfPointers(connectionReaders);

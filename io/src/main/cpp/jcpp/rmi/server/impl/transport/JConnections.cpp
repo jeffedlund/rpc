@@ -44,14 +44,14 @@ namespace jcpp{
                         this->transport=transport;
                         this->freeConnectionList=new vector<JConnection*>();
                         this->takenConnectionList=new vector<JConnection*>();
-                        this->connectionTimeout=0;//TODO transport.getTransportConfiguration().getConnectionPoolTimeout();
+                        this->connectionTimeout=transport->getTransportConfiguration()->getConnectionPoolTimeout()->get();
                         launchTimeoutTimer();
                     }
 
                     JConnection* JConnections::createConnection(){
                         JConnection* connection=NULL;
                         lock();
-                        jint socketTimeout = 0;//TODO transport.getTransportConfiguration().getSocketTimeout();
+                        jint socketTimeout = transport->getTransportConfiguration()->getSocketTimeout()->get();
                         while (freeConnectionList->size() > 0) {
                             vector<JConnection*>::iterator it=freeConnectionList->begin();
                             JConnection* connection = *it;
@@ -67,7 +67,7 @@ namespace jcpp{
                             if ((route == NULL) || (route->getAddressList()->getSize() == 0)) {
                                 throw new JIOException("No route found from [" + transport->getLocalEndPoint()->toString() + "] to [" + remoteEndPoint->toString() + "]");
                             }
-                            connection = new JConnection(route, this);//TODO transport.getTransportConfiguration().getGatewayConfiguration());
+                            connection = new JConnection(route, this,transport->getTransportConfiguration()->getGatewayConfiguration());
                             takenConnectionList->push_back(connection);
                             connection->getSocket()->setSoTimeout(socketTimeout);
                         }
@@ -157,7 +157,7 @@ namespace jcpp{
                     }
 
                     void JConnections::launchTimeoutTimer(){
-                        scheduledFuture=transport->getScheduledExecutorService()->schedule(this,10000, 10000);//TODO transport.getTransportConfiguration().getTimeoutTimerInterval(), transport.getTransportConfiguration().getTimeoutTimerInterval()
+                        scheduledFuture=transport->getScheduledExecutorService()->schedule(this,transport->getTransportConfiguration()->getTimeoutTimerInterval()->get(), transport->getTransportConfiguration()->getTimeoutTimerInterval()->get());
                     }
 
                     string JConnections::toString(){

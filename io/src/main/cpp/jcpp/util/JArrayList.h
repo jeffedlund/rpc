@@ -12,6 +12,7 @@ using namespace std;
 using namespace jcpp::io;
 
 //TODO implement most of util classes
+//TODO implement toString
 namespace jcpp{
     namespace util{
         class JArrayList : public JAbstractList{

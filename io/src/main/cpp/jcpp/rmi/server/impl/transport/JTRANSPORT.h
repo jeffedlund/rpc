@@ -15,6 +15,7 @@
 #include "JConnections.h"
 #include "JScheduledExecutorService.h"
 #include "JITransportRouter.h"
+#include "JTransportConfiguration.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::rmi::server::impl::gateway;
@@ -32,18 +33,32 @@ namespace jcpp{
                     class JITransportDispatcher;
                     class JTransport : public JObject, public JRunnable{
                         protected:
+                            struct lessEndPoint{
+                              bool operator()(JEndPoint* e1, JEndPoint* e2){
+                                  if (e1->getSite()->getString()<e2->getSite()->getString()){
+                                      if (e1->getAddress()->getHostName()<e2->getAddress()->getHostName()){
+                                          if (e1->getAddress()->getPort()<e2->getAddress()->getPort()){
+                                              return true;
+                                          }
+                                      }
+                                  }
+                                  return false;
+                              }
+                            };
+
                             JExecutorService* executorService;
                             JFuture* future;
                             JEndPoint* localEndPoint;
-                            map<JEndPoint*,JConnections*>* remoteConnectionsMap;
+                            map<JEndPoint*,JConnections*,lessEndPoint>* remoteConnectionsMap;
                             vector<JConnectionHeaderReader*>* connectionReaders;
                             JScheduledExecutorService* scheduledExecutorService;
                             JServerSocket* serverSocket;
                             JITransportRouter* transportRouter;
                             JITransportDispatcher* transportDispatcher;
+                            JTransportConfiguration* transportConfiguration;
 
                         public:
-                            JTransport(JEndPoint* localEndPoint,JITransportRouter* transportRouter,JITransportDispatcher* transportDispatcher,JExecutorService* executorService,JScheduledExecutorService* scheduledExecutorService);
+                            JTransport(JEndPoint* localEndPoint,JITransportRouter* transportRouter,JITransportDispatcher* transportDispatcher,JExecutorService* executorService,JScheduledExecutorService* scheduledExecutorService,JTransportConfiguration* transportConfiguration);
                             static JClass* getClazz();
 
                             JConnections* getConnections(JEndPoint* remoteEndPoint);
@@ -51,6 +66,7 @@ namespace jcpp{
                             JScheduledExecutorService* getScheduledExecutorService();
                             JITransportDispatcher* getTransportDispatcher();
                             JITransportRouter* getTransportRouter();
+                            JTransportConfiguration* getTransportConfiguration();
                             void startExport();
                             virtual void run();
                             void stopExport();

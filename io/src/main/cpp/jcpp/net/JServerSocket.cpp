@@ -31,7 +31,17 @@ namespace jcpp{
             return clazz;
         }
 
-        JServerSocket::JServerSocket(JString* host, JPrimitiveInt* port,JPrimitiveInt* backlog){
+        JServerSocket::JServerSocket(JString* host, JPrimitiveInt* port,JPrimitiveInt* backlog,JClass* _class):JObject(_class){
+            this->bIsClosed=false;
+            this->host=host;
+            this->port=port;
+            this->backlog=backlog;
+            server=new QTcpServer();
+            server->setMaxPendingConnections(backlog->get());
+            this->localInetAddress=new JInetAddress(new JString(server->serverAddress().toString().toStdString()));
+        }
+
+        JServerSocket::JServerSocket(JString* host, JPrimitiveInt* port,JPrimitiveInt* backlog):JObject(getClazz()){
             this->bIsClosed=false;
             this->host=host;
             this->port=port;

@@ -4,6 +4,7 @@
 #include "JDataInputStream.h"
 #include "JConnection.h"
 #include "JITransportDispatcher.h"
+#include "JIGatewaySocket.h"
 using namespace jcpp::io;
 using namespace jcpp::lang;
 
@@ -54,24 +55,24 @@ namespace jcpp{
                         JConnection* connection = NULL;
                         JDataInputStream* in = new JDataInputStream(socket->getInputStream());
                         int magicNumber = in->readInt();
-                        if (magicNumber != MAGIC_NUMBER) {
+                        if (magicNumber != JTransportConfiguration::MAGIC_NUMBER) {
                             throw new JEOFException();
                         }
                         JEndPoint* remoteEndPoint = new JEndPoint(in);
-                        connection = new JConnection(socket, transport);
+                        connection = new JConnection(socket, transport, transport->getTransportConfiguration()->getGatewayConfiguration());
 
                         if (connection->isReusable()) {
                             connection->sendOk();
                         }
                         do{
                             jbyte msgType = in->readByte();
-                            if (msgType == MSG_TYPE_PING) {
+                            if (msgType == JTransportConfiguration::MSG_TYPE_PING) {
                                 connection->sendOk();
                                 if (!connection->isReusable()) {
                                     connection->getOutputStream()->flush();
                                 }
 
-                            } else if (msgType == MSG_TYPE_CALL) {
+                            } else if (msgType == JTransportConfiguration::MSG_TYPE_CALL) {
                                 transport->getTransportDispatcher()->dispatch(remoteEndPoint, transport->getLocalEndPoint(), connection);
 
                                 if (!connection->isReusable()) {
@@ -82,7 +83,7 @@ namespace jcpp{
                                 throw new JEOFException();
                             }
 
-                        } while (!socket->isClosed()); //TODO ((IGatewaySocket) socket).isReausable() &&
+                        } while (!socket->isClosed() && ((JIGatewaySocket*) socket)->isReusable());
 
                         if (connection != NULL) {
                             connection->kill();
@@ -91,7 +92,6 @@ namespace jcpp{
                     }
 
                     JConnectionHeaderReader::~JConnectionHeaderReader(){
-                        unexport();
                     }
                 }
             }

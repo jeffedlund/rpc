@@ -32,20 +32,13 @@ namespace jcpp{
                             JEndPoint(JDataInputStream* in);
                             JEndPoint(JAddress* a, JString* s);
                             bool operator==(JObject &other);
-
                             static JClass* getClazz();
-
                             void write(JDataOutputStream* out);
                             void setAddress(JAddress* a);
-
                             JAddress* getAddress();
-
                             void setSite(JString* site);
-
                             JString* getSite();
-
                             string toString();
-
                             ~JEndPoint();
                     };
                 }

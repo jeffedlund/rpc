@@ -3,6 +3,8 @@
 #include "JSystem.h"
 #include "JConnections.h"
 #include "JTransport.h"
+#include "JGatewaySocketFactory.h"
+#include "JIGatewaySocket.h"
 using namespace jcpp::io;
 using namespace jcpp::lang;
 
@@ -37,18 +39,19 @@ namespace jcpp{
                         return clazz;
                     }
 
-                    JConnection::JConnection(JRoute* route, JConnections* connections){
-                        this->socket=NULL;//TODO GatewaySocketFactory.createSocket(route, connections.getTransport().getTransportConfiguration().getGatewayConfiguration());
-                        this->socket->setSoTimeout(0);//TODO connections.getTransport().getTransportConfiguration().getSocketTimeout());
+                    JConnection::JConnection(JRoute* route, JConnections* connections,JGatewayConfiguration* gatewayConfiguration):JObject(getClazz()){
+                        this->socket=JGatewaySocketFactory::createSocket(route, connections->getTransport()->getTransportConfiguration()->getGatewayConfiguration());
+                        this->socket->setSoTimeout(connections->getTransport()->getTransportConfiguration()->getSocketTimeout()->get());
                         this->socket->setTcpNoDelay(true);
                         this->socket->setKeepAlive(true);
                         this->connections=connections;
+                        this->gatewayConfiguration=gatewayConfiguration;
                     }
 
-                    JConnection::JConnection(JSocket* socket, JTransport* transport){
+                    JConnection::JConnection(JSocket* socket, JTransport* transport, JGatewayConfiguration* gatewayConfiguration):JObject(getClazz()){
                         this->socket=socket;
                         this->transport=transport;
-
+                        this->gatewayConfiguration=gatewayConfiguration;
                     }
 
                     void JConnection::free(){
@@ -72,16 +75,16 @@ namespace jcpp{
                         if (!opened){
                             opened=true;
                             getOutputStream();
-                            out->writeInt(MAGIC_NUMBER);
+                            out->writeInt(JTransportConfiguration::MAGIC_NUMBER);
                             connections->getTransport()->getLocalEndPoint()->write(out);
                             out->flush();
 
                             if (isReusable()){
                                 jint oldTimeout=socket->getSoTimeout();
                                 if (connections==NULL){
-                                    //TODO socket.setSoTimeout(transport.getTransportConfiguration().getPingTimeout());
+                                    socket->setSoTimeout(transport->getTransportConfiguration()->getPingTimeout()->get());
                                 }else{
-                                    //TODO socket.setSoTimeout(connections.getTransport().getTransportConfiguration().getPingTimeout());
+                                    socket->setSoTimeout(connections->getTransport()->getTransportConfiguration()->getPingTimeout()->get());
                                 }
                                 bool b=readOk();
                                 socket->setSoTimeout(oldTimeout);
@@ -93,7 +96,7 @@ namespace jcpp{
 
                     void JConnection::startCall(){
                         getOutputStream();
-                        out->writeByte((jint)MSG_TYPE_CALL);
+                        out->writeByte((jint)JTransportConfiguration::MSG_TYPE_CALL);
                     }
 
                     void JConnection::finishCall(){
@@ -103,7 +106,7 @@ namespace jcpp{
 
                     void JConnection::sendOk(){
                         getOutputStream();
-                        out->writeByte((jint)MSG_TYPE_OK);
+                        out->writeByte((jint)JTransportConfiguration::MSG_TYPE_OK);
                         if (isReusable()){
                             out->flush();
                         }
@@ -112,7 +115,7 @@ namespace jcpp{
                     bool JConnection::readOk(){
                         getInputStream();
                         jbyte okByte=in->readByte();
-                        if (okByte!= MSG_TYPE_OK){
+                        if (okByte!= JTransportConfiguration::MSG_TYPE_OK){
                             return false;
                         }
                         return true;
@@ -124,16 +127,15 @@ namespace jcpp{
                         try{
                             sendPing();
                             if (connections==NULL){
-                                //TODO socket.setSoTimeout(transport.getTransportConfiguration().getPingTimeout());
+                                socket->setSoTimeout(transport->getTransportConfiguration()->getPingTimeout()->get());
                             } else {
-                                //TODO socket.setSoTimeout(connections.getTransport().getTransportConfiguration().getPingTimeout());
+                                socket->setSoTimeout(connections->getTransport()->getTransportConfiguration()->getPingTimeout()->get());
                             }
                             if (!readOk()) {
                                 isDead = true;
                             }
                         }catch(JIOException* e){
                             isDead=true;
-                            //TODO log
                         }
                         if (isDead && !socket->isClosed()){
                             socket->close();
@@ -163,7 +165,7 @@ namespace jcpp{
                     }
 
                     bool JConnection::isReusable(){
-                        return true;//TODO((IGatewaySocket) socket).isReausable();
+                        return ((JIGatewaySocket*) socket)->isReusable();
                     }
 
                     JSocket* JConnection::getSocket(){
@@ -183,7 +185,7 @@ namespace jcpp{
                     }
 
                     void JConnection::sendPing(){
-                        out->writeByte((jint)MSG_TYPE_PING);
+                        out->writeByte((jint)JTransportConfiguration::MSG_TYPE_PING);
                         out->flush();
                     }
 

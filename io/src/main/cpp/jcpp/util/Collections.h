@@ -46,9 +46,29 @@ namespace jcpp{
             delete elements;
         }
 
+        template<class K,class V,class Z>
+        void deleteMapOfValuePointer(map<K,V*,Z>* elements){
+            typename map<K,V*,Z>::iterator i;
+            for(i = elements->begin(); i != elements->end(); ++i){
+                delete (*i).second;
+            }
+            delete elements;
+        }
+
         template<class K, class V>
         V* getFromMap(map<K,V*>* elements, K k){
             typename map<K,V*>::const_iterator i;
+            i= elements->find(k);
+            if (i!=elements->end()){
+                return (*i).second;
+            }else{
+                return NULL;
+            }
+        }
+
+        template<class K, class V, class Z>
+        V* getFromMap(map<K,V*,Z>* elements, K k){
+            typename map<K,V*,Z>::const_iterator i;
             i= elements->find(k);
             if (i!=elements->end()){
                 return (*i).second;

@@ -4,8 +4,15 @@
 #include "JIMPL.h"
 #include "JAddress.h"
 #include "JRoute.h"
+#include "JGatewayCompressionInputStream.h"
+#include "JGatewayCompressionOutputStream.h"
+#include "JGatewayConfiguration.h"
 #include "JGatewayInputStream.h"
 #include "JGatewayOutputStream.h"
+#include "JGatewayServerSocket.h"
+#include "JGatewaySocket.h"
+#include "JGatewaySocketFactory.h"
+#include "JIGatewaySocket.h"
 using namespace jcpp;
 using namespace jcpp::lang::reflect;
 using namespace jcpp::rmi::server::impl;

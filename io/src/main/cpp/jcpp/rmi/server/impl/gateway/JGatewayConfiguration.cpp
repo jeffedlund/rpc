@@ -101,7 +101,7 @@ namespace jcpp{
                         return clazz;
                     }
 
-                    JGatewayConfiguration::JGatewayConfiguration(JInteger* backLog, JInteger* receiveBufferSize, JInteger* sendBufferSize, JInteger* readTimeout, JInteger* establishConnectionInitialTimeout, JInteger* establishConnectionMinTimeout){
+                    JGatewayConfiguration::JGatewayConfiguration(JInteger* backLog, JInteger* receiveBufferSize, JInteger* sendBufferSize, JInteger* readTimeout, JInteger* establishConnectionInitialTimeout, JInteger* establishConnectionMinTimeout):JObject(getClazz()){
                         this->backLog=backLog;
                         this->receiveBufferSize=receiveBufferSize;
                         this->sendBufferSize=sendBufferSize;
@@ -110,7 +110,7 @@ namespace jcpp{
                         this->establishConnectionMinTimeout=establishConnectionMinTimeout;
                     }
 
-                    JGatewayConfiguration::JGatewayConfiguration(){
+                    JGatewayConfiguration::JGatewayConfiguration():JObject(getClazz()){
                         backLog=new JInteger(BACKLOG);
                         receiveBufferSize=new JInteger(RECEIVE_BUFFER_SIZE);
                         sendBufferSize=new JInteger(SEND_BUFFER_SIZE);

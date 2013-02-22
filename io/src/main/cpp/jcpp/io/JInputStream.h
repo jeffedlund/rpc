@@ -10,6 +10,7 @@ using namespace jcpp::lang;
 namespace jcpp{
     namespace io{
         //TODO implement skip(long n),mark,reset,markSupported
+        //TODO create JInputStreamAdapter(JInputStream), same for out+socket+serversocket
         class JInputStream : public JObject{
         protected:
             JInputStream(JClass* _class);

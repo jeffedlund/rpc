@@ -36,7 +36,7 @@ namespace jcpp{
                             addInterface(JSerializable::getClazz());
                             addField(new JField("address",JAddress::getClazz(),staticGetAddress,staticSetAddress));
                             addField(new JField("site",JString::getClazz(),staticGetSite,staticSetSite));
-                            //TODO define serialVersionIUD
+                            serialVersionUID=1L;
                         }
 
                         JClass* getSuperclass(){
@@ -58,6 +58,8 @@ namespace jcpp{
                     }
 
                     JEndPoint::JEndPoint():JObject(getClazz()){
+                        this->site=new JString("");
+                        this->address=new JAddress();
                     }
 
                     JEndPoint::JEndPoint(JDataInputStream* in):JObject(getClazz()){

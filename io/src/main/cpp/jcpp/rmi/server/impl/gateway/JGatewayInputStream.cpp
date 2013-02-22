@@ -12,7 +12,6 @@ namespace jcpp{
                             this->canonicalName="jcpp.rmi.server.impl.gateway.JGatewayInputStream";
                             this->name="jcpp.rmi.server.impl.gateway.JGatewayInputStream";
                             this->simpleName="JGatewayInputStream";
-                            this->serialVersionUID=0;//TODO
                         }
 
                         JClass* getSuperclass(){

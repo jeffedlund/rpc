@@ -14,6 +14,7 @@ namespace jcpp{
                         classes->push_back(JITransportDispatcher::getClazz());
                         classes->push_back(JITransportRouter::getClazz());
                         classes->push_back(JTransport::getClazz());
+                        classes->push_back(JTransportConfiguration::getClazz());
                         classes->push_back(JTransportRouter::getClazz());
                     }
 

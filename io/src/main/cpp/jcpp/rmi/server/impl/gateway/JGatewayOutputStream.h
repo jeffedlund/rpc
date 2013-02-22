@@ -24,11 +24,8 @@ namespace jcpp{
 
                     public:
                         JGatewayOutputStream(JOutputStream* out,JRoute* route);
-
                         static JClass* getClazz();
-
                         JRoute* getRoute();
-
                         ~JGatewayOutputStream();
                     };
                 }
