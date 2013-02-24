@@ -21,6 +21,7 @@
 #include "JILifecycle.h"
 #include "JTransport.h"
 #include "JIInvocationListener.h"
+#include "JMethodDigester.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -36,19 +37,21 @@ namespace jcpp{
                     class JGC;
                     class JObjectInformation;
                     class JILifecycle;
+                    class JMethodDigester;
                     class JObjectInformations: public JObject{
                     protected:
-                        map<JString*, JObjectInformation*>* idMap;
+                        map<JString*, JObjectInformation*,JString::POINTER_COMPARATOR>* idMap;
                         map<JObject*, JObjectInformation*>* objectMap;
                         JTransport* transport;
                         JILifecycle* lifecycle;
+                        JIInvocationListener* invocationListener;
                         JServer* server;
                         JGC* gc;
                         JGCClient* gcClient;
-                        //TODO JMethodDigester methodDigester;
+                        JMethodDigester* methodDigester;
 
                     public:
-                        JObjectInformations(JILifecycle* lifecycle, JServer* server, JGC* gc, JGCClient* gcClient);
+                        JObjectInformations(JILifecycle* lifecycle, JServer* server, JGC* gc, JGCClient* gcClient,JIInvocationListener* invocationListener);
                         static JClass* getClazz();
 
                         void setTransport(JTransport* transport);
@@ -56,7 +59,8 @@ namespace jcpp{
                         JServer* getServer();
                         JGC* getGC();
                         JGCClient* getGCClient();
-                        //TODO JMethodDigester getMethodDigester();
+                        JIInvocationListener* getInvocationListener();
+                        JMethodDigester* getMethodDigester();
                         void doExport(JString* id, JObject* object, vector<JClass*>* interfaces);
                         JObjectInformation* unexport(JString* id);
                         JObjectInformation* unexport(JObject* object);

@@ -48,12 +48,13 @@ namespace jcpp{
                         this->connectionConfiguration = connectionConfiguration;
                         this->lifecycles = new vector<JILifecycle*>();
                         this->gcClientListeners = new vector<JIGCClientListener*>();
+                        this->invocationListeners=new vector<JIInvocationListener*>();
                         this->executorService = new JThreadPoolExecutor(connectionConfiguration->getExecutorCorePoolSize()->get(),60000);//TODO
                         this->scheduledExecutorService = new JScheduledThreadPoolExecutor(connectionConfiguration->getExecutorCorePoolSize()->get(),60000);
                         this->gc = new JGC(executorService, scheduledExecutorService, connectionConfiguration);
                         this->gcClient = new JGCClient(this, this);
-                        this->objectInformations = new JObjectInformations(this, this, gc, gcClient);
-                        //TODO this->connectionTransportDispatcher = new JConnectionTransportDispatcher(objectInformations);
+                        this->objectInformations = new JObjectInformations(this, this, gc, gcClient,this);
+                        this->connectionTransportDispatcher = new JConnectionTransportDispatcher(objectInformations);
                         this->transport = new JTransport(endPoint, transportRouter, NULL/*connectionTransportDispatcher*/, executorService, scheduledExecutorService, connectionConfiguration->getTransportConfiguration());
                         this->objectInformations->setTransport(transport);
                         this->registry = new JRegistry(objectInformations);
@@ -176,6 +177,14 @@ namespace jcpp{
                         this->notSerializableObjectHandler=notSerializableObjectHandler;
                     }
 
+                    JIInvocationExceptionHandler* JServer::getInvocationExceptionHandler(){
+                        return invocationExceptionHandler;
+                    }
+
+                    void JServer::setInvocationExceptionHandler(JIInvocationExceptionHandler* i){
+                        this->invocationExceptionHandler=i;
+                    }
+
                     void JServer::unexport(){
                         gcClient->unexport();
                         gc->unexport();
@@ -198,6 +207,14 @@ namespace jcpp{
 
                     void JServer::removeGCClientListener(JIGCClientListener* gcClientListener){
                         deleteFromVector(gcClientListeners,gcClientListener);
+                    }
+
+                    void JServer::addInvocationListener(JIInvocationListener* i){
+                        invocationListeners->push_back(i);
+                    }
+
+                    void JServer::removeInvocationListener(JIInvocationListener* i){
+                        deleteFromVector(invocationListeners,i);
                     }
 
                     JObjectHandler* JServer::getObjectHandlerFromProxy(JObject* object){
@@ -268,6 +285,20 @@ namespace jcpp{
                         }
                     }
 
+                    void JServer::invocationSucceeded(JObject* proxy, JMethod* method, vector<JObject*>* args){
+                        for (unsigned int i=0;i<invocationListeners->size();i++){
+                            JIInvocationListener* l=invocationListeners->at(i);
+                            l->invocationSucceeded(proxy,method,args);
+                        }
+                    }
+
+                    void JServer::invocationFailed(JObject* proxy, JMethod* method, vector<JObject*>* args, JThrowable* e){
+                        for (unsigned int i=0;i<invocationListeners->size();i++){
+                            JIInvocationListener* l=invocationListeners->at(i);
+                            l->invocationFailed(proxy,method,args,e);
+                        }
+                    }
+
                     string JServer::toString(){
                         return this->endPoint->toString();
                     }
@@ -275,12 +306,13 @@ namespace jcpp{
                     JServer::~JServer(){
                         delete this->lifecycles;
                         delete this->gcClientListeners;
+                        delete this->invocationListeners;
                         delete this->executorService;
                         delete this->scheduledExecutorService;
                         delete this->gc;
                         delete this->gcClient;
                         delete this->objectInformations;
-                        //TODO delete this->connectionTransportDispatcher;
+                        delete this->connectionTransportDispatcher;
                         delete this->transport;
                         delete this->registry;
                     }

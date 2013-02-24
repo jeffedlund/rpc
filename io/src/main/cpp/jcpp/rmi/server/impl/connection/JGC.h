@@ -38,7 +38,7 @@ namespace jcpp{
                     class JGC : public JObject, public JIGC{
                         protected:
                             JConnectionConfiguration* connectionConfiguration;
-                            map<JEndPoint*, JGCEndPointInfo*>* endPointInfos;
+                            map<JEndPoint*, JGCEndPointInfo*,JEndPoint::POINTER_COMPARATOR>* endPointInfos;
                             JExecutorService* executorService;
                             JScheduledExecutorService* scheduledExecutorService;
 
@@ -46,12 +46,15 @@ namespace jcpp{
                             JGC(JExecutorService* executorService, JScheduledExecutorService* scheduledExecutorService, JConnectionConfiguration* connectionConfiguration);
                             static JClass* getClazz();
                             JPrimitiveArray* getExportedEndPoints();
+                            JScheduledExecutorService* getScheduledExecutorService();
+                            JConnectionConfiguration* getConnectionConfiguration();
                             JPrimitiveArray* ping(JEndPoint* endPoint, JPrimitiveArray* ids);
                             void doExport(vector<JObjectInformation*>* objInfoSet, JEndPoint* endPoint);
                             void unexport(JEndPoint* endPoint);
                             void unexport();
                             void endPointDead(JEndPoint* endPoint);
                             void doExport(JObjectInformation* objInfo, JEndPoint* endPoint);
+                            void remove(JEndPoint* e);
                             ~JGC();
                     };
                 }

@@ -30,9 +30,10 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace connection{
+                    class JGCClientEndPointInfo;
                     class JGCClient : public JObject, public JIGCClient{
                         protected:
-                            map<JEndPoint*, JGCClientEndPointInfo*>* endPointInfos;
+                            map<JEndPoint*, JGCClientEndPointInfo*,JEndPoint::POINTER_COMPARATOR>* endPointInfos;
                             JIGCClientListener* gcClientListener;
                             JServer* localServer;
 
@@ -40,7 +41,9 @@ namespace jcpp{
                             JGCClient(JServer* localServer, JIGCClientListener* gcClientListener);
                             JPrimitiveArray* getEndPoints();
                             void add(map<JObjectPointer*, JObject*>* objectPointers);
+                            void remove(JEndPoint* endPoint);
                             void unexport();
+                            JIGCClientListener* getGCClientListener();
                             static JClass* getClazz();
                             ~JGCClient();
                     };

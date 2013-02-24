@@ -31,6 +31,8 @@
 #include "JObjectInformations.h"
 #include "JObjectInformation.h"
 #include "JRegistry.h"
+#include "JIInvocationExceptionHandler.h"
+#include "JIInvocationListener.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -45,7 +47,7 @@ namespace jcpp{
                     class JGC;
                     class JGCClient;
                     class JConnectionTransportDispatcher;
-                    class JServer : public JObject, public JIServer, public JILifecycle, public JIGCClientListener{
+                    class JServer : public JObject, public JIServer, public JILifecycle, public JIGCClientListener, public JIInvocationListener{
                     protected:
                         JEndPoint* endPoint;
                         JIRegistry* registry;
@@ -53,6 +55,7 @@ namespace jcpp{
                         JObjectInformations* objectInformations;
                         vector<JILifecycle*>* lifecycles;
                         vector<JIGCClientListener*>* gcClientListeners;
+                        vector<JIInvocationListener*>* invocationListeners;
                         JINotExportedObjectListener* notExportedObjectListener;
                         JINotSerializableObjectHandler* notSerializableObjectHandler;
                         JGC* gc;
@@ -61,6 +64,7 @@ namespace jcpp{
                         JExecutorService* executorService;
                         JConnectionTransportDispatcher* connectionTransportDispatcher;
                         JConnectionConfiguration* connectionConfiguration;
+                        JIInvocationExceptionHandler*  invocationExceptionHandler;
                         static JObjectHandler* getObjectHandlerFromProxy(JObject* object);
                         static JServer* getServerFromExportedObject(JObject* object);
 
@@ -94,12 +98,16 @@ namespace jcpp{
                         void setNotExportedObjectListener(JINotExportedObjectListener* notExportedObjectListener);
                         JINotSerializableObjectHandler* getNotSerializableObjectHandler();
                         void setNotSerializableObjectHandler(JINotSerializableObjectHandler* notSerializableObjectHandler);
+                        JIInvocationExceptionHandler* getInvocationExceptionHandler();
+                        void setInvocationExceptionHandler(JIInvocationExceptionHandler*);
                         void unexport();
 
                         void addLifecycle(JILifecycle* lifecycle);
                         void removeLifecycle(JILifecycle* lifecycle);
                         void addGCClientListener(JIGCClientListener* gcClientListener);
                         void removeGCClientListener(JIGCClientListener* gcClientListener);
+                        void addInvocationListener(JIInvocationListener* i);
+                        void removeInvocationListener(JIInvocationListener* i);
 
                         virtual void doExport(JObjectInformation* objectInformation, JEndPoint* endPoint);
                         virtual void unexport(JObjectInformation* objectInformation);
@@ -111,6 +119,9 @@ namespace jcpp{
                         virtual void objectDead(JEndPoint* endPoint, vector<JObject*>* objects);
                         virtual void objectDead(JEndPoint* endPoint, vector<JObject*>* objects, JThrowable* throwable);
                         virtual void objectMaybeDead(JEndPoint* endPoint, vector<JObject*>* objects, JThrowable* throwable);
+
+                        virtual void invocationSucceeded(JObject* proxy, JMethod* method, vector<JObject*>* args);
+                        virtual void invocationFailed(JObject* proxy, JMethod* method, vector<JObject*>* args, JThrowable* e);
 
                         string toString();
                         ~JServer();

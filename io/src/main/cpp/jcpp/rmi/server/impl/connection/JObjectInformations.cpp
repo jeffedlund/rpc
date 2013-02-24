@@ -38,14 +38,15 @@ namespace jcpp{
                         return clazz;
                     }
 
-                    JObjectInformations::JObjectInformations(JILifecycle* lifecycle, JServer* server, JGC* gc, JGCClient* gcClient){
-                        this->idMap = new map<JString*, JObjectInformation*>();//TODO put less as key
+                    JObjectInformations::JObjectInformations(JILifecycle* lifecycle, JServer* server, JGC* gc, JGCClient* gcClient,JIInvocationListener* invListener){
+                        this->idMap = new map<JString*, JObjectInformation*,JString::POINTER_COMPARATOR>();
                         this->objectMap = new map<JObject*, JObjectInformation*>();
                         this->lifecycle = lifecycle;
                         this->server = server;
                         this->gc = gc;
                         this->gcClient = gcClient;
-                        //TODO this->methodDigester = new MethodDigester();
+                        this->invocationListener=invListener;
+                        this->methodDigester = new JMethodDigester();
                     }
 
                     void JObjectInformations::setTransport(JTransport* transport){
@@ -66,6 +67,14 @@ namespace jcpp{
 
                     JGCClient* JObjectInformations::getGCClient(){
                         return gcClient;
+                    }
+
+                    JIInvocationListener* JObjectInformations::getInvocationListener(){
+                        return this->invocationListener;
+                    }
+
+                    JMethodDigester* JObjectInformations::getMethodDigester(){
+                        return methodDigester;
                     }
 
                     void JObjectInformations::doExport(JString* id, JObject* object, vector<JClass*>* interfaces){
@@ -120,12 +129,15 @@ namespace jcpp{
                             (*it).second->unexport();
                         }
                         transport->stopExport();
-                        //TODO methodDigester->clear();
+                        methodDigester->clear();
                     }
 
                     vector<JString*>* JObjectInformations::list(){
-                        return NULL;
-                        //TODO return idMap.keySet().toArray(new String[0]);
+                        vector<JString*>* k;
+                        lock();
+                        k=getKeys(idMap);
+                        unlock();
+                        return k;
                     }
 
                     JObjectInformation* JObjectInformations::getObjectInformation(JString* id){

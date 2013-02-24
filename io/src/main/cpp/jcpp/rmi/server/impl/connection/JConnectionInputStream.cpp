@@ -58,7 +58,7 @@ namespace jcpp{
                                 JObjectHandler* objectHandler = (JObjectHandler*) invocationHandler;
                                 objectHandler->setObjectInformations(objectInformations);
                                 JObjectPointer* objectPointer = objectHandler->getInvoker()->getObjectPointer();
-                                if (objectPointer->getEndPoint()==objectInformations->getTransport()->getLocalEndPoint()) {
+                                if ((*objectPointer->getEndPoint())==(*objectInformations->getTransport()->getLocalEndPoint())) {
                                     return objectInformations->getObjectInformation(objectPointer->getId())->getObject();
                                 }
                                 gcObjectPointers->insert(pair<JObjectPointer*,JObject*>(objectPointer, obj));

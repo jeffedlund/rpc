@@ -37,7 +37,8 @@ INCLUDEPATH += \
         src/main/cpp/jcpp/rmi/server/impl/transport \
         src/main/cpp/jcpp/rmi/server/impl/connection \
         src/main/cpp/jcpp/rmi/server/impl/connection/serialization \
-        src/main/cpp/jcpp/net
+        src/main/cpp/jcpp/net \
+        src/main/cpp/jcpp/security
 
 SOURCES += \
     src/test/cpp/jcpp/main.cpp \
@@ -250,7 +251,9 @@ SOURCES += \
     src/main/cpp/jcpp/rmi/server/impl/connection/JGCEndPointInfo.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/JGCClientEndPointInfo.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/JConnectionTransportDispatcher.cpp \
-    src/main/cpp/jcpp/rmi/server/JSERVER_PACKAGE.cpp
+    src/main/cpp/jcpp/rmi/server/JSERVER_PACKAGE.cpp \
+    src/main/cpp/jcpp/security/MD5.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JMethodDigester.cpp
     
     
 LIBS += -lws2_32
@@ -470,7 +473,9 @@ HEADERS += \
     src/main/cpp/jcpp/rmi/server/impl/connection/JGCEndPointInfo.h \
     src/main/cpp/jcpp/rmi/server/impl/connection/JGCClientEndPointInfo.h \
     src/main/cpp/jcpp/rmi/server/impl/connection/JConnectionTransportDispatcher.h \
-    src/main/cpp/jcpp/rmi/server/JSERVER_PACKAGE.h
+    src/main/cpp/jcpp/rmi/server/JSERVER_PACKAGE.h \
+    src/main/cpp/jcpp/security/MD5.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JMethodDigester.h
     
     
 OTHER_FILES += \

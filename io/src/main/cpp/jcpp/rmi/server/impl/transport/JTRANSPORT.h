@@ -33,23 +33,10 @@ namespace jcpp{
                     class JITransportDispatcher;
                     class JTransport : public JObject, public JRunnable{
                         protected:
-                            struct lessEndPoint{
-                              bool operator()(JEndPoint* e1, JEndPoint* e2){
-                                  if (e1->getSite()->getString()<e2->getSite()->getString()){
-                                      if (e1->getAddress()->getHostName()<e2->getAddress()->getHostName()){
-                                          if (e1->getAddress()->getPort()<e2->getAddress()->getPort()){
-                                              return true;
-                                          }
-                                      }
-                                  }
-                                  return false;
-                              }
-                            };
-
                             JExecutorService* executorService;
                             JFuture* future;
                             JEndPoint* localEndPoint;
-                            map<JEndPoint*,JConnections*,lessEndPoint>* remoteConnectionsMap;
+                            map<JEndPoint*,JConnections*,JEndPoint::POINTER_COMPARATOR>* remoteConnectionsMap;
                             vector<JConnectionHeaderReader*>* connectionReaders;
                             JScheduledExecutorService* scheduledExecutorService;
                             JServerSocket* serverSocket;

@@ -12,12 +12,8 @@ namespace jcpp{
             namespace impl{
                 namespace connection{
                     class JObjectHandlerClass : public JClass{
-                        JInvoker* invoker;
-                        JObject* proxy;//TODO
-                        JClassLoader* classLoader;
-                        vector<JClass*>* interfaces;
-                        JIInvocationListener* invocationListener;
-
+                        //TODO following should be serialized. invoker,proxy,interfaces;
+                        //TODO do it while testing proxy
                       public:
                         JObjectHandlerClass(){
                             this->canonicalName="jcpp.rmi.server.impl.connection.ObjectHandler";
@@ -58,7 +54,7 @@ namespace jcpp{
                         this->invoker = new JInvoker(objectInformations, objectPointer);
                         this->proxy = new JProxy(interfaces, this);
                         this->interfaces = interfaces;
-                        //this->invocationListener = objectInformations->getInvocationListener(); TODO remvoe?
+                        this->invocationListener = objectInformations->getInvocationListener();
                     }
 
                     JObject* JObjectHandler::getProxy(){
@@ -77,9 +73,9 @@ namespace jcpp{
                         JObject* invocationResult = NULL;
                         try {
                             invocationResult = invoker->invoke(method, args);
-                            //TODO invocationListener->invocationSucceeded(proxy, method, args);
+                            invocationListener->invocationSucceeded(proxy, method, args);
                         } catch (JThrowable* e) {
-                            //TODO invocationListener->invocationFailed(proxy, method, args, e);
+                            invocationListener->invocationFailed(proxy, method, args, e);
                             throw e;
                         }
                         return invocationResult;
@@ -87,7 +83,7 @@ namespace jcpp{
 
                     void JObjectHandler::setObjectInformations(JObjectInformations* objectInformations){
                         invoker->setObjectInformations(objectInformations);
-                        //TODO invocationListener = objectInformations->getInvocationListener();
+                        invocationListener = objectInformations->getInvocationListener();
                     }
 
                     JObject* JObjectHandler::clone(){

@@ -9,6 +9,11 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace connection{
+                    JObject* invokeGetEndPoints(JObject* object,vector<JObject*>*args){
+                        JGCClient* gcClient=(JGCClient*)object;
+                        return gcClient->getEndPoints();
+                    }
+
                     class JGCClientClass : public JClass{
                       public:
                         JGCClientClass(){
@@ -16,6 +21,8 @@ namespace jcpp{
                             this->name="jcpp.rmi.server.impl.connection.GCClient";
                             this->simpleName="GCClient";
                             addInterface(JIGCClient::getClazz());
+                            vector<JClass*>* param=new vector<JClass*>();
+                            addMethod(new JMethod("getEndPoints",this,JPrimitiveArray::getClazz(JEndPoint::getClazz()),param,invokeGetEndPoints));
                         }
 
                         JClass* getSuperclass(){
@@ -38,37 +45,58 @@ namespace jcpp{
 
                     JGCClient::JGCClient(JServer* localServer, JIGCClientListener* gcClientListener){
                         this->localServer=localServer;
-                        this->endPointInfos=new map<JEndPoint*,JGCClientEndPointInfo*>();
+                        this->endPointInfos=new map<JEndPoint*,JGCClientEndPointInfo*,JEndPoint::POINTER_COMPARATOR>();
                         this->gcClientListener=gcClientListener;
                     }
 
                     JPrimitiveArray* JGCClient::getEndPoints(){
-                        return NULL;//TODO return endPointInfos.keySet().toArray(new EndPoint[0]);
+                        JPrimitiveArray* ar;
+                        lock();
+                        ar=new JPrimitiveArray(JEndPoint::getClazz(),endPointInfos->size());
+                        int i=0;
+                        map<JEndPoint*,JGCClientEndPointInfo*,JEndPoint::POINTER_COMPARATOR>::iterator it=endPointInfos->begin();
+                        for (;it!=endPointInfos->end();it++){
+                            ar->set(i,(*it).first);
+                            i++;
+                        }
+                        unlock();
+                        return ar;
                     }
 
                     void JGCClient::add(map<JObjectPointer*, JObject*>* objectPointers){
-                        /*for (Entry<ObjectPointer, Object> entry : objectPointers.entrySet()) {
-                            EndPoint remoteEndPoint = entry.getKey().getEndPoint();
-                            EndPointInfo endPointInfo = endPointInfos.get(remoteEndPoint);
-                            if (endPointInfo == null) {
-                                endPointInfo = new EndPointInfo(remoteEndPoint);
-                                endPointInfos.put(remoteEndPoint, endPointInfo);
+                        lock();
+                        map<JObjectPointer*,JObject*>::iterator it=objectPointers->begin();
+                        for (;it!=objectPointers->end();it++){
+                            JEndPoint* remoteEndPoint = (*it).first->getEndPoint();
+                            JGCClientEndPointInfo* endPointInfo = getFromMap(endPointInfos,remoteEndPoint);
+                            if (endPointInfo == NULL) {
+                                endPointInfo = new JGCClientEndPointInfo(this,localServer,remoteEndPoint);
+                                endPointInfos->insert(pair<JEndPoint*,JGCClientEndPointInfo*>(remoteEndPoint, endPointInfo));
                             }
-                            endPointInfo.export(entry.getKey().getId(), entry.getValue());
-                        }*/
+                            endPointInfo->doExport((*it).first->getId(), (*it).second);
+                        }
+                        unlock();
+                    }
+
+                    void JGCClient::remove(JEndPoint* endPoint){
+                        lock();
+                        endPointInfos->erase(endPoint);
+                        unlock();
                     }
 
                     void JGCClient::unexport(){
-                        /*
-                            EndPointInfo[] epis = null;
-                            synchronized (this) {
-                                epis = endPointInfos.values().toArray(new EndPointInfo[0]);
-                            }
-                            for (EndPointInfo epi : epis) {
-                                epi.unexport();
-                            }
+                        lock();
+                        vector<JGCClientEndPointInfo*>* vec=getValues(endPointInfos);
+                        unlock();
+                        for (unsigned int i=0;i<vec->size();i++){
+                            JGCClientEndPointInfo* epi=vec->at(i);
+                            epi->unexport();
+                        }
+                        delete vec;
+                    }
 
-                            */
+                    JIGCClientListener* JGCClient::getGCClientListener(){
+                        return gcClientListener;
                     }
 
                     JGCClient::~JGCClient(){

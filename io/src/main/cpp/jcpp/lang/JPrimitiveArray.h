@@ -16,6 +16,8 @@ namespace jcpp{
         public:
             JPrimitiveArray(JClass* arrayClass,int len=10);
 
+            JPrimitiveArray(JClass* arrayClass,vector<JObject*>* objects);
+
             bool operator==(JObject &other);
 
             static JClass* getClazz(JClass* componentType);
@@ -30,6 +32,8 @@ namespace jcpp{
             JObject* get(int i);
 
             void set(int i,JObject* value);
+
+            vector<JObject*>* getObjects();
 
             ~JPrimitiveArray();
         };

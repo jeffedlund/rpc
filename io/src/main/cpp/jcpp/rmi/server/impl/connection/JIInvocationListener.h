@@ -28,8 +28,8 @@ namespace jcpp{
                     class JIInvocationListener : public JInterface{
                     public:
                         static JClass* getClazz();
-                        virtual void invocationSucceeded(JObject* proxy, JMethod* method, JObject* args)=0;//TODO ?
-                        virtual void invocationFailed(JObject* proxy, JMethod* method, JObject** args, JThrowable* e)=0;
+                        virtual void invocationSucceeded(JObject* proxy, JMethod* method, vector<JObject*>* args)=0;
+                        virtual void invocationFailed(JObject* proxy, JMethod* method, vector<JObject*>* args, JThrowable* e)=0;
                     };
                 }
             }

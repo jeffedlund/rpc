@@ -28,6 +28,18 @@ namespace jcpp{
                             JString* site;
 
                         public:
+                            struct POINTER_COMPARATOR{//TODO better way?
+                                bool operator()(JEndPoint* e1, JEndPoint* e2){
+                                    if (e1->getSite()->getString()<e2->getSite()->getString()){
+                                        if (e1->getAddress()->getHostName()<e2->getAddress()->getHostName()){
+                                            if (e1->getAddress()->getPort()<e2->getAddress()->getPort()){
+                                                return true;
+                                            }
+                                        }
+                                    }
+                                    return false;
+                                }
+                            };
                             JEndPoint();
                             JEndPoint(JDataInputStream* in);
                             JEndPoint(JAddress* a, JString* s);

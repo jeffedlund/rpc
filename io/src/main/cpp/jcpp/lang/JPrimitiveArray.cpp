@@ -112,6 +112,11 @@ namespace jcpp{
             this->len=len;
         }
 
+        JPrimitiveArray::JPrimitiveArray(JClass* arrayClass,vector<JObject*>* objects):JObject(getClazz(arrayClass)){
+            this->objects=objects;
+            this->len=objects->size();
+        }
+
         bool JPrimitiveArray::operator==(JObject &other){
             if (!other.getClass()->isArray()){
                 return false;
@@ -142,8 +147,12 @@ namespace jcpp{
             return objects->at(i);
         }
 
-        void JPrimitiveArray::set(int i,JObject* value){
+        void JPrimitiveArray::set(int i,JObject* value){//TODO throw exception if greater than size
             (*objects)[i]=value;
+        }
+
+        vector<JObject*>* JPrimitiveArray::getObjects(){
+            return objects;
         }
 
         JPrimitiveArray::~JPrimitiveArray(){

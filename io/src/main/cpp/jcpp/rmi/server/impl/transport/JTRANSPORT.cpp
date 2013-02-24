@@ -43,7 +43,7 @@ namespace jcpp{
                         this->transportRouter=transportRouter;
                         this->transportDispatcher=transportDispatcher;
                         this->scheduledExecutorService=scheduledExecutorService;
-                        this->remoteConnectionsMap=new map<JEndPoint*,JConnections*,lessEndPoint>();
+                        this->remoteConnectionsMap=new map<JEndPoint*,JConnections*,JEndPoint::POINTER_COMPARATOR>();
                         this->connectionReaders=new vector<JConnectionHeaderReader*>();
                         this->executorService=executorService;
                         this->transportConfiguration=transportConfiguration;

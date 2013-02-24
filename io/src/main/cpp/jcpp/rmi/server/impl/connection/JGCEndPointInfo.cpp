@@ -12,7 +12,7 @@ namespace jcpp{
                     class JGCEndPointInfoClass : public JClass{
                       public:
                         JGCEndPointInfoClass(){
-                            this->canonicalName="jcpp.rmi.server.impl.connection.GCEndPointInfo";//TODO
+                            this->canonicalName="jcpp.rmi.server.impl.connection.GCEndPointInfo";
                             this->name="jcpp.rmi.server.impl.connection.GCEndPointInfo";
                             this->simpleName="GCEndPointInfo";
                             addInterface(JRunnable::getClazz());
@@ -36,14 +36,18 @@ namespace jcpp{
                         return clazz;
                     }
 
-                    JGCEndPointInfo::JGCEndPointInfo(JEndPoint* remoteEndPoint){
-                        this->exportedObjects = new map<JString*, JObjectInformation*>();//TODO use less
+                    JGCEndPointInfo::JGCEndPointInfo(JGC* gc,JEndPoint* remoteEndPoint){
+                        this->gc=gc;
+                        this->exportedObjects = new map<JString*, JObjectInformation*,JString::POINTER_COMPARATOR>();
                         this->remoteEndPoint = remoteEndPoint;
-                        this->isRunning = false;
+                        this->bIsRunning = false;
                     }
 
                     bool JGCEndPointInfo::isUpdated(){
-                        return previousPingId != lastPingId;
+                        lock();
+                        bool b=previousPingId != lastPingId;
+                        unlock();
+                        return b;
                     }
 
                     JEndPoint* JGCEndPointInfo::getRemoteEndPoint(){
@@ -51,13 +55,15 @@ namespace jcpp{
                     }
 
                     void JGCEndPointInfo::doExport(JObjectInformation* objInfo){
+                        lock();
                         if (exportedObjects->size() == 0) {
-                            scheduledFuture = NULL;//TODO scheduledExecutorService->schedule(this, connectionConfiguration->getGcTimeout(), connectionConfiguration->getGcTimeout());
+                            scheduledFuture = gc->getScheduledExecutorService()->schedule(this, gc->getConnectionConfiguration()->getGcTimeout()->get(), gc->getConnectionConfiguration()->getGcTimeout()->get());
                         }
                         if (getFromMap(exportedObjects,objInfo->getId()) == NULL) {
                             exportedObjects->insert(pair<JString*,JObjectInformation*>(objInfo->getId(), objInfo));
                             objInfo->doExport(this);
                         }
+                        unlock();
                     }
 
                     void JGCEndPointInfo::unexport(JObjectInformation* objInfo){
@@ -76,13 +82,9 @@ namespace jcpp{
                     }
 
                     void JGCEndPointInfo::unexport(){
-                        vector<JObjectInformation*>* objInfos=new vector<JObjectInformation*>();
                         lock();
-                        map<JString*,JObjectInformation*>::iterator it=exportedObjects->begin();
-                        for (;it!=exportedObjects->end();it++){
-                            objInfos->push_back((*it).second);
-                        }
-                        //TODO gc.getendPointInfos.remove(remoteEndPoint);
+                        vector<JObjectInformation*>* objInfos=getValues(exportedObjects);
+                        gc->remove(remoteEndPoint);
                         if (future != NULL) {
                             future->cancel();
                             delete future;
@@ -91,12 +93,11 @@ namespace jcpp{
                         delete scheduledFuture;
                         scheduledFuture = NULL;
                         unlock();
-                        if (objInfos != NULL) {
-                            for (unsigned int i=0;i<objInfos->size();i++){
-                                JObjectInformation* objInfo= objInfos->at(i);
-                                objInfo->unexport(remoteEndPoint);
-                            }
+                        for (unsigned int i=0;i<objInfos->size();i++){
+                            JObjectInformation* objInfo= objInfos->at(i);
+                            objInfo->unexport(remoteEndPoint);
                         }
+                        delete objInfos;
                     }
 
                     void JGCEndPointInfo::update(){
@@ -108,7 +109,7 @@ namespace jcpp{
                     void JGCEndPointInfo::ping(JPrimitiveArray* returnPing, JPrimitiveArray* ids){
                         lock();
                         lastPingId = lastPingId + 1;
-                        for (unsigned int i = 0; i < ids->size(); i++) {
+                        for (int i = 0; i < ids->size(); i++) {
                             if (getFromMap(exportedObjects,(JString*)ids->get(i))!=NULL) {
                                 returnPing->set(i,new JBoolean(true));
                             }else{
@@ -118,26 +119,29 @@ namespace jcpp{
                         unlock();
                     }
 
+                    bool JGCEndPointInfo::isRunning(){
+                        bool b;
+                        lock();
+                        b=this->bIsRunning;
+                        unlock();
+                        return b;
+                    }
+
+                    void JGCEndPointInfo::setRunning(bool b){
+                        lock();
+                        this->bIsRunning=b;
+                        unlock();
+                    }
+
                     void JGCEndPointInfo::run(){
-                        if (!isRunning) {//TODO
-/*                            future = executorService.submit(new Callable<Void>() {
-                                    @Override
-                                    public Void call() {
-                                        String oldName = Thread.currentThread().getName();
-                                        try {
-                                            isRunning.set(true);
-                                            if (isUpdated()) {
-                                                update();
-                                            } else {
-                                                unexport();
-                                            }
-                                        } finally {
-                                            Thread.currentThread().setName(oldName);
-                                            isRunning.set(false);
-                                        }
-                                        return null;
-                                    }
-                                });*/
+                        if (!isRunning()) {//TODO same, put later in a separte runnable/thread
+                            setRunning(true);
+                            if (isUpdated()) {
+                                update();
+                            } else {
+                                unexport();
+                            }
+                            setRunning(false);
                         }
                     }
 

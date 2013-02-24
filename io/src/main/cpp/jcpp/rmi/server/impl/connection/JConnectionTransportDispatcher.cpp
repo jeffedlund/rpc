@@ -6,7 +6,9 @@
 #include "JIInvocationExceptionHandler.h"
 #include "JConnectionException.h"
 #include "JServer.h"
+#include <sstream>
 using namespace jcpp::io;
+using namespace std;
 
 namespace jcpp{
     namespace rmi{
@@ -74,7 +76,7 @@ namespace jcpp{
                         JPrimitiveArray* args = NULL;
                         JThrowable* readException = NULL;
                         try {
-                            objectId = NULL;//TODO ois->readUTF();
+                            objectId = new JString(ois->readUTF());
                             digest = ois->readLong();
                             args = (JPrimitiveArray*) ois->readObject();
                         } catch (JThrowable* e) {
@@ -87,7 +89,8 @@ namespace jcpp{
                             if (readException != NULL) {
                                 throw readException;
                             }
-                            InvocationResult* invocationResult = invokeMethod(objectId, digest, NULL/*TODO args*/, fromEndPoint);
+                            //TODO think when to delete created objects, lifecycle in general of unmarshalled objects
+                            InvocationResult* invocationResult = invokeMethod(objectId, digest, args->getObjects(), fromEndPoint);
                             JObject* result = invocationResult->getResult();
                             if (invocationResult->isExceptionThrown()) {
                                 throw (JThrowable*) result;
@@ -120,29 +123,29 @@ namespace jcpp{
                             result = new JConnectionException("Object of ID: " + id->toString() + " has not been exported in " + objectInformations->getTransport()->getLocalEndPoint()->toString());
                         } else {
                             object = objectInformation->getObject();
-                            method = 0;//TODO objectInformations->getMethodDigester()->getMethodFromDigest(object, digest);
+                            method = objectInformations->getMethodDigester()->getMethodFromDigest(object, digest);
                             if (method == NULL) {
                                 exceptionThrown = true;
-//                                Method[] methods = objectInformations.getMethodDigester().getMethods(object);
-//                                String classDescription = "Methods available for type " + object.getClass() + ":\n";
-//                                for (Method classMethod : methods) {
-//                                    classDescription += "\t" + classMethod.toString() + ";\n";
-//                                } TODO
-                                result = NULL;//TODO new JConnectionException("No method found for digest: " + digest + " on object: " + object->toString() + "\n");//TODO + classDescription);
+                                vector<JMethod*>* methods = objectInformations->getMethodDigester()->getMethods(object);
+                                stringstream ss;
+                                ss<<"No method found for digest: " << digest + " on object: " << object->toString() << "\n";
+                                ss<<"Methods available for type " << object->getClass()->toString() << ":\n";
+                                for (unsigned int i=0;i<methods->size();i++){
+                                    JMethod* m=methods->at(i);
+                                    ss<< "\t" << m->toString() << ";\n";
+                                }
+                                result = new JConnectionException(ss.str());
+                                delete methods;
                             } else {
                                 try {
                                     result = method->invoke(object, args);
                                 } catch (JThrowable* e) {
                                     exceptionThrown = true;
-                                    JIInvocationExceptionHandler* handler = NULL;//TODO objectInformations->getServer()->getInvocationExceptionHandler();
+                                    JIInvocationExceptionHandler* handler = objectInformations->getServer()->getInvocationExceptionHandler();
                                     if (handler != NULL) {
-                                        result = handler->handleException(object, method,NULL/* args*/, e);
+                                        result = handler->handleException(object, method,args, e);
                                     } else {
-//                                        if (e instanceof InvocationTargetException) {
-//                                            result = e.getCause();
-//                                        } else {//TODO
-                                            result = e;
-                                        //}
+                                        result = e;
                                     }
                                 }
                             }
@@ -154,5 +157,3 @@ namespace jcpp{
         }
     }
 }
-
-

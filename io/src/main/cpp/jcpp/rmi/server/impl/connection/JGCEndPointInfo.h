@@ -19,6 +19,7 @@
 #include "JObjectInformation.h"
 #include "JFuture.h"
 #include "JScheduledFuture.h"
+#include "JGC.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -32,18 +33,20 @@ namespace jcpp{
             namespace impl{
                 namespace connection{
                     class JObjectInformation;
+                    class JGC;
                     class JGCEndPointInfo : public JObject, public JRunnable{
                     protected:
-                        map<JString*, JObjectInformation*>* exportedObjects;
+                        JGC* gc;
+                        map<JString*, JObjectInformation*,JString::POINTER_COMPARATOR>* exportedObjects;
                         JFuture* future;
-                        bool isRunning;
+                        bool bIsRunning;
                         jlong lastPingId;
                         jlong previousPingId;
                         JEndPoint* remoteEndPoint;
                         JScheduledFuture* scheduledFuture;
 
                     public:
-                        JGCEndPointInfo(JEndPoint* remoteEndPoint);
+                        JGCEndPointInfo(JGC* gc,JEndPoint* remoteEndPoint);
                         static JClass* getClazz();
                         bool isUpdated();
                         JEndPoint* getRemoteEndPoint();
@@ -52,6 +55,8 @@ namespace jcpp{
                         void unexport();
                         void update();
                         void ping(JPrimitiveArray* returnPing, JPrimitiveArray* ids);
+                        bool isRunning();
+                        void setRunning(bool);
                         virtual void run();
                         ~JGCEndPointInfo();
                     };

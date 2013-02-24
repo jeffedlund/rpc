@@ -42,7 +42,7 @@ namespace jcpp{
                         this->objectInformations = objectInformations;
                         this->objectHandler = new JObjectHandler(objectInformations, interfaces, new JObjectPointer(objectInformations->getTransport()->getLocalEndPoint(), id));
                         this->lifecycle = lifecycle;
-                        this->exportedEndPoints = new map<JEndPoint*, JGCEndPointInfo*>();//TODO use less
+                        this->exportedEndPoints = new map<JEndPoint*, JGCEndPointInfo*,JEndPoint::POINTER_COMPARATOR>();
                     }
 
                     JObject* JObjectInformation::getObject(){
@@ -81,12 +81,12 @@ namespace jcpp{
 
                     void JObjectInformation::unexport(){
                         objectInformations->remove(id);
-                        map<JEndPoint*,JGCEndPointInfo*>* endPointInfos;
+                        map<JEndPoint*,JGCEndPointInfo*,JEndPoint::POINTER_COMPARATOR>* endPointInfos;
                         lock();
-                        endPointInfos=new map<JEndPoint*,JGCEndPointInfo*>(*exportedEndPoints);
+                        endPointInfos=new map<JEndPoint*,JGCEndPointInfo*,JEndPoint::POINTER_COMPARATOR>(*exportedEndPoints);
                         exportedEndPoints->clear();
                         unlock();
-                        map<JEndPoint*,JGCEndPointInfo*>::iterator it=endPointInfos->begin();
+                        map<JEndPoint*,JGCEndPointInfo*,JEndPoint::POINTER_COMPARATOR>::iterator it=endPointInfos->begin();
                         for (;it!=endPointInfos->end();it++){
                             (*it).second->unexport(this);
                             lifecycle->unexport(this,(*it).second->getRemoteEndPoint());

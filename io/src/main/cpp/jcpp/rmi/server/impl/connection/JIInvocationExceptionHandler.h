@@ -28,7 +28,7 @@ namespace jcpp{
                     class JIInvocationExceptionHandler : public JInterface{
                     public:
                         static JClass* getClazz();
-                        virtual JThrowable* handleException(JObject* object, JMethod* method, JPrimitiveArray* args, JThrowable* exception)=0;
+                        virtual JThrowable* handleException(JObject* object, JMethod* method, vector<JObject*>* args, JThrowable* exception)=0;
                     };
                 }
             }

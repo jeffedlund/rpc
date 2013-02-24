@@ -11,6 +11,14 @@ namespace jcpp{
             string str;
 
         public:
+            struct POINTER_COMPARATOR{//TODO better way?
+                bool operator()(JString* e1, JString* e2){
+                    if (e1->getString()<e2->getString()){
+                        return true;
+                    }
+                    return false;
+                }
+            };
             JString();
             JString(string str);
             JString(JString* str);

@@ -16,6 +16,8 @@
 #include "JObjectInformations.h"
 #include "JObjectPointer.h"
 #include "JConnectionConfiguration.h"
+#include "JServer.h"
+#include "JGCClient.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -29,23 +31,28 @@ namespace jcpp{
                 namespace connection{
                     class JGCClientEndPointInfo : public JObject, public JRunnable{
                     protected:
+                        JGCClient* gcClient;
+                        JServer* localServer;
                         JFuture* future;
                         JIGC* gc;
                         int gcExceptionCount;
-                        bool isRunning;
-                        map<JString*, JObject*>* objects;
+                        bool bIsRunning;
+                        map<JString*, JObject*,JString::POINTER_COMPARATOR>* objects;
                         JEndPoint* remoteEndPoint;
                         JScheduledFuture* scheduledFuture;
                         JThrowable* throwable;
                         JConnections* connections;
 
                     public:
-                        JGCClientEndPointInfo(JEndPoint* remoteEndPoint);
+                        JGCClientEndPointInfo(JGCClient* gcClient,JServer* localServer,JEndPoint* remoteEndPoint);
                         static JClass* getClazz();
                         void doExport(JString* id, JObject* object);
                         void unexport(JString* id);
                         bool ping();
                         void unexport();
+                        bool isRunning();
+                        void setRunning(bool);
+                        vector<JObject*>* getObjects();
                         virtual void run();
                         ~JGCClientEndPointInfo();
                     };

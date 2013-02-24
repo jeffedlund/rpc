@@ -44,7 +44,7 @@ namespace jcpp{
                         JObject* object;
                         JILifecycle* lifecycle;
                         JObjectHandler* objectHandler;
-                        map<JEndPoint*, JGCEndPointInfo*>* exportedEndPoints;
+                        map<JEndPoint*, JGCEndPointInfo*,JEndPoint::POINTER_COMPARATOR>* exportedEndPoints;
                         JObjectInformations* objectInformations;
 
                     public:

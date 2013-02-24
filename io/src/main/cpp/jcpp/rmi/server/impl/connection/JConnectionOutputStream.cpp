@@ -78,6 +78,7 @@ namespace jcpp{
                     }
 
                     JConnectionOutputStream::~JConnectionOutputStream(){
+                        delete exportedObjInfos;
                     }
                 }
             }

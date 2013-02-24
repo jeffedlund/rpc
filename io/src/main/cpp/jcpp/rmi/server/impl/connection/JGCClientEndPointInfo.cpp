@@ -2,6 +2,7 @@
 #include "JSerializable.h"
 #include "JInstantiationException.h"
 #include "Collections.h"
+#include "JSystem.h"
 using namespace jcpp::io;
 
 namespace jcpp{
@@ -36,100 +37,126 @@ namespace jcpp{
                         return clazz;
                     }
 
-                    JGCClientEndPointInfo::JGCClientEndPointInfo(JEndPoint* remoteEndPoint){
+                    JGCClientEndPointInfo::JGCClientEndPointInfo(JGCClient* gcClient,JServer* localServer,JEndPoint* remoteEndPoint){
+                        this->gcClient=gcClient;
+                        this->localServer=localServer;
                         this->remoteEndPoint = remoteEndPoint;
-                        this->objects = new map<JString*, JObject*>();
-                        //TODO this->gc = localServer->lookup(remoteEndPoint, JIGC::getClazz());
-                        this->isRunning = false;
-                        this->connections = NULL;//TODO localServer->getObjectInformations()->getTransport()->getConnections(remoteEndPoint);
+                        this->objects = new map<JString*, JObject*,JString::POINTER_COMPARATOR>();
+                        this->gc = (JIGC*)localServer->lookup(remoteEndPoint, JIGC::getClazz());
+                        this->bIsRunning = false;
+                        this->connections = localServer->getObjectInformations()->getTransport()->getConnections(remoteEndPoint);
                     }
 
                     void JGCClientEndPointInfo::doExport(JString* id, JObject* object){
+                        lock();
                         if (objects->size() == 0) {
-                            scheduledFuture = NULL;//TODO localServer->getScheduledExecutorService()->schedule(this, localServer->getConnectionConfiguration()->getGcClientTimeout(),localServer->getConnectionConfiguration()->getGcClientTimeout());
+                            scheduledFuture = localServer->getScheduledExecutorService()->schedule(this, localServer->getConnectionConfiguration()->getGcClientTimeout()->get(),localServer->getConnectionConfiguration()->getGcClientTimeout()->get());
                         }
                         objects->insert(pair<JString*,JObject*>(id, object));
+                        unlock();
                     }
 
                     void JGCClientEndPointInfo::unexport(JString* id){
+                        lock();
                         objects->erase(id);
                         if (objects->size() == 0) {
                             unexport();
                         }
+                        unlock();
                     }
 
                     bool JGCClientEndPointInfo::ping(){
+                        bool bresult=true;
                         throwable = NULL;
-/*                        String[] idsArray = objects.keySet().toArray(new String[0]);
-                        boolean[] ping = null;
+                        lock();
+                        JPrimitiveArray* idsArray = new JPrimitiveArray(JString::getClazz(),objects->size());
+                        map<JString*,JObject*,JString::POINTER_COMPARATOR>::iterator it=objects->begin();
+                        int i=0;
+                        for (;it!=objects->end();it++){
+                            idsArray->set(i,(*it).first);
+                            i++;
+                        }
+                        unlock();
+                        JPrimitiveArray* ping = NULL;
                         long t1 = 0;
                         try {
-                            t1 = System.currentTimeMillis();
-                            connections.setInvocationTimeLimit();
-                            ping = gc.ping(localServer.getEndPoint(), idsArray);
-                        } catch (Throwable e) {
+                            t1 = JSystem::currentTimeMillis();
+                            ping = gc->ping(localServer->getEndPoint(), idsArray);
+                        } catch (JThrowable* e) {
                             throwable = e;
-                            if (++gcExceptionCount >= localServer.getConnectionConfiguration().getGcClientExceptionThreshold()) {
+                            if (++gcExceptionCount >= localServer->getConnectionConfiguration()->getGcClientExceptionThreshold()->get()) {
                                 unexport();
-                                return false;
+                                bresult=false;
                             }
-                            return true;
-                        } finally {
-                            connections.removeInvocationTimeLimit();
+                            bresult=true;
                         }
                         gcExceptionCount = 0;
-                        for (int i = 0; i < ping.length; i++) {
-                            if (!ping[i]) {
-                                unexport(idsArray[i]);
+                        for (i = 0; i < ping->size(); i++) {
+                            JBoolean* b=(JBoolean*)ping->get(i);
+                            if (b==NULL || !b->get()) {
+                                unexport((JString*)idsArray->get(i));
                             }
                         }
-                        if (objects.size() == 0) {
-                            return false;
-                        }*/
-                        return true;
+                        lock();
+                        if (objects->size() == 0) {
+                            bresult=false;
+                        }
+                        unlock();
+                        return bresult;
                     }
 
                     void JGCClientEndPointInfo::unexport(){
                         lock();
-                        //TODO endPointInfos->erase(remoteEndPoint);
+                        gcClient->remove(remoteEndPoint);
                         if (future != NULL) {
                             future->cancel();
+                            delete future;
                         }
                         scheduledFuture->cancel();
                         delete scheduledFuture;
                         unlock();
                     }
 
+                    bool JGCClientEndPointInfo::isRunning(){
+                        bool b;
+                        lock();
+                        b=this->bIsRunning;
+                        unlock();
+                        return b;
+                    }
+
+                    void JGCClientEndPointInfo::setRunning(bool b){
+                        lock();
+                        this->bIsRunning=b;
+                        unlock();
+                    }
+
+                    vector<JObject*>* JGCClientEndPointInfo::getObjects(){
+                        lock();
+                        vector<JObject*>* vec=getValues(objects);
+                        unlock();
+                        return vec;
+                    }
+
                     void JGCClientEndPointInfo::run(){
-                        if (!isRunning) {//TODO
-                            /*future = localServer.getExecutorService().submit(new Callable<Void>() {
-                                        public Void call() {
-                                            String oldName = Thread.currentThread().getName();
-                                            try {
-                                                isRunning.set(true);
-                                                boolean ping = ping();
-                                                Object[] values = null;
-                                                synchronized (EndPointInfo.this) {
-                                                    values = objects.values().toArray(new Object[0]);
-                                                }
-                                                if (!ping) {
-                                                    if (gcExceptionCount == 0) {
-                                                        gcClientListener.objectDead(remoteEndPoint, values);
-                                                    } else {
-                                                        gcClientListener.objectDead(remoteEndPoint, values, throwable);
-                                                    }
-                                                } else {
-                                                    if (gcExceptionCount == 0) {
-                                                        gcClientListener.objectAlive(remoteEndPoint, values);
-                                                    } else {
-                                                        gcClientListener.objectMaybeDead(remoteEndPoint, values, throwable);
-                                                    }
-                                                }
-                                            } finally {
-                                                isRunning.set(false);
-                                            }
-                                        }
-                                    });*/
+                        if (!isRunning()) {//TODO later put in a executorservice.submit(runnable{ping})
+                            setRunning(true);
+                            bool bping = ping();
+                            vector<JObject*>* values=getObjects();
+                            if (!bping) {
+                                if (gcExceptionCount == 0) {
+                                    gcClient->getGCClientListener()->objectDead(remoteEndPoint, values);
+                                } else {
+                                    gcClient->getGCClientListener()->objectDead(remoteEndPoint, values,throwable);
+                                }
+                            } else {
+                                if (gcExceptionCount == 0) {
+                                    gcClient->getGCClientListener()->objectAlive(remoteEndPoint, values);
+                                } else {
+                                    gcClient->getGCClientListener()->objectMaybeDead(remoteEndPoint, values, throwable);
+                                }
+                            }
+                            setRunning(false);
                         }
                     }
 

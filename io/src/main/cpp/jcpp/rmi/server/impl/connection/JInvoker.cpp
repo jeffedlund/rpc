@@ -78,7 +78,7 @@ namespace jcpp{
                     }
 
                     JObject* JInvoker::invoke(JMethod* method, vector<JObject*>* args){
-                        jlong digest = 0;//TODO objectInformations->getMethodDigester()->getDigestFromMethod(method);
+                        jlong digest = objectInformations->getMethodDigester()->getDigestFromMethod(method);
                         JConnections* connections = objectInformations->getTransport()->getConnections(objectPointer->getEndPoint());
                         JConnection* connection = connections->createConnection();
                         if (!connection->openConnection()) {
@@ -90,9 +90,11 @@ namespace jcpp{
                         JConnectionOutputStream* oos = new JConnectionOutputStream(connection->getOutputStream(), objectInformations, connection->getConnections()->getRemoteEndPoint());
                         oos->writeUTF(objectPointer->getId()->getString());
                         oos->writeLong(digest);
-                        //TODO oos->writeObject(args);
+                        JPrimitiveArray* array=new JPrimitiveArray(JObject::getClazz(),args);
+                        oos->writeObject(array);
                         connection->finishCall();
                         oos->done();
+                        //TODO bug if delete called!!!!! delete array;
 
                         JObject* obj=NULL;
                         JThrowable* th=NULL;

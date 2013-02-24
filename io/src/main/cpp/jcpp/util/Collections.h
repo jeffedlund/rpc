@@ -67,6 +67,17 @@ namespace jcpp{
         }
 
         template<class K, class V>
+        V getFromMap(map<K,V>* elements, K k){
+            typename map<K,V>::const_iterator i;
+            i= elements->find(k);
+            if (i!=elements->end()){
+                return (*i).second;
+            }else{
+                return NULL;
+            }
+        }
+
+        template<class K, class V>
         V* getFromMap(map<K*,V*>* elements, K* k){
             typename map<K*,V*>::const_iterator i;
             i= elements->find(k);
@@ -97,6 +108,46 @@ namespace jcpp{
             }else{
                 return NULL;
             }
+        }
+
+        template<class K, class V>
+        vector<V*>* getValues(map<K,V*>* elements){
+            vector<V*>* vec=new vector<V*>();
+            typename map<K,V*>::iterator i;
+            for(i = elements->begin(); i != elements->end(); ++i){
+                vec->push_back((*i).second);
+            }
+            return vec;
+        }
+
+        template<class K, class V,class Z>
+        vector<V*>* getValues(map<K,V*,Z>* elements){
+            vector<V*>* vec=new vector<V*>();
+            typename map<K,V*,Z>::iterator i;
+            for(i = elements->begin(); i != elements->end(); ++i){
+                vec->push_back((*i).second);
+            }
+            return vec;
+        }
+
+        template<class K, class V>
+        vector<K>* getKeys(map<K,V*>* elements){
+            vector<K>* vec=new vector<K>();
+            typename map<K,V*>::iterator i;
+            for(i = elements->begin(); i != elements->end(); ++i){
+                vec->push_back((*i).first);
+            }
+            return vec;
+        }
+
+        template<class K, class V, class Z>
+        vector<K>* getKeys(map<K,V*,Z>* elements){
+            vector<K>* vec=new vector<K>();
+            typename map<K,V*,Z>::iterator i;
+            for(i = elements->begin(); i != elements->end(); ++i){
+                vec->push_back((*i).first);
+            }
+            return vec;
         }
 
         #define arrayLength(a) ( sizeof ( a ) / sizeof ( *a ) )
