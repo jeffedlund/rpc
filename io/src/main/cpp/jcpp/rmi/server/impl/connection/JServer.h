@@ -33,6 +33,7 @@
 #include "JRegistry.h"
 #include "JIInvocationExceptionHandler.h"
 #include "JIInvocationListener.h"
+#include "JConnectionTransportDispatcher.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
