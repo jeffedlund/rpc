@@ -66,8 +66,30 @@ namespace jcpp{
             }
         }
 
+        template<class K, class V>
+        V* getFromMap(map<K*,V*>* elements, K* k){
+            typename map<K*,V*>::const_iterator i;
+            i= elements->find(k);
+            if (i!=elements->end()){
+                return (*i).second;
+            }else{
+                return NULL;
+            }
+        }
+
         template<class K, class V, class Z>
         V* getFromMap(map<K,V*,Z>* elements, K k){
+            typename map<K,V*,Z>::const_iterator i;
+            i= elements->find(k);
+            if (i!=elements->end()){
+                return (*i).second;
+            }else{
+                return NULL;
+            }
+        }
+
+        template<class K, class V, class Z>
+        V* getFromMap(map<K,V*,Z>* elements, K* k){
             typename map<K,V*,Z>::const_iterator i;
             i= elements->find(k);
             if (i!=elements->end()){

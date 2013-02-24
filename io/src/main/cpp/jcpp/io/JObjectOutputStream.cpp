@@ -30,6 +30,16 @@ namespace jcpp{
             bout->setBlockDataMode(true);
         }
 
+        JObjectOutputStream::JObjectOutputStream(JOutputStream* out,JClass* _class){//TODO use _class for super
+            this->bout = new JBlockDataOutputStream(out);
+            handles=new OutputHandleTable();
+            enableOverride = false;
+            enableReplaceObject(false);
+            depth = 0;
+            writeStreamHeader();
+            bout->setBlockDataMode(true);
+        }
+
         bool JObjectOutputStream::enableReplaceObject(bool enable) {
             if (enable == enableReplace) {
                 return enable;

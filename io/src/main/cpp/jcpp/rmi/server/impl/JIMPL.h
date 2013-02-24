@@ -1,7 +1,7 @@
 #ifndef JIMPL_H
 #define JIMPL_H
 
-#include "JSERVER.h"
+#include "JSERVER_PACKAGE.h"
 using namespace jcpp;
 using namespace jcpp::lang::reflect;
 

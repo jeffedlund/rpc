@@ -32,6 +32,7 @@ namespace jcpp{
 
         protected:
             virtual JObject* replaceObject(JObject *obj);
+            JObjectOutputStream(JOutputStream* out,JClass* _class);
 
         public:
             JObjectOutputStream();

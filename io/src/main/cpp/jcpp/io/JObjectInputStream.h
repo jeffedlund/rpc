@@ -59,6 +59,7 @@ namespace jcpp{
             JClass *resolveClass(JObjectStreamClass* jObjectStreamClass);
             JClass *resolveProxyClass(string* str,int i);
             virtual JObject* resolveObject(JObject* jobject);
+            JObjectInputStream(JInputStream* inputStrean,JClass* _class);
 
         public:
             JObjectInputStream(JInputStream* inputStrean);

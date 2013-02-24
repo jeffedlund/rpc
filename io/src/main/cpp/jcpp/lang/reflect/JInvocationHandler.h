@@ -3,12 +3,13 @@
 
 #include "JObject.h"
 #include "JMethod.h"
+#include "JInterface.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
         namespace reflect{
-            class JInvocationHandler : public JObject{
+            class JInvocationHandler : public JInterface{//TODO implement getClazz pr cpp
             public:
                 virtual JObject *invoke(JObject* proxy, JMethod* method, vector<JObject*>* args) = 0;
             };

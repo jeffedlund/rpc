@@ -35,6 +35,8 @@ INCLUDEPATH += \
         src/main/cpp/jcpp/rmi/server/impl \
 	src/main/cpp/jcpp/rmi/server/impl/gateway \
         src/main/cpp/jcpp/rmi/server/impl/transport \
+        src/main/cpp/jcpp/rmi/server/impl/connection \
+        src/main/cpp/jcpp/rmi/server/impl/connection/serialization \
         src/main/cpp/jcpp/net
 
 SOURCES += \
@@ -177,7 +179,6 @@ SOURCES += \
     src/main/cpp/jcpp/net/JSocket.cpp \
     src/main/cpp/jcpp/net/JNET.cpp \
     src/main/cpp/jcpp/rmi/JRMI.cpp \
-    src/main/cpp/jcpp/rmi/server/JSERVER.cpp \
     src/main/cpp/jcpp/rmi/server/impl/JIMPL.cpp \
     src/main/cpp/jcpp/rmi/server/impl/gateway/JGATEWAY.cpp \
     src/main/cpp/jcpp/net/JServerSocket.cpp \
@@ -220,7 +221,36 @@ SOURCES += \
     src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayServerSocket.cpp \
     src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayCompressionInputStream.cpp \
     src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayCompressionOutputStream.cpp \
-    src/main/cpp/jcpp/rmi/server/impl/transport/JTransportConfiguration.cpp
+    src/main/cpp/jcpp/rmi/server/impl/transport/JTransportConfiguration.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JObjectPointer.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JConnectionConfiguration.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JConnectionException.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/IGC.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIGCClient.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIGCClientListener.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIInvocationExceptionHandler.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIInvocationListener.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JILifecycle.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JINotExportedObjectListener.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/serialization/JINotSerializableObjectHandler.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/serialization/JDefaultNotSerializableObjectHandler.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/serialization/JNullNotSerializableObjectHandler.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIRegistry.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIServer.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JObjectInformation.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JObjectHandler.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JObjectInformations.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JRegistry.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JServer.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JInvoker.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JConnectionInputStream.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JConnectionOutputStream.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JGC.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JGCClient.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JGCEndPointInfo.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JGCClientEndPointInfo.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JConnectionTransportDispatcher.cpp \
+    src/main/cpp/jcpp/rmi/server/JSERVER_PACKAGE.cpp
     
     
 LIBS += -lws2_32
@@ -368,7 +398,6 @@ HEADERS += \
     src/main/cpp/jcpp/net/JInetAddress.h \
     src/main/cpp/jcpp/net/JNET.h \
     src/main/cpp/jcpp/rmi/JRMI.h \
-    src/main/cpp/jcpp/rmi/server/JSERVER.h \
     src/main/cpp/jcpp/rmi/server/impl/JIMPL.h \
     src/main/cpp/jcpp/rmi/server/impl/gateway/JGATEWAY.h \
     src/main/cpp/jcpp/net/JServerSocket.h \
@@ -412,7 +441,36 @@ HEADERS += \
     src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayServerSocket.h \
     src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayCompressionInputStream.h \
     src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayCompressionOutputStream.h \
-    src/main/cpp/jcpp/rmi/server/impl/transport/JTransportConfiguration.h
+    src/main/cpp/jcpp/rmi/server/impl/transport/JTransportConfiguration.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JObjectPointer.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JConnectionConfiguration.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JConnectionException.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIGC.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIGCClient.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIGCClientListener.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIInvocationExceptionHandler.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIInvocationListener.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JILifecycle.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JINotExportedObjectListener.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/serialization/JINotSerializableObjectHandler.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/serialization/JDefaultNotSerializableObjectHandler.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/serialization/JNullNotSerializableObjectHandler.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIRegistry.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIServer.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JObjectInformation.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JObjectHandler.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JObjectInformations.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JRegistry.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JServer.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JInvoker.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JConnectionInputStream.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JConnectionOutputStream.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JGC.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JGCClient.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JGCEndPointInfo.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JGCClientEndPointInfo.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JConnectionTransportDispatcher.h \
+    src/main/cpp/jcpp/rmi/server/JSERVER_PACKAGE.h
     
     
 OTHER_FILES += \

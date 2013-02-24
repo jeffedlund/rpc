@@ -15,6 +15,7 @@ namespace jcpp{
 
             public:
                 JProxy();
+                JProxy(vector<JClass*>* interfaces, JInvocationHandler* i);
 
                 JInvocationHandler* getInvocationHandler();
                 void setInvocationHandler(JInvocationHandler* invocationHandler);

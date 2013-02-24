@@ -8,16 +8,16 @@ using namespace jcpp::lang::reflect;
 namespace jcpp{
     namespace rmi{
         namespace server{
-            class JSERVER : public JPackage{
+            class JSERVER_PACKAGE : public JPackage{
             protected:
-                JSERVER();
+                JSERVER_PACKAGE();
 
             public:
                 JPackage* getSuperPackage();
 
                 vector<JPackage*>* getPackages();
 
-                static JSERVER* getPackage();
+                static JSERVER_PACKAGE* getPackage();
             };
         }
     }

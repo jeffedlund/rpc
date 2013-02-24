@@ -1,6 +1,6 @@
 #include "JRMI.h"
 #include "JCPP.h"
-#include "JSERVER.h"
+#include "JSERVER_PACKAGE.h"
 using namespace jcpp::rmi::server;
 
 namespace jcpp{
@@ -14,7 +14,7 @@ namespace jcpp{
 
         vector<JPackage*>* JRMI::getPackages(){
             if (packages->size()==0){
-                packages->push_back(JSERVER::getPackage());
+                packages->push_back(JSERVER_PACKAGE::getPackage());
             }
             return packages;
         }

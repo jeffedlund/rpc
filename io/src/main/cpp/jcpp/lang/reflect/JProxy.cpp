@@ -17,7 +17,7 @@ namespace jcpp{
         namespace reflect{
             static JObject* staticGetInvocationHandler(JObject* obj){
                 JProxy* proxy=(JProxy*)obj;
-                return proxy->getInvocationHandler();
+                return (JObject*)proxy->getInvocationHandler();
             }
 
             static void staticSetInvocationHandler(JObject* obj,JObject* value){
@@ -56,6 +56,13 @@ namespace jcpp{
             }
 
             JProxy::JProxy():JObject(getClazz()){
+                this->interfaces=NULL;
+                this->invocationHandler=NULL;
+            }
+
+            JProxy::JProxy(vector<JClass*>* interfaces, JInvocationHandler* i):JObject(getClazz()){
+                this->interfaces=interfaces;
+                this->invocationHandler=i;
             }
 
             JObject* JProxy::invoke(string method,vector<JObject*>* args){
@@ -78,6 +85,7 @@ namespace jcpp{
             }
 
             void JProxy::setInvocationHandler(JInvocationHandler* invocationHandler) {
+                delete this->invocationHandler;
                 this->invocationHandler = invocationHandler;
             }
 
@@ -86,12 +94,13 @@ namespace jcpp{
             }
 
             void JProxy::setInterfaces(vector<JClass*>* interfaces){
+                delete this->interfaces;
                 this->interfaces=interfaces;
             }
 
             string JProxy::toString(){
                 stringstream ss;
-                ss<<"Proxy[InvocationHandler:"<<invocationHandler->toString()<<"][Interfaces:";
+                ss<<"Proxy[InvocationHandler:"<<((JObject*)invocationHandler)->toString()<<"][Interfaces:";
                 for (unsigned int i=0;i<interfaces->size();i++){
                     JClass* jclass=interfaces->at(i);
                     ss<<jclass->getName()<<",";

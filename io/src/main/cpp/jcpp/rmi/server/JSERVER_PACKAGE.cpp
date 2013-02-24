@@ -1,4 +1,4 @@
-#include "JSERVER.h"
+#include "JSERVER_PACKAGE.h"
 #include "JCPP.h"
 #include "JIMPL.h"
 using namespace jcpp::rmi::server::impl;
@@ -6,25 +6,25 @@ using namespace jcpp::rmi::server::impl;
 namespace jcpp{
     namespace rmi{
         namespace server{
-            JSERVER::JSERVER():JPackage("jcpp.rmi.server",JPackage::getClazz()){
+            JSERVER_PACKAGE::JSERVER_PACKAGE():JPackage("jcpp.rmi.server",JPackage::getClazz()){
             }
 
-            JPackage* JSERVER::getSuperPackage(){
+            JPackage* JSERVER_PACKAGE::getSuperPackage(){
                 return JRMI::getPackage();
             }
 
-            vector<JPackage*>* JSERVER::getPackages(){
+            vector<JPackage*>* JSERVER_PACKAGE::getPackages(){
                 if (packages->size()==0){
                     packages->push_back(JIMPL::getPackage());
                 }
                 return packages;
             }
 
-            static JSERVER* server=NULL;
+            static JSERVER_PACKAGE* server=NULL;
 
-            JSERVER* JSERVER::getPackage(){
+            JSERVER_PACKAGE* JSERVER_PACKAGE::getPackage(){
                 if (server==NULL){
-                    server=new JSERVER();
+                    server=new JSERVER_PACKAGE();
                 }
                 return server;
             }

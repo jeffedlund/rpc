@@ -2,6 +2,7 @@
 #include "JCPP.h"
 #include "JPackage.h"
 #include "JGATEWAY.h"
+#include "JSERVER_PACKAGE.h"
 #include "JTRANSPORT_PACKAGE.h"
 using namespace jcpp::lang;
 using namespace jcpp::rmi::server;
@@ -16,7 +17,7 @@ namespace jcpp{
                 }
 
                 JPackage* JIMPL::getSuperPackage(){
-                    return JSERVER::getPackage();
+                    return JSERVER_PACKAGE::getPackage();
                 }
 
                 vector<JPackage*>* JIMPL::getPackages(){
