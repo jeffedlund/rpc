@@ -94,19 +94,17 @@ namespace jcpp{
 
         void JClassLoader::initClasses(){
             if (!bInitialized){
-                for (unsigned int i=0;i<JLANG::getPackage()->getClasses()->size();i++){
-                    addClass(JLANG::getPackage()->getClasses()->at(i));
-                }
-                for (unsigned int i=0;i<JREFLECT::getPackage()->getClasses()->size();i++){
-                    addClass(JREFLECT::getPackage()->getClasses()->at(i));
-                }
-                for (unsigned int i=0;i<JUTIL::getPackage()->getClasses()->size();i++){
-                    addClass(JUTIL::getPackage()->getClasses()->at(i));
-                }
-                for (unsigned int i=0;i<JIO::getPackage()->getClasses()->size();i++){
-                    addClass(JIO::getPackage()->getClasses()->at(i));
-                }
+                initClasses(JCPP::getPackage());
                 bInitialized=true;
+            }
+        }
+
+        void JClassLoader::initClasses(JPackage* p){
+            for (unsigned int i=0;i<p->getClasses()->size();i++){
+                addClass(p->getClasses()->at(i));
+            }
+            for (unsigned int i=0;i<p->getPackages()->size();i++){
+                initClasses(p->getPackages()->at(i));
             }
         }
 

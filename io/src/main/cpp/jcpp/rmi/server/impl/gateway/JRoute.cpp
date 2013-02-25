@@ -30,9 +30,9 @@ namespace jcpp{
                     class JRouteClass : public JClass{
                       public:
                         JRouteClass(){
-                            this->canonicalName="jcpp.rmi.server.impl.gateway.JRoute";
-                            this->name="jcpp.rmi.server.impl.gateway.JRoute";
-                            this->simpleName="JRoute";
+                            this->canonicalName="jcpp.rmi.server.impl.gateway.Route";
+                            this->name="jcpp.rmi.server.impl.gateway.Route";
+                            this->simpleName="Route";
                             this->serialVersionUID=2731749507109405573ULL;
                             addInterface(JSerializable::getClazz());
                             addField(new JField("addressList",JArrayList::getClazz(),staticGetAddressList,staticSetAddressList));
@@ -44,7 +44,7 @@ namespace jcpp{
                         }
 
                         JObject* newInstance(){
-                            throw new JRoute();
+                            return new JRoute();
                         }
                     };
 
@@ -106,12 +106,18 @@ namespace jcpp{
                     }
 
                     JAddress* JRoute::peakAddress(){
-                        return (JAddress*)addressList->get(0);
+                        if (addressList->getSize() > 0) {
+                            return (JAddress*)addressList->get(0);
+                        }
+                        return NULL;
                     }
 
                     JAddress* JRoute::popAddress(){
-                        JAddress* a=(JAddress*)addressList->remove(0);
-                        return a;
+                        if (addressList->getSize() > 0) {
+                            JAddress* a=(JAddress*)addressList->remove(0);
+                            return a;
+                        }
+                        return NULL;
                     }
 
                     void JRoute::pushAddress(JAddress* a){

@@ -110,15 +110,20 @@ namespace jcpp{
         }
 
         void JArrayList::add(int index,JObject* item){
+            throw "Not done add(index,item)";
             //TODO
         }
 
         JObject* JArrayList::remove(int index){
-            return NULL;//TODO
+            JObject* o=items->at(index);
+            remove(o);
+            return o;
         }
 
         bool JArrayList::remove(JObject* e){
-            return false;//TODO
+            bool b=deleteFromVector(items,e);
+            size->set(items->size());
+            return b;
         }
 
         void JArrayList::clear(){
@@ -132,6 +137,7 @@ namespace jcpp{
                 JObject* o=items->at(i);
                 list->items->push_back(o->clone());
             }
+            list->size->set(size->get());
             return list;
         }
 

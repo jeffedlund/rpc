@@ -54,7 +54,8 @@ namespace jcpp{
         }
 
         void QtDataOutputStream::write(jint b){
-            (*out)<<((jbyte)b);
+            writeInt(b);
+            //TODO (*out)<<((jbyte)b);
         }
 
         void QtDataOutputStream::write(jbyte b[]){

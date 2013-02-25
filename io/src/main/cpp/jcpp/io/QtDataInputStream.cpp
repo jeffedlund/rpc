@@ -52,7 +52,7 @@ namespace jcpp{
         }
 
         jint QtDataInputStream::read() {
-            return readByte();
+            return readInt();//TODO was readByte?
         }
 
         jint QtDataInputStream::read(jbyte b[], int off, int len) {
@@ -148,7 +148,7 @@ namespace jcpp{
                 waitForReadyRead(-1);
             }
             (*in) >> c;
-            (*in) >> c;
+            //(*in) >> c;
             return c;
         }
 

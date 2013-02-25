@@ -45,10 +45,9 @@ namespace jcpp{
                 jlong avail;
                 if (canBlock) {
                     avail = INT_MAX;
-                }
-                else {
+                }else {
                     if ((avail = in->available()) == 0) {
-                        if (in->waitForReadyRead(5000)) {
+                        if (in->waitForReadyRead(5000)) {//TODO
                             avail = in->available();
                         }
                     }
@@ -57,7 +56,7 @@ namespace jcpp{
                     return HEADER_BLOCKED;
                 }
 
-                jint tc = in->peekByte();
+                jbyte tc = in->peekByte();
                 switch (tc) {
                 case JObjectStreamConstants::TC_BLOCKDATA:
                     if (avail < 2) {
@@ -376,6 +375,8 @@ namespace jcpp{
             in->read((jbyte*)cname, 0, len);
             string str(cname);
             delete cname;
+            cout<<"*"<<str<<"*\r\n";
+            cout.flush();
             return str;
         }
 

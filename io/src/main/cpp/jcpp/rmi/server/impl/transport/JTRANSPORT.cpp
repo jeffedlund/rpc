@@ -84,7 +84,7 @@ namespace jcpp{
                     void JTransport::startExport(){
                         serverSocket = JGatewaySocketFactory::createServerSocket(localEndPoint->getAddress()->getPHostName(),localEndPoint->getAddress()->getPPort(), transportConfiguration->getGatewayConfiguration());
                         serverSocket->connect();
-                        localEndPoint->getAddress()->setPPort(serverSocket->getLocalPort());
+                        localEndPoint->getAddress()->setPort(serverSocket->getLocalPort()->get());
                         future=executorService->submit(this);
                     }
 
