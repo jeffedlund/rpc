@@ -12,6 +12,7 @@ namespace jcpp{
             class JInvocationHandler : public JInterface{//TODO implement getClazz pr cpp
             public:
                 virtual JObject *invoke(JObject* proxy, JMethod* method, vector<JObject*>* args) = 0;
+                virtual ~JInvocationHandler();
             };
         }
     }

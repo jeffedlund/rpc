@@ -34,5 +34,8 @@ namespace jcpp{
             }
             return clazz;
         }
+
+        JList::~JList(){
+        }
     }
 }

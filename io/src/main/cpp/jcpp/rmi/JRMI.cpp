@@ -27,6 +27,9 @@ namespace jcpp{
             }
             return jRMI;
         }
+
+        JRMI::~JRMI(){
+        }
     }
 }
 

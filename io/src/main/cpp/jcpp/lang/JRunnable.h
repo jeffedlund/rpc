@@ -13,6 +13,7 @@ namespace jcpp{
         public:
             static JClass* getClazz();
             virtual void run()=0;
+            virtual ~JRunnable();
         };
     }
 }

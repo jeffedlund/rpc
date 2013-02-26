@@ -35,6 +35,7 @@ namespace jcpp{
                         virtual JIRegistry* getRegistry()=0;
                         virtual JIGC* getGC()=0;
                         virtual JIGCClient* getGCClient()=0;
+                        virtual ~JIServer();
                     };
                 }
             }

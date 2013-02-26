@@ -22,6 +22,8 @@ namespace jcpp{
             vector<JPackage*>* getPackages();
 
             static JNET* getPackage();
+
+            virtual ~JNET();
         };
     }
 }

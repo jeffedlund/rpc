@@ -16,6 +16,9 @@ namespace jcpp{
             assert (((JPrimitiveBoolean*)fvalue->get(s))->get()==true);
             return s;
         }
+
+        JBooleanTest::~JBooleanTest(){
+        }
     }
 }
 

@@ -14,6 +14,9 @@ namespace jcpp{
             assert (s->getClass()->getName()=="java.lang.String");
             return s;
         }
+
+        JStringTest::~JStringTest(){
+        }
     }
 }
 

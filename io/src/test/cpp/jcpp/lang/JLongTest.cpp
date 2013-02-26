@@ -16,6 +16,9 @@ namespace jcpp{
             assert (((JPrimitiveLong*)fvalue->get(s))->get()==123456);
             return s;
         }
+
+        JLongTest::~JLongTest(){
+        }
     }
 }
 

@@ -20,5 +20,8 @@ namespace jcpp{
         string JNullPointerExceptionTest::getThrowableClassName(){
             return "java.lang.NullPointerException";
         }
+
+        JNullPointerExceptionTest::~JNullPointerExceptionTest(){
+        }
     }
 }

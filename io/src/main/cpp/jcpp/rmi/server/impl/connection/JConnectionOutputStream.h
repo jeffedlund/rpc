@@ -40,7 +40,7 @@ namespace jcpp{
                         static JClass* getClazz();
                         void done();
                         virtual JObject* replaceObject(JObject* obj);
-                        ~JConnectionOutputStream();
+                        virtual ~JConnectionOutputStream();
                     };
                 }
             }

@@ -47,7 +47,7 @@ namespace jcpp{
 
             string toString();
 
-            ~JEnum();
+            virtual ~JEnum();
         };
     }
 }

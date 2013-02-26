@@ -37,4 +37,7 @@ namespace jcpp{
         }
         return jcpp;
     }
+
+    JCPP::~JCPP(){
+    }
 }

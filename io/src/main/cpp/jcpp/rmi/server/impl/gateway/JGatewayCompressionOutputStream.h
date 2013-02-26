@@ -42,7 +42,7 @@ namespace jcpp{
                             virtual void writeLong(jlong v);
                             virtual void writeFloat(float v);
                             virtual void writeDouble(double v);
-                            ~JGatewayCompressionOutputStream();
+                            virtual ~JGatewayCompressionOutputStream();
                     };
                 }
             }

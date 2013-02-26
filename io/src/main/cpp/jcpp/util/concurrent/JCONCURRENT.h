@@ -33,6 +33,8 @@ namespace jcpp{
                 vector<JPackage*>* getPackages();
 
                 static JCONCURRENT* getPackage();
+
+                virtual ~JCONCURRENT();
             };
         }
     }

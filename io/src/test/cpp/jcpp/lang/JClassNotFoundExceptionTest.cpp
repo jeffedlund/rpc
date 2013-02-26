@@ -20,6 +20,9 @@ namespace jcpp{
         string JClassNotFoundExceptionTest::getThrowableClassName(){
             return "java.lang.ClassNotFoundException";
         }
+
+        JClassNotFoundExceptionTest::~JClassNotFoundExceptionTest(){
+        }
     }
 }
 

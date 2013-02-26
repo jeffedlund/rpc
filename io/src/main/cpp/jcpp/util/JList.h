@@ -19,6 +19,8 @@ namespace jcpp{
 
             static JClass* getClazz();
 
+            virtual ~JList();
+
         };
     }
 }

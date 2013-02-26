@@ -48,7 +48,7 @@ namespace jcpp{
 
                 virtual JObject* clone();
 
-                ~JObject();
+                virtual ~JObject();
         };
     }
 }

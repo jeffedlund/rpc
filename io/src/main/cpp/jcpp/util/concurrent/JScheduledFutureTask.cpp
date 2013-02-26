@@ -105,7 +105,6 @@ namespace jcpp{
                 unlock();
             }
 
-
             JObject* JScheduledFutureTask::get(){
                 JObject* r=NULL;
                 lock();
@@ -129,6 +128,9 @@ namespace jcpp{
 
             long JScheduledFutureTask::getPeriod(){
                 return period;
+            }
+
+            JScheduledFutureTask::~JScheduledFutureTask(){
             }
         }
     }

@@ -35,5 +35,8 @@ namespace jcpp{
         JUTFDataFormatException::JUTFDataFormatException(string message) : JIOException(getClazz()){
             this->message=new JString(message);
         }
+
+        JUTFDataFormatException::~JUTFDataFormatException(){
+        }
     }
 }

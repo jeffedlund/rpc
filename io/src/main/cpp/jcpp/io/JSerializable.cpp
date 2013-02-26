@@ -33,5 +33,8 @@ namespace jcpp{
 
         JSerializable::JSerializable():JInterface(){
         }
+
+        JSerializable::~JSerializable(){
+        }
     }
 }

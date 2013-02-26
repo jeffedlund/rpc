@@ -16,6 +16,7 @@ namespace jcpp{
             JIOException(string message);
 
             static JClass* getClazz();
+            virtual ~JIOException();
         };
     }
 }

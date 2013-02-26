@@ -32,7 +32,7 @@ namespace jcpp{
 
                             void unexport();
                             virtual void run();
-                            ~JConnectionHeaderReader();
+                            virtual ~JConnectionHeaderReader();
                     };
                 }
             }

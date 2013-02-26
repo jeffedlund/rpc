@@ -16,6 +16,9 @@ namespace jcpp{
             assert (((JPrimitiveByte*)fvalue->get(s))->get()==10);
             return s;
         }
+
+        JByteTest::~JByteTest(){
+        }
     }
 }
 

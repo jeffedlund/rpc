@@ -19,6 +19,7 @@ namespace jcpp{
                     return false;
                 }
             };
+            static JString* intern(string s);
             JString();
             JString(string str);
             JString(JString* str);
@@ -29,7 +30,7 @@ namespace jcpp{
             void setString(string str);
             virtual JString* clone();
             string toString();
-            ~JString();
+            virtual ~JString();
         };
     }
 }

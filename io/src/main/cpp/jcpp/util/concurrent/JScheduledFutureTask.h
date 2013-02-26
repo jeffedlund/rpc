@@ -41,6 +41,7 @@ namespace jcpp{
                 bool isPeriodic();
                 jlong getDelay();
                 long getPeriod();
+                virtual ~JScheduledFutureTask();
             };
         }
     }

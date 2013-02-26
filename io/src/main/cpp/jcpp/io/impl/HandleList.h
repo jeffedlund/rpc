@@ -8,8 +8,6 @@ namespace jcpp{
             int* list;
             int length;
             int size;
-            bool operator==(const HandleList &h);
-
         public:
             HandleList();
 

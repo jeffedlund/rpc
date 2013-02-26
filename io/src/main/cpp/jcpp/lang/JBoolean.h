@@ -32,7 +32,7 @@ namespace jcpp{
 
                 string toString();
 
-                ~JBoolean();
+                virtual ~JBoolean();
         };
     }
 }

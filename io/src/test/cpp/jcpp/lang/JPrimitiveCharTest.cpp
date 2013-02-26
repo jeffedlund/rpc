@@ -16,6 +16,9 @@ namespace jcpp{
             assert (s->getClass()->getName()=="char");
             return s;
         }
+
+        JPrimitiveCharTest::~JPrimitiveCharTest(){
+        }
     }
 }
 

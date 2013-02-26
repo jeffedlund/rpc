@@ -85,9 +85,9 @@ namespace jcpp{
             void writeFatalException(JIOException* ex);
             void writePrimitiveData(JObject* obj, JObjectStreamClass* desc);
             void writeObjectValues(JObject* obj, JObjectStreamClass* desc);
-            virtual void writeObjectOverride(JObject* obj){}
+            virtual void writeObjectOverride(JObject*){}
 
-            ~JObjectOutputStream();
+            virtual ~JObjectOutputStream();
         };
     }
 }

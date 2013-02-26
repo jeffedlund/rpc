@@ -29,5 +29,8 @@ namespace jcpp{
             }
             return jNET;
         }
+
+        JNET::~JNET(){
+        }
     }
 }

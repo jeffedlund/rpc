@@ -15,6 +15,8 @@ namespace jcpp{
             JObjectStreamException(string message);
 
              static JClass* getClazz();
+
+             virtual ~JObjectStreamException();
         };
     }
 }

@@ -21,6 +21,7 @@ namespace jcpp{
         public:
 
             static JClass* getClazz();
+            virtual ~JAbstractList();
         };
     }
 }

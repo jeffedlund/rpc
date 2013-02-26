@@ -24,7 +24,7 @@ namespace jcpp{
                             }
 
                             JObject* newInstance(){
-                                throw new JNullNotSerializableObjectHandler();
+                                return new JNullNotSerializableObjectHandler();
                             }
                         };
 
@@ -40,8 +40,11 @@ namespace jcpp{
                         JNullNotSerializableObjectHandler::JNullNotSerializableObjectHandler():JObject(getClazz()){
                         }
 
-                        JObject* JNullNotSerializableObjectHandler::handleNotSerializableObject(JObject* obj){
+                        JObject* JNullNotSerializableObjectHandler::handleNotSerializableObject(JObject*){
                             return NULL;
+                        }
+
+                        JNullNotSerializableObjectHandler::~JNullNotSerializableObjectHandler(){
                         }
                     }
                 }

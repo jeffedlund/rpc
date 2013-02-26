@@ -33,6 +33,9 @@ namespace jcpp{
                         }
                         return clazz;
                     }
+
+                    JITransportDispatcher::~JITransportDispatcher(){
+                    }
                 }
             }
         }

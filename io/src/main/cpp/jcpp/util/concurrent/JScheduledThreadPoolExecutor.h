@@ -37,7 +37,7 @@ namespace jcpp{
                 virtual JScheduledFuture* schedule(JRunnable* command, jlong delay);
                 virtual JScheduledFuture* schedule(JRunnable* command, jlong initialDelay, jlong period);
                 virtual JScheduledFuture* schedule(JCallable* callable, jlong initialDelay, jlong period);
-                ~JScheduledThreadPoolExecutor();
+                virtual ~JScheduledThreadPoolExecutor();
             };
         }
     }

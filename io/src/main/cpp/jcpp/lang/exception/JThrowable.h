@@ -41,7 +41,7 @@ namespace jcpp{
 
             string toString();
 
-            ~JThrowable();
+            virtual ~JThrowable();
         };
     }
 }

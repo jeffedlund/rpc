@@ -35,5 +35,8 @@ namespace jcpp{
         JEOFException::JEOFException(string message) : JIOException(getClazz()){
             this->message=new JString(message);
         }
+
+        JEOFException::~JEOFException(){
+        }
     }
 }

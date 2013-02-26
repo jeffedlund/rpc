@@ -29,6 +29,7 @@ namespace jcpp{
                     public:
                         static JClass* getClazz();
                         virtual JThrowable* handleException(JObject* object, JMethod* method, vector<JObject*>* args, JThrowable* exception)=0;
+                        virtual ~JIInvocationExceptionHandler();
                     };
                 }
             }

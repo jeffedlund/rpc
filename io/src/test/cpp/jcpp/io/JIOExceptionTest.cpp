@@ -20,6 +20,9 @@ namespace jcpp{
         string JIOExceptionTest::getThrowableClassName(){
             return "java.io.IOException";
         }
+
+        JIOExceptionTest::~JIOExceptionTest(){
+        }
     }
 }
 

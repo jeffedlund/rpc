@@ -36,6 +36,9 @@ namespace jcpp{
                 }
                 return clazz;
             }
+
+            JRunnableFuture::~JRunnableFuture(){
+            }
         }
     }
 }

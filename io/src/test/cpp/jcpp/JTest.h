@@ -48,6 +48,8 @@ namespace jcpp{
         read getRead(){
             return r;
         }
+
+        virtual ~JTest();
     };
 }
 

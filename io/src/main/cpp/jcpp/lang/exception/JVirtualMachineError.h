@@ -18,7 +18,7 @@ namespace jcpp{
 
             static JClass* getClazz();
 
-            ~JVirtualMachineError();
+            virtual ~JVirtualMachineError();
         };
     }
 }

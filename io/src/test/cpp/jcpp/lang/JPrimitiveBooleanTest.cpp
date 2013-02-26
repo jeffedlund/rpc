@@ -16,6 +16,9 @@ namespace jcpp{
             assert (s->getClass()->getName()=="boolean");
             return s;
         }
+
+        JPrimitiveBooleanTest::~JPrimitiveBooleanTest(){
+        }
     }
 }
 

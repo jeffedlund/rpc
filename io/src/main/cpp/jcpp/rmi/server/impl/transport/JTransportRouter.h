@@ -32,7 +32,7 @@ namespace jcpp{
 
                             virtual JRoute* findRoute(JString* localSite, JEndPoint* remoteEndpoint);
 
-                            ~JTransportRouter();
+                            virtual ~JTransportRouter();
                     };
                 }
             }

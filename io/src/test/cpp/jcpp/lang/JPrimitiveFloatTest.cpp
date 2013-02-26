@@ -16,6 +16,9 @@ namespace jcpp{
             assert (s->getClass()->getName()=="float");
             return s;
         }
+
+        JPrimitiveFloatTest::~JPrimitiveFloatTest(){
+        }
     }
 }
 

@@ -54,7 +54,7 @@ namespace jcpp{
                         void setRunning(bool);
                         vector<JObject*>* getObjects();
                         virtual void run();
-                        ~JGCClientEndPointInfo();
+                        virtual ~JGCClientEndPointInfo();
                     };
                 }
             }

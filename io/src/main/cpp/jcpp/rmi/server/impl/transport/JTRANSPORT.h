@@ -59,7 +59,7 @@ namespace jcpp{
                             void stopExport();
                             void remove(JConnectionHeaderReader* reader);
                             void remove(JConnections* connections);
-                            ~JTransport();
+                            virtual ~JTransport();
                     };
                 }
             }

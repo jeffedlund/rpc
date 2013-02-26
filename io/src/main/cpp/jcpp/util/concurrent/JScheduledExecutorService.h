@@ -23,6 +23,7 @@ namespace jcpp{
                 virtual JScheduledFuture* schedule(JRunnable* command, jlong delay)=0;
                 virtual JScheduledFuture* schedule(JRunnable* command, jlong initialDelay, jlong period)=0;
                 virtual JScheduledFuture* schedule(JCallable* callable, jlong initialDelay, jlong period)=0;
+                virtual ~JScheduledExecutorService();
             };
         }
     }

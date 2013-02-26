@@ -13,6 +13,7 @@ namespace jcpp{
             JClassNotFoundException(string message);
 
             static JClass* getClazz();
+            virtual ~JClassNotFoundException();
         };
     }
 }

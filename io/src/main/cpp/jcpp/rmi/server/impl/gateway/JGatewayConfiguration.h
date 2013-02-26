@@ -55,7 +55,7 @@ namespace jcpp{
                             void setReadTimeout(JInteger* readTimeout);
                             void setEstablishConnectionInitialTimeout(JInteger* establishConnectionInitialTimeout);
                             void setEstablishConnectionMinTimeout(JInteger* establishConnectionMinTimeout);
-                            ~JGatewayConfiguration();
+                            virtual ~JGatewayConfiguration();
                         };
                 }
             }

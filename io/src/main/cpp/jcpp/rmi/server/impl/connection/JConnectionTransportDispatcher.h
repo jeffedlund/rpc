@@ -49,6 +49,7 @@ namespace jcpp{
                         static JClass* getClazz();
                         virtual void dispatch(JEndPoint* fromEndPoint, JEndPoint* toEndPoint, JConnection* connection);
                         InvocationResult* invokeMethod(JString* id, jlong digest, vector<JObject*>* args, JEndPoint* endPoint);
+                        virtual ~JConnectionTransportDispatcher();
                     };
                 }
             }

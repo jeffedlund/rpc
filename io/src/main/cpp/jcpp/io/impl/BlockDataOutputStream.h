@@ -61,7 +61,7 @@ namespace jcpp{
             void writeLongUTF(std::string s);
             void writeLongUTF(std::string s, jlong utflen);
             void writeUTFBody(std::string s);
-            ~JBlockDataOutputStream();
+            virtual ~JBlockDataOutputStream();
         };
     }
 }

@@ -59,7 +59,7 @@ namespace jcpp{
                         void unexport(JEndPoint* endPoint);
                         void unexport();
                         string toString();
-                        ~JObjectInformation();
+                        virtual ~JObjectInformation();
                     };
                 }
             }

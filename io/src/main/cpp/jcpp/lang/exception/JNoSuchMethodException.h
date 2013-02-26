@@ -14,6 +14,7 @@ namespace jcpp{
             JNoSuchMethodException(string message);
 
             static JClass* getClazz();
+            virtual ~JNoSuchMethodException();
         };
     }
 }

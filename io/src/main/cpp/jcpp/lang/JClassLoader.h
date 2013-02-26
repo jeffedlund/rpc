@@ -3,7 +3,9 @@
 
 #include <map>
 #include "JObject.h"
+#include "JPackage.h"
 using namespace std;
+using namespace jcpp::lang::reflect;
 
 namespace jcpp{
     namespace lang{
@@ -16,6 +18,7 @@ namespace jcpp{
             JClassLoader(bool root);
 
             void initClasses();
+            void initClasses(JPackage* p);
 
         public:
             JClassLoader();
@@ -30,7 +33,7 @@ namespace jcpp{
 
             static JClass* getClazz();
 
-            ~JClassLoader();
+            virtual ~JClassLoader();
         };
     }
 }

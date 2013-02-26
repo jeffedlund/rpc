@@ -33,5 +33,8 @@ namespace jcpp{
             }
             return jutil;
         }
+
+        JUTIL::~JUTIL(){
+        }
     }
 }

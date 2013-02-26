@@ -32,6 +32,8 @@ namespace jcpp{
                         vector<JPackage*>* getPackages();
 
                         static JGATEWAY* getPackage();
+
+                        virtual ~JGATEWAY();
                     };
                 }
             }

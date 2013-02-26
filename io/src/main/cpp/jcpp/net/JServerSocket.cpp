@@ -79,21 +79,21 @@ namespace jcpp{
             return NULL;
         }
 
-        void JServerSocket::setSoTimeout(int s){
+        void JServerSocket::setSoTimeout(int){
         }
 
         int JServerSocket::getSoTimeout(){
             return 0;
         }
 
-        void JServerSocket::setReuseAddress(bool on){
+        void JServerSocket::setReuseAddress(bool){
         }
 
         bool JServerSocket::getReuseAddress(){
             return false;
         }
 
-        void JServerSocket::setReceiveBufferSize(int size){
+        void JServerSocket::setReceiveBufferSize(int){
         }
 
         int JServerSocket::getReceiveBufferSize(){

@@ -237,7 +237,7 @@ namespace jcpp{
             return interfaces;
         }
 
-        bool JClass::hasMethod(string name, vector<JClass*>* parameterTypes){
+        bool JClass::hasMethod(string name, vector<JClass*>*){
             initMethods();
             JMethod* method=getFromMap(methods,name);
             if (method==NULL){
@@ -246,7 +246,7 @@ namespace jcpp{
             return true;
         }
 
-        bool JClass::hasDeclaredMethod(string name, vector<JClass*>* parameterTypes){
+        bool JClass::hasDeclaredMethod(string name, vector<JClass*>*){
             JMethod* method=getFromMap(declaredMethods,name);
             if (method==NULL){
                 return false;
@@ -254,7 +254,7 @@ namespace jcpp{
             return true;
         }
 
-        JMethod* JClass::getMethod(string name, vector<JClass*>* parameterTypes){
+        JMethod* JClass::getMethod(string name, vector<JClass*>*){
             initMethods();
             JMethod* method=getFromMap(methods,name);
             if (method==NULL){
@@ -263,7 +263,7 @@ namespace jcpp{
             return method;
         }
 
-        JMethod* JClass::getDeclaredMethod(string name, vector<JClass*>* parameterTypes){
+        JMethod* JClass::getDeclaredMethod(string name, vector<JClass*>*){
             JMethod* method=getFromMap(declaredMethods,name);
             if (method==NULL){
                 throw JNoSuchMethodException("method "+name+" not declared in "+getName());//we should check using signature ...

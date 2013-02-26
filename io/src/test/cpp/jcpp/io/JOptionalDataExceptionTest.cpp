@@ -20,6 +20,9 @@ namespace jcpp{
         string JOptionalDataExceptionTest::getThrowableClassName(){
             return "java.io.OptionalDataException";
         }
+
+        JOptionalDataExceptionTest::~JOptionalDataExceptionTest(){
+        }
     }
 }
 

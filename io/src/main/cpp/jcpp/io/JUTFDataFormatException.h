@@ -13,6 +13,7 @@ namespace jcpp{
             JUTFDataFormatException(string message);
 
              static JClass* getClazz();
+             virtual ~JUTFDataFormatException();
         };
     }
 }

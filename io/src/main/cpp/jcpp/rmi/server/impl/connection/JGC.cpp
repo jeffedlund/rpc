@@ -20,7 +20,7 @@ namespace jcpp{
                         return NULL;
                     }
 
-                    JObject* invokeGetExportedEndPoints(JObject* object,vector<JObject*>*args){
+                    JObject* invokeGetExportedEndPoints(JObject* object,vector<JObject*>*){
                         JGC* gc=(JGC*)object;
                         return gc->getExportedEndPoints();
                     }

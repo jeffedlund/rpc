@@ -16,6 +16,9 @@ namespace jcpp{
             assert (s->getClass()->getName()=="int");
             return s;
         }
+
+        JPrimitiveIntTest::~JPrimitiveIntTest(){
+        }
     }
 }
 

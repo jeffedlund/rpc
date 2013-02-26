@@ -13,6 +13,7 @@ namespace jcpp{
             JNullPointerException(JString* message);
 
             static JClass* getClazz();
+            virtual ~JNullPointerException();
         };
     }
 }

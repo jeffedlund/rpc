@@ -15,6 +15,7 @@ namespace jcpp{
             JIllegalArgumentException(string message,JThrowable* cause);
 
             static JClass* getClazz();
+            virtual ~JIllegalArgumentException();
         };
     }
 }

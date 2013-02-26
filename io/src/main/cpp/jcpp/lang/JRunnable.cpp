@@ -29,5 +29,8 @@ namespace jcpp{
             }
             return clazz;
         }
+
+        JRunnable::~JRunnable(){
+        }
     }
 }

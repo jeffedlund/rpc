@@ -9,6 +9,7 @@ namespace jcpp{
         class JCollection : public JInterface{
         public:
             static JClass* getClazz();
+            virtual ~JCollection();
         };
     }
 }

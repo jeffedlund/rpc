@@ -188,6 +188,9 @@ public:
             //JThread::sleep(1000);
         }
     }
+
+    ~ServerSocketRunnable(){
+    }
 };
 
 class ClientSocketRunnable : public JRunnable{
@@ -219,6 +222,9 @@ public:
             JThread::sleep(1);
         }
     }
+
+    ~ClientSocketRunnable(){
+    }
 };
 
 void testSocket(){
@@ -239,6 +245,8 @@ class PrintRunnable : public JRunnable{
             cout<<"wait de "<<i;
             JThread::sleep(1);
         }
+    }
+    ~PrintRunnable(){
     }
 };
 
@@ -276,6 +284,8 @@ public:
         cout.flush();
         return new JString("result");
     }
+    ~MyCallable(){
+    }
 };
 
 void testScheduledExecutorService(){
@@ -290,16 +300,20 @@ void testScheduledExecutorService(){
 
 class MyTransportRouter : public JITransportRouter{
 public:
-    JRoute* findRoute(JString* localSite, JEndPoint* remoteEndpoint){
+    JRoute* findRoute(JString*, JEndPoint*){
         return NULL;
+    }
+    ~MyTransportRouter(){
     }
 };
 
 class MyTransportDispatcher : public JITransportDispatcher{
 public:
-    void dispatch(JEndPoint* fromEndPoint, JEndPoint* toEndpoint,JConnection* connection){
+    void dispatch(JEndPoint* fromEndPoint, JEndPoint* toEndpoint,JConnection*){
         cout<<fromEndPoint->toString()<<"\r\n";
         cout<<toEndpoint->toString()<<"\r\n";
+    }
+    ~MyTransportDispatcher(){
     }
 };
 
@@ -317,6 +331,8 @@ void testTransport(){
 
 int main(int argc, char *argv[]){
     QCoreApplication  a(argc,argv);
+    int iiiii=TEST_SIZE;
+    iiiii=iiiii;
 
     //TODO should be done by default ...
     registerClasses();

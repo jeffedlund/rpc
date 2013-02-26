@@ -29,7 +29,7 @@ namespace jcpp{
                             static JClass* getClazz();
                             virtual JSocket* accept();
                             string toString();
-                            ~JGatewayServerSocket();
+                            virtual ~JGatewayServerSocket();
                     };
                 }
             }

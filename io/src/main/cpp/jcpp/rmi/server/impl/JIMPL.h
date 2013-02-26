@@ -20,6 +20,8 @@ namespace jcpp{
                     vector<JPackage*>* getPackages();
 
                     static JIMPL* getPackage();
+
+                    virtual ~JIMPL();
                 };
             }
         }

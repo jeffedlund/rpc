@@ -69,7 +69,7 @@ namespace jcpp{
                         this->objectInformations=objectInformations;
                     }
 
-                    void JConnectionTransportDispatcher::dispatch(JEndPoint* fromEndPoint, JEndPoint* toEndPoint, JConnection* connection){
+                    void JConnectionTransportDispatcher::dispatch(JEndPoint* fromEndPoint, JEndPoint*, JConnection* connection){
                         JConnectionInputStream* ois = new JConnectionInputStream(connection->getInputStream(), objectInformations, fromEndPoint);
                         JString* objectId = NULL;
                         jlong digest = 0;
@@ -111,7 +111,7 @@ namespace jcpp{
                         }
                     }
 
-                    JConnectionTransportDispatcher::InvocationResult* JConnectionTransportDispatcher::invokeMethod(JString* id, jlong digest, vector<JObject*>* args, JEndPoint* endPoint){
+                    JConnectionTransportDispatcher::InvocationResult* JConnectionTransportDispatcher::invokeMethod(JString* id, jlong digest, vector<JObject*>* args, JEndPoint*){
                         JObject* object = NULL;
                         JMethod* method = NULL;
                         JObject* result = NULL;
@@ -151,6 +151,9 @@ namespace jcpp{
                             }
                         }
                         return new InvocationResult(object, method, result, exceptionThrown);
+                    }
+
+                    JConnectionTransportDispatcher::~JConnectionTransportDispatcher(){
                     }
                 }
             }

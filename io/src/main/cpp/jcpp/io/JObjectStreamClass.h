@@ -88,7 +88,7 @@ namespace jcpp{
             vector<ClassDataSlot*>* getClassDataLayout();
             vector<JObjectStreamClass*>* getHierarchy();
             string toString();
-            ~JObjectStreamClass();
+            virtual ~JObjectStreamClass();
         };
     }
 }

@@ -34,6 +34,9 @@ namespace jcpp{
                         }
                         return clazz;
                     }
+
+                    JIGCClient::~JIGCClient(){
+                    }
                 }
             }
         }

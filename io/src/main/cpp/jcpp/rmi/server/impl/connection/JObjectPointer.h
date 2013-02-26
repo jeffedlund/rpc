@@ -39,7 +39,7 @@ namespace jcpp{
                             JString* getId();
                             void setId(JString* id);
                             string toString();
-                            ~JObjectPointer();
+                            virtual ~JObjectPointer();
                     };
                 }
             }

@@ -67,7 +67,7 @@ namespace jcpp{
             virtual char readChar();
             virtual bool readBool();
             virtual void close();
-            ~BlockDataInputStream();
+            virtual ~BlockDataInputStream();
         };
     }
 }

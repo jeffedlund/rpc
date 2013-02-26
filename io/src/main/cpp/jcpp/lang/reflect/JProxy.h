@@ -29,7 +29,7 @@ namespace jcpp{
 
                 string toString();
 
-                ~JProxy();
+                virtual ~JProxy();
             };
         }
     }

@@ -47,7 +47,7 @@ namespace jcpp{
                             virtual bool readBool();
                             virtual void close();
 
-                            ~JGatewayCompressionInputStream();
+                            virtual ~JGatewayCompressionInputStream();
                     };
                 }
             }

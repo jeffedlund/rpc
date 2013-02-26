@@ -20,6 +20,9 @@ namespace jcpp{
         string JInvalidClassExceptionTest::getThrowableClassName(){
             return "java.io.InvalidClassException";
         }
+
+        JInvalidClassExceptionTest::~JInvalidClassExceptionTest(){
+        }
     }
 }
 

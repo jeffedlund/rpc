@@ -85,7 +85,7 @@ namespace jcpp{
 
                             string toString();
 
-                            ~JGatewaySocket();
+                            virtual ~JGatewaySocket();
                     };
                 }
             }

@@ -125,7 +125,7 @@ namespace jcpp{
                         virtual void invocationFailed(JObject* proxy, JMethod* method, vector<JObject*>* args, JThrowable* e);
 
                         string toString();
-                        ~JServer();
+                        virtual ~JServer();
                     };
                 }
             }

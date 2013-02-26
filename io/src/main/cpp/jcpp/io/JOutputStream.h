@@ -30,7 +30,7 @@ namespace jcpp{
             virtual void writeLong(jlong v);
             virtual void writeFloat(float v);
             virtual void writeDouble(double v);
-            ~JOutputStream(){}
+            virtual ~JOutputStream();
         };
     }
 }

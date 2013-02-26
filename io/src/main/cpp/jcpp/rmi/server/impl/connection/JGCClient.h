@@ -45,7 +45,7 @@ namespace jcpp{
                             void unexport();
                             JIGCClientListener* getGCClientListener();
                             static JClass* getClazz();
-                            ~JGCClient();
+                            virtual ~JGCClient();
                     };
                 }
             }

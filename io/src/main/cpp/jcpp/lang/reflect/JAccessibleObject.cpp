@@ -34,6 +34,9 @@ namespace jcpp{
 
             JAccessibleObject::JAccessibleObject(JClass* clazz):JObject(clazz){
             }
+
+            JAccessibleObject::~JAccessibleObject(){
+            }
         }
     }
 }

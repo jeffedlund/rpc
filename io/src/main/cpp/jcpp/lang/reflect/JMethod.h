@@ -34,6 +34,8 @@ namespace jcpp{
                 JObject* invoke(JObject* object, vector<JObject*>*args);
 
                 virtual string toString();
+
+                virtual ~JMethod();
             };
         }
     }

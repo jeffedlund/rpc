@@ -53,7 +53,7 @@ namespace jcpp{
             bool isUnshared();
             JField* getField();
             string getSignature();
-            ~JObjectStreamField();
+            virtual ~JObjectStreamField();
         };
     }
 }

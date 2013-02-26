@@ -21,6 +21,7 @@ namespace jcpp{
                         public:
                             static JClass* getClazz();
                             virtual JObject* handleNotSerializableObject(JObject* obj)=0;
+                            virtual ~JINotSerializableObjectHandler();
                         };
                     }
                 }

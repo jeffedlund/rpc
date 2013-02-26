@@ -20,6 +20,9 @@ namespace jcpp{
         string JIllegalStateExceptionTest::getThrowableClassName(){
             return "java.lang.IllegalStateException";
         }
+
+        JIllegalStateExceptionTest::~JIllegalStateExceptionTest(){
+        }
     }
 }
 

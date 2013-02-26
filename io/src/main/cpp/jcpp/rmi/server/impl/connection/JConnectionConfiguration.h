@@ -51,7 +51,7 @@ namespace jcpp{
                             void setGcClientExceptionThreshold(JInteger* t);
                             JInteger* getExecutorCorePoolSize();
                             void setExecutorCorePoolSize(JInteger* s);
-                            ~JConnectionConfiguration();
+                            virtual ~JConnectionConfiguration();
                     };
                 }
             }

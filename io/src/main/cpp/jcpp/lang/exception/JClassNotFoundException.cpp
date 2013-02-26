@@ -35,5 +35,8 @@ namespace jcpp{
         JClassNotFoundException::JClassNotFoundException(string message):JException(getClazz()){
             this->message=new JString(message);
         }
+
+        JClassNotFoundException::~JClassNotFoundException(){
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace jcpp{
 
             public:
                 static JClass* getClazz();
+                virtual ~JScheduledFuture();
             };
         }
     }

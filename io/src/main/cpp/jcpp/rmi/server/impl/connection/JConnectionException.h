@@ -33,6 +33,8 @@ namespace jcpp{
                         JConnectionException(string message,JThrowable* cause);
 
                         static JClass* getClazz();
+
+                        virtual ~JConnectionException();
                     };
                 }
             }

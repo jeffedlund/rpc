@@ -16,6 +16,9 @@ namespace jcpp{
             assert (((JPrimitiveFloat*)fvalue->get(s))->get()==123456);
             return s;
         }
+
+        JFloatTest::~JFloatTest(){
+        }
     }
 }
 

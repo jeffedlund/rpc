@@ -31,6 +31,9 @@ namespace jcpp{
                 }
                 return jreflect;
             }
+
+            JREFLECT::~JREFLECT(){
+            }
         }
     }
 }

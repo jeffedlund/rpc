@@ -16,6 +16,9 @@ namespace jcpp{
             assert (((JPrimitiveDouble*)fvalue->get(s))->get()==123456);
             return s;
         }
+
+        JDoubleTest::~JDoubleTest(){
+        }
     }
 }
 

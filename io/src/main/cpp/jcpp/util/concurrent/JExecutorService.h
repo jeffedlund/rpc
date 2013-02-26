@@ -23,6 +23,7 @@ namespace jcpp{
                 virtual JFuture* submit(JCallable* task)=0;
                 virtual JFuture* submit(JRunnable* task,JObject* result)=0;
                 virtual JFuture* submit(JRunnable* task)=0;
+                virtual ~JExecutorService();
             };
         }
     }

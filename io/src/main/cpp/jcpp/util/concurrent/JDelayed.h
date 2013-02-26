@@ -16,6 +16,7 @@ namespace jcpp{
             public:
                 static JClass* getClazz();
                 virtual jlong getDelay()=0;
+                virtual ~JDelayed();
             };
         }
     }

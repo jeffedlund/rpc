@@ -37,7 +37,7 @@ namespace jcpp{
                         static JClass* getClazz();
                         void done();
                         virtual JObject* resolveObject(JObject* obj);
-                        ~JConnectionInputStream();
+                        virtual ~JConnectionInputStream();
                     };
                 }
             }

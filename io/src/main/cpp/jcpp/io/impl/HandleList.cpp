@@ -6,10 +6,6 @@
 namespace jcpp{
     namespace io{
         //HandleList
-        bool HandleList::operator==(const HandleList &h){
-            return false;
-        }
-
         HandleList::HandleList() {
             length = 4;
             list = new int[length];

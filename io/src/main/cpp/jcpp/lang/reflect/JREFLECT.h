@@ -21,6 +21,8 @@ namespace jcpp{
                 vector<JPackage*>* getPackages();
 
                 static JREFLECT* getPackage();
+
+                virtual ~JREFLECT();
             };
         }
     }

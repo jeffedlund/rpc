@@ -39,7 +39,7 @@ namespace jcpp{
             return 0;
         }
 
-        bool JInputStream::waitForReadyRead(int i) {
+        bool JInputStream::waitForReadyRead(int) {
             return false;
         }
 
@@ -47,7 +47,7 @@ namespace jcpp{
             return 0;
         }
 
-        jint JInputStream::read(jbyte b[], int off, int len) {
+        jint JInputStream::read(jbyte[], int, int) {
             return 0;
         }
 

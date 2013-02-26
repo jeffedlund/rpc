@@ -36,6 +36,9 @@ namespace jcpp{
                         }
                         return tra;
                     }
+
+                    JTRANSPORT_PACKAGE::~JTRANSPORT_PACKAGE(){
+                    }
                 }
             }
         }

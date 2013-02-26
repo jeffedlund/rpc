@@ -34,6 +34,7 @@ namespace jcpp{
                         virtual void doExport(JObjectInformation* objectInformation, JEndPoint* endPoint)=0;
                         virtual void unexport(JObjectInformation* objectInformation,JEndPoint* endPoint)=0;
                         virtual void unexport(JObjectInformation* objectInformation)=0;
+                        virtual ~JILifecycle();
                     };
                 }
             }

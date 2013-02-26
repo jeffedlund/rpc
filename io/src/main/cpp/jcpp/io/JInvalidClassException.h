@@ -13,6 +13,7 @@ namespace jcpp{
             JInvalidClassException(string message);
 
              static JClass* getClazz();
+             virtual ~JInvalidClassException();
         };
     }
 }

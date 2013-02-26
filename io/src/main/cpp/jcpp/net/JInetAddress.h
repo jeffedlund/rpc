@@ -41,7 +41,7 @@ namespace jcpp{
             bool isReachable(int timeout);
             bool isSiteLocalAddress();
             string toString();
-            ~JInetAddress();
+            virtual ~JInetAddress();
         };
     }
 }

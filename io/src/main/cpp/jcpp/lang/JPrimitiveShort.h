@@ -27,7 +27,7 @@ namespace jcpp{
 
                 string toString();
 
-                ~JPrimitiveShort();
+                virtual ~JPrimitiveShort();
         };
     }
 }

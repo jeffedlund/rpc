@@ -30,6 +30,7 @@ namespace jcpp{
                         static JClass* getClazz();
                         virtual void invocationSucceeded(JObject* proxy, JMethod* method, vector<JObject*>* args)=0;
                         virtual void invocationFailed(JObject* proxy, JMethod* method, vector<JObject*>* args, JThrowable* e)=0;
+                        virtual ~JIInvocationListener();
                     };
                 }
             }

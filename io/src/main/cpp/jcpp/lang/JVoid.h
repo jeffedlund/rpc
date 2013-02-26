@@ -8,6 +8,7 @@ namespace jcpp{
         class JVoid : public JObject{
             public:
                 static JClass* getClazz();
+                virtual ~JVoid()=0;
         };
     }
 }

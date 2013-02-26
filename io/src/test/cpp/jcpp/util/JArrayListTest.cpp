@@ -22,6 +22,9 @@ namespace jcpp{
             s->add(f1);
             return s;
         }
+
+        JArrayListTest::~JArrayListTest(){
+        }
     }
 }
 

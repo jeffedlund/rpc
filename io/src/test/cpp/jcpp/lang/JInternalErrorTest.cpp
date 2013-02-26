@@ -20,6 +20,9 @@ namespace jcpp{
         string JInternalErrorTest::getThrowableClassName(){
             return "java.lang.InternalError";
         }
+
+        JInternalErrorTest::~JInternalErrorTest(){
+        }
     }
 }
 

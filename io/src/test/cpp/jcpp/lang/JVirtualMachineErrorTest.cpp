@@ -20,6 +20,9 @@ namespace jcpp{
         string JVirtualMachineErrorTest::getThrowableClassName(){
             return "java.lang.VirtualMachineError";
         }
+
+        JVirtualMachineErrorTest::~JVirtualMachineErrorTest(){
+        }
     }
 }
 

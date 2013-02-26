@@ -20,6 +20,9 @@ namespace jcpp{
         string JIndexOutOfBoundsExceptionTest::getThrowableClassName(){
             return "java.lang.IndexOutOfBoundsException";
         }
+
+        JIndexOutOfBoundsExceptionTest::~JIndexOutOfBoundsExceptionTest(){
+        }
     }
 }
 

@@ -38,5 +38,8 @@ namespace jcpp{
         JObjectStreamException::JObjectStreamException(string message) : JIOException(getClazz()){
             this->message=new JString(message);
         }
+
+        JObjectStreamException::~JObjectStreamException(){
+        }
     }
 }

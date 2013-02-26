@@ -26,7 +26,7 @@ namespace jcpp{
 
                 string toString();
 
-                ~JPrimitiveDouble();
+                virtual ~JPrimitiveDouble();
         };
     }
 }

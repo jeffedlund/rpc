@@ -13,6 +13,8 @@ namespace jcpp{
             JEOFException(string message);
 
             static JClass* getClazz();
+
+            virtual ~JEOFException();
         };
     }
 }

@@ -13,6 +13,8 @@ namespace jcpp{
             string getFileName();
 
             JObject* testReflect();
+
+            virtual ~JPrimitiveFloatTest();
         };
     }
 }

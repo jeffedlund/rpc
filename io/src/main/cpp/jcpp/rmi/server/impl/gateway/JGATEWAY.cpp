@@ -38,6 +38,9 @@ namespace jcpp{
                         }
                         return gateway;
                     }
+
+                    JGATEWAY::~JGATEWAY(){
+                    }
                 }
             }
         }

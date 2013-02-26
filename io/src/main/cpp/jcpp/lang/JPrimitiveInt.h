@@ -31,7 +31,7 @@ namespace jcpp{
 
                 JPrimitiveInt* clone();
 
-                ~JPrimitiveInt();
+                virtual ~JPrimitiveInt();
         };
     }
 }

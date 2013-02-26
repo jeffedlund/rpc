@@ -63,6 +63,9 @@ namespace jcpp{
                 execute(ftask);
                 return ftask;
             }
+
+            JAbstractExecutorService::~JAbstractExecutorService(){
+            }
         }
     }
 }

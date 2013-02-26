@@ -38,6 +38,7 @@ namespace jcpp{
             th->printStackTrace(&cout);
             throw th;
         }
+        return NULL;
     }
 
     void JTest::test(){
@@ -47,5 +48,8 @@ namespace jcpp{
         if (getRead()!=NULL && getWrite()!=NULL){
             assert ((*read)==(*object));
         }
+    }
+
+    JTest::~JTest(){
     }
 }

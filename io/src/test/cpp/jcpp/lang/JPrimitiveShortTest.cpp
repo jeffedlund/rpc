@@ -16,6 +16,9 @@ namespace jcpp{
             assert (s->getClass()->getName()=="short");
             return s;
         }
+
+        JPrimitiveShortTest::~JPrimitiveShortTest(){
+        }
     }
 }
 

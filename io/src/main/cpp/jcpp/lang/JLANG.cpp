@@ -67,5 +67,8 @@ namespace jcpp{
             }
             return jlang;
         }
+
+        JLANG::~JLANG(){
+        }
     }
 }

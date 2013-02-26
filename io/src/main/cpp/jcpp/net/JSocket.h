@@ -70,7 +70,7 @@ namespace jcpp{
 
             virtual void close();
             virtual bool isClosed();
-            ~JSocket();
+            virtual ~JSocket();
 
         };
     }

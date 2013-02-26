@@ -69,7 +69,7 @@ namespace jcpp{
                         JObjectInformation* getObjectInformation(JString* id);
                         JObjectInformation* getObjectInformation(JObject* object);
                         JObjectInformation* remove(JString* id);
-                        ~JObjectInformations();
+                        virtual ~JObjectInformations();
                     };
                 }
             }

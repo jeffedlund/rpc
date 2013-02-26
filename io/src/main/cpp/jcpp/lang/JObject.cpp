@@ -45,7 +45,7 @@ namespace jcpp{
             this->waitCondition=new QWaitCondition();
         }
 
-        JObject::JObject(bool root){
+        JObject::JObject(bool){
             this->mutex=new QMutex(QMutex::Recursive);
             this->waitCondition=new QWaitCondition();
         }

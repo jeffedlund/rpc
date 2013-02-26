@@ -55,7 +55,7 @@ namespace jcpp{
                             void endPointDead(JEndPoint* endPoint);
                             void doExport(JObjectInformation* objInfo, JEndPoint* endPoint);
                             void remove(JEndPoint* e);
-                            ~JGC();
+                            virtual ~JGC();
                     };
                 }
             }

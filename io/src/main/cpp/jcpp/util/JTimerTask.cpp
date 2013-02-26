@@ -58,5 +58,8 @@ namespace jcpp{
             unlock();
             return b;
         }
+
+        JTimerTask::~JTimerTask(){
+        }
     }
 }

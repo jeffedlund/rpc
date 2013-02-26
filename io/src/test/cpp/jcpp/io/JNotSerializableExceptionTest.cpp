@@ -20,6 +20,9 @@ namespace jcpp{
         string JNotSerializableExceptionTest::getThrowableClassName(){
             return "java.io.NotSerializableException";
         }
+
+        JNotSerializableExceptionTest::~JNotSerializableExceptionTest(){
+        }
     }
 }
 

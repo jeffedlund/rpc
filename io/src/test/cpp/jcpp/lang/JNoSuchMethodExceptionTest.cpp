@@ -20,5 +20,8 @@ namespace jcpp{
         string JNoSuchMethodExceptionTest::getThrowableClassName(){
             return "java.lang.NoSuchMethodException";
         }
+
+        JNoSuchMethodExceptionTest::~JNoSuchMethodExceptionTest(){
+        }
     }
 }

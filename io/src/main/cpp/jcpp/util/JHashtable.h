@@ -32,7 +32,7 @@ namespace jcpp{
 
         //    QList<Key> keys();
 
-            ~JHashtable();
+            virtual ~JHashtable();
 
         };
     }

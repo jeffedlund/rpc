@@ -11,6 +11,7 @@ namespace jcpp{
         class JInterface{
             public:
                 static JClass* getClazz();
+                virtual ~JInterface();
         };
     }
 }

@@ -20,5 +20,8 @@ namespace jcpp{
         string JNoSuchFieldExceptionTest::getThrowableClassName(){
             return "java.lang.NoSuchFieldException";
         }
+
+        JNoSuchFieldExceptionTest::~JNoSuchFieldExceptionTest(){
+        }
     }
 }

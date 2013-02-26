@@ -89,7 +89,7 @@ namespace jcpp{
             virtual JObject* newInstance()=0;
             jlong getSerialVersionUID();
             string toString();
-            ~JClass();
+            virtual ~JClass();
         };
     }
 }

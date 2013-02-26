@@ -65,7 +65,7 @@ namespace jcpp{
 
         string toString();
 
-        ~JSampleObject();
+        virtual ~JSampleObject();
     };
 }
 

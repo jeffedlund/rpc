@@ -20,6 +20,7 @@ namespace jcpp{
                 virtual bool isCancelled()=0;
                 virtual bool isDone()=0;
                 virtual JObject* get()=0;
+                virtual ~JFuture();
             };
         }
     }

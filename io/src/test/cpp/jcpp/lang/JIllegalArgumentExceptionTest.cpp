@@ -20,5 +20,8 @@ namespace jcpp{
         string JIllegalArgumentExceptionTest::getThrowableClassName(){
             return "java.lang.IllegalArgumentException";
         }
+
+        JIllegalArgumentExceptionTest::~JIllegalArgumentExceptionTest(){
+        }
     }
 }

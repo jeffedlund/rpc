@@ -14,6 +14,7 @@ namespace jcpp{
             JIllegalStateException(string message);
 
             static JClass* getClazz();
+            virtual ~JIllegalStateException();
         };
     }
 }

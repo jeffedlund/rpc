@@ -19,6 +19,7 @@ namespace jcpp{
             public:
                 static JClass* getClazz();
                 virtual bool isPeriodic()=0;
+                virtual ~JRunnableScheduledFuture();
             };
         }
     }

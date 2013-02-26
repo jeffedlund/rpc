@@ -40,6 +40,8 @@ namespace jcpp{
             vector<JPackage*>* getPackages();
 
             static JIO* getPackage();
+
+            virtual ~JIO();
         };
     }
 }

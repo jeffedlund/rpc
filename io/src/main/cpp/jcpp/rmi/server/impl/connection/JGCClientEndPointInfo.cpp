@@ -78,9 +78,7 @@ namespace jcpp{
                         }
                         unlock();
                         JPrimitiveArray* ping = NULL;
-                        long t1 = 0;
                         try {
-                            t1 = JSystem::currentTimeMillis();
                             ping = gc->ping(localServer->getEndPoint(), idsArray);
                         } catch (JThrowable* e) {
                             throwable = e;

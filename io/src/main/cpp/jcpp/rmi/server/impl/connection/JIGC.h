@@ -31,6 +31,7 @@ namespace jcpp{
                         virtual JPrimitiveArray* ping(JEndPoint* endPoint, JPrimitiveArray* id)=0;
                         virtual void endPointDead(JEndPoint* endPoint)=0;
                         virtual JPrimitiveArray* getExportedEndPoints()=0;
+                        virtual ~JIGC();
                     };
                 }
             }

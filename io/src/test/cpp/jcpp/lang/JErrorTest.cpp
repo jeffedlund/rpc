@@ -20,5 +20,8 @@ namespace jcpp{
         string JErrorTest::getThrowableClassName(){
             return "java.lang.Error";
         }
+
+        JErrorTest::~JErrorTest(){
+        }
     }
 }

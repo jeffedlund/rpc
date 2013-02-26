@@ -35,7 +35,7 @@ namespace jcpp{
 
             vector<JObject*>* getObjects();
 
-            ~JPrimitiveArray();
+            virtual ~JPrimitiveArray();
         };
     }
 }

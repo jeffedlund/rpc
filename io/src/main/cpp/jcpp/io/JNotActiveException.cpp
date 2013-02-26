@@ -38,6 +38,9 @@ namespace jcpp{
         JNotActiveException::JNotActiveException(string message) : JObjectStreamException(getClazz()){
             this->message=new JString(message);
         }
+
+        JNotActiveException::~JNotActiveException(){
+        }
     }
 }
 

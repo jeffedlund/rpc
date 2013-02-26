@@ -16,6 +16,9 @@ namespace jcpp{
             assert (((JPrimitiveInt*)fvalue->get(s))->get()==123456);
             return s;
         }
+
+        JIntegerTest::~JIntegerTest(){
+        }
     }
 }
 

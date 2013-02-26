@@ -60,7 +60,7 @@ namespace jcpp{
                             void setPingTimeout(JInteger* pingTimeout);
                             JLong* getTimeoutTimerInterval();
                             void setTimeoutTimerInterval(JLong* timeoutTimerInterval);
-                            ~JTransportConfiguration();
+                            virtual ~JTransportConfiguration();
                     };
                 }
             }

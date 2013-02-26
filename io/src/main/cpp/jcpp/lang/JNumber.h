@@ -20,6 +20,8 @@ namespace jcpp{
 
                 virtual string toString()=0;
 
+                virtual ~JNumber();
+
         };
     }
 }

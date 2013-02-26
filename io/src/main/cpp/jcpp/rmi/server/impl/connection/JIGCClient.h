@@ -29,6 +29,7 @@ namespace jcpp{
                     public:
                         static JClass* getClazz();
                         virtual JPrimitiveArray* getEndPoints()=0;
+                        virtual ~JIGCClient()=0;
                     };
                 }
             }

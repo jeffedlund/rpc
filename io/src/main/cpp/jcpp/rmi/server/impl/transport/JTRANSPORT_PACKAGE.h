@@ -29,6 +29,8 @@ namespace jcpp{
                         vector<JPackage*>* getPackages();
 
                         static JTRANSPORT_PACKAGE* getPackage();
+
+                        virtual ~JTRANSPORT_PACKAGE();
                     };
                 }
             }

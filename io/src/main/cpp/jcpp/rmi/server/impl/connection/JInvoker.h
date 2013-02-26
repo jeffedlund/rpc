@@ -40,7 +40,7 @@ namespace jcpp{
                             void setObjectInformations(JObjectInformations* objectInformations);
                             JObjectInformations* getObjectInformations();
                             JObject* invoke(JMethod* method, vector<JObject*>* args);
-                            ~JInvoker();
+                            virtual ~JInvoker();
                     };
                 }
             }

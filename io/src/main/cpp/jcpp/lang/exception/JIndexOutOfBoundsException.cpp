@@ -39,5 +39,8 @@ namespace jcpp{
         JIndexOutOfBoundsException::JIndexOutOfBoundsException(JString* message):JRuntimeException(getClazz()){
             this->message=message;
         }
+
+        JIndexOutOfBoundsException::~JIndexOutOfBoundsException(){
+        }
     }
 }

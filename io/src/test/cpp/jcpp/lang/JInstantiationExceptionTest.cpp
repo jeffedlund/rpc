@@ -20,6 +20,9 @@ namespace jcpp{
         string JInstantiationExceptionTest::getThrowableClassName(){
             return "java.lang.InstantiationException";
         }
+
+        JInstantiationExceptionTest::~JInstantiationExceptionTest(){
+        }
     }
 }
 

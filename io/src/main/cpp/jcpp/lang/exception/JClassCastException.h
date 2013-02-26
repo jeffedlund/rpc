@@ -14,6 +14,7 @@ namespace jcpp{
             JClassCastException(string message);
 
             static JClass* getClazz();
+            virtual ~JClassCastException();
         };
     }
 }

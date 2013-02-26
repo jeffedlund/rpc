@@ -18,6 +18,8 @@ namespace jcpp{
             virtual void writeExternal(JObjectOutputStream* out)=0;
 
             virtual void readExternal(JObjectInputStream* in)=0;
+
+            virtual ~JExternalizable()=0;
         };
     }
 }

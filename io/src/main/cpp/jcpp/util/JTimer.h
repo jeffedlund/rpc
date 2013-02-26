@@ -48,7 +48,7 @@ namespace jcpp{
             void schedule(JTimerTask* task, jlong delay);
             void schedule(JTimerTask* task, jlong delay, jlong period);
             void cancel(JTimerTask* task);
-            ~JTimer();
+            virtual ~JTimer();
         };
     }
 }

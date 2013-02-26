@@ -62,7 +62,7 @@ namespace jcpp{
 
                             string toString();
 
-                            ~JRoute();
+                            virtual ~JRoute();
                     };
                 }
             }

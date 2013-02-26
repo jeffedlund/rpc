@@ -20,5 +20,8 @@ namespace jcpp{
         string JRuntimeExceptionTest::getThrowableClassName(){
             return "java.lang.RuntimeException";
         }
+
+        JRuntimeExceptionTest::~JRuntimeExceptionTest(){
+        }
     }
 }

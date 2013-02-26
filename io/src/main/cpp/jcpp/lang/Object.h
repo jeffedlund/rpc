@@ -10,7 +10,7 @@ namespace jcpp{
         #define jbool bool
         #define jbyte qint8
         #define jubyte quint8
-        #define jchar char
+        #define jchar quint16
         #define jdouble double
         #define jfloat float
         #define jlong qint64

@@ -37,7 +37,7 @@ namespace jcpp{
 
             void setPEOF(JPrimitiveBoolean* eof);
 
-            ~JOptionalDataException();
+            virtual ~JOptionalDataException();
 
         };
     }

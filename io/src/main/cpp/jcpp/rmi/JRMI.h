@@ -18,6 +18,8 @@ namespace jcpp{
             vector<JPackage*>* getPackages();
 
             static JRMI* getPackage();
+
+            virtual ~JRMI();
         };
     }
 }

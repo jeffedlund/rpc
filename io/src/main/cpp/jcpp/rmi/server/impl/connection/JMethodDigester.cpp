@@ -81,7 +81,7 @@ namespace jcpp{
                             createDigests(classObject);
                             internalMap = getFromMap(methodToDigestMap,classObject);
                         }
-                        l=getFromMap(internalMap,method);
+                        l=getFromMap(internalMap,method,(long)-1);
                         unlock();
                         return l;
                     }

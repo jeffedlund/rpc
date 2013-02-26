@@ -2,6 +2,8 @@
 namespace jcpp{
     namespace lang{
         namespace reflect{
+            JInvocationHandler::~JInvocationHandler(){
+            }
         }
     }
 }

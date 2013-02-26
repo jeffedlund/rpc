@@ -28,6 +28,9 @@ namespace jcpp{
                 }
                 return server;
             }
+
+            JSERVER_PACKAGE::~JSERVER_PACKAGE(){
+            }
         }
     }
 }

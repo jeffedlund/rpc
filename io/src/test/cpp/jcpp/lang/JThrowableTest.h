@@ -19,6 +19,8 @@ namespace jcpp{
             virtual string getThrowableClassName();
 
             JObject* testReflect();
+
+            virtual ~JThrowableTest();
         };
     }
 }

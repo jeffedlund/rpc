@@ -33,7 +33,7 @@ namespace jcpp{
                         return clazz;
                     }
 
-                    JGatewayCompressionInputStream::JGatewayCompressionInputStream(JInputStream* in,JGatewayConfiguration* gatewayConfiguration):JInputStream(getClazz()){
+                    JGatewayCompressionInputStream::JGatewayCompressionInputStream(JInputStream* in,JGatewayConfiguration*):JInputStream(getClazz()){
                         this->gatewayInputStream=new JGatewayInputStream(in);
                     }
 

@@ -58,7 +58,7 @@ namespace jcpp{
                             jlong getLastUsed();
                             JConnections* getConnections();
                             string toString();
-                            ~JConnection();
+                            virtual ~JConnection();
                     };
                 }
             }

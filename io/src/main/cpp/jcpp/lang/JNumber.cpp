@@ -38,5 +38,8 @@ namespace jcpp{
             }
             return clazz;
         }
+
+        JNumber::~JNumber(){
+        }
     }
 }

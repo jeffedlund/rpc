@@ -251,7 +251,7 @@ namespace jcpp{
         }
 
         jbyte BlockDataInputStream::readByte() {
-            juint v = read();
+            jint v = read();
             if (v < 0) {
                 throw new JEOFException();
             }

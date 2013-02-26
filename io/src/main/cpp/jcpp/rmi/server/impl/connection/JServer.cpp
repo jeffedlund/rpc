@@ -55,21 +55,24 @@ namespace jcpp{
                         this->gcClient = new JGCClient(this, this);
                         this->objectInformations = new JObjectInformations(this, this, gc, gcClient,this);
                         this->connectionTransportDispatcher = new JConnectionTransportDispatcher(objectInformations);
-                        this->transport = new JTransport(endPoint, transportRouter, NULL/*connectionTransportDispatcher*/, executorService, scheduledExecutorService, connectionConfiguration->getTransportConfiguration());
+                        this->transport = new JTransport(endPoint, transportRouter, connectionTransportDispatcher, executorService, scheduledExecutorService, connectionConfiguration->getTransportConfiguration());
                         this->objectInformations->setTransport(transport);
                         this->registry = new JRegistry(objectInformations);
                         vector<JClass*>* inter=new vector<JClass*>();
                         inter->push_back(JIRegistry::getClazz());
-                        //TODO this->registry->bind(JIRegistry::getClazz()->getName(), registry, inter);
+                        this->registry->bind(JString::intern(JIRegistry::getClazz()->getName()), (JObject*)registry, inter);
+
                         inter=new vector<JClass*>();
                         inter->push_back(JIServer::getClazz());
-                        //TODO this->registry->bind(JIServer::getClazz()->getName(), this, inter);
+                        this->registry->bind(JString::intern(JIServer::getClazz()->getName()), this, inter);
+
                         inter=new vector<JClass*>();
                         inter->push_back(JIGC::getClazz());
-                        //TODO this->registry->bind(JIGC::getClazz()->getName(), gc, inter);
+                        this->registry->bind(JString::intern(JIGC::getClazz()->getName()), gc, inter);
+
                         inter=new vector<JClass*>();
                         inter->push_back(JIGCClient::getClazz());
-                        //TODO this->registry->bind(JIGCClient::getClazz()->getName(), gcClient, inter);
+                        this->registry->bind(JString::intern(JIGCClient::getClazz()->getName()), gcClient, inter);
                     }
 
                     JIServer* JServer::getRemoteServer(JObject* object){
@@ -117,7 +120,7 @@ namespace jcpp{
                     JObject* JServer::lookup(JEndPoint* endPoint, JClass* clazz){
                         vector<JClass*>* inter=new vector<JClass*>();
                         inter->push_back(clazz);
-                        return NULL;//TODO lookup(clazz->getName(),endPoint,inter);
+                        return lookup(JString::intern(clazz->getName()),endPoint,inter);
                     }
 
                     JObject* JServer::lookup(JString* id, JEndPoint* endPoint, vector<JClass*>* interfaces){

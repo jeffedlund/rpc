@@ -31,7 +31,7 @@ namespace jcpp{
 
                 string toString();
 
-                ~JChar();
+                virtual ~JChar();
         };
     }
 }

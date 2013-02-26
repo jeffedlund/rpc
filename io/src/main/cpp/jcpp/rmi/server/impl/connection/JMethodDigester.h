@@ -40,7 +40,7 @@ namespace jcpp{
                             long getDigestFromMethod(JMethod* method);
                             vector<JMethod*>* getMethods(JObject* object);
                             void clear();
-                            ~JMethodDigester();
+                            virtual ~JMethodDigester();
                     };
                 }
             }

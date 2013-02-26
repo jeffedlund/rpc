@@ -16,6 +16,9 @@ namespace jcpp{
             assert (s->getClass()->getName()=="long");
             return s;
         }
+
+        JPrimitiveLongTest::~JPrimitiveLongTest(){
+        }
     }
 }
 

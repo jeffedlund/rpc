@@ -38,5 +38,8 @@ namespace jcpp{
         JNotSerializableException::JNotSerializableException(string message) : JObjectStreamException(getClazz()){
             this->message=new JString(message);
         }
+
+        JNotSerializableException::~JNotSerializableException(){
+        }
     }
 }

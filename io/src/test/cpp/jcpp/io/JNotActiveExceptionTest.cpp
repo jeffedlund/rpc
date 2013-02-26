@@ -20,6 +20,9 @@ namespace jcpp{
         string JNotActiveExceptionTest::getThrowableClassName(){
             return "java.io.NotActiveException";
         }
+
+        JNotActiveExceptionTest::~JNotActiveExceptionTest(){
+        }
     }
 }
 

@@ -53,7 +53,7 @@ namespace jcpp{
 
             virtual void readObject(JObjectInputStream* in);
 
-            ~JArrayList();
+            virtual ~JArrayList();
         };
     }
 }

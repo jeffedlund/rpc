@@ -14,6 +14,7 @@ namespace jcpp{
             JInstantiationException(string message);
 
             static JClass* getClazz();
+            virtual ~JInstantiationException();
         };
     }
 }

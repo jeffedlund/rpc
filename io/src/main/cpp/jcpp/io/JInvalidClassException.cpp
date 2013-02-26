@@ -35,5 +35,8 @@ namespace jcpp{
         JInvalidClassException::JInvalidClassException(string message) : JObjectStreamException(getClazz()){
             this->message=new JString(message);
         }
+
+        JInvalidClassException::~JInvalidClassException(){
+        }
     }
 }

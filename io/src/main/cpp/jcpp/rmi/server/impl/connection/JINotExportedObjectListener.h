@@ -29,6 +29,7 @@ namespace jcpp{
                     public:
                         static JClass* getClazz();
                         virtual bool handleNotExportedObject(JObject* object)=0;
+                        virtual ~JINotExportedObjectListener();
                     };
                 }
             }

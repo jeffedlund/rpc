@@ -36,5 +36,8 @@ namespace jcpp{
 
         JAbstractList::JAbstractList(JClass* _class):JAbstractCollection(_class){
         }
+
+        JAbstractList::~JAbstractList(){
+        }
     }
 }

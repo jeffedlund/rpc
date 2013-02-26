@@ -391,7 +391,7 @@ namespace jcpp{
                 int csize = len - off < CHAR_BUF_SIZE ? len - off  : CHAR_BUF_SIZE;
                 getChars(s, off, off + csize, cbuf, 0);
                 for (int cpos = 0; cpos < csize; cpos++) {
-                    char c = cbuf[cpos];
+                    jchar c = cbuf[cpos];
                     if (pos <= limit) {
                         if (c <= 0x007F && c != 0) {
                             buf[pos++] = (jbyte) c;

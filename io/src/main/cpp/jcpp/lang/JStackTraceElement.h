@@ -43,7 +43,7 @@ namespace jcpp{
 
             string toString();
 
-            ~JStackTraceElement();
+            virtual ~JStackTraceElement();
         };
     }
 }

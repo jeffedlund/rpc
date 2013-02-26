@@ -55,7 +55,7 @@ namespace jcpp{
                         virtual JObject* invoke(JObject* proxy, JMethod* method, vector<JObject*>* args);
                         void setObjectInformations(JObjectInformations* objectInformations);
                         virtual JObject* clone();
-                        ~JObjectHandler();
+                        virtual ~JObjectHandler();
                     };
                 }
             }

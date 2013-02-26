@@ -1,6 +1,7 @@
 #include "JArrayList.h"
 #include "JClass.h"
 #include <cstdio>
+#include "Collections.h"
 
 namespace jcpp{
     namespace util{
@@ -62,7 +63,7 @@ namespace jcpp{
             return clazz;
         }
 
-        JArrayList::JArrayList(int initialCapacity):JAbstractList(getClazz()){
+        JArrayList::JArrayList(int):JAbstractList(getClazz()){
             items=new vector<JObject*>();
             size=new JPrimitiveInt(0);
         }
@@ -109,7 +110,7 @@ namespace jcpp{
             size->set(size->get()+1);
         }
 
-        void JArrayList::add(int index,JObject* item){
+        void JArrayList::add(int,JObject* ){
             throw "Not done add(index,item)";
             //TODO
         }

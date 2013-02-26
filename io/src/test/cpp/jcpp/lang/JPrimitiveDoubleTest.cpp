@@ -16,6 +16,9 @@ namespace jcpp{
             assert (s->getClass()->getName()=="double");
             return s;
         }
+
+        JPrimitiveDoubleTest::~JPrimitiveDoubleTest(){
+        }
     }
 }
 

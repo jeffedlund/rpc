@@ -45,7 +45,7 @@ namespace jcpp{
                         virtual JObject* lookup(JString* id);
                         virtual void rebind(JString* id, JObject* object, vector<JClass*>* interfaces);
                         virtual void unbind(JString* id);
-                        ~JRegistry();
+                        virtual ~JRegistry();
                     };
                 }
             }

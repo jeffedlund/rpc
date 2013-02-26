@@ -16,6 +16,9 @@ namespace jcpp{
             assert (((JPrimitiveChar*)fvalue->get(s))->get()=='d');
             return s;
         }
+
+        JCharTest::~JCharTest(){
+        }
     }
 }
 

@@ -35,6 +35,9 @@ namespace jcpp{
         JIllegalArgumentException::JIllegalArgumentException(string message):JRuntimeException(getClazz()){
             this->message=new JString(message);
         }
+
+        JIllegalArgumentException::~JIllegalArgumentException(){
+        }
     }
 }
 

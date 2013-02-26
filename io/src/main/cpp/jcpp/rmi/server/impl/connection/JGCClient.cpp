@@ -9,7 +9,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace connection{
-                    JObject* invokeGetEndPoints(JObject* object,vector<JObject*>*args){
+                    JObject* invokeGetEndPoints(JObject* object,vector<JObject*>*){
                         JGCClient* gcClient=(JGCClient*)object;
                         return gcClient->getEndPoints();
                     }

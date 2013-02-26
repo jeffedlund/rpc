@@ -17,6 +17,8 @@ namespace jcpp{
             virtual JThrowable* createSecondCause();
 
             virtual string getThrowableClassName();
+
+            virtual ~JExceptionTest();
         };
     }
 }

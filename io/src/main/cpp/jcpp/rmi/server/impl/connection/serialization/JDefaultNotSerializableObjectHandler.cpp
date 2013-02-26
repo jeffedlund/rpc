@@ -43,6 +43,9 @@ namespace jcpp{
                         JObject* JDefaultNotSerializableObjectHandler::handleNotSerializableObject(JObject* obj){
                             return new JNotSerializableException("Cannot serialize the object of type: " + obj->getClass()->getName() + ". Object: " + obj->toString());
                         }
+
+                        JDefaultNotSerializableObjectHandler::~JDefaultNotSerializableObjectHandler(){
+                        }
                     }
                 }
             }

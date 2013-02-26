@@ -42,7 +42,7 @@ namespace jcpp{
             virtual void run();
             void start();
             string toString();
-            ~JThread();
+            virtual ~JThread();
         };
     }
 }

@@ -34,6 +34,8 @@ namespace jcpp{
                 virtual void set(JObject* object, JObject* value);
 
                 string toString();
+
+                virtual ~JField();
             };
         }
     }

@@ -30,7 +30,7 @@ namespace jcpp{
             bout->setBlockDataMode(true);
         }
 
-        JObjectOutputStream::JObjectOutputStream(JOutputStream* out,JClass* _class){//TODO use _class for super
+        JObjectOutputStream::JObjectOutputStream(JOutputStream* out,JClass* _class):JOutputStream(_class){//TODO use _class for super
             this->bout = new JBlockDataOutputStream(out);
             handles=new OutputHandleTable();
             enableOverride = false;

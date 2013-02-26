@@ -33,7 +33,7 @@ namespace jcpp{
 
                 string toString();
 
-                ~JInteger();
+                virtual ~JInteger();
         };
     }
 }

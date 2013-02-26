@@ -32,6 +32,9 @@ namespace jcpp{
             }
             return clazz;
         }
+
+        JInterface::~JInterface(){
+        }
     }
 }
 

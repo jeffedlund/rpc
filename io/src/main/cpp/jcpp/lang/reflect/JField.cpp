@@ -74,6 +74,9 @@ namespace jcpp{
             string JField::toString(){
                 return getType()->getName()+"."+getName();
             }
+
+             JField::~JField(){
+             }
         }
     }
 }

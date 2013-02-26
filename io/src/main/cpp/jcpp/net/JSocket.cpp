@@ -50,6 +50,7 @@ namespace jcpp{
             this->socket=new QTcpSocket();
             socket->connectToHost(QString::fromStdString(host->getString()),port->get());
             while (!socket->waitForConnected(300000)){//TODO use timeout
+                timeout=timeout;
                 //TODO use connection timeout stuff
                 //throw new JIOException("cannot connect to hot "+host->toString()+" port "+port->toString());
             }
@@ -110,7 +111,7 @@ namespace jcpp{
         }
 
         //TODO
-        void JSocket::setSoLinger(bool on, int linger){
+        void JSocket::setSoLinger(bool, int){
         }
 
         //TODO
@@ -119,7 +120,7 @@ namespace jcpp{
         }
 
         //TODO
-        void JSocket::setOOBInline(bool on){
+        void JSocket::setOOBInline(bool){
         }
 
         //TODO
@@ -127,7 +128,7 @@ namespace jcpp{
             return false;
         }
 
-        void JSocket::setSoTimeout(int s){
+        void JSocket::setSoTimeout(int){
         }
 
         //TODO
@@ -136,7 +137,7 @@ namespace jcpp{
         }
 
         //TODO
-        void JSocket::setSendBufferSize(int size){
+        void JSocket::setSendBufferSize(int){
         }
 
         //TODO
@@ -162,7 +163,7 @@ namespace jcpp{
         }
 
         //TODO
-        void JSocket::setTrafficClass(int tc){
+        void JSocket::setTrafficClass(int){
         }
 
         //TODO
@@ -171,7 +172,7 @@ namespace jcpp{
         }
 
         //TODO
-        void JSocket::setReuseAddress(bool on){
+        void JSocket::setReuseAddress(bool){
         }
 
         //TODO

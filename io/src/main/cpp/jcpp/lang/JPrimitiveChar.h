@@ -11,7 +11,7 @@ namespace jcpp{
         class JPrimitiveChar : public JObject{
 
             protected:
-                char value;
+                jchar value;
 
             public:
                 JPrimitiveChar();
@@ -20,13 +20,13 @@ namespace jcpp{
 
                 static JClass* getClazz();
 
-                void set(char value);
+                void set(jchar value);
 
-                char get();
+                jchar get();
 
                 string toString();
 
-                ~JPrimitiveChar();
+                virtual ~JPrimitiveChar();
         };
     }
 }

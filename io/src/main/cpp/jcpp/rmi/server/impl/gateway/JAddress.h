@@ -38,7 +38,7 @@ namespace jcpp{
                             JPrimitiveInt* getPPort();
                             virtual JAddress* clone();
                             string toString();
-                            ~JAddress();
+                            virtual ~JAddress();
                     };
                 }
             }

@@ -74,6 +74,9 @@ namespace jcpp{
                 }
                 return ss.str();
             }
+
+            JMethod::~JMethod(){
+            }
         }
     }
 }

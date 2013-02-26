@@ -168,7 +168,7 @@ namespace jcpp{
             return false;
         }
 
-        bool JInetAddress::isReachable(int timeout){
+        bool JInetAddress::isReachable(int){
             return false;
         }
 

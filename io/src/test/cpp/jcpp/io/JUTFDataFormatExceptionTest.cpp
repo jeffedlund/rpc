@@ -20,5 +20,8 @@ namespace jcpp{
         string JUTFDataFormatExceptionTest::getThrowableClassName(){
             return "java.io.UTFDataFormatException";
         }
+
+        JUTFDataFormatExceptionTest::~JUTFDataFormatExceptionTest(){
+        }
     }
 }

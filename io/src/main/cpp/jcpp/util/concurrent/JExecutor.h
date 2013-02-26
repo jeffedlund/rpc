@@ -16,6 +16,7 @@ namespace jcpp{
             public:
                 static JClass* getClazz();
                 virtual void execute(JRunnable* command)=0;
+                virtual ~JExecutor();
             };
         }
     }

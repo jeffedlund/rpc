@@ -16,6 +16,9 @@ namespace jcpp{
             assert (s->getClass()->getName()=="byte");
             return s;
         }
+
+        JPrimitiveByteTest::~JPrimitiveByteTest(){
+        }
     }
 }
 

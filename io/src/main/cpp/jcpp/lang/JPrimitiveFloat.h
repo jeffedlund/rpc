@@ -4,6 +4,7 @@
 #include "JObject.h"
 #include <vector>
 #include <iostream>
+#include "Object.h"
 using namespace std;
 
 namespace jcpp{
@@ -11,7 +12,7 @@ namespace jcpp{
         class JPrimitiveFloat : public JObject{
 
             protected:
-                float value;
+                jfloat value;
 
             public:
                 JPrimitiveFloat();
@@ -20,13 +21,13 @@ namespace jcpp{
 
                 static JClass* getClazz();
 
-                void set(float value);
+                void set(jfloat value);
 
-                float get();
+                jfloat get();
 
                 string toString();
 
-                ~JPrimitiveFloat();
+                virtual ~JPrimitiveFloat();
         };
     }
 }

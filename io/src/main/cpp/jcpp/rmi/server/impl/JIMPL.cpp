@@ -36,6 +36,9 @@ namespace jcpp{
                     }
                     return jImpl;
                 }
+
+                JIMPL::~JIMPL(){
+                }
             }
         }
     }

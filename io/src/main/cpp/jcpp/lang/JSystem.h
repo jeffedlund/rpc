@@ -12,6 +12,7 @@ namespace jcpp{
         public:
             static JClass* getClazz();
             static jlong currentTimeMillis();
+            virtual ~JSystem()=0;
         };
     }
 }

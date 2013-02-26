@@ -15,6 +15,7 @@ namespace jcpp{
             public:
                 static JClass* getClazz();
                 virtual JObject* call()=0;
+                virtual ~JCallable();
             };
         }
     }

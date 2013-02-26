@@ -19,6 +19,7 @@ namespace jcpp{
                     public:
                         static JClass* getClazz();
                         virtual JRoute* findRoute(JString* localSite, JEndPoint* remoteEndpoint)=0;
+                        virtual ~JITransportRouter();
                     };
                 }
             }

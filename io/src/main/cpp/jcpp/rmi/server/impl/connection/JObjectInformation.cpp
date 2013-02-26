@@ -36,7 +36,7 @@ namespace jcpp{
                         return clazz;
                     }
 
-                    JObjectInformation::JObjectInformation(JString* id, JObject* object, vector<JClass*>* interfaces, JObjectInformations* objectInformations, JILifecycle* lifecycle, JGC* gc){
+                    JObjectInformation::JObjectInformation(JString* id, JObject* object, vector<JClass*>* interfaces, JObjectInformations* objectInformations, JILifecycle* lifecycle, JGC*){
                         this->object = object;
                         this->id = id;
                         this->objectInformations = objectInformations;

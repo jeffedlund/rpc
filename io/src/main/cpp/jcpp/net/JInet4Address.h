@@ -13,6 +13,7 @@ namespace jcpp{
         public:
             JInet4Address();
             static JClass* getClazz();
+            virtual ~JInet4Address();
         };
     }
 }

@@ -32,5 +32,8 @@ namespace jcpp{
 
         JInet4Address::JInet4Address():JInetAddress(getClazz()){
         }
+
+        JInet4Address::~JInet4Address(){
+        }
     }
 }

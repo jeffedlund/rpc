@@ -51,11 +51,11 @@ namespace jcpp{
             return value==s->value;
         }
 
-        void JPrimitiveChar::set(char value){
+        void JPrimitiveChar::set(jchar value){
             this->value=value;
         }
 
-        char JPrimitiveChar::get(){
+        jchar JPrimitiveChar::get(){
             return value;
         }
 

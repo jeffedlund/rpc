@@ -38,5 +38,8 @@ namespace jcpp{
         JStreamCorruptedException::JStreamCorruptedException(string message) : JObjectStreamException(getClazz()){
             this->message=new JString(message);
         }
+
+        JStreamCorruptedException::~JStreamCorruptedException(){
+        }
     }
 }

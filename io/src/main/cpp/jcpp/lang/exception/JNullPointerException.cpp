@@ -39,5 +39,8 @@ namespace jcpp{
         JNullPointerException::JNullPointerException(JString* message):JRuntimeException(getClazz()){
             this->message=message;
         }
+
+        JNullPointerException::~JNullPointerException(){
+        }
     }
 }

@@ -118,6 +118,9 @@ namespace jcpp{
                 unlock();
                 return r;
             }
+
+            JFutureTask::~JFutureTask(){
+            }
         }
     }
 }

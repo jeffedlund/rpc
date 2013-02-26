@@ -185,7 +185,6 @@ namespace jcpp{
         }
 
         JDataInputStream::~JDataInputStream() {
-            close();
         }
     }
 }

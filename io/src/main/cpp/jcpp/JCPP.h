@@ -18,6 +18,8 @@ namespace jcpp{
         vector<JPackage*>* getPackages();
 
         static JCPP* getPackage();
+
+        virtual ~JCPP();
     };
 }
 

@@ -32,7 +32,7 @@ namespace jcpp{
 
                     static JClass* getClazz();
 
-                    ~JPackage();
+                    virtual ~JPackage();
 
             };
         }

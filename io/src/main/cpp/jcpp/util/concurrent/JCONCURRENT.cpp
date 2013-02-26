@@ -39,6 +39,9 @@ namespace jcpp{
                 }
                 return jconcurrent;
             }
+
+            JCONCURRENT::~JCONCURRENT(){
+            }
         }
     }
 }

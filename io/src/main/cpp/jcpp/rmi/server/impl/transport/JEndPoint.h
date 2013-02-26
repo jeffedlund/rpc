@@ -51,7 +51,7 @@ namespace jcpp{
                             void setSite(JString* site);
                             JString* getSite();
                             string toString();
-                            ~JEndPoint();
+                            virtual ~JEndPoint();
                     };
                 }
             }

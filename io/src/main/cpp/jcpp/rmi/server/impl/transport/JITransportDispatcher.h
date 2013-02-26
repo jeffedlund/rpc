@@ -20,6 +20,7 @@ namespace jcpp{
                     public:
                         static JClass* getClazz();
                         virtual void dispatch(JEndPoint* fromEndPoint, JEndPoint* toEndpoint,JConnection* connection)=0;
+                        virtual ~JITransportDispatcher();
                     };
                 }
             }

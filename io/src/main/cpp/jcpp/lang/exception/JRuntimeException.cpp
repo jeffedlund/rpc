@@ -43,6 +43,9 @@ namespace jcpp{
             this->message=new JString(message);
             this->cause=cause;
         }
+
+        JRuntimeException::~JRuntimeException(){
+        }
     }
 }
 

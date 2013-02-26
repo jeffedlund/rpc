@@ -94,7 +94,7 @@ namespace jcpp{
             virtual string readLongUTF();
             virtual void close();
 
-            ~JObjectInputStream();
+            virtual ~JObjectInputStream();
         };
     }
 }

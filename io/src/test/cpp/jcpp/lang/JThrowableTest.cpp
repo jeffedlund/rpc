@@ -50,5 +50,8 @@ namespace jcpp{
             th->printStackTrace(&cout);
             return th;
         }
+
+        JThrowableTest::~JThrowableTest(){
+        }
     }
 }

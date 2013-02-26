@@ -43,6 +43,9 @@ namespace jcpp{
             }
             return jio;
         }
+
+        JIO::~JIO(){
+        }
     }
 }
 

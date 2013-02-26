@@ -23,6 +23,7 @@ namespace jcpp{
                             JDefaultNotSerializableObjectHandler();
                             static JClass* getClazz();
                             virtual JObject* handleNotSerializableObject(JObject* obj);
+                            virtual ~JDefaultNotSerializableObjectHandler();
                         };
                     }
                 }

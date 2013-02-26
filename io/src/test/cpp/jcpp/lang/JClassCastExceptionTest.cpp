@@ -20,5 +20,8 @@ namespace jcpp{
         string JClassCastExceptionTest::getThrowableClassName(){
             return "java.lang.ClassCastException";
         }
+
+        JClassCastExceptionTest::~JClassCastExceptionTest(){
+        }
     }
 }

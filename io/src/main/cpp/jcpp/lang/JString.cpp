@@ -1,7 +1,9 @@
 #include "JString.h"
 #include "JClass.h"
 #include "JSerializable.h"
+#include "Collections.h"
 using namespace jcpp::io;
+using namespace jcpp::util;
 
 namespace jcpp{
     namespace lang{
@@ -31,6 +33,22 @@ namespace jcpp{
                 clazz=new JStringClass();
             }
             return clazz;
+        }
+
+        static map<string,JString*>* internStrings=NULL;
+
+        JString* JString::intern(string s){
+            getClazz()->lock();
+            if (internStrings==NULL){
+                internStrings=new map<string,JString*>();
+            }
+            JString* js=getFromMap(internStrings,s);
+            if (js==NULL){
+                js=new JString(s);
+                internStrings->insert(pair<string,JString*>(s,js));
+            }
+            getClazz()->unlock();
+            return js;
         }
 
         JString::JString(): JObject(getClazz()){

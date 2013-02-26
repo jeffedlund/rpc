@@ -46,7 +46,7 @@ namespace jcpp{
 
             void close();
             bool isClosed();
-            ~JServerSocket();
+            virtual ~JServerSocket();
 
         };
     }

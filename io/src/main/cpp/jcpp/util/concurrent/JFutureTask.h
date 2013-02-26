@@ -34,6 +34,7 @@ namespace jcpp{
                 bool isCancelled();
                 bool isDone();
                 JObject* get();
+                virtual ~JFutureTask();
             };
         }
     }

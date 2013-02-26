@@ -29,7 +29,7 @@ namespace jcpp{
                 virtual void execute(JRunnable *command);
                 virtual bool isShutdown();
                 virtual void shutdown();
-                ~JThreadPoolExecutor();
+                virtual ~JThreadPoolExecutor();
             };
         }
     }

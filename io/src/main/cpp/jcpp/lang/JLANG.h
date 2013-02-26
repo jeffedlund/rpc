@@ -62,6 +62,8 @@ namespace jcpp{
             vector<JPackage*>* getPackages();
 
             static JLANG* getPackage();
+
+            virtual ~JLANG();
         };
     }
 }

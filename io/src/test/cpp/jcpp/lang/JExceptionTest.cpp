@@ -20,6 +20,9 @@ namespace jcpp{
         string JExceptionTest::getThrowableClassName(){
             return "java.lang.Exception";
         }
+
+        JExceptionTest::~JExceptionTest(){
+        }
     }
 }
 

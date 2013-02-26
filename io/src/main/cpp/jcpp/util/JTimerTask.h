@@ -25,6 +25,7 @@ namespace jcpp{
             virtual bool cancel();
             bool isCancelled();
             virtual void run()=0;
+            virtual ~JTimerTask()=0;
         };
     }
 }

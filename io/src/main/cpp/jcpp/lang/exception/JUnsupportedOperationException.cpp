@@ -35,6 +35,9 @@ namespace jcpp{
         JUnsupportedOperationException::JUnsupportedOperationException(string message):JRuntimeException(getClazz()){
             this->message=new JString(message);
         }
+
+        JUnsupportedOperationException::~JUnsupportedOperationException(){
+        }
     }
 }
 

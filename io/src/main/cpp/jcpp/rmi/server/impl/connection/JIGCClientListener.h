@@ -35,6 +35,8 @@ namespace jcpp{
                         virtual void objectDead(JEndPoint* endPoint, vector<JObject*>* objects,  JThrowable* throwable)=0;
 
                         virtual void objectDead(JEndPoint* endPoint, vector<JObject*>* objects)=0;
+
+                        virtual ~JIGCClientListener();
                     };
                 }
             }

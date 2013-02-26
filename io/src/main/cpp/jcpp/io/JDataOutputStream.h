@@ -41,7 +41,7 @@ namespace jcpp{
             virtual void writeUTF(std::string str);
             jint writeUTF(std::string str, JOutputStream* out);
             jint size();
-            ~JDataOutputStream();
+            virtual ~JDataOutputStream();
         };
     }
 }

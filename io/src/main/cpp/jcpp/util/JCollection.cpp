@@ -33,5 +33,8 @@ namespace jcpp{
             }
             return clazz;
         }
+
+        JCollection::~JCollection(){
+        }
     }
 }

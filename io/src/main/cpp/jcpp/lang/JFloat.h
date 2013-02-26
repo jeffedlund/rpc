@@ -32,7 +32,7 @@ namespace jcpp{
 
                 string toString();
 
-                ~JFloat();
+                virtual ~JFloat();
         };
     }
 }

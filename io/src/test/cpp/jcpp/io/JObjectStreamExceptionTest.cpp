@@ -20,6 +20,9 @@ namespace jcpp{
         string JObjectStreamExceptionTest::getThrowableClassName(){
             return "java.io.ObjectStreamException";
         }
+
+        JObjectStreamExceptionTest::~JObjectStreamExceptionTest(){
+        }
     }
 }
 

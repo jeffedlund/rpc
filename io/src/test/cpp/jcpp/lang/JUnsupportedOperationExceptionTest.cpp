@@ -20,5 +20,8 @@ namespace jcpp{
         string JUnsupportedOperationExceptionTest::getThrowableClassName(){
             return "java.lang.UnsupportedOperationException";
         }
+
+        JUnsupportedOperationExceptionTest::~JUnsupportedOperationExceptionTest(){
+        }
     }
 }

@@ -14,6 +14,7 @@ namespace jcpp{
             JNoSuchFieldException(string message);
 
             static JClass* getClazz();
+            virtual ~JNoSuchFieldException();
         };
     }
 }

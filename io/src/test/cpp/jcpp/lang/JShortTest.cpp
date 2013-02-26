@@ -16,5 +16,8 @@ namespace jcpp{
             assert (((JPrimitiveShort*)fvalue->get(s))->get()==123);
             return s;
         }
+
+        JShortTest::~JShortTest(){
+        }
     }
 }

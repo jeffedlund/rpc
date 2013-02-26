@@ -20,5 +20,8 @@ namespace jcpp{
         string JStreamCorruptedExceptionTest::getThrowableClassName(){
             return "java.io.StreamCorruptedException";
         }
+
+        JStreamCorruptedExceptionTest::~JStreamCorruptedExceptionTest(){
+        }
     }
 }

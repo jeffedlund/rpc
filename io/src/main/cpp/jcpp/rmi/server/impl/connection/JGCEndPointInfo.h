@@ -58,7 +58,7 @@ namespace jcpp{
                         bool isRunning();
                         void setRunning(bool);
                         virtual void run();
-                        ~JGCEndPointInfo();
+                        virtual ~JGCEndPointInfo();
                     };
                 }
             }
