@@ -134,7 +134,7 @@ namespace jcpp{
             }
         }
 
-        int BlockDataInputStream::peek() {
+        jbyte BlockDataInputStream::peek() {
             if (blkmode) {
                 if (pos == end) {
                     refill();
@@ -153,7 +153,7 @@ namespace jcpp{
             return (jbyte) val;
         }
 
-        jint BlockDataInputStream::read() {
+        jbyte BlockDataInputStream::read() {
             if (blkmode) {
                 if (pos == end) {
                     refill();
@@ -341,7 +341,7 @@ namespace jcpp{
             return v;
         }
 
-        char BlockDataInputStream::readChar() {
+        jchar BlockDataInputStream::readChar() {
             if (!blkmode) {
                pos = 0;
                in->read(buf, 0, 2);
@@ -352,7 +352,7 @@ namespace jcpp{
                 }
                 return readBuffer[1];
            }
-           char v = buf[pos+1];
+           jchar v = buf[pos+1];
            pos += 2;
            return v;
         }
@@ -388,7 +388,7 @@ namespace jcpp{
             return readUTFBody(readLong());
         }
 
-        void BlockDataInputStream::readBools(bool *v, int off, int len) {
+        void BlockDataInputStream::readBools(jbool *v, int off, int len) {
             int stop, endoff = off+ len;
             while(off < endoff) {
                 if (!blkmode) {
@@ -408,7 +408,7 @@ namespace jcpp{
             }
         }
 
-        void BlockDataInputStream::readChars(char *v, int off, int len) {
+        void BlockDataInputStream::readChars(jchar *v, int off, int len) {
             int stop, endoff = off+ len;
             while(off < endoff) {
                 if (!blkmode) {
@@ -473,7 +473,7 @@ namespace jcpp{
             }
         }
 
-        void BlockDataInputStream::readFloats(float *v, int off, int len) {
+        void BlockDataInputStream::readFloats(jfloat *v, int off, int len) {
             int stop, endoff = off + len;
             while (off < endoff) {
                 if (!blkmode) {
@@ -517,7 +517,7 @@ namespace jcpp{
             }
         }
 
-        void BlockDataInputStream::readDoubles(double *v, int off, int len) {
+        void BlockDataInputStream::readDoubles(jdouble *v, int off, int len) {
             int stop, endoff = off + len;
             while (off < endoff) {
                 if (!blkmode) {
@@ -540,7 +540,6 @@ namespace jcpp{
         }
 
         BlockDataInputStream::~BlockDataInputStream() {
-            close();
             delete buf;
             delete hbuf;
             delete cbuf;

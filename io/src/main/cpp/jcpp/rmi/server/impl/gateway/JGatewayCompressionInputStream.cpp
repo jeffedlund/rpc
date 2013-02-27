@@ -49,7 +49,7 @@ namespace jcpp{
                         return gatewayInputStream->waitForReadyRead(w);
                     }
 
-                    jint JGatewayCompressionInputStream::read(){
+                    jbyte JGatewayCompressionInputStream::read(){
                         return gatewayInputStream->read();
                     }
 
@@ -81,19 +81,19 @@ namespace jcpp{
                         return gatewayInputStream->readLong();
                     }
 
-                    float JGatewayCompressionInputStream::readFloat(){
+                    jfloat JGatewayCompressionInputStream::readFloat(){
                         return gatewayInputStream->readFloat();
                     }
 
-                    double JGatewayCompressionInputStream::readDouble(){
+                    jdouble JGatewayCompressionInputStream::readDouble(){
                         return gatewayInputStream->readDouble();
                     }
 
-                    char JGatewayCompressionInputStream::readChar(){
+                    jchar JGatewayCompressionInputStream::readChar(){
                         return gatewayInputStream->readChar();
                     }
 
-                    bool JGatewayCompressionInputStream::readBool(){
+                    jbool JGatewayCompressionInputStream::readBool(){
                         return gatewayInputStream->readBool();
                     }
 

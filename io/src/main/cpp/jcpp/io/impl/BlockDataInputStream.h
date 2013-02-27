@@ -20,7 +20,7 @@ namespace jcpp{
         public:
             jbyte buf[MAX_BLOCK_SIZE];
             jbyte hbuf[MAX_HEADER_SIZE];
-            char cbuf[CHAR_BUF_SIZE];
+            jchar cbuf[CHAR_BUF_SIZE];
             bool blkmode;
             jint pos;
             jint end;
@@ -38,34 +38,34 @@ namespace jcpp{
 
         public:
             jint currentBlockRemaining() ;
-            int peek();
+            jbyte peek();
             jbyte peekByte();
             void readFully(jbyte *b, int off, int len);
             void readFully(jbyte *b, int off, int len, bool copy);
             string readUTFBody(jlong len);
             string readUTF();
             string readLongUTF();
-            void readBools(bool *v, int off, int len);
-            void readChars(char *v, int off, int len);
+            void readBools(jbool *v, int off, int len);
+            void readChars(jchar *v, int off, int len);
             void readShorts(jshort *v, int off, int len);
             void readInts(jint *v, int off, int len);
-            void readFloats(float *v, int off, int len);
+            void readFloats(jfloat *v, int off, int len);
             void readLongs(jlong *v, int off, int len);
-            void readDoubles(double *v, int off, int len);
+            void readDoubles(jdouble *v, int off, int len);
 
             virtual jlong available();
             virtual bool waitForReadyRead(int = 30000);
-            virtual jint read();
+            virtual jbyte read();
             virtual jint read(jbyte b[], int off, int len);
             virtual int read(jbyte b[], int off, int len, bool copy);
             virtual jbyte readByte();
             virtual jshort readShort();
             virtual jint readInt();
             virtual jlong readLong();
-            virtual float readFloat();
-            virtual double readDouble();
-            virtual char readChar();
-            virtual bool readBool();
+            virtual jfloat readFloat();
+            virtual jdouble readDouble();
+            virtual jchar readChar();
+            virtual jbool readBool();
             virtual void close();
             virtual ~BlockDataInputStream();
         };

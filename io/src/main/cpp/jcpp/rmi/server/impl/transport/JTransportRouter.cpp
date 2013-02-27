@@ -14,7 +14,7 @@ namespace jcpp{
                             this->canonicalName="jcpp.rmi.server.impl.transport.TransportRouter";
                             this->name="jcpp.rmi.server.impl.transport.TransportRouter";
                             this->simpleName="TransportRouter";
-                            addInterface(JTransportRouter::getClazz());
+                            addInterface(JITransportRouter::getClazz());
                         }
 
                         JClass* getSuperclass(){

@@ -58,6 +58,7 @@ namespace jcpp{
                         this->transport = new JTransport(endPoint, transportRouter, connectionTransportDispatcher, executorService, scheduledExecutorService, connectionConfiguration->getTransportConfiguration());
                         this->objectInformations->setTransport(transport);
                         this->registry = new JRegistry(objectInformations);
+                        this->iregistry = registry;
                         vector<JClass*>* inter=new vector<JClass*>();
                         inter->push_back(JIRegistry::getClazz());
                         this->registry->bind(JString::intern(JIRegistry::getClazz()->getName()), (JObject*)registry, inter);
@@ -120,16 +121,17 @@ namespace jcpp{
                     JObject* JServer::lookup(JEndPoint* endPoint, JClass* clazz){
                         vector<JClass*>* inter=new vector<JClass*>();
                         inter->push_back(clazz);
-                        return lookup(JString::intern(clazz->getName()),endPoint,inter);
-                    }
-
-                    JObject* JServer::lookup(JString* id, JEndPoint* endPoint, vector<JClass*>* interfaces){
-                        JObjectHandler* objectHandler = new JObjectHandler(objectInformations, interfaces, new JObjectPointer(endPoint, id));
+                        JObjectHandler* objectHandler = new JObjectHandler(objectInformations, inter, new JObjectPointer(endPoint, JString::intern(clazz->getName())));
                         return objectHandler->getProxy();
                     }
 
-                    JIRegistry* JServer::getRegistry(){
-                        return registry;
+                    JObject* JServer::lookup(JString* id, JEndPoint* endPoint, JPrimitiveArray* interfaces){
+                        JObjectHandler* objectHandler = new JObjectHandler(objectInformations, (vector<JClass*>*)interfaces->getObjects(), new JObjectPointer(endPoint, id));
+                        return objectHandler->getProxy();
+                    }
+
+                    JIRegistry* JServer::getIRegistry(){
+                        return iregistry;
                     }
 
                     JEndPoint* JServer::getEndPoint(){

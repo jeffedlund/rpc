@@ -29,10 +29,10 @@ namespace jcpp{
                     class JIRegistry : public JInterface{
                     public:
                         static JClass* getClazz();
-                        virtual void bind(JString* id, JObject* object, vector<JClass*>* interfaces)=0;
-                        virtual vector<JString*>* list()=0;
+                        virtual void bind(JString* id, JObject* object, JPrimitiveArray* interfaces)=0;
+                        virtual JPrimitiveArray* list()=0;
                         virtual JObject* lookup(JString* id)=0;
-                        virtual void rebind(JString* id, JObject* object, vector<JClass*>* interfaces)=0;
+                        virtual void rebind(JString* id, JObject* object, JPrimitiveArray* interfaces)=0;
                         virtual void unbind(JString* id)=0;
                         virtual ~JIRegistry();
                     };

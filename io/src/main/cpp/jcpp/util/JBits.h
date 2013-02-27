@@ -29,7 +29,7 @@ namespace jcpp{
                 b[off + 0] = (jubyte) (val >> 24);
             }
 
-            static void putFloat(jbyte b[], int off, float val) {
+            static void putFloat(jbyte b[], int off, jfloat val) {
                 jint* i = reinterpret_cast<jint*>(&val);
                 b[off + 3] = (jubyte) (*i >> 0);
                 b[off + 2] = (jubyte) (*i >> 8);
@@ -48,7 +48,7 @@ namespace jcpp{
                 b[off + 0] = (jubyte) (val >> 56);
             }
 
-            static void putDouble(jbyte b[], int off, double val) {
+            static void putDouble(jbyte b[], int off, jdouble val) {
                 jlong* j = reinterpret_cast<jlong*>(&val);
                 b[off + 7] = (jubyte) (*j >> 0);
                 b[off + 6] = (jubyte) (*j >> 8);
@@ -60,23 +60,23 @@ namespace jcpp{
                 b[off + 0] = (jubyte) (*j >> 56);
             }
 
-            static bool getBool(jbyte *b, int off) {
+            static bool getBool(jbyte *b, jint off) {
                 return (b[off] != 0);
             }
 
-            static jshort getShort(jbyte* b, int off) {
+            static jshort getShort(jbyte* b, jint off) {
                 return (jshort) (((b[off + 1] & 0xFF) << 0) +
                                 ((b[off + 0]) << 8));
             }
 
-            static jint getInt(jbyte* b, int off) {
+            static jint getInt(jbyte* b, jint off) {
                 return ((b[off + 3] & (jint) 0xFF) << 0) +
                        ((b[off + 2] & (jint) 0xFF) << 8) +
                        ((b[off + 1] & (jint) 0xFF) << 16) +
                        (((jint) b[off + 0]) << 24);
             }
 
-            static float getFloat(jbyte* b, int off) {
+            static float getFloat(jbyte* b, jint off) {
                 jint i = ((b[off + 3] & (jint) 0xFF) << 0) +
                         ((b[off + 2] & (jint) 0xFF) << 8) +
                         ((b[off + 1] & (jint) 0xFF) << 16) +
@@ -84,7 +84,7 @@ namespace jcpp{
                 return *(reinterpret_cast<float*> (&i));
             }
 
-            static jlong getLong(jbyte *b, int off) {
+            static jlong getLong(jbyte *b, jint off) {
                     return ((b[off + 7] & (jlong) 0xFF) << 0) +
                            ((b[off + 6] & (jlong) 0xFF) << 8) +
                            ((b[off + 5] & (jlong) 0xFF) << 16) +
@@ -95,7 +95,7 @@ namespace jcpp{
                            (((jlong) b[off + 0]) << 56);
             }
 
-            static double getDouble (jbyte *b, int off) {
+            static double getDouble (jbyte *b, jint off) {
                 jlong j = ((b[off + 7] & (jlong) 0xFF) << 0) +
                         ((b[off + 6] & (jlong) 0xFF) << 8) +
                         ((b[off + 5] & (jlong) 0xFF) << 16) +

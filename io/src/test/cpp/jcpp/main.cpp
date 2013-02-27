@@ -65,6 +65,9 @@
 #include "JScheduledFutureTask.h"
 #include "JTransport.h"
 #include "JITransportDispatcher.h"
+#include "JServer.h"
+#include "JTransportRouter.h"
+#include "JProxy.h"
 using namespace std;
 using namespace jcpp::util;
 using namespace jcpp::lang;
@@ -73,6 +76,7 @@ using namespace jcpp::net;
 using namespace jcpp::util::concurrent;
 using namespace jcpp::rmi::server::impl::transport;
 using namespace jcpp::rmi::server::impl::gateway;
+using namespace jcpp::rmi::server::impl::connection;
 
 static int TEST_SIZE = 43;
 static JTest* tests[] = {new JThrowableTest(),new JErrorTest(),new JExceptionTest(),new JRuntimeExceptionTest(),
@@ -329,6 +333,34 @@ void testTransport(){
     JThread::sleep(100000);
 }
 
+void testServer(){
+    JEndPoint* localEndPoint1=new JEndPoint();
+    localEndPoint1->getAddress()->setHostName("localhost");
+    localEndPoint1->getAddress()->setPort(9999);
+    localEndPoint1->setSite(new JString("site1"));
+    JTransportRouter* router1=new JTransportRouter();
+    JConnectionConfiguration* cc1=new JConnectionConfiguration();
+    JServer* server1=new JServer(localEndPoint1,router1,cc1);
+
+    JEndPoint* localEndPoint2=new JEndPoint();
+    localEndPoint2->getAddress()->setHostName("localhost");
+    localEndPoint2->getAddress()->setPort(9998);
+    localEndPoint2->setSite(new JString("site1"));
+    JTransportRouter* router2=new JTransportRouter();
+    JConnectionConfiguration* cc2=new JConnectionConfiguration();
+    JServer* server2=new JServer(localEndPoint2,router2,cc2);
+
+    JObject* obj=server2->lookup(localEndPoint1,JIRegistry::getClazz());
+    cout<<obj->getClass()->getName();
+    cout.flush();
+    JProxy* proxy=(JProxy*)obj;
+    JObject* result=proxy->invoke("list",NULL);
+    cout<<result->getClass()->getName();
+    cout.flush();
+
+    JThread::sleep(10000);
+}
+
 int main(int argc, char *argv[]){
     QCoreApplication  a(argc,argv);
     int iiiii=TEST_SIZE;
@@ -337,7 +369,8 @@ int main(int argc, char *argv[]){
     //TODO should be done by default ...
     registerClasses();
 
-    testTransport();
+    testServer();
+    //testTransport();
     //testScheduledExecutorService();
     //testTimer();
 

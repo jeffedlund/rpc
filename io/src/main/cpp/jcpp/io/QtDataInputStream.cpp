@@ -51,8 +51,8 @@ namespace jcpp{
             return in->device()->waitForReadyRead(i);
         }
 
-        jint QtDataInputStream::read() {
-            return readInt();//TODO was readByte?
+        jbyte QtDataInputStream::read() {
+            return readByte();
         }
 
         jint QtDataInputStream::read(jbyte b[], int off, int len) {
@@ -121,10 +121,10 @@ namespace jcpp{
         // and operator>>().
         // In versions Qt 4.6 and after, the floating point precision
         // has to be set explicitly. It is double by default.
-        float QtDataInputStream::readFloat() {
+        jfloat QtDataInputStream::readFloat() {
             int ver = in->version();
             in->setVersion(QDataStream::Qt_4_5);
-            float f;
+            jfloat f;
             while (available() < 4) {
                 waitForReadyRead(-1);
             }
@@ -133,8 +133,8 @@ namespace jcpp{
             return f;
         }
 
-        double QtDataInputStream::readDouble() {
-            double d;
+        jdouble QtDataInputStream::readDouble() {
+            jdouble d;
             while (available() < 8) {
                 waitForReadyRead(-1);
             }
@@ -142,18 +142,17 @@ namespace jcpp{
             return d;
         }
 
-        char QtDataInputStream::readChar() {
-            jbyte c;
+        jchar QtDataInputStream::readChar() {
+            jchar c;
             while (available() < 2) {
                 waitForReadyRead(-1);
             }
             (*in) >> c;
-            //(*in) >> c;
             return c;
         }
 
-        bool QtDataInputStream::readBool() {
-            bool b;
+        jbool QtDataInputStream::readBool() {
+            jbool b;
             while (available() < 1) {
                 waitForReadyRead(-1);
             }

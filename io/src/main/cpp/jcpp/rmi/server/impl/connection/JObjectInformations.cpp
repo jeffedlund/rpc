@@ -132,12 +132,12 @@ namespace jcpp{
                         methodDigester->clear();
                     }
 
-                    vector<JString*>* JObjectInformations::list(){
+                    JPrimitiveArray* JObjectInformations::list(){
                         vector<JString*>* k;
                         lock();
                         k=getKeys(idMap);
                         unlock();
-                        return k;
+                        return new JPrimitiveArray(JString::getClazz(),(vector<JObject*>*)k);
                     }
 
                     JObjectInformation* JObjectInformations::getObjectInformation(JString* id){
@@ -174,6 +174,7 @@ namespace jcpp{
                     JObjectInformations::~JObjectInformations(){
                         delete idMap;
                         delete objectMap;//TODO delete inside the map??
+                        delete methodDigester;
                     }
                 }
             }

@@ -51,7 +51,8 @@ namespace jcpp{
                     class JServer : public JObject, public JIServer, public JILifecycle, public JIGCClientListener, public JIInvocationListener{
                     protected:
                         JEndPoint* endPoint;
-                        JIRegistry* registry;
+                        JIRegistry* iregistry;
+                        JRegistry* registry;
                         JTransport* transport;
                         JObjectInformations* objectInformations;
                         vector<JILifecycle*>* lifecycles;
@@ -84,9 +85,9 @@ namespace jcpp{
 
 
                         virtual JObject* lookup(JEndPoint* endPoint, JClass* clazz);
-                        virtual JObject* lookup(JString* id, JEndPoint* endPoint, vector<JClass*>* interfaces);
+                        virtual JObject* lookup(JString* id, JEndPoint* endPoint, JPrimitiveArray* interfaces);
 
-                        JIRegistry* getRegistry();
+                        JIRegistry* getIRegistry();
                         JEndPoint* getEndPoint();
                         JIGC* getGC();
                         JIGCClient* getGCClient();

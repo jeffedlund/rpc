@@ -22,7 +22,7 @@ namespace jcpp{
 
             virtual jlong available();
             virtual bool waitForReadyRead(int = 30000);
-            virtual jint read();
+            virtual jbyte read();
             virtual jint read(jbyte b[], int off, int len);
             virtual jbyte peekByte();
             virtual jbyte readByte();
@@ -30,10 +30,10 @@ namespace jcpp{
             virtual jushort readUnsignedShort();
             virtual jint readInt();
             virtual jlong readLong();
-            virtual float readFloat();
-            virtual double readDouble();
-            virtual char readChar();
-            virtual bool readBool();
+            virtual jfloat readFloat();
+            virtual jdouble readDouble();
+            virtual jchar readChar();
+            virtual jbool readBool();
             virtual void close();
             virtual ~JInputStream();
         };

@@ -65,7 +65,7 @@ namespace jcpp{
                         JObjectInformation* unexport(JString* id);
                         JObjectInformation* unexport(JObject* object);
                         void unexport();
-                        vector<JString*>* list();
+                        JPrimitiveArray* list();
                         JObjectInformation* getObjectInformation(JString* id);
                         JObjectInformation* getObjectInformation(JObject* object);
                         JObjectInformation* remove(JString* id);

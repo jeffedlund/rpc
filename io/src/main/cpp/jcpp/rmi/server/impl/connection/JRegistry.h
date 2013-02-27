@@ -40,10 +40,12 @@ namespace jcpp{
                     public:
                         JRegistry(JObjectInformations* objectInformations);
                         static JClass* getClazz();
-                        virtual void bind(JString* id, JObject* object, vector<JClass*>* interfaces);
-                        virtual vector<JString*>* list();
+                        virtual void bind(JString* id, JObject* object, JPrimitiveArray* interfaces);
+                        void bind(JString* id, JObject* object, vector<JClass*>* interfaces);
+                        virtual JPrimitiveArray* list();
                         virtual JObject* lookup(JString* id);
-                        virtual void rebind(JString* id, JObject* object, vector<JClass*>* interfaces);
+                        virtual void rebind(JString* id, JObject* object, JPrimitiveArray* interfaces);
+                        void rebind(JString* id, JObject* object, vector<JClass*>* interfaces);
                         virtual void unbind(JString* id);
                         virtual ~JRegistry();
                     };

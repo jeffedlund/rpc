@@ -39,6 +39,10 @@ namespace jcpp{
                         this->objectInformations=objectInformations;
                     }
 
+                    void JRegistry::bind(JString* id, JObject* object, JPrimitiveArray* interfaces){
+                        bind(id, object, (vector<JClass*>*)interfaces->getObjects());
+                    }
+
                     void JRegistry::bind(JString* id, JObject* object, vector<JClass*>* interfaces){
                         if(object == NULL) {
                             throw new JConnectionException("Bind Error: Attempting to bind a null object");
@@ -57,7 +61,7 @@ namespace jcpp{
                         }
                     }
 
-                    vector<JString*>* JRegistry::list(){
+                    JPrimitiveArray* JRegistry::list(){
                         return objectInformations->list();
                     }
 
@@ -67,6 +71,10 @@ namespace jcpp{
                             throw new JConnectionException("Object of ID: " + id->toString() + " is not bound in registry at: " + objectInformations->getTransport()->getLocalEndPoint()->toString());
                         }
                         return objInfo->getObject();
+                    }
+
+                    void JRegistry::rebind(JString* id, JObject* object, JPrimitiveArray* interfaces){
+                        rebind(id, object, (vector<JClass*>*)interfaces->getObjects());
                     }
 
                     void JRegistry::rebind(JString* id, JObject* object, vector<JClass*>* interfaces){
@@ -79,7 +87,7 @@ namespace jcpp{
                         if(interfaces == NULL || interfaces->size()==0) {
                             throw new JConnectionException("Bind Error: Attempting to bind and object without any specified interfaces.");
                         }
-                        objectInformations->doExport(id, object, interfaces);
+                        objectInformations->doExport(id, object,interfaces);
                     }
 
                     void JRegistry::unbind(JString* id){

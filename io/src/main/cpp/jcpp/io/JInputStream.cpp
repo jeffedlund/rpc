@@ -43,7 +43,7 @@ namespace jcpp{
             return false;
         }
 
-        jint JInputStream::read() {
+        jbyte JInputStream::read() {
             return 0;
         }
 
@@ -75,19 +75,19 @@ namespace jcpp{
             return 0;
         }
 
-        float JInputStream::readFloat() {
+        jfloat JInputStream::readFloat() {
             return 0;
         }
 
-        double JInputStream::readDouble() {
+        jdouble JInputStream::readDouble() {
             return 0;
         }
 
-        char JInputStream::readChar() {
+        jchar JInputStream::readChar() {
             return 0;
         }
 
-        bool JInputStream::readBool() {
+        jbool JInputStream::readBool() {
             return 0;
         }
 

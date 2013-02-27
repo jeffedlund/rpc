@@ -132,7 +132,7 @@ namespace jcpp{
             return in->waitForReadyRead(timeout);
         }
 
-        jint JDataInputStream::read() {
+        jbyte JDataInputStream::read() {
             return in->read();
         }
 
@@ -164,19 +164,19 @@ namespace jcpp{
             return in->readLong();
         }
 
-        float JDataInputStream::readFloat() {
+        jfloat JDataInputStream::readFloat() {
             return in->readFloat();
         }
 
-        double JDataInputStream::readDouble() {
+        jdouble JDataInputStream::readDouble() {
             return in->readDouble();
         }
 
-        char JDataInputStream::readChar() {
+        jchar JDataInputStream::readChar() {
             return in->readChar();
         }
 
-        bool JDataInputStream::readBool() {
+        jbool JDataInputStream::readBool() {
             return in->readBool();
         }
 

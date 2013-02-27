@@ -40,6 +40,11 @@ namespace jcpp{
                     }
 
                     JConnection::JConnection(JRoute* route, JConnections* connections,JGatewayConfiguration* gatewayConfiguration):JObject(getClazz()){
+                        this->lastUsed=0;
+                        this->out=NULL;
+                        this->in=NULL;
+                        this->opened=false;
+                        this->transport=NULL;
                         this->socket=JGatewaySocketFactory::createSocket(route, connections->getTransport()->getTransportConfiguration()->getGatewayConfiguration());
                         this->socket->setSoTimeout(connections->getTransport()->getTransportConfiguration()->getSocketTimeout()->get());
                         this->socket->setTcpNoDelay(true);
@@ -49,9 +54,15 @@ namespace jcpp{
                     }
 
                     JConnection::JConnection(JSocket* socket, JTransport* transport, JGatewayConfiguration* gatewayConfiguration):JObject(getClazz()){
+                        this->out=NULL;
+                        this->in=NULL;
+                        this->opened=false;
+                        this->transport=NULL;
                         this->socket=socket;
                         this->transport=transport;
                         this->gatewayConfiguration=gatewayConfiguration;
+                        this->lastUsed=0;
+                        this->connections=NULL;
                     }
 
                     void JConnection::free(){
@@ -165,7 +176,8 @@ namespace jcpp{
                     }
 
                     bool JConnection::isReusable(){
-                        return ((JIGatewaySocket*) socket)->isReusable();
+                        JIGatewaySocket* s=dynamic_cast<JIGatewaySocket*>(socket);
+                        return s->isReusable();
                     }
 
                     JSocket* JConnection::getSocket(){

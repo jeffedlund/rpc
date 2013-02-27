@@ -101,7 +101,7 @@ namespace jcpp{
                             vector<JClass*>* paramTypes = method->getParameterType();
                             string args = "";
                             for (unsigned int j=0;j<paramTypes->size();j++){
-                                JClass* param=paramTypes->at(i);
+                                JClass* param=paramTypes->at(j);
                                 args += param->getName();
                                 if (j<paramTypes->size()-1){
                                     args+= ",";

@@ -53,13 +53,12 @@ namespace jcpp{
             this->out=out;
         }
 
-        void QtDataOutputStream::write(jint b){
-            writeInt(b);
-            //TODO (*out)<<((jbyte)b);
+        void QtDataOutputStream::write(jbyte b){
+            (*out)<<((jbyte)b);
         }
 
         void QtDataOutputStream::write(jbyte b[]){
-            jint length = sizeof(b);
+            int length = sizeof(b);
             for (int i=0;i<length;i++){
                 (*out)<<b[i];
             }
@@ -94,7 +93,7 @@ namespace jcpp{
             out->device()->close();
         }
 
-        void QtDataOutputStream::writeBoolean(bool v){
+        void QtDataOutputStream::writeBoolean(jbool v){
             (*out)<<v;
         }
 
@@ -102,15 +101,15 @@ namespace jcpp{
             (*out) << v;
         }
 
-        void QtDataOutputStream::writeDouble(double v){
+        void QtDataOutputStream::writeDouble(jdouble v){
             (*out) << v;
         }
 
-        void QtDataOutputStream::writeChar(jushort v){
+        void QtDataOutputStream::writeChar(jchar v){
             (*out) << v;
         }
 
-        void QtDataOutputStream::writeFloat(float v){
+        void QtDataOutputStream::writeFloat(jfloat v){
             (*out) << v;
         }
 

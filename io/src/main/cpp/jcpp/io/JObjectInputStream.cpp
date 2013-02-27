@@ -657,7 +657,7 @@ namespace jcpp{
             }
         }
 
-        int JObjectInputStream::read() {
+        jbyte JObjectInputStream::read() {
             return bin->read();
         }
 
@@ -672,15 +672,15 @@ namespace jcpp{
         /**
          * reads Java char type, which is on 2 bytes
          */
-        char JObjectInputStream::readChar() {
+        jchar JObjectInputStream::readChar() {
             return bin->readChar();
         }
 
-        double JObjectInputStream::readDouble() {
+        jdouble JObjectInputStream::readDouble() {
             return bin->readDouble();
         }
 
-        float JObjectInputStream::readFloat() {
+        jfloat JObjectInputStream::readFloat() {
             return bin->readFloat();
         }
 
@@ -696,7 +696,7 @@ namespace jcpp{
             return bin->readShort();
         }
 
-        bool JObjectInputStream::readBool() {
+        jbool JObjectInputStream::readBool() {
             return bin->readBool();
         }
 

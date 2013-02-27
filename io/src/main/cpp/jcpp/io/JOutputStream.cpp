@@ -36,7 +36,7 @@ namespace jcpp{
         JOutputStream::JOutputStream(JClass* _class):JObject(_class){
         }
 
-        void JOutputStream::write(jint){
+        void JOutputStream::write(jbyte){
         }
 
         void JOutputStream::write(jbyte b[]){
@@ -67,19 +67,19 @@ namespace jcpp{
         void JOutputStream::flush(){
         }
 
-        void JOutputStream::writeBoolean(bool){
+        void JOutputStream::writeBoolean(jbool){
         }
 
         void JOutputStream::writeByte(jbyte){
         }
 
-        void JOutputStream::writeChar(jushort){
+        void JOutputStream::writeChar(jchar){
         }
 
-        void JOutputStream::writeDouble(double){
+        void JOutputStream::writeDouble(jdouble){
         }
 
-        void JOutputStream::writeFloat(float){
+        void JOutputStream::writeFloat(jfloat){
         }
 
         void JOutputStream::writeInt(jint){

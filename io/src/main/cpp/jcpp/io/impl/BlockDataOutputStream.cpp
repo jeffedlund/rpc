@@ -30,7 +30,7 @@ namespace jcpp{
             return blkmode;
         }
 
-        void JBlockDataOutputStream::write(jint b){
+        void JBlockDataOutputStream::write(jbyte b){
             if (pos >= MAX_BLOCK_SIZE) {
                 drain();
             }
@@ -138,7 +138,7 @@ namespace jcpp{
 
         void JBlockDataOutputStream::writeChar(jushort v){
             if (pos + 2 <= MAX_BLOCK_SIZE) {
-                JBits::putChar(buf, pos, (char) v);
+                JBits::putChar(buf, pos, (jchar) v);
                 pos += 2;
             } else {
                 dout->writeChar(v);
@@ -363,7 +363,7 @@ namespace jcpp{
             if (utflen > 0xFFFFL) {
                 throw new JUTFDataFormatException();
             }
-            writeShort((jshort) utflen);
+            writeShort((jint) utflen);
             if (utflen == (jlong) s.length()) {
                 writeBytes(s);
             } else {

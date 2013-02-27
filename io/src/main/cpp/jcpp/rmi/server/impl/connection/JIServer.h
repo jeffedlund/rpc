@@ -32,7 +32,7 @@ namespace jcpp{
                     public:
                         static JClass* getClazz();
                         virtual JObject* lookup(JEndPoint* endPoint, JClass* clazz)=0;
-                        virtual JIRegistry* getRegistry()=0;
+                        virtual JIRegistry* getIRegistry()=0;
                         virtual JIGC* getGC()=0;
                         virtual JIGCClient* getGCClient()=0;
                         virtual ~JIServer();

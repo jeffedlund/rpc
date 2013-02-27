@@ -49,7 +49,7 @@ namespace jcpp{
             written = temp;
         }
 
-        void JDataOutputStream::write(jint b){
+        void JDataOutputStream::write(jbyte b){
             out->write(b);
             incCount(1);
         }
@@ -67,7 +67,7 @@ namespace jcpp{
             out->close();
         }
 
-        void JDataOutputStream::writeBoolean(bool v){
+        void JDataOutputStream::writeBoolean(jbool v){
             out->write(v ? 1 : 0);
             incCount(1);
         }
@@ -83,7 +83,7 @@ namespace jcpp{
             incCount(2);
         }
 
-        void JDataOutputStream::writeChar(jushort v){
+        void JDataOutputStream::writeChar(jchar v){
             out->write(((juint)v >> 8) & 0xFF);
             out->write(((juint)v >> 0) & 0xFF);
             incCount(2);
@@ -110,7 +110,7 @@ namespace jcpp{
             incCount(8);
         }
 
-        void JDataOutputStream::writeFloat(float v){/* unresolved issue. */
+        void JDataOutputStream::writeFloat(jfloat v){/* unresolved issue. */
             jbyte b[4];
             JBits::putFloat(b, 0, v);
             jint* val = (jint*)b;
@@ -118,7 +118,7 @@ namespace jcpp{
             incCount(4);
         }
 
-        void JDataOutputStream::writeDouble(double v){ /* unresolved issue. */
+        void JDataOutputStream::writeDouble(jdouble v){ /* unresolved issue. */
             jbyte b[8];
             JBits::putDouble(b, 0, v);
             double* val = (double*)b;
