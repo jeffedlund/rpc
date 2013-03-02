@@ -1,22 +1,32 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-#include <QtGlobal>
+#include "stdint.h"
+#include "cassert"
 namespace jcpp{
     namespace lang{
         //TODO is it correct values cross OS?
-        #define jint qint32
-        #define juint quint32
+        #define jint int32_t
         #define jbool bool
-        #define jbyte qint8
-        #define jubyte quint8
-        #define jchar quint16
-        #define jdouble double
-        #define jfloat float
-        #define jlong qint64
-        #define julong quint64
-        #define jshort qint16
-        #define jushort quint16
+        #define jbyte int8_t
+        #define jchar uint16_t
+        #define jdouble double //64
+        #define jfloat float //32
+        #define jlong int64_t
+        #define jshort int16_t
+        class Object{
+        public:
+            static void init(){
+                assert(sizeof(char)==1);
+                assert(sizeof(jchar)==2);
+                assert(sizeof(jbyte)==1);
+                assert(sizeof(jshort)==2);
+                assert(sizeof(jint)==4);
+                assert(sizeof(jlong)==8);
+                assert(sizeof(jfloat)==4);
+                assert(sizeof(jdouble)==8);
+            }
+        };
     }
 }
 

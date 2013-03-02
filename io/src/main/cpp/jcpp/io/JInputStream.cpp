@@ -1,5 +1,10 @@
 #include "JInputStream.h"
 #include "Object.h"
+#include "JNullPointerException.h"
+#include "JIndexOutOfBoundsException.h"
+#include "Collections.h"
+#include "JIOException.h"
+#include "JInstantiationException.h"
 
 namespace jcpp{
     namespace io{
@@ -16,7 +21,7 @@ namespace jcpp{
             }
 
             JObject* newInstance(){
-                return new JInputStream();
+                throw new JInstantiationException("cannot instantiate object of instance "+getName());
             }
         };
 
@@ -35,63 +40,34 @@ namespace jcpp{
         JInputStream::JInputStream(JClass* _class):JObject(_class){
         }
 
-        jlong JInputStream::available() {
-            return 0;
-        }
+        jint JInputStream::read(jbyte b[], int off, int len) {
+            if (b == NULL) {
+                throw new JNullPointerException();
+            } /*TODO : look for all arrayLength call cause it seems bugged in some case
+                else if (off < 0 || len < 0 || len > arrayLength(b) - off) {
+                throw new JIndexOutOfBoundsException();
+            } */else if (len == 0) {
+                return 0;
+            }
 
-        bool JInputStream::waitForReadyRead(int) {
-            return false;
-        }
+            jbyte c = read();
+            if (c == -1) {
+                return -1;
+            }
+            b[off] = c;
 
-        jbyte JInputStream::read() {
-            return 0;
-        }
-
-        jint JInputStream::read(jbyte[], int, int) {
-            return 0;
-        }
-
-        jbyte JInputStream::peekByte() {
-            return 0;
-        }
-
-        jbyte JInputStream::readByte() {
-            return 0;
-        }
-
-        jshort JInputStream::readShort() {
-            return 0;
-        }
-
-        jushort JInputStream::readUnsignedShort() {
-            return 0;
-        }
-
-        jint JInputStream::readInt() {
-            return 0;
-        }
-
-        jlong JInputStream::readLong() {
-            return 0;
-        }
-
-        jfloat JInputStream::readFloat() {
-            return 0;
-        }
-
-        jdouble JInputStream::readDouble() {
-            return 0;
-        }
-
-        jchar JInputStream::readChar() {
-            return 0;
-        }
-
-        jbool JInputStream::readBool() {
-            return 0;
-        }
-
-        void JInputStream::close() {
+            int i = 1;
+            try {
+                for (; i < len ; i++) {
+                    c = read();
+                    if (c == -1) {
+                        break;
+                    }
+                    b[off + i] = (jbyte)c;
+                }
+            } catch (JIOException* ee) {
+            }
+            return i;
         }
 
         JInputStream::~JInputStream() {

@@ -17,7 +17,7 @@ namespace jcpp{
 
             jbyte buf[MAX_BLOCK_SIZE];
             jbyte hbuf[MAX_HEADER_SIZE];
-            jushort cbuf[CHAR_BUF_SIZE];
+            jchar cbuf[CHAR_BUF_SIZE];
             bool blkmode;
             jint pos;
             JOutputStream* out;
@@ -46,7 +46,7 @@ namespace jcpp{
             void writeFloat(jfloat v);
             void writeDouble(jdouble v);
             void writeBytes(string s);
-            void getChars(string s,jint srcBegin, jint srcEnd, jushort dest[], jint dstBegin);
+            void getChars(string s,jint srcBegin, jint srcEnd, jchar dest[], jint dstBegin);
             void writeChars(string s);
             jlong getUTFLength(string s);
             void writeUTF(string s);

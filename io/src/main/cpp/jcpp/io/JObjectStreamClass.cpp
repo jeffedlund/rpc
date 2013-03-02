@@ -60,7 +60,7 @@ namespace jcpp{
 
         static map<JClass*, JObjectStreamClass*>* allObjectStreamClass;
 
-        JObjectStreamClass* JObjectStreamClass::lookup(JClass* meta){
+        JObjectStreamClass* JObjectStreamClass::lookup(JClass* meta){//TODO use mutex
             if(meta == NULL){
                 return NULL;
             }
@@ -270,7 +270,7 @@ namespace jcpp{
             if (numFields > 0) {
                 fields = new vector<JObjectStreamField*>();
                 for (int i = 0; i < numFields; ++i) {
-                    char tcode=(char) in->readByte();;
+                    jchar tcode=(jchar) in->readByte();;
                     string fname=in->readUTF();
                     string signature;
                     if ((tcode=='L' || (tcode=='['))){
@@ -338,7 +338,7 @@ namespace jcpp{
 
         void JObjectStreamClass::invokeReadObject(JObject* object, JObjectInputStream* in){
             if (readObjectMethod!=NULL){
-                vector<JObject*> args;
+                vector<JObject*> args;//TODO delete when?
                 args.push_back(in);
                 readObjectMethod->invoke(object,&args);
             }else{
@@ -348,7 +348,7 @@ namespace jcpp{
 
         void JObjectStreamClass::invokeWriteObject(JObject* object, JObjectOutputStream* out){
             if (writeObjectMethod!=NULL){
-                vector<JObject*> args;
+                vector<JObject*> args;//TODO delete when?
                 args.push_back(out);
                 writeObjectMethod->invoke(object,&args);
             }else{
@@ -503,12 +503,12 @@ namespace jcpp{
                         break;
 
                     }case 'B':{
-                        JPrimitiveByte* jPrimitiveByte=new JPrimitiveByte((jubyte) (buf[pos++]));
+                        JPrimitiveByte* jPrimitiveByte=new JPrimitiveByte((jbyte) (buf[pos++]));
                         obj->getClass()->getField(f->getName())->set(obj,jPrimitiveByte);
                         break;
 
                     }case 'C':{
-                        JPrimitiveChar* jPrimitiveChar=new JPrimitiveChar((char) (buf[pos+1]));
+                        JPrimitiveChar* jPrimitiveChar=new JPrimitiveChar((jchar) (buf[pos+1]));
                         pos += 2;
                         obj->getClass()->getField(f->getName())->set(obj,jPrimitiveChar);
                         break;
@@ -561,21 +561,21 @@ namespace jcpp{
                 switch(f->getTypeCode()){
                     case 'Z':{
                         JPrimitiveBoolean* b=(JPrimitiveBoolean*)field->get(obj);
-                        bool v=b->get();
+                        jbool v=b->get();
                         out->writeBoolean(v);
                         JBits::putBoolean(buf, off, v);
                         break;
 
                     }case 'B' :{
                         JPrimitiveByte* b=(JPrimitiveByte*)field->get(obj);
-                        jubyte v=b->get();
+                        jbyte v=b->get();
                         out->writeByte(v);
                         buf[off] = v;
                         break;
 
                     }case 'C':{
                         JPrimitiveChar* b=(JPrimitiveChar*)field->get(obj);
-                        jushort v = b->get();
+                        jchar v = b->get();
                         out->writeChar(v);
                         JBits::putChar(buf, off, v);
                         break;
@@ -596,7 +596,7 @@ namespace jcpp{
 
                     }case 'F' :{
                         JPrimitiveFloat* b=(JPrimitiveFloat*)field->get(obj);
-                        float v = b->get();
+                        jfloat v = b->get();
                         out->writeFloat(v);
                         JBits::putFloat(buf, off, v);
                         break;
@@ -610,7 +610,7 @@ namespace jcpp{
 
                     }case 'D': {
                         JPrimitiveDouble* b=(JPrimitiveDouble*)field->get(obj);
-                        double v = b->get();
+                        jdouble v = b->get();
                         out->writeDouble(v);
                         JBits::putDouble(buf, off, v);
                     }

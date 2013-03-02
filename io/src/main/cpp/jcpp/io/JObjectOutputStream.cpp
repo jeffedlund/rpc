@@ -13,6 +13,7 @@
 #include "JLANG.h"
 #include "JExternalizable.h"
 #include "Object.h"
+#include "Collections.h"
 
 namespace jcpp{
     namespace io{
@@ -21,16 +22,14 @@ namespace jcpp{
         }
 
         JObjectOutputStream::JObjectOutputStream(JOutputStream* out){
-            this->bout = new JBlockDataOutputStream(out);
-            handles=new OutputHandleTable();
-            enableOverride = false;
-            enableReplaceObject(false);
-            depth = 0;
-            writeStreamHeader();
-            bout->setBlockDataMode(true);
+            init(out);
         }
 
         JObjectOutputStream::JObjectOutputStream(JOutputStream* out,JClass* _class):JOutputStream(_class){//TODO use _class for super
+            init(out);
+        }
+
+        void JObjectOutputStream::init(JOutputStream* out){
             this->bout = new JBlockDataOutputStream(out);
             handles=new OutputHandleTable();
             enableOverride = false;
@@ -80,7 +79,7 @@ namespace jcpp{
             writeInt(i->get());
         }
 
-        void JObjectOutputStream::writeBoolean(bool b){
+        void JObjectOutputStream::writeBoolean(jbool b){
             bout->writeBoolean(b);
         }
 
@@ -88,15 +87,27 @@ namespace jcpp{
             bout->writeByte(b);
         }
 
-        void JObjectOutputStream::writeChar(jushort v){
+        void JObjectOutputStream::write(jbyte b){
+            bout->writeByte(b);
+        }
+
+        void JObjectOutputStream::write(jbyte b[]){
+            bout->write(b);
+        }
+
+        void JObjectOutputStream::write(jbyte b[], int off, int len){
+            bout->write(b,off,len);
+        }
+
+        void JObjectOutputStream::writeChar(jchar v){
             bout->writeChar(v);
         }
 
-        void JObjectOutputStream::writeDouble(double v){
+        void JObjectOutputStream::writeDouble(jdouble v){
             bout->writeDouble(v);
         }
 
-        void JObjectOutputStream::writeFloat(float v){
+        void JObjectOutputStream::writeFloat(jfloat v){
             bout->writeFloat(v);
         }
 
@@ -376,7 +387,7 @@ namespace jcpp{
 
         void JObjectOutputStream::writePrimitiveData(JObject *obj, JObjectStreamClass *desc){
             int primDataSize = desc->getPrimDataSize();
-            if (primVals == NULL || sizeof(primVals) < (unsigned)primDataSize) {
+            if (primVals == NULL || arrayLength(primVals) < (unsigned)primDataSize) {
                 primVals = new jbyte[primDataSize];
             }
             desc->writePrimFieldValues(obj, primVals,this);

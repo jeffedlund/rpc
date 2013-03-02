@@ -2,6 +2,7 @@
 #define QTDATAINPUTSTREAM_H
 
 #include "JInputStream.h"
+#include "JDataInputStream.h"
 #include "QDataStream"
 #include "JClass.h"
 #include "Object.h"
@@ -18,18 +19,9 @@ namespace jcpp{
             void setStream(QDataStream* in);
             virtual jlong available();
             virtual bool waitForReadyRead(int = 30000);
-            virtual jbyte read();
-            virtual jint read(jbyte b[], int off, int len);
             virtual jbyte peekByte();
             virtual jbyte readByte();
-            virtual jshort readShort();
-            virtual jushort readUnsignedShort();
-            virtual jint readInt();
-            virtual jlong readLong();
-            virtual jfloat readFloat();
-            virtual jdouble readDouble();
-            virtual jchar readChar();
-            virtual jbool readBool();
+            virtual jbyte read();
             virtual void close();
             virtual ~QtDataInputStream();
         };

@@ -1,9 +1,11 @@
 #include "JLANG.h"
 #include "JREFLECT.h"
+#include "Object.h"
 
 namespace jcpp{
     namespace lang{
         JLANG::JLANG():JPackage("jcpp.lang",JPackage::getClazz()){//better class
+            Object::init();
             classes->push_back(JClassCastException::getClazz());
             classes->push_back(JClassNotFoundException::getClazz());
             classes->push_back(JError::getClazz());

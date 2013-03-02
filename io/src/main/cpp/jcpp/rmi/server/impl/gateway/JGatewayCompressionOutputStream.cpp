@@ -41,13 +41,12 @@ namespace jcpp{
                         return gatewayOutputStream->getRoute();
                     }
 
-                    void JGatewayCompressionOutputStream::write(jint b){
+                    void JGatewayCompressionOutputStream::write(jbyte b){
                         gatewayOutputStream->write(b);
                     }
 
                     void JGatewayCompressionOutputStream::write(jbyte b[]){
                         gatewayOutputStream->write(b);
-
                     }
 
                     void JGatewayCompressionOutputStream::write(jbyte b[], int off, int len){
@@ -60,38 +59,6 @@ namespace jcpp{
 
                     void JGatewayCompressionOutputStream::close(){
                         gatewayOutputStream->close();
-                    }
-
-                    void JGatewayCompressionOutputStream::writeBoolean(bool v){
-                        gatewayOutputStream->writeBoolean(v);
-                    }
-
-                    void JGatewayCompressionOutputStream::writeByte(jbyte v){
-                        gatewayOutputStream->writeByte(v);
-                    }
-
-                    void JGatewayCompressionOutputStream::writeShort(jshort v){
-                        gatewayOutputStream->writeShort(v);
-                    }
-
-                    void JGatewayCompressionOutputStream::writeChar(jushort v){
-                        gatewayOutputStream->writeChar(v);
-                    }
-
-                    void JGatewayCompressionOutputStream::writeInt(jint v){
-                        gatewayOutputStream->writeInt(v);
-                    }
-
-                    void JGatewayCompressionOutputStream::writeLong(jlong v){
-                        gatewayOutputStream->writeLong(v);
-                    }
-
-                    void JGatewayCompressionOutputStream::writeFloat(float v){
-                        gatewayOutputStream->writeFloat(v);
-                    }
-
-                    void JGatewayCompressionOutputStream::writeDouble(double v){
-                        gatewayOutputStream->writeDouble(v);
                     }
 
                     JGatewayCompressionOutputStream::~JGatewayCompressionOutputStream(){

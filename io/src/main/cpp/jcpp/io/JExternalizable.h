@@ -19,7 +19,7 @@ namespace jcpp{
 
             virtual void readExternal(JObjectInputStream* in)=0;
 
-            virtual ~JExternalizable()=0;
+            virtual ~JExternalizable();
         };
     }
 }

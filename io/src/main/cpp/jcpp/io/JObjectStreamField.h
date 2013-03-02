@@ -35,6 +35,7 @@ namespace jcpp{
             JObjectStreamField(JField* field,bool unshared,bool showType);
 
 
+            //TODO what to do for PTR ==/<
             static bool comparator (JObjectStreamField* f1,JObjectStreamField* f2) {
                 bool isPrim = f1->getType()->isPrimitive();
                 if (isPrim != f2->getType()->isPrimitive()) {
@@ -45,7 +46,7 @@ namespace jcpp{
 
             string getName();
             JClass* getType();
-            char getTypeCode();
+            jchar getTypeCode();
             JString* getTypeString();
             jint getOffset();
             void setOffset(jint offset);

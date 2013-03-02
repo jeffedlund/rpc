@@ -28,6 +28,7 @@ namespace jcpp{
             bool enableReplace;
             SerialCallbackContext* curContext;
 
+            void init(JOutputStream* out);
             void writeHandle(jint handle);
 
         protected:
@@ -50,18 +51,21 @@ namespace jcpp{
             void writeShort(JPrimitiveShort* s);
             void writeInt(JPrimitiveInt* i);
             void writeByte(jbyte b);
-            void writeChar(jushort v);
+            virtual void write(jbyte b);
+            virtual void write(jbyte b[]);
+            virtual void write(jbyte b[], int off, int len);
+            void writeChar(jchar v);
             void writeShort(jshort v);
             void writeInt(jint v);
             void writeLong(jlong v);
-            void writeFloat(float v);
-            void writeDouble(double v);
-            void writeBoolean(bool b);
+            void writeFloat(jfloat v);
+            void writeDouble(jdouble v);
+            void writeBoolean(jbool b);
             void writeUTF(string str);
             void writeChars(string str);
             void writeBytes(string str);
-            void flush();
-            void close();
+            virtual void flush();
+            virtual void close();
             void writeObject(JObject* object);
             void writeObject0(JObject* object);
             void writeStreamHeader();

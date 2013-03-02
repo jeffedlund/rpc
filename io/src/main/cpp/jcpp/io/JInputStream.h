@@ -20,21 +20,12 @@ namespace jcpp{
 
             static JClass* getClazz();
 
-            virtual jlong available();
-            virtual bool waitForReadyRead(int = 30000);
-            virtual jbyte read();
+            virtual jlong available()=0;
+            virtual bool waitForReadyRead(int = 30000)=0;
+            virtual jbyte read()=0;
+            virtual jbyte peekByte()=0;//TODO not ideal
             virtual jint read(jbyte b[], int off, int len);
-            virtual jbyte peekByte();
-            virtual jbyte readByte();
-            virtual jshort readShort();
-            virtual jushort readUnsignedShort();
-            virtual jint readInt();
-            virtual jlong readLong();
-            virtual jfloat readFloat();
-            virtual jdouble readDouble();
-            virtual jchar readChar();
-            virtual jbool readBool();
-            virtual void close();
+            virtual void close()=0;
             virtual ~JInputStream();
         };
     }

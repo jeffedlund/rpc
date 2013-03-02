@@ -88,8 +88,8 @@ namespace jcpp{
             return type;
         }
 
-        char JObjectStreamField::getTypeCode(){
-            return signature.at(0);
+        jchar JObjectStreamField::getTypeCode(){
+            return (jchar)signature.at(0);
         }
 
         void JObjectStreamField::setTypeString(){

@@ -60,6 +60,7 @@ namespace jcpp{
             JClass *resolveProxyClass(string* str,int i);
             virtual JObject* resolveObject(JObject* jobject);
             JObjectInputStream(JInputStream* inputStrean,JClass* _class);
+            void init(JInputStream* in);
 
         public:
             JObjectInputStream(JInputStream* inputStrean);
@@ -75,6 +76,7 @@ namespace jcpp{
             virtual jbyte read();
             virtual int read(jbyte b[], int off, int len);
             virtual jbyte readByte();
+            virtual jbyte peekByte();
             virtual jchar readChar();
             virtual jdouble readDouble();
             virtual jfloat readFloat();

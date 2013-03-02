@@ -2,6 +2,7 @@
 #include "JBits.h"
 #include "JUTFDataFormatException.h"
 #include "JObjectStreamConstants.h"
+#include "Collections.h"
 using namespace std;
 using namespace jcpp::util;
 
@@ -10,6 +11,7 @@ namespace jcpp{
         JBlockDataOutputStream::JBlockDataOutputStream(){
         }
 
+        //TODO define getClazz()
         JBlockDataOutputStream::JBlockDataOutputStream(JOutputStream* out) {
             blkmode = false;
             pos = 0;
@@ -38,7 +40,7 @@ namespace jcpp{
         }
 
         void JBlockDataOutputStream::write(jbyte b[]){
-            write(b, 0, sizeof(b), false);
+            write(b, 0, arrayLength(b), false);
         }
 
         void JBlockDataOutputStream::write(jbyte b[], int off, int len){
@@ -82,6 +84,7 @@ namespace jcpp{
             }
         }
 
+        //TODO mettre dans jsystem
         void JBlockDataOutputStream::arraycopy(jbyte src[],jint srcPos, jbyte dest[], jint destPos, jint length){
             jbyte* ptr = &src[srcPos];
             for(int i = 0; i < length; ++i){
@@ -113,7 +116,7 @@ namespace jcpp{
             }
         }
 
-        void JBlockDataOutputStream::writeBoolean(bool v){
+        void JBlockDataOutputStream::writeBoolean(jbool v){
             if (pos >= MAX_BLOCK_SIZE) {
                 drain();
             }
@@ -129,16 +132,16 @@ namespace jcpp{
 
         void JBlockDataOutputStream::writeShort(jshort v){
             if (pos + 2 <= MAX_BLOCK_SIZE) {
-                JBits::putShort(buf, pos, (short) v);
+                JBits::putShort(buf, pos, (jshort) v);
                 pos += 2;
             } else {
                 dout->writeShort(v);
             }
         }
 
-        void JBlockDataOutputStream::writeChar(jushort v){
+        void JBlockDataOutputStream::writeChar(jchar v){
             if (pos + 2 <= MAX_BLOCK_SIZE) {
-                JBits::putChar(buf, pos, (jchar) v);
+                JBits::putChar(buf, pos,v);
                 pos += 2;
             } else {
                 dout->writeChar(v);
@@ -163,7 +166,7 @@ namespace jcpp{
             }
         }
 
-        void JBlockDataOutputStream::writeFloat(float v){
+        void JBlockDataOutputStream::writeFloat(jfloat v){
             if (pos + 4 <= MAX_BLOCK_SIZE) {
                 JBits::putFloat(buf, pos, v);
                 pos += 4;
@@ -172,7 +175,7 @@ namespace jcpp{
             }
         }
 
-        void JBlockDataOutputStream::writeDouble(double v){
+        void JBlockDataOutputStream::writeDouble(jdouble v){
             if (pos + 8 <= MAX_BLOCK_SIZE) {
                 JBits::putDouble(buf, pos, v);
                 pos += 8;
@@ -197,18 +200,18 @@ namespace jcpp{
                 int n = (csize - cpos) < (MAX_BLOCK_SIZE - pos) ? csize - cpos : MAX_BLOCK_SIZE - pos;
                 int stop = pos + n;
                 while (pos < stop) {
-                    buf[pos++] = (jbyte) cbuf[cpos++];
+                    JBits::putChar(buf,pos,cbuf[cpos]);
+                    pos++;
+                    cpos++;
                 }
                 off += n;
             }
 
         }
 
-        void JBlockDataOutputStream::getChars( string s,jint srcBegin, jint srcEnd, jushort dest[], jint dstBegin){
+        void JBlockDataOutputStream::getChars( string s,jint srcBegin, jint srcEnd, jchar dest[], jint dstBegin){
             const char* str = s.c_str();
-            for( jint i = 0; i < srcEnd - srcBegin; ++i){
-                dest[dstBegin + i] = str[ srcBegin+i];
-            }
+            JBits::fromCharToJChar(str,dest,dstBegin,srcEnd-srcBegin);
         }
 
         void JBlockDataOutputStream::writeChars(string s){
@@ -228,7 +231,7 @@ namespace jcpp{
                 jint csize = (len - off) < CHAR_BUF_SIZE ? (len - off) : CHAR_BUF_SIZE;
                 getChars(s, off, off + csize, cbuf, 0);
                 for (jint cpos = 0; cpos < csize; cpos++) {
-                    jushort c = cbuf[cpos];
+                    jchar c = cbuf[cpos];
                     if (c >= 0x0001 && c <= 0x007F) {
                         utflen++;
                     } else if (c > 0x07FF) {
@@ -246,7 +249,7 @@ namespace jcpp{
             writeUTF(s, getUTFLength(s));
         }
 
-        void JBlockDataOutputStream::writeBooleans(bool v[], int off, int len){
+        void JBlockDataOutputStream::writeBooleans(jbool v[], int off, int len){
             int endoff = off + len;
             while (off < endoff) {
                 if (pos >= MAX_BLOCK_SIZE) {
@@ -259,7 +262,7 @@ namespace jcpp{
             }
         }
 
-        void JBlockDataOutputStream::writeChars(jushort v[], int off, int len){
+        void JBlockDataOutputStream::writeChars(jchar v[], int off, int len){
             int limit = MAX_BLOCK_SIZE - 2;
             int endoff = off + len;
             while (off < endoff) {
@@ -310,7 +313,7 @@ namespace jcpp{
             }
         }
 
-        void JBlockDataOutputStream::writeFloats(float v[], int off, int len){
+        void JBlockDataOutputStream::writeFloats(jfloat v[], int off, int len){
             int limit = MAX_BLOCK_SIZE - 4;
             int endoff = off + len;
             while (off < endoff) {
@@ -343,7 +346,7 @@ namespace jcpp{
             }
         }
 
-        void JBlockDataOutputStream::writeDoubles(double v[], int off, int len){
+        void JBlockDataOutputStream::writeDoubles(jdouble v[], int off, int len){
             int limit = MAX_BLOCK_SIZE - 8;
             int endoff = off + len;
             while (off < endoff) {

@@ -3,13 +3,15 @@
 #include "JStreamCorruptedException.h"
 #include "JEOFException.h"
 #include <sstream>
+#include "JUTFDataFormatException.h"
 using namespace jcpp::util;
 
 namespace jcpp{
     namespace io{
-        //TODO missing following methods : skip,skipBytes,readUnsignedByte,readUnsignedShort,readUTFSpan,readUTFChar,readLine
+        //TODO missing following methods : skip,skipBytes,readUnsignedByte,readUnsignedShort,readLine
+        //TODO define static class
         BlockDataInputStream::BlockDataInputStream(JInputStream *in): blkmode(false), pos(0), end (-1), unread(0) {
-            this->in = in;
+            this->in = new JDataInputStream(in);
         }
 
         bool BlockDataInputStream::setBlockDataMode(bool newmode) {
@@ -109,8 +111,7 @@ namespace jcpp{
                     if (n >= 0) {
                         end = n;
                         unread -= n;
-                    }
-                    else {
+                    } else {
                         throw new JStreamCorruptedException("unexpected EOF in middle of data block");
                     }
                 }else {
@@ -146,7 +147,7 @@ namespace jcpp{
         }
 
         jbyte BlockDataInputStream::peekByte() {
-            int val = peek();
+            jbyte val = peek();
             if (val < 0) {
                 throw new JEOFException();
             }
@@ -166,6 +167,30 @@ namespace jcpp{
 
         int BlockDataInputStream::read(jbyte b[], int off, int len) {
             return read(b, off, len, false);
+        }
+
+        jlong BlockDataInputStream::skip(jlong len){
+            jlong remain = len;
+            while (remain > 0) {
+                if (blkmode) {
+                    if (pos == end) {
+                        refill();
+                    }
+                    if (end < 0) {
+                        break;
+                    }
+                    jint nread = (jint) min((jint)remain, end - pos);
+                    remain -= nread;
+                    pos += nread;
+                } else {
+                    jint nread = (jint) min((jint)remain, MAX_BLOCK_SIZE);
+                    if ((nread = in->read(buf, 0, nread)) < 0) {
+                        break;
+                    }
+                    remain -= nread;
+                }
+            }
+            return len - remain;
         }
 
         jlong BlockDataInputStream::available() {
@@ -222,12 +247,12 @@ namespace jcpp{
                 }
                 int nread = min(len, end - pos);
                 memcpy(b+off,buf+pos,nread);
-                pos += read();
+                pos += nread;
                 return nread;
             }else if (copy) {
                 int nread = in->read(buf,0,min(len, MAX_BLOCK_SIZE));
                 if (nread > 0) {
-                    memcpy((char*)b+off,buf,nread);
+                    memcpy((jchar*)b+off,buf,nread);
                 }
                 return nread;
             }else {
@@ -250,8 +275,14 @@ namespace jcpp{
             }
         }
 
+    /*TODO
+        int skipBytes(int n) throws IOException {
+                return din.skipBytes(n);
+            }
+            */
+
         jbyte BlockDataInputStream::readByte() {
-            jint v = read();
+            jbyte v = read();
             if (v < 0) {
                 throw new JEOFException();
             }
@@ -262,8 +293,8 @@ namespace jcpp{
             if (!blkmode) {
                 pos = 0;
                 in->read(buf,0,2);
-            }
-            else if ( end - pos < 2) {
+
+            }else if ( end - pos < 2) {
                 jbyte readBuffer[2];
                 for (int i = 0; i < 2; ++i) {
                     readBuffer[i] = read();
@@ -279,6 +310,7 @@ namespace jcpp{
             if (!blkmode) {
                 pos = 0;
                 in->read(buf, 0, 4);
+
             } else if (end - pos < 4) {
                 jbyte readBuffer[4];
                 for (int i = 0; i < 4; ++i) {
@@ -295,15 +327,15 @@ namespace jcpp{
             if (!blkmode) {
                 pos = 0;
                 in->read(buf, 0, 4);
-            }
-            else if (end - pos < 4) {
+
+            }else if (end - pos < 4) {
                 jbyte readBuffer[4];
                 for (int i = 0; i < 4; ++i) {
                     readBuffer[i] = read();
                 }
                 return JBits::getFloat(readBuffer,0);
             }
-            float v = JBits::getFloat(buf, pos);
+            jfloat v = JBits::getFloat(buf, pos);
             pos += 4;
             return v;
         }
@@ -312,8 +344,8 @@ namespace jcpp{
             if (!blkmode) {
                 pos = 0;
                 in->read(buf, 0, 8);
-            }
-            else if (end - pos < 8) {
+
+            }else if (end - pos < 8) {
                 jbyte readBuffer[8];
                 for (int i = 0; i < 8; ++i) {
                     readBuffer[i] = read();
@@ -325,10 +357,11 @@ namespace jcpp{
             return v;
         }
 
-        double BlockDataInputStream::readDouble() {
+        jdouble BlockDataInputStream::readDouble() {
             if (!blkmode) {
                 pos = 0;
                 in->read(buf, 0, 8);
+
             } else if (end - pos < 8) {
                 jbyte readBuffer[8];
                 for (int i = 0; i < 8; ++i) {
@@ -336,7 +369,7 @@ namespace jcpp{
                 }
                 return JBits::getDouble(readBuffer,0);
             }
-            double v = JBits::getDouble(buf, pos);
+            jdouble v = JBits::getDouble(buf, pos);
             pos += 8;
             return v;
         }
@@ -350,14 +383,14 @@ namespace jcpp{
                 for (int i = 0; i < 2; ++i) {
                     readBuffer[i] = read();
                 }
-                return readBuffer[1];
+                return JBits::getChar(readBuffer,0);
            }
            jchar v = buf[pos+1];
            pos += 2;
            return v;
         }
 
-        bool BlockDataInputStream::readBool() {
+        jbool BlockDataInputStream::readBool() {
             int v = read();
             if (v < 0) {
                 throw new JEOFException();
@@ -365,20 +398,162 @@ namespace jcpp{
             return (v != 0);
         }
 
-        string BlockDataInputStream::readUTFBody(jlong len) {
+        string BlockDataInputStream::readUTFBody(jlong utflen) {
+            vector<jchar>* sbuf=new vector<jchar>();
             if (!blkmode) {
                 end = pos = 0;
             }
 
-            char *cname = new char[len+1];
-            cname[len] = '\0';
-            in->read((jbyte*)cname, 0, len);
-            string str(cname);
-            delete cname;
+            while (utflen > 0) {
+                jint avail = end - pos;
+                if (avail >= 3 || (jlong) avail == utflen) {
+                    utflen -= readUTFSpan(sbuf, utflen);
+                } else {
+                    if (blkmode) {
+                        // near block boundary, read one byte at a time
+                        utflen -= readUTFChar(sbuf, utflen);
+                    } else {
+                        // shift and refill buffer manually
+                        if (avail > 0) {
+                            arraycopy(buf, pos, buf, 0, avail);
+                        }
+                        pos = 0;
+                        end = (jint) min(MAX_BLOCK_SIZE,(jint) utflen);
+                        in->read(buf, avail, end - avail);
+                    }
+                }
+            }
+
+            jchar* jc=new jchar[sbuf->size()];//TODO pas top
+            for (int i=0;i<sbuf->size();i++){
+                jc[i]=sbuf->at(i);
+            }
+            char* cs=new char[sbuf->size()+1];
+            cs[sbuf->size()] = '\0';
+            JBits::fromJChartoChar(jc,cs,0,sbuf->size());
+            string str(cs);
+            delete cs;
+            delete sbuf;
+            delete jc;
             cout<<"*"<<str<<"*\r\n";
             cout.flush();
             return str;
         }
+
+        void BlockDataInputStream::arraycopy(jbyte src[],jint srcPos, jbyte dest[], jint destPos, jint length){
+            jbyte* ptr = &src[srcPos];
+            for(int i = 0; i < length; ++i){
+                dest[destPos] = *ptr;
+                ptr++;
+            }
+        }
+
+        jlong BlockDataInputStream::readUTFSpan(vector<jchar>* sbuf, jlong utflen) {
+            jint cpos = 0;
+            jint start = pos;
+            jint avail = min(end - pos, CHAR_BUF_SIZE);
+            jint stop = pos + ((utflen > avail) ? avail - 2 : (jint) utflen);
+            bool outOfBounds = false;
+
+            try {
+                while (pos < stop) {
+                    jint b1, b2, b3;
+                    b1 = buf[pos++] & 0xFF;
+                    switch (b1 >> 4) {
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                        case 7:	  // 1 byte format: 0xxxxxxx
+                            cbuf[cpos++] = (jchar) b1;
+                            break;
+
+                        case 12:
+                        case 13:  // 2 byte format: 110xxxxx 10xxxxxx
+                            b2 = buf[pos++];
+                            if ((b2 & 0xC0) != 0x80) {
+                                throw new JUTFDataFormatException();
+                            }
+                            cbuf[cpos++] = (jchar) (((b1 & 0x1F) << 6) |  ((b2 & 0x3F) << 0));
+                            break;
+
+                        case 14:  // 3 byte format: 1110xxxx 10xxxxxx 10xxxxxx
+                            b3 = buf[pos + 1];
+                            b2 = buf[pos + 0];
+                            pos += 2;
+                            if ((b2 & 0xC0) != 0x80 || (b3 & 0xC0) != 0x80) {
+                                throw new JUTFDataFormatException();
+                            }
+                            cbuf[cpos++] = (jchar) (((b1 & 0x0F) << 12) |  ((b2 & 0x3F) << 6) |  ((b3 & 0x3F) << 0));
+                            break;
+
+                        default:  // 10xx xxxx, 1111 xxxx
+                            throw new JUTFDataFormatException();
+                    }
+                }
+            } catch (JThrowable* ex){//TODO JArrayIndexOutOfBoundsException* ex) {
+                outOfBounds = true;
+            }
+            if (outOfBounds || (pos - start) > utflen) {
+                pos = start + (int) utflen;
+                throw new JUTFDataFormatException();
+            }
+            for (int i=0;i<cpos;i++){
+                sbuf->push_back(cbuf[i]);
+            }
+            return pos - start;
+        }
+
+        jint BlockDataInputStream::readUTFChar(vector<jchar>* sbuf, jlong utflen){
+            jint b1, b2, b3;
+            b1 = readByte() & 0xFF;
+            switch (b1 >> 4) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:     // 1 byte format: 0xxxxxxx
+                    sbuf->push_back((jchar) b1);
+                    return 1;
+
+                case 12:
+                case 13:    // 2 byte format: 110xxxxx 10xxxxxx
+                    if (utflen < 2) {
+                        throw new JUTFDataFormatException();
+                    }
+                    b2 = readByte();
+                    if ((b2 & 0xC0) != 0x80) {
+                        throw new JUTFDataFormatException();
+                    }
+                    sbuf->push_back((jchar) (((b1 & 0x1F) << 6) | ((b2 & 0x3F) << 0)));
+                    return 2;
+
+                case 14:    // 3 byte format: 1110xxxx 10xxxxxx 10xxxxxx
+                    if (utflen < 3) {
+                        if (utflen == 2) {
+                            readByte();		// consume remaining byte
+                        }
+                        throw new JUTFDataFormatException();
+                    }
+                    b2 = readByte();
+                    b3 = readByte();
+                    if ((b2 & 0xC0) != 0x80 || (b3 & 0xC0) != 0x80) {
+                        throw new JUTFDataFormatException();
+                    }
+                    sbuf->push_back((jchar) (((b1 & 0x0F) << 12) |  ((b2 & 0x3F) << 6) | ((b3 & 0x3F) << 0)));
+                    return 3;
+
+                default:   // 10xx xxxx, 1111 xxxx
+                    throw new JUTFDataFormatException();
+            }
+        }
+
 
         string BlockDataInputStream::readUTF() {
             return readUTFBody(readShort());
@@ -423,7 +598,7 @@ namespace jcpp{
                     stop = min(endoff, off + ((end - pos) >> 1));
                 }
                 while (off < stop) {
-                    v[off++] = buf[pos+1];
+                    v[off++] = JBits::getChar(buf,pos);
                     pos += 2;
                 }
             }

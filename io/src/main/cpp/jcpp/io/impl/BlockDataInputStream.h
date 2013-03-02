@@ -7,6 +7,7 @@
 #include "climits"
 #include "memory.h"
 #include "Object.h"
+#include "JDataInputStream.h"
 using namespace std;
 
 static const jint MAX_BLOCK_SIZE = 1024;
@@ -25,7 +26,7 @@ namespace jcpp{
             jint pos;
             jint end;
             jint unread;
-            JInputStream *in;
+            JDataInputStream *in;
             BlockDataInputStream(JInputStream *in);
 
             bool setBlockDataMode(bool newmode);
@@ -43,8 +44,11 @@ namespace jcpp{
             void readFully(jbyte *b, int off, int len);
             void readFully(jbyte *b, int off, int len, bool copy);
             string readUTFBody(jlong len);
+            jlong readUTFSpan(vector<jchar>* sbuf, jlong utflen);
+            jint readUTFChar(vector<jchar>* sbuf, jlong utflen);
             string readUTF();
             string readLongUTF();
+            void arraycopy(jbyte src[],jint srcPos, jbyte dest[], jint destPos, jint length);
             void readBools(jbool *v, int off, int len);
             void readChars(jchar *v, int off, int len);
             void readShorts(jshort *v, int off, int len);
@@ -53,6 +57,7 @@ namespace jcpp{
             void readLongs(jlong *v, int off, int len);
             void readDoubles(jdouble *v, int off, int len);
 
+            jlong skip(jlong len);//TODO put it everywhere in io
             virtual jlong available();
             virtual bool waitForReadyRead(int = 30000);
             virtual jbyte read();

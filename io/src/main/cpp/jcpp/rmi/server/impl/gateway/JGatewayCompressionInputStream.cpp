@@ -61,42 +61,6 @@ namespace jcpp{
                         return gatewayInputStream->peekByte();
                     }
 
-                    jbyte JGatewayCompressionInputStream::readByte(){
-                        return gatewayInputStream->readByte();
-                    }
-
-                    jshort JGatewayCompressionInputStream::readShort(){
-                        return gatewayInputStream->readShort();
-                    }
-
-                    jushort JGatewayCompressionInputStream::readUnsignedShort(){
-                        return gatewayInputStream->readUnsignedShort();
-                    }
-
-                    jint JGatewayCompressionInputStream::readInt(){
-                        return gatewayInputStream->readInt();
-                    }
-
-                    jlong JGatewayCompressionInputStream::readLong(){
-                        return gatewayInputStream->readLong();
-                    }
-
-                    jfloat JGatewayCompressionInputStream::readFloat(){
-                        return gatewayInputStream->readFloat();
-                    }
-
-                    jdouble JGatewayCompressionInputStream::readDouble(){
-                        return gatewayInputStream->readDouble();
-                    }
-
-                    jchar JGatewayCompressionInputStream::readChar(){
-                        return gatewayInputStream->readChar();
-                    }
-
-                    jbool JGatewayCompressionInputStream::readBool(){
-                        return gatewayInputStream->readBool();
-                    }
-
                     void JGatewayCompressionInputStream::close(){
                         gatewayInputStream->close();
                     }

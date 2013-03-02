@@ -54,25 +54,14 @@ namespace jcpp{
         }
 
         JObjectInputStream::JObjectInputStream(JInputStream *in,JClass* _class):JInputStream(_class){
-            inputClassLoader=JClassLoader::getBootClassLoader();
-            bin = new BlockDataInputStream(in);
-            passHandle = NULL_HANDLE;
-            handles = new HandleTable(100);
-            primVals = NULL;
-            defaultDataEnd  = false;
-
-            // check stream header
-            jshort s0 = readShort();
-            jshort s1 = readShort();
-            if (s0 != STREAM_MAGIC || s1 != STREAM_VERSION) {
-                stringstream ss;
-                ss<<"invalid stream header "<<s0<<","<<s1;
-                throw new JStreamCorruptedException(ss.str());
-            }
-            bin->setBlockDataMode(true);
+            init(in);
         }
 
         JObjectInputStream::JObjectInputStream(JInputStream *in):JInputStream(getClazz()){
+            init(in);
+        }
+
+        void JObjectInputStream::init(JInputStream* in){
             inputClassLoader=JClassLoader::getBootClassLoader();
             bin = new BlockDataInputStream(in);
             passHandle = NULL_HANDLE;
@@ -667,6 +656,10 @@ namespace jcpp{
 
         jbyte JObjectInputStream::readByte() {
             return bin->readByte();
+        }
+
+        jbyte JObjectInputStream::peekByte() {
+            return bin->peekByte();
         }
 
         /**

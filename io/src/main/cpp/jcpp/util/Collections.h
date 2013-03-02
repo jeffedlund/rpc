@@ -150,7 +150,7 @@ namespace jcpp{
             return vec;
         }
 
-        #define arrayLength(a) ( sizeof ( a ) / sizeof ( *a ) )
+#define arrayLength(a) ( sizeof ( a ) / sizeof ( a[0] ) )
     }
 }
 

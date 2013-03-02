@@ -1,6 +1,9 @@
 #include "QtDataOutputStream.h"
 #include "JIndexOutOfBoundsException.h"
 #include "JNullPointerException.h"
+#include "Collections.h"
+#include "JBits.h"
+using namespace jcpp::util;
 
 namespace jcpp{
     namespace io{
@@ -57,29 +60,6 @@ namespace jcpp{
             (*out)<<((jbyte)b);
         }
 
-        void QtDataOutputStream::write(jbyte b[]){
-            int length = sizeof(b);
-            for (int i=0;i<length;i++){
-                (*out)<<b[i];
-            }
-        }
-
-        void QtDataOutputStream::write(jbyte b[], int off, int len){
-            if (b == NULL) {
-                throw new JNullPointerException();
-            } else {
-                int length = len;
-                if ((off < 0) || (off > length) || (len < 0) || ((off + len) > length) || ((off + len) < 0)) {
-                    throw new JIndexOutOfBoundsException();
-                } else if (len == 0) {
-                    return;
-                }
-                for (int i = 0 ; i < len ; i++) {
-                    (*out)<<(b[off + i]);
-                }
-            }
-        }
-
         void QtDataOutputStream::flush(){
             if (file!=NULL){
                 file->flush();
@@ -91,38 +71,6 @@ namespace jcpp{
 
         void QtDataOutputStream::close(){
             out->device()->close();
-        }
-
-        void QtDataOutputStream::writeBoolean(jbool v){
-            (*out)<<v;
-        }
-
-        void QtDataOutputStream::writeByte(jbyte v){
-            (*out) << v;
-        }
-
-        void QtDataOutputStream::writeDouble(jdouble v){
-            (*out) << v;
-        }
-
-        void QtDataOutputStream::writeChar(jchar v){
-            (*out) << v;
-        }
-
-        void QtDataOutputStream::writeFloat(jfloat v){
-            (*out) << v;
-        }
-
-        void QtDataOutputStream::writeInt(jint v){
-            (*out) << v;
-        }
-
-        void QtDataOutputStream::writeLong(jlong v){
-            (*out) << v;
-        }
-
-        void QtDataOutputStream::writeShort(jshort v){
-            (*out) << v;
         }
 
         QtDataOutputStream::~QtDataOutputStream(){

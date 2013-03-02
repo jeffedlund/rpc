@@ -1,4 +1,6 @@
 #include "QtDataInputStream.h"
+#include "JBits.h"
+using namespace jcpp::util;
 
 namespace jcpp{
     namespace io{
@@ -51,17 +53,6 @@ namespace jcpp{
             return in->device()->waitForReadyRead(i);
         }
 
-        jbyte QtDataInputStream::read() {
-            return readByte();
-        }
-
-        jint QtDataInputStream::read(jbyte b[], int off, int len) {
-            if (available() < len) {
-                waitForReadyRead(-1);
-            }
-            return in->readRawData((char*)b+off,len);
-        }
-
         jbyte QtDataInputStream::peekByte() {
             jbyte b;
             while (available() < 1) {
@@ -71,90 +62,14 @@ namespace jcpp{
             return b;
         }
 
+        jbyte QtDataInputStream::read() {
+            return readByte();
+        }
+
         jbyte QtDataInputStream::readByte() {
             jbyte b;
             while (available() < 1) {
-                waitForReadyRead(-1);
-            }
-            (*in)>>b;
-            return b;
-        }
-
-        jshort QtDataInputStream::readShort() {
-            jshort s;
-            while (available() < 2) {
-                waitForReadyRead(-1);
-            }
-            (*in)>>s;
-            return s;
-        }
-
-        jushort QtDataInputStream::readUnsignedShort() {
-            jushort us;
-            while (available() < 2) {
-                waitForReadyRead(-1);
-            }
-            (*in)>>us;
-            return us;
-        }
-
-        jint QtDataInputStream::readInt() {
-            jint i;
-            while (available() < 4) {
-                waitForReadyRead(-1);
-            }
-            (*in) >> i;
-            return i;
-        }
-
-        jlong QtDataInputStream::readLong() {
-            jlong l;
-            while (available() < 8) {
-                waitForReadyRead(-1);
-            }
-            (*in) >> l;
-            return l;
-        }
-
-        // In versions Qt 4.5 and before, the floating point precision
-        // is implicitly dealt with by the corresponding operator<<()
-        // and operator>>().
-        // In versions Qt 4.6 and after, the floating point precision
-        // has to be set explicitly. It is double by default.
-        jfloat QtDataInputStream::readFloat() {
-            int ver = in->version();
-            in->setVersion(QDataStream::Qt_4_5);
-            jfloat f;
-            while (available() < 4) {
-                waitForReadyRead(-1);
-            }
-            (*in) >> f;
-            in->setVersion(ver);
-            return f;
-        }
-
-        jdouble QtDataInputStream::readDouble() {
-            jdouble d;
-            while (available() < 8) {
-                waitForReadyRead(-1);
-            }
-            (*in)>>d;
-            return d;
-        }
-
-        jchar QtDataInputStream::readChar() {
-            jchar c;
-            while (available() < 2) {
-                waitForReadyRead(-1);
-            }
-            (*in) >> c;
-            return c;
-        }
-
-        jbool QtDataInputStream::readBool() {
-            jbool b;
-            while (available() < 1) {
-                waitForReadyRead(-1);
+                waitForReadyRead(10000);
             }
             (*in)>>b;
             return b;

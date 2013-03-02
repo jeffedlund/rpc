@@ -14,7 +14,7 @@ namespace jcpp{
             }
 
             JClass* getSuperclass(){
-                return JObject::getClazz();
+                return JInterface::getClazz();
             }
 
             JObject* newInstance(){
@@ -31,5 +31,7 @@ namespace jcpp{
             return clazz;
         }
 
+        JExternalizable::~JExternalizable(){
+        }
     }
 }

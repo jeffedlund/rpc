@@ -29,7 +29,7 @@ namespace jcpp{
             virtual jbyte peekByte();
             virtual jbyte readByte();
             virtual jshort readShort();
-            virtual jushort readUnsignedShort();
+            virtual jshort readUnsignedShort();
             virtual jint readInt();
             virtual jlong readLong();
             virtual jfloat readFloat();

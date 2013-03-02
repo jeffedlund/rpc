@@ -1,6 +1,8 @@
 #include "JOutputStream.h"
 #include "JIndexOutOfBoundsException.h"
 #include "JNullPointerException.h"
+#include "Collections.h"
+#include "JInstantiationException.h"
 
 namespace jcpp{
     namespace io{
@@ -17,7 +19,7 @@ namespace jcpp{
             }
 
             JObject* newInstance(){
-                return new JOutputStream();
+                throw new JInstantiationException("cannot instantiate object of instance "+getName());
             }
         };
 
@@ -36,11 +38,8 @@ namespace jcpp{
         JOutputStream::JOutputStream(JClass* _class):JObject(_class){
         }
 
-        void JOutputStream::write(jbyte){
-        }
-
         void JOutputStream::write(jbyte b[]){
-            jint length = sizeof(b);
+            jint length = arrayLength(b);
             write(b, 0, length);
         }
 
@@ -58,37 +57,6 @@ namespace jcpp{
                     write(b[off + i]);
                 }
             }
-        }
-
-
-        void JOutputStream::close(){
-        }
-
-        void JOutputStream::flush(){
-        }
-
-        void JOutputStream::writeBoolean(jbool){
-        }
-
-        void JOutputStream::writeByte(jbyte){
-        }
-
-        void JOutputStream::writeChar(jchar){
-        }
-
-        void JOutputStream::writeDouble(jdouble){
-        }
-
-        void JOutputStream::writeFloat(jfloat){
-        }
-
-        void JOutputStream::writeInt(jint){
-        }
-
-        void JOutputStream::writeLong(jlong){
-        }
-
-        void JOutputStream::writeShort(jshort){
         }
 
         JOutputStream::~JOutputStream(){
