@@ -56,6 +56,7 @@ namespace jcpp{
                             vector<JConnection*>::iterator it=freeConnectionList->begin();
                             JConnection* connection = *it;
                             freeConnectionList->erase(it);
+                            connection->getSocket()->takeOwner();
                             if (!connection->isDead()) {
                                 takenConnectionList->push_back(connection);
                                 connection->getSocket()->setSoTimeout(socketTimeout);
@@ -117,6 +118,7 @@ namespace jcpp{
                         if (deleteFromVector(takenConnectionList,connection)){
                             connection->setLastUsed();
                             freeConnectionList->insert(freeConnectionList->begin(),connection);//TODO test it adds at the beginning
+                            connection->getSocket()->releaseOwner();
                         }
                         unlock();
                     }

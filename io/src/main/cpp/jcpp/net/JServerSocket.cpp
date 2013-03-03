@@ -2,6 +2,7 @@
 #include "JIOException.h"
 #include "QtDataInputStream.h"
 #include "QtDataOutputStream.h"
+#include "QObjectHolder.h"
 
 namespace jcpp{
     namespace net{
@@ -49,6 +50,14 @@ namespace jcpp{
             server=new QTcpServer();
             server->setMaxPendingConnections(backlog->get());
             this->localInetAddress=new JInetAddress(new JString(server->serverAddress().toString().toStdString()));
+        }
+
+        void JServerSocket::takeOwner(){
+            QObjectHolder::getQObjectHolder()->takeOwner(getQObject());
+        }
+
+        void JServerSocket::releaseOwner(){
+            QObjectHolder::getQObjectHolder()->releaseOwner(getQObject());
         }
 
         QObject* JServerSocket::getQObject(){

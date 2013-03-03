@@ -2,6 +2,7 @@
 #include "JIOException.h"
 #include "QtDataInputStream.h"
 #include "QtDataOutputStream.h"
+#include "QObjectHolder.h"
 
 namespace jcpp{
     namespace net{
@@ -71,6 +72,14 @@ namespace jcpp{
             this->in=new QtDataInputStream(new QDataStream(this->socket));
             this->out=new QtDataOutputStream(new QDataStream(this->socket),this->socket);
             this->remotePort=new JPrimitiveInt(socket->peerPort());
+        }
+
+        void JSocket::takeOwner(){
+            QObjectHolder::getQObjectHolder()->takeOwner(getQObject());
+        }
+
+        void JSocket::releaseOwner(){
+            QObjectHolder::getQObjectHolder()->releaseOwner(getQObject());
         }
 
         QObject* JSocket::getQObject(){

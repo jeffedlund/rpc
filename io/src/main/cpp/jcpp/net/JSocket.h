@@ -32,6 +32,8 @@ namespace jcpp{
             JSocket(QTcpSocket* socket, JServerSocket* serverSocket);
             static JClass* getClazz();
 
+            virtual void takeOwner();
+            virtual void releaseOwner();
             virtual QObject* getQObject();
             virtual JInetAddress* getInetAddress();
             virtual JInetAddress* getLocalAddress();

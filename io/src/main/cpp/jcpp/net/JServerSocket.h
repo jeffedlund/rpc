@@ -22,11 +22,16 @@ namespace jcpp{
             JInetAddress* localInetAddress;
             QTcpServer* server;
             JServerSocket(JString* host, JPrimitiveInt* port,JPrimitiveInt* backlog,JClass* _class);
+            bool isListening();
+            bool waitForNewConnection(int m, bool* t);
+            QTcpSocket* nextPendingConnection();
 
         public:
             JServerSocket(JString* host, JPrimitiveInt* port,JPrimitiveInt* backlog);
             static JClass* getClazz();
 
+            virtual void takeOwner();
+            virtual void releaseOwner();
             virtual QObject* getQObject();
             JInetAddress* getInetAddress();
             JPrimitiveInt* getLocalPort();

@@ -85,10 +85,12 @@ namespace jcpp{
                         serverSocket = JGatewaySocketFactory::createServerSocket(localEndPoint->getAddress()->getPHostName(),localEndPoint->getAddress()->getPPort(), transportConfiguration->getGatewayConfiguration());
                         serverSocket->connect();
                         localEndPoint->getAddress()->setPort(serverSocket->getLocalPort()->get());
+                        serverSocket->releaseOwner();
                         future=executorService->submit(this);
                     }
 
                     void JTransport::run(){
+                        serverSocket->takeOwner();
                         while ((serverSocket != NULL) && !serverSocket->isClosed()) {
                             JSocket* socket = serverSocket->accept();
                             JConnectionHeaderReader* connectionHeaderReader = new JConnectionHeaderReader(socket, this);

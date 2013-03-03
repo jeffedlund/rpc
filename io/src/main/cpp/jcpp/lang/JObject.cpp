@@ -34,19 +34,19 @@ namespace jcpp{
 
         JObject::JObject(){
             this->_class=JObject::getClazz();
-            this->mutex=new QMutex(QMutex::Recursive);
+            this->mutex=new QMutex(QMutex::NonRecursive);
             this->waitCondition=new QWaitCondition();
         }
 
 
         JObject::JObject(JClass* _class){
             this->_class=_class;
-            this->mutex=new QMutex(QMutex::Recursive);
+            this->mutex=new QMutex(QMutex::NonRecursive);
             this->waitCondition=new QWaitCondition();
         }
 
         JObject::JObject(bool){
-            this->mutex=new QMutex(QMutex::Recursive);
+            this->mutex=new QMutex(QMutex::NonRecursive);
             this->waitCondition=new QWaitCondition();
         }
 

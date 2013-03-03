@@ -1,7 +1,11 @@
 #include "JThread.h"
 #include "JRunnable.h"
 #include "JInstantiationException.h"
+#include <QCoreApplication>
+#include "Collections.h"
+#include "QObjectHolder.h"
 using namespace std;
+using namespace jcpp::util;
 
 namespace jcpp{
     namespace lang{
@@ -45,6 +49,14 @@ namespace jcpp{
         JThread::JThread(JRunnable* runnable):JObject(getClazz()){
             this->runnable=runnable;
             this->thread=new JQThread(runnable);
+        }
+
+        void JThread::takeOwner(){
+            QObjectHolder::getQObjectHolder()->takeOwner(getQObject());
+        }
+
+        void JThread::releaseOwner(){
+            QObjectHolder::getQObjectHolder()->releaseOwner(getQObject());
         }
 
         QObject* JThread::getQObject(){

@@ -253,7 +253,8 @@ SOURCES += \
     src/main/cpp/jcpp/rmi/server/impl/connection/JConnectionTransportDispatcher.cpp \
     src/main/cpp/jcpp/rmi/server/JSERVER_PACKAGE.cpp \
     src/main/cpp/jcpp/security/MD5.cpp \
-    src/main/cpp/jcpp/rmi/server/impl/connection/JMethodDigester.cpp
+    src/main/cpp/jcpp/rmi/server/impl/connection/JMethodDigester.cpp \
+    src/main/cpp/jcpp/lang/QObjectHolder.cpp
     
     
 LIBS += -lws2_32
@@ -475,7 +476,8 @@ HEADERS += \
     src/main/cpp/jcpp/rmi/server/impl/connection/JConnectionTransportDispatcher.h \
     src/main/cpp/jcpp/rmi/server/JSERVER_PACKAGE.h \
     src/main/cpp/jcpp/security/MD5.h \
-    src/main/cpp/jcpp/rmi/server/impl/connection/JMethodDigester.h
+    src/main/cpp/jcpp/rmi/server/impl/connection/JMethodDigester.h \
+    src/main/cpp/jcpp/lang/QObjectHolder.h
     
     
 OTHER_FILES += \

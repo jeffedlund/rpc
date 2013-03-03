@@ -43,6 +43,7 @@ namespace jcpp{
                     JConnectionHeaderReader::JConnectionHeaderReader(JSocket* socket, JTransport* transport):JObject(getClazz()){
                         this->socket=socket;
                         this->transport=transport;
+                        socket->releaseOwner();
                     }
 
                     void JConnectionHeaderReader::unexport(){
@@ -52,6 +53,7 @@ namespace jcpp{
                     }
 
                     void JConnectionHeaderReader::run(){
+                        socket->takeOwner();
                         JConnection* connection = NULL;
                         JDataInputStream* in = new JDataInputStream(socket->getInputStream());
                         int magicNumber = in->readInt();

@@ -9,6 +9,8 @@ namespace jcpp{
     namespace lang{
         class QObjectAware{
             public:
+                virtual void takeOwner()=0;
+                virtual void releaseOwner()=0;
                 virtual QObject* getQObject()=0;
         };
     }

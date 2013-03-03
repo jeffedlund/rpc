@@ -5,6 +5,7 @@
 #include "JRunnable.h"
 #include <QThread>
 #include "QObjectAware.h"
+#include "QEvent"
 using namespace std;
 
 namespace jcpp{
@@ -37,6 +38,8 @@ namespace jcpp{
             static JClass* getClazz();
             static JThread* currentThread();
             static void sleep(jlong s);
+            virtual void takeOwner();
+            virtual void releaseOwner();
             virtual QObject* getQObject();
             void move(QObjectAware* objectAware);//TODO really not great ...
             virtual void run();
