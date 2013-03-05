@@ -15,8 +15,8 @@ namespace jcpp{
         JBlockDataOutputStream::JBlockDataOutputStream(JOutputStream* out) {
             blkmode = false;
             pos = 0;
-            this->out = out;
-            dout = new JDataOutputStream(this);
+            this->out=out;
+            this->dout = new JDataOutputStream(this);
         }
 
         bool JBlockDataOutputStream::setBlockDataMode(bool mode){
@@ -37,10 +37,6 @@ namespace jcpp{
                 drain();
             }
             buf[pos++] = (jbyte) b;
-        }
-
-        void JBlockDataOutputStream::write(jbyte b[]){
-            write(b, 0, arrayLength(b), false);
         }
 
         void JBlockDataOutputStream::write(jbyte b[], int off, int len){
@@ -88,7 +84,7 @@ namespace jcpp{
         void JBlockDataOutputStream::arraycopy(jbyte src[],jint srcPos, jbyte dest[], jint destPos, jint length){
             jbyte* ptr = &src[srcPos];
             for(int i = 0; i < length; ++i){
-                dest[destPos] = *ptr;
+                dest[destPos+i] = *ptr;
                 ptr++;
             }
         }
@@ -200,13 +196,10 @@ namespace jcpp{
                 int n = (csize - cpos) < (MAX_BLOCK_SIZE - pos) ? csize - cpos : MAX_BLOCK_SIZE - pos;
                 int stop = pos + n;
                 while (pos < stop) {
-                    JBits::putChar(buf,pos,cbuf[cpos]);
-                    pos++;
-                    cpos++;
+                    buf[pos++] = (jbyte) cbuf[cpos++];
                 }
                 off += n;
             }
-
         }
 
         void JBlockDataOutputStream::getChars( string s,jint srcBegin, jint srcEnd, jchar dest[], jint dstBegin){
@@ -319,10 +312,11 @@ namespace jcpp{
             while (off < endoff) {
                 if (pos <= limit) {
                     jint avail = (MAX_BLOCK_SIZE - pos) >> 2;
-                    int chunklen = endoff - off < avail ? endoff - off : avail ;
-                    //floatsToBytes(v, off, buf, pos, chunklen); TODO something should be done...
-                    off += chunklen;
-                    pos += chunklen << 2;
+                    int stop = endoff < off + avail ? endoff : off+ avail ;
+                    while (off < stop) {
+                        JBits::putFloat(buf, pos, v[off++]);
+                        pos += 4;
+                    }
                 } else {
                     dout->writeFloat(v[off++]);
                 }
@@ -352,10 +346,11 @@ namespace jcpp{
             while (off < endoff) {
                 if (pos <= limit) {
                     jint avail = (MAX_BLOCK_SIZE - pos) >> 3;
-                    int chunklen = endoff - off < avail ? endoff - off : avail;
-                    //doublesToBytes(v, off, buf, pos, chunklen);  TODO something should be done...
-                    off += chunklen;
-                    pos += chunklen << 3;
+                    int stop = endoff < off + avail ? endoff : off + avail;
+                    while (off < stop) {
+                        JBits::putDouble(buf, pos, v[off++]);
+                        pos += 8;
+                    }
                 } else {
                     dout->writeDouble(v[off++]);
                 }

@@ -53,6 +53,7 @@ namespace jcpp{
                     }
 
                     void JConnectionHeaderReader::run(){
+                        JIGatewaySocket* s=dynamic_cast<JIGatewaySocket*>(socket);
                         socket->takeOwner();
                         JConnection* connection = NULL;
                         JDataInputStream* in = new JDataInputStream(socket->getInputStream());
@@ -85,7 +86,7 @@ namespace jcpp{
                                 throw new JEOFException();
                             }
 
-                        } while (!socket->isClosed() && ((JIGatewaySocket*) socket)->isReusable());
+                        } while (!socket->isClosed() && s->isReusable());
 
                         if (connection != NULL) {
                             connection->kill();

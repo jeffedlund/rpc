@@ -36,10 +36,17 @@ namespace jcpp{
         }
 
         JDataOutputStream::JDataOutputStream():JOutputStream(getClazz()){
+            written=0;
+            this->length=0;
+            this->bytearr=NULL;
+            this->out=NULL;
         }
 
         JDataOutputStream::JDataOutputStream(JOutputStream *out):JOutputStream(getClazz()){
             this->out =out;
+            written=0;
+            this->length=0;
+            this->bytearr=NULL;
         }
 
         void JDataOutputStream::incCount(jint value){
@@ -70,24 +77,20 @@ namespace jcpp{
 
         void JDataOutputStream::writeBoolean(jbool v){
             write(v ? (jbyte)1 : (jbyte)0);
-            incCount(1);
         }
 
         void JDataOutputStream::writeByte(jbyte v){
             write(v);
-            incCount(1);
         }
 
         void JDataOutputStream::writeShort(jshort v){
             write((jbyte)(v >> 8) & 0xFF);
             write((jbyte)(v >> 0) & 0xFF);
-            incCount(2);
         }
 
         void JDataOutputStream::writeChar(jchar v){
             write((jbyte)(v >> 8) & 0xFF);
             write((jbyte)(v >> 0) & 0xFF);
-            incCount(2);
         }
 
         void JDataOutputStream::writeInt(jint v){
@@ -95,7 +98,6 @@ namespace jcpp{
             write((jbyte)(v >> 16) & 0xFF);
             write((jbyte)(v >>  8) & 0xFF);
             write((jbyte)(v >>  0) & 0xFF);
-            incCount(4);
         }
 
         void JDataOutputStream::writeLong(jlong v){
@@ -108,7 +110,6 @@ namespace jcpp{
             writeBuffer[6] = (v >>  8);
             writeBuffer[7] = (v >>  0);
             write(writeBuffer, 0, 8);
-            incCount(8);
         }
 
         void JDataOutputStream::writeFloat(jfloat v){/* unresolved issue. */
@@ -116,7 +117,6 @@ namespace jcpp{
             JBits::putFloat(b, 0, v);
             jint* val = (jint*)b;
             writeInt(*val);
-            incCount(4);
         }
 
         void JDataOutputStream::writeDouble(jdouble v){ /* unresolved issue. */
@@ -124,7 +124,6 @@ namespace jcpp{
             JBits::putDouble(b, 0, v);
             jlong* val = (jlong*)b;
             writeLong(*val);
-            incCount(8);
         }
 
         void JDataOutputStream::writeBytes(string s){
@@ -134,7 +133,6 @@ namespace jcpp{
                 JBits::fromCharToJByte(&b,s.c_str()[i]);//TODO ?
                 write(b);
             }
-            incCount(len);
         }
 
         void JDataOutputStream::writeChars(string s){
@@ -144,7 +142,6 @@ namespace jcpp{
                 write((jbyte)(v >> 8) & 0xFF);
                 write((jbyte)(v >> 0) & 0xFF);
             }
-            incCount(len * 2);
         }
 
         void JDataOutputStream::writeUTF(string str){
@@ -175,14 +172,13 @@ namespace jcpp{
             }
 
             JDataOutputStream* dos = (JDataOutputStream*)out;
-            if(dos->bytearr == NULL || (arrayLength(dos->bytearr) < (unsigned )(utflen+2))){
+            if(dos->bytearr == NULL || (dos->length < (utflen+2))){
                 dos->length  = (utflen*2) + 2;
                 if (dos->bytearr!=NULL){
                     delete dos->bytearr;
                 }
                 dos->bytearr = new jbyte[dos->length];
             }
-            length = dos->length;
             jbyte* bytearr = dos->bytearr;
 
             bytearr[count++] = (jbyte) ((utflen >> 8) & 0xFF);

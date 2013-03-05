@@ -26,7 +26,9 @@ namespace jcpp{
             jint pos;
             jint end;
             jint unread;
-            JDataInputStream *in;
+            JInputStream *in;
+            JDataInputStream *din;
+            bool defaultDataEnd;
             BlockDataInputStream(JInputStream *in);
 
             bool setBlockDataMode(bool newmode);
@@ -39,10 +41,13 @@ namespace jcpp{
 
         public:
             jint currentBlockRemaining() ;
+            bool isDefaultDataEnd();
+            void setDefaultDataEnd(bool defaultDataEnd);
             jbyte peek();
             jbyte peekByte();
             void readFully(jbyte *b, int off, int len);
             void readFully(jbyte *b, int off, int len, bool copy);
+            jint skipBytes(jint n);
             string readUTFBody(jlong len);
             jlong readUTFSpan(vector<jchar>* sbuf, jlong utflen);
             jint readUTFChar(vector<jchar>* sbuf, jlong utflen);
@@ -63,8 +68,10 @@ namespace jcpp{
             virtual jbyte read();
             virtual jint read(jbyte b[], int off, int len);
             virtual int read(jbyte b[], int off, int len, bool copy);
+            virtual jbyte readUnsignedByte();
             virtual jbyte readByte();
             virtual jshort readShort();
+            virtual jshort readUnsignedShort();
             virtual jint readInt();
             virtual jlong readLong();
             virtual jfloat readFloat();

@@ -5,6 +5,8 @@
 #include "Collections.h"
 #include "JIOException.h"
 #include "JInstantiationException.h"
+#include "JEOFException.h"
+using namespace jcpp::util;
 
 namespace jcpp{
     namespace io{
@@ -35,42 +37,74 @@ namespace jcpp{
         }
 
         JInputStream::JInputStream():JObject(getClazz()){
+            this->skipBuffer=NULL;
         }
 
         JInputStream::JInputStream(JClass* _class):JObject(_class){
+            this->skipBuffer=NULL;
+        }
+
+        void JInputStream::readFully(jbyte b[], jint off, jint len) {
+            if (len < 0){
+                throw new JIndexOutOfBoundsException;
+            }
+            int n = 0;
+            while (n < len) {
+                jint count = read(b, off + n, len - n);
+                if (count < 0){
+                    throw new JEOFException;
+                }
+                n += count;
+            }
         }
 
         jint JInputStream::read(jbyte b[], int off, int len) {
             if (b == NULL) {
                 throw new JNullPointerException();
-            } /*TODO : look for all arrayLength call cause it seems bugged in some case
-                else if (off < 0 || len < 0 || len > arrayLength(b) - off) {
-                throw new JIndexOutOfBoundsException();
-            } */else if (len == 0) {
+            }else if (len == 0) {
                 return 0;
             }
 
-            jbyte c = read();
-            if (c == -1) {
-                return -1;
+            for (int i=0;i<len;i++){//TODO better handling
+                b[off+i]=read();
             }
-            b[off] = c;
+            return len;
+        }
 
-            int i = 1;
-            try {
-                for (; i < len ; i++) {
-                    c = read();
-                    if (c == -1) {
-                        break;
-                    }
-                    b[off + i] = (jbyte)c;
-                }
-            } catch (JIOException* ee) {
+        jlong JInputStream::skip(jlong n){
+            jlong remaining = n;
+            int nr;
+            if (skipBuffer == NULL){
+                skipBuffer = new jbyte[SKIP_BUFFER_SIZE];
             }
-            return i;
+
+            if (n <= 0) {
+                return 0;
+            }
+
+            while (remaining > 0) {
+                nr = read(skipBuffer, 0,(SKIP_BUFFER_SIZE<remaining ? SKIP_BUFFER_SIZE : remaining));
+                if (nr < 0) {
+                    break;
+                }
+                remaining -= nr;
+            }
+
+            return n - remaining;
+        }
+
+        void JInputStream::mark(int readlimit){
+        }
+
+        void JInputStream::reset(){
+        }
+
+        bool JInputStream::markSupported(){
+            return false;
         }
 
         JInputStream::~JInputStream() {
+            delete skipBuffer;
         }
     }
 }

@@ -113,8 +113,13 @@ namespace jcpp{
         }
 
         JPrimitiveArray::JPrimitiveArray(JClass* arrayClass,vector<JObject*>* objects):JObject(getClazz(arrayClass)){
-            this->objects=objects;
-            this->len=objects->size();
+            if (objects!=NULL){
+                this->len=objects->size();
+                this->objects=objects;
+            }else{
+                this->len=0;
+                this->objects=NULL;
+            }
         }
 
         bool JPrimitiveArray::operator==(JObject &other){

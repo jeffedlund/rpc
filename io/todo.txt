@@ -6,3 +6,5 @@
 -check delete[] for arrays
 -faire operator pour onvertir string a JString, int a JPrim..., etc
 -test throwable and catch of catch(JThrowable* th)
+-use of >>> ?
+-use which cast? () or dynamic or static?

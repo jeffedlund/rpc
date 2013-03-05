@@ -144,15 +144,10 @@ namespace jcpp{
 
         void JArrayList::writeObject(JObjectOutputStream* out){
             out->defaultWriteObject();
-            out->flush();
             out->writeInt(size);
-            out->flush();
             for (unsigned int i=0;i<items->size();i++){
-                out->flush();
                 out->writeObject(items->at(i));
-                out->flush();
             }
-            out->flush();
         }
 
         void JArrayList::readObject(JObjectInputStream* in){

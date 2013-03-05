@@ -22,12 +22,12 @@ namespace jcpp{
                 b[0]=(jbyte)c;
             }
 
-            static void putChar(jbyte b[], int off, jchar val) {//TODO define jchar getChar(jbyte,off)
+            static void putChar(jbyte b[], int off, jchar val) {
                 b[off + 1] = (jbyte) (val >> 0);
                 b[off + 0] = (jbyte) (val >> 8);
             }
 
-            static void fromJChartoChar(jchar b[], char dest[], int off, int len) {//TODO should call getChar
+            static void fromJChartoChar(jchar b[], char dest[], int off, int len) {
                 for (int i=0;i<len;i++){
                     jbyte* jb=(jbyte*)&b[i];
                     dest[off+i]=(char)(((jb[1] & 0xFF) << 0) + ((jb[0]) << 8));
@@ -42,7 +42,7 @@ namespace jcpp{
                 }
             }
 
-            static void fromJBytetoChar(jbyte b[], char dest[], int off, int len) {//TODO should call getChar
+            static void fromJBytetoChar(jbyte b[], char dest[], int off, int len) {
                 for (int i=0;i<len;i++){
                     dest[off+i]=(char)b[i];
                 }
@@ -99,8 +99,7 @@ namespace jcpp{
             }
 
             static jchar getChar(jbyte* b,jint off){
-                return (jchar)(((b[off + 1] & 0xFF) << 0) +
-                                ((b[off + 0]) << 8));
+                return (jchar)(((b[off + 1] & 0xFF) << 0) + ((b[off + 0]) << 8));
             }
 
             static bool getBool(jbyte *b, jint off) {
@@ -108,8 +107,7 @@ namespace jcpp{
             }
 
             static jshort getShort(jbyte* b, jint off) {
-                return (jshort) (((b[off + 1] & 0xFF) << 0) +
-                                ((b[off + 0]) << 8));
+                return (jshort) (((b[off + 1] & 0xFF) << 0) + ((b[off + 0]) << 8));
             }
 
             static jint getInt(jbyte* b, jint off) {
@@ -128,24 +126,24 @@ namespace jcpp{
             }
 
             static jlong getLong(jbyte *b, jint off) {
-                    return ((b[off + 7] & (jlong) 0xFF) << 0) +
-                           ((b[off + 6] & (jlong) 0xFF) << 8) +
-                           ((b[off + 5] & (jlong) 0xFF) << 16) +
-                           ((b[off + 4] & (jlong) 0xFF) << 24) +
-                           ((b[off + 3] & (jlong) 0xFF) << 32) +
-                           ((b[off + 2] & (jlong) 0xFF) << 40) +
-                           ((b[off + 1] & (jlong) 0xFF) << 48) +
+                    return ((b[off + 7] & (jlong) 0xFFL) << 0) +
+                           ((b[off + 6] & (jlong) 0xFFL) << 8) +
+                           ((b[off + 5] & (jlong) 0xFFL) << 16) +
+                           ((b[off + 4] & (jlong) 0xFFL) << 24) +
+                           ((b[off + 3] & (jlong) 0xFFL) << 32) +
+                           ((b[off + 2] & (jlong) 0xFFL) << 40) +
+                           ((b[off + 1] & (jlong) 0xFFL) << 48) +
                            (((jlong) b[off + 0]) << 56);
             }
 
             static jdouble getDouble (jbyte *b, jint off) {
-                jlong j = ((b[off + 7] & (jlong) 0xFF) << 0) +
-                        ((b[off + 6] & (jlong) 0xFF) << 8) +
-                        ((b[off + 5] & (jlong) 0xFF) << 16) +
-                        ((b[off + 4] & (jlong) 0xFF) << 24) +
-                        ((b[off + 3] & (jlong) 0xFF) << 32) +
-                        ((b[off + 2] & (jlong) 0xFF) << 40) +
-                        ((b[off + 1] & (jlong) 0xFF) << 48) +
+                jlong j = ((b[off + 7] & (jlong)0xFFL) << 0) +
+                        ((b[off + 6] & (jlong)0xFFL) << 8) +
+                        ((b[off + 5] & (jlong)0xFFL) << 16) +
+                        ((b[off + 4] & (jlong)0xFFL) << 24) +
+                        ((b[off + 3] & (jlong)0xFFL) << 32) +
+                        ((b[off + 2] & (jlong)0xFFL) << 40) +
+                        ((b[off + 1] & (jlong)0xFFL) << 48) +
                         (((jlong) b[off + 0]) << 56);
                 return *(reinterpret_cast<jdouble*> (&j));
             }

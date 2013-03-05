@@ -61,6 +61,16 @@ namespace jcpp{
             }
         }
 
+        jint JDataInputStream::skipBytes(jint n){
+            jint total = 0;
+            jint cur = 0;
+
+            while ((total<n) && ((cur = (int) in->skip(n-total)) > 0)) {
+                total += cur;
+            }
+            return total;
+        }
+
         string JDataInputStream::readUTF() {
             jshort utflen = readUnsignedShort();
             jbyte *bytearr = new jbyte[utflen*2];
@@ -120,9 +130,11 @@ namespace jcpp{
             }
 
             // The number of chars produced may be less than utflen
-            char* cs=new char[arrayLength(chararr)+1];
-            JBits::fromJChartoChar(chararr,cs,0,arrayLength(chararr));
-            cs[arrayLength(chararr)] = '\0';
+            char* cs=new char[chararr_count+1];
+            for (int i=0;i<chararr_count;i++){
+                cs[i]=(char)chararr[i];
+            }
+            cs[chararr_count] = '\0';
             string str(cs);
             delete[] bytearr;
             delete[] chararr;
@@ -147,7 +159,19 @@ namespace jcpp{
         }
 
         jbyte JDataInputStream::readByte() {
-            return in->read();
+            jbyte b=in->read();
+            if (b<0){
+                throw new JEOFException();
+            }
+            return b;
+        }
+
+        jbyte JDataInputStream::readUnsignedByte() {
+            jbyte b=in->read();
+            if (b<0){
+                throw new JEOFException();
+            }
+            return b;
         }
 
         jbyte JDataInputStream::peekByte() {
@@ -201,9 +225,6 @@ namespace jcpp{
 
         jdouble JDataInputStream::readDouble() {
             jbyte* b=new jbyte[8];
-            while (available() < 8) {
-                waitForReadyRead(-1);//TODO
-            }
             for (int i=0;i<8;i++){
                 b[i]=readByte();
             }

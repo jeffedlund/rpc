@@ -20,6 +20,7 @@ namespace jcpp{
             void setInputStream(JInputStream *in);
 
             void readFully(jbyte b[], jint off, jint len);
+            jint skipBytes(jint n);
             virtual string readUTF();
 
             virtual jlong available();
@@ -28,6 +29,7 @@ namespace jcpp{
             virtual jint read(jbyte b[], int off, int len);
             virtual jbyte peekByte();
             virtual jbyte readByte();
+            virtual jbyte readUnsignedByte();
             virtual jshort readShort();
             virtual jshort readUnsignedShort();
             virtual jint readInt();

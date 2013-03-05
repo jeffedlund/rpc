@@ -45,10 +45,6 @@ namespace jcpp{
                         gatewayOutputStream->write(b);
                     }
 
-                    void JGatewayCompressionOutputStream::write(jbyte b[]){
-                        gatewayOutputStream->write(b);
-                    }
-
                     void JGatewayCompressionOutputStream::write(jbyte b[], int off, int len){
                         gatewayOutputStream->write(b,off,len);
                     }

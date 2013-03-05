@@ -30,7 +30,6 @@ namespace jcpp{
                             static JClass* getClazz();
                             JRoute* getRoute();
                             virtual void write(jbyte b);
-                            virtual void write(jbyte b[]);
                             virtual void write(jbyte b[], int off, int len);
                             virtual void flush();
                             virtual void close();

@@ -31,7 +31,6 @@ namespace jcpp{
             JClassLoader* inputClassLoader;
             HandleTable* handles;
             jint passHandle;
-            bool defaultDataEnd;
             jbyte *primVals;
             bool enableResolve;
             SerialCallbackContext* curContext;

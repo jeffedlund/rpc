@@ -31,10 +31,12 @@ namespace jcpp{
         }
 
         QtDataInputStream::QtDataInputStream():JInputStream(getClazz()){
+            bytes=new vector<jbyte>();
         }
 
         QtDataInputStream::QtDataInputStream(QDataStream* in):JInputStream(getClazz()){
             this->in = in;
+            bytes=new vector<jbyte>();
         }
 
         QDataStream* QtDataInputStream::getStream(){
@@ -69,9 +71,10 @@ namespace jcpp{
         jbyte QtDataInputStream::readByte() {
             jbyte b;
             while (available() < 1) {
-                waitForReadyRead(10000);
+                waitForReadyRead(-1);
             }
             (*in)>>b;
+            bytes->push_back(b);
             return b;
         }
 

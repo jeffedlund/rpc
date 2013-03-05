@@ -34,18 +34,21 @@ namespace jcpp{
         }
 
         QtDataOutputStream::QtDataOutputStream():JOutputStream(getClazz()){
+            bytes=new vector<jbyte>();
         }
 
         QtDataOutputStream::QtDataOutputStream(QDataStream* out,QFile* file):JOutputStream(getClazz()){
             this->out=out;
             this->file=file;
             this->socket=NULL;
+            bytes=new vector<jbyte>();
         }
 
         QtDataOutputStream::QtDataOutputStream(QDataStream* out,QAbstractSocket* socket):JOutputStream(getClazz()){
             this->out=out;
             this->file=NULL;
             this->socket=socket;
+            bytes=new vector<jbyte>();
         }
 
         QDataStream* QtDataOutputStream::getStream(){
@@ -58,6 +61,7 @@ namespace jcpp{
 
         void QtDataOutputStream::write(jbyte b){
             (*out)<<((jbyte)b);
+            bytes->push_back(b);
         }
 
         void QtDataOutputStream::flush(){

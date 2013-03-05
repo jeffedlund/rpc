@@ -8,10 +8,12 @@ using namespace jcpp::util;
 
 namespace jcpp{
     namespace io{
-        //TODO missing following methods : skip,skipBytes,readUnsignedByte,readUnsignedShort,readLine
+        //TODO missing following methods : readLine
         //TODO define static class
         BlockDataInputStream::BlockDataInputStream(JInputStream *in): blkmode(false), pos(0), end (-1), unread(0) {
-            this->in = new JDataInputStream(in);
+            this->defaultDataEnd=false;
+            this->in = in;
+            this->din = new JDataInputStream(this);
         }
 
         bool BlockDataInputStream::setBlockDataMode(bool newmode) {
@@ -43,13 +45,16 @@ namespace jcpp{
         }
 
         jint BlockDataInputStream::readBlockHeader(bool canBlock) {
+            if (defaultDataEnd) {
+                return -1;
+            }
             for (;;) {
                 jlong avail;
                 if (canBlock) {
                     avail = INT_MAX;
                 }else {
                     if ((avail = in->available()) == 0) {
-                        if (in->waitForReadyRead(5000)) {//TODO
+                        if (in->waitForReadyRead(100000)) {//TODO
                             avail = in->available();
                         }
                     }
@@ -82,14 +87,8 @@ namespace jcpp{
                     return len;
                 }
 
-                /*
-                 * TC_RESETs may occur in between data blocks.
-                 * Unfortunately, this case must be parsed at a lower
-                 * level than other typecodes, since primitive data
-                 * reads may span data blocks separated by a TC_RESET.
-                 */
                 case JObjectStreamConstants::TC_RESET:
-                    in->readByte();
+                    in->read();
                     break;
 
                 default:
@@ -135,6 +134,14 @@ namespace jcpp{
             }
         }
 
+        bool BlockDataInputStream::isDefaultDataEnd(){
+            return defaultDataEnd;
+        }
+
+        void BlockDataInputStream::setDefaultDataEnd(bool defaultDataEnd){
+            this->defaultDataEnd=defaultDataEnd;
+        }
+
         jbyte BlockDataInputStream::peek() {
             if (blkmode) {
                 if (pos == end) {
@@ -161,7 +168,7 @@ namespace jcpp{
                 }
                 return (end >= 0) ? (buf[pos++] & 0xFF) : -1;
             }else {
-                return in->readByte();
+                return in->read();
             }
         }
 
@@ -252,7 +259,7 @@ namespace jcpp{
             }else if (copy) {
                 int nread = in->read(buf,0,min(len, MAX_BLOCK_SIZE));
                 if (nread > 0) {
-                    memcpy((jchar*)b+off,buf,nread);
+                    memcpy(b+off,buf,nread);
                 }
                 return nread;
             }else {
@@ -275,11 +282,17 @@ namespace jcpp{
             }
         }
 
-    /*TODO
-        int skipBytes(int n) throws IOException {
-                return din.skipBytes(n);
+        jint BlockDataInputStream::skipBytes(jint n){
+            return din->skipBytes(n);
+        }
+
+        jbyte BlockDataInputStream::readUnsignedByte() {
+            jbyte v = read();
+            if (v < 0) {
+                throw new JEOFException();
             }
-            */
+            return (jbyte) v;
+        }
 
         jbyte BlockDataInputStream::readByte() {
             jbyte v = read();
@@ -292,16 +305,24 @@ namespace jcpp{
         jshort BlockDataInputStream::readShort() {
             if (!blkmode) {
                 pos = 0;
-                in->read(buf,0,2);
+                in->readFully(buf,0,2);
 
             }else if ( end - pos < 2) {
-                jbyte readBuffer[2];
-                for (int i = 0; i < 2; ++i) {
-                    readBuffer[i] = read();
-                }
-                return JBits::getShort(readBuffer,0);
+                return din->readShort();
             }
             jshort v = JBits::getShort(buf, pos);
+            pos += 2;
+            return v;
+        }
+
+        jshort BlockDataInputStream::readUnsignedShort(){
+            if (!blkmode) {
+                pos = 0;
+                in->readFully(buf, 0, 2);
+            } else if (end - pos < 2) {
+                return din->readUnsignedShort();
+            }
+            jshort v = JBits::getShort(buf, pos) & 0xFFFF;
             pos += 2;
             return v;
         }
@@ -309,14 +330,10 @@ namespace jcpp{
         jint BlockDataInputStream::readInt() {
             if (!blkmode) {
                 pos = 0;
-                in->read(buf, 0, 4);
+                in->readFully(buf, 0, 4);
 
             } else if (end - pos < 4) {
-                jbyte readBuffer[4];
-                for (int i = 0; i < 4; ++i) {
-                    readBuffer[i] = read();
-                }
-                return JBits::getInt(readBuffer,0);
+                return din->readInt();
             }
             jint v = JBits::getInt(buf, pos);
             pos += 4;
@@ -326,14 +343,10 @@ namespace jcpp{
         float BlockDataInputStream::readFloat() {
             if (!blkmode) {
                 pos = 0;
-                in->read(buf, 0, 4);
+                in->readFully(buf, 0, 4);
 
             }else if (end - pos < 4) {
-                jbyte readBuffer[4];
-                for (int i = 0; i < 4; ++i) {
-                    readBuffer[i] = read();
-                }
-                return JBits::getFloat(readBuffer,0);
+                return din->readFloat();
             }
             jfloat v = JBits::getFloat(buf, pos);
             pos += 4;
@@ -343,14 +356,10 @@ namespace jcpp{
         jlong BlockDataInputStream::readLong() {
             if (!blkmode) {
                 pos = 0;
-                in->read(buf, 0, 8);
+                in->readFully(buf, 0, 8);
 
             }else if (end - pos < 8) {
-                jbyte readBuffer[8];
-                for (int i = 0; i < 8; ++i) {
-                    readBuffer[i] = read();
-                }
-                return JBits::getLong(readBuffer,0);
+                return din->readLong();
             }
             jlong v = JBits::getLong(buf, pos);
             pos += 8;
@@ -360,14 +369,10 @@ namespace jcpp{
         jdouble BlockDataInputStream::readDouble() {
             if (!blkmode) {
                 pos = 0;
-                in->read(buf, 0, 8);
+                in->readFully(buf, 0, 8);
 
             } else if (end - pos < 8) {
-                jbyte readBuffer[8];
-                for (int i = 0; i < 8; ++i) {
-                    readBuffer[i] = read();
-                }
-                return JBits::getDouble(readBuffer,0);
+                return din->readDouble();
             }
             jdouble v = JBits::getDouble(buf, pos);
             pos += 8;
@@ -377,15 +382,11 @@ namespace jcpp{
         jchar BlockDataInputStream::readChar() {
             if (!blkmode) {
                pos = 0;
-               in->read(buf, 0, 2);
+               in->readFully(buf, 0, 2);
            } else if (end - pos < 2) {
-                jbyte readBuffer[2];
-                for (int i = 0; i < 2; ++i) {
-                    readBuffer[i] = read();
-                }
-                return JBits::getChar(readBuffer,0);
+                return din->readChar();
            }
-           jchar v = buf[pos+1];
+           jchar v = JBits::getChar(buf, pos);
            pos += 2;
            return v;
         }
@@ -419,13 +420,13 @@ namespace jcpp{
                         }
                         pos = 0;
                         end = (jint) min(MAX_BLOCK_SIZE,(jint) utflen);
-                        in->read(buf, avail, end - avail);
+                        in->readFully(buf, avail, end - avail);
                     }
                 }
             }
 
             jchar* jc=new jchar[sbuf->size()];//TODO pas top
-            for (int i=0;i<sbuf->size();i++){
+            for (unsigned int i=0;i<sbuf->size();i++){
                 jc[i]=sbuf->at(i);
             }
             char* cs=new char[sbuf->size()+1];
@@ -443,7 +444,7 @@ namespace jcpp{
         void BlockDataInputStream::arraycopy(jbyte src[],jint srcPos, jbyte dest[], jint destPos, jint length){
             jbyte* ptr = &src[srcPos];
             for(int i = 0; i < length; ++i){
-                dest[destPos] = *ptr;
+                dest[destPos+i] = *ptr;
                 ptr++;
             }
         }
@@ -556,7 +557,7 @@ namespace jcpp{
 
 
         string BlockDataInputStream::readUTF() {
-            return readUTFBody(readShort());
+            return readUTFBody(readUnsignedShort());
         }
 
         string BlockDataInputStream::readLongUTF() {
@@ -568,11 +569,11 @@ namespace jcpp{
             while(off < endoff) {
                 if (!blkmode) {
                     int span = min(endoff - off, MAX_BLOCK_SIZE);
-                    in->read(buf,0, span);
+                    in->readFully(buf,0, span);
                     stop = off + span;
                     pos = 0;
                 }else if (end - pos < 1) {
-                    v[off++] = in->readBool();
+                    v[off++] = din->readBool();
                     continue;
                 }else {
                     stop = min(endoff, off + end - pos);
@@ -588,11 +589,11 @@ namespace jcpp{
             while(off < endoff) {
                 if (!blkmode) {
                     int span = min(endoff - off, MAX_BLOCK_SIZE >> 1);
-                    in->read(buf,0, span << 1);
+                    in->readFully(buf,0, span << 1);
                     stop = off + span;
                     pos = 0;
                 }else if (end - pos < 2) {
-                    v[off++] = in->readChar();
+                    v[off++] = din->readChar();
                     continue;
                 }else {
                     stop = min(endoff, off + ((end - pos) >> 1));
@@ -609,11 +610,11 @@ namespace jcpp{
             while (off < endoff) {
                 if (!blkmode) {
                     int span = min(endoff - off, MAX_BLOCK_SIZE >> 1);
-                    in->read(buf, 0,span << 1);
+                    in->readFully(buf, 0,span << 1);
                     stop = off + span;
                     pos = 0;
                 } else if (end - pos < 2) {
-                    v[off++] = in->readShort();
+                    v[off++] = din->readShort();
                     continue;
                 } else {
                     stop = min(endoff, off + ((end - pos) >> 1));
@@ -631,11 +632,11 @@ namespace jcpp{
             while (off < endoff) {
                 if (!blkmode) {
                     int span = min(endoff - off, MAX_BLOCK_SIZE >> 2);
-                    in->read(buf, 0, span << 2);
+                    in->readFully(buf, 0, span << 2);
                     stop = off + span;
                     pos = 0;
                 } else if (end - pos < 4) {
-                    v[off++] = in->readInt();
+                    v[off++] = din->readInt();
                     continue;
                 } else {
                     stop = min(endoff, off + ((end - pos) >> 2));
@@ -653,11 +654,11 @@ namespace jcpp{
             while (off < endoff) {
                 if (!blkmode) {
                     int span = min(endoff - off, MAX_BLOCK_SIZE >> 2);
-                    in->read(buf, 0, span << 2);
+                    in->readFully(buf, 0, span << 2);
                     stop = off + span;
                     pos = 0;
                 } else if (end - pos < 4) {
-                    v[off++] = in->readFloat();
+                    v[off++] = din->readFloat();
                     continue;
                 } else {
                     stop = min(endoff, off + ((end - pos) >> 2));
@@ -675,11 +676,11 @@ namespace jcpp{
             while (off < endoff) {
                 if (!blkmode) {
                     int span = min(endoff - off, MAX_BLOCK_SIZE >> 3);
-                    in->read(buf, 0, span << 3);
+                    in->readFully(buf, 0, span << 3);
                     stop = off + span;
                     pos = 0;
                 } else if (end - pos < 8) {
-                    v[off++] = in->readLong();
+                    v[off++] = din->readLong();
                     continue;
                 } else {
                     stop = min(endoff, off + ((end - pos) >> 3));
@@ -697,11 +698,11 @@ namespace jcpp{
             while (off < endoff) {
                 if (!blkmode) {
                     int span = min(endoff - off, MAX_BLOCK_SIZE >> 3);
-                    in->read(buf, 0, span << 3);
+                    in->readFully(buf, 0, span << 3);
                     stop = off + span;
                     pos = 0;
                 } else if (end - pos < 8) {
-                    v[off++] = in->readDouble();
+                    v[off++] = din->readDouble();
                     continue;
                 } else {
                     stop = min(endoff - off, ((end - pos) >> 3));
@@ -718,6 +719,8 @@ namespace jcpp{
             delete buf;
             delete hbuf;
             delete cbuf;
+            delete in;
+            delete din;
         }
     }
 }

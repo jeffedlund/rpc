@@ -357,6 +357,12 @@ void testServer(){
     JObject* result=proxy->invoke("list",NULL);
     cout<<result->getClass()->getName();
     cout.flush();
+    JPrimitiveArray* ar=(JPrimitiveArray*)result;
+    for (int i=0;i<ar->size();i++){
+        cout<<i<<"="<<ar->get(i)->toString()<<"\r\n";
+        cout<<i<<"="<<ar->get(i)->getClass()->getName()<<"\r\n";
+        cout.flush();
+    }
 
     JThread::sleep(10000);
 }
@@ -413,6 +419,13 @@ void testDataType(){
 }
 
 int main(int argc, char *argv[]){
+    jbyte* b=new jbyte[8];
+    JBits::putLong(b,0,-1907493020);
+    jlong l=JBits::getLong(b,0);
+    cout<<l;
+    cout.flush();
+    assert(l==-1907493020);
+
     QCoreApplication  a(argc,argv);
     int iiiii=TEST_SIZE;
     iiiii=iiiii;

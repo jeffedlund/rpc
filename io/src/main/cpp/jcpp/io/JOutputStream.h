@@ -17,7 +17,6 @@ namespace jcpp{
             JOutputStream();
             static JClass* getClazz();
             virtual void write(jbyte b)=0;
-            virtual void write(jbyte b[]);
             virtual void write(jbyte b[], int off, int len);
             virtual void flush()=0;
             virtual void close()=0;

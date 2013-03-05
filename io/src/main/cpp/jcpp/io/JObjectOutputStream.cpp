@@ -14,6 +14,7 @@
 #include "JExternalizable.h"
 #include "Object.h"
 #include "Collections.h"
+using namespace jcpp::util;
 
 namespace jcpp{
     namespace io{
@@ -32,11 +33,15 @@ namespace jcpp{
         void JObjectOutputStream::init(JOutputStream* out){
             this->bout = new JBlockDataOutputStream(out);
             handles=new OutputHandleTable();
+            outputClassLoader=NULL;
             enableOverride = false;
             enableReplaceObject(false);
             depth = 0;
             writeStreamHeader();
             bout->setBlockDataMode(true);
+            this->lengthPrimVals=0;
+            this->primVals=NULL;
+            curContext=NULL;
         }
 
         bool JObjectOutputStream::enableReplaceObject(bool enable) {
@@ -89,10 +94,6 @@ namespace jcpp{
 
         void JObjectOutputStream::write(jbyte b){
             bout->writeByte(b);
-        }
-
-        void JObjectOutputStream::write(jbyte b[]){
-            bout->write(b);
         }
 
         void JObjectOutputStream::write(jbyte b[], int off, int len){
@@ -258,8 +259,8 @@ namespace jcpp{
             bout->writeByte(TC_CLASSDESC);
             handles->assign(desc);
             writeClassDescriptor(desc);
-            bout->setBlockDataMode(true);
-            bout->setBlockDataMode(false);
+//            bout->setBlockDataMode(true); TODO
+//            bout->setBlockDataMode(false);
             bout->writeByte(TC_ENDBLOCKDATA);
             writeClassDesc(desc->getSuperDesc());
         }
@@ -371,6 +372,7 @@ namespace jcpp{
             int primDataSize = desc->getPrimDataSize();
             delete primVals;
             primVals = new jbyte[primDataSize];
+            lengthPrimVals=primDataSize;
             desc->writePrimFieldValues(obj, primVals,this);
 
             if (desc->getNumObjFields() > 0){
@@ -387,8 +389,12 @@ namespace jcpp{
 
         void JObjectOutputStream::writePrimitiveData(JObject *obj, JObjectStreamClass *desc){
             int primDataSize = desc->getPrimDataSize();
-            if (primVals == NULL || arrayLength(primVals) < (unsigned)primDataSize) {
+            if (primVals == NULL || lengthPrimVals < primDataSize) {
+                if (primVals!=NULL){
+                    delete primVals;
+                }
                 primVals = new jbyte[primDataSize];
+                lengthPrimVals=primDataSize;
             }
             desc->writePrimFieldValues(obj, primVals,this);
         }

@@ -1,6 +1,5 @@
 #ifndef COLLECTIONS_H
 #define COLLECTIONS_H
-
 using namespace std;
 
 namespace jcpp{
@@ -149,8 +148,6 @@ namespace jcpp{
             }
             return vec;
         }
-
-#define arrayLength(a) ( sizeof ( a ) / sizeof ( a[0] ) )
     }
 }
 

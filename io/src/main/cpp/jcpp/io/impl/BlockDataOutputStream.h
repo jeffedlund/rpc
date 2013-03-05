@@ -22,6 +22,7 @@ namespace jcpp{
             jint pos;
             JOutputStream* out;
             JDataOutputStream* dout;
+
         public:
             JBlockDataOutputStream();
             JBlockDataOutputStream(JOutputStream* out);
@@ -29,7 +30,6 @@ namespace jcpp{
             bool setBlockDataMode(bool mode);
             bool getBlockDataMode();
             void write(jbyte b);
-            void write(jbyte b[]);
             void write(jbyte b[], int off, int len);
             void flush();
             void close();

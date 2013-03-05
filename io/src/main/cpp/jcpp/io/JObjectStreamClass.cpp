@@ -167,6 +167,7 @@ namespace jcpp{
 
                 if (_class->hasMethod("writeObject",NULL)){
                     this->writeObjectMethod=_class->getMethod("writeObject",NULL);
+                    writeObjectData=writeObjectMethod!=NULL;
                 }
                 if (_class->hasMethod("readObject",NULL)){
                     this->readObjectMethod=_class->getMethod("readObject",NULL);

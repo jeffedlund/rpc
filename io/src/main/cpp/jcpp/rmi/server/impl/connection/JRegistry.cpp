@@ -9,12 +9,64 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace connection{
+                //TODO not extra, method duplication with interface ....
+                    static JObject* invokeBind(JObject* object,vector<JObject*>*args){
+                        JRegistry* r=(JRegistry*)object;
+                        r->bind((JString*)args->at(0),(JObject*)args->at(1),(JPrimitiveArray*)args->at(2));
+                        return NULL;
+                    }
+
+                    static JObject* invokeList(JObject* object,vector<JObject*>*){
+                        JRegistry* r=(JRegistry*)object;
+                        return r->list();
+                    }
+
+                    static JObject* invokeLookup(JObject* object,vector<JObject*>*args){
+                        JRegistry* r=(JRegistry*)object;
+                        return r->lookup((JString*)args->at(0));
+                    }
+
+                    static JObject* invokeRebind(JObject* object,vector<JObject*>*args){
+                        JRegistry* r=(JRegistry*)object;
+                        r->rebind((JString*)args->at(0),(JObject*)args->at(1),(JPrimitiveArray*)args->at(2));
+                        return NULL;
+                    }
+
+                    static JObject* invokeUnbind(JObject* object,vector<JObject*>*args){
+                        JRegistry* r=(JRegistry*)object;
+                        r->unbind((JString*)args->at(0));
+                        return NULL;
+                    }
+
                     class JRegistryClass : public JClass{
                       public:
                         JRegistryClass(){
                             this->canonicalName="jcpp.rmi.server.impl.connection.Registry";
                             this->name="jcpp.rmi.server.impl.connection.Registry";
                             this->simpleName="Registry";
+
+                            vector<JClass*>* param=new vector<JClass*>();
+                            param->push_back(JString::getClazz());
+                            param->push_back(JObject::getClazz());
+                            param->push_back(JPrimitiveArray::getClazz(JClass::getClazz()));
+                            addMethod(new JMethod("bind",this,JVoid::getClazz(),param,invokeBind));
+
+                            param=new vector<JClass*>();
+                            addMethod(new JMethod("list",this,JPrimitiveArray::getClazz(JString::getClazz()),param,invokeList));
+
+                            param=new vector<JClass*>();
+                            param->push_back(JString::getClazz());
+                            addMethod(new JMethod("lookup",this,JObject::getClazz(),param,invokeLookup));
+
+                            param=new vector<JClass*>();
+                            param->push_back(JString::getClazz());
+                            param->push_back(JObject::getClazz());
+                            param->push_back(JPrimitiveArray::getClazz(JClass::getClazz()));
+                            addMethod(new JMethod("rebind",this,JVoid::getClazz(),param,invokeRebind));
+
+                            param=new vector<JClass*>();
+                            param->push_back(JString::getClazz());
+                            addMethod(new JMethod("unbind",this,JVoid::getClazz(),param,invokeUnbind));
                         }
 
                         JClass* getSuperclass(){
@@ -35,7 +87,7 @@ namespace jcpp{
                         return clazz;
                     }
 
-                    JRegistry::JRegistry(JObjectInformations* objectInformations){
+                    JRegistry::JRegistry(JObjectInformations* objectInformations):JObject(getClazz()){
                         this->objectInformations=objectInformations;
                     }
 

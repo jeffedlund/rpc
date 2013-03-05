@@ -24,6 +24,7 @@ namespace jcpp{
             JClassLoader* outputClassLoader;
             jint depth;
             jbyte* primVals;
+            int lengthPrimVals;
             bool enableOverride;
             bool enableReplace;
             SerialCallbackContext* curContext;
@@ -52,7 +53,6 @@ namespace jcpp{
             void writeInt(JPrimitiveInt* i);
             void writeByte(jbyte b);
             virtual void write(jbyte b);
-            virtual void write(jbyte b[]);
             virtual void write(jbyte b[], int off, int len);
             void writeChar(jchar v);
             void writeShort(jshort v);

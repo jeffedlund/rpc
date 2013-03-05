@@ -67,7 +67,8 @@ namespace jcpp{
             passHandle = NULL_HANDLE;
             handles = new HandleTable(100);
             primVals = NULL;
-            defaultDataEnd  = false;
+            curContext=NULL;
+            enableResolve=false;
 
             // check stream header
             jshort s0 = readShort();
@@ -256,7 +257,7 @@ namespace jcpp{
             defaultReadFields(curObj, curDesc);
             bin->setBlockDataMode(true);
             if (!curDesc->hasWriteObjectData()) {
-                defaultDataEnd = true;
+                bin->setDefaultDataEnd(true);
             }
             JClassNotFoundException* ex=handles->lookupException(passHandle);
             if (ex!=NULL){
@@ -563,7 +564,7 @@ namespace jcpp{
                     delete curContext;
                     curContext=oldContext;
 
-                    defaultDataEnd = false;
+                    bin->setDefaultDataEnd(false);
 
                 }else {
                     defaultReadFields(obj,slotDesc);

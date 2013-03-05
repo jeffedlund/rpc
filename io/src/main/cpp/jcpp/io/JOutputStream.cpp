@@ -3,6 +3,7 @@
 #include "JNullPointerException.h"
 #include "Collections.h"
 #include "JInstantiationException.h"
+using namespace jcpp::util;
 
 namespace jcpp{
     namespace io{
@@ -36,11 +37,6 @@ namespace jcpp{
         }
 
         JOutputStream::JOutputStream(JClass* _class):JObject(_class){
-        }
-
-        void JOutputStream::write(jbyte b[]){
-            jint length = arrayLength(b);
-            write(b, 0, length);
         }
 
         void JOutputStream::write(jbyte b[], int off, int len){
