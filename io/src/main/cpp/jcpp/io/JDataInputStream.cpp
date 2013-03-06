@@ -9,7 +9,6 @@ using namespace jcpp::util;
 
 namespace jcpp{
     namespace io{
-        //TODO implement skipBytes,readUnsignedByte,readLine
         class JDataInputStreamClass : public JClass{
         public:
             JDataInputStreamClass():JClass(JClassLoader::getBootClassLoader()){
@@ -37,6 +36,7 @@ namespace jcpp{
         }
 
         JDataInputStream::JDataInputStream():JInputStream(getClazz()){
+            this->in=NULL;
         }
 
         JDataInputStream::JDataInputStream(JInputStream *in):JInputStream(getClazz()){
@@ -209,7 +209,7 @@ namespace jcpp{
                       ((jlong)(readBuffer[2] & 255) << 40) + ((jlong)(readBuffer[3] & 255) << 32) +
                       ((jlong)(readBuffer[4] & 255) << 24) + ((readBuffer[5] & 255) << 16) +
                       ((readBuffer[6] & 255) <<  8) + ((readBuffer[7] & 255) <<  0));
-            delete readBuffer;
+            delete[] readBuffer;
             return l;
         }
 
@@ -219,7 +219,7 @@ namespace jcpp{
                 b[i]=readByte();
             }
             jfloat jf=JBits::getFloat(b,0);
-            delete b;
+            delete[] b;
             return jf;
         }
 
@@ -229,7 +229,7 @@ namespace jcpp{
                 b[i]=readByte();
             }
             jdouble jd=JBits::getDouble(b,0);
-            delete b;
+            delete[] b;
             return jd;
         }
 

@@ -27,7 +27,6 @@ namespace jcpp{
             unlock();
         }
 
-        //TODO call on delete of objects
         void QObjectHolder::takeOwner(QObject* obj){
             lock();
             Present* p=getFromMap(objects,obj);
@@ -41,6 +40,12 @@ namespace jcpp{
                     p=getFromMap(objects,obj);
                 }
             }
+            unlock();
+        }
+
+        void QObjectHolder::deleteObject(QObject* obj){
+            lock();
+            objects->erase(obj);
             unlock();
         }
 

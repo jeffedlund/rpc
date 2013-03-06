@@ -7,7 +7,6 @@
 #include "JITransportDispatcher.h"
 #include "JITransportRouter.h"
 #include "JTransport.h"
-#include "JTransportConstants.h"
 #include "JTransportRouter.h"
 #include "JConnectionHeaderReader.h"
 using namespace jcpp;

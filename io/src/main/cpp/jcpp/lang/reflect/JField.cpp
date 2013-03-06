@@ -26,7 +26,7 @@ namespace jcpp{
 
             static JClass* clazz;
 
-            JClass* JField::getClazz(){//TODO use mutex
+            JClass* JField::getClazz(){
                 if (clazz==NULL){
                     clazz= new JFieldClass();
                 }

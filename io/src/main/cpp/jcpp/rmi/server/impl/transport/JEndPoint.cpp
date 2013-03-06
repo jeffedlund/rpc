@@ -84,6 +84,17 @@ namespace jcpp{
                         return (*s->address)==(*address) && (*s->site)==(*site);
                     }
 
+                    bool JEndPoint::operator<(JEndPoint &other){
+                        if (getSite()->getString()<other.getSite()->getString()){
+                            if (getAddress()->getHostName()<other.getAddress()->getHostName()){
+                                if (getAddress()->getPort()<other.getAddress()->getPort()){
+                                    return true;
+                                }
+                            }
+                        }
+                        return false;
+                    }
+
                     void JEndPoint::write(JDataOutputStream* out){
                         out->writeUTF(address->getHostName());
                         out->writeInt(address->getPort());

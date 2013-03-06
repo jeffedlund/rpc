@@ -17,6 +17,7 @@ static const jint HEADER_BLOCKED = -2;
 
 namespace jcpp{
     namespace io{
+        //TODO missing following methods : readLine
         class BlockDataInputStream : public JInputStream, public JObjectStreamConstants {
         public:
             jbyte buf[MAX_BLOCK_SIZE];
@@ -30,6 +31,7 @@ namespace jcpp{
             JDataInputStream *din;
             bool defaultDataEnd;
             BlockDataInputStream(JInputStream *in);
+            static JClass* getClazz();
 
             bool setBlockDataMode(bool newmode);
             bool getBlockDataMode();
@@ -62,7 +64,7 @@ namespace jcpp{
             void readLongs(jlong *v, int off, int len);
             void readDoubles(jdouble *v, int off, int len);
 
-            jlong skip(jlong len);//TODO put it everywhere in io
+            virtual jlong skip(jlong len);
             virtual jlong available();
             virtual bool waitForReadyRead(int = 30000);
             virtual jbyte read();

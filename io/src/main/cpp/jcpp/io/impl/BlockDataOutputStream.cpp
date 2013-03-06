@@ -3,16 +3,39 @@
 #include "JUTFDataFormatException.h"
 #include "JObjectStreamConstants.h"
 #include "Collections.h"
+#include "JInstantiationException.h"
 using namespace std;
 using namespace jcpp::util;
 
 namespace jcpp{
     namespace io{
-        JBlockDataOutputStream::JBlockDataOutputStream(){
+        class JBlockDataOutputStreamClass : public JClass{
+        public:
+            JBlockDataOutputStreamClass():JClass(JClassLoader::getBootClassLoader()){
+                canonicalName="java.io.ObjectOutputStream$BlockDataOutputStream";
+                name="java.io.ObjectOutputStream$BlockDataOutputStream";
+                simpleName="ObjectOutputStream$BlockDataOutputStream";
+            }
+
+            JClass* getSuperclass(){
+                return JOutputStream::getClazz();
+            }
+
+            JObject* newInstance(){
+                throw new JInstantiationException("cannot instantiate object of class "+getName());
+            }
+        };
+
+        static JClass* clazz;
+
+        JClass* JBlockDataOutputStream::getClazz(){
+            if (clazz==NULL){
+                clazz=new JBlockDataOutputStreamClass();
+            }
+            return clazz;
         }
 
-        //TODO define getClazz()
-        JBlockDataOutputStream::JBlockDataOutputStream(JOutputStream* out) {
+        JBlockDataOutputStream::JBlockDataOutputStream(JOutputStream* out):JOutputStream(getClazz()){
             blkmode = false;
             pos = 0;
             this->out=out;
@@ -54,7 +77,7 @@ namespace jcpp{
         }
 
         void JBlockDataOutputStream::write(jbyte b[], int off, int len, bool copy) {
-            if (!(copy || blkmode)) { 		// write directly
+            if (!(copy || blkmode)) {
                 drain();
                 out->write(b, off, len);
                 return;
@@ -65,7 +88,6 @@ namespace jcpp{
                     drain();
                 }
                 if (len >= MAX_BLOCK_SIZE && !copy && pos == 0) {
-                    // avoid unnecessary copy
                     writeBlockHeader(MAX_BLOCK_SIZE);
                     out->write(b, off, MAX_BLOCK_SIZE);
                     off += MAX_BLOCK_SIZE;
@@ -80,7 +102,6 @@ namespace jcpp{
             }
         }
 
-        //TODO mettre dans jsystem
         void JBlockDataOutputStream::arraycopy(jbyte src[],jint srcPos, jbyte dest[], jint destPos, jint length){
             jbyte* ptr = &src[srcPos];
             for(int i = 0; i < length; ++i){
@@ -421,10 +442,6 @@ namespace jcpp{
         }
 
         JBlockDataOutputStream::~JBlockDataOutputStream(){
-            delete[] buf;
-            delete[] hbuf;
-            delete[] cbuf;
-            delete out;
             delete dout;
         }
     }

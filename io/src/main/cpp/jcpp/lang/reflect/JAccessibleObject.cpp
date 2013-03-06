@@ -25,7 +25,7 @@ namespace jcpp{
 
             static JClass* clazz;
 
-            JClass* JAccessibleObject::getClazz(){//TODO use mutex
+            JClass* JAccessibleObject::getClazz(){
                 if (clazz==NULL){
                     clazz= new JAccessibleObjectClass();
                 }

@@ -35,7 +35,7 @@ namespace jcpp{
             }
 
             JObject* newInstance(){
-                return new JChar(0);
+                return new JChar((jchar)0);
             }
         };
 
@@ -52,8 +52,12 @@ namespace jcpp{
             this->value=new JPrimitiveChar(value);
         }
 
+        JChar::JChar(jchar value):JObject(getClazz()){
+            this->value=new JPrimitiveChar(value);
+        }
+
         JChar::JChar():JObject(getClazz()){
-            this->value=new JPrimitiveChar(0);
+            this->value=new JPrimitiveChar((jchar)0);
         }
 
         bool JChar::operator==(JObject &other){

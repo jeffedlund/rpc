@@ -60,21 +60,24 @@ namespace jcpp{
 
         static map<JClass*, JObjectStreamClass*>* allObjectStreamClass;
 
-        JObjectStreamClass* JObjectStreamClass::lookup(JClass* meta){//TODO use mutex
+        JObjectStreamClass* JObjectStreamClass::lookup(JClass* meta){
             if(meta == NULL){
                 return NULL;
             }
             if (!JSerializable::getClazz()->isAssignableFrom(meta)){
                 return NULL;
             }
+            JObjectStreamClass* desc=NULL;
             if (allObjectStreamClass==NULL){
                 allObjectStreamClass=new map<JClass*,JObjectStreamClass*>();
             }
             if (allObjectStreamClass->count(meta)==1){
-                return allObjectStreamClass->at(meta);
+                desc=allObjectStreamClass->at(meta);
             }
-            JObjectStreamClass* desc = new JObjectStreamClass(meta);
-            allObjectStreamClass->insert(pair<JClass*,JObjectStreamClass*>(meta, desc));
+            if (desc==NULL){
+                desc = new JObjectStreamClass(meta);
+                allObjectStreamClass->insert(pair<JClass*,JObjectStreamClass*>(meta, desc));
+            }
             return desc;
         }
 
@@ -339,7 +342,7 @@ namespace jcpp{
 
         void JObjectStreamClass::invokeReadObject(JObject* object, JObjectInputStream* in){
             if (readObjectMethod!=NULL){
-                vector<JObject*> args;//TODO delete when?
+                vector<JObject*> args;
                 args.push_back(in);
                 readObjectMethod->invoke(object,&args);
             }else{
@@ -349,7 +352,7 @@ namespace jcpp{
 
         void JObjectStreamClass::invokeWriteObject(JObject* object, JObjectOutputStream* out){
             if (writeObjectMethod!=NULL){
-                vector<JObject*> args;//TODO delete when?
+                vector<JObject*> args;
                 args.push_back(out);
                 writeObjectMethod->invoke(object,&args);
             }else{
@@ -450,7 +453,7 @@ namespace jcpp{
             return desc;
         }
 
-        vector<JObjectStreamClass::ClassDataSlot*>* JObjectStreamClass::getClassDataLayout(){//TODO use mutex
+        vector<JObjectStreamClass::ClassDataSlot*>* JObjectStreamClass::getClassDataLayout(){
             if (dataLayout == NULL) {
                 dataLayout = getClassDataLayout0();
             }
@@ -663,6 +666,7 @@ namespace jcpp{
 
         JObjectStreamClass::~JObjectStreamClass() {
             delete fields;
+            deleteVectorOfPointers(dataLayout);
         }
     }
 }

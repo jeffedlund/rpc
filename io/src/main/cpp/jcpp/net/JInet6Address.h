@@ -7,7 +7,7 @@
 
 namespace jcpp{
     namespace net{
-        class JInet6Address : public JInetAddress{
+        class JInet6Address : public JInetAddress{//TODO implement
         protected:
 
         public:

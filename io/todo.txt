@@ -1,10 +1,20 @@
--tree of classloader
--work on wiki documentation
--check all new/delete calls
--test case on Externalizable (maybe by implementing JArrayList)
--implement all jcpp.util classes (a quite big list :))
--check delete[] for arrays
--faire operator pour onvertir string a JString, int a JPrim..., etc
+group1:
+-------
+-is there a toString equivalence in c++?
 -test throwable and catch of catch(JThrowable* th)
--use of >>> ?
+-work on wiki documentation
+-test case on Externalizable (maybe by implementing JArrayList)
+-faire operator pour onvertir string a JString, int a JPrim..., etc
 -use which cast? () or dynamic or static?
+-create a library
+-is there a dynamic proxy in c++? implement proxies
+-what to do with map/keys as pointers
+
+
+group2:
+------
+-tree of classloader
+-check all new/delete calls, check delete[] for arrays
+-implement all jcpp.util classes (a quite big list :))
+-test with java 1.8
+

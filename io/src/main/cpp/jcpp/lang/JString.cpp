@@ -70,6 +70,10 @@ namespace jcpp{
             return false;
         }
 
+        bool JString::operator<(JString &other){
+            return str<other.str;
+        }
+
         JString::~JString() {
         }
 

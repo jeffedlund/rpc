@@ -1,5 +1,5 @@
-#ifndef JSERVER_H
-#define JSERVER_H
+#ifndef JSERVER_PACKAGE_H
+#define JSERVER_PACKAGE_H
 
 #include "JRMI.h"
 using namespace jcpp;
@@ -25,4 +25,4 @@ namespace jcpp{
     }
 }
 
-#endif // JSERVER_H
+#endif // JSERVER_PACKAGE_H

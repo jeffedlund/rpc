@@ -1,6 +1,5 @@
 #include "JConnectionHeaderReader.h"
 #include "JSystem.h"
-#include "JTransportConstants.h"
 #include "JDataInputStream.h"
 #include "JConnection.h"
 #include "JITransportDispatcher.h"

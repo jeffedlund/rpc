@@ -8,7 +8,6 @@ using namespace std;
 namespace jcpp{
     namespace lang{
         namespace reflect{
-            //TODO write test classes. Maybe once we reach the server implementation ...
             class JMethod : public JAccessibleObject{
             public:
                 typedef JObject* (*invocation)(JObject* objet,vector<JObject*>*args);

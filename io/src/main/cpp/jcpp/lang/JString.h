@@ -4,7 +4,6 @@
 #include "JObject.h"
 using namespace std;
 
-//TODO implement necessary operators to be able to put it in a std::map as a key
 namespace jcpp{
     namespace lang{
         class JString : public JObject{
@@ -24,7 +23,7 @@ namespace jcpp{
             JString(string str);
             JString(JString* str);
             bool operator==(JObject &other);
-            bool operator<(JObject &other);
+            bool operator<(JString &other);
             static JClass* getClazz();
             string getString();
             void setString(string str);

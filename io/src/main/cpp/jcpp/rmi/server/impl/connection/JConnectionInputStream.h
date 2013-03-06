@@ -29,7 +29,7 @@ namespace jcpp{
                     class JConnectionInputStream : public JObjectInputStream{
                     protected:
                         JObjectInformations* objectInformations;
-                        map<JObjectPointer*, JObject*>* gcObjectPointers;
+                        map<JObjectPointer*, JObject*,JObjectPointer::POINTER_COMPARATOR>* gcObjectPointers;
                         JEndPoint* remoteEndPoint;
 
                     public:

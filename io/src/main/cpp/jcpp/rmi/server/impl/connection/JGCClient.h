@@ -40,7 +40,7 @@ namespace jcpp{
                         public:
                             JGCClient(JServer* localServer, JIGCClientListener* gcClientListener);
                             JPrimitiveArray* getEndPoints();
-                            void add(map<JObjectPointer*, JObject*>* objectPointers);
+                            void add(map<JObjectPointer*, JObject*,JObjectPointer::POINTER_COMPARATOR>* objectPointers);
                             void remove(JEndPoint* endPoint);
                             void unexport();
                             JIGCClientListener* getGCClientListener();

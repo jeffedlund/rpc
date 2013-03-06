@@ -31,6 +31,7 @@ namespace jcpp{
             classes->push_back(JEnum::getClazz());
             classes->push_back(JFloat::getClazz());
             classes->push_back(JInteger::getClazz());
+            classes->push_back(JInterface::getClazz());
             classes->push_back(JLong::getClazz());
             classes->push_back(JNumber::getClazz());
             classes->push_back(JObject::getClazz());
@@ -46,6 +47,7 @@ namespace jcpp{
             classes->push_back(JShort::getClazz());
             classes->push_back(JStackTraceElement::getClazz());
             classes->push_back(JString::getClazz());
+            classes->push_back(JSystem::getClazz());
             classes->push_back(JThread::getClazz());
             classes->push_back(JVoid::getClazz());
         }

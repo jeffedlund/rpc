@@ -12,21 +12,22 @@ namespace jcpp{
         private:
             jint length;
             jbyte* bytearr;
-            void incCount(jint value);
             jbyte writeBuffer[8];
+            jint written;
+            void incCount(jint value);
+
         protected:
             JOutputStream* out;
-            jint written;
 
         public:
             JDataOutputStream();
             JDataOutputStream(JOutputStream* out);
             static JClass* getClazz();
             void setOutputStream(JOutputStream* out);
-            void write(jbyte b);
-            void write(jbyte b[], int off, int len);
-            void flush() ;
-            void close();
+            virtual void write(jbyte b);
+            virtual void write(jbyte b[], int off, int len);
+            virtual void flush() ;
+            virtual void close();
 
             virtual void writeBoolean(jbool v);
             virtual void writeByte(jbyte v);
@@ -39,8 +40,8 @@ namespace jcpp{
             virtual void writeBytes(string s);
             virtual void writeChars(string s);
             virtual void writeUTF(string str);
-            jint writeUTF(string str, JOutputStream* out);
-            jint size();
+            virtual jint writeUTF(string str, JOutputStream* out);
+            virtual jint size();
             virtual ~JDataOutputStream();
         };
     }

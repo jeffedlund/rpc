@@ -8,6 +8,7 @@ using namespace std;
 
 namespace jcpp{
     namespace io{
+        //TODO implement readLine
         class JDataInputStream : public JInputStream{
             JInputStream *in;
 
@@ -19,12 +20,12 @@ namespace jcpp{
 
             void setInputStream(JInputStream *in);
 
-            void readFully(jbyte b[], jint off, jint len);
-            jint skipBytes(jint n);
+            virtual void readFully(jbyte b[], jint off, jint len);
+            virtual jint skipBytes(jint n);
             virtual string readUTF();
 
             virtual jlong available();
-            virtual bool waitForReadyRead(int = 30000);
+            virtual bool waitForReadyRead(int = 30000);//TODO use readtimeout
             virtual jbyte read();
             virtual jint read(jbyte b[], int off, int len);
             virtual jbyte peekByte();

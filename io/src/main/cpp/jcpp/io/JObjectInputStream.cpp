@@ -88,6 +88,9 @@ namespace jcpp{
         JObjectInputStream::~JObjectInputStream() {
             delete handles;
             delete bin;
+            if (primVals!=NULL){
+                delete primVals;
+            }
         }
 
         jlong JObjectInputStream::available() {
@@ -224,24 +227,24 @@ namespace jcpp{
             int oldHandle=passHandle;
             jbyte tc = bin->peekByte();
             switch (tc) {
-            case TC_STRING:
-            case TC_LONGSTRING:
-                jstring=readString();
-                break;
+                case TC_STRING:
+                case TC_LONGSTRING:
+                    jstring=readString();
+                    break;
 
-            case TC_NULL:
-                jstring=(JString*) (readNull());
-                break;
+                case TC_NULL:
+                    jstring=(JString*) (readNull());
+                    break;
 
-            case TC_REFERENCE:
-                jstring=(JString*) (readHandle());
-                break;
+                case TC_REFERENCE:
+                    jstring=(JString*) (readHandle());
+                    break;
 
-            default:
-                passHandle=oldHandle;
-                stringstream ss;
-                ss<<"stream corrupted: invalid typecode "<<tc;
-                throw new JStreamCorruptedException(ss.str());
+                default:
+                    passHandle=oldHandle;
+                    stringstream ss;
+                    ss<<"stream corrupted: invalid typecode "<<tc;
+                    throw new JStreamCorruptedException(ss.str());
             }
             passHandle=oldHandle;
             return jstring;
@@ -584,7 +587,7 @@ namespace jcpp{
             }
 
             int primDataSize = desc->getPrimDataSize();
-            delete[] primVals; // make sure it is NULL or has been previously allocated with new
+            delete[] primVals;
             primVals = new jbyte[primDataSize];
             bin->readFully(primVals,0,primDataSize,false);
             if (obj != NULL) {
@@ -618,10 +621,6 @@ namespace jcpp{
             return (JIOException*)readObject0();
         }
 
-        /**
-         * Skips over all block data and objects until TC_ENDBLOCKDATA is
-         * encountered.
-         */
         void JObjectInputStream::skipCustomData() {
             int oldHandle = passHandle;
             for (;;) {
@@ -630,19 +629,19 @@ namespace jcpp{
                     bin->setBlockDataMode(false);
                 }
                 switch (bin->peekByte()) {
-                case TC_BLOCKDATA:
-                case TC_BLOCKDATALONG:
-                    bin->setBlockDataMode(true);
-                    break;
+                    case TC_BLOCKDATA:
+                    case TC_BLOCKDATALONG:
+                        bin->setBlockDataMode(true);
+                        break;
 
-                case TC_ENDBLOCKDATA:
-                    bin->readByte();
-                    passHandle = oldHandle;
-                    return;
+                    case TC_ENDBLOCKDATA:
+                        bin->readByte();
+                        passHandle = oldHandle;
+                        return;
 
-                default:
-                    readObject0();
-                    break;
+                    default:
+                        readObject0();
+                        break;
                 }
             }
         }
@@ -663,9 +662,6 @@ namespace jcpp{
             return bin->peekByte();
         }
 
-        /**
-         * reads Java char type, which is on 2 bytes
-         */
         jchar JObjectInputStream::readChar() {
             return bin->readChar();
         }

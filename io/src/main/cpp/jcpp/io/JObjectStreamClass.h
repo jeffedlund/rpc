@@ -47,10 +47,10 @@ namespace jcpp{
             JClass* jClass;
             JMethod* readObjectMethod;
             JMethod* writeObjectMethod;
+            vector<ClassDataSlot*>* dataLayout;
 
             void computeFieldOffsets();
             JObjectStreamClass* getVariantFor(JClass* cl);
-            vector<ClassDataSlot*>* dataLayout;
             vector<ClassDataSlot*>* getClassDataLayout0();
 
         public:

@@ -61,7 +61,7 @@ namespace jcpp{
 
         void QtDataOutputStream::write(jbyte b){
             (*out)<<((jbyte)b);
-            bytes->push_back(b);
+            //TODO for debugging remove later// bytes->push_back(b);
         }
 
         void QtDataOutputStream::flush(){
@@ -79,6 +79,7 @@ namespace jcpp{
 
         QtDataOutputStream::~QtDataOutputStream(){
             delete out;
+            delete bytes;
         }
     }
 }

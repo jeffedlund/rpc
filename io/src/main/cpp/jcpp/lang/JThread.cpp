@@ -91,6 +91,7 @@ namespace jcpp{
         }
 
         JThread::~JThread(){
+            QObjectHolder::getQObjectHolder()->deleteObject(getQObject());
             if (deletable){
                 delete thread;
             }

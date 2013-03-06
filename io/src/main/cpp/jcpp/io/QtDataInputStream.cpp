@@ -74,7 +74,7 @@ namespace jcpp{
                 waitForReadyRead(-1);
             }
             (*in)>>b;
-            bytes->push_back(b);
+            //bytes->push_back(b); TODO for debugging, remove later
             return b;
         }
 
@@ -84,6 +84,7 @@ namespace jcpp{
 
         QtDataInputStream::~QtDataInputStream() {
             delete in;
+            delete bytes;
         }
     }
 }

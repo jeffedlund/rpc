@@ -3,6 +3,8 @@
 namespace jcpp{
     namespace io{
         JIO::JIO():JPackage("jcpp.io",JPackage::getClazz()){//better class
+            classes->push_back(BlockDataInputStream::getClazz());
+            classes->push_back(JBlockDataOutputStream::getClazz());
             classes->push_back(JDataInputStream::getClazz());
             classes->push_back(JDataOutputStream::getClazz());
             classes->push_back(JEOFException::getClazz());

@@ -419,13 +419,6 @@ void testDataType(){
 }
 
 int main(int argc, char *argv[]){
-    jbyte* b=new jbyte[8];
-    JBits::putLong(b,0,-1907493020);
-    jlong l=JBits::getLong(b,0);
-    cout<<l;
-    cout.flush();
-    assert(l==-1907493020);
-
     QCoreApplication  a(argc,argv);
     int iiiii=TEST_SIZE;
     iiiii=iiiii;
@@ -433,7 +426,7 @@ int main(int argc, char *argv[]){
     //TODO should be done by default ...
     registerClasses();
 
-    testDataType();
+    //testDataType();
     testServer();
     //testTransport();
     //testScheduledExecutorService();
@@ -443,13 +436,13 @@ int main(int argc, char *argv[]){
 
     //testThread();
 
-//    for (int i=0;i<TEST_SIZE;i++){
-//        cout<<"testing in file"<<tests[i]->getFileName();
-//        cout.flush();
-//        tests[i]->test();
-//        cout<<"end testing in file"<<tests[i]->getFileName();
-//        cout.flush();
-//    }
+    for (int i=0;i<TEST_SIZE;i++){
+        cout<<"testing in file"<<tests[i]->getFileName();
+        cout.flush();
+        tests[i]->test();
+        cout<<"end testing in file"<<tests[i]->getFileName();
+        cout.flush();
+    }
 
     //testMap();
 //    JSampleObject* sample=testReadSampleObject();

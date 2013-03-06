@@ -33,24 +33,24 @@ namespace jcpp{
             virtual void takeOwner();
             virtual void releaseOwner();
             virtual QObject* getQObject();
-            JInetAddress* getInetAddress();
-            JPrimitiveInt* getLocalPort();
-            void connect();
+            virtual JInetAddress* getInetAddress();
+            virtual JPrimitiveInt* getLocalPort();
+            virtual void connect();
             virtual JSocket* accept();
 
-            void setSoTimeout(int s);
-            int getSoTimeout();
+            virtual void setSoTimeout(int s);
+            virtual int getSoTimeout();
 
-            void setReuseAddress(bool on);
-            bool getReuseAddress();
+            virtual void setReuseAddress(bool on);
+            virtual bool getReuseAddress();
 
-            void setReceiveBufferSize(int size);
-            int getReceiveBufferSize();
+            virtual void setReceiveBufferSize(int size);
+            virtual int getReceiveBufferSize();
 
             //TODO static setSocketFactory()
 
-            void close();
-            bool isClosed();
+            virtual void close();
+            virtual bool isClosed();
             virtual ~JServerSocket();
 
         };

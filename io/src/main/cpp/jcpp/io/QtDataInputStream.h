@@ -11,7 +11,7 @@ namespace jcpp{
     namespace io{
         class QtDataInputStream : public JInputStream{
             QDataStream* in;
-            vector<jbyte>* bytes;//TODO
+            vector<jbyte>* bytes;
         public:
             QtDataInputStream();
             QtDataInputStream(QDataStream*);

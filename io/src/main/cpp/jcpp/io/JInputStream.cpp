@@ -65,7 +65,7 @@ namespace jcpp{
                 return 0;
             }
 
-            for (int i=0;i<len;i++){//TODO better handling
+            for (int i=0;i<len;i++){//better handling
                 b[off+i]=read();
             }
             return len;
@@ -93,7 +93,7 @@ namespace jcpp{
             return n - remaining;
         }
 
-        void JInputStream::mark(int readlimit){
+        void JInputStream::mark(int){
         }
 
         void JInputStream::reset(){

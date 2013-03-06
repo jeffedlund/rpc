@@ -1,5 +1,4 @@
 #include "JConnection.h"
-#include "JTransportConstants.h"
 #include "JSystem.h"
 #include "JConnections.h"
 #include "JTransport.h"

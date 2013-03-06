@@ -254,7 +254,9 @@ SOURCES += \
     src/main/cpp/jcpp/rmi/server/JSERVER_PACKAGE.cpp \
     src/main/cpp/jcpp/security/MD5.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/JMethodDigester.cpp \
-    src/main/cpp/jcpp/lang/QObjectHolder.cpp
+    src/main/cpp/jcpp/lang/QObjectHolder.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JCONNECTION_PACKAGE.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/serialization/JCONNECTION_SERIALIZATION_PACKAGE.cpp
     
     
 LIBS += -lws2_32
@@ -432,7 +434,6 @@ HEADERS += \
     src/main/cpp/jcpp/rmi/server/impl/transport/JITransportRouter.h \
     src/main/cpp/jcpp/rmi/server/impl/transport/JTransportRouter.h \
     src/main/cpp/jcpp/rmi/server/impl/transport/JConnection.h \
-    src/main/cpp/jcpp/rmi/server/impl/transport/JTransportConstants.h \
     src/main/cpp/jcpp/rmi/server/impl/transport/JConnections.h \
     src/main/cpp/jcpp/rmi/server/impl/transport/JTRANSPORT_PACKAGE.h \
     src/main/cpp/jcpp/rmi/server/impl/transport/JTransport.h \
@@ -477,7 +478,9 @@ HEADERS += \
     src/main/cpp/jcpp/rmi/server/JSERVER_PACKAGE.h \
     src/main/cpp/jcpp/security/MD5.h \
     src/main/cpp/jcpp/rmi/server/impl/connection/JMethodDigester.h \
-    src/main/cpp/jcpp/lang/QObjectHolder.h
+    src/main/cpp/jcpp/lang/QObjectHolder.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JCONNECTION_PACKAGE.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/serialization/JCONNECTION_SERIALIZATION_PACKAGE.h
     
     
 OTHER_FILES += \

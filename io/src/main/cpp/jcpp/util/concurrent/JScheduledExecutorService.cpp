@@ -13,6 +13,7 @@ namespace jcpp{
                   this->canonicalName="java.util.concurrent.ScheduledExecutorService";
                   this->name="java.util.concurrent.ScheduledExecutorService";
                   this->simpleName="ScheduledExecutorService";
+                  this->bIsInterface=true;
                   addInterface(JExecutorService::getClazz());
               }
 

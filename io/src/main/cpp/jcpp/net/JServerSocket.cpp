@@ -88,28 +88,28 @@ namespace jcpp{
             return NULL;
         }
 
-        void JServerSocket::setSoTimeout(int){
+        void JServerSocket::setSoTimeout(int){//TODO
         }
 
         int JServerSocket::getSoTimeout(){
             return 0;
         }
 
-        void JServerSocket::setReuseAddress(bool){
+        void JServerSocket::setReuseAddress(bool){//TODO
         }
 
         bool JServerSocket::getReuseAddress(){
             return false;
         }
 
-        void JServerSocket::setReceiveBufferSize(int){
+        void JServerSocket::setReceiveBufferSize(int){//TODO
         }
 
         int JServerSocket::getReceiveBufferSize(){
             return 0;
         }
 
-        void JServerSocket::close(){
+        void JServerSocket::close(){//TODO
             bIsClosed=true;
             server->close();
         }
@@ -119,6 +119,7 @@ namespace jcpp{
         }
 
         JServerSocket::~JServerSocket() {
+            QObjectHolder::getQObjectHolder()->deleteObject(getQObject());
             delete server;
             delete localInetAddress;
         }

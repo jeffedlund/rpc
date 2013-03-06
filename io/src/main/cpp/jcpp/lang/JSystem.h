@@ -12,6 +12,7 @@ namespace jcpp{
         public:
             static JClass* getClazz();
             static jlong currentTimeMillis();
+            //TODO void arraycopy(jbyte src[],jint srcPos, jbyte dest[], jint destPos, jint length){
             virtual ~JSystem()=0;
         };
     }

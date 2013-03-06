@@ -42,7 +42,7 @@ namespace jcpp{
                     JConnectionInputStream::JConnectionInputStream(JInputStream* in, JObjectInformations* objectInformations, JEndPoint* remoteEndPoint):JObjectInputStream(in,getClazz()){
                         this->enableResolveObject(true);
                         this->objectInformations = objectInformations;
-                        this->gcObjectPointers = new map<JObjectPointer*, JObject*>();//TODO use less for objectpointer
+                        this->gcObjectPointers = new map<JObjectPointer*, JObject*,JObjectPointer::POINTER_COMPARATOR>();
                         this->remoteEndPoint = remoteEndPoint;
                     }
 

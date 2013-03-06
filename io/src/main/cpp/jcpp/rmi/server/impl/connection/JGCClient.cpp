@@ -63,9 +63,9 @@ namespace jcpp{
                         return ar;
                     }
 
-                    void JGCClient::add(map<JObjectPointer*, JObject*>* objectPointers){
+                    void JGCClient::add(map<JObjectPointer*, JObject*,JObjectPointer::POINTER_COMPARATOR>* objectPointers){
                         lock();
-                        map<JObjectPointer*,JObject*>::iterator it=objectPointers->begin();
+                        map<JObjectPointer*,JObject*,JObjectPointer::POINTER_COMPARATOR>::iterator it=objectPointers->begin();
                         for (;it!=objectPointers->end();it++){
                             JEndPoint* remoteEndPoint = (*it).first->getEndPoint();
                             JGCClientEndPointInfo* endPointInfo = getFromMap(endPointInfos,remoteEndPoint);

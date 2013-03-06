@@ -8,7 +8,6 @@
 
 namespace jcpp{
     namespace io{
-        //TODO implement getClazz,
         class JBlockDataOutputStream : public JOutputStream{
         private:
             static const jint MAX_BLOCK_SIZE = 1024;
@@ -26,6 +25,7 @@ namespace jcpp{
         public:
             JBlockDataOutputStream();
             JBlockDataOutputStream(JOutputStream* out);
+            static JClass* getClazz();
 
             bool setBlockDataMode(bool mode);
             bool getBlockDataMode();

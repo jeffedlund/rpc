@@ -12,7 +12,6 @@
 using namespace std;
 using namespace jcpp::lang;
 
-//TODO more tests for Timer/TimerTask
 namespace jcpp{
     namespace util{
         class JTimerTask;

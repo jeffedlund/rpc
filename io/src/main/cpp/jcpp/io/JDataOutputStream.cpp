@@ -214,9 +214,7 @@ namespace jcpp{
         }
 
         JDataOutputStream::~JDataOutputStream(){
-            delete out;
             delete[] bytearr;
-            delete[] writeBuffer;
         }
     }
 }

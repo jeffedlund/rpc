@@ -17,6 +17,7 @@ namespace jcpp{
             public:
                 JChar();
                 JChar(char value);
+                JChar(jchar value);
                 bool operator==(JObject &other);
 
                 static JClass* getClazz();

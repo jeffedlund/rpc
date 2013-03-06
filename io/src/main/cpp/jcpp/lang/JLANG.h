@@ -46,6 +46,7 @@
 #include "JIllegalStateException.h"
 #include "JVoid.h"
 #include "JPackage.h"
+#include "JSystem.h"
 #include "JCPP.h"
 using namespace jcpp::lang::reflect;
 using namespace jcpp;

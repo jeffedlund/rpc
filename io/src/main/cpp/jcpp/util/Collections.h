@@ -4,11 +4,6 @@ using namespace std;
 
 namespace jcpp{
     namespace util{
-        /*
-        TODO :
-            -centralize qt dependencies by definiing jbyte,...
-            -review all new calls and chek delete is called
-        */
         template <class T>
         void deleteVectorOfPointers(T *vector) {
             if (vector!=NULL){

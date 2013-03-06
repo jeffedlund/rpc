@@ -1,6 +1,8 @@
 #ifndef JIO_H
 #define JIO_H
 
+#include "BlockDataInputStream.h"
+#include "BlockDataOutputStream.h"
 #include "JDataInputStream.h"
 #include "JDataOutputStream.h"
 #include "JEOFException.h"

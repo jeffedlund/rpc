@@ -29,16 +29,13 @@ namespace jcpp{
 
             static void fromJChartoChar(jchar b[], char dest[], int off, int len) {
                 for (int i=0;i<len;i++){
-                    jbyte* jb=(jbyte*)&b[i];
-                    dest[off+i]=(char)(((jb[1] & 0xFF) << 0) + ((jb[0]) << 8));
+                    dest[off+i]=(char)b[i];
                 }
             }
 
             static void fromCharToJChar(const char str[],jchar dest[],int off,int len){
                 for (int i=0;i<len;i++){
-                    jbyte* b=(jbyte*)&dest[i+off];
-                    b[1]=str[i]>>0;
-                    b[0]=str[i]>>8;
+                    dest[i+off]=str[i];
                 }
             }
 

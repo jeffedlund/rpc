@@ -25,6 +25,18 @@ namespace jcpp{
             namespace impl{
                 namespace connection{
                     class JObjectPointer : public JObject, public JSerializable{
+                        public:
+                            struct POINTER_COMPARATOR{
+                                bool operator()(JObjectPointer* e1, JObjectPointer* e2){
+                                    if ((*e1->getEndPoint())<(*e2->getEndPoint())){
+                                        if ((*e1->getId())<(*e2->getId())){
+                                            return true;
+                                        }
+                                    }
+                                    return false;
+                                }
+                            };
+
                         protected:
                             JEndPoint* endPoint;
                             JString* id;

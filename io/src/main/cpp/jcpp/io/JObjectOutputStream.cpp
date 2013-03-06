@@ -18,15 +18,37 @@ using namespace jcpp::util;
 
 namespace jcpp{
     namespace io{
-        JObjectOutputStream::JObjectOutputStream(){
-            handles = new OutputHandleTable();
+        class JObjectOutputStreamClass : public JClass{
+        public:
+            JObjectOutputStreamClass():JClass(JClassLoader::getBootClassLoader()){
+                canonicalName="java.io.ObjectOutputStream";
+                name="java.io.ObjectOutputStream";
+                simpleName="ObjectOutputStream";
+            }
+
+            JClass* getSuperclass(){
+                return JOutputStream::getClazz();
+            }
+
+            JObject* newInstance(){
+                throw new JInstantiationException("cannot instantiate object of class "+getName());
+            }
+        };
+
+        static JClass* clazz;
+
+        JClass* JObjectOutputStream::getClazz(){
+            if (clazz==NULL){
+                clazz=new JObjectOutputStreamClass();
+            }
+            return clazz;
         }
 
-        JObjectOutputStream::JObjectOutputStream(JOutputStream* out){
+        JObjectOutputStream::JObjectOutputStream(JOutputStream* out):JOutputStream(getClazz()){
             init(out);
         }
 
-        JObjectOutputStream::JObjectOutputStream(JOutputStream* out,JClass* _class):JOutputStream(_class){//TODO use _class for super
+        JObjectOutputStream::JObjectOutputStream(JOutputStream* out,JClass* _class):JOutputStream(_class){
             init(out);
         }
 
@@ -167,8 +189,6 @@ namespace jcpp{
                     writeClassDesc((JObjectStreamClass*)obj);
                 }else{
                     JObjectStreamClass* desc = JObjectStreamClass::lookup(obj->getClass());
-                    curContext = new SerialCallbackContext();
-                    curContext->setContext(obj,desc);
                     if (obj->getClass()==JString::getClazz()){
                         writeString((JString*)obj);
 
@@ -259,8 +279,9 @@ namespace jcpp{
             bout->writeByte(TC_CLASSDESC);
             handles->assign(desc);
             writeClassDescriptor(desc);
-//            bout->setBlockDataMode(true); TODO
-//            bout->setBlockDataMode(false);
+            bout->setBlockDataMode(true);
+            //annotateClass
+            bout->setBlockDataMode(false);
             bout->writeByte(TC_ENDBLOCKDATA);
             writeClassDesc(desc->getSuperDesc());
         }
@@ -370,7 +391,7 @@ namespace jcpp{
 
         void JObjectOutputStream::defaultWriteFields(JObject *obj, JObjectStreamClass* desc){
             int primDataSize = desc->getPrimDataSize();
-            delete primVals;
+            delete[] primVals;
             primVals = new jbyte[primDataSize];
             lengthPrimVals=primDataSize;
             desc->writePrimFieldValues(obj, primVals,this);
@@ -391,7 +412,7 @@ namespace jcpp{
             int primDataSize = desc->getPrimDataSize();
             if (primVals == NULL || lengthPrimVals < primDataSize) {
                 if (primVals!=NULL){
-                    delete primVals;
+                    delete[] primVals;
                 }
                 primVals = new jbyte[primDataSize];
                 lengthPrimVals=primDataSize;
@@ -444,7 +465,6 @@ namespace jcpp{
             bout->writeUTF(str);
         }
 
-
         void JObjectOutputStream::writeBytes(string str){
             bout->writeBytes(str);
         }
@@ -462,7 +482,7 @@ namespace jcpp{
             delete handles;
             delete bout;
             delete curContext;
-            delete primVals;
+            delete[] primVals;
         }
     }
 }

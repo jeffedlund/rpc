@@ -13,7 +13,7 @@ namespace jcpp{
             QDataStream* out;
             QFile* file;
             QAbstractSocket* socket;
-            vector<jbyte>* bytes;//TODO
+            vector<jbyte>* bytes;
         public:
             QtDataOutputStream();
             QtDataOutputStream(QDataStream* out,QFile* file);

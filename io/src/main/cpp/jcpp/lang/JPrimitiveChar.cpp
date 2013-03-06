@@ -22,7 +22,7 @@ namespace jcpp{
             }
 
             JObject* newInstance(){
-                return new JPrimitiveChar(0);
+                return new JPrimitiveChar((jchar)0);
             }
         };
 
@@ -36,6 +36,10 @@ namespace jcpp{
         }
 
         JPrimitiveChar::JPrimitiveChar(char value):JObject(getClazz()){
+            this->value=value;
+        }
+
+        JPrimitiveChar::JPrimitiveChar(jchar value):JObject(getClazz()){
             this->value=value;
         }
 

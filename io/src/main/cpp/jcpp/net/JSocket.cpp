@@ -52,7 +52,6 @@ namespace jcpp{
             socket->connectToHost(QString::fromStdString(host->getString()),port->get());
             while (!socket->waitForConnected(300000)){//TODO use timeout
                 timeout=timeout;
-                //TODO use connection timeout stuff
                 //throw new JIOException("cannot connect to hot "+host->toString()+" port "+port->toString());
             }
             this->localInetAddress=new JInetAddress(new JString(socket->localAddress().toString().toStdString()));
@@ -202,6 +201,7 @@ namespace jcpp{
         }
 
         JSocket::~JSocket() {
+            QObjectHolder::getQObjectHolder()->deleteObject(getQObject());
             delete socket;
             delete localInetAddress;
             delete remoteInetAddress;

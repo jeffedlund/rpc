@@ -4,8 +4,7 @@
 
 namespace jcpp{
     namespace io{
-        //TODO missing thread handling
-        //SerialCallbackContext implementation
+        //missing thread handling
         SerialCallbackContext::SerialCallbackContext() {
             curObj = NULL;
             curDesc = NULL;

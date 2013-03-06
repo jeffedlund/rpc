@@ -9,7 +9,7 @@ namespace jcpp{
             return "arraylist.ser";
         }
 
-        JObject* JArrayListTest::testReflect(){//TODO reading from Java is failing!!!!!
+        JObject* JArrayListTest::testReflect(){
             JArrayList* s=new JArrayList(4);
             assert (s->getClass()->getName()=="java.util.ArrayList");
             JShort* short1=new JShort(1);

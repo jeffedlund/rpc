@@ -4,7 +4,7 @@
 #include "Object.h"
 
 namespace jcpp{
-            namespace io{
+    namespace io{
         //TODO add getClazz()
         class JObjectStreamConstants {
 

@@ -76,6 +76,7 @@ namespace jcpp{
             }
 
             JMethod::~JMethod(){
+                delete parameterType;
             }
         }
     }

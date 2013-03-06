@@ -4,13 +4,42 @@
 #include "JEOFException.h"
 #include <sstream>
 #include "JUTFDataFormatException.h"
+#include "JInstantiationException.h"
 using namespace jcpp::util;
 
 namespace jcpp{
     namespace io{
-        //TODO missing following methods : readLine
-        //TODO define static class
-        BlockDataInputStream::BlockDataInputStream(JInputStream *in): blkmode(false), pos(0), end (-1), unread(0) {
+        class JBlockDataInputStreamClass : public JClass{
+        public:
+            JBlockDataInputStreamClass():JClass(JClassLoader::getBootClassLoader()){
+                canonicalName="java.io.ObjectInputStream$BlockDataInputStream";
+                name="java.io.ObjectInputStream$BlockDataInputStream";
+                simpleName="ObjectInputStream$BlockDataInputStream";
+            }
+
+            JClass* getSuperclass(){
+                return JInputStream::getClazz();
+            }
+
+            JObject* newInstance(){
+                throw new JInstantiationException("cannot instantiate object of class "+getName());
+            }
+        };
+
+        static JClass* clazz;
+
+        JClass* BlockDataInputStream::getClazz(){
+            if (clazz==NULL){
+                clazz=new JBlockDataInputStreamClass();
+            }
+            return clazz;
+        }
+
+        BlockDataInputStream::BlockDataInputStream(JInputStream *in): JInputStream(getClazz()) {
+            this->blkmode=false;
+            this->pos=0;
+            this->end=-1;
+            this->unread=0;
             this->defaultDataEnd=false;
             this->in = in;
             this->din = new JDataInputStream(this);
@@ -54,7 +83,7 @@ namespace jcpp{
                     avail = INT_MAX;
                 }else {
                     if ((avail = in->available()) == 0) {
-                        if (in->waitForReadyRead(100000)) {//TODO
+                        if (in->waitForReadyRead(100000)) {//TODO use readtimeout
                             avail = in->available();
                         }
                     }
@@ -425,7 +454,7 @@ namespace jcpp{
                 }
             }
 
-            jchar* jc=new jchar[sbuf->size()];//TODO pas top
+            jchar* jc=new jchar[sbuf->size()];//not extra
             for (unsigned int i=0;i<sbuf->size();i++){
                 jc[i]=sbuf->at(i);
             }
@@ -436,8 +465,6 @@ namespace jcpp{
             delete cs;
             delete sbuf;
             delete jc;
-            cout<<"*"<<str<<"*\r\n";
-            cout.flush();
             return str;
         }
 
@@ -716,10 +743,6 @@ namespace jcpp{
         }
 
         BlockDataInputStream::~BlockDataInputStream() {
-            delete buf;
-            delete hbuf;
-            delete cbuf;
-            delete in;
             delete din;
         }
     }

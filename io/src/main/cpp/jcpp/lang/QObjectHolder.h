@@ -28,6 +28,8 @@ namespace jcpp{
 
             void takeOwner(QObject* obj);
 
+            void deleteObject(QObject* obj);
+
             virtual void run();
         };
     }

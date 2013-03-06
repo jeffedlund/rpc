@@ -41,7 +41,7 @@ namespace jcpp{
             virtual void takeOwner();
             virtual void releaseOwner();
             virtual QObject* getQObject();
-            void move(QObjectAware* objectAware);//TODO really not great ...
+            void move(QObjectAware* objectAware);
             virtual void run();
             void start();
             string toString();
