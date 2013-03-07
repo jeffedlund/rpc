@@ -5,11 +5,12 @@
 #include <vector>
 #include <iostream>
 #include "Object.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JPrimitiveByte : public JObject{
+        class JCPP_LIBRARY_EXPORT JPrimitiveByte : public JObject{
 
             protected:
                 jbyte value;

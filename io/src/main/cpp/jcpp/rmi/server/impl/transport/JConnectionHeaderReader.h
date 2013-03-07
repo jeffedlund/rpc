@@ -11,6 +11,7 @@
 #include "JDataOutputStream.h"
 #include "JDataInputStream.h"
 #include "JTransport.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::rmi::server::impl::gateway;
@@ -21,7 +22,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace transport{
-                    class JConnectionHeaderReader : public JObject, public JRunnable{
+                    class JCPP_LIBRARY_EXPORT JConnectionHeaderReader : public JObject, public JRunnable{
                         protected:
                             JSocket* socket;
                             JTransport* transport;

@@ -2,9 +2,11 @@
 #define QOBJECTHOLDER_H
 
 #include "JThread.h"
+#include "JCPP.h"
+
 namespace jcpp{
     namespace lang{
-        class QObjectHolder : public JThread{
+        class JCPP_LIBRARY_EXPORT QObjectHolder : public JThread{
         protected:
             class Present{
             public:

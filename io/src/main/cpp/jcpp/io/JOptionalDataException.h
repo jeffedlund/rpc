@@ -5,11 +5,12 @@
 #include "JClass.h"
 #include "JPrimitiveInt.h"
 #include "JPrimitiveBoolean.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace io{
-        class JOptionalDataException : public JObjectStreamException{
+        class JCPP_LIBRARY_EXPORT JOptionalDataException : public JObjectStreamException{
         protected:
             JPrimitiveInt* length;
             JPrimitiveBoolean* eof;

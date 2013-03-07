@@ -127,9 +127,6 @@ int main(int argc, char *argv[]){
     //TODO should be done by default ...
     registerClasses();
     testException();
-    if (true){
-        return 0;
-    }
 
     for (int i=0;i<TEST_SIZE;i++){
         cout<<"testing in file"<<tests[i]->getFileName();

@@ -1,11 +1,13 @@
 #ifndef JNULLPOINTEREXCEPTION_H
 #define JNULLPOINTEREXCEPTION_H
+
 #include "JRuntimeException.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JNullPointerException : public JRuntimeException{
+        class JCPP_LIBRARY_EXPORT JNullPointerException : public JRuntimeException{
 
         public:
             JNullPointerException();

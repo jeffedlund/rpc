@@ -24,6 +24,7 @@
 #include "QtDataInputStream.h"
 #include "QtDataOutputStream.h"
 #include "JPackage.h"
+#include "JCPP_PACKAGE.h"
 #include "JCPP.h"
 using namespace std;
 using namespace std;
@@ -32,7 +33,7 @@ using namespace jcpp;
 
 namespace jcpp{
     namespace io{
-        class JIO : public JPackage{
+        class JCPP_LIBRARY_EXPORT JIO : public JPackage{
         protected:
             JIO();
 

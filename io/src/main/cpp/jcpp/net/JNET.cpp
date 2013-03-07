@@ -1,5 +1,5 @@
 #include "JNET.h"
-#include "JCPP.h"
+#include "JCPP_PACKAGE.h"
 
 namespace jcpp{
     namespace net{
@@ -12,7 +12,7 @@ namespace jcpp{
         }
 
         JPackage* JNET::getSuperPackage(){
-            return JCPP::getPackage();
+            return JCPP_PACKAGE::getPackage();
         }
 
         vector<JPackage*>* JNET::getPackages(){

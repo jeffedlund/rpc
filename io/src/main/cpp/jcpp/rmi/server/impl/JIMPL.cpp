@@ -1,5 +1,5 @@
 #include "JIMPL.h"
-#include "JCPP.h"
+#include "JCPP_PACKAGE.h"
 #include "JPackage.h"
 #include "JGATEWAY.h"
 #include "JSERVER_PACKAGE.h"

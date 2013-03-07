@@ -3,11 +3,12 @@
 
 #include "JIOException.h"
 #include "JClass.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace io{
-        class JObjectStreamException : public JIOException{
+        class JCPP_LIBRARY_EXPORT JObjectStreamException : public JIOException{
         protected:
             JObjectStreamException(JClass* _clazz);
         public:

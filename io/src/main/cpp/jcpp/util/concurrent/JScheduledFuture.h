@@ -6,13 +6,14 @@
 #include "JObject.h"
 #include "JFuture.h"
 #include "JDelayed.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 
 namespace jcpp{
     namespace util{
         namespace concurrent{
-            class JScheduledFuture : public JFuture, public JDelayed{
+            class JCPP_LIBRARY_EXPORT JScheduledFuture : public JFuture, public JDelayed{
 
             public:
                 static JClass* getClazz();

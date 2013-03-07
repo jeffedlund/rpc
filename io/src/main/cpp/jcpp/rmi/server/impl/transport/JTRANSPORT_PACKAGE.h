@@ -9,6 +9,7 @@
 #include "JTransport.h"
 #include "JTransportRouter.h"
 #include "JConnectionHeaderReader.h"
+#include "JCPP.h"
 using namespace jcpp;
 using namespace jcpp::lang::reflect;
 using namespace jcpp::rmi::server::impl;
@@ -18,7 +19,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace transport{
-                    class JTRANSPORT_PACKAGE : public JPackage{
+                    class JCPP_LIBRARY_EXPORT JTRANSPORT_PACKAGE : public JPackage{
                     protected:
                         JTRANSPORT_PACKAGE();
 

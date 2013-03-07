@@ -12,12 +12,13 @@
 #include "OutputHandleTable.h"
 #include "JLANG.h"
 #include "Object.h"
+#include "JCPP.h"
 
 namespace jcpp{
     namespace io{
         class SerialCallbackContext;
         class ObjectStreamClass;
-        class JObjectOutputStream : public JOutputStream, public JObjectStreamConstants{
+        class JCPP_LIBRARY_EXPORT JObjectOutputStream : public JOutputStream, public JObjectStreamConstants{
         private:
             JBlockDataOutputStream* bout;
             OutputHandleTable* handles;

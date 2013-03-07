@@ -2,10 +2,11 @@
 #define JBITS_H
 
 #include "Object.h"
+#include "JCPP.h"
 
 namespace jcpp{
     namespace util{
-        class JBits {
+        class JCPP_LIBRARY_EXPORT JBits {
         public:
 
             static void putBoolean(jbyte b[], int off, bool val) {

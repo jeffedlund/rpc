@@ -6,13 +6,14 @@
 #include "JObject.h"
 #include "JRunnable.h"
 #include "JTimer.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 
 namespace jcpp{
     namespace util{
         class JTimer;
-        class JTimerTask : public JRunnable, public JObject{
+        class JCPP_LIBRARY_EXPORT JTimerTask : public JRunnable, public JObject{
         protected:
             bool bCancelled;
             JTimer* timer;

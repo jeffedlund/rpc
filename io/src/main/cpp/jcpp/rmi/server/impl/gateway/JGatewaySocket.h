@@ -13,6 +13,7 @@
 #include "JGatewayConfiguration.h"
 #include "JGatewayCompressionOutputStream.h"
 #include "JGatewayCompressionInputStream.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::net;
@@ -24,7 +25,7 @@ namespace jcpp{
                 namespace gateway{
                     class JGatewayCompressionOutputStream;
                     class JGatewayCompressionInputStream;
-                    class JGatewaySocket : public JSocket, public JIGatewaySocket{
+                    class JCPP_LIBRARY_EXPORT JGatewaySocket : public JSocket, public JIGatewaySocket{
                         protected:
                             JSocket* socket;
                             JInputStream* input;

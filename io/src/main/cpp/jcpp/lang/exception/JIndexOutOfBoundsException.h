@@ -3,12 +3,13 @@
 
 #include "JRuntimeException.h"
 #include "JClass.h"
+#include "JCPP.h"
 
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JIndexOutOfBoundsException : public JRuntimeException{
+        class JCPP_LIBRARY_EXPORT JIndexOutOfBoundsException : public JRuntimeException{
         public:
             JIndexOutOfBoundsException();
             JIndexOutOfBoundsException(string message);

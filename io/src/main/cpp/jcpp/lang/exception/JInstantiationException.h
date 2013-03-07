@@ -3,11 +3,12 @@
 
 #include "JException.h"
 #include "JClass.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JInstantiationException : public JException
+        class JCPP_LIBRARY_EXPORT JInstantiationException : public JException
         {
         public:
             JInstantiationException();

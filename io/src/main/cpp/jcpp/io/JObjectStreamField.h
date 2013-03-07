@@ -8,6 +8,7 @@
 #include <string.h>
 #include "JString.h"
 #include "Object.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang::reflect;
 using namespace jcpp::lang;
@@ -15,7 +16,7 @@ using namespace jcpp::lang;
 namespace jcpp{
     namespace io{
         //TODO add getClazz
-        class JObjectStreamField{
+        class JCPP_LIBRARY_EXPORT JObjectStreamField{
         private:
             string name;
             string signature;

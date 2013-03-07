@@ -6,10 +6,11 @@
 #include "QDataStream"
 #include "JClass.h"
 #include "Object.h"
+#include "JCPP.h"
 
 namespace jcpp{
     namespace io{
-        class QtDataInputStream : public JInputStream{
+        class JCPP_LIBRARY_EXPORT QtDataInputStream : public JInputStream{
             QDataStream* in;
             vector<jbyte>* bytes;
         public:

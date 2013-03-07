@@ -14,6 +14,7 @@
 #include "JDataOutputStream.h"
 #include "JEndPoint.h"
 #include "JTransportConfiguration.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -25,7 +26,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace connection{
-                    class JConnectionConfiguration : public JObject, public JSerializable{
+                    class JCPP_LIBRARY_EXPORT JConnectionConfiguration : public JObject, public JSerializable{
                         protected:
                             JTransportConfiguration* transportConfiguration;
                             JLong* gcTimeout;

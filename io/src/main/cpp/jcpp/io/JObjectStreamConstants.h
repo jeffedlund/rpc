@@ -2,11 +2,12 @@
 #define JOBJECTSTREAMCONSTANTS_H
 
 #include "Object.h"
+#include "JCPP.h"
 
 namespace jcpp{
     namespace io{
         //TODO add getClazz()
-        class JObjectStreamConstants {
+        class JCPP_LIBRARY_EXPORT JObjectStreamConstants {
 
         public:
             /**

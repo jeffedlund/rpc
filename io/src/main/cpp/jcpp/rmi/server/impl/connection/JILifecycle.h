@@ -16,6 +16,7 @@
 #include "JException.h"
 #include "JBoolean.h"
 #include "JObjectInformation.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -27,7 +28,7 @@ namespace jcpp{
             namespace impl{
                 namespace connection{
                     class JObjectInformation;
-                    class JILifecycle : public JInterface{
+                    class JCPP_LIBRARY_EXPORT JILifecycle : public JInterface{
                     public:
                         static JClass* getClazz();
                         virtual void doExport(JObjectInformation* objectInformation)=0;

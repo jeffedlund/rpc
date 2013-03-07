@@ -6,11 +6,12 @@
 #include <vector>
 #include <iostream>
 #include "JPrimitiveLong.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JLong : public JNumber{
+        class JCPP_LIBRARY_EXPORT JLong : public JNumber{
 
             protected:
                 JPrimitiveLong* value;

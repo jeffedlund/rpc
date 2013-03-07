@@ -12,6 +12,7 @@
 #include "JAddress.h"
 #include "JDataInputStream.h"
 #include "JDataOutputStream.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -22,7 +23,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace transport{
-                    class JEndPoint : public JObject, public JSerializable{
+                    class JCPP_LIBRARY_EXPORT JEndPoint : public JObject, public JSerializable{
                         protected:
                             JAddress* address;
                             JString* site;

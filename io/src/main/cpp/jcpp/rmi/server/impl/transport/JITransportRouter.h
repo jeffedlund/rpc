@@ -7,6 +7,7 @@
 #include "JRoute.h"
 #include "JEndPoint.h"
 #include "JString.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 
@@ -15,7 +16,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace transport{
-                    class JITransportRouter : public JInterface{
+                    class JCPP_LIBRARY_EXPORT JITransportRouter : public JInterface{
                     public:
                         static JClass* getClazz();
                         virtual JRoute* findRoute(JString* localSite, JEndPoint* remoteEndpoint)=0;

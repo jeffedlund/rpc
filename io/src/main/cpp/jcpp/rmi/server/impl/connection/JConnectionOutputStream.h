@@ -18,6 +18,7 @@
 #include "JObjectInformations.h"
 #include "JINotSerializableObjectHandler.h"
 #include "JINotExportedObjectListener.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -29,7 +30,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace connection{
-                    class JConnectionOutputStream : public JObjectOutputStream{
+                    class JCPP_LIBRARY_EXPORT JConnectionOutputStream : public JObjectOutputStream{
                     protected:
                         JEndPoint* remoteEndPoint;
                         JObjectInformations* objectInformations;

@@ -1,5 +1,6 @@
 #ifndef COLLECTIONS_H
 #define COLLECTIONS_H
+
 using namespace std;
 
 namespace jcpp{

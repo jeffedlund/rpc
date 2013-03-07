@@ -8,13 +8,14 @@
 #include "JDelayed.h"
 #include "JRunnableFuture.h"
 #include "JScheduledFuture.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 
 namespace jcpp{
     namespace util{
         namespace concurrent{
-            class JRunnableScheduledFuture : public JRunnableFuture, public JScheduledFuture{
+            class JCPP_LIBRARY_EXPORT JRunnableScheduledFuture : public JRunnableFuture, public JScheduledFuture{
 
             public:
                 static JClass* getClazz();

@@ -23,6 +23,7 @@
 #include "JClassLoader.h"
 #include "JIInvocationListener.h"
 #include "JObjectPointer.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -35,7 +36,7 @@ namespace jcpp{
                 namespace connection{
                     class JInvoker;
                     class JObjectInformations;
-                    class JObjectHandler: public JObject, public JInvocationHandler, public JSerializable{
+                    class JCPP_LIBRARY_EXPORT JObjectHandler: public JObject, public JInvocationHandler, public JSerializable{
                     protected:
                         JInvoker* invoker;
                         JObject* proxy;//TODO

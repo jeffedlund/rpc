@@ -3,6 +3,7 @@
 
 #include "stdint.h"
 #include "cassert"
+#include "JCPP.h"
 namespace jcpp{
     namespace lang{
         //TODO is it correct values cross OS?
@@ -14,7 +15,7 @@ namespace jcpp{
         #define jfloat float //32
         #define jlong int64_t
         #define jshort int16_t
-        class Object{
+        class JCPP_LIBRARY_EXPORT Object{
         public:
             static void init(){
                 assert(sizeof(char)==1);

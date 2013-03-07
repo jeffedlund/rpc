@@ -9,6 +9,7 @@
 #include "JString.h"
 #include "Object.h"
 #include "JSerializable.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -18,7 +19,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace gateway{
-                    class JAddress : public JObject, public JSerializable{
+                    class JCPP_LIBRARY_EXPORT JAddress : public JObject, public JSerializable{
                         protected:
                             JString* hostName;
                             JPrimitiveInt* port;

@@ -3,11 +3,12 @@
 
 #include "JObject.h"
 #include "JError.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JVirtualMachineError : public JError {
+        class JCPP_LIBRARY_EXPORT JVirtualMachineError : public JError {
         protected:
             JVirtualMachineError(JClass* _class);
 

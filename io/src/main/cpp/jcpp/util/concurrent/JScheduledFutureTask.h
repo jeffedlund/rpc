@@ -10,13 +10,14 @@
 #include "JRunnableScheduledFuture.h"
 #include "JFutureTask.h"
 #include "JTimerTask.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 
 namespace jcpp{
     namespace util{
         namespace concurrent{
-            class JScheduledFutureTask : public JRunnableScheduledFuture, public JTimerTask{
+            class JCPP_LIBRARY_EXPORT JScheduledFutureTask : public JRunnableScheduledFuture, public JTimerTask{
             protected:
                 jlong initialDelay;
                 jlong period;

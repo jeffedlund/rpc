@@ -3,11 +3,12 @@
 
 #include <QObject>
 #include <iostream>
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class QObjectAware{
+        class JCPP_LIBRARY_EXPORT QObjectAware{
             public:
                 virtual void takeOwner()=0;
                 virtual void releaseOwner()=0;

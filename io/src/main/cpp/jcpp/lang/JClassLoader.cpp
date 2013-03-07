@@ -94,7 +94,7 @@ namespace jcpp{
 
         void JClassLoader::initClasses(){
             if (!bInitialized){
-                initClasses(JCPP::getPackage());
+                initClasses(JCPP_PACKAGE::getPackage());
                 bInitialized=true;
             }
         }

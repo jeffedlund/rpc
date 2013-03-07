@@ -9,12 +9,13 @@
 #include "JObjectOutputStream.h"
 #include "JAbstractCollection.h"
 #include "JList.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::io;
 
 namespace jcpp{
     namespace util{
-        class JAbstractList : public JAbstractCollection, public JList{
+        class JCPP_LIBRARY_EXPORT JAbstractList : public JAbstractCollection, public JList{
         protected:
             JAbstractList(JClass* _class);
 

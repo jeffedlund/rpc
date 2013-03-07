@@ -3,12 +3,13 @@
 
 #include "JException.h"
 #include "JRuntimeException.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
 
-        class JUnsupportedOperationException : public JRuntimeException
+        class JCPP_LIBRARY_EXPORT JUnsupportedOperationException : public JRuntimeException
         {
         public:
             JUnsupportedOperationException();

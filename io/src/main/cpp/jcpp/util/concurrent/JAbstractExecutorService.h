@@ -10,13 +10,14 @@
 #include "JRunnableFuture.h"
 #include "JExecutorService.h"
 #include "JFutureTask.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 
 namespace jcpp{
     namespace util{
         namespace concurrent{
-            class JAbstractExecutorService : public JExecutorService, public JObject{
+            class JCPP_LIBRARY_EXPORT JAbstractExecutorService : public JExecutorService, public JObject{
             protected:
                 JAbstractExecutorService(JClass* _class);
                 JRunnableFuture* newTaskFor(JRunnable* runnable, JObject* result);

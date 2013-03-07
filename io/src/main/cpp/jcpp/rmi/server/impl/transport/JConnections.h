@@ -12,6 +12,7 @@
 #include "JDataInputStream.h"
 #include "JEndPoint.h"
 #include "JScheduledFuture.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::rmi::server::impl::gateway;
@@ -25,7 +26,7 @@ namespace jcpp{
                 namespace transport{
                     class JConnection;
                     class JTransport;
-                    class JConnections : public JObject, public JRunnable{
+                    class JCPP_LIBRARY_EXPORT JConnections : public JObject, public JRunnable{
                         protected:
                             JEndPoint* remoteEndPoint;
                             vector<JConnection*>* freeConnectionList;

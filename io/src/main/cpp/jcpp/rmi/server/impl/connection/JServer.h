@@ -34,6 +34,7 @@
 #include "JIInvocationExceptionHandler.h"
 #include "JIInvocationListener.h"
 #include "JConnectionTransportDispatcher.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -48,7 +49,7 @@ namespace jcpp{
                     class JGC;
                     class JGCClient;
                     class JConnectionTransportDispatcher;
-                    class JServer : public JObject, public JIServer, public JILifecycle, public JIGCClientListener, public JIInvocationListener{
+                    class JCPP_LIBRARY_EXPORT JServer : public JObject, public JIServer, public JILifecycle, public JIGCClientListener, public JIInvocationListener{
                     protected:
                         JEndPoint* endPoint;
                         JIRegistry* iregistry;

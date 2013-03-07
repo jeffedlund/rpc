@@ -7,13 +7,13 @@
 #include <QTcpSocket>
 #include <QTcpServer>
 #include "JSocket.h"
-#include "QObjectAware.h"
+#include "JCPP.h"
 
 namespace jcpp{
     namespace net{
         class JSocket;
 
-        class JServerSocket : public JObject, public QObjectAware{
+        class JCPP_LIBRARY_EXPORT JServerSocket : public JObject, public QObjectAware{
         protected:
             bool bIsClosed;
             JString* host;

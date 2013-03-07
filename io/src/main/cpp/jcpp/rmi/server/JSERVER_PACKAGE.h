@@ -2,13 +2,14 @@
 #define JSERVER_PACKAGE_H
 
 #include "JRMI.h"
+#include "JCPP.h"
 using namespace jcpp;
 using namespace jcpp::lang::reflect;
 
 namespace jcpp{
     namespace rmi{
         namespace server{
-            class JSERVER_PACKAGE : public JPackage{
+            class JCPP_LIBRARY_EXPORT JSERVER_PACKAGE : public JPackage{
             protected:
                 JSERVER_PACKAGE();
 

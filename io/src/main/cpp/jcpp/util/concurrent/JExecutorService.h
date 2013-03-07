@@ -7,13 +7,14 @@
 #include "JFuture.h"
 #include "JCallable.h"
 #include "JRunnable.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 
 namespace jcpp{
     namespace util{
         namespace concurrent{
-            class JExecutorService : public JExecutor{
+            class JCPP_LIBRARY_EXPORT JExecutorService : public JExecutor{
             protected:
 
             public:

@@ -13,6 +13,7 @@
 #include "JDataInputStream.h"
 #include "JDataOutputStream.h"
 #include "JEndPoint.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -24,7 +25,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace connection{
-                    class JObjectPointer : public JObject, public JSerializable{
+                    class JCPP_LIBRARY_EXPORT JObjectPointer : public JObject, public JSerializable{
                         public:
                             struct POINTER_COMPARATOR{
                                 bool operator()(JObjectPointer* e1, JObjectPointer* e2){

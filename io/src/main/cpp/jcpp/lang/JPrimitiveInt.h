@@ -5,11 +5,12 @@
 #include <vector>
 #include <iostream>
 #include "Object.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JPrimitiveInt : public JObject{
+        class JCPP_LIBRARY_EXPORT JPrimitiveInt : public JObject{
 
             protected:
                 jint value;

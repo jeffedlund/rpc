@@ -6,13 +6,14 @@
 #include <vector>
 #include <iostream>
 #include "Object.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
         class JClass;
 
-        class JObject{
+        class JCPP_LIBRARY_EXPORT JObject{
             private:
                 QMutex* mutex;
                 QWaitCondition* waitCondition;

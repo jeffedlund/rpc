@@ -13,6 +13,7 @@
 #include "JSocket.h"
 #include "JRoute.h"
 #include "JGatewayConfiguration.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::util;
@@ -23,7 +24,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace gateway{
-                    class JGatewaySocketFactory : public JObject{
+                    class JCPP_LIBRARY_EXPORT JGatewaySocketFactory : public JObject{
                         public:
                         static JClass* getClazz();
                         static JSocket* createSocket(JRoute* route,JGatewayConfiguration* gatewayConfiguration);

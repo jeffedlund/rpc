@@ -6,11 +6,12 @@
 #include "JSerializable.h"
 #include <vector>
 #include <iostream>
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JNumber: public JObject{
+        class JCPP_LIBRARY_EXPORT JNumber: public JObject{
             protected :
                 JNumber(JClass* _class);
 

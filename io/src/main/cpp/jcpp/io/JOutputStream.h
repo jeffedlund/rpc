@@ -5,11 +5,12 @@
 #include "JObject.h"
 #include "JClass.h"
 #include "Object.h"
+#include "JCPP.h"
 using namespace jcpp::lang;
 
 namespace jcpp{
     namespace io{
-        class JOutputStream : public JObject{
+        class JCPP_LIBRARY_EXPORT JOutputStream : public JObject{
         protected:
             JOutputStream(JClass* _class);
 

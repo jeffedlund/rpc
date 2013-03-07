@@ -21,6 +21,7 @@
 #include "JExecutorService.h"
 #include "JScheduledExecutorService.h"
 #include "JGCEndPointInfo.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -35,7 +36,7 @@ namespace jcpp{
                 namespace connection{
                     class JGCEndPointInfo;
                     class JObjectInformation;
-                    class JGC : public JObject, public JIGC{
+                    class JCPP_LIBRARY_EXPORT JGC : public JObject, public JIGC{
                         protected:
                             JConnectionConfiguration* connectionConfiguration;
                             map<JEndPoint*, JGCEndPointInfo*,JEndPoint::POINTER_COMPARATOR>* endPointInfos;

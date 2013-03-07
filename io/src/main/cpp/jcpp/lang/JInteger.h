@@ -7,11 +7,12 @@
 #include <iostream>
 #include "JPrimitiveInt.h"
 #include "Object.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JInteger : public JNumber{
+        class JCPP_LIBRARY_EXPORT JInteger : public JNumber{
 
             protected:
                 JPrimitiveInt* value;

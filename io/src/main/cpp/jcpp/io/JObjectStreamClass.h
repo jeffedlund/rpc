@@ -10,6 +10,7 @@
 #include "JObjectStreamField.h"
 #include "map"
 #include "Object.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
@@ -17,7 +18,7 @@ namespace jcpp{
         class JObjectInputStream;
         class JObjectOutputStream;
 
-        class JObjectStreamClass : public JObject{
+        class JCPP_LIBRARY_EXPORT JObjectStreamClass : public JObject{
         public:
             class ClassDataSlot{
                 public:

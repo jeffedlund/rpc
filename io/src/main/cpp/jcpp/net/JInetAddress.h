@@ -3,11 +3,12 @@
 
 #include "JLANG.h"
 #include "JIO.h"
+#include "JCPP.h"
 
 //TODO implement other
 namespace jcpp{
     namespace net{
-        class JInetAddress : public JObject, public JSerializable{
+        class JCPP_LIBRARY_EXPORT JInetAddress : public JObject, public JSerializable{
         protected:
             JString* hostName;
             JPrimitiveInt* address;

@@ -8,6 +8,7 @@
 #include "JEndPoint.h"
 #include "JString.h"
 #include "JConnection.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 
@@ -16,7 +17,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace transport{
-                    class JITransportDispatcher : public JInterface{
+                    class JCPP_LIBRARY_EXPORT JITransportDispatcher : public JInterface{
                     public:
                         static JClass* getClazz();
                         virtual void dispatch(JEndPoint* fromEndPoint, JEndPoint* toEndpoint,JConnection* connection)=0;

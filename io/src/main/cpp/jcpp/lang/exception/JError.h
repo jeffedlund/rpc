@@ -3,11 +3,12 @@
 
 #include "JObject.h"
 #include "JThrowable.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JError : public JThrowable {
+        class JCPP_LIBRARY_EXPORT JError : public JThrowable {
         protected:
             JError(JClass* _class);
 

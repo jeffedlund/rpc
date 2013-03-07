@@ -22,6 +22,7 @@
 #include "JTransport.h"
 #include "JIInvocationListener.h"
 #include "JMethodDigester.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -38,7 +39,7 @@ namespace jcpp{
                     class JObjectInformation;
                     class JILifecycle;
                     class JMethodDigester;
-                    class JObjectInformations: public JObject{
+                    class JCPP_LIBRARY_EXPORT JObjectInformations: public JObject{
                     protected:
                         map<JString*, JObjectInformation*,JString::POINTER_COMPARATOR>* idMap;
                         map<JObject*, JObjectInformation*>* objectMap;

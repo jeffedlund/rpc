@@ -3,11 +3,12 @@
 
 #include "JObject.h"
 #include "Object.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JSystem : public JObject{//TODO implement other system methods
+        class JCPP_LIBRARY_EXPORT JSystem : public JObject{//TODO implement other system methods
         protected:
         public:
             static JClass* getClazz();

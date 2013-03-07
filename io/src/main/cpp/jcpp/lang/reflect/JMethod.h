@@ -3,12 +3,13 @@
 
 #include "JObject.h"
 #include "JAccessibleObject.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
         namespace reflect{
-            class JMethod : public JAccessibleObject{
+            class JCPP_LIBRARY_EXPORT JMethod : public JAccessibleObject{
             public:
                 typedef JObject* (*invocation)(JObject* objet,vector<JObject*>*args);
             private:

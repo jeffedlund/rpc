@@ -4,11 +4,12 @@
 #include "JException.h"
 #include "JThrowable.h"
 #include "JClass.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JRuntimeException : public JException{
+        class JCPP_LIBRARY_EXPORT JRuntimeException : public JException{
         protected:
             JRuntimeException(JClass* _class);
 

@@ -5,12 +5,13 @@
 #include "JMethod.h"
 #include "JInterface.h"
 #include "JClass.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
         namespace reflect{
-            class JInvocationHandler : public JInterface{
+            class JCPP_LIBRARY_EXPORT JInvocationHandler : public JInterface{
             public:
                 static JClass* getClazz();
                 virtual JObject *invoke(JObject* proxy, JMethod* method, vector<JObject*>* args) = 0;

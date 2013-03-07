@@ -7,11 +7,12 @@
 #include "JString.h"
 #include "JPrimitiveArray.h"
 #include "JSerializable.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JThrowable: public JObject, public JSerializable {
+        class JCPP_LIBRARY_EXPORT JThrowable: public JObject, public JSerializable {
         protected:
             JString* message;
             JThrowable* cause;

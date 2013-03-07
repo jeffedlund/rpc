@@ -17,6 +17,7 @@
 #include "JBoolean.h"
 #include "JITransportDispatcher.h"
 #include "JObjectInformations.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -27,7 +28,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace connection{
-                    class JConnectionTransportDispatcher : public JObject, public JITransportDispatcher{
+                    class JCPP_LIBRARY_EXPORT JConnectionTransportDispatcher : public JObject, public JITransportDispatcher{
                     protected:
                         JObjectInformations* objectInformations;
                     public:

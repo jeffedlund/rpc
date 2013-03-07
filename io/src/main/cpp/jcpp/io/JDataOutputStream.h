@@ -4,11 +4,12 @@
 #include <QDataStream>
 #include "JOutputStream.h"
 #include "Object.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace io{
-        class JDataOutputStream : public JOutputStream{
+        class JCPP_LIBRARY_EXPORT JDataOutputStream : public JOutputStream{
         private:
             jint length;
             jbyte* bytearr;

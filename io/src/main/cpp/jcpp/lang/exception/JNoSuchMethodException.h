@@ -3,11 +3,12 @@
 
 #include "JException.h"
 #include "JClass.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JNoSuchMethodException : public JException
+        class JCPP_LIBRARY_EXPORT JNoSuchMethodException : public JException
         {
         public:
             JNoSuchMethodException();

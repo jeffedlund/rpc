@@ -3,11 +3,12 @@
 
 #include "JIOException.h"
 #include "JClass.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace io{
-        class JUTFDataFormatException : public JIOException{
+        class JCPP_LIBRARY_EXPORT JUTFDataFormatException : public JIOException{
         public:
             JUTFDataFormatException();
             JUTFDataFormatException(string message);

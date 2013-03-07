@@ -16,6 +16,7 @@
 #include "JException.h"
 #include "JBoolean.h"
 #include "JObjectInformations.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -26,7 +27,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace connection{
-                    class JConnectionInputStream : public JObjectInputStream{
+                    class JCPP_LIBRARY_EXPORT JConnectionInputStream : public JObjectInputStream{
                     protected:
                         JObjectInformations* objectInformations;
                         map<JObjectPointer*, JObject*,JObjectPointer::POINTER_COMPARATOR>* gcObjectPointers;

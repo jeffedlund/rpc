@@ -20,13 +20,14 @@ class SerialCallbackContext;
 #include "JIOException.h"
 #include "JLANG.h"
 #include "Object.h"
+#include "JCPP.h"
 
 namespace jcpp{
     namespace io{
         class JObjectStreamClass;
         static const int NULL_HANDLE = -1;
 
-        class JObjectInputStream : public JInputStream, public JObjectStreamConstants{
+        class JCPP_LIBRARY_EXPORT JObjectInputStream : public JInputStream, public JObjectStreamConstants{
             BlockDataInputStream *bin;
             JClassLoader* inputClassLoader;
             HandleTable* handles;

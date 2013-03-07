@@ -1,5 +1,5 @@
 #include "JSERVER_PACKAGE.h"
-#include "JCPP.h"
+#include "JCPP_PACKAGE.h"
 #include "JIMPL.h"
 using namespace jcpp::rmi::server::impl;
 

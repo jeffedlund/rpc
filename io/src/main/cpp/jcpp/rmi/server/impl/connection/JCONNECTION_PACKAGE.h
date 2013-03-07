@@ -28,6 +28,7 @@
 #include "JObjectInformations.h"
 #include "JObjectPointer.h"
 #include "JRegistry.h"
+#include "JCPP.h"
 using namespace jcpp;
 using namespace jcpp::lang::reflect;
 
@@ -37,7 +38,7 @@ namespace jcpp{
             namespace impl{
                 namespace connection{
                     class JServer;
-                    class JCONNECTION_PACKAGE : public JPackage{
+                    class JCPP_LIBRARY_EXPORT JCONNECTION_PACKAGE : public JPackage{
                     protected:
                         JCONNECTION_PACKAGE();
 

@@ -3,13 +3,14 @@
 
 #include "vector"
 #include <iostream>
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
         class JClass;
         namespace reflect{
-            class JPackage{
+            class JCPP_LIBRARY_EXPORT JPackage{
                 protected:
                     string name;
                     JClass* _class;

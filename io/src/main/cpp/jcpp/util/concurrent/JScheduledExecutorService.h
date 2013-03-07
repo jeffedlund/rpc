@@ -8,13 +8,14 @@
 #include "JCallable.h"
 #include "JExecutorService.h"
 #include "JScheduledFuture.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 
 namespace jcpp{
     namespace util{
         namespace concurrent{
-            class JScheduledExecutorService : public JExecutorService{
+            class JCPP_LIBRARY_EXPORT JScheduledExecutorService : public JExecutorService{
             protected:
 
             public:

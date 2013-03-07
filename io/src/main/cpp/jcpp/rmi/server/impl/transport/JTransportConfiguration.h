@@ -13,6 +13,7 @@
 #include "JDataInputStream.h"
 #include "JDataOutputStream.h"
 #include "JGatewayConfiguration.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -23,7 +24,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace transport{
-                    class JTransportConfiguration : public JObject, public JSerializable{
+                    class JCPP_LIBRARY_EXPORT JTransportConfiguration : public JObject, public JSerializable{
                         protected:
                             JGatewayConfiguration* gatewayConfiguration;
                             JLong* connectionPoolTimeout;

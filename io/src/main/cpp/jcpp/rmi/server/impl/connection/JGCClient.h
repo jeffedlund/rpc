@@ -19,6 +19,7 @@
 #include "JGCEndPointInfo.h"
 #include "JGCClientEndPointInfo.h"
 #include "JIGCClientListener.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -31,7 +32,7 @@ namespace jcpp{
             namespace impl{
                 namespace connection{
                     class JGCClientEndPointInfo;
-                    class JGCClient : public JObject, public JIGCClient{
+                    class JCPP_LIBRARY_EXPORT JGCClient : public JObject, public JIGCClient{
                         protected:
                             map<JEndPoint*, JGCClientEndPointInfo*,JEndPoint::POINTER_COMPARATOR>* endPointInfos;
                             JIGCClientListener* gcClientListener;

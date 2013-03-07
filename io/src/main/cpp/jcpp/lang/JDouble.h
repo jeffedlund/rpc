@@ -6,11 +6,12 @@
 #include <vector>
 #include <iostream>
 #include "JPrimitiveDouble.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JDouble : public JNumber{
+        class JCPP_LIBRARY_EXPORT JDouble : public JNumber{
 
             protected:
                 JPrimitiveDouble* value;

@@ -9,13 +9,14 @@
 #include <QWaitCondition>
 #include "JTimerTask.h"
 #include "JThread.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 
 namespace jcpp{
     namespace util{
         class JTimerTask;
-        class JTimer : public JObject, public JRunnable{
+        class JCPP_LIBRARY_EXPORT JTimer : public JObject, public JRunnable{
         protected:
             class TimerItem{
             protected:

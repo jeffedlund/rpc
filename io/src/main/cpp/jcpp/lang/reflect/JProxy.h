@@ -3,13 +3,14 @@
 
 #include "JObject.h"
 #include "JInvocationHandler.h"
+#include "JCPP.h"
 using namespace std;
 
 
 namespace jcpp{
     namespace lang{
         namespace reflect{
-            class JProxy : public JObject{
+            class JCPP_LIBRARY_EXPORT JProxy : public JObject{
                 JInvocationHandler *invocationHandler;
                 vector<JClass*>* interfaces;
 

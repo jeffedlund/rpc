@@ -53,7 +53,7 @@ namespace jcpp{
         }
 
         JPackage* JLANG::getSuperPackage(){
-            return JCPP::getPackage();
+            return JCPP_PACKAGE::getPackage();
         }
 
         vector<JPackage*>* JLANG::getPackages(){

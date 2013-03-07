@@ -15,6 +15,7 @@
 #include "JEndPoint.h"
 #include "JException.h"
 #include "JBoolean.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -25,7 +26,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace connection{
-                    class JIInvocationExceptionHandler : public JInterface{
+                    class JCPP_LIBRARY_EXPORT JIInvocationExceptionHandler : public JInterface{
                     public:
                         static JClass* getClazz();
                         virtual JThrowable* handleException(JObject* object, JMethod* method, vector<JObject*>* args, JThrowable* exception)=0;

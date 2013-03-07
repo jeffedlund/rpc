@@ -4,11 +4,12 @@
 #include "JObject.h"
 #include "JClass.h"
 #include <vector>
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JPrimitiveArray : public JObject{
+        class JCPP_LIBRARY_EXPORT JPrimitiveArray : public JObject{
         private:
             vector<JObject*>* objects;
             int len;

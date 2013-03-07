@@ -4,12 +4,13 @@
 #include "JObject.h"
 #include "JClass.h"
 #include "JInterface.h"
+#include "JCPP.h"
 using namespace jcpp::lang;
 using namespace jcpp::lang::reflect;
 
 namespace jcpp{
     namespace io{
-        class JSerializable : public JInterface{
+        class JCPP_LIBRARY_EXPORT JSerializable : public JInterface{
         protected:
             JSerializable();
         public:

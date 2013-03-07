@@ -5,11 +5,12 @@
 #include "JClass.h"
 #include "JObjectOutputStream.h"
 #include "JObjectInputStream.h"
+#include "JCPP.h"
 
 namespace jcpp{
     namespace io{
         //TODO have a test case scenario
-        class JExternalizable:JInterface{
+        class JCPP_LIBRARY_EXPORT JExternalizable:JInterface{
         protected:
         public:
 

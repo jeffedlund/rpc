@@ -24,6 +24,7 @@
 #include "JObjectHandler.h"
 #include "JGC.h"
 #include "JObjectInformations.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -38,7 +39,7 @@ namespace jcpp{
                     class JObjectHandler;
                     class JGC;
                     class JObjectInformations;
-                    class JObjectInformation: public JObject{
+                    class JCPP_LIBRARY_EXPORT JObjectInformation: public JObject{
                     protected:
                         JString* id;
                         JObject* object;

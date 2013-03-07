@@ -5,11 +5,12 @@
 #include <vector>
 #include <iostream>
 #include "JPrimitiveChar.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JChar : public JObject{
+        class JCPP_LIBRARY_EXPORT JChar : public JObject{
 
             protected:
                 JPrimitiveChar* value;

@@ -10,13 +10,14 @@
 #include "JExecutorService.h"
 #include "JAbstractExecutorService.h"
 #include <QThreadPool>
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 
 namespace jcpp{
     namespace util{
         namespace concurrent{
-            class JThreadPoolExecutor : public JAbstractExecutorService{
+            class JCPP_LIBRARY_EXPORT JThreadPoolExecutor : public JAbstractExecutorService{
             protected:
                 bool bShutdown;
                 QThreadPool* threadPool;

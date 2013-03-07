@@ -1,14 +1,15 @@
 #ifndef JRMI_H
 #define JRMI_H
 
-#include "JCPP.h"
+#include "JCPP_PACKAGE.h"
 #include "JREFLECT.h"
+#include "JCPP.h"
 using namespace jcpp;
 using namespace jcpp::lang::reflect;
 
 namespace jcpp{
     namespace rmi{
-        class JRMI : public JPackage{
+        class JCPP_LIBRARY_EXPORT JRMI : public JPackage{
         protected:
             JRMI();
 

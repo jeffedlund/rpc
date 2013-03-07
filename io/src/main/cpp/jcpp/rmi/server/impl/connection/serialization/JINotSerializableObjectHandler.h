@@ -7,6 +7,7 @@
 #include "JString.h"
 #include "Object.h"
 #include "JSerializable.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -17,7 +18,7 @@ namespace jcpp{
             namespace impl{
                 namespace connection{
                     namespace serialization{
-                        class JINotSerializableObjectHandler : public JInterface{
+                        class JCPP_LIBRARY_EXPORT JINotSerializableObjectHandler : public JInterface{
                         public:
                             static JClass* getClazz();
                             virtual JObject* handleNotSerializableObject(JObject* obj)=0;

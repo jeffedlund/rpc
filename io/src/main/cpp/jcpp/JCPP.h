@@ -1,26 +1,12 @@
 #ifndef JCPP_H
 #define JCPP_H
+#include <QtCore/QtGlobal>
 
-#include "vector"
-#include <iostream>
-#include "JPackage.h"
-using namespace std;
-using namespace jcpp::lang::reflect;
+ #if defined(JCPP_LIBRARY)
+ #  define JCPP_LIBRARY_EXPORT Q_DECL_EXPORT
+ #else
+ #  define JCPP_LIBRARY_EXPORT Q_DECL_IMPORT
+ #endif
 
-namespace jcpp{
-    class JCPP : public JPackage{
-    protected:
-        JCPP();
-
-    public:
-        JPackage* getSuperPackage();
-
-        vector<JPackage*>* getPackages();
-
-        static JCPP* getPackage();
-
-        virtual ~JCPP();
-    };
-}
 
 #endif // JCPP_H

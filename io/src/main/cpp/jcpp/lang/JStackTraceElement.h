@@ -6,12 +6,13 @@
 #include "JString.h"
 #include "JSerializable.h"
 #include "JPrimitiveInt.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::io;
 
 namespace jcpp{
     namespace lang{
-        class JStackTraceElement: public JObject, public JSerializable {
+        class JCPP_LIBRARY_EXPORT JStackTraceElement: public JObject, public JSerializable {
         private:
             JString* declaringClass;
             JString* methodName;

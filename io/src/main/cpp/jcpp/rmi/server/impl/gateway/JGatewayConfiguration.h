@@ -12,6 +12,7 @@
 #include "JAddress.h"
 #include "JSocket.h"
 #include "JRoute.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::util;
@@ -22,7 +23,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace gateway{
-                    class JGatewayConfiguration : public JObject, JSerializable{
+                    class JCPP_LIBRARY_EXPORT JGatewayConfiguration : public JObject, JSerializable{
                         protected:
                             JInteger* backLog;
                             JInteger* receiveBufferSize;

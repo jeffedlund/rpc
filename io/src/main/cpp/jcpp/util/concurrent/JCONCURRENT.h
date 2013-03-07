@@ -17,13 +17,14 @@
 #include "JScheduledFutureTask.h"
 #include "JScheduledThreadPoolExecutor.h"
 #include "JThreadPoolExecutor.h"
+#include "JCPP.h"
 using namespace jcpp;
 using namespace jcpp::lang::reflect;
 
 namespace jcpp{
     namespace util{
         namespace concurrent{
-            class JCONCURRENT : public JPackage{
+            class JCPP_LIBRARY_EXPORT JCONCURRENT : public JPackage{
             protected:
                 JCONCURRENT();
 

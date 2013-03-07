@@ -4,10 +4,11 @@
 #include "JException.h"
 #include "JClass.h"
 using namespace std;
+#include"JCPP.h"
 
 namespace jcpp{
     namespace lang{
-        class JClassNotFoundException : public JException{
+        class JCPP_LIBRARY_EXPORT JClassNotFoundException : public JException{
         public:
             JClassNotFoundException();
             JClassNotFoundException(string message);

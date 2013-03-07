@@ -5,11 +5,12 @@
 #include "JObject.h"
 #include <vector>
 #include <iostream>
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JPrimitiveBoolean : public JObject{
+        class JCPP_LIBRARY_EXPORT JPrimitiveBoolean : public JObject{
 
             protected:
                 jbool value;

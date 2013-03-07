@@ -14,6 +14,7 @@
 #include "JDataOutputStream.h"
 #include "JEndPoint.h"
 #include "JException.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -23,7 +24,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace connection{
-                    class JConnectionException : public JException{
+                    class JCPP_LIBRARY_EXPORT JConnectionException : public JException{
                     protected:
                         JConnectionException(JClass* _class);
 

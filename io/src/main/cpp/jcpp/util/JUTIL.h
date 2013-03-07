@@ -12,12 +12,13 @@
 #include "JTimerTask.h"
 #include "JPackage.h"
 #include "JCONCURRENT.h"
+#include "JCPP.h"
 using namespace jcpp;
 using namespace jcpp::lang::reflect;
 
 namespace jcpp{
     namespace util{
-        class JUTIL : public JPackage{
+        class JCPP_LIBRARY_EXPORT JUTIL : public JPackage{
         protected:
             JUTIL();
 

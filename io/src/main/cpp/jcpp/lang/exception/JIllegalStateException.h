@@ -3,11 +3,12 @@
 
 #include "JException.h"
 #include "JRuntimeException.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JIllegalStateException : public JRuntimeException
+        class JCPP_LIBRARY_EXPORT JIllegalStateException : public JRuntimeException
         {
         public:
             JIllegalStateException();

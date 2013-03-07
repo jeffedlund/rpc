@@ -4,13 +4,14 @@
 #include "JInterface.h"
 #include "JClass.h"
 #include "JRunnable.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 
 namespace jcpp{
     namespace util{
         namespace concurrent{
-            class JCallable : public JInterface{
+            class JCPP_LIBRARY_EXPORT JCallable : public JInterface{
 
             public:
                 static JClass* getClazz();

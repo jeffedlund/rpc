@@ -11,13 +11,14 @@ group1:
 
 
 group2:
-------
+-------
 -tree of classloader
 -check all new/delete calls, check delete[] for arrays
 -implement all jcpp.util classes (a quite big list :))
 -test with java 1.8
 
-group3: TODO have test cases for input stream:
+group3: TODO have test cases for input stream
+-------
 -primitive arrays of primitive type
 -primitive arrays of object
 -primitive array of primitive array

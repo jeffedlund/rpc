@@ -11,6 +11,7 @@
 #include "JIGatewaySocket.h"
 #include "JSocket.h"
 #include "JGatewayConfiguration.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::net;
@@ -20,7 +21,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace gateway{
-                    class JGatewayServerSocket : public JServerSocket{
+                    class JCPP_LIBRARY_EXPORT JGatewayServerSocket : public JServerSocket{
                         protected:
                             JGatewayConfiguration* gatewayConfiguration;
 

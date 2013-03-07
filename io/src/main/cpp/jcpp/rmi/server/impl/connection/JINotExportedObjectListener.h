@@ -15,6 +15,7 @@
 #include "JEndPoint.h"
 #include "JException.h"
 #include "JBoolean.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -25,7 +26,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace connection{
-                    class JINotExportedObjectListener : public JInterface{
+                    class JCPP_LIBRARY_EXPORT JINotExportedObjectListener : public JInterface{
                     public:
                         static JClass* getClazz();
                         virtual bool handleNotExportedObject(JObject* object)=0;

@@ -6,11 +6,12 @@
 #include <vector>
 #include <iostream>
 #include "JPrimitiveByte.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JByte : public JNumber{
+        class JCPP_LIBRARY_EXPORT JByte : public JNumber{
 
             protected:
                 JPrimitiveByte* value;

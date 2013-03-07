@@ -2,6 +2,7 @@
 #define JIMPL_H
 
 #include "JSERVER_PACKAGE.h"
+#include "JCPP.h"
 using namespace jcpp;
 using namespace jcpp::lang::reflect;
 
@@ -10,7 +11,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
 
-                class JIMPL : public JPackage{
+                class JCPP_LIBRARY_EXPORT JIMPL : public JPackage{
                 protected:
                     JIMPL();
 

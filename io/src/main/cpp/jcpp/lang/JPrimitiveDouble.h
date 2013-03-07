@@ -4,11 +4,12 @@
 #include "JObject.h"
 #include <vector>
 #include <iostream>
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JPrimitiveDouble : public JObject{
+        class JCPP_LIBRARY_EXPORT JPrimitiveDouble : public JObject{
 
             protected:
                 double value;

@@ -20,6 +20,7 @@
 #include "JFuture.h"
 #include "JScheduledFuture.h"
 #include "JGC.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -34,7 +35,7 @@ namespace jcpp{
                 namespace connection{
                     class JObjectInformation;
                     class JGC;
-                    class JGCEndPointInfo : public JObject, public JRunnable{
+                    class JCPP_LIBRARY_EXPORT JGCEndPointInfo : public JObject, public JRunnable{
                     protected:
                         JGC* gc;
                         map<JString*, JObjectInformation*,JString::POINTER_COMPARATOR>* exportedObjects;

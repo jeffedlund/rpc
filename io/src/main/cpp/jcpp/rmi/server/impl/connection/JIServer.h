@@ -18,6 +18,7 @@
 #include "JIRegistry.h"
 #include "JIGCClient.h"
 #include "JIGC.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -28,7 +29,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace connection{
-                    class JIServer : public JInterface{
+                    class JCPP_LIBRARY_EXPORT JIServer : public JInterface{
                     public:
                         static JClass* getClazz();
                         virtual JObject* lookup(JEndPoint* endPoint, JClass* clazz)=0;

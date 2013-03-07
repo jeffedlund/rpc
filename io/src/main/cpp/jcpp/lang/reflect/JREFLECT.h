@@ -6,12 +6,13 @@
 #include "JMethod.h"
 #include "JProxy.h"
 #include "JPackage.h"
+#include "JCPP.h"
 using namespace jcpp;
 
 namespace jcpp{
     namespace lang{
         namespace reflect{
-            class JREFLECT : public JPackage{
+            class JCPP_LIBRARY_EXPORT JREFLECT : public JPackage{
             protected:
                 JREFLECT();
 

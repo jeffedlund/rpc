@@ -8,6 +8,7 @@
 #include "JObjectInputStream.h"
 #include "JObjectOutputStream.h"
 #include "JAbstractList.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::io;
 
@@ -15,7 +16,7 @@ using namespace jcpp::io;
 //TODO implement toString
 namespace jcpp{
     namespace util{
-        class JArrayList : public JAbstractList{
+        class JCPP_LIBRARY_EXPORT JArrayList : public JAbstractList{
         protected:
             vector<JObject*>* items;
             JPrimitiveInt* size;

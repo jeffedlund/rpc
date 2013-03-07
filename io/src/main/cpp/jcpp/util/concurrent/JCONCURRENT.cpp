@@ -1,5 +1,5 @@
 #include "JCONCURRENT.h"
-#include "JCPP.h"
+#include "JCPP_PACKAGE.h"
 
 namespace jcpp{
     namespace util{

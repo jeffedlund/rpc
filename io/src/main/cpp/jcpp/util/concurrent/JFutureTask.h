@@ -8,13 +8,14 @@
 #include "JThrowable.h"
 #include "JCallable.h"
 #include "JRunnable.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 
 namespace jcpp{
     namespace util{
         namespace concurrent{
-            class JFutureTask : public JRunnableFuture, public JObject{
+            class JCPP_LIBRARY_EXPORT JFutureTask : public JRunnableFuture, public JObject{
             protected:
                 bool bCancel;
                 bool bDone;

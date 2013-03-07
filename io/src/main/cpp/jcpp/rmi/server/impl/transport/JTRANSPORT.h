@@ -16,6 +16,7 @@
 #include "JScheduledExecutorService.h"
 #include "JITransportRouter.h"
 #include "JTransportConfiguration.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::rmi::server::impl::gateway;
@@ -31,7 +32,7 @@ namespace jcpp{
                     class JConnections;
                     class JConnectionHeaderReader;
                     class JITransportDispatcher;
-                    class JTransport : public JObject, public JRunnable{
+                    class JCPP_LIBRARY_EXPORT JTransport : public JObject, public JRunnable{
                         protected:
                             JExecutorService* executorService;
                             JFuture* future;

@@ -2,11 +2,12 @@
 #define JCOLLECTION_H
 
 #include "JInterface.h"
+#include "JCPP.h"
 using namespace jcpp::lang;
 
 namespace jcpp{
     namespace util{
-        class JCollection : public JInterface{
+        class JCPP_LIBRARY_EXPORT JCollection : public JInterface{
         public:
             static JClass* getClazz();
             virtual ~JCollection();

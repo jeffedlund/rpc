@@ -28,7 +28,7 @@ namespace jcpp{
         }
 
         JPackage* JIO::getSuperPackage(){
-            return JCPP::getPackage();
+            return JCPP_PACKAGE::getPackage();
         }
 
         vector<JPackage*>* JIO::getPackages(){

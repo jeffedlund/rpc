@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include "Object.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang::reflect;
 
@@ -19,7 +20,7 @@ namespace jcpp{
         class JClassLoader;
 
         //TODO implement forName,
-        class JClass : public JObject{
+        class JCPP_LIBRARY_EXPORT JClass : public JObject{
         private:
             void initFields();
             void initMethods();

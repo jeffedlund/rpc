@@ -2,11 +2,12 @@
 #define JSTRING_H
 
 #include "JObject.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JString : public JObject{
+        class JCPP_LIBRARY_EXPORT JString : public JObject{
             string str;
 
         public:

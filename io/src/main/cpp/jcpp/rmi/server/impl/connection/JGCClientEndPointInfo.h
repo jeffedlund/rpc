@@ -18,6 +18,7 @@
 #include "JConnectionConfiguration.h"
 #include "JServer.h"
 #include "JGCClient.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -29,7 +30,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace connection{
-                    class JGCClientEndPointInfo : public JObject, public JRunnable{
+                    class JCPP_LIBRARY_EXPORT JGCClientEndPointInfo : public JObject, public JRunnable{
                     protected:
                         JGCClient* gcClient;
                         JServer* localServer;

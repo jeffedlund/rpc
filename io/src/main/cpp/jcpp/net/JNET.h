@@ -7,12 +7,13 @@
 #include "JSocket.h"
 #include "JServerSocket.h"
 #include "JPackage.h"
+#include "JCPP.h"
 using namespace jcpp;
 using namespace jcpp::lang::reflect;
 
 namespace jcpp{
     namespace net{
-        class JNET : public JPackage{
+        class JCPP_LIBRARY_EXPORT JNET : public JPackage{
         protected:
             JNET();
 

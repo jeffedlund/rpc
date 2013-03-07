@@ -11,6 +11,7 @@
 #include "JITransportRouter.h"
 #include "JAddress.h"
 #include <map>
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::rmi::server::impl::gateway;
@@ -20,7 +21,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace transport{
-                    class JTransportRouter : public JObject, public JITransportRouter{
+                    class JCPP_LIBRARY_EXPORT JTransportRouter : public JObject, public JITransportRouter{
                         protected:
                             map<string, map<string, JRoute*>*>* routes;
 

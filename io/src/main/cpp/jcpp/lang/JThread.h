@@ -5,12 +5,12 @@
 #include "JRunnable.h"
 #include <QThread>
 #include "QObjectAware.h"
-#include "QEvent"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JThread : public JObject, public JRunnable, public QObjectAware{
+        class JCPP_LIBRARY_EXPORT JThread : public JObject, public JRunnable, public QObjectAware{
         protected:
             class JQThread : public QThread{
                 JRunnable* runnable;

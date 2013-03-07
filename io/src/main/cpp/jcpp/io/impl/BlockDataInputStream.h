@@ -8,6 +8,7 @@
 #include "memory.h"
 #include "Object.h"
 #include "JDataInputStream.h"
+#include "JCPP.h"
 using namespace std;
 
 static const jint MAX_BLOCK_SIZE = 1024;
@@ -18,7 +19,7 @@ static const jint HEADER_BLOCKED = -2;
 namespace jcpp{
     namespace io{
         //TODO missing following methods : readLine
-        class BlockDataInputStream : public JInputStream, public JObjectStreamConstants {
+        class JCPP_LIBRARY_EXPORT BlockDataInputStream : public JInputStream, public JObjectStreamConstants {
         public:
             jbyte buf[MAX_BLOCK_SIZE];
             jbyte hbuf[MAX_HEADER_SIZE];

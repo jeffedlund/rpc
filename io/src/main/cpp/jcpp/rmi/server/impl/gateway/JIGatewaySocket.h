@@ -11,6 +11,7 @@
 #include "Object.h"
 #include "JAddress.h"
 #include "JRoute.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::util;
@@ -20,7 +21,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace gateway{
-                    class JIGatewaySocket : public JInterface{
+                    class JCPP_LIBRARY_EXPORT JIGatewaySocket : public JInterface{
                         public:
                         static JClass* getClazz();
                         virtual JRoute* getRoute()=0;

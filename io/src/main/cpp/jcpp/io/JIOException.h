@@ -3,11 +3,12 @@
 
 #include "JException.h"
 #include "JClass.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace io{
-        class JIOException : public JException{
+        class JCPP_LIBRARY_EXPORT JIOException : public JException{
         protected:
             JIOException(JClass* _class);
 

@@ -3,12 +3,13 @@
 
 #include "JObject.h"
 #include "JAccessibleObject.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
         namespace reflect{
-            class JField: public JAccessibleObject{
+            class JCPP_LIBRARY_EXPORT JField: public JAccessibleObject{
             public:
                 typedef JObject* (*getter)(JObject* objet);
                 typedef void (*setter)(JObject* object,JObject* value);

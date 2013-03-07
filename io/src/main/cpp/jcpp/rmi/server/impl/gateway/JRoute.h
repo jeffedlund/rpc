@@ -11,6 +11,7 @@
 #include "Object.h"
 #include "JAddress.h"
 #include "JSerializable.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::util;
@@ -21,7 +22,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace gateway{
-                    class JRoute : public JObject, public JSerializable{
+                    class JCPP_LIBRARY_EXPORT JRoute : public JObject, public JSerializable{
                         protected:
                             JArrayList* addressList;
                             JPrimitiveBoolean* bIsHttp;

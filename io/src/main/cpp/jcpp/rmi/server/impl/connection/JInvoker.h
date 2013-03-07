@@ -15,6 +15,7 @@
 #include "JEndPoint.h"
 #include "JObjectInformations.h"
 #include "JObjectPointer.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -26,7 +27,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace connection{
-                    class JInvoker : public JObject, public JSerializable{
+                    class JCPP_LIBRARY_EXPORT JInvoker : public JObject, public JSerializable{
                         protected:
                             JObjectInformations* objectInformations;
                             JObjectPointer* objectPointer;

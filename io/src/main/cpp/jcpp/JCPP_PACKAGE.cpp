@@ -1,4 +1,4 @@
-#include "JCPP.h"
+#include "JCPP_PACKAGE.h"
 #include "JIO.h"
 #include "JUTIL.h"
 #include "JLANG.h"
@@ -11,14 +11,14 @@ using namespace jcpp::net;
 using namespace jcpp::rmi;
 
 namespace jcpp{
-    JCPP::JCPP():JPackage("jcpp",JPackage::getClazz()){//better class
+    JCPP_PACKAGE::JCPP_PACKAGE():JPackage("jcpp",JPackage::getClazz()){//better class
     }
 
-    JPackage* JCPP::getSuperPackage(){
+    JPackage* JCPP_PACKAGE::getSuperPackage(){
         return NULL;
     }
 
-    vector<JPackage*>* JCPP::getPackages(){
+    vector<JPackage*>* JCPP_PACKAGE::getPackages(){
         if (packages->size()==0){
             packages->push_back(JIO::getPackage());
             packages->push_back(JUTIL::getPackage());
@@ -29,15 +29,15 @@ namespace jcpp{
         return packages;
     }
 
-    static JCPP* jcpp=NULL;
+    static JCPP_PACKAGE* jcpp=NULL;
 
-    JCPP* JCPP::getPackage(){
+    JCPP_PACKAGE* JCPP_PACKAGE::getPackage(){
         if (jcpp==NULL){
-            jcpp=new JCPP();
+            jcpp=new JCPP_PACKAGE();
         }
         return jcpp;
     }
 
-    JCPP::~JCPP(){
+    JCPP_PACKAGE::~JCPP_PACKAGE(){
     }
 }

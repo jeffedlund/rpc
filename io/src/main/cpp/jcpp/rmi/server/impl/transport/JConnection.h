@@ -13,6 +13,7 @@
 #include "JRoute.h"
 #include "JConnections.h"
 #include "JGatewayConfiguration.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::rmi::server::impl::gateway;
@@ -25,7 +26,7 @@ namespace jcpp{
                 namespace transport{
                     class JConnections;
                     class JTransport;
-                    class JConnection : public JObject{
+                    class JCPP_LIBRARY_EXPORT JConnection : public JObject{
                         protected:
                             JSocket* socket;
                             jlong lastUsed;

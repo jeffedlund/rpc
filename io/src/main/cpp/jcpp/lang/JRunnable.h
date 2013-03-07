@@ -3,11 +3,12 @@
 
 #include "JInterface.h"
 #include "JClass.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JRunnable : public JInterface{
+        class JCPP_LIBRARY_EXPORT JRunnable : public JInterface{
         protected:
 
         public:

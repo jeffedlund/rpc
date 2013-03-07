@@ -4,12 +4,13 @@
 #include <map>
 #include "JObject.h"
 #include "JPackage.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang::reflect;
 
 namespace jcpp{
     namespace lang{
-        class JClassLoader : public JObject{
+        class JCPP_LIBRARY_EXPORT JClassLoader : public JObject{
         protected:
             map<string, JClass*>* classes;
             bool bIsBootClassLoader;

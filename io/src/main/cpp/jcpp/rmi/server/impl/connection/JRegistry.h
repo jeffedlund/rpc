@@ -23,6 +23,7 @@
 #include "JClassLoader.h"
 #include "JIInvocationListener.h"
 #include "JObjectInformations.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -33,7 +34,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace connection{
-                    class JRegistry: public JObject, public JIRegistry{
+                    class JCPP_LIBRARY_EXPORT JRegistry: public JObject, public JIRegistry{
                     protected:
                         JObjectInformations* objectInformations;
 

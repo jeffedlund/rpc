@@ -3,11 +3,12 @@
 
 #include "JObjectStreamException.h"
 #include "JClass.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace io{
-        class JNotSerializableException : public JObjectStreamException{
+        class JCPP_LIBRARY_EXPORT JNotSerializableException : public JObjectStreamException{
         protected:
             JNotSerializableException(JClass* _clazz);
         public:

@@ -5,6 +5,7 @@
 #include "JDefaultNotSerializableObjectHandler.h"
 #include "JINotSerializableObjectHandler.h"
 #include "JNullNotSerializableObjectHandler.h"
+#include "JCPP.h"
 
 namespace jcpp{
     namespace rmi{
@@ -12,7 +13,7 @@ namespace jcpp{
             namespace impl{
                 namespace connection{
                     namespace serialization{
-                        class JCONNECTION_SERIALIZATION_PACKAGE : public JPackage{
+                        class JCPP_LIBRARY_EXPORT JCONNECTION_SERIALIZATION_PACKAGE : public JPackage{
                         protected:
                             JCONNECTION_SERIALIZATION_PACKAGE();
 

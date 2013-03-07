@@ -12,6 +12,7 @@
 #include "JThreadPoolExecutor.h"
 #include <QThreadPool>
 #include "JTimer.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::util;
@@ -19,7 +20,7 @@ using namespace jcpp::util;
 namespace jcpp{
     namespace util{
         namespace concurrent{
-            class JScheduledThreadPoolExecutor : public JThreadPoolExecutor, public JScheduledExecutorService{
+            class JCPP_LIBRARY_EXPORT JScheduledThreadPoolExecutor : public JThreadPoolExecutor, public JScheduledExecutorService{
             protected:
                 JTimer* timer;
 

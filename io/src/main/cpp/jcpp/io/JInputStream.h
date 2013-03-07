@@ -5,12 +5,13 @@
 #include "JObject.h"
 #include "JClass.h"
 #include "Object.h"
+#include "JCPP.h"
 using namespace jcpp::lang;
 
 namespace jcpp{
     namespace io{
         //TODO create JInputStreamAdapter(JInputStream), same for out+socket+serversocket
-        class JInputStream : public JObject{
+        class JCPP_LIBRARY_EXPORT JInputStream : public JObject{
         protected:
             static const int SKIP_BUFFER_SIZE = 2048;
             jbyte* skipBuffer;

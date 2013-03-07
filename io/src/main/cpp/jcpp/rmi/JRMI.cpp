@@ -1,5 +1,5 @@
 #include "JRMI.h"
-#include "JCPP.h"
+#include "JCPP_PACKAGE.h"
 #include "JSERVER_PACKAGE.h"
 using namespace jcpp::rmi::server;
 
@@ -9,7 +9,7 @@ namespace jcpp{
         }
 
         JPackage* JRMI::getSuperPackage(){
-            return JCPP::getPackage();
+            return JCPP_PACKAGE::getPackage();
         }
 
         vector<JPackage*>* JRMI::getPackages(){

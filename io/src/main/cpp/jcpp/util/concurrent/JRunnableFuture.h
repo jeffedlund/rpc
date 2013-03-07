@@ -5,13 +5,14 @@
 #include "JClass.h"
 #include "JRunnable.h"
 #include "JFuture.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 
 namespace jcpp{
     namespace util{
         namespace concurrent{
-            class JRunnableFuture : public JRunnable, public JFuture{
+            class JCPP_LIBRARY_EXPORT JRunnableFuture : public JRunnable, public JFuture{
 
             public:
                 static JClass* getClazz();

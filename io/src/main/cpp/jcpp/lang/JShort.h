@@ -6,11 +6,12 @@
 #include <vector>
 #include <iostream>
 #include "JPrimitiveShort.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JShort : public JNumber{
+        class JCPP_LIBRARY_EXPORT JShort : public JNumber{
             protected:
                 JPrimitiveShort* value;
 

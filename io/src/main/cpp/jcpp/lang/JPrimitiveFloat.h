@@ -5,11 +5,12 @@
 #include <vector>
 #include <iostream>
 #include "Object.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JPrimitiveFloat : public JObject{
+        class JCPP_LIBRARY_EXPORT JPrimitiveFloat : public JObject{
 
             protected:
                 jfloat value;

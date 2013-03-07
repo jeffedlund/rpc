@@ -1,5 +1,5 @@
 #include "JUTIL.h"
-#include "JCPP.h"
+#include "JCPP_PACKAGE.h"
 using namespace jcpp::util::concurrent;
 namespace jcpp{
     namespace util{
@@ -15,7 +15,7 @@ namespace jcpp{
         }
 
         JPackage* JUTIL::getSuperPackage(){
-            return JCPP::getPackage();
+            return JCPP_PACKAGE::getPackage();
         }
 
         vector<JPackage*>* JUTIL::getPackages(){

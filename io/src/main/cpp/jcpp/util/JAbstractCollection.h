@@ -8,12 +8,13 @@
 #include "JObjectInputStream.h"
 #include "JObjectOutputStream.h"
 #include "JCollection.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::io;
 
 namespace jcpp{
     namespace util{
-        class JAbstractCollection: public JObject, public JCollection{
+        class JCPP_LIBRARY_EXPORT JAbstractCollection: public JObject, public JCollection{
         protected:
             JAbstractCollection(JClass* _class);
 

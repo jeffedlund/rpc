@@ -13,6 +13,7 @@
 #include "JGatewaySocket.h"
 #include "JGatewaySocketFactory.h"
 #include "JIGatewaySocket.h"
+#include "JCPP.h"
 using namespace jcpp;
 using namespace jcpp::lang::reflect;
 using namespace jcpp::rmi::server::impl;
@@ -22,7 +23,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace gateway{
-                    class JGATEWAY : public JPackage{
+                    class JCPP_LIBRARY_EXPORT JGATEWAY : public JPackage{
                     protected:
                         JGATEWAY();
 

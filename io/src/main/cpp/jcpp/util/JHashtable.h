@@ -3,6 +3,7 @@
 
 #include "JObject.h"
 #include <map>
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 
@@ -10,7 +11,7 @@ namespace jcpp{
     namespace util{
         //TODO implement most of util classes
         template <class Key, class Value>
-        class JHashtable : public JObject{
+        class JCPP_LIBRARY_EXPORT JHashtable : public JObject{
             map<Key,Value>* hashtable;
 
         public:

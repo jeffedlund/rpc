@@ -5,10 +5,11 @@
 #include "JDataOutputStream.h"
 #include "JBits.h"
 #include "Object.h"
+#include "JCPP.h"
 
 namespace jcpp{
     namespace io{
-        class JBlockDataOutputStream : public JOutputStream{
+        class JCPP_LIBRARY_EXPORT JBlockDataOutputStream : public JOutputStream{
         private:
             static const jint MAX_BLOCK_SIZE = 1024;
             static const jint MAX_HEADER_SIZE = 5;

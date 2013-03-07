@@ -8,13 +8,14 @@
 #include "JServerSocket.h"
 #include "QObjectAware.h"
 #include "JInetAddress.h"
+#include "JCPP.h"
 using namespace jcpp::lang;
 
 namespace jcpp{
     namespace net{
         class JServerSocket;
 
-        class JSocket : public JObject, public QObjectAware{
+        class JCPP_LIBRARY_EXPORT JSocket : public JObject, public QObjectAware{
         protected:
             bool bIsClosed;
             JString* host;

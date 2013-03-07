@@ -10,11 +10,13 @@ QT       -= gui
 
 QT += network
 
-TARGET = io
+TARGET = jcpp
 CONFIG   += console
 CONFIG   -= app_bundle
 
-TEMPLATE = app
+DEFINES += JCPP_LIBRARY
+
+TEMPLATE = lib
 
 
 INCLUDEPATH += \
@@ -26,10 +28,6 @@ INCLUDEPATH += \
         src/main/cpp/jcpp/util/concurrent \
 	src/main/cpp/jcpp/lang/exception \
 	src/main/cpp/jcpp/lang/reflect \
-	src/test/cpp/jcpp\
-	src/test/cpp/jcpp/lang \
-        src/test/cpp/jcpp/io \
-        src/test/cpp/jcpp/util \
         src/main/cpp/jcpp/rmi/ \
         src/main/cpp/jcpp/rmi/server \
         src/main/cpp/jcpp/rmi/server/impl \
@@ -39,10 +37,8 @@ INCLUDEPATH += \
         src/main/cpp/jcpp/rmi/server/impl/connection/serialization \
         src/main/cpp/jcpp/net \
         src/main/cpp/jcpp/security \
-        src/test/cpp/jcpp/rmi/server/impl/connection
 
 SOURCES += \
-    src/test/cpp/jcpp/main.cpp \
     src/main/cpp/jcpp/lang/JClass.cpp \
     src/main/cpp/jcpp/lang/JClassLoader.cpp \
     src/main/cpp/jcpp/lang/JObject.cpp \
@@ -104,7 +100,6 @@ SOURCES += \
     src/main/cpp/jcpp/io/JStreamCorruptedException.cpp \
     src/main/cpp/jcpp/io/JOptionalDataException.cpp \
     src/main/cpp/jcpp/io/JNotActiveException.cpp \
-    src/test/cpp/jcpp/JSampleObject.cpp \
     src/main/cpp/jcpp/lang/exception/JIllegalStateException.cpp \
     src/main/cpp/jcpp/lang/exception/JUnsupportedOperationException.cpp \
     src/main/cpp/jcpp/lang/exception/JClassCastException.cpp \
@@ -119,57 +114,13 @@ SOURCES += \
     src/main/cpp/jcpp/io/JNotSerializableException.cpp \
     src/main/cpp/jcpp/io/QtDataOutputStream.cpp \
     src/main/cpp/jcpp/lang/JInterface.cpp \
-    src/test/cpp/jcpp/JTest.cpp \
-    src/test/cpp/jcpp/lang/JThrowableTest.cpp \
-    src/test/cpp/jcpp/lang/JErrorTest.cpp \
-    src/test/cpp/jcpp/lang/JExceptionTest.cpp \
-    src/test/cpp/jcpp/lang/JRuntimeExceptionTest.cpp \
-    src/test/cpp/jcpp/lang/JClassCastExceptionTest.cpp \
-    src/test/cpp/jcpp/lang/JClassNotFoundExceptionTest.cpp \
-    src/test/cpp/jcpp/lang/JIllegalArgumentExceptionTest.cpp \
-    src/test/cpp/jcpp/lang/JIllegalStateExceptionTest.cpp \
-    src/test/cpp/jcpp/lang/JIndexOutOfBoundsExceptionTest.cpp \
-    src/test/cpp/jcpp/lang/JInstantiationExceptionTest.cpp \
-    src/test/cpp/jcpp/lang/JVirtualMachineErrorTest.cpp \
-    src/test/cpp/jcpp/lang/JInternalErrorTest.cpp \
-    src/test/cpp/jcpp/lang/JNoSuchFieldExceptionTest.cpp \
-    src/test/cpp/jcpp/lang/JNoSuchMethodExceptionTest.cpp \
-    src/test/cpp/jcpp/lang/JNullPointerExceptionTest.cpp \
-    src/test/cpp/jcpp/lang/JUnsupportedOperationExceptionTest.cpp \
-    src/test/cpp/jcpp/io/JIOExceptionTest.cpp \
-    src/test/cpp/jcpp/io/JObjectStreamExceptionTest.cpp \
-    src/test/cpp/jcpp/io/JInvalidClassExceptionTest.cpp \
-    src/test/cpp/jcpp/io/JNotActiveExceptionTest.cpp \
-    src/test/cpp/jcpp/io/JNotSerializableExceptionTest.cpp \
-    src/test/cpp/jcpp/io/JOptionalDataExceptionTest.cpp \
-    src/test/cpp/jcpp/io/JStreamCorruptedExceptionTest.cpp \
-    src/test/cpp/jcpp/io/JUTFDataFormatExceptionTest.cpp \
     src/main/cpp/jcpp/lang/reflect/JAccessibleObject.cpp \
-    src/test/cpp/jcpp/lang/JShortTest.cpp \
-    src/test/cpp/jcpp/lang/JBooleanTest.cpp \
-    src/test/cpp/jcpp/lang/JByteTest.cpp \
-    src/test/cpp/jcpp/lang/JCharTest.cpp \
-    src/test/cpp/jcpp/lang/JDoubleTest.cpp \
-    src/test/cpp/jcpp/lang/JFloatTest.cpp \
-    src/test/cpp/jcpp/lang/JIntegerTest.cpp \
-    src/test/cpp/jcpp/lang/JLongTest.cpp \
-    src/test/cpp/jcpp/lang/JStringTest.cpp \
-    src/test/cpp/jcpp/lang/JPrimitiveBooleanTest.cpp \
-    src/test/cpp/jcpp/lang/JPrimitiveByteTest.cpp \
-    src/test/cpp/jcpp/lang/JPrimitiveCharTest.cpp \
-    src/test/cpp/jcpp/lang/JPrimitiveDoubleTest.cpp \
-    src/test/cpp/jcpp/lang/JPrimitiveFloatTest.cpp \
-    src/test/cpp/jcpp/lang/JPrimitiveLongTest.cpp \
-    src/test/cpp/jcpp/lang/JPrimitiveShortTest.cpp \
-    src/test/cpp/jcpp/lang/JPrimitiveIntTest.cpp \
     src/main/cpp/jcpp/lang/reflect/JPackage.cpp \
-    src/main/cpp/jcpp/JCPP.cpp \
     src/main/cpp/jcpp/io/JIO.cpp \
     src/main/cpp/jcpp/lang/JLANG.cpp \
     src/main/cpp/jcpp/lang/reflect/JREFLECT.cpp \
     src/main/cpp/jcpp/util/JUTIL.cpp \
     src/main/cpp/jcpp/rmi/server/impl/gateway/JAddress.cpp \
-    src/test/cpp/jcpp/util/JArrayListTest.cpp \
     src/main/cpp/jcpp/util/JCollection.cpp \
     src/main/cpp/jcpp/util/JList.cpp \
     src/main/cpp/jcpp/util/JAbstractCollection.cpp \
@@ -258,12 +209,7 @@ SOURCES += \
     src/main/cpp/jcpp/lang/QObjectHolder.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/JCONNECTION_PACKAGE.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/serialization/JCONNECTION_SERIALIZATION_PACKAGE.cpp \
-    src/test/cpp/jcpp/util/JBitsTest.cpp \
-    src/test/cpp/jcpp/util/JTimerTest.cpp \
-    src/test/cpp/jcpp/net/JSocketTest.cpp \
-    src/test/cpp/jcpp/util/concurrent/JScheduledExecutorServiceTest.cpp \
-    src/test/cpp/jcpp/rmi/server/impl/transport/JTransportTest.cpp \
-    src/test/cpp/jcpp/rmi/server/impl/connection/JServerTest.cpp
+    src/main/cpp/jcpp/JCPP_PACKAGE.cpp
     
     
 LIBS += -lws2_32
@@ -334,7 +280,6 @@ HEADERS += \
     src/main/cpp/jcpp/io/JStreamCorruptedException.h \
     src/main/cpp/jcpp/io/JOptionalDataException.h \
     src/main/cpp/jcpp/io/JNotActiveException.h \
-    src/test/cpp/jcpp/JSampleObject.h \
     src/main/cpp/jcpp/io/JIO.h \
     src/main/cpp/jcpp/lang/exception/JIllegalStateException.h \
     src/main/cpp/jcpp/lang/exception/JUnsupportedOperationException.h \
@@ -351,56 +296,12 @@ HEADERS += \
     src/main/cpp/jcpp/io/QtDataOutputStream.h \
     src/main/cpp/jcpp/lang/Object.h \
     src/main/cpp/jcpp/lang/JInterface.h \
-    src/test/cpp/jcpp/lang/JThrowableTest.h \
-    src/test/cpp/jcpp/JTest.h \
-    src/test/cpp/jcpp/lang/JErrorTest.h \
-    src/test/cpp/jcpp/lang/JExceptionTest.h \
-    src/test/cpp/jcpp/lang/JRuntimeExceptionTest.h \
-    src/test/cpp/jcpp/lang/JClassCastExceptionTest.h \
-    src/test/cpp/jcpp/lang/JClassNotFoundExceptionTest.h \
-    src/test/cpp/jcpp/lang/JIllegalArgumentExceptionTest.h \
-    src/test/cpp/jcpp/lang/JIllegalStateExceptionTest.h \
-    src/test/cpp/jcpp/lang/JIndexOutOfBoundsExceptionTest.h \
-    src/test/cpp/jcpp/lang/JInstantiationExceptionTest.h \
-    src/test/cpp/jcpp/lang/JVirtualMachineErrorTest.h \
-    src/test/cpp/jcpp/lang/JInternalErrorTest.h \
-    src/test/cpp/jcpp/lang/JNoSuchFieldExceptionTest.h \
-    src/test/cpp/jcpp/lang/JNoSuchMethodExceptionTest.h \
-    src/test/cpp/jcpp/lang/JNullPointerExceptionTest.h \
-    src/test/cpp/jcpp/lang/JUnsupportedOperationExceptionTest.h \
-    src/test/cpp/jcpp/io/JIOExceptionTest.h \
-    src/test/cpp/jcpp/io/JObjectStreamExceptionTest.h \
-    src/test/cpp/jcpp/io/JInvalidClassExceptionTest.h \
-    src/test/cpp/jcpp/io/JNotActiveExceptionTest.h \
-    src/test/cpp/jcpp/io/JNotSerializableExceptionTest.h \
-    src/test/cpp/jcpp/io/JOptionalDataExceptionTest.h \
-    src/test/cpp/jcpp/io/JStreamCorruptedExceptionTest.h \
-    src/test/cpp/jcpp/io/JUTFDataFormatExceptionTest.h \
     src/main/cpp/jcpp/lang/reflect/JAccessibleObject.h \
-    src/test/cpp/jcpp/lang/JShortTest.h \
-    src/test/cpp/jcpp/lang/JBooleanTest.h \
-    src/test/cpp/jcpp/lang/JByteTest.h \
-    src/test/cpp/jcpp/lang/JCharTest.h \
-    src/test/cpp/jcpp/lang/JDoubleTest.h \
-    src/test/cpp/jcpp/lang/JFloatTest.h \
-    src/test/cpp/jcpp/lang/JIntegerTest.h \
-    src/test/cpp/jcpp/lang/JLongTest.h \
-    src/test/cpp/jcpp/lang/JStringTest.h \
-    src/test/cpp/jcpp/lang/JPrimitiveBooleanTest.h \
-    src/test/cpp/jcpp/lang/JPrimitiveCharTest.h \
-    src/test/cpp/jcpp/lang/JPrimitiveByteTest.h \
-    src/test/cpp/jcpp/lang/JPrimitiveDoubleTest.h \
-    src/test/cpp/jcpp/lang/JPrimitiveFloatTest.h \
-    src/test/cpp/jcpp/lang/JPrimitiveLongTest.h \
-    src/test/cpp/jcpp/lang/JPrimitiveShortTest.h \
-    src/test/cpp/jcpp/lang/JPrimitiveIntTest.h \
     src/main/cpp/jcpp/lang/reflect/JPackage.h \
-    src/main/cpp/jcpp/JCPP.h \
     src/main/cpp/jcpp/lang/JLANG.h \
     src/main/cpp/jcpp/lang/reflect/JREFLECT.h \
     src/main/cpp/jcpp/util/JUTIL.h \
     src/main/cpp/jcpp/rmi/server/impl/gateway/JAddress.h \
-    src/test/cpp/jcpp/util/JArrayListTest.h \
     src/main/cpp/jcpp/util/JAbstractList.h \
     src/main/cpp/jcpp/util/JList.h \
     src/main/cpp/jcpp/util/JAbstractCollection.h \
@@ -488,12 +389,8 @@ HEADERS += \
     src/main/cpp/jcpp/lang/QObjectHolder.h \
     src/main/cpp/jcpp/rmi/server/impl/connection/JCONNECTION_PACKAGE.h \
     src/main/cpp/jcpp/rmi/server/impl/connection/serialization/JCONNECTION_SERIALIZATION_PACKAGE.h \
-    src/test/cpp/jcpp/util/JBitsTest.h \
-    src/test/cpp/jcpp/util/JTimerTest.h \
-    src/test/cpp/jcpp/net/JSocketTest.h \
-    src/test/cpp/jcpp/util/concurrent/JScheduledExecutorServiceTest.h \
-    src/test/cpp/jcpp/rmi/server/impl/transport/JTransportTest.h \
-    src/test/cpp/jcpp/rmi/server/impl/connection/JServerTest.h
+    src/main/cpp/jcpp/JCPP_PACKAGE.h \
+    src/main/cpp/jcpp/JCPP.h
     
     
 OTHER_FILES += \

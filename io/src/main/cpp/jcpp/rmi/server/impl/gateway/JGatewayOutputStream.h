@@ -10,6 +10,7 @@
 #include "Object.h"
 #include "JObjectOutputStream.h"
 #include "JRoute.h"
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 
@@ -18,7 +19,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace gateway{
-                    class JGatewayOutputStream : public JObjectOutputStream{
+                    class JCPP_LIBRARY_EXPORT JGatewayOutputStream : public JObjectOutputStream{
                     protected:
                         JRoute* route;
 

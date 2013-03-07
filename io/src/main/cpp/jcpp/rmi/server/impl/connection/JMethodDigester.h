@@ -16,6 +16,7 @@
 #include "JObjectInformations.h"
 #include "JObjectPointer.h"
 #include "MD5.h" //TODO define security.MessageDigest
+#include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -27,7 +28,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace connection{
-                    class JMethodDigester : public JObject{
+                    class JCPP_LIBRARY_EXPORT JMethodDigester : public JObject{
                         protected:
                             map<JClass*, map<long, JMethod*>*>* digestToMethodMap;
                             map<JClass*, map<JMethod*, long>*>* methodToDigestMap;

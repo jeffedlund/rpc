@@ -6,11 +6,12 @@
 #include <vector>
 #include <iostream>
 #include "JPrimitiveFloat.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JFloat : public JNumber{
+        class JCPP_LIBRARY_EXPORT JFloat : public JNumber{
 
             protected:
                 JPrimitiveFloat* value;

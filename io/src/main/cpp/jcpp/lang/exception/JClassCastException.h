@@ -3,11 +3,12 @@
 
 #include "JException.h"
 #include "JRuntimeException.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JClassCastException : public JRuntimeException
+        class JCPP_LIBRARY_EXPORT JClassCastException : public JRuntimeException
         {
         public:
             JClassCastException();

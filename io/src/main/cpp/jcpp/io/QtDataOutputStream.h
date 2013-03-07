@@ -6,10 +6,11 @@
 #include <QAbstractSocket>
 #include "JOutputStream.h"
 #include "Object.h"
+#include "JCPP.h"
 
 namespace jcpp{
     namespace io{
-        class QtDataOutputStream : public JOutputStream{
+        class JCPP_LIBRARY_EXPORT QtDataOutputStream : public JOutputStream{
             QDataStream* out;
             QFile* file;
             QAbstractSocket* socket;

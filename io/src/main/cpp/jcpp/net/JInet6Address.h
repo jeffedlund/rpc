@@ -4,10 +4,11 @@
 #include "JLANG.h"
 #include "JIO.h"
 #include "JInetAddress.h"
+#include "JCPP.h"
 
 namespace jcpp{
     namespace net{
-        class JInet6Address : public JInetAddress{//TODO implement
+        class JCPP_LIBRARY_EXPORT JInet6Address : public JInetAddress{//TODO implement
         protected:
 
         public:

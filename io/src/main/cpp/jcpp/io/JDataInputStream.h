@@ -4,12 +4,13 @@
 #include "JInputStream.h"
 #include "JClass.h"
 #include "Object.h"
+#include "JCPP.h"
 using namespace std;
 
 namespace jcpp{
     namespace io{
         //TODO implement readLine
-        class JDataInputStream : public JInputStream{
+        class JCPP_LIBRARY_EXPORT JDataInputStream : public JInputStream{
             JInputStream *in;
 
         public:
