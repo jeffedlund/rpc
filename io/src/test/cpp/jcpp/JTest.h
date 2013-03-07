@@ -31,15 +31,19 @@ namespace jcpp{
             r=defaultRead;
         }
 
-        virtual string getFileName()=0;
+        virtual string getFileName(){
+            return "";
+        }
 
-        virtual JObject* testReflect()=0;
+        virtual JObject* testReflect(){
+            return NULL;
+        }
 
         void testWrite(JObject* object);
 
         JObject* testRead();
 
-        void test();
+        virtual void test();
 
         write getWrite(){
             return w;

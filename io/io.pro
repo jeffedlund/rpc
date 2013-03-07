@@ -38,7 +38,8 @@ INCLUDEPATH += \
         src/main/cpp/jcpp/rmi/server/impl/connection \
         src/main/cpp/jcpp/rmi/server/impl/connection/serialization \
         src/main/cpp/jcpp/net \
-        src/main/cpp/jcpp/security
+        src/main/cpp/jcpp/security \
+        src/test/cpp/jcpp/rmi/server/impl/connection
 
 SOURCES += \
     src/test/cpp/jcpp/main.cpp \
@@ -256,7 +257,13 @@ SOURCES += \
     src/main/cpp/jcpp/rmi/server/impl/connection/JMethodDigester.cpp \
     src/main/cpp/jcpp/lang/QObjectHolder.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/JCONNECTION_PACKAGE.cpp \
-    src/main/cpp/jcpp/rmi/server/impl/connection/serialization/JCONNECTION_SERIALIZATION_PACKAGE.cpp
+    src/main/cpp/jcpp/rmi/server/impl/connection/serialization/JCONNECTION_SERIALIZATION_PACKAGE.cpp \
+    src/test/cpp/jcpp/util/JBitsTest.cpp \
+    src/test/cpp/jcpp/util/JTimerTest.cpp \
+    src/test/cpp/jcpp/net/JSocketTest.cpp \
+    src/test/cpp/jcpp/util/concurrent/JScheduledExecutorServiceTest.cpp \
+    src/test/cpp/jcpp/rmi/server/impl/transport/JTransportTest.cpp \
+    src/test/cpp/jcpp/rmi/server/impl/connection/JServerTest.cpp
     
     
 LIBS += -lws2_32
@@ -480,7 +487,13 @@ HEADERS += \
     src/main/cpp/jcpp/rmi/server/impl/connection/JMethodDigester.h \
     src/main/cpp/jcpp/lang/QObjectHolder.h \
     src/main/cpp/jcpp/rmi/server/impl/connection/JCONNECTION_PACKAGE.h \
-    src/main/cpp/jcpp/rmi/server/impl/connection/serialization/JCONNECTION_SERIALIZATION_PACKAGE.h
+    src/main/cpp/jcpp/rmi/server/impl/connection/serialization/JCONNECTION_SERIALIZATION_PACKAGE.h \
+    src/test/cpp/jcpp/util/JBitsTest.h \
+    src/test/cpp/jcpp/util/JTimerTest.h \
+    src/test/cpp/jcpp/net/JSocketTest.h \
+    src/test/cpp/jcpp/util/concurrent/JScheduledExecutorServiceTest.h \
+    src/test/cpp/jcpp/rmi/server/impl/transport/JTransportTest.h \
+    src/test/cpp/jcpp/rmi/server/impl/connection/JServerTest.h
     
     
 OTHER_FILES += \

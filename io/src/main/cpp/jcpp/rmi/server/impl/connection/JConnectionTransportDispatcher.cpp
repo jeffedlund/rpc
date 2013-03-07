@@ -107,7 +107,7 @@ namespace jcpp{
                         try {
                             oos->done();
                         } catch (JThrowable* throwable) {
-                            //log
+                            //TODO log
                         }
                     }
 

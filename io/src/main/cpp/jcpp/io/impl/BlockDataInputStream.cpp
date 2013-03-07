@@ -522,7 +522,7 @@ namespace jcpp{
                             throw new JUTFDataFormatException();
                     }
                 }
-            } catch (JThrowable* ex){//TODO JArrayIndexOutOfBoundsException* ex) {
+            } catch (JThrowable* ex){//ideally JArrayIndexOutOfBoundsException*
                 outOfBounds = true;
             }
             if (outOfBounds || (pos - start) > utflen) {

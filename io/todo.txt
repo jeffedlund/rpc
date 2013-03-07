@@ -1,7 +1,6 @@
 group1:
 -------
 -is there a toString equivalence in c++?
--test throwable and catch of catch(JThrowable* th)
 -work on wiki documentation
 -test case on Externalizable (maybe by implementing JArrayList)
 -faire operator pour onvertir string a JString, int a JPrim..., etc
@@ -18,3 +17,9 @@ group2:
 -implement all jcpp.util classes (a quite big list :))
 -test with java 1.8
 
+group3: TODO have test cases for input stream:
+-primitive arrays of primitive type
+-primitive arrays of object
+-primitive array of primitive array
+-object of object of object
+-object containing proxy
