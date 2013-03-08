@@ -5,7 +5,6 @@ group1:
 -test case on Externalizable (maybe by implementing JArrayList)
 -faire operator pour onvertir string a JString, int a JPrim..., etc
 -use which cast? () or dynamic or static?
--create a library
 -is there a dynamic proxy in c++? implement proxies
 -what to do with map/keys as pointers
 
