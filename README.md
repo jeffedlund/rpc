@@ -1,5 +1,5 @@
-RPC
-===
+JCPP
+====
 
 It is always hard to describe what something does in very short words.
 Let's list what it does or what it will do :
