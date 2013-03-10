@@ -15,6 +15,9 @@ public class ClassInfo{
     private String componentType;
     @XmlElementWrapper
     @XmlElement
+    private List<String> imports;
+    @XmlElementWrapper
+    @XmlElement
     private List<EnumInfo> enumConstants;
     @XmlElementWrapper
     @XmlElement
@@ -47,6 +50,7 @@ public class ClassInfo{
     private long serialVersionUID;
 
     public ClassInfo(){
+    	imports=new ArrayList<String>();
     	enumConstants=new ArrayList<EnumInfo>();
     	fields=new ArrayList<FieldInfo>();
     	declaredFields=new ArrayList<FieldInfo>();
@@ -85,6 +89,14 @@ public class ClassInfo{
 
     public void setComponentType(String componentType){
     	this.componentType=componentType;
+    }
+
+    public List<String> getImports(){
+    	return imports;
+    }
+
+    public void setImports(List<String> i){
+    	this.imports=i;
     }
 
     public List<EnumInfo> getEnumConstants(){

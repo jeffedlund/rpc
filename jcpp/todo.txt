@@ -7,7 +7,7 @@ group1:
 -use which cast? () or dynamic or static?
 -is there a dynamic proxy in c++? implement proxies
 -what to do with map/keys as pointers
-
+-use template in PrimitiveArray
 
 group2:
 -------

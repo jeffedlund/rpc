@@ -1,0 +1,1 @@
+d:\java\jdk1.8.0\bin\java -cp target\parser-1.0.jar;D:\.m2\freemarker\freemarker\2.3.8\freemarker-2.3.8.jar jcpp.parser.io.CPPExporter
