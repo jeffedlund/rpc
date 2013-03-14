@@ -51,6 +51,10 @@ namespace jcpp{
 
                 virtual ~JObject();
         };
+
+        JCPP_LIBRARY_EXPORT ostream& operator<<(ostream& os,jcpp::lang::JObject* o);
     }
 }
+
+
 #endif // JOBJECT_H

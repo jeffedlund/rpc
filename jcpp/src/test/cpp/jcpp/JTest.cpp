@@ -46,6 +46,17 @@ namespace jcpp{
         testWrite(object);
         JObject* read=testRead();
         if (getRead()!=NULL && getWrite()!=NULL){
+            cout<<"reflect==";
+            if(object!=NULL){
+                cout<<object;
+            }
+            cout<<"\r\n";
+            cout<<"read==";
+            if (read!=NULL){
+                cout<<read;
+            }
+            cout<<"\r\n";
+            cout.flush();
             assert ((*read)==(*object));
         }
     }

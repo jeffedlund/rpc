@@ -5,66 +5,115 @@ import java.util.*;
 
 @XmlRootElement
 public class ClassInfo{
-	@XmlElement
-	private String name;
+    @XmlElement
+    private ClassKeyInfo classKeyInfo;
+    @XmlElementWrapper
+    @XmlElement
+    private List<ClassKeyInfo> importClassKeyInfos;
+	@XmlElementWrapper
+    @XmlElement
+    private List<String> additionnalIncludes;
+    @XmlElement
+    private ClassKeyInfo parentClass;
+    @XmlElementWrapper
+    @XmlElement
+    private List<ClassKeyInfo> interfaces;
+
 	@XmlElement
 	private String canonicalName;
 	@XmlElement
     private String simpleName;
+	@XmlElement
+    private String name;
     @XmlElement
-    private String componentType;
-    @XmlElementWrapper
+    private long serialVersionUID;
     @XmlElement
-    private List<String> imports;
-    @XmlElementWrapper
-    @XmlElement
-    private List<EnumInfo> enumConstants;
-    @XmlElementWrapper
-    @XmlElement
-    private List<FieldInfo> fields;
+    private boolean bIsInterface;
+
     @XmlElementWrapper
     @XmlElement
     private List<FieldInfo> declaredFields;
     @XmlElementWrapper
     @XmlElement
-    private List<MethodInfo> methods;
-    @XmlElementWrapper
-    @XmlElement
     private List<MethodInfo> declaredMethods;
+
+
+    @XmlElement
+    private String componentType;
     @XmlElementWrapper
     @XmlElement
-    private List<String> interfaces;
-    @XmlElement
-    private boolean bIsArray;
+    private List<EnumInfo> enumConstants;
     @XmlElement
     private boolean bIsProxy;
     @XmlElement
-    private boolean bIsEnum;
-    @XmlElement
-    private boolean bIsInterface;
-    @XmlElement
-    private boolean bIsPrimitive;
-    @XmlElement
     private boolean bIsPackage;
-    @XmlElement
-    private long serialVersionUID;
+
 
     public ClassInfo(){
-    	imports=new ArrayList<String>();
-    	enumConstants=new ArrayList<EnumInfo>();
-    	fields=new ArrayList<FieldInfo>();
+		includes=new ArrayList<String>();
+		useNamespace=new ArrayList<String>();
+		namespace=new ArrayList<String>();
+		interfaces=new ArrayList<String>();
     	declaredFields=new ArrayList<FieldInfo>();
-    	methods=new ArrayList<MethodInfo>();
     	declaredMethods=new ArrayList<MethodInfo>();
-    	interfaces=new ArrayList<String>();
+
+    	enumConstants=new ArrayList<EnumInfo>();
     }
 
-	public String getName(){
-		return name;
+	public String getIfndef(){
+		return ifndef;
 	}
 
-	public void setName(String name){
-		this.name=name;
+	public void setIfndef(String n){
+		this.ifndef=n;
+	}
+
+    public List<String> getIncludes(){
+    	return includes;
+    }
+
+    public void setIncludes(List<String> i){
+    	this.includes=i;
+    }
+
+    public String getDirectory(){
+    	String str="";
+    	for (String s : namespace){
+    		str+=s+"/";
+    	}
+    	return str;
+    }
+
+    public List<String> getUseNamespace(){
+    	return useNamespace;
+    }
+
+    public void setUseNamespace(List<String> u){
+    	this.useNamespace=u;
+    }
+
+    public List<String> getNamespace(){
+    	return namespace;
+    }
+
+    public void setNamespace(List<String> u){
+    	this.namespace=u;
+    }
+
+	public String getClassName(){
+		return className;
+	}
+
+	public void setClassName(String name){
+		this.className=name;
+	}
+
+	public String getParentClass(){
+		return parentClass;
+	}
+
+	public void setParentClass(String n){
+		this.parentClass=n;
 	}
 
 	public String getCanonicalName(){
@@ -83,36 +132,12 @@ public class ClassInfo{
 		this.simpleName=simpleName;
 	}
 
-    public String getComponentType(){
-    	return componentType;
-    }
-
-    public void setComponentType(String componentType){
-    	this.componentType=componentType;
-    }
-
-    public List<String> getImports(){
-    	return imports;
-    }
-
-    public void setImports(List<String> i){
-    	this.imports=i;
-    }
-
-    public List<EnumInfo> getEnumConstants(){
-    	return enumConstants;
-    }
-
-    public void setEnumConstants(List<EnumInfo> c){
-    	this.enumConstants=c;
-    }
-
-	public List<FieldInfo> getFields(){
-		return fields;
+	public String getName(){
+		return name;
 	}
 
-	public void setFields(List<FieldInfo> f){
-		this.fields=f;
+	public void setName(String n){
+		this.name=n;
 	}
 
 	public List<FieldInfo> getDeclaredFields(){
@@ -123,12 +148,20 @@ public class ClassInfo{
 		this.declaredFields=f;
 	}
 
-	public List<MethodInfo> getMethods(){
-		return methods;
-	}
+    public List<String> getInterfaces(){
+    	return interfaces;
+    }
 
-	public void setMethods(List<MethodInfo> m){
-		this.methods=m;
+    public void setInterfaces(List<String> i){
+    	this.interfaces=i;
+    }
+
+	public long getSerialVersionUID(){
+		return serialVersionUID;
+	}
+	
+	public void setSerialVersionUID(long l){
+		this.serialVersionUID=l;
 	}
 
 	public List<MethodInfo> getDeclaredMethods(){
@@ -139,21 +172,31 @@ public class ClassInfo{
 		this.declaredMethods=m;
 	}
 
-    public List<String> getInterfaces(){
-    	return interfaces;
-    }
-
-    public void setInterfaces(List<String> i){
-    	this.interfaces=i;
-    }
-
-	public boolean isArray(){
-		return bIsArray;
+	public boolean isInterface(){
+		return bIsInterface;
 	}
 
-	public void setIsArray(boolean b){
-		this.bIsArray=b;
+	public void setIsInterface(boolean b){
+		this.bIsInterface=b;
 	}
+
+
+
+    public String getComponentType(){
+    	return componentType;
+    }
+
+    public void setComponentType(String componentType){
+    	this.componentType=componentType;
+    }
+
+    public List<EnumInfo> getEnumConstants(){
+    	return enumConstants;
+    }
+
+    public void setEnumConstants(List<EnumInfo> c){
+    	this.enumConstants=c;
+    }
 
 	public boolean isProxy(){
 		return bIsProxy;
@@ -163,43 +206,11 @@ public class ClassInfo{
 		this.bIsProxy=b;
 	}
 
-	public boolean isEnum(){
-		return bIsEnum;
-	}
-
-	public void setIsEnum(boolean b){
-		this.bIsEnum=b;
-	}
-
-	public boolean isInterface(){
-		return bIsInterface;
-	}
-
-	public void setIsInterface(boolean b){
-		this.bIsInterface=b;
-	}
-
-	public boolean isPrimitive(){
-		return bIsPrimitive;
-	}
-
-	public void setIsPrimitive(boolean b){
-		this.bIsPrimitive=b;
-	}
-
 	public boolean isPackage(){
 		return bIsPackage;
 	}
 
 	public void setIsPackage(boolean b){
 		this.bIsPackage=b;
-	}
-
-	public long getSerialVersionUID(){
-		return serialVersionUID;
-	}
-	
-	public void setSerialVersionUID(long l){
-		this.serialVersionUID=l;
 	}
 }

@@ -37,6 +37,7 @@ namespace ${ns}{
             canonicalName="${class.canonicalName}";
             name="${class.name}";
             simpleName="${class.simpleName}";
+            serialVersionUID=${class.serialVersionUID}ULL;
 
             <#list class.declaredFields as field>
 			this->addField(new JField("${field.name}",${field.type}::getClazz(),staticGet${field.name},staticSet${field.name}));
@@ -91,6 +92,16 @@ namespace ${ns}{
 	}
 
 	</#list>
+
+	string ${class.className}::toString(){
+		string str="";
+		<#list class.declaredFields as field>
+		if (${field.name}!=NULL){
+			str+="[${field.name}="+${field.name}->toString()+"]";
+		}
+		</#list>
+		return str;
+	}
 
 
     ${class.className}::~${class.className}(){

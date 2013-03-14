@@ -8,12 +8,10 @@ public class MethodInfo{
     @XmlElement
     String name;
     @XmlElement
-    String declaringClass;
-    @XmlElement
-    String returnType;
+    ClassKeyInfo returnType;
     @XmlElementWrapper
     @XmlElement
-    List<String> parameterType;
+    List<ClassKeyInfo> parameterType;
 
     public MethodInfo(){
         parameterType=new ArrayList<String>();
@@ -27,27 +25,19 @@ public class MethodInfo{
         this.name=n;
     }
 
-    public String getDeclaringClass(){
-        return declaringClass;
-    }
-
-    public void setDeclaringClass(String d){
-        this.declaringClass=d;
-    }
-
-    public String getReturnType(){
+    public ClassKeyInfo getReturnType(){
         return returnType;
     }
 
-    public void setReturnType(String n){
+    public void setReturnType(ClassKeyInfo n){
         this.returnType=n;
     }
 
-    public List<String> getParameterType(){
+    public List<ClassKeyInfo> getParameterType(){
         return parameterType;
     }
 
-    public void setParameterType(List<String> p){
+    public void setParameterType(List<ClassKeyInfo> p){
         this.parameterType=p;
     }
 }

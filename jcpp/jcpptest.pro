@@ -4,13 +4,15 @@
 #
 #-------------------------------------------------
 
+LIBS += -lws2_32
+
 QT       += core
 
 QT       -= gui
 
 QT += network
 
-TARGET = io
+TARGET = jcpptest
 CONFIG   += console
 CONFIG   -= app_bundle
 
@@ -96,8 +98,6 @@ SOURCES += \
     src/test/cpp/jcpp/rmi/server/impl/connection/JServerTest.cpp \
     
     
-LIBS += -lws2_32
-
 HEADERS += \
     src/test/cpp/jcpp/JSampleObject.h \
     src/test/cpp/jcpp/lang/JThrowableTest.h \

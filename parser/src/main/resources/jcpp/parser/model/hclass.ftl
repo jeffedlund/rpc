@@ -34,7 +34,7 @@ class ${class.className} : public ${class.parentClass} <#list class.interfaces a
 		${class.className}();
 		static JClass* getClazz();
 
-		//field declaration
+		//fields declaration
 
 		<#list class.declaredFields as field>
 		//field ${field.name}
@@ -42,6 +42,18 @@ class ${class.className} : public ${class.parentClass} <#list class.interfaces a
 		virtual void ${field.setter}(${field.type}* ${field.name});
 
 		</#list>
+
+
+		//methods declaration
+
+		<#list class.declaredMethods as method>
+		//method ${method.name}
+		//TODO return type can be void or a pointer to a JObject
+		virtual ${method.returnType}* ${method.name}(<#list method.parameterType as param>${param}*, </#list>)=0; //TODO bug with comma
+
+		</#list>
+
+		virtual string toString();
 
 		virtual ~${class.className}();
 

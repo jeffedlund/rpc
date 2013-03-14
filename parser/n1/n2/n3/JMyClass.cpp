@@ -57,6 +57,7 @@ namespace n3{
             canonicalName="n1.n2.n3.JMyClass";
             name="n1.n2.n3.JMyClass";
             simpleName="JMyClass";
+            serialVersionUID=11,111ULL;
 
 			this->addField(new JField("f1",t1::getClazz(),staticGetf1,staticSetf1));
 			this->addField(new JField("f2",t2::getClazz(),staticGetf2,staticSetf2));
@@ -129,6 +130,20 @@ namespace n3{
 		this->f3=f3;
 	}
 
+
+	string JMyClass::toString(){
+		string str="";
+		if (f1!=NULL){
+			str+="[f1="+f1->toString()+"]";
+		}
+		if (f2!=NULL){
+			str+="[f2="+f2->toString()+"]";
+		}
+		if (f3!=NULL){
+			str+="[f3="+f3->toString()+"]";
+		}
+		return str;
+	}
 
 
     JMyClass::~JMyClass(){

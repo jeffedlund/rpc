@@ -34,7 +34,7 @@ class JMyClass : public JParentClass  , public JI1  , public JI2  , public JI3  
 		JMyClass();
 		static JClass* getClazz();
 
-		//field declaration
+		//fields declaration
 
 		//field f1
 		virtual t1* getF1();
@@ -48,6 +48,24 @@ class JMyClass : public JParentClass  , public JI1  , public JI2  , public JI3  
 		virtual t3* getF3();
 		virtual void setF3(t3* f3);
 
+
+
+		//methods declaration
+
+		//method m1
+		//TODO return type can be void or a pointer to a JObject
+		virtual void* m1(f1*, f2*, )=0; //TODO bug with comma
+
+		//method m2
+		//TODO return type can be void or a pointer to a JObject
+		virtual f2* m2(f1*, f2*, )=0; //TODO bug with comma
+
+		//method m3
+		//TODO return type can be void or a pointer to a JObject
+		virtual f3* m3(f1*, f2*, )=0; //TODO bug with comma
+
+
+		virtual string toString();
 
 		virtual ~JMyClass();
 

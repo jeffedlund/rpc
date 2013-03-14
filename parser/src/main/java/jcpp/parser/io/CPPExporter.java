@@ -83,6 +83,27 @@ public class CPPExporter{
       		ci.getInterfaces().add("JI1");
       		ci.getInterfaces().add("JI2");
       		ci.getInterfaces().add("JI3");
+
+      		MethodInfo m1=new MethodInfo();
+      		m1.setName("m1");
+      		m1.setReturnType("void");
+      		m1.getParameterType().add("f1");
+      		m1.getParameterType().add("f2");
+      		ci.getDeclaredMethods().add(m1);
+      		MethodInfo m2=new MethodInfo();
+      		m2.setName("m2");
+      		m2.setReturnType("f2");
+      		m2.getParameterType().add("f1");
+      		m2.getParameterType().add("f2");
+      		ci.getDeclaredMethods().add(m2);
+      		MethodInfo m3=new MethodInfo();
+      		m3.setName("m3");
+      		m3.setReturnType("f3");
+      		m3.getParameterType().add("f1");
+      		m3.getParameterType().add("f2");
+      		ci.getDeclaredMethods().add(m3);
+
+      		ci.setSerialVersionUID(11111);
       		e.export(ci);
       }
 }

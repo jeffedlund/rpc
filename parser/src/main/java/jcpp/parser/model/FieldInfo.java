@@ -12,7 +12,7 @@ public class FieldInfo{
     @XmlElement
     String setter;
     @XmlElement
-    String type;
+    ClassKeyInfo type;
 
     public FieldInfo(){
     }
@@ -25,11 +25,11 @@ public class FieldInfo{
         this.name=n;
     }
 
-    public String getType(){
+    public ClassKeyInfo getType(){
         return type;
     }
 
-    public void setType(String t){
+    public void setType(ClassKeyInfo t){
         this.type=t;
     }
 

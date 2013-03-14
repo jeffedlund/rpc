@@ -18,6 +18,7 @@ DEFINES += JCPP_LIBRARY
 
 TEMPLATE = lib
 
+LIBS += -lws2_32
 
 INCLUDEPATH += \
         src/main/cpp/jcpp/ \
@@ -212,8 +213,6 @@ SOURCES += \
     src/main/cpp/jcpp/JCPP_PACKAGE.cpp
     
     
-LIBS += -lws2_32
-
 HEADERS += \
     src/main/cpp/jcpp/lang/JClass.h \
     src/main/cpp/jcpp/lang/JClassLoader.h \

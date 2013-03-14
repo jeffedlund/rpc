@@ -3,6 +3,7 @@
 #include "JClassLoader.h"
 #include <sstream>
 #include "JIllegalArgumentException.h"
+using namespace std;
 
 namespace jcpp{
     namespace lang{
@@ -65,7 +66,7 @@ namespace jcpp{
             stringstream ss;
             ss<<getClass()->getName();
             ss<<"@";
-            ss<<(this);
+            ss<<(long)this;
             return ss.str();
         }
 
@@ -103,3 +104,12 @@ namespace jcpp{
         }
     }
 }
+ostream& jcpp::lang::operator<<(ostream& os,jcpp::lang::JObject* o) {
+    if (o==NULL){
+        os<<"NULL";
+    }else{
+        os<<o->toString();
+    }
+    return os;
+}
+

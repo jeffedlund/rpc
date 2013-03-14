@@ -1,6 +1,5 @@
 group1:
 -------
--is there a toString equivalence in c++?
 -work on wiki documentation
 -test case on Externalizable (maybe by implementing JArrayList)
 -faire operator pour onvertir string a JString, int a JPrim..., etc
