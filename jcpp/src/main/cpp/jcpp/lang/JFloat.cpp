@@ -65,6 +65,21 @@ namespace jcpp{
             return false;
         }
 
+        JFloat JFloat::operator+=(jfloat f){
+            (*value)+=f;
+            return *this;
+        }
+
+        JFloat JFloat::operator-=(jfloat f){
+            (*value)-=f;
+            return *this;
+        }
+
+        JFloat JFloat::operator*=(jfloat f){
+            (*value)*=f;
+            return *this;
+        }
+
         void JFloat::set(float value){
             this->value->set(value);
         }

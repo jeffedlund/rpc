@@ -31,7 +31,9 @@ namespace jcpp{
 
                 JClass* getClass();
 
-                virtual bool operator==(JObject &other);//TODO implement other operators like !=
+                virtual bool operator==(JObject &other);
+
+                virtual bool operator!=(JObject &other);
 
                 virtual string toString();
 

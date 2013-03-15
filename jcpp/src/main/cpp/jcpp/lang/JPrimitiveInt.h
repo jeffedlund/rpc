@@ -21,6 +21,9 @@ namespace jcpp{
                 JPrimitiveInt(JPrimitiveInt* value);
                 bool operator==(JObject &other);
                 bool operator<(JObject &other);
+                JPrimitiveInt operator+=(jint f);
+                JPrimitiveInt operator-=(jint f);
+                JPrimitiveInt operator*=(jint f);
 
                 static JClass* getClazz();
 

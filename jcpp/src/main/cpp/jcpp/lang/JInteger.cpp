@@ -65,6 +65,21 @@ namespace jcpp{
             return false;
         }
 
+        JInteger JInteger::operator+=(jint f){
+            (*value)+=f;
+            return *this;
+        }
+
+        JInteger JInteger::operator-=(jint f){
+            (*value)-=f;
+            return *this;
+        }
+
+        JInteger JInteger::operator*=(jint f){
+            (*value)*=f;
+            return *this;
+        }
+
         void JInteger::set(jint value){
             this->value->set(value);
         }

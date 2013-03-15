@@ -56,6 +56,21 @@ namespace jcpp{
             return value==s->value;
         }
 
+        JPrimitiveInt JPrimitiveInt::operator+=(jint f){
+            value+=f;
+            return *this;
+        }
+
+        JPrimitiveInt JPrimitiveInt::operator-=(jint f){
+            value-=f;
+            return *this;
+        }
+
+        JPrimitiveInt JPrimitiveInt::operator*=(jint f){
+            value*=f;
+            return *this;
+        }
+
         void JPrimitiveInt::set(jint value){
             this->value=value;
         }

@@ -210,7 +210,8 @@ SOURCES += \
     src/main/cpp/jcpp/lang/QObjectHolder.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/JCONNECTION_PACKAGE.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/serialization/JCONNECTION_SERIALIZATION_PACKAGE.cpp \
-    src/main/cpp/jcpp/JCPP_PACKAGE.cpp
+    src/main/cpp/jcpp/JCPP_PACKAGE.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIRegistryProxy.cpp
     
     
 HEADERS += \
@@ -389,7 +390,8 @@ HEADERS += \
     src/main/cpp/jcpp/rmi/server/impl/connection/JCONNECTION_PACKAGE.h \
     src/main/cpp/jcpp/rmi/server/impl/connection/serialization/JCONNECTION_SERIALIZATION_PACKAGE.h \
     src/main/cpp/jcpp/JCPP_PACKAGE.h \
-    src/main/cpp/jcpp/JCPP.h
+    src/main/cpp/jcpp/JCPP.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIRegistryProxy.h
     
     
 OTHER_FILES += \

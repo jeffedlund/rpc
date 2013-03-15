@@ -64,6 +64,21 @@ namespace jcpp{
             return (*value)==(*b->value);
         }
 
+        JByte JByte::operator+=(jbyte f){
+            (*value)+=f;
+            return *this;
+        }
+
+        JByte JByte::operator-=(jbyte f){
+            (*value)-=f;
+            return *this;
+        }
+
+        JByte JByte::operator*=(jbyte f){
+            (*value)*=f;
+            return *this;
+        }
+
         void JByte::set(jbyte value){
             this->value->set(value);
         }

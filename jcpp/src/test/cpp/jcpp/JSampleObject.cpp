@@ -170,6 +170,31 @@ namespace jcpp{
     JSampleObject::JSampleObject():JObject(getClazz()){
     }
 
+    bool JSampleObject::operator==(JObject &other){
+        if (getClass()!=other.getClass()){
+            return false;
+        }
+        JSampleObject* s=dynamic_cast<JSampleObject*>(&other);
+        if (*s->bool1==*bool1){
+            if (*s->byte1==*byte1){
+                if (*s->c1==*c1){
+                    if (*s->d1==*d1){
+                        if (*s->f1==*f1){
+                            if (*s->i1==*i1){
+                                if (*s->l1==*l1){
+                                    if (*s->s1==*s1){
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     JPrimitiveBoolean* JSampleObject::getBool1(){
         return bool1;
     }

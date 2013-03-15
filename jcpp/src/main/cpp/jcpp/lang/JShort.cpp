@@ -66,6 +66,21 @@ namespace jcpp{
             return false;
         }
 
+        JShort JShort::operator+=(jshort f){
+            (*value)+=f;
+            return *this;
+        }
+
+        JShort JShort::operator-=(jshort f){
+            (*value)-=f;
+            return *this;
+        }
+
+        JShort JShort::operator*=(jshort f){
+            (*value)*=f;
+            return *this;
+        }
+
         void JShort::set(jshort value){
             this->value->set(value);
         }

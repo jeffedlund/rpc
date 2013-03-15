@@ -51,6 +51,21 @@ namespace jcpp{
             return value==s->value;
         }
 
+        JPrimitiveByte JPrimitiveByte::operator+=(jbyte f){
+            value+=f;
+            return *this;
+        }
+
+        JPrimitiveByte JPrimitiveByte::operator-=(jbyte f){
+            value-=f;
+            return *this;
+        }
+
+        JPrimitiveByte JPrimitiveByte::operator*=(jbyte f){
+            value*=f;
+            return *this;
+        }
+
         void JPrimitiveByte::set(jbyte value){
             this->value=value;
         }

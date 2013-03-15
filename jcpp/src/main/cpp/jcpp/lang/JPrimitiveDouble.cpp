@@ -51,6 +51,21 @@ namespace jcpp{
             return value==s->value;
         }
 
+        JPrimitiveDouble JPrimitiveDouble::operator+=(jdouble f){
+            value+=f;
+            return *this;
+        }
+
+        JPrimitiveDouble JPrimitiveDouble::operator-=(jdouble f){
+            value-=f;
+            return *this;
+        }
+
+        JPrimitiveDouble JPrimitiveDouble::operator*=(jdouble f){
+            value*=f;
+            return *this;
+        }
+
         void JPrimitiveDouble::set(double value){
             this->value=value;
         }

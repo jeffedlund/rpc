@@ -54,7 +54,7 @@ namespace jcpp{
                         jint socketTimeout = transport->getTransportConfiguration()->getSocketTimeout()->get();
                         while (freeConnectionList->size() > 0) {
                             vector<JConnection*>::iterator it=freeConnectionList->begin();
-                            JConnection* connection = *it;
+                            connection = *it;
                             freeConnectionList->erase(it);
                             connection->getSocket()->takeOwner();
                             if (!connection->isDead()) {

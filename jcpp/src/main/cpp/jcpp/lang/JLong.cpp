@@ -65,6 +65,21 @@ namespace jcpp{
             return false;
         }
 
+        JLong JLong::operator+=(jlong f){
+            (*value)+=f;
+            return *this;
+        }
+
+        JLong JLong::operator-=(jlong f){
+            (*value)-=f;
+            return *this;
+        }
+
+        JLong JLong::operator*=(jlong f){
+            (*value)*=f;
+            return *this;
+        }
+
         void JLong::set(jlong value){
             this->value->set(value);
         }

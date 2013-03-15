@@ -12,18 +12,21 @@ namespace jcpp{
         class JCPP_LIBRARY_EXPORT JPrimitiveDouble : public JObject{
 
             protected:
-                double value;
+                jdouble value;
 
             public:
                 JPrimitiveDouble();
-                JPrimitiveDouble(double value);
+                JPrimitiveDouble(jdouble value);
                 bool operator==(JObject &other);
+                JPrimitiveDouble operator+=(jdouble f);
+                JPrimitiveDouble operator-=(jdouble f);
+                JPrimitiveDouble operator*=(jdouble f);
 
                 static JClass* getClazz();
 
-                void set(double value);
+                void set(jdouble value);
 
-                double get();
+                jdouble get();
 
                 string toString();
 

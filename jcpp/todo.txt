@@ -1,10 +1,8 @@
 group1:
 -------
+-generate proxy classes for interfaces => use java parser module for that
 -work on wiki documentation
--test case on Externalizable (maybe by implementing JArrayList)
--faire operator pour onvertir string a JString, int a JPrim..., etc
 -use which cast? () or dynamic or static?
--is there a dynamic proxy in c++? implement proxies
 -what to do with map/keys as pointers
 -use template in PrimitiveArray
 
@@ -14,6 +12,7 @@ group2:
 -check all new/delete calls, check delete[] for arrays
 -implement all jcpp.util classes (a quite big list :))
 -test with java 1.8
+-constructor in order to ease casting
 
 group3: TODO have test cases for input stream
 -------

@@ -21,6 +21,7 @@
 #include "JINotExportedObjectListener.h"
 #include "JInvoker.h"
 #include "JIRegistry.h"
+#include "JIRegistryProxy.h"
 #include "JIServer.h"
 #include "JMethodDigester.h"
 #include "JObjectHandler.h"

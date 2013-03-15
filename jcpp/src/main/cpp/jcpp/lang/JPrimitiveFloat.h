@@ -19,7 +19,9 @@ namespace jcpp{
                 JPrimitiveFloat();
                 JPrimitiveFloat(float value);
                 bool operator==(JObject &other);
-
+                JPrimitiveFloat operator+=(jfloat f);
+                JPrimitiveFloat operator-=(jfloat f);
+                JPrimitiveFloat operator*=(jfloat f);
                 static JClass* getClazz();
 
                 void set(jfloat value);

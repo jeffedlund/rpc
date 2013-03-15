@@ -9,7 +9,6 @@
 
 namespace jcpp{
     namespace io{
-        //TODO have a test case scenario
         class JCPP_LIBRARY_EXPORT JExternalizable:JInterface{
         protected:
         public:

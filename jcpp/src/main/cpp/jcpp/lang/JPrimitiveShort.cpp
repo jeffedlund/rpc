@@ -51,6 +51,21 @@ namespace jcpp{
             return value==s->value;
         }
 
+        JPrimitiveShort JPrimitiveShort::operator+=(jshort f){
+            value+=f;
+            return *this;
+        }
+
+        JPrimitiveShort JPrimitiveShort::operator-=(jshort f){
+            value-=f;
+            return *this;
+        }
+
+        JPrimitiveShort JPrimitiveShort::operator*=(jshort f){
+            value*=f;
+            return *this;
+        }
+
         void JPrimitiveShort::set(jshort value){
             this->value=value;
         }

@@ -19,6 +19,9 @@ namespace jcpp{
                 JPrimitiveLong();
                 JPrimitiveLong(jlong value);
                 bool operator==(JObject &other);
+                JPrimitiveLong operator+=(jlong f);
+                JPrimitiveLong operator-=(jlong f);
+                JPrimitiveLong operator*=(jlong f);
 
                 static JClass* getClazz();
 

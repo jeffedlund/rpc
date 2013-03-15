@@ -20,19 +20,15 @@ namespace jcpp{
                 JLong();
                 JLong(jlong value);
                 bool operator==(JObject &other);
-
+                JLong operator+=(jlong f);
+                JLong operator-=(jlong f);
+                JLong operator*=(jlong f);
                 static JClass* getClazz();
-
                 void set(jlong value);
-
                 jlong get();
-
                 void setPrimitiveLong(JPrimitiveLong* value);
-
                 JPrimitiveLong* getPrimitiveLong();
-
                 string toString();
-
                 virtual ~JLong();
         };
     }

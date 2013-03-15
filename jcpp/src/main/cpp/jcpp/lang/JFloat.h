@@ -20,19 +20,15 @@ namespace jcpp{
                 JFloat();
                 JFloat(float value);
                 bool operator==(JObject &other);
-
+                JFloat operator+=(jfloat f);
+                JFloat operator-=(jfloat f);
+                JFloat operator*=(jfloat f);
                 static JClass* getClazz();
-
                 void set(float value);
-
                 float get();
-
                 void setPrimitiveFloat(JPrimitiveFloat* value);
-
                 JPrimitiveFloat* getPrimitiveFloat();
-
                 string toString();
-
                 virtual ~JFloat();
         };
     }

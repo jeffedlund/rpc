@@ -51,6 +51,21 @@ namespace jcpp{
             return value==s->value;
         }
 
+        JPrimitiveLong JPrimitiveLong::operator+=(jlong f){
+            value+=f;
+            return *this;
+        }
+
+        JPrimitiveLong JPrimitiveLong::operator-=(jlong f){
+            value-=f;
+            return *this;
+        }
+
+        JPrimitiveLong JPrimitiveLong::operator*=(jlong f){
+            value*=f;
+            return *this;
+        }
+
         void JPrimitiveLong::set(jlong value){
             this->value=value;
         }

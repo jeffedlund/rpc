@@ -69,7 +69,9 @@ namespace jcpp{
                 file->flush();
             }
             if (socket!=NULL){
-                socket->flush();
+                while (socket->bytesToWrite()>0){
+                    socket->waitForBytesWritten();
+                }
             }
         }
 

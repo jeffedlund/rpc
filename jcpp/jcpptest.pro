@@ -96,6 +96,9 @@ SOURCES += \
     src/test/cpp/jcpp/util/concurrent/JScheduledExecutorServiceTest.cpp \
     src/test/cpp/jcpp/rmi/server/impl/transport/JTransportTest.cpp \
     src/test/cpp/jcpp/rmi/server/impl/connection/JServerTest.cpp \
+    src/test/cpp/jcpp/io/JExternalizableTest.cpp \
+    src/test/cpp/jcpp/io/JExternalizableObject.cpp \
+    src/test/cpp/jcpp/io/JSerializableTest.cpp
     
     
 HEADERS += \
@@ -149,6 +152,9 @@ HEADERS += \
     src/test/cpp/jcpp/util/concurrent/JScheduledExecutorServiceTest.h \
     src/test/cpp/jcpp/rmi/server/impl/transport/JTransportTest.h \
     src/test/cpp/jcpp/rmi/server/impl/connection/JServerTest.h \
+    src/test/cpp/jcpp/io/JExternalizableTest.h \
+    src/test/cpp/jcpp/io/JExternalizableObject.h \
+    src/test/cpp/jcpp/io/JSerializableTest.h
     
     
 OTHER_FILES += \

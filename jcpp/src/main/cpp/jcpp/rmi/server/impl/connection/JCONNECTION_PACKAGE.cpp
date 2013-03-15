@@ -30,6 +30,7 @@ namespace jcpp{
                         classes->push_back(JINotExportedObjectListener::getClazz());
                         classes->push_back(JInvoker::getClazz());
                         classes->push_back(JIRegistry::getClazz());
+                        classes->push_back(JIRegistryProxy::getClazz());
                         classes->push_back(JIServer::getClazz());
                         classes->push_back(JMethodDigester::getClazz());
                         classes->push_back(JObjectHandler::getClazz());

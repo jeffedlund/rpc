@@ -21,19 +21,15 @@ namespace jcpp{
                 JInteger();
                 JInteger(jint value);
                 bool operator==(JObject &other);
-
+                JInteger operator+=(jint f);
+                JInteger operator-=(jint f);
+                JInteger operator*=(jint f);
                 static JClass* getClazz();
-
                 void set(jint value);
-
                 jint get();
-
                 void setPrimitiveInt(JPrimitiveInt* value);
-
                 JPrimitiveInt* getPrimitiveInt();
-
                 string toString();
-
                 virtual ~JInteger();
         };
     }

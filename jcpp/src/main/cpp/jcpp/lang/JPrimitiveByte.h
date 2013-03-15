@@ -19,15 +19,13 @@ namespace jcpp{
                 JPrimitiveByte();
                 JPrimitiveByte(jbyte value);
                 bool operator==(JObject &other);
-
+                JPrimitiveByte operator+=(jbyte f);
+                JPrimitiveByte operator-=(jbyte f);
+                JPrimitiveByte operator*=(jbyte f);
                 static JClass* getClazz();
-
                 void set(jbyte value);
-
                 jbyte get();
-
                 string toString();
-
                 virtual ~JPrimitiveByte();
         };
     }

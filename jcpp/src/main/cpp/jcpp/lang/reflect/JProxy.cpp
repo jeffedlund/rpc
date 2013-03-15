@@ -10,7 +10,6 @@ using namespace jcpp::util;
 using namespace jcpp::io;
 using namespace jcpp::lang::reflect;
 
-//TODO implement a test
 //TODO think about how to detect a proxy in a serialized CPP object ...
 namespace jcpp{
     namespace lang{
@@ -25,26 +24,23 @@ namespace jcpp{
                 proxy->setInvocationHandler((JInvocationHandler*)value);
             }
 
-            class JProxyClass : public JClass{
-            public:
-                JProxyClass():JClass(JClassLoader::getBootClassLoader()){
-                    canonicalName="java.lang.reflect.Proxy";
-                    name="java.lang.reflect.Proxy";
-                    simpleName="Proxy";
-                    bIsProxy=true;
-                    serialVersionUID=-2222568056686623797ULL;
-                    addField(new JField("h",JInvocationHandler::getClazz(),staticGetInvocationHandler,staticSetInvocationHandler));
-                    addInterface(JSerializable::getClazz());
-                }
+            JProxy::JProxyClass::JProxyClass():JClass(JClassLoader::getBootClassLoader()){
+                canonicalName="java.lang.reflect.Proxy";
+                name="java.lang.reflect.Proxy";
+                simpleName="Proxy";
+                bIsProxy=true;
+                serialVersionUID=-2222568056686623797ULL;
+                addField(new JField("h",JInvocationHandler::getClazz(),staticGetInvocationHandler,staticSetInvocationHandler));
+                addInterface(JSerializable::getClazz());
+            }
 
-                JClass* getSuperclass(){
-                    return JObject::getClazz();
-                }
+            JClass* JProxy::JProxyClass::getSuperclass(){
+                return JObject::getClazz();
+            }
 
-                JObject* newInstance(){
-                    return new JProxy();
-                }
-            };
+            JObject* JProxy::JProxyClass::newInstance(){
+                return new JProxy();
+            }
 
             static JClass* clazz;
 
@@ -55,6 +51,9 @@ namespace jcpp{
                 return clazz;
             }
 
+            JProxy::JProxy(JClass* _class):JObject(_class){
+            }
+
             JProxy::JProxy():JObject(getClazz()){
                 this->interfaces=NULL;
                 this->invocationHandler=NULL;
@@ -63,6 +62,27 @@ namespace jcpp{
             JProxy::JProxy(vector<JClass*>* interfaces, JInvocationHandler* i):JObject(getClazz()){
                 this->interfaces=interfaces;
                 this->invocationHandler=i;
+            }
+
+            JProxy* JProxy::create(vector<JClass*>* interfaces, JInvocationHandler* ih){
+                JProxy* proxy=NULL;
+                for (unsigned int i=0;i<interfaces->size();i++){
+                    JClass* ci=interfaces->at(i);
+                    try{
+                        JClass* c=ci->getClassLoader()->loadClass(ci->getName()+"Proxy");//maybe define getProxyClass in interfaces ...
+                        if (JProxy::getClazz()->isAssignableFrom(c)){
+                            proxy=(JProxy*)c->newInstance();
+                            proxy->setInterfaces(interfaces);
+                            proxy->setInvocationHandler(ih);
+                            break;
+                        }
+                    }catch(JThrowable* th){
+                    }
+                }
+                if (proxy==NULL){
+                    proxy=new JProxy(interfaces,ih);
+                }
+                return proxy;
             }
 
             JObject* JProxy::invoke(string method,vector<JObject*>* args){

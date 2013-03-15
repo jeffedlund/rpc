@@ -11,12 +11,22 @@ namespace jcpp{
     namespace lang{
         namespace reflect{
             class JCPP_LIBRARY_EXPORT JProxy : public JObject{
+            protected:
+                class JProxyClass : public JClass{
+                public:
+                    JProxyClass();
+                    virtual JClass* getSuperclass();
+                    virtual JObject* newInstance();
+                };
+
                 JInvocationHandler *invocationHandler;
                 vector<JClass*>* interfaces;
+                JProxy(JClass* _class);
 
             public:
                 JProxy();
                 JProxy(vector<JClass*>* interfaces, JInvocationHandler* i);
+                static JProxy* create(vector<JClass*>* interfaces, JInvocationHandler* i);
 
                 JInvocationHandler* getInvocationHandler();
                 void setInvocationHandler(JInvocationHandler* invocationHandler);

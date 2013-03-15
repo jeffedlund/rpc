@@ -66,6 +66,21 @@ namespace jcpp{
             return false;
         }
 
+        JDouble JDouble::operator+=(jdouble f){
+            (*value)+=f;
+            return *this;
+        }
+
+        JDouble JDouble::operator-=(jdouble f){
+            (*value)-=f;
+            return *this;
+        }
+
+        JDouble JDouble::operator*=(jdouble f){
+            (*value)*=f;
+            return *this;
+        }
+
         void JDouble::set(double value){
             this->value->set(value);
         }

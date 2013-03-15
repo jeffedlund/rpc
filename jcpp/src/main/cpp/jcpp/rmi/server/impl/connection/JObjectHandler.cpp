@@ -52,7 +52,7 @@ namespace jcpp{
 
                     JObjectHandler::JObjectHandler(JObjectInformations* objectInformations,vector<JClass*>* interfaces, JObjectPointer* objectPointer){
                         this->invoker = new JInvoker(objectInformations, objectPointer);
-                        this->proxy = new JProxy(interfaces, this);
+                        this->proxy = JProxy::create(interfaces, this);
                         this->interfaces = interfaces;
                         this->invocationListener = objectInformations->getInvocationListener();
                     }

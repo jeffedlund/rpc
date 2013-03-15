@@ -19,19 +19,15 @@ namespace jcpp{
                 JShort();
                 JShort(jshort value);
                 bool operator==(JObject &other);
-
+                JShort operator+=(jshort f);
+                JShort operator-=(jshort f);
+                JShort operator*=(jshort f);
                 static JClass* getClazz();
-
                 void set(jshort value);
-
                 jshort get();
-
                 void setPrimitiveShort(JPrimitiveShort* value);
-
                 JPrimitiveShort* getPrimitiveShort();
-
                 string toString();
-
                 virtual ~JShort();
         };
     }

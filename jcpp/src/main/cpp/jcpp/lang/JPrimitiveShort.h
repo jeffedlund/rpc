@@ -19,6 +19,9 @@ namespace jcpp{
                 JPrimitiveShort();
                 JPrimitiveShort(jshort value);
                 bool operator==(JObject &other);
+                JPrimitiveShort operator+=(jshort f);
+                JPrimitiveShort operator-=(jshort f);
+                JPrimitiveShort operator*=(jshort f);
 
                 static JClass* getClazz();
 

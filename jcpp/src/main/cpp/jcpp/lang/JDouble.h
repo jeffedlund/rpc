@@ -18,8 +18,11 @@ namespace jcpp{
 
             public:
                 JDouble();
-                JDouble(double value);
+                JDouble(jdouble value);
                 bool operator==(JObject &other);
+                JDouble operator+=(jdouble f);
+                JDouble operator-=(jdouble f);
+                JDouble operator*=(jdouble f);
 
                 static JClass* getClazz();
 
