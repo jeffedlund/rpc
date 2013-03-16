@@ -28,6 +28,7 @@ namespace jcpp{
                         JConnectionConfiguration* cc2=new JConnectionConfiguration();
                         JServer* server2=new JServer(localEndPoint2,router2,cc2);
 
+
                         JObject* obj=server2->lookup(localEndPoint1,JIRegistry::getClazz());
                         cout<<obj->getClass()->getName();
                         cout.flush();
@@ -44,15 +45,17 @@ namespace jcpp{
 
 
                         JIRegistry* regProxy=dynamic_cast<JIRegistry*>(obj);
-                        result=regProxy->list();
-                        cout<<"using a cast to a Proxy interface"<<"\r\n";
-                        cout<<result->getClass()->getName()<<"\r\n";
-                        cout.flush();
-                        ar=(JPrimitiveArray*)result;
-                        for (int i=0;i<ar->size();i++){
-                            cout<<i<<"="<<ar->get(i)->toString()<<"\r\n";
-                            cout<<i<<"="<<ar->get(i)->getClass()->getName()<<"\r\n";
+                        for (int i=0;i<100;i++){
+                            result=regProxy->list();
+                            cout<<"using a cast to a Proxy interface"<<"\r\n";
+                            cout<<result->getClass()->getName()<<"\r\n";
                             cout.flush();
+                            ar=(JPrimitiveArray*)result;
+                            for (int i=0;i<ar->size();i++){
+                                cout<<i<<"="<<ar->get(i)->toString()<<"\r\n";
+                                cout<<i<<"="<<ar->get(i)->getClass()->getName()<<"\r\n";
+                                cout.flush();
+                            }
                         }
                         JThread::sleep(10000);
                     }

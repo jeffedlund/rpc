@@ -24,6 +24,8 @@ namespace jcpp{
                         classes->push_back(JGCEndPointInfo::getClazz());
                         classes->push_back(JIGCClient::getClazz());
                         classes->push_back(JIGCClientListener::getClazz());
+                        classes->push_back(JIGCClientProxy::getClazz());
+                        classes->push_back(JIGCProxy::getClazz());
                         classes->push_back(JIInvocationExceptionHandler::getClazz());
                         classes->push_back(JIInvocationListener::getClazz());
                         classes->push_back(JILifecycle::getClazz());
@@ -32,6 +34,7 @@ namespace jcpp{
                         classes->push_back(JIRegistry::getClazz());
                         classes->push_back(JIRegistryProxy::getClazz());
                         classes->push_back(JIServer::getClazz());
+                        classes->push_back(JIServerProxy::getClazz());
                         classes->push_back(JMethodDigester::getClazz());
                         classes->push_back(JObjectHandler::getClazz());
                         classes->push_back(JObjectInformation::getClazz());

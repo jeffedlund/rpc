@@ -7,7 +7,6 @@ using namespace jcpp::lang;
 namespace jcpp{
     namespace io{
         class JObjectStreamClass;
-        //TODO implement getClazz
         class SerialCallbackContext {
             JObject* curObj;
             JObjectStreamClass* curDesc;

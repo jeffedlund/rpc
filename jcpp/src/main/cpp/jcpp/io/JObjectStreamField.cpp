@@ -5,14 +5,40 @@
 
 namespace jcpp{
     namespace io{
-        JObjectStreamField::JObjectStreamField(){
+        class JObjectStreamFieldClass : public JClass{
+        public:
+            JObjectStreamFieldClass():JClass(JClassLoader::getBootClassLoader()){
+                canonicalName="java.io.ObjectStreamField";
+                name="java.io.ObjectStreamField";
+                simpleName="ObjectStreamField";
+            }
+
+            JClass* getSuperclass(){
+                return JObject::getClazz();
+            }
+
+            JObject* newInstance(){
+                return new JObjectStreamField();
+            }
+        };
+
+        static JClass* clazz;
+
+        JClass* JObjectStreamField::getClazz(){
+            if (clazz==NULL){
+                clazz=new JObjectStreamFieldClass();
+            }
+            return clazz;
+        }
+
+        JObjectStreamField::JObjectStreamField():JObject(getClazz()){
             this->type=NULL;
             this->unshared=false;
             this->field=NULL;
             setTypeString();
         }
 
-        JObjectStreamField::JObjectStreamField(string name,JClass* type){
+        JObjectStreamField::JObjectStreamField(string name,JClass* type):JObject(getClazz()){
             this->name=name;
             this->type=type;
             this->unshared=false;
@@ -21,7 +47,7 @@ namespace jcpp{
             setTypeString();
         }
 
-        JObjectStreamField::JObjectStreamField(string name,JClass* type,bool unshared){
+        JObjectStreamField::JObjectStreamField(string name,JClass* type,bool unshared):JObject(getClazz()){
             this->name=name;
             this->type=type;
             this->unshared=unshared;
@@ -30,7 +56,7 @@ namespace jcpp{
             setTypeString();
         }
 
-        JObjectStreamField::JObjectStreamField(string name,string signature,bool unshared){
+        JObjectStreamField::JObjectStreamField(string name,string signature,bool unshared):JObject(getClazz()){
             this->name=name;
             this->signature=signature;
             this->unshared=unshared;
@@ -70,7 +96,7 @@ namespace jcpp{
             setTypeString();
         }
 
-        JObjectStreamField::JObjectStreamField(JField* field,bool unshared,bool showType){
+        JObjectStreamField::JObjectStreamField(JField* field,bool unshared,bool showType):JObject(getClazz()){
             this->field=field;
             this->unshared=unshared;
             this->name=field->getName();

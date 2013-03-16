@@ -46,9 +46,11 @@ namespace jcpp{
               }
         };
 
+        static JObject* lockObject = new JObject();
         static map<string,JPrimitiveArrayClass*>* jPrimitiveArrayClasses;
 
-        JClass* JPrimitiveArray::getClazz(JClass* componentType){//TODO use mutex
+        JClass* JPrimitiveArray::getClazz(JClass* componentType){
+            lockObject->lock();
             if (jPrimitiveArrayClasses==NULL){
                 jPrimitiveArrayClasses=new map<string,JPrimitiveArrayClass*>();
             }
@@ -57,6 +59,7 @@ namespace jcpp{
                 jPrimitiveArrayClass=new JPrimitiveArrayClass(componentType);
                 jPrimitiveArrayClasses->insert(pair<string,JPrimitiveArrayClass*>(componentType->getName(),jPrimitiveArrayClass));
             }
+            lockObject->unlock();
             return jPrimitiveArrayClass;
         }
 

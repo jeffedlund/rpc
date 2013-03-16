@@ -15,8 +15,7 @@ using namespace jcpp::lang;
 
 namespace jcpp{
     namespace io{
-        //TODO add getClazz
-        class JCPP_LIBRARY_EXPORT JObjectStreamField{
+        class JCPP_LIBRARY_EXPORT JObjectStreamField : public JObject{
         private:
             string name;
             string signature;
@@ -34,6 +33,7 @@ namespace jcpp{
             JObjectStreamField(string name,JClass* type,bool unshared);
             JObjectStreamField(string name,string signature,bool unshared);
             JObjectStreamField(JField* field,bool unshared,bool showType);
+            static JClass* getClazz();
 
 
             //TODO what to do for PTR ==/<

@@ -9,7 +9,6 @@ using namespace jcpp::lang;
 
 namespace jcpp{
     namespace io{
-        //TODO getClazz
         class OutputHandleTable{
         private:
             jint handle;

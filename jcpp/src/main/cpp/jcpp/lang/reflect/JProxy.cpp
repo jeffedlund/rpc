@@ -10,7 +10,6 @@ using namespace jcpp::util;
 using namespace jcpp::io;
 using namespace jcpp::lang::reflect;
 
-//TODO think about how to detect a proxy in a serialized CPP object ...
 namespace jcpp{
     namespace lang{
         namespace reflect{
@@ -52,6 +51,8 @@ namespace jcpp{
             }
 
             JProxy::JProxy(JClass* _class):JObject(_class){
+                this->interfaces=NULL;
+                this->invocationHandler=NULL;
             }
 
             JProxy::JProxy():JObject(getClazz()){
@@ -64,20 +65,29 @@ namespace jcpp{
                 this->invocationHandler=i;
             }
 
-            JProxy* JProxy::create(vector<JClass*>* interfaces, JInvocationHandler* ih){
-                JProxy* proxy=NULL;
+            JClass* JProxy::getProxyClass(vector<JClass*>* interfaces){
+                JClass* pc=NULL;
                 for (unsigned int i=0;i<interfaces->size();i++){
                     JClass* ci=interfaces->at(i);
                     try{
                         JClass* c=ci->getClassLoader()->loadClass(ci->getName()+"Proxy");//maybe define getProxyClass in interfaces ...
                         if (JProxy::getClazz()->isAssignableFrom(c)){
-                            proxy=(JProxy*)c->newInstance();
-                            proxy->setInterfaces(interfaces);
-                            proxy->setInvocationHandler(ih);
+                            pc=c;
                             break;
                         }
                     }catch(JThrowable* th){
                     }
+                }
+                return pc;
+            }
+
+            JProxy* JProxy::create(vector<JClass*>* interfaces, JInvocationHandler* ih){
+                JProxy* proxy=NULL;
+                JClass* pc=getProxyClass(interfaces);
+                if (pc!=NULL){
+                    proxy=(JProxy*)pc->newInstance();
+                    proxy->setInterfaces(interfaces);
+                    proxy->setInvocationHandler(ih);
                 }
                 if (proxy==NULL){
                     proxy=new JProxy(interfaces,ih);
@@ -114,7 +124,9 @@ namespace jcpp{
             }
 
             void JProxy::setInterfaces(vector<JClass*>* interfaces){
-                delete this->interfaces;
+                if (this->interfaces!=NULL){
+                    delete this->interfaces;
+                }
                 this->interfaces=interfaces;
             }
 

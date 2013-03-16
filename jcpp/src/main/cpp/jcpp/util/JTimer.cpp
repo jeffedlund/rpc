@@ -123,7 +123,7 @@ namespace jcpp{
                 }
                 mutex->unlock();
             }
-            delete todos;
+            delete[] todos;
         }
 
         void JTimer::cancel(){

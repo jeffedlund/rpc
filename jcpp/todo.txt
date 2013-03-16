@@ -1,16 +1,28 @@
 group1:
 -------
--generate proxy classes for interfaces => use java parser module for that
 -work on wiki documentation
 -use which cast? () or dynamic or static?
 -what to do with map/keys as pointers
+-what to do for Comparable and ordering. Look at JObjectStreamField
 -use template in PrimitiveArray
+-generate proxy classes for interfaces => use java parser module for that
+-implement socket/read/connecttimeout
+-JInteger.MAXVALUE
+-create adapters for inputstream, socket, serversocket
+-create JPeekInputStream, bufferedout/inputstream
+-add more attributes to JField like static, transient, ...
+-test case for enum with io and rpc
+-clone layer
+-implement all JSystem class
+-in rmi : test proxy in parameter, return, in somewhere deep in an object
+-issue with duplicate methods in object and its interface
+-implement all jcpp.util classes (a quite big list :))
+
 
 group2:
 -------
 -tree of classloader
 -check all new/delete calls, check delete[] for arrays
--implement all jcpp.util classes (a quite big list :))
 -test with java 1.8
 -constructor in order to ease casting
 

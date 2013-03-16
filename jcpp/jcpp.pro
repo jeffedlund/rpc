@@ -211,7 +211,11 @@ SOURCES += \
     src/main/cpp/jcpp/rmi/server/impl/connection/JCONNECTION_PACKAGE.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/serialization/JCONNECTION_SERIALIZATION_PACKAGE.cpp \
     src/main/cpp/jcpp/JCPP_PACKAGE.cpp \
-    src/main/cpp/jcpp/rmi/server/impl/connection/JIRegistryProxy.cpp
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIRegistryProxy.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIGCProxy.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIGCClientProxy.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIServerProxy.cpp \
+    src/main/cpp/jcpp/io/JObjectStreamConstants.cpp
     
     
 HEADERS += \
@@ -391,7 +395,10 @@ HEADERS += \
     src/main/cpp/jcpp/rmi/server/impl/connection/serialization/JCONNECTION_SERIALIZATION_PACKAGE.h \
     src/main/cpp/jcpp/JCPP_PACKAGE.h \
     src/main/cpp/jcpp/JCPP.h \
-    src/main/cpp/jcpp/rmi/server/impl/connection/JIRegistryProxy.h
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIRegistryProxy.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIGCProxy.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIGCClientProxy.h \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIServerProxy.h
     
     
 OTHER_FILES += \

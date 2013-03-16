@@ -22,8 +22,10 @@
 #include <sstream>
 #include "JExternalizable.h"
 #include "Object.h"
+#include "JProxy.h"
 
 using namespace std;
+using namespace jcpp::lang::reflect;
 
 namespace jcpp{
     namespace io{
@@ -765,11 +767,14 @@ namespace jcpp{
         }
 
         JClass *JObjectInputStream::resolveProxyClass(string *ifaces, int numIfaces) {
-            string proxySignature = "";
+            vector<JClass*>* interfaces=new vector<JClass*>();
             for (int i = 0; i < numIfaces; ++i) {
-                proxySignature += ifaces[i];
+                JClass* c=inputClassLoader->loadClass(ifaces[i]);
+                interfaces->push_back(c);
             }
-            return inputClassLoader->loadClass(proxySignature);//TODO create Proxy class that contain all the passed interfaces
+            JClass* pc=JProxy::getProxyClass(interfaces);
+            delete[] interfaces;
+            return pc;
         }
 
         void JObjectInputStream::close(){

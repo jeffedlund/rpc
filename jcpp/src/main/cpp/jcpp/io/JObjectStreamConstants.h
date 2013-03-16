@@ -1,15 +1,19 @@
 #ifndef JOBJECTSTREAMCONSTANTS_H
 #define JOBJECTSTREAMCONSTANTS_H
 
+#include "JObject.h"
+#include "JInterface.h"
 #include "Object.h"
 #include "JCPP.h"
+using namespace jcpp::lang;
 
 namespace jcpp{
     namespace io{
-        //TODO add getClazz()
-        class JCPP_LIBRARY_EXPORT JObjectStreamConstants {
+        class JCPP_LIBRARY_EXPORT JObjectStreamConstants : public JInterface{
 
         public:
+            static JClass* getClazz();
+
             /**
              * Magic number that is written to the stream header.
              */

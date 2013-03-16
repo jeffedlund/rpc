@@ -13,13 +13,13 @@ namespace jcpp{
                 b[off] = (jbyte) (val ? 1 : 0);
             }
 
-            static void fromCharToJByte(jbyte b[], char bc[], int off, int len){//TODO good thing?
+            static void fromCharToJByte(jbyte b[], char bc[], int off, int len){
                 for (int i=0;i<len;i++){
                     b[off+i]=(jbyte)bc[i];
                 }
             }
 
-            static void fromCharToJByte(jbyte b[], char c){//TODO good thing?
+            static void fromCharToJByte(jbyte b[], char c){
                 b[0]=(jbyte)c;
             }
 

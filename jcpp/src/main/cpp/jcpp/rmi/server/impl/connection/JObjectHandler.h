@@ -39,7 +39,7 @@ namespace jcpp{
                     class JCPP_LIBRARY_EXPORT JObjectHandler: public JObject, public JInvocationHandler, public JSerializable{
                     protected:
                         JInvoker* invoker;
-                        JObject* proxy;//TODO
+                        JObject* proxy;
                         JClassLoader* classLoader;
                         vector<JClass*>* interfaces;
                         JIInvocationListener* invocationListener;

@@ -130,7 +130,7 @@ namespace jcpp{
             jint len = s.length();
             jbyte b;
             for (jint i = 0 ; i < len ; i++) {
-                JBits::fromCharToJByte(&b,s.c_str()[i]);//TODO ?
+                JBits::fromCharToJByte(&b,s.c_str()[i]);
                 write(b);
             }
         }
