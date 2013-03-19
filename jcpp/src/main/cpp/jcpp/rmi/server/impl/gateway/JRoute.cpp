@@ -106,14 +106,14 @@ namespace jcpp{
                     }
 
                     JAddress* JRoute::peakAddress(){
-                        if (addressList->getSize() > 0) {
+                        if (addressList->size() > 0) {
                             return (JAddress*)addressList->get(0);
                         }
                         return NULL;
                     }
 
                     JAddress* JRoute::popAddress(){
-                        if (addressList->getSize() > 0) {
+                        if (addressList->size() > 0) {
                             JAddress* a=(JAddress*)addressList->remove(0);
                             return a;
                         }
@@ -125,7 +125,7 @@ namespace jcpp{
                     }
 
                     int JRoute::addressSize(){
-                        return addressList->getSize();
+                        return addressList->size();
                     }
 
                     void JRoute::clearAddress(){

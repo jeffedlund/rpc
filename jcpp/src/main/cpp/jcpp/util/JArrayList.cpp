@@ -65,7 +65,17 @@ namespace jcpp{
 
         JArrayList::JArrayList(int):JAbstractList(getClazz()){
             items=new vector<JObject*>();
-            size=new JPrimitiveInt(0);
+            isize=new JPrimitiveInt(0);
+        }
+
+        JArrayList::JArrayList(JCollection* c):JAbstractList(getClazz()){
+            items=new vector<JObject*>();
+            isize=new JPrimitiveInt(0);
+            JIterator* i=c->iterator();
+            while (i->hasNext()){
+                add(i->next());
+            }
+            delete i;
         }
 
         bool JArrayList::operator==(JObject &other){
@@ -73,28 +83,82 @@ namespace jcpp{
                 return false;
             }
             JArrayList* s=dynamic_cast<JArrayList*>(&other);
-            if (s->getSize()!=getSize()){
+            if (s->size()!=size()){
                 return false;
             }
-            for (int i=0;i<getSize();i++){
-                if (!((*get(i))==(*s->get(i)))){
+            for (int i=0;i<size();i++){
+                JObject* o1=get(i);
+                JObject* o2=s->get(i);
+                if (!((*o1)==(*o2))){
                     return false;
                 }
             }
             return true;
         }
 
-        jint JArrayList::getSize(){
+        jint JArrayList::size(){
             return items->size();
         }
 
-        void JArrayList::setPSize(JPrimitiveInt* s){//TODO do something on the vector, clean it
-            delete size;
-            size=s;
+        void JArrayList::setPSize(JPrimitiveInt* s){
+            delete isize;
+            isize=s;
         }
 
         JPrimitiveInt* JArrayList::getPSize(){
-            return size;
+            return isize;
+        }
+
+        void JArrayList::trimToSize(){
+            modCount++;
+        }
+
+        void JArrayList::ensureCapacity(jint){
+            modCount++;
+        }
+
+        bool JArrayList::contains(JObject* o){
+            return indexOf(o)>=0;
+        }
+
+        jint JArrayList::indexOf(JObject* o){
+            if (o == NULL) {
+                for (int i = 0; i < isize->get(); i++){
+                    if (items->at(i)==NULL){
+                        return i;
+                    }
+                }
+            } else {
+                for (int i = 0; i < isize->get(); i++){
+                    if (o->equals(items->at(i))){
+                        return i;
+                    }
+                }
+            }
+            return -1;
+        }
+
+        jint JArrayList::lastIndexOf(JObject* o){
+            if (o == NULL) {
+                for (int i = isize->get()-1; i >= 0; i--){
+                    if (items->at(i)==NULL){
+                        return i;
+                    }
+                }
+            } else {
+                for (int i = isize->get()-1; i >= 0; i--){
+                    if (o->equals(items->at(i))){
+                        return i;
+                    }
+                }
+            }
+            return -1;
+        }
+
+        JObject* JArrayList::set(jint index, JObject* element){
+            JObject* old=items->at(index);
+            (*items)[index]=element;
+            return old;
         }
 
         bool JArrayList::isEmpty(){
@@ -105,14 +169,16 @@ namespace jcpp{
             return items->at(index);
         }
 
-        void JArrayList::add(JObject* item){
+        bool JArrayList::add(JObject* item){
             items->push_back(item);
-            size->set(size->get()+1);
+            isize->set(isize->get()+1);
+            return true;
         }
 
-        void JArrayList::add(int,JObject* ){
-            throw "Not done add(index,item)";
-            //TODO
+        void JArrayList::add(int index,JObject* o){
+            vector<JObject*>::iterator iterator1=items->begin();
+            items->insert(iterator1+index , o);
+            isize->set(isize->get()+1);
         }
 
         JObject* JArrayList::remove(int index){
@@ -123,13 +189,13 @@ namespace jcpp{
 
         bool JArrayList::remove(JObject* e){
             bool b=deleteFromVector(items,e);
-            size->set(items->size());
+            isize->set(items->size());
             return b;
         }
 
         void JArrayList::clear(){
             items->clear();
-            size->set(0);
+            isize->set(0);
         }
 
         JArrayList* JArrayList::clone(){
@@ -138,13 +204,36 @@ namespace jcpp{
                 JObject* o=items->at(i);
                 list->items->push_back(o->clone());
             }
-            list->size->set(size->get());
+            list->isize->set(isize->get());
             return list;
+        }
+
+        bool JArrayList::addAll(JCollection* c){
+            JIterator* i=c->iterator();
+            while (i->hasNext()){
+                add(i->next());
+            }
+            delete i;
+            return true;
+        }
+
+        bool JArrayList::addAll(jint index, JCollection* c){
+            int i=0;
+            JIterator* it=c->iterator();
+            while (it->hasNext()){
+                JObject* o=it->next();
+                if (i>=index){
+                    add(o);
+                }
+                i++;
+            }
+            delete it;
+            return true;
         }
 
         void JArrayList::writeObject(JObjectOutputStream* out){
             out->defaultWriteObject();
-            out->writeInt(size);
+            out->writeInt(isize);
             for (unsigned int i=0;i<items->size();i++){
                 out->writeObject(items->at(i));
             }
@@ -153,18 +242,18 @@ namespace jcpp{
         void JArrayList::readObject(JObjectInputStream* in){
             in->defaultReadObject();
             JPrimitiveInt* arrayLength = in->readPrimitiveInt();
-            delete size;
+            delete isize;
             delete items;
-            size=arrayLength;
+            isize=arrayLength;
             items=new vector<JObject*>();
-            for (int i=0;i<size->get();i++){
+            for (int i=0;i<isize->get();i++){
                 items->push_back(in->readObject());
             }
         }
 
         JArrayList::~JArrayList(){
             delete items;
-            delete size;
+            delete isize;
         }
     }
 }

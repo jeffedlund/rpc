@@ -49,6 +49,10 @@ namespace jcpp{
             return clazz;
         }
 
+        jfloat JFloat::MIN_VALUE = 0x0.000002P-126f;
+
+        jfloat JFloat::MAX_VALUE = 0x1.fffffeP+127f;
+
         JFloat::JFloat(float value):JNumber(getClazz()){
             this->value=new JPrimitiveFloat(value);
         }

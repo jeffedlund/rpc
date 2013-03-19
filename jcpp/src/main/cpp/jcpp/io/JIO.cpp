@@ -5,10 +5,14 @@ namespace jcpp{
         JIO::JIO():JPackage("jcpp.io",JPackage::getClazz()){//better class
             classes->push_back(BlockDataInputStream::getClazz());
             classes->push_back(JBlockDataOutputStream::getClazz());
+            classes->push_back(JBufferedInputStream::getClazz());
+            classes->push_back(JBufferedOutputStream::getClazz());
             classes->push_back(JDataInputStream::getClazz());
             classes->push_back(JDataOutputStream::getClazz());
             classes->push_back(JEOFException::getClazz());
             classes->push_back(JExternalizable::getClazz());
+            classes->push_back(JFilterInputStream::getClazz());
+            classes->push_back(JFilterOutputStream::getClazz());
             classes->push_back(JInputStream::getClazz());
             classes->push_back(JInvalidClassException::getClazz());
             classes->push_back(JIOException::getClazz());
@@ -17,7 +21,9 @@ namespace jcpp{
             classes->push_back(JObjectInputStream::getClazz());
             classes->push_back(JObjectOutputStream::getClazz());
             classes->push_back(JObjectStreamClass::getClazz());
+            classes->push_back(JObjectStreamConstants::getClazz());
             classes->push_back(JObjectStreamException::getClazz());
+            classes->push_back(JObjectStreamField::getClazz());
             classes->push_back(JOptionalDataException::getClazz());
             classes->push_back(JOutputStream::getClazz());
             classes->push_back(JSerializable::getClazz());

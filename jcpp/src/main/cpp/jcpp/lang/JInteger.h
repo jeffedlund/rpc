@@ -25,6 +25,8 @@ namespace jcpp{
                 JInteger operator-=(jint f);
                 JInteger operator*=(jint f);
                 static JClass* getClazz();
+                static jint MIN_VALUE;
+                static jint MAX_VALUE;
                 void set(jint value);
                 jint get();
                 void setPrimitiveInt(JPrimitiveInt* value);

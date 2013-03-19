@@ -24,6 +24,8 @@ namespace jcpp{
                 JLong operator-=(jlong f);
                 JLong operator*=(jlong f);
                 static JClass* getClazz();
+                static jlong MIN_VALUE;
+                static jlong MAX_VALUE;
                 void set(jlong value);
                 jlong get();
                 void setPrimitiveLong(JPrimitiveLong* value);

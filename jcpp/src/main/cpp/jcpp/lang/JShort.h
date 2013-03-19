@@ -23,6 +23,8 @@ namespace jcpp{
                 JShort operator-=(jshort f);
                 JShort operator*=(jshort f);
                 static JClass* getClazz();
+                static jshort MIN_VALUE;
+                static jshort MAX_VALUE;
                 void set(jshort value);
                 jshort get();
                 void setPrimitiveShort(JPrimitiveShort* value);

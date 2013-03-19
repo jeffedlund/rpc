@@ -50,6 +50,10 @@ namespace jcpp{
             return clazz;
         }
 
+        jshort JShort::MIN_VALUE = -32768;
+
+        jshort JShort::MAX_VALUE = 32767;
+
         JShort::JShort(jshort value):JNumber(getClazz()){
             this->value=new JPrimitiveShort(value);
         }

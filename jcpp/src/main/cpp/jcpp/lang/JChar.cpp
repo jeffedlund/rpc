@@ -48,6 +48,10 @@ namespace jcpp{
             return clazz;
         }
 
+        jchar JChar::MIN_VALUE = '\u0000';
+
+        jchar JChar::MAX_VALUE = (jchar)'\uffff';
+
         JChar::JChar(char value):JObject(getClazz()){
             this->value=new JPrimitiveChar(value);
         }

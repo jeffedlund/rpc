@@ -24,6 +24,8 @@ namespace jcpp{
                 JFloat operator-=(jfloat f);
                 JFloat operator*=(jfloat f);
                 static JClass* getClazz();
+                static jfloat MIN_VALUE;
+                static jfloat MAX_VALUE;
                 void set(float value);
                 float get();
                 void setPrimitiveFloat(JPrimitiveFloat* value);

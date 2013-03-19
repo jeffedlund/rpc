@@ -20,19 +20,14 @@ namespace jcpp{
                 JChar(char value);
                 JChar(jchar value);
                 bool operator==(JObject &other);
-
                 static JClass* getClazz();
-
+                static jchar MIN_VALUE;
+                static jchar MAX_VALUE;
                 void set(char value);
-
                 char get();
-
                 void setPrimitiveChar(JPrimitiveChar* value);
-
                 JPrimitiveChar* getPrimitiveChar();
-
                 string toString();
-
                 virtual ~JChar();
         };
     }

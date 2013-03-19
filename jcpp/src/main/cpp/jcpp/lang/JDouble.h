@@ -23,19 +23,14 @@ namespace jcpp{
                 JDouble operator+=(jdouble f);
                 JDouble operator-=(jdouble f);
                 JDouble operator*=(jdouble f);
-
                 static JClass* getClazz();
-
+                static jdouble MIN_VALUE;
+                static jdouble MAX_VALUE;
                 void set(double value);
-
                 double get();
-
                 void setPrimitiveDouble(JPrimitiveDouble* value);
-
                 JPrimitiveDouble* getPrimitiveDouble();
-
                 string toString();
-
                 virtual ~JDouble();
         };
     }

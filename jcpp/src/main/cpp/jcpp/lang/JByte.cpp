@@ -48,6 +48,10 @@ namespace jcpp{
             return clazz;
         }
 
+        jbyte JByte::MIN_VALUE=-128;
+
+        jbyte JByte::MAX_VALUE=127;
+
         JByte::JByte(jbyte value):JNumber(getClazz()){
             this->value=new JPrimitiveByte(value);
         }

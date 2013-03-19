@@ -49,6 +49,10 @@ namespace jcpp{
 
                 void notifyAll();
 
+                virtual bool equals(JObject* o);
+
+                virtual jint hashCode();
+
                 virtual JObject* clone();
 
                 virtual ~JObject();

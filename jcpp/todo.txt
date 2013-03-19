@@ -1,23 +1,19 @@
 group1:
 -------
+-work on equals/hashCode/clone of JObject
 -work on wiki documentation
 -use which cast? () or dynamic or static?
 -what to do with map/keys as pointers
 -what to do for Comparable and ordering. Look at JObjectStreamField
 -use template in PrimitiveArray
--generate proxy classes for interfaces => use java parser module for that
 -implement socket/read/connecttimeout
--JInteger.MAXVALUE
--create adapters for inputstream, socket, serversocket
--create JPeekInputStream, bufferedout/inputstream
--add more attributes to JField like static, transient, ...
+-create adapters socket, serversocket
 -test case for enum with io and rpc
 -clone layer
 -implement all JSystem class
 -in rmi : test proxy in parameter, return, in somewhere deep in an object
--issue with duplicate methods in object and its interface
--implement all jcpp.util classes (a quite big list :))
-
+-issue with duplicate methods in object and its interface. what to do?
+-implement all jcpp.util, jcpp.io, jcpp.net (a quite big list :))
 
 group2:
 -------
@@ -33,3 +29,6 @@ group3: TODO have test cases for input stream
 -primitive array of primitive array
 -object of object of object
 -object containing proxy
+
+-add more attributes to JField like static, transient, ...
+-generate proxy classes for interfaces => use java parser module for that

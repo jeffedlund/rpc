@@ -12,48 +12,39 @@
 using namespace std;
 using namespace jcpp::io;
 
-//TODO implement most of util classes
-//TODO implement toString
 namespace jcpp{
     namespace util{
         class JCPP_LIBRARY_EXPORT JArrayList : public JAbstractList{
         protected:
             vector<JObject*>* items;
-            JPrimitiveInt* size;
+            JPrimitiveInt* isize;
 
         public:
             JArrayList(int initialCapacity = 10);
-
+            JArrayList(JCollection* c);
             static JClass* getClazz();
-
             bool operator==(JObject &other);
-
-            jint getSize();
-
-            void setPSize(JPrimitiveInt* s);
-
-            JPrimitiveInt* getPSize();
-
-            bool isEmpty();
-
-            JObject* get(int index);
-
-            void add(JObject* item);
-
-            void add(int index,JObject* item);
-
-            JObject* remove(int index);
-
-            bool remove(JObject* e);
-
-            void clear();
-
+            virtual void setPSize(JPrimitiveInt* s);
+            virtual JPrimitiveInt* getPSize();
+            virtual void trimToSize();
+            virtual void ensureCapacity(jint minCapacity);
+            virtual jint size();
+            virtual bool isEmpty();
+            virtual bool contains(JObject* o);
+            virtual jint indexOf(JObject* o);
+            virtual jint lastIndexOf(JObject* o);
             virtual JArrayList* clone();
-
+            virtual JObject* get(int index);
+            virtual JObject* set(jint index, JObject* element);
+            virtual bool add(JObject* item);
+            virtual void add(int index,JObject* item);
+            virtual JObject* remove(int index);
+            virtual bool remove(JObject* e);
+            virtual void clear();
+            virtual bool addAll(JCollection* c);
+            virtual bool addAll(jint index, JCollection* c);
             virtual void writeObject(JObjectOutputStream* out);
-
             virtual void readObject(JObjectInputStream* in);
-
             virtual ~JArrayList();
         };
     }

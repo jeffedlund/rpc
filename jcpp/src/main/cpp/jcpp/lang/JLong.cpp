@@ -49,6 +49,10 @@ namespace jcpp{
             return clazz;
         }
 
+        jlong JLong::MIN_VALUE = 0x8000000000000000L;
+
+        jlong JLong::MAX_VALUE = 0x7fffffffffffffffL;
+
         JLong::JLong(jlong value):JNumber(getClazz()){
             this->value=new JPrimitiveLong(value);
         }

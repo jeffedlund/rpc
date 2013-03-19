@@ -65,7 +65,7 @@ namespace jcpp{
                         }
                         if (connection==NULL){
                             JRoute* route = transport->getTransportRouter()->findRoute(transport->getLocalEndPoint()->getSite(), remoteEndPoint);
-                            if ((route == NULL) || (route->getAddressList()->getSize() == 0)) {
+                            if ((route == NULL) || (route->getAddressList()->size() == 0)) {
                                 throw new JIOException("No route found from [" + transport->getLocalEndPoint()->toString() + "] to [" + remoteEndPoint->toString() + "]");
                             }
                             connection = new JConnection(route, this,transport->getTransportConfiguration()->getGatewayConfiguration());

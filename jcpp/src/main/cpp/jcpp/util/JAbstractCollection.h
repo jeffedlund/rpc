@@ -19,8 +19,17 @@ namespace jcpp{
             JAbstractCollection(JClass* _class);
 
         public:
-
             static JClass* getClazz();
+            virtual bool isEmpty();
+            virtual bool contains(JObject* o);
+            virtual bool add(JObject* e);
+            virtual bool remove(JObject* o);
+            virtual bool containsAll(JCollection* c);
+            virtual bool addAll(JCollection* c);
+            virtual bool removeAll(JCollection* c);
+            virtual bool retainAll(JCollection* c);
+            virtual void clear();
+            virtual string toString();
             virtual ~JAbstractCollection();
         };
     }

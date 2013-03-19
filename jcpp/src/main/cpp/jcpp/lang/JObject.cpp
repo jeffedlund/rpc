@@ -98,6 +98,17 @@ namespace jcpp{
             waitCondition->wakeAll();
         }
 
+        bool JObject::equals(JObject* o){
+            if (getClass()!=o->getClass()){
+                return false;
+            }
+            return this==o;//TODO use operator==
+        }
+
+        jint JObject::hashCode(){
+            return 0;//TODO
+        }
+
         JObject* JObject::clone(){
             throw new JIllegalArgumentException("not clonable "+toString());//TODO better clone layer
         }

@@ -49,6 +49,10 @@ namespace jcpp{
             return clazz;
         }
 
+        jint JInteger::MIN_VALUE = 0x80000000;
+
+        jint JInteger::MAX_VALUE = 0x7fffffff;
+
         JInteger::JInteger(jint value):JNumber(getClazz()){
             this->value=new JPrimitiveInt(value);
         }

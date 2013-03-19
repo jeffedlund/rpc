@@ -1,6 +1,7 @@
 #ifndef COLLECTIONS_H
 #define COLLECTIONS_H
 
+#include <vector>
 using namespace std;
 
 namespace jcpp{
@@ -143,6 +144,27 @@ namespace jcpp{
                 vec->push_back((*i).first);
             }
             return vec;
+        }
+
+        template<class K>
+        void arraycopy(vector<K>* src,int ofsrc, vector<K>* dest,int ofdes, int nb){
+            for (int i=0;i<nb;i++){
+                dest->at(i+ofdes)=src->at(i+ofsrc);
+            }
+        }
+
+        template<class K>
+        void arraycopy(vector<K>* src,int ofsrc, K dest[],int ofdes, int nb){
+            for (int i=0;i<nb;i++){
+                dest[i+ofdes]=src->at(i+ofsrc);
+            }
+        }
+
+        template<class K>
+        void arraycopy(K src[],int ofsrc, vector<K>* dest,int ofdes, int nb){
+            for (int i=0;i<nb;i++){
+                dest->at(i+ofdes)=src[i+ofsrc];
+            }
         }
     }
 }

@@ -5,7 +5,9 @@
 #include <sstream>
 #include "Object.h"
 #include "Collections.h"
+#include "JInteger.h"
 using namespace jcpp::util;
+using namespace jcpp::lang;
 
 namespace jcpp{
     namespace io{
@@ -52,7 +54,7 @@ namespace jcpp{
         void JDataOutputStream::incCount(jint value){
             jint temp = written + value;
             if (temp < 0) {
-                temp = 0x7fffffff;//TODO define JINTEGER.MAX_VALUE
+                temp = JInteger::MAX_VALUE;
             }
             written = temp;
         }

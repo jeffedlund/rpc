@@ -215,7 +215,18 @@ SOURCES += \
     src/main/cpp/jcpp/rmi/server/impl/connection/JIGCProxy.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/JIGCClientProxy.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/JIServerProxy.cpp \
-    src/main/cpp/jcpp/io/JObjectStreamConstants.cpp
+    src/main/cpp/jcpp/io/JObjectStreamConstants.cpp \
+    src/main/cpp/jcpp/io/JFilterInputStream.cpp \
+    src/main/cpp/jcpp/io/JFilterOutputStream.cpp \
+    src/main/cpp/jcpp/io/JBufferedInputStream.cpp \
+    src/main/cpp/jcpp/io/JBufferedOutputStream.cpp \
+    src/main/cpp/jcpp/lang/JIterable.cpp \
+    src/main/cpp/jcpp/util/JIterator.cpp \
+    src/main/cpp/jcpp/util/JListIterator.cpp \
+    src/main/cpp/jcpp/util/JRandomAccess.cpp \
+    src/main/cpp/jcpp/lang/JCloneable.cpp \
+    src/main/cpp/jcpp/util/JNoSuchElementException.cpp \
+    src/main/cpp/jcpp/util/JConcurrentModificationException.cpp
     
     
 HEADERS += \
@@ -398,7 +409,18 @@ HEADERS += \
     src/main/cpp/jcpp/rmi/server/impl/connection/JIRegistryProxy.h \
     src/main/cpp/jcpp/rmi/server/impl/connection/JIGCProxy.h \
     src/main/cpp/jcpp/rmi/server/impl/connection/JIGCClientProxy.h \
-    src/main/cpp/jcpp/rmi/server/impl/connection/JIServerProxy.h
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIServerProxy.h \
+    src/main/cpp/jcpp/io/JFilterInputStream.h \
+    src/main/cpp/jcpp/io/JFilterOutputStream.h \
+    src/main/cpp/jcpp/io/JBufferedInputStream.h \
+    src/main/cpp/jcpp/io/JBufferedOutputStream.h \
+    src/main/cpp/jcpp/lang/JIterable.h \
+    src/main/cpp/jcpp/util/JIterator.h \
+    src/main/cpp/jcpp/util/JListIterator.h \
+    src/main/cpp/jcpp/util/JRandomAccess.h \
+    src/main/cpp/jcpp/lang/JCloneable.h \
+    src/main/cpp/jcpp/util/JNoSuchElementException.h \
+    src/main/cpp/jcpp/util/JConcurrentModificationException.h
     
     
 OTHER_FILES += \

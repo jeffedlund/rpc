@@ -50,6 +50,10 @@ namespace jcpp{
             return clazz;
         }
 
+        jdouble JDouble::MIN_VALUE = 0x0.0000000000001P-1022;
+
+        jdouble JDouble::MAX_VALUE = 0x1.fffffffffffffP+1023;
+
         JDouble::JDouble(double value):JNumber(JDouble::getClazz()){
             this->value=new JPrimitiveDouble(value);
         }
