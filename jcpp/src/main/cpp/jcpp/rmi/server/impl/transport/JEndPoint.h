@@ -37,7 +37,7 @@ namespace jcpp{
                             JEndPoint();
                             JEndPoint(JDataInputStream* in);
                             JEndPoint(JAddress* a, JString* s);
-                            bool operator==(JObject &other);
+                            virtual bool equals(JObject* other);
                             bool operator<(JEndPoint &other);
                             static JClass* getClazz();
                             void write(JDataOutputStream* out);

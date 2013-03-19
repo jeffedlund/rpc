@@ -67,11 +67,11 @@ namespace jcpp{
                         this->id=id;
                     }
 
-                    bool JObjectPointer::operator==(JObject &other){
-                        if (other.getClass()!=getClazz()){
+                    bool JObjectPointer::equals(JObject* other){
+                        if (other->getClass()!=getClazz()){
                             return false;
                         }
-                        JObjectPointer* s=dynamic_cast<JObjectPointer*>(&other);
+                        JObjectPointer* s=dynamic_cast<JObjectPointer*>(other);
                         return (*s->endPoint)==(*endPoint) && (*s->id)==(*id);
                     }
 

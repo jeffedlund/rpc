@@ -62,9 +62,9 @@ namespace jcpp{
             this->str=str->str.c_str();
         }
 
-        bool JString::operator==(JObject &other){
-            if (other.getClass()==getClazz()){
-                JString* s=dynamic_cast<JString*>(&other);
+        bool JString::equals(JObject* other){
+            if (other->getClass()==getClazz()){
+                JString* s=dynamic_cast<JString*>(other);
                 return (str==s->str);
             }
             return false;

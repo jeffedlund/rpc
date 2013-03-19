@@ -92,11 +92,11 @@ namespace jcpp{
             this->lineNumber=lineNumber;
         }
 
-        bool JStackTraceElement::operator==(JObject &other){
-            if (other.getClass()!=JStackTraceElement::getClazz()){
+        bool JStackTraceElement::equals(JObject* other){
+            if (other->getClass()!=JStackTraceElement::getClazz()){
                 return false;
             }
-            JStackTraceElement* se=dynamic_cast<JStackTraceElement*>(&other);
+            JStackTraceElement* se=dynamic_cast<JStackTraceElement*>(other);
             bool eq=true;
             if (se->declaringClass!=NULL && declaringClass!=NULL){
                 eq=((*se->declaringClass)==(*declaringClass));

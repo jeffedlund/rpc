@@ -18,7 +18,7 @@ namespace jcpp{
             public:
                 JPrimitiveFloat();
                 JPrimitiveFloat(float value);
-                bool operator==(JObject &other);
+                virtual bool equals(JObject* other);
                 JPrimitiveFloat operator+=(jfloat f);
                 JPrimitiveFloat operator-=(jfloat f);
                 JPrimitiveFloat operator*=(jfloat f);

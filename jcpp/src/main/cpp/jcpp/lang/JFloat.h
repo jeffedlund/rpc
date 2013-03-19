@@ -19,7 +19,7 @@ namespace jcpp{
             public:
                 JFloat();
                 JFloat(float value);
-                bool operator==(JObject &other);
+                virtual bool equals(JObject* other);
                 JFloat operator+=(jfloat f);
                 JFloat operator-=(jfloat f);
                 JFloat operator*=(jfloat f);

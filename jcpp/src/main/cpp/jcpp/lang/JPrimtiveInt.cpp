@@ -48,11 +48,11 @@ namespace jcpp{
             this->value=0;
         }
 
-        bool JPrimitiveInt::operator==(JObject &other){
-            if (other.getClass()!=getClazz()){
+        bool JPrimitiveInt::equals(JObject* other){
+            if (other->getClass()!=getClazz()){
                 return false;
             }
-            JPrimitiveInt* s=dynamic_cast<JPrimitiveInt*>(&other);
+            JPrimitiveInt* s=dynamic_cast<JPrimitiveInt*>(other);
             return value==s->value;
         }
 

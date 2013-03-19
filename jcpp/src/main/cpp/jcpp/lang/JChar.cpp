@@ -64,9 +64,9 @@ namespace jcpp{
             this->value=new JPrimitiveChar((jchar)0);
         }
 
-        bool JChar::operator==(JObject &other){
-            if (other.getClass()==getClazz()){
-                JChar* s=dynamic_cast<JChar*>(&other);
+        bool JChar::equals(JObject* other){
+            if (other->getClass()==getClazz()){
+                JChar* s=dynamic_cast<JChar*>(other);
                 return (*value)==(*s->value);
             }
             return false;

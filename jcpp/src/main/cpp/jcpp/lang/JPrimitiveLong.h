@@ -18,7 +18,7 @@ namespace jcpp{
             public:
                 JPrimitiveLong();
                 JPrimitiveLong(jlong value);
-                bool operator==(JObject &other);
+                virtual bool equals(JObject* other);
                 JPrimitiveLong operator+=(jlong f);
                 JPrimitiveLong operator-=(jlong f);
                 JPrimitiveLong operator*=(jlong f);

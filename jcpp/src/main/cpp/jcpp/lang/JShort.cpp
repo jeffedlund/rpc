@@ -62,9 +62,9 @@ namespace jcpp{
             this->value=new JPrimitiveShort(0);
         }
 
-        bool JShort::operator==(JObject &other){
-            if (other.getClass()==getClazz()){
-                JShort* s=dynamic_cast<JShort*>(&other);
+        bool JShort::equals(JObject* other){
+            if (other->getClass()==getClazz()){
+                JShort* s=dynamic_cast<JShort*>(other);
                 return (*value)==(*s->value);
             }
             return false;

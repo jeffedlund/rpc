@@ -45,11 +45,11 @@ namespace jcpp{
             this->value=false;
         }
 
-        bool JPrimitiveBoolean::operator==(JObject &other){
-            if (other.getClass()!=getClazz()){
+        bool JPrimitiveBoolean::equals(JObject* other){
+            if (other->getClass()!=getClazz()){
                 return false;
             }
-            JPrimitiveBoolean* s=dynamic_cast<JPrimitiveBoolean*>(&other);
+            JPrimitiveBoolean* s=dynamic_cast<JPrimitiveBoolean*>(other);
             return value==s->value;
         }
 

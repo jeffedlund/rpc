@@ -19,7 +19,7 @@ namespace jcpp{
             public:
                 JLong();
                 JLong(jlong value);
-                bool operator==(JObject &other);
+                virtual bool equals(JObject* other);
                 JLong operator+=(jlong f);
                 JLong operator-=(jlong f);
                 JLong operator*=(jlong f);

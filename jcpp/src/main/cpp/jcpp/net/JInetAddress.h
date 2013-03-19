@@ -23,7 +23,7 @@ namespace jcpp{
             static JInetAddress* getByName(string host);
             static JInetAddress* getLocalHost();
             static JClass* getClazz();
-            bool operator==(JObject &other);
+            virtual bool equals(JObject* other);
             JString* getHostName();
             void setHostName(JString* h);
             JPrimitiveInt* getAddress();

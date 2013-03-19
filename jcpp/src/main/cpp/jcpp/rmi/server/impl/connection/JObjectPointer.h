@@ -45,7 +45,7 @@ namespace jcpp{
                         public:
                             JObjectPointer();
                             JObjectPointer(JEndPoint* endPoint, JString* id);
-                            bool operator==(JObject &other);
+                            virtual bool equals(JObject* other);
                             static JClass* getClazz();
                             JEndPoint* getEndPoint();
                             void setEndPoint(JEndPoint* endPoint);

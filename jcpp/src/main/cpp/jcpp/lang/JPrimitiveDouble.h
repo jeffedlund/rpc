@@ -17,7 +17,7 @@ namespace jcpp{
             public:
                 JPrimitiveDouble();
                 JPrimitiveDouble(jdouble value);
-                bool operator==(JObject &other);
+                virtual bool equals(JObject* other);
                 JPrimitiveDouble operator+=(jdouble f);
                 JPrimitiveDouble operator-=(jdouble f);
                 JPrimitiveDouble operator*=(jdouble f);

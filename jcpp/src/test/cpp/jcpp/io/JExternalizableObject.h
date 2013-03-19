@@ -21,7 +21,7 @@ namespace jcpp{
 
             static JClass* getClazz();
 
-            bool operator==(JObject &other);
+            virtual bool equals(JObject* other);
 
             JPrimitiveBoolean* getBool1();
 

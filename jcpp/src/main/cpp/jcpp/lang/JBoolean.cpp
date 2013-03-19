@@ -57,11 +57,11 @@ namespace jcpp{
             this->value=new JPrimitiveBoolean(false);
         }
 
-        bool JBoolean::operator==(JObject &other){
-            if (other.getClass()!=getClazz()){
+        bool JBoolean::equals(JObject* other){
+            if (other->getClass()!=getClazz()){
                 return false;
             }
-            JBoolean* b=dynamic_cast<JBoolean*>(&other);
+            JBoolean* b=dynamic_cast<JBoolean*>(other);
             return (*value)==(*b->value);
         }
 

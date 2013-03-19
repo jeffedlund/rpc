@@ -23,7 +23,7 @@ namespace jcpp{
             JString();
             JString(string str);
             JString(JString* str);
-            bool operator==(JObject &other);
+            virtual bool equals(JObject* other);
             bool operator<(JString &other);
             static JClass* getClazz();
             string getString();

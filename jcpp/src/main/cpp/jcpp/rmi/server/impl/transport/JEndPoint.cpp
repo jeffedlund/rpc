@@ -76,11 +76,11 @@ namespace jcpp{
                         this->site=s;
                     }
 
-                    bool JEndPoint::operator==(JObject &other){
-                        if (other.getClass()!=getClazz()){
+                    bool JEndPoint::equals(JObject* other){
+                        if (other->getClass()!=getClazz()){
                             return false;
                         }
-                        JEndPoint* s=dynamic_cast<JEndPoint*>(&other);
+                        JEndPoint* s=dynamic_cast<JEndPoint*>(other);
                         return (*s->address)==(*address) && (*s->site)==(*site);
                     }
 

@@ -61,9 +61,9 @@ namespace jcpp{
             this->value=new JPrimitiveFloat(0);
         }
 
-        bool JFloat::operator==(JObject &other){
-            if (other.getClass()==getClazz()){
-                JFloat* s=dynamic_cast<JFloat*>(&other);
+        bool JFloat::equals(JObject* other){
+            if (other->getClass()==getClazz()){
+                JFloat* s=dynamic_cast<JFloat*>(other);
                 return (*value)==(*s->value);
             }
             return false;

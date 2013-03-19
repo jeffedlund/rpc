@@ -47,11 +47,11 @@ namespace jcpp{
             this->value=0;
         }
 
-        bool JPrimitiveChar::operator==(JObject &other){
-            if (other.getClass()!=getClazz()){
+        bool JPrimitiveChar::equals(JObject* other){
+            if (other->getClass()!=getClazz()){
                 return false;
             }
-            JPrimitiveChar* s=dynamic_cast<JPrimitiveChar*>(&other);
+            JPrimitiveChar* s=dynamic_cast<JPrimitiveChar*>(other);
             return value==s->value;
         }
 

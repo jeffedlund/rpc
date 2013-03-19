@@ -63,11 +63,11 @@ namespace jcpp{
                         this->bIsHttp=new JPrimitiveBoolean();
                     }
 
-                    bool JRoute::operator==(JObject &other){
-                        if (other.getClass()!=getClazz()){
+                    bool JRoute::equals(JObject* other){
+                        if (other->getClass()!=getClazz()){
                             return false;
                         }
-                        JRoute* s=dynamic_cast<JRoute*>(&other);
+                        JRoute* s=dynamic_cast<JRoute*>(other);
                         return (*s->addressList)==(*addressList) && (*s->bIsHttp)==(*bIsHttp);
                     }
 

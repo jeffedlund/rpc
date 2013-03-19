@@ -19,7 +19,7 @@ namespace jcpp{
                 JChar();
                 JChar(char value);
                 JChar(jchar value);
-                bool operator==(JObject &other);
+                virtual bool equals(JObject* other);
                 static JClass* getClazz();
                 static jchar MIN_VALUE;
                 static jchar MAX_VALUE;

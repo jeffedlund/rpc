@@ -226,7 +226,10 @@ SOURCES += \
     src/main/cpp/jcpp/util/JRandomAccess.cpp \
     src/main/cpp/jcpp/lang/JCloneable.cpp \
     src/main/cpp/jcpp/util/JNoSuchElementException.cpp \
-    src/main/cpp/jcpp/util/JConcurrentModificationException.cpp
+    src/main/cpp/jcpp/util/JConcurrentModificationException.cpp \
+    src/main/cpp/jcpp/util/JVector.cpp \
+    src/main/cpp/jcpp/util/JEnumeration.cpp \
+    src/main/cpp/jcpp/lang/exception/JArrayIndexOutOfBoundsException.cpp
     
     
 HEADERS += \
@@ -420,7 +423,10 @@ HEADERS += \
     src/main/cpp/jcpp/util/JRandomAccess.h \
     src/main/cpp/jcpp/lang/JCloneable.h \
     src/main/cpp/jcpp/util/JNoSuchElementException.h \
-    src/main/cpp/jcpp/util/JConcurrentModificationException.h
+    src/main/cpp/jcpp/util/JConcurrentModificationException.h \
+    src/main/cpp/jcpp/util/JVector.h \
+    src/main/cpp/jcpp/util/JEnumeration.h \
+    src/main/cpp/jcpp/lang/exception/JArrayIndexOutOfBoundsException.h
     
     
 OTHER_FILES += \

@@ -27,7 +27,7 @@ namespace jcpp{
                         public:
                             JAddress();
                             JAddress(JAddress* adr);
-                            bool operator==(JObject &other);
+                            virtual bool equals(JObject* other);
                             static JClass* getClazz();
                             void setHostName(string host);
                             string getHostName();

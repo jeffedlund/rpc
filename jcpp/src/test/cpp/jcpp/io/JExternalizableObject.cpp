@@ -171,11 +171,11 @@ namespace jcpp{
         JExternalizableObject::JExternalizableObject():JObject(getClazz()){
         }
 
-        bool JExternalizableObject::operator==(JObject &other){
-            if (getClass()!=other.getClass()){
+        bool JExternalizableObject::equals(JObject* other){
+            if (getClass()!=other->getClass()){
                 return false;
             }
-            JExternalizableObject* s=dynamic_cast<JExternalizableObject*>(&other);
+            JExternalizableObject* s=dynamic_cast<JExternalizableObject*>(other);
             if (*s->bool1==*bool1){
                 if (*s->byte1==*byte1){
                     if (*s->c1==*c1){

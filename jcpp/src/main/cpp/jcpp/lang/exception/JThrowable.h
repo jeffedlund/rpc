@@ -25,7 +25,7 @@ namespace jcpp{
             JThrowable(JString* message);
             JThrowable(string, JThrowable *cause);
             JThrowable(JString*, JThrowable *cause);
-            bool operator==(JObject &other);
+            virtual bool equals(JObject* other);
 
             static JClass* getClazz();
 

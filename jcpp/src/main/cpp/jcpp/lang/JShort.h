@@ -18,7 +18,7 @@ namespace jcpp{
             public:
                 JShort();
                 JShort(jshort value);
-                bool operator==(JObject &other);
+                virtual bool equals(JObject* other);
                 JShort operator+=(jshort f);
                 JShort operator-=(jshort f);
                 JShort operator*=(jshort f);

@@ -68,11 +68,11 @@ namespace jcpp{
                         this->port=new JPrimitiveInt(adr->port);
                     }
 
-                    bool JAddress::operator==(JObject &other){
-                        if (other.getClass()!=getClazz()){
+                    bool JAddress::equals(JObject* other){
+                        if (other->getClass()!=getClazz()){
                             return false;
                         }
-                        JAddress* s=dynamic_cast<JAddress*>(&other);
+                        JAddress* s=dynamic_cast<JAddress*>(other);
                         return (*s->hostName)==(*hostName) && (*s->port)==(*port);
                     }
 

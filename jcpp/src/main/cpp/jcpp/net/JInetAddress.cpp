@@ -64,11 +64,11 @@ namespace jcpp{
             return clazz;
         }
 
-        bool JInetAddress::operator==(JObject &other){
-            if (!(other.getClazz()==getClass())){
+        bool JInetAddress::equals(JObject* other){
+            if (!(other->getClazz()==getClass())){
                 return false;
             }
-            JInetAddress* ia=dynamic_cast<JInetAddress*>(&other);
+            JInetAddress* ia=dynamic_cast<JInetAddress*>(other);
             return (*hostName==*ia->hostName) && (*address==*ia->address) && (*family==*ia->family);
         }
 

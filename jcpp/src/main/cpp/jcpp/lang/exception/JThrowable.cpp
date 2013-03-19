@@ -104,11 +104,11 @@ namespace jcpp{
             this->stackTrace=NULL;
         }
 
-        bool JThrowable::operator==(JObject &o){
-            if (!getClazz()->isAssignableFrom(o.getClass())){
+        bool JThrowable::equals(JObject* o){
+            if (!getClazz()->isAssignableFrom(o->getClass())){
                 return false;
             }
-            JThrowable* other=dynamic_cast<JThrowable*>(&(o));
+            JThrowable* other=dynamic_cast<JThrowable*>(o);
             bool eq=true;
             if (other->message!=NULL && message!=NULL){
                 eq=(*other->message)==(*message);

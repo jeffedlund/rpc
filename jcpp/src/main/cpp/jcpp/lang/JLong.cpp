@@ -61,9 +61,9 @@ namespace jcpp{
             this->value=new JPrimitiveLong(0);
         }
 
-        bool JLong::operator==(JObject &other){
-            if (other.getClass()==getClazz()){
-                JLong* s=dynamic_cast<JLong*>(&other);
+        bool JLong::equals(JObject* other){
+            if (other->getClass()==getClazz()){
+                JLong* s=dynamic_cast<JLong*>(other);
                 return (*value)==(*s->value);
             }
             return false;

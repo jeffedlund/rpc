@@ -43,11 +43,11 @@ namespace jcpp{
             this->value=0;
         }
 
-        bool JPrimitiveFloat::operator==(JObject &other){
-            if (other.getClass()!=getClazz()){
+        bool JPrimitiveFloat::equals(JObject* other){
+            if (other->getClass()!=getClazz()){
                 return false;
             }
-            JPrimitiveFloat* s=dynamic_cast<JPrimitiveFloat*>(&other);
+            JPrimitiveFloat* s=dynamic_cast<JPrimitiveFloat*>(other);
             return value==s->value;
         }
 

@@ -29,6 +29,9 @@ namespace jcpp{
             return clazz;
         }
 
+        JIndexOutOfBoundsException::JIndexOutOfBoundsException(JClass* _class):JRuntimeException(_class){
+        }
+
         JIndexOutOfBoundsException::JIndexOutOfBoundsException():JRuntimeException(getClazz()){
         }
 

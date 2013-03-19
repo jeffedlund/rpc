@@ -22,7 +22,7 @@ namespace jcpp{
         public:
             JStackTraceElement();
             JStackTraceElement(JString* declaringClass,JString* methodName,JString* fileName,JPrimitiveInt* lineNumber);
-            bool operator==(JObject &other);
+            virtual bool equals(JObject* other);
 
             static JClass* getClazz();
 

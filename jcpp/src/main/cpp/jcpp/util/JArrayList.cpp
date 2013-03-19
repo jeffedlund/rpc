@@ -78,24 +78,6 @@ namespace jcpp{
             delete i;
         }
 
-        bool JArrayList::operator==(JObject &other){
-            if (other.getClass()!=getClass()){
-                return false;
-            }
-            JArrayList* s=dynamic_cast<JArrayList*>(&other);
-            if (s->size()!=size()){
-                return false;
-            }
-            for (int i=0;i<size();i++){
-                JObject* o1=get(i);
-                JObject* o2=s->get(i);
-                if (!((*o1)==(*o2))){
-                    return false;
-                }
-            }
-            return true;
-        }
-
         jint JArrayList::size(){
             return items->size();
         }

@@ -125,11 +125,11 @@ namespace jcpp{
             }
         }
 
-        bool JPrimitiveArray::operator==(JObject &other){
-            if (!other.getClass()->isArray()){
+        bool JPrimitiveArray::equals(JObject* other){
+            if (!other->getClass()->isArray()){
                 return false;
             }
-            JPrimitiveArray* s=dynamic_cast<JPrimitiveArray*>(&other);
+            JPrimitiveArray* s=dynamic_cast<JPrimitiveArray*>(other);
             if (s->size()==size()){
                 for (int i=0;i<s->size();i++){
                     JObject* object1=s->get(i);

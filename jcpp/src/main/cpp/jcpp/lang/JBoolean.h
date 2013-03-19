@@ -19,7 +19,7 @@ namespace jcpp{
                 JBoolean();
                 JBoolean(bool value);
                 JBoolean(JPrimitiveBoolean* value);
-                bool operator==(JObject &other);
+                virtual bool equals(JObject* other);
 
                 static JClass* getClazz();
 

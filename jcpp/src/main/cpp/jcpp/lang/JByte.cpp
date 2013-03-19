@@ -60,11 +60,11 @@ namespace jcpp{
             this->value=new JPrimitiveByte(0);
         }
 
-        bool JByte::operator==(JObject &other){
-            if (other.getClass()!=getClazz()){
+        bool JByte::equals(JObject* other){
+            if (other->getClass()!=getClazz()){
                 return false;
             }
-            JByte* b=dynamic_cast<JByte*>(&other);
+            JByte* b=dynamic_cast<JByte*>(other);
             return (*value)==(*b->value);
         }
 

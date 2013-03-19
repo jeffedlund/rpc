@@ -62,9 +62,9 @@ namespace jcpp{
             this->value=new JPrimitiveDouble(0);
         }
 
-        bool JDouble::operator==(JObject &other){
-            if (other.getClass()==getClazz()){
-                JDouble* s=dynamic_cast<JDouble*>(&other);
+        bool JDouble::equals(JObject* other){
+            if (other->getClass()==getClazz()){
+                JDouble* s=dynamic_cast<JDouble*>(other);
                 return (*value)==(*s->value);
             }
             return false;

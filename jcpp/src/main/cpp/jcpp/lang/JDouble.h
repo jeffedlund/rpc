@@ -19,7 +19,7 @@ namespace jcpp{
             public:
                 JDouble();
                 JDouble(jdouble value);
-                bool operator==(JObject &other);
+                virtual bool equals(JObject* other);
                 JDouble operator+=(jdouble f);
                 JDouble operator-=(jdouble f);
                 JDouble operator*=(jdouble f);

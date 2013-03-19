@@ -23,7 +23,6 @@ namespace jcpp{
             JArrayList(int initialCapacity = 10);
             JArrayList(JCollection* c);
             static JClass* getClazz();
-            bool operator==(JObject &other);
             virtual void setPSize(JPrimitiveInt* s);
             virtual JPrimitiveInt* getPSize();
             virtual void trimToSize();

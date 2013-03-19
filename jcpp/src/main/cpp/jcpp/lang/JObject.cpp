@@ -56,10 +56,7 @@ namespace jcpp{
         }
 
         bool JObject::operator==(JObject &other){
-            if (getClass()!=other.getClass()){
-                return false;
-            }
-            return this==&other;
+            return equals(&other);
         }
 
         bool JObject::operator!=(JObject &other){
@@ -102,11 +99,11 @@ namespace jcpp{
             if (getClass()!=o->getClass()){
                 return false;
             }
-            return this==o;//TODO use operator==
+            return this==o;
         }
 
         jint JObject::hashCode(){
-            return 0;//TODO
+            return (jint)this;
         }
 
         JObject* JObject::clone(){

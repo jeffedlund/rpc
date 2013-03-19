@@ -20,7 +20,7 @@ namespace jcpp{
             public:
                 JInteger();
                 JInteger(jint value);
-                bool operator==(JObject &other);
+                virtual bool equals(JObject* other);
                 JInteger operator+=(jint f);
                 JInteger operator-=(jint f);
                 JInteger operator*=(jint f);

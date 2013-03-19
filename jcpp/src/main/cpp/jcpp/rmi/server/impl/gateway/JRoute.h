@@ -29,7 +29,7 @@ namespace jcpp{
 
                         public:
                             JRoute();
-                            bool operator==(JObject &other);
+                            virtual bool equals(JObject* other);
 
                             static JClass* getClazz();
 

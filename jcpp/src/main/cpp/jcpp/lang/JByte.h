@@ -19,7 +19,7 @@ namespace jcpp{
             public:
                 JByte();
                 JByte(jbyte value);
-                bool operator==(JObject &other);
+                virtual bool equals(JObject* other);
                 JByte operator+=(jbyte f);
                 JByte operator-=(jbyte f);
                 JByte operator*=(jbyte f);

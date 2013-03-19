@@ -19,7 +19,7 @@ namespace jcpp{
                 JPrimitiveInt();
                 JPrimitiveInt(jint value);
                 JPrimitiveInt(JPrimitiveInt* value);
-                bool operator==(JObject &other);
+                virtual bool equals(JObject* other);
                 bool operator<(JObject &other);
                 JPrimitiveInt operator+=(jint f);
                 JPrimitiveInt operator-=(jint f);

@@ -10,6 +10,9 @@ using namespace std;
 namespace jcpp{
     namespace lang{
         class JCPP_LIBRARY_EXPORT JIndexOutOfBoundsException : public JRuntimeException{
+        protected:
+            JIndexOutOfBoundsException(JClass* _class);
+
         public:
             JIndexOutOfBoundsException();
             JIndexOutOfBoundsException(string message);

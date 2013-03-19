@@ -18,7 +18,7 @@ namespace jcpp{
                 JPrimitiveChar();
                 JPrimitiveChar(char value);
                 JPrimitiveChar(jchar value);
-                bool operator==(JObject &other);
+                virtual bool equals(JObject* other);
 
                 static JClass* getClazz();
 

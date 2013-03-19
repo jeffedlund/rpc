@@ -170,11 +170,11 @@ namespace jcpp{
     JSampleObject::JSampleObject():JObject(getClazz()){
     }
 
-    bool JSampleObject::operator==(JObject &other){
-        if (getClass()!=other.getClass()){
+    bool JSampleObject::equals(JObject* other){
+        if (getClass()!=other->getClass()){
             return false;
         }
-        JSampleObject* s=dynamic_cast<JSampleObject*>(&other);
+        JSampleObject* s=dynamic_cast<JSampleObject*>(other);
         if (*s->bool1==*bool1){
             if (*s->byte1==*byte1){
                 if (*s->c1==*c1){

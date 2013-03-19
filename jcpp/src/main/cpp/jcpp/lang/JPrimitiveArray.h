@@ -19,7 +19,7 @@ namespace jcpp{
 
             JPrimitiveArray(JClass* arrayClass,vector<JObject*>* objects);
 
-            bool operator==(JObject &other);
+            virtual bool equals(JObject* other);
 
             static JClass* getClazz(JClass* componentType);
 

@@ -43,11 +43,11 @@ namespace jcpp{
             this->value=0;
         }
 
-        bool JPrimitiveShort::operator==(JObject &other){
-            if (other.getClass()!=getClazz()){
+        bool JPrimitiveShort::equals(JObject* other){
+            if (other->getClass()!=getClazz()){
                 return false;
             }
-            JPrimitiveShort* s=dynamic_cast<JPrimitiveShort*>(&other);
+            JPrimitiveShort* s=dynamic_cast<JPrimitiveShort*>(other);
             return value==s->value;
         }
 
