@@ -22,8 +22,8 @@ namespace jcpp{
                 void set(jbool value);
                 bool get();
                 virtual bool equals(JObject* other);
+                virtual jint hashCode();
                 virtual string toString();
-
                 virtual ~JPrimitiveBoolean();
         };
     }

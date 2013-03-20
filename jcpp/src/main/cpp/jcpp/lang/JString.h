@@ -24,13 +24,14 @@ namespace jcpp{
             JString();
             JString(string str);
             JString(JString* str);
-            virtual bool equals(JObject* other);
-            bool operator<(JString &other);
             static JClass* getClazz();
+            bool operator<(JString &other);
             string getString();
             void setString(string str);
             virtual JString* clone();
-            string toString();
+            virtual bool equals(JObject* other);
+            virtual jint hashCode();
+            virtual string toString();
             virtual ~JString();
         };
     }

@@ -166,6 +166,13 @@ namespace jcpp{
             this->lineNumber=lineNumber;
         }
 
+        jint JStackTraceElement::hashCode(){
+            jint result = 31*declaringClass->hashCode() + methodName->hashCode();
+            result = 31*result + fileName->hashCode();
+            result = 31*result + lineNumber->hashCode();
+            return result;
+        }
+
         string JStackTraceElement::toString(){
             stringstream ss;
             ss<<getDeclaringClass()->getString()<<"."<<getMethodName()->getString();

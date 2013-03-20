@@ -17,19 +17,15 @@ namespace jcpp{
             public:
                 JPrimitiveDouble();
                 JPrimitiveDouble(jdouble value);
-                virtual bool equals(JObject* other);
                 JPrimitiveDouble operator+=(jdouble f);
                 JPrimitiveDouble operator-=(jdouble f);
                 JPrimitiveDouble operator*=(jdouble f);
-
                 static JClass* getClazz();
-
                 void set(jdouble value);
-
                 jdouble get();
-
-                string toString();
-
+                virtual bool equals(JObject* other);
+                virtual jint hashCode();
+                virtual string toString();
                 virtual ~JPrimitiveDouble();
         };
     }

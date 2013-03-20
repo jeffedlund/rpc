@@ -61,6 +61,10 @@ namespace jcpp{
             return value;
         }
 
+        jint JPrimitiveBoolean::hashCode(){
+            return (value ? 1231 : 1237);
+        }
+
         string JPrimitiveBoolean::toString(){
             return (this->value?"true":"false");
         }

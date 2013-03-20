@@ -19,22 +19,17 @@ namespace jcpp{
                 JPrimitiveInt();
                 JPrimitiveInt(jint value);
                 JPrimitiveInt(JPrimitiveInt* value);
-                virtual bool equals(JObject* other);
                 bool operator<(JObject &other);
                 JPrimitiveInt operator+=(jint f);
                 JPrimitiveInt operator-=(jint f);
                 JPrimitiveInt operator*=(jint f);
-
                 static JClass* getClazz();
-
                 void set(jint value);
-
                 jint get();
-
-                string toString();
-
+                virtual bool equals(JObject* other);
+                virtual jint hashCode();
+                virtual string toString();
                 JPrimitiveInt* clone();
-
                 virtual ~JPrimitiveInt();
         };
     }

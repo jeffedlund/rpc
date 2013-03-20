@@ -74,6 +74,10 @@ namespace jcpp{
             return value;
         }
 
+        jint JPrimitiveShort::hashCode(){
+            return (jint)value;
+        }
+
         string JPrimitiveShort::toString(){
             stringstream ss;
             ss<<value;

@@ -99,6 +99,10 @@ namespace jcpp{
             return jstr;
         }
 
+        jint JString::hashCode(){
+            return hashCode(str);
+        }
+
         string JString::toString(){
             return str;
         }

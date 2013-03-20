@@ -83,6 +83,10 @@ namespace jcpp{
             return new JPrimitiveInt(value);
         }
 
+        jint JPrimitiveInt::hashCode(){
+            return value;
+        }
+
         string JPrimitiveInt::toString(){
             stringstream sstr;
             sstr<<value;

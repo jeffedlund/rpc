@@ -50,6 +50,10 @@ namespace jcpp{
             return clazz;
         }
 
+        jint JShort::hashCode(jshort s){
+            return (jint)s;
+        }
+
         jshort JShort::MIN_VALUE = -32768;
 
         jshort JShort::MAX_VALUE = 32767;
@@ -100,6 +104,10 @@ namespace jcpp{
 
         JPrimitiveShort* JShort::getPrimitiveShort(){
             return value;
+        }
+
+        jint JShort::hashCode(){
+            return hashCode(value->get());
         }
 
         string JShort::toString(){

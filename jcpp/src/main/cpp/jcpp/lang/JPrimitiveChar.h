@@ -18,16 +18,12 @@ namespace jcpp{
                 JPrimitiveChar();
                 JPrimitiveChar(char value);
                 JPrimitiveChar(jchar value);
-                virtual bool equals(JObject* other);
-
                 static JClass* getClazz();
-
                 void set(jchar value);
-
                 jchar get();
-
-                string toString();
-
+                virtual bool equals(JObject* other);
+                virtual jint hashCode();
+                virtual string toString();
                 virtual ~JPrimitiveChar();
         };
     }

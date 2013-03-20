@@ -22,28 +22,18 @@ namespace jcpp{
         public:
             JStackTraceElement();
             JStackTraceElement(JString* declaringClass,JString* methodName,JString* fileName,JPrimitiveInt* lineNumber);
-            virtual bool equals(JObject* other);
-
             static JClass* getClazz();
-
             JString* getDeclaringClass();
-
             void setDeclaringClass(JString* declaringClass);
-
             JString* getMethodName();
-
             void setMethodName(JString* methodName);
-
             JString* getFileName();
-
             void setFileName(JString* fileName);
-
             JPrimitiveInt* getLineNumber();
-
             void setLineNumber(JPrimitiveInt* lineNumber);
-
-            string toString();
-
+            virtual bool equals(JObject* other);
+            virtual jint hashCode();
+            virtual string toString();
             virtual ~JStackTraceElement();
         };
     }

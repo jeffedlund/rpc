@@ -18,18 +18,20 @@ namespace jcpp{
             public:
                 JShort();
                 JShort(jshort value);
-                virtual bool equals(JObject* other);
-                JShort operator+=(jshort f);
-                JShort operator-=(jshort f);
-                JShort operator*=(jshort f);
                 static JClass* getClazz();
                 static jshort MIN_VALUE;
                 static jshort MAX_VALUE;
+                static jint hashCode(jshort);
+                JShort operator+=(jshort f);
+                JShort operator-=(jshort f);
+                JShort operator*=(jshort f);
                 void set(jshort value);
                 jshort get();
                 void setPrimitiveShort(JPrimitiveShort* value);
                 JPrimitiveShort* getPrimitiveShort();
-                string toString();
+                virtual bool equals(JObject* other);
+                virtual jint hashCode();
+                virtual string toString();
                 virtual ~JShort();
         };
     }

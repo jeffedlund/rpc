@@ -47,6 +47,14 @@ namespace jcpp{
             this->value=0;
         }
 
+        void JPrimitiveChar::set(jchar value){
+            this->value=value;
+        }
+
+        jchar JPrimitiveChar::get(){
+            return value;
+        }
+
         bool JPrimitiveChar::equals(JObject* other){
             if (other->getClass()!=getClazz()){
                 return false;
@@ -55,12 +63,8 @@ namespace jcpp{
             return value==s->value;
         }
 
-        void JPrimitiveChar::set(jchar value){
-            this->value=value;
-        }
-
-        jchar JPrimitiveChar::get(){
-            return value;
+        jint JPrimitiveChar::hashCode(){
+            return (jint)value;
         }
 
         string JPrimitiveChar::toString(){

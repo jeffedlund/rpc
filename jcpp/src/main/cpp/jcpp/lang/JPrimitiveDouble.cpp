@@ -74,6 +74,10 @@ namespace jcpp{
             return value;
         }
 
+        jint JPrimitiveDouble::hashCode(){
+            return (jint)value;
+        }
+
         string JPrimitiveDouble::toString(){
             stringstream ss;
             ss<<value;

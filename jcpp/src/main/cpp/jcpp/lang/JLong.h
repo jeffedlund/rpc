@@ -31,6 +31,7 @@ namespace jcpp{
                 void setPrimitiveLong(JPrimitiveLong* value);
                 JPrimitiveLong* getPrimitiveLong();
                 virtual bool equals(JObject* other);
+                virtual jint hashCode();
                 virtual string toString();
                 virtual ~JLong();
         };

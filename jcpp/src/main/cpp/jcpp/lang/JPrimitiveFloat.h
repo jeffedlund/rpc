@@ -18,18 +18,15 @@ namespace jcpp{
             public:
                 JPrimitiveFloat();
                 JPrimitiveFloat(float value);
-                virtual bool equals(JObject* other);
                 JPrimitiveFloat operator+=(jfloat f);
                 JPrimitiveFloat operator-=(jfloat f);
                 JPrimitiveFloat operator*=(jfloat f);
                 static JClass* getClazz();
-
                 void set(jfloat value);
-
                 jfloat get();
-
-                string toString();
-
+                virtual bool equals(JObject* other);
+                virtual jint hashCode();
+                virtual string toString();
                 virtual ~JPrimitiveFloat();
         };
     }

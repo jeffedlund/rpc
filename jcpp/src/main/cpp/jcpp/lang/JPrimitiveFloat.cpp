@@ -74,6 +74,10 @@ namespace jcpp{
             return value;
         }
 
+        jint JPrimitiveFloat::hashCode(){
+            return (jint)value;
+        }
+
         string JPrimitiveFloat::toString(){
             stringstream ss;
             ss<<value;

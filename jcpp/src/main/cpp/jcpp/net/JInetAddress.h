@@ -23,7 +23,6 @@ namespace jcpp{
             static JInetAddress* getByName(string host);
             static JInetAddress* getLocalHost();
             static JClass* getClazz();
-            virtual bool equals(JObject* other);
             JString* getHostName();
             void setHostName(JString* h);
             JPrimitiveInt* getAddress();
@@ -41,7 +40,8 @@ namespace jcpp{
             bool isMulticastAddress();
             bool isReachable(int timeout);
             bool isSiteLocalAddress();
-            string toString();
+            virtual bool equals(JObject* other);//TODO hashcode
+            virtual string toString();
             virtual ~JInetAddress();
         };
     }

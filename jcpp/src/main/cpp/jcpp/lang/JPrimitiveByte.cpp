@@ -43,14 +43,6 @@ namespace jcpp{
             this->value=0;
         }
 
-        bool JPrimitiveByte::operator==(JObject &other){
-            if (other.getClass()!=getClazz()){
-                return false;
-            }
-            JPrimitiveByte* s=dynamic_cast<JPrimitiveByte*>(&other);
-            return value==s->value;
-        }
-
         JPrimitiveByte JPrimitiveByte::operator+=(jbyte f){
             value+=f;
             return *this;
@@ -72,6 +64,18 @@ namespace jcpp{
 
         jbyte JPrimitiveByte::get(){
             return value;
+        }
+
+        bool JPrimitiveByte::equals(JObject* other){
+            if (other->getClass()!=getClazz()){
+                return false;
+            }
+            JPrimitiveByte* s=dynamic_cast<JPrimitiveByte*>(other);
+            return value==s->value;
+        }
+
+        jint JPrimitiveByte::hashCode(){
+            return (jint)value;
         }
 
         string JPrimitiveByte::toString(){

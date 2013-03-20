@@ -18,19 +18,15 @@ namespace jcpp{
             public:
                 JPrimitiveLong();
                 JPrimitiveLong(jlong value);
-                virtual bool equals(JObject* other);
                 JPrimitiveLong operator+=(jlong f);
                 JPrimitiveLong operator-=(jlong f);
                 JPrimitiveLong operator*=(jlong f);
-
                 static JClass* getClazz();
-
                 void set(jlong value);
-
                 jlong get();
-
-                string toString();
-
+                virtual bool equals(JObject* other);
+                virtual jint hashCode();
+                virtual string toString();
                 virtual ~JPrimitiveLong();
         };
     }

@@ -45,13 +45,13 @@ namespace jcpp{
                         public:
                             JObjectPointer();
                             JObjectPointer(JEndPoint* endPoint, JString* id);
-                            virtual bool equals(JObject* other);
                             static JClass* getClazz();
                             JEndPoint* getEndPoint();
                             void setEndPoint(JEndPoint* endPoint);
                             JString* getId();
                             void setId(JString* id);
-                            string toString();
+                            virtual bool equals(JObject* other);
+                            virtual string toString();
                             virtual ~JObjectPointer();
                     };
                 }
