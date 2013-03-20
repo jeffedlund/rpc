@@ -50,6 +50,10 @@ namespace jcpp{
             return clazz;
         }
 
+        jint JDouble::hashCode(jdouble d){
+            return (jint)d;
+        }
+
         jdouble JDouble::MIN_VALUE = 0x0.0000000000001P-1022;
 
         jdouble JDouble::MAX_VALUE = 0x1.fffffffffffffP+1023;
@@ -100,6 +104,10 @@ namespace jcpp{
 
         JPrimitiveDouble* JDouble::getPrimitiveDouble(){
             return value;
+        }
+
+        jint JDouble::hashCode(){
+            return hashCode(value->get());
         }
 
         string JDouble::toString(){

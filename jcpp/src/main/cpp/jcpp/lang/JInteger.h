@@ -20,18 +20,19 @@ namespace jcpp{
             public:
                 JInteger();
                 JInteger(jint value);
-                virtual bool equals(JObject* other);
-                JInteger operator+=(jint f);
-                JInteger operator-=(jint f);
-                JInteger operator*=(jint f);
                 static JClass* getClazz();
                 static jint MIN_VALUE;
                 static jint MAX_VALUE;
+                JInteger operator+=(jint f);
+                JInteger operator-=(jint f);
+                JInteger operator*=(jint f);
                 void set(jint value);
                 jint get();
                 void setPrimitiveInt(JPrimitiveInt* value);
                 JPrimitiveInt* getPrimitiveInt();
-                string toString();
+                virtual bool equals(JObject* other);
+                virtual jint hashCode();
+                virtual string toString();
                 virtual ~JInteger();
         };
     }

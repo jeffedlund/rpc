@@ -19,20 +19,15 @@ namespace jcpp{
                 JBoolean();
                 JBoolean(bool value);
                 JBoolean(JPrimitiveBoolean* value);
-                virtual bool equals(JObject* other);
-
                 static JClass* getClazz();
-
+                static jint hashCode(bool value);
                 void set(bool value);
-
                 bool get();
-
                 void setPrimitiveBoolean(JPrimitiveBoolean* value);
-
                 JPrimitiveBoolean* getPrimitiveBoolean();
-
-                string toString();
-
+                virtual bool equals(JObject* other);
+                virtual jint hashCode();
+                virtual string toString();
                 virtual ~JBoolean();
         };
     }

@@ -30,7 +30,6 @@ namespace jcpp{
             return th->getStackTrace();
         }
 
-
         static void staticSetStackTrace(JObject* object,JObject* value){
             JThrowable* th=(JThrowable*)object;
             th->setStackTrace((JPrimitiveArray*)value);

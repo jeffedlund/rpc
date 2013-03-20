@@ -48,6 +48,10 @@ namespace jcpp{
             return clazz;
         }
 
+        jint JChar::hashCode(jchar c){
+            return (jint)c;
+        }
+
         jchar JChar::MIN_VALUE = '\u0000';
 
         jchar JChar::MAX_VALUE = (jchar)'\uffff';
@@ -87,6 +91,10 @@ namespace jcpp{
 
         JPrimitiveChar* JChar::getPrimitiveChar(){
             return value;
+        }
+
+        jint JChar::hashCode(){
+            return hashCode(value->get());
         }
 
         string JChar::toString(){

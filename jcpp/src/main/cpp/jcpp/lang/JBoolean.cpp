@@ -49,6 +49,10 @@ namespace jcpp{
             return clazz;
         }
 
+        jint JBoolean::hashCode(bool value){
+            return (value ? 1231 : 1237);
+        }
+
         JBoolean::JBoolean(bool value):JObject(getClazz()){
             this->value=new JPrimitiveBoolean(value);
         }
@@ -80,6 +84,10 @@ namespace jcpp{
         void JBoolean::setPrimitiveBoolean(JPrimitiveBoolean* value){
             delete this->value;
             this->value=value;
+        }
+
+        jint JBoolean::hashCode(){
+            return hashCode(value->get());
         }
 
         string JBoolean::toString(){

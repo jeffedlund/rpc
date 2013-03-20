@@ -17,20 +17,24 @@ namespace jcpp{
             return clazz;
         }
 
-        bool JEnum::operator==(JObject &other){
-            if (other.getClass()==getClass()){
-                JEnum* s=dynamic_cast<JEnum*>(&other);
-                return (*name)==(*s->name) && (*ordinal)==(*s->ordinal);
-            }
-            return false;
-        }
-
         JString* JEnum::getName(){
             return name;
         }
 
         JPrimitiveInt* JEnum::getOrdinal(){
             return ordinal;
+        }
+
+        bool JEnum::equals(JObject* other){
+            if (other->getClass()==getClass()){
+                JEnum* s=dynamic_cast<JEnum*>(other);
+                return (*name)==(*s->name) && (*ordinal)==(*s->ordinal);
+            }
+            return false;
+        }
+
+        jint JEnum::hashCode(){
+            return JObject::hashCode();
         }
 
         string JEnum::toString(){

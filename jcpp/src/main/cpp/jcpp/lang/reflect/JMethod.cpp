@@ -61,6 +61,23 @@ namespace jcpp{
                 return inv(object,args);
             }
 
+            bool JMethod::equals(JObject* obj) {
+                if (obj != NULL && getClazz()!=obj->getClass()) {
+                    JMethod* other = dynamic_cast<JMethod*>(obj);
+                    if (getDeclaringClass()->equals(other->getDeclaringClass()) && (getName() == other->getName())) {
+                        if (!returnType->equals(other->getReturnType())){
+                            return false;
+                        }
+                        //TODO return equalParamTypes(parameterTypes, other.parameterTypes);
+                    }
+                }
+                return false;
+            }
+
+            jint JMethod::hashCode() {
+                return JString::hashCode(getDeclaringClass()->getName())^ JString::hashCode(getName());
+            }
+
             string JMethod::toString(){
                 stringstream ss;
                 ss<<returnType->getName()<<" ";

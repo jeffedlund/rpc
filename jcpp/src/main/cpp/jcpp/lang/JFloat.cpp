@@ -49,6 +49,10 @@ namespace jcpp{
             return clazz;
         }
 
+        jint JFloat::hashCode(jfloat f){
+            return (jint)f;
+        }
+
         jfloat JFloat::MIN_VALUE = 0x0.000002P-126f;
 
         jfloat JFloat::MAX_VALUE = 0x1.fffffeP+127f;
@@ -99,6 +103,10 @@ namespace jcpp{
 
         JPrimitiveFloat* JFloat::getPrimitiveFloat(){
             return value;
+        }
+
+        jint JFloat::hashCode(){
+            return hashCode(value->get());
         }
 
         string JFloat::toString(){

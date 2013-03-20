@@ -51,6 +51,14 @@ namespace jcpp{
             return js;
         }
 
+        jint JString::hashCode(string s){
+            jint h=0;//TODO cache it
+            for (unsigned int i=0;i<s.size();i++){
+                h=31*h+(jint)s.at(i);
+            }
+            return h;
+        }
+
         JString::JString(): JObject(getClazz()){
         }
 

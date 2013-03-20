@@ -19,18 +19,20 @@ namespace jcpp{
             public:
                 JDouble();
                 JDouble(jdouble value);
-                virtual bool equals(JObject* other);
-                JDouble operator+=(jdouble f);
-                JDouble operator-=(jdouble f);
-                JDouble operator*=(jdouble f);
                 static JClass* getClazz();
                 static jdouble MIN_VALUE;
                 static jdouble MAX_VALUE;
+                static jint hashCode(jdouble);
+                JDouble operator+=(jdouble f);
+                JDouble operator-=(jdouble f);
+                JDouble operator*=(jdouble f);
                 void set(double value);
                 double get();
                 void setPrimitiveDouble(JPrimitiveDouble* value);
                 JPrimitiveDouble* getPrimitiveDouble();
-                string toString();
+                virtual bool equals(JObject* other);
+                virtual jint hashCode();
+                virtual string toString();
                 virtual ~JDouble();
         };
     }

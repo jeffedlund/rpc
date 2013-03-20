@@ -33,6 +33,10 @@ namespace jcpp{
 
                 JObject* invoke(JObject* object, vector<JObject*>*args);
 
+                virtual bool equals(JObject* o);
+
+                virtual jint hashCode();
+
                 virtual string toString();
 
                 virtual ~JMethod();

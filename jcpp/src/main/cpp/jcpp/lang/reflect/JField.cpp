@@ -33,6 +33,7 @@ namespace jcpp{
                 return clazz;
             }
 
+            //TODO add declaringClass
             JField::JField(string name,JClass* type):JAccessibleObject(getClazz()){
                 this->name=name;
                 this->type=type;
@@ -71,8 +72,20 @@ namespace jcpp{
                 }
             }
 
+            bool JField::equals(JObject* o){
+                if (o->getClass()!=getClazz()){
+                    return false;
+                }
+                JField* f=dynamic_cast<JField*>(o);
+                return this->getName()==f->getName() && this->getType()==f->getType();//TODO add getDeclaringClass.equals
+            }
+
+            jint JField::hashCode(){
+                return JString::hashCode(getName());//TODO add getDeclaringClass.getName
+            }
+
             string JField::toString(){
-                return getType()->getName()+"."+getName();
+                return getType()->getName()+"."+getName();//TODO getDeclaringClass
             }
 
              JField::~JField(){

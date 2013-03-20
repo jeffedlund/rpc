@@ -19,18 +19,20 @@ namespace jcpp{
             public:
                 JByte();
                 JByte(jbyte value);
-                virtual bool equals(JObject* other);
+                static JClass* getClazz();
+                static jint hashCode(jbyte b);
+                static jbyte MIN_VALUE;
+                static jbyte MAX_VALUE;
                 JByte operator+=(jbyte f);
                 JByte operator-=(jbyte f);
                 JByte operator*=(jbyte f);
-                static JClass* getClazz();
-                static jbyte MIN_VALUE;
-                static jbyte MAX_VALUE;
                 void set(jbyte value);
                 jbyte get();
                 void setPrimitiveByte(JPrimitiveByte* value);
                 JPrimitiveByte* getPrimitiveByte();
-                string toString();
+                virtual jint hashCode();
+                virtual bool equals(JObject* other);
+                virtual string toString();
                 virtual ~JByte();
         };
     }

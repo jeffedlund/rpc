@@ -18,15 +18,11 @@ namespace jcpp{
             public:
                 JPrimitiveBoolean();
                 JPrimitiveBoolean(jbool value);
-                virtual bool equals(JObject* other);
-
                 static JClass* getClazz();
-
                 void set(jbool value);
-
                 bool get();
-
-                string toString();
+                virtual bool equals(JObject* other);
+                virtual string toString();
 
                 virtual ~JPrimitiveBoolean();
         };

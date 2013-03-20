@@ -34,6 +34,10 @@ namespace jcpp{
 
                 virtual void set(JObject* object, JObject* value);
 
+                virtual bool equals(JObject* o);
+
+                virtual jint hashCode();
+
                 string toString();
 
                 virtual ~JField();

@@ -19,17 +19,19 @@ namespace jcpp{
             public:
                 JFloat();
                 JFloat(float value);
-                virtual bool equals(JObject* other);
-                JFloat operator+=(jfloat f);
-                JFloat operator-=(jfloat f);
-                JFloat operator*=(jfloat f);
                 static JClass* getClazz();
                 static jfloat MIN_VALUE;
                 static jfloat MAX_VALUE;
+                static jint hashCode(jfloat f);
+                JFloat operator+=(jfloat f);
+                JFloat operator-=(jfloat f);
+                JFloat operator*=(jfloat f);
                 void set(float value);
                 float get();
                 void setPrimitiveFloat(JPrimitiveFloat* value);
                 JPrimitiveFloat* getPrimitiveFloat();
+                virtual bool equals(JObject* other);
+                virtual jint hashCode();
                 string toString();
                 virtual ~JFloat();
         };

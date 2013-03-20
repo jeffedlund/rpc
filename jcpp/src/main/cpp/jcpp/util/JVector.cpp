@@ -5,6 +5,7 @@
 #include "JArrayIndexOutOfBoundsException.h"
 #include "JNoSuchElementException.h"
 #include <sstream>
+#include "JCollections.h"
 
 namespace jcpp{
     namespace util{
@@ -89,8 +90,10 @@ namespace jcpp{
         }
 
         void JVector::setElementCount(JPrimitiveInt* s){
+            lock();
             delete elementCount;
             elementCount=s;
+            unlock();
         }
 
         JPrimitiveInt* JVector::getElementCount(){
@@ -98,8 +101,10 @@ namespace jcpp{
         }
 
         void JVector::setCapacityIncrement(JPrimitiveInt* s){
+            lock();
             delete capacityIncrement;
             capacityIncrement=s;
+            unlock();
         }
 
         JPrimitiveInt* JVector::getCapacityIncrement(){
@@ -110,8 +115,10 @@ namespace jcpp{
             lock();
             clear();
             for (int i=0;i<anArray->size();i++){
-                add(anArray->get(i));
+                modCount++;
+                items->push_back(anArray->get(i));
             }
+            elementCount->set(items->size());
             unlock();
         }
 
@@ -156,9 +163,8 @@ namespace jcpp{
         }
 
         bool JVector::isEmpty() {
-            bool b;
             lock();
-            b=elementCount->get() == 0;
+            bool b=elementCount->get() == 0;
             unlock();
             return b;
         }
@@ -175,24 +181,65 @@ namespace jcpp{
             return JAbstractList::listIterator(index);
         }
 
+        static JClass* enumerationImplClazz;
+
+        class JEnumerationImpl : public JObject ,public JEnumeration{
+        protected:
+            JVector* v;
+            jint count;
+
+            class JEnumerationImplClass : public JClass{
+            public:
+              JEnumerationImplClass(){
+                  this->canonicalName="java.util.Vector$Enumeration";
+                  this->name="java.util.Vector$Enumeration";
+                  this->simpleName="Vector$Enumeration";
+                  addInterface(JEnumeration::getClazz());
+              }
+
+              JClass* getSuperclass(){
+                  return JObject::getClazz();
+              }
+
+              JObject* newInstance(){
+                  throw new JInstantiationException("cannot instantiate object of class "+getName());
+              }
+            };
+
+        public:
+
+            JEnumerationImpl(JVector* v):JObject(getClazz()){
+                this->v=v;
+                count = 0;
+            }
+
+            static JClass* getClazz(){
+                if (enumerationImplClazz==NULL){
+                    enumerationImplClazz=new JEnumerationImplClass();
+                }
+                return enumerationImplClazz;
+            }
+
+            bool hasMoreElements() {
+                return count < v->size();
+            }
+
+            JObject* nextElement() {
+                JObject* o=NULL;
+                v->lock();
+                if (count < v->size()) {
+                    o=v->get(count);
+                    count++;
+                }else{
+                    throw new JNoSuchElementException("Vector Enumeration");
+                }
+                v->unlock();
+                return o;
+            }
+        };
+
         JEnumeration* JVector::elements() {
-            return NULL;/*TODO
-            return new JEnumerationIml() {
-                int count = 0;
-
-                public boolean hasMoreElements() {
-                return count < elementCount;
-                }
-
-                public E nextElement() {
-                synchronized (Vector.this) {
-                    if (count < elementCount) {
-                    return (E)elementData[count++];
-                    }
-                }
-                throw new NoSuchElementException("Vector Enumeration");
-                }
-            };*/
+            return new JEnumerationImpl(this);
         }
 
         bool JVector::contains(JObject* o){
@@ -226,11 +273,10 @@ namespace jcpp{
         }
 
         jint JVector::lastIndexOf(JObject* o){
-            jint r;
             lock();
-            r=lastIndexOf(o,elementCount->get()-1);
+            jint index=elementCount->get()-1;//mayeb bugged ...
             unlock();
-            return r;
+            return lastIndexOf(o,index);
         }
 
         jint JVector::lastIndexOf(JObject* o,jint index){
@@ -268,6 +314,7 @@ namespace jcpp{
 
         JObject* JVector::firstElement() {
             JObject* r=NULL;
+            lock();
             if (elementCount->get() == 0) {
                 throw new JNoSuchElementException();
             }
@@ -278,6 +325,7 @@ namespace jcpp{
 
         JObject* JVector::lastElement() {
             JObject* r=NULL;
+            lock();
             if (elementCount->get() == 0) {
                 throw new JNoSuchElementException();
             }
@@ -332,7 +380,7 @@ namespace jcpp{
             modCount++;
             jint i = indexOf(obj);
             if (i >= 0) {
-                removeElementAt(i);
+                removeElementAt(i);//TODO bug because of the lock
                 unlock();
                 return true;
             }
@@ -418,9 +466,9 @@ namespace jcpp{
         }
 
         bool JVector::addAll(JCollection *c){
+            JIterator* i=c->iterator();
             lock();
             modCount++;
-            JIterator* i=c->iterator();
             while (i->hasNext()){
                 items->push_back(i->next());
             }
@@ -483,7 +531,7 @@ namespace jcpp{
         }
 
         JList* JVector::subList(jint fromIndex, jint toIndex){
-            return NULL;//TODO return JCollections::synchronizedList(JAbstractList::subList(fromIndex,toIndex));
+            return JCollections::synchronizedList(JAbstractList::subList(fromIndex,toIndex));
         }
 
         void JVector::removeRange(jint fromIndex, jint toIndex){

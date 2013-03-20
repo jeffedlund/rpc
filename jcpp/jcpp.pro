@@ -229,7 +229,8 @@ SOURCES += \
     src/main/cpp/jcpp/util/JConcurrentModificationException.cpp \
     src/main/cpp/jcpp/util/JVector.cpp \
     src/main/cpp/jcpp/util/JEnumeration.cpp \
-    src/main/cpp/jcpp/lang/exception/JArrayIndexOutOfBoundsException.cpp
+    src/main/cpp/jcpp/lang/exception/JArrayIndexOutOfBoundsException.cpp \
+    src/main/cpp/jcpp/util/JCollections.cpp
     
     
 HEADERS += \
@@ -426,7 +427,8 @@ HEADERS += \
     src/main/cpp/jcpp/util/JConcurrentModificationException.h \
     src/main/cpp/jcpp/util/JVector.h \
     src/main/cpp/jcpp/util/JEnumeration.h \
-    src/main/cpp/jcpp/lang/exception/JArrayIndexOutOfBoundsException.h
+    src/main/cpp/jcpp/lang/exception/JArrayIndexOutOfBoundsException.h \
+    src/main/cpp/jcpp/util/JCollections.h
     
     
 OTHER_FILES += \

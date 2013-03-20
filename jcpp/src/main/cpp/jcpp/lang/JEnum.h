@@ -40,14 +40,11 @@ namespace jcpp{
 
         public:
             static JClass* getClazz();
-            bool operator==(JObject &other);
-
             JString* getName();
-
             JPrimitiveInt* getOrdinal();
-
-            string toString();
-
+            virtual bool equals(JObject* other);
+            virtual jint hashCode();
+            virtual string toString();
             virtual ~JEnum();
         };
     }

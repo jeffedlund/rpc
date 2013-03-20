@@ -48,6 +48,10 @@ namespace jcpp{
             return clazz;
         }
 
+        jint JByte::hashCode(jbyte b){
+            return (jint)b;
+        }
+
         jbyte JByte::MIN_VALUE=-128;
 
         jbyte JByte::MAX_VALUE=127;
@@ -98,6 +102,10 @@ namespace jcpp{
 
         JPrimitiveByte* JByte::getPrimitiveByte(){
             return value;
+        }
+
+        jint JByte::hashCode(){
+            return hashCode(value->get());
         }
 
         string JByte::toString(){

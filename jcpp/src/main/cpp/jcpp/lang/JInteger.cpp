@@ -101,6 +101,10 @@ namespace jcpp{
             return value;
         }
 
+        jint JInteger::hashCode(){
+            return value->get();
+        }
+
         string JInteger::toString(){
             stringstream ss;
             ss<<value->get();

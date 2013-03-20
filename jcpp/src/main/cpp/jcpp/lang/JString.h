@@ -20,6 +20,7 @@ namespace jcpp{
                 }
             };
             static JString* intern(string s);
+            static jint hashCode(string s);
             JString();
             JString(string str);
             JString(JString* str);

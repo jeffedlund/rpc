@@ -19,15 +19,17 @@ namespace jcpp{
                 JChar();
                 JChar(char value);
                 JChar(jchar value);
-                virtual bool equals(JObject* other);
                 static JClass* getClazz();
+                static jint hashCode(jchar c);
                 static jchar MIN_VALUE;
                 static jchar MAX_VALUE;
                 void set(char value);
                 char get();
                 void setPrimitiveChar(JPrimitiveChar* value);
                 JPrimitiveChar* getPrimitiveChar();
-                string toString();
+                virtual bool equals(JObject* other);
+                virtual jint hashCode();
+                virtual string toString();
                 virtual ~JChar();
         };
     }
