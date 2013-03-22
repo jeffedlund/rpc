@@ -30,18 +30,18 @@ namespace jcpp{
 
             bool setBlockDataMode(bool mode);
             bool getBlockDataMode();
-            void write(jbyte b);
+            void write(jint b);
             void write(jbyte b[], int off, int len);
             void flush();
             void close();
             void write(jbyte b[], int off, int len, bool copy);
             void arraycopy(jbyte src[],jint srcPos, jbyte dest[], jint destPos, jint length);
             void drain();
-            void writeBlockHeader(int len);
+            void writeBlockHeader(jint len);
             void writeBoolean(jbool v);
-            void writeByte(jbyte v);
-            void writeShort(jshort v);
-            void writeChar(jchar v);
+            void writeByte(jint v);
+            void writeShort(jint v);
+            void writeChar(jint v);
             void writeInt(jint v);
             void writeLong(jlong v);
             void writeFloat(jfloat v);

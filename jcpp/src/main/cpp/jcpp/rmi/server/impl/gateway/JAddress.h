@@ -10,6 +10,7 @@
 #include "Object.h"
 #include "JSerializable.h"
 #include "JCPP.h"
+#include "JCloneable.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -19,7 +20,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace gateway{
-                    class JCPP_LIBRARY_EXPORT JAddress : public JObject, public JSerializable{
+                    class JCPP_LIBRARY_EXPORT JAddress : public JObject, public JSerializable, public JCloneable{
                         protected:
                             JString* hostName;
                             JPrimitiveInt* port;
@@ -27,7 +28,6 @@ namespace jcpp{
                         public:
                             JAddress();
                             JAddress(JAddress* adr);
-                            virtual bool equals(JObject* other);
                             static JClass* getClazz();
                             void setHostName(string host);
                             string getHostName();
@@ -37,8 +37,10 @@ namespace jcpp{
                             jint getPort();
                             void setPPort(JPrimitiveInt* port);
                             JPrimitiveInt* getPPort();
+                            virtual bool equals(JObject* other);
+                            virtual jint hashCode();
                             virtual JAddress* clone();
-                            string toString();
+                            virtual string toString();
                             virtual ~JAddress();
                     };
                 }

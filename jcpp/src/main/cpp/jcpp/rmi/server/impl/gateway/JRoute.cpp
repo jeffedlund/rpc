@@ -35,6 +35,7 @@ namespace jcpp{
                             this->simpleName="Route";
                             this->serialVersionUID=2731749507109405573ULL;
                             addInterface(JSerializable::getClazz());
+                            addInterface(JCloneable::getClazz());
                             addField(new JField("addressList",JArrayList::getClazz(),staticGetAddressList,staticSetAddressList));
                             addField(new JField("isHttp",JPrimitiveBoolean::getClazz(),staticGetIsHttp,staticSetIsHttp));
                         }

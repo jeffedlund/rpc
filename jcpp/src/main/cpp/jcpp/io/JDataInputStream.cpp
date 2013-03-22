@@ -18,7 +18,7 @@ namespace jcpp{
             }
 
             JClass* getSuperclass(){
-                return JInputStream::getClazz();
+                return JFilterInputStream::getClazz();
             }
 
             JObject* newInstance(){
@@ -35,12 +35,10 @@ namespace jcpp{
             return clazz;
         }
 
-        JDataInputStream::JDataInputStream():JInputStream(getClazz()){
-            this->in=NULL;
+        JDataInputStream::JDataInputStream():JFilterInputStream(NULL,getClazz()){
         }
 
-        JDataInputStream::JDataInputStream(JInputStream *in):JInputStream(getClazz()){
-            this->in = in;
+        JDataInputStream::JDataInputStream(JInputStream *in):JFilterInputStream(in,getClazz()){
         }
 
         void JDataInputStream::setInputStream(JInputStream *in){
@@ -53,7 +51,7 @@ namespace jcpp{
             }
             int n = 0;
             while (n < len) {
-                jint count = read(b, off + n, len - n);
+                jint count = in->read(b, off + n, len - n);
                 if (count < 0){
                     throw new JEOFException;
                 }
@@ -65,7 +63,7 @@ namespace jcpp{
             jint total = 0;
             jint cur = 0;
 
-            while ((total<n) && ((cur = (int) in->skip(n-total)) > 0)) {
+            while ((total<n) && ((cur = (jint) in->skip(n-total)) > 0)) {
                 total += cur;
             }
             return total;
@@ -142,7 +140,7 @@ namespace jcpp{
             return str;
         }
 
-        jlong JDataInputStream::available() {
+        jint JDataInputStream::available() {
             return in->available();
         }
 
@@ -150,52 +148,53 @@ namespace jcpp{
             return in->waitForReadyRead(timeout);
         }
 
-        jbyte JDataInputStream::read() {
-            return readByte();
-        }
-
         jint JDataInputStream::read(jbyte b[], int off, int len) {
             return in->read(b,off,len);
         }
 
         jbyte JDataInputStream::readByte() {
-            jbyte b=in->read();
+            jint b=in->read();
+            if (b<0){
+                throw new JEOFException();
+            }
+            return (jbyte)b;
+        }
+
+        jint JDataInputStream::readUnsignedByte() {
+            jint b=in->read();
             if (b<0){
                 throw new JEOFException();
             }
             return b;
         }
 
-        jbyte JDataInputStream::readUnsignedByte() {
-            jbyte b=in->read();
-            if (b<0){
-                throw new JEOFException();
-            }
-            return b;
-        }
-
-        jbyte JDataInputStream::peekByte() {
-            return in->peekByte();
+        jint JDataInputStream::peek() {
+            return in->peek();
         }
 
         jshort JDataInputStream::readShort() {
-            jbyte ch1 = readByte();
-            jbyte ch2 = readByte();
+            jint ch1 = in->read();
+            jint ch2 = in->read();
             if ((ch1 | ch2) < 0){
                 throw new JEOFException();
             }
             return (jshort)((ch1 << 8) + (ch2 << 0));
         }
 
-        jshort JDataInputStream::readUnsignedShort() {
-            return readShort();
+        jint JDataInputStream::readUnsignedShort() {
+            jint ch1 = in->read();
+            jint ch2 = in->read();
+            if ((ch1 | ch2) < 0){
+                throw new JEOFException();
+            }
+            return ((ch1 << 8) + (ch2 << 0));
         }
 
         jint JDataInputStream::readInt() {
-            jbyte ch1 = readByte();
-            jbyte ch2 = readByte();
-            jbyte ch3 = readByte();
-            jbyte ch4 = readByte();
+            jint ch1 = in->read();
+            jint ch2 = in->read();
+            jint ch3 = in->read();
+            jint ch4 = in->read();
             if ((ch1 | ch2 | ch3 | ch4) < 0){
                 throw new JEOFException();
             }
@@ -216,7 +215,7 @@ namespace jcpp{
         jfloat JDataInputStream::readFloat() {
             jbyte* b=new jbyte[4];
             for (int i=0;i<4;i++){
-                b[i]=readByte();
+                b[i]=(jbyte)in->read();
             }
             jfloat jf=JBits::getFloat(b,0);
             delete[] b;
@@ -226,7 +225,7 @@ namespace jcpp{
         jdouble JDataInputStream::readDouble() {
             jbyte* b=new jbyte[8];
             for (int i=0;i<8;i++){
-                b[i]=readByte();
+                b[i]=(jbyte)in->read();
             }
             jdouble jd=JBits::getDouble(b,0);
             delete[] b;
@@ -234,8 +233,8 @@ namespace jcpp{
         }
 
         jchar JDataInputStream::readChar() {
-            jbyte ch1 = readByte();
-            jbyte ch2 = readByte();
+            jint ch1 = in->read();
+            jint ch2 = in->read();
             if ((ch1 | ch2) < 0){
                 throw new JEOFException();
             }
@@ -243,7 +242,7 @@ namespace jcpp{
         }
 
         jbool JDataInputStream::readBool() {
-            jbyte b=readByte();
+            jint b=in->read();
             if (b<0){
                 throw new JEOFException();
             }

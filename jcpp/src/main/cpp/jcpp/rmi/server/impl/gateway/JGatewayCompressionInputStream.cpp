@@ -16,7 +16,7 @@ namespace jcpp{
                         }
 
                         JClass* getSuperclass(){
-                            return JInputStream::getClazz();
+                            return JFilterInputStream::getClazz();
                         }
 
                         JObject* newInstance(){
@@ -33,36 +33,12 @@ namespace jcpp{
                         return clazz;
                     }
 
-                    JGatewayCompressionInputStream::JGatewayCompressionInputStream(JInputStream* in,JGatewayConfiguration*):JInputStream(getClazz()){
+                    JGatewayCompressionInputStream::JGatewayCompressionInputStream(JInputStream* in,JGatewayConfiguration*):JFilterInputStream(in,getClazz()){
                         this->gatewayInputStream=new JGatewayInputStream(in);
                     }
 
                     JRoute* JGatewayCompressionInputStream::getRoute(){
                         return gatewayInputStream->getRoute();
-                    }
-
-                    jlong JGatewayCompressionInputStream::available(){
-                        return gatewayInputStream->available();
-                    }
-
-                    bool JGatewayCompressionInputStream::waitForReadyRead(int w){
-                        return gatewayInputStream->waitForReadyRead(w);
-                    }
-
-                    jbyte JGatewayCompressionInputStream::read(){
-                        return gatewayInputStream->read();
-                    }
-
-                    jint JGatewayCompressionInputStream::read(jbyte b[], int off, int len){
-                        return gatewayInputStream->read(b,off,len);
-                    }
-
-                    jbyte JGatewayCompressionInputStream::peekByte(){
-                        return gatewayInputStream->peekByte();
-                    }
-
-                    void JGatewayCompressionInputStream::close(){
-                        gatewayInputStream->close();
                     }
 
                     JGatewayCompressionInputStream::~JGatewayCompressionInputStream(){

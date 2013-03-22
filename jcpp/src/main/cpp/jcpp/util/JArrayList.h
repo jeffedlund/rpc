@@ -9,12 +9,15 @@
 #include "JObjectOutputStream.h"
 #include "JAbstractList.h"
 #include "JCPP.h"
+#include "JRandomAccess.h"
+#include "JCloneable.h"
+#include "JSerializable.h"
 using namespace std;
 using namespace jcpp::io;
 
 namespace jcpp{
     namespace util{
-        class JCPP_LIBRARY_EXPORT JArrayList : public JAbstractList{
+        class JCPP_LIBRARY_EXPORT JArrayList : public JAbstractList, public JRandomAccess, public JCloneable, public JSerializable{
         protected:
             vector<JObject*>* items;
             JPrimitiveInt* isize;
@@ -33,6 +36,7 @@ namespace jcpp{
             virtual jint indexOf(JObject* o);
             virtual jint lastIndexOf(JObject* o);
             virtual JArrayList* clone();
+            virtual JPrimitiveArray* toArray();
             virtual JObject* get(int index);
             virtual JObject* set(jint index, JObject* element);
             virtual bool add(JObject* item);

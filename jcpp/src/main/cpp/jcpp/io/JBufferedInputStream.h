@@ -27,12 +27,12 @@ namespace jcpp{
         public:
             JBufferedInputStream(JInputStream* in, jint size=8192);
             static JClass* getClazz();
-            virtual jbyte read();
+            virtual jint read();
             virtual jint read(jbyte b[], int off, int len);
             virtual jlong skip(jlong n);
-            virtual jlong available();
+            virtual jint available();
             virtual bool waitForReadyRead(int = 30000);
-            virtual jbyte peekByte();
+            virtual jint peek();
             virtual void mark(int readlimit);
             virtual void reset();
             virtual bool markSupported();

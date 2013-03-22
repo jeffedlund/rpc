@@ -16,7 +16,7 @@ namespace jcpp{
                         }
 
                         JClass* getSuperclass(){
-                            return JOutputStream::getClazz();
+                            return JFilterOutputStream::getClazz();
                         }
 
                         JObject* newInstance(){
@@ -33,7 +33,7 @@ namespace jcpp{
                         return clazz;
                     }
 
-                    JGatewayCompressionOutputStream::JGatewayCompressionOutputStream(JOutputStream* out,JRoute* route):JOutputStream(getClazz()){
+                    JGatewayCompressionOutputStream::JGatewayCompressionOutputStream(JOutputStream* out,JRoute* route):JFilterOutputStream(out,getClazz()){
                         this->gatewayOutputStream=new JGatewayOutputStream(out,route);
                     }
 
@@ -41,20 +41,9 @@ namespace jcpp{
                         return gatewayOutputStream->getRoute();
                     }
 
-                    void JGatewayCompressionOutputStream::write(jbyte b){
-                        gatewayOutputStream->write(b);
-                    }
-
-                    void JGatewayCompressionOutputStream::write(jbyte b[], int off, int len){
-                        gatewayOutputStream->write(b,off,len);
-                    }
-
-                    void JGatewayCompressionOutputStream::flush(){
-                        gatewayOutputStream->flush();
-                    }
-
                     void JGatewayCompressionOutputStream::close(){
                         gatewayOutputStream->close();
+                        out->close();
                     }
 
                     JGatewayCompressionOutputStream::~JGatewayCompressionOutputStream(){

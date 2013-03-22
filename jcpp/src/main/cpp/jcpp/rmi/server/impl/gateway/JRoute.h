@@ -22,47 +22,30 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace gateway{
-                    class JCPP_LIBRARY_EXPORT JRoute : public JObject, public JSerializable{
+                    class JCPP_LIBRARY_EXPORT JRoute : public JObject, public JSerializable, public JCloneable{
                         protected:
                             JArrayList* addressList;
                             JPrimitiveBoolean* bIsHttp;
 
                         public:
                             JRoute();
-                            virtual bool equals(JObject* other);
-
                             static JClass* getClazz();
-
                             void setIsHttp(bool h);
-
                             bool isHttp();
-
                             JPrimitiveBoolean* getPIsHttp();
-
                             void setPIsHttp(JPrimitiveBoolean* h);
-
                             void addAddress(JAddress* a);
-
                             void removeAddress(JAddress* a);
-
                             JArrayList* getAddressList();
-
                             void setAddressList(JArrayList* al);
-
                             JAddress* peakAddress();
-
                             JAddress* popAddress();
-
                             void pushAddress(JAddress* a);
-
                             int addressSize();
-
                             void clearAddress();
-
+                            virtual bool equals(JObject* other);
                             virtual JRoute* clone();
-
-                            string toString();
-
+                            virtual string toString();
                             virtual ~JRoute();
                     };
                 }

@@ -37,7 +37,6 @@ namespace jcpp{
                             JEndPoint();
                             JEndPoint(JDataInputStream* in);
                             JEndPoint(JAddress* a, JString* s);
-                            virtual bool equals(JObject* other);
                             bool operator<(JEndPoint &other);
                             static JClass* getClazz();
                             void write(JDataOutputStream* out);
@@ -45,7 +44,9 @@ namespace jcpp{
                             JAddress* getAddress();
                             void setSite(JString* site);
                             JString* getSite();
-                            string toString();
+                            virtual bool equals(JObject* other);
+                            virtual jint hashCode();
+                            virtual string toString();
                             virtual ~JEndPoint();
                     };
                 }

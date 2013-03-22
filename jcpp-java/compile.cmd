@@ -1,0 +1,1 @@
+d:\java\apache-maven-3.0.3\bin\mvn clean install

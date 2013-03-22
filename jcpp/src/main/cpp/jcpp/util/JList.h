@@ -24,8 +24,7 @@ namespace jcpp{
             virtual bool isEmpty()=0;
             virtual bool contains(JObject* o)=0;
             virtual JIterator* iterator()=0;
-            //TODO Object[] toArray();
-            //TODO <T> T[] toArray(T[] a);
+            virtual JPrimitiveArray* toArray()=0;
             virtual bool add(JObject* e)=0;
             virtual bool remove(JObject* o)=0;
             virtual bool containsAll(JCollection* c)=0;

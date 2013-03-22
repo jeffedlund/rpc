@@ -49,11 +49,11 @@ namespace jcpp{
             }
         }
 
-        void JBufferedOutputStream::write(jbyte b){
+        void JBufferedOutputStream::write(jint b){
             if (count >= length) {
                 flushBuffer();
             }
-            buf->push_back(b);
+            buf->push_back((jbyte)b);
             count++;
         }
 

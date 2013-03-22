@@ -56,6 +56,7 @@ namespace jcpp{
             virtual void addElement(JObject* obj);
             virtual bool removeElement(JObject* obj);
             virtual void removeAllElements();
+            virtual JPrimitiveArray* toArray();
             virtual JVector* clone();
             virtual JObject* get(int index);
             virtual JObject* set(jint index, JObject* element);

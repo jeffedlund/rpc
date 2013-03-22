@@ -71,12 +71,12 @@ namespace jcpp{
             virtual JString* readString();
             virtual JString* readTypeString();
             virtual void defaultReadObject();
-            virtual jlong available();
+            virtual jint available();
             virtual bool waitForReadyRead(int = 30000);
-            virtual jbyte read();
+            virtual jint read();
             virtual int read(jbyte b[], int off, int len);
             virtual jbyte readByte();
-            virtual jbyte peekByte();
+            virtual jint peek();
             virtual jchar readChar();
             virtual jdouble readDouble();
             virtual jfloat readFloat();

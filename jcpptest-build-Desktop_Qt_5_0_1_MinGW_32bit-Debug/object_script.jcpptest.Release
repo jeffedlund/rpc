@@ -50,4 +50,7 @@ INPUT(
 ./release\JScheduledExecutorServiceTest.o
 ./release\JTransportTest.o
 ./release\JServerTest.o
+./release\JExternalizableTest.o
+./release\JExternalizableObject.o
+./release\JSerializableTest.o
 );

@@ -22,7 +22,7 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace gateway{
-                    class JCPP_LIBRARY_EXPORT JGatewayCompressionOutputStream : public JOutputStream{
+                    class JCPP_LIBRARY_EXPORT JGatewayCompressionOutputStream : public JFilterOutputStream{
                         protected:
                             JGatewayOutputStream* gatewayOutputStream;
 
@@ -30,9 +30,6 @@ namespace jcpp{
                             JGatewayCompressionOutputStream(JOutputStream* o,JRoute* route);
                             static JClass* getClazz();
                             JRoute* getRoute();
-                            virtual void write(jbyte b);
-                            virtual void write(jbyte b[], int off, int len);
-                            virtual void flush();
                             virtual void close();
                             virtual ~JGatewayCompressionOutputStream();
                     };

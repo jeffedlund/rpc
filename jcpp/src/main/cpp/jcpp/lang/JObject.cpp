@@ -3,6 +3,8 @@
 #include "JClassLoader.h"
 #include <sstream>
 #include "JIllegalArgumentException.h"
+#include "JCloneNotSupportedException.h"
+#include "JCloneable.h"
 using namespace std;
 
 namespace jcpp{
@@ -107,7 +109,7 @@ namespace jcpp{
         }
 
         JObject* JObject::clone(){
-            throw new JIllegalArgumentException("not clonable "+toString());//TODO better clone layer
+             throw new JCloneNotSupportedException("not clonable "+toString());//TODO add check is instanceof cloneable
         }
 
         JObject::~JObject(){

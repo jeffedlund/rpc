@@ -46,8 +46,7 @@ namespace jcpp{
             jint currentBlockRemaining() ;
             bool isDefaultDataEnd();
             void setDefaultDataEnd(bool defaultDataEnd);
-            jbyte peek();
-            jbyte peekByte();
+            jint peek();
             void readFully(jbyte *b, int off, int len);
             void readFully(jbyte *b, int off, int len, bool copy);
             jint skipBytes(jint n);
@@ -66,9 +65,9 @@ namespace jcpp{
             void readDoubles(jdouble *v, int off, int len);
 
             virtual jlong skip(jlong len);
-            virtual jlong available();
+            virtual jint available();
             virtual bool waitForReadyRead(int = 30000);
-            virtual jbyte read();
+            virtual jint read();
             virtual jint read(jbyte b[], int off, int len);
             virtual int read(jbyte b[], int off, int len, bool copy);
             virtual jbyte readUnsignedByte();

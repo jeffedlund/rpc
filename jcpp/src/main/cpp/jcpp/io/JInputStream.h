@@ -22,14 +22,15 @@ namespace jcpp{
 
             static JClass* getClazz();
 
-            virtual jlong available()=0;
+            virtual jint available()=0;
             virtual bool waitForReadyRead(int = 30000)=0;
-            virtual jbyte read()=0;
-            virtual jbyte peekByte()=0;//TODO create a JPeekInputStream
+            virtual jint read()=0;
+            virtual jint peek()=0;//TODO create a JPeekInputStream
+            virtual jbyte peekByte();
             virtual void readFully(jbyte b[], jint off, jint len);
             virtual jint read(jbyte b[], int off, int len);
             virtual jlong skip(jlong n);
-            virtual void mark(int readlimit);
+            virtual void mark(jint readlimit);
             virtual void reset();
             virtual bool markSupported();
             virtual void close()=0;

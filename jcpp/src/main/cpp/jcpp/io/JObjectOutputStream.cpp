@@ -110,19 +110,19 @@ namespace jcpp{
             bout->writeBoolean(b);
         }
 
-        void JObjectOutputStream::writeByte(jbyte b){
+        void JObjectOutputStream::writeByte(jint b){
             bout->writeByte(b);
         }
 
-        void JObjectOutputStream::write(jbyte b){
-            bout->writeByte(b);
+        void JObjectOutputStream::write(jint b){
+            bout->write(b);
         }
 
         void JObjectOutputStream::write(jbyte b[], int off, int len){
             bout->write(b,off,len);
         }
 
-        void JObjectOutputStream::writeChar(jchar v){
+        void JObjectOutputStream::writeChar(jint v){
             bout->writeChar(v);
         }
 
@@ -134,7 +134,7 @@ namespace jcpp{
             bout->writeFloat(v);
         }
 
-        void JObjectOutputStream::writeShort(jshort v){
+        void JObjectOutputStream::writeShort(jint v){
             bout->writeShort(v);
         }
 

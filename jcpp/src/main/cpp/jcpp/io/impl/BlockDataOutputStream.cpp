@@ -55,7 +55,7 @@ namespace jcpp{
             return blkmode;
         }
 
-        void JBlockDataOutputStream::write(jbyte b){
+        void JBlockDataOutputStream::write(jint b){
             if (pos >= MAX_BLOCK_SIZE) {
                 drain();
             }
@@ -121,7 +121,7 @@ namespace jcpp{
             pos = 0;
         }
 
-        void JBlockDataOutputStream::writeBlockHeader(int len){
+        void JBlockDataOutputStream::writeBlockHeader(jint len){
             if (len <= 0xFF) {
                 hbuf[0] = JObjectStreamConstants::TC_BLOCKDATA;
                 hbuf[1] = (jbyte) len;
@@ -140,14 +140,14 @@ namespace jcpp{
             JBits::putBoolean(buf, pos++, v);
         }
 
-        void JBlockDataOutputStream::writeByte(jbyte v){
+        void JBlockDataOutputStream::writeByte(jint v){
             if (pos >= MAX_BLOCK_SIZE) {
                 drain();
             }
             buf[pos++] = (jbyte) v;
         }
 
-        void JBlockDataOutputStream::writeShort(jshort v){
+        void JBlockDataOutputStream::writeShort(jint v){
             if (pos + 2 <= MAX_BLOCK_SIZE) {
                 JBits::putShort(buf, pos, (jshort) v);
                 pos += 2;
@@ -156,7 +156,7 @@ namespace jcpp{
             }
         }
 
-        void JBlockDataOutputStream::writeChar(jchar v){
+        void JBlockDataOutputStream::writeChar(jint v){
             if (pos + 2 <= MAX_BLOCK_SIZE) {
                 JBits::putChar(buf, pos,v);
                 pos += 2;

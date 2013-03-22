@@ -36,7 +36,7 @@ namespace jcpp{
                 namespace connection{
                     class JInvoker;
                     class JObjectInformations;
-                    class JCPP_LIBRARY_EXPORT JObjectHandler: public JObject, public JInvocationHandler, public JSerializable{
+                    class JCPP_LIBRARY_EXPORT JObjectHandler: public JObject, public JInvocationHandler, public JSerializable, public JCloneable{
                     protected:
                         JInvoker* invoker;
                         JObject* proxy;

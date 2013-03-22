@@ -1,0 +1,1 @@
+d:\java\jdk1.8.0\bin\java -cp target\classes;target\test-classes;D:\.m2\commons-logging\commons-logging\1.1.1\commons-logging-1.1.1.jar;D:\.m2\backport-util-concurrent\backport-util-concurrent\2.1\backport-util-concurrent-2.1.jar jcpp.rmi.server.impl.connection.TestServer

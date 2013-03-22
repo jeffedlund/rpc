@@ -19,11 +19,10 @@ namespace jcpp{
             static JClass* getClazz();
             QDataStream* getStream();
             void setStream(QDataStream* in);
-            virtual jlong available();
+            virtual jint available();
             virtual bool waitForReadyRead(int = 30000);
-            virtual jbyte peekByte();
-            virtual jbyte readByte();
-            virtual jbyte read();
+            virtual jint peek();
+            virtual jint read();
             virtual void close();
             virtual ~QtDataInputStream();
         };

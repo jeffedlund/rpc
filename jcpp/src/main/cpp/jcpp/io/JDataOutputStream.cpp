@@ -20,7 +20,7 @@ namespace jcpp{
             }
 
             JClass* getSuperclass(){
-                return JOutputStream::getClazz();
+                return JFilterOutputStream::getClazz();
             }
 
             JObject* newInstance(){
@@ -37,15 +37,13 @@ namespace jcpp{
             return clazz;
         }
 
-        JDataOutputStream::JDataOutputStream():JOutputStream(getClazz()){
+        JDataOutputStream::JDataOutputStream():JFilterOutputStream(NULL,getClazz()){
             written=0;
             this->length=0;
             this->bytearr=NULL;
-            this->out=NULL;
         }
 
-        JDataOutputStream::JDataOutputStream(JOutputStream *out):JOutputStream(getClazz()){
-            this->out =out;
+        JDataOutputStream::JDataOutputStream(JOutputStream *out):JFilterOutputStream(out,getClazz()){
             written=0;
             this->length=0;
             this->bytearr=NULL;
@@ -59,7 +57,7 @@ namespace jcpp{
             written = temp;
         }
 
-        void JDataOutputStream::write(jbyte b){
+        void JDataOutputStream::write(jint b){
             out->write(b);
             incCount(1);
         }
@@ -78,19 +76,19 @@ namespace jcpp{
         }
 
         void JDataOutputStream::writeBoolean(jbool v){
-            write(v ? (jbyte)1 : (jbyte)0);
+            write(v ? 1 : 0);
         }
 
-        void JDataOutputStream::writeByte(jbyte v){
+        void JDataOutputStream::writeByte(jint v){
             write(v);
         }
 
-        void JDataOutputStream::writeShort(jshort v){
+        void JDataOutputStream::writeShort(jint v){
             write((jbyte)(v >> 8) & 0xFF);
             write((jbyte)(v >> 0) & 0xFF);
         }
 
-        void JDataOutputStream::writeChar(jchar v){
+        void JDataOutputStream::writeChar(jint v){
             write((jbyte)(v >> 8) & 0xFF);
             write((jbyte)(v >> 0) & 0xFF);
         }
@@ -141,8 +139,8 @@ namespace jcpp{
             jint len = s.length();
             for (jint i = 0 ; i < len ; i++) {
                 jint v = s.c_str()[i];
-                write((jbyte)(v >> 8) & 0xFF);
-                write((jbyte)(v >> 0) & 0xFF);
+                write((v >> 8) & 0xFF);
+                write((v >> 0) & 0xFF);
             }
         }
 

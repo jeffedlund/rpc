@@ -409,6 +409,13 @@ namespace jcpp{
             return list;
         }
 
+        JPrimitiveArray* JVector::toArray(){
+            lock();
+            JPrimitiveArray* a=JAbstractList::toArray();
+            unlock();
+            return a;
+        }
+
         JObject* JVector::get(int index){
             lock();
             JObject* o=items->at(index);

@@ -110,7 +110,7 @@ namespace jcpp{
             throw new JInternalError();
         }
 
-        JPrimitiveArray::JPrimitiveArray(JClass* arrayClass,int len):JObject(getClazz(arrayClass)){
+        JPrimitiveArray::JPrimitiveArray(JClass* arrayClass,jint len):JObject(getClazz(arrayClass)){
             objects=new vector<JObject*>(len);
             this->len=len;
         }
@@ -143,19 +143,19 @@ namespace jcpp{
             return false;
         }
 
-        int JPrimitiveArray::size(){
+        jint JPrimitiveArray::size(){
             return len;
         }
 
-        void JPrimitiveArray::setSize(int len){
+        void JPrimitiveArray::setSize(jint len){
             this->len=len;
         }
 
-        JObject* JPrimitiveArray::get(int i){
+        JObject* JPrimitiveArray::get(jint i){
             return objects->at(i);
         }
 
-        void JPrimitiveArray::set(int i,JObject* value){//TODO throw exception if greater than size
+        void JPrimitiveArray::set(jint i,JObject* value){//TODO throw exception if greater than size
             (*objects)[i]=value;
         }
 

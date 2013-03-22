@@ -18,7 +18,7 @@ namespace jcpp{
 
         public:
             static JClass* getClazz();
-            virtual void write(jbyte b);
+            virtual void write(jint b);
             virtual void write(jbyte b[], int off, int len);
             virtual void flush();
             virtual void close();

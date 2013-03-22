@@ -29,18 +29,16 @@ namespace jcpp{
                             JInteger* receiveBufferSize;
                             JInteger* sendBufferSize;
                             JInteger* readTimeout;
-                            JInteger* establishConnectionInitialTimeout;
-                            JInteger* establishConnectionMinTimeout;
+                            JInteger* connectionTimeout;
 
                         public:
                             static const jint BACKLOG = 400;
                             static const jint RECEIVE_BUFFER_SIZE = 20480;
                             static const jint SEND_BUFFER_SIZE = 20480;
                             static const jint READ_TIMEOUT = 24 * 3600 * 1000; // 24 hours
-                            static const jint ESTABLISH_CONNECTION_INITIAL_TO = 60000;
-                            static const jint ESTABLISH_CONNECTION_MIN_TO = 4000;
+                            static const jint CONNECTION_TIME_OUT = 60000;
 
-                            JGatewayConfiguration(JInteger* backLog, JInteger* receiveBufferSize, JInteger* sendBufferSize, JInteger* readTimeout, JInteger* establishConnectionInitialTimeout, JInteger* establishConnectionMinTimeout);
+                            JGatewayConfiguration(JInteger* backLog, JInteger* receiveBufferSize, JInteger* sendBufferSize, JInteger* readTimeout, JInteger* connectionTimeout);
                             JGatewayConfiguration();
                             static JClass* getClazz();
 
@@ -48,14 +46,12 @@ namespace jcpp{
                             JInteger* getReceiveBufferSize();
                             JInteger* getSendBufferSize();
                             JInteger* getReadTimeout();
-                            JInteger* getEstablishConnectionInitialTimeout();
-                            JInteger* getEstablishConnectionMinTimeout();
+                            JInteger* getConnectionTimeout();
                             void setBackLog(JInteger* backLog);
                             void setReceiveBufferSize(JInteger* receiveBufferSize);
                             void setSendBufferSize(JInteger* sendBufferSize);
                             void setReadTimeout(JInteger* readTimeout);
-                            void setEstablishConnectionInitialTimeout(JInteger* establishConnectionInitialTimeout);
-                            void setEstablishConnectionMinTimeout(JInteger* establishConnectionMinTimeout);
+                            void setConnectionTimeout(JInteger* connectionTimeout);
                             virtual ~JGatewayConfiguration();
                         };
                 }

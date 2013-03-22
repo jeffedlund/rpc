@@ -20,7 +20,7 @@ namespace jcpp{
         public:
             JBufferedOutputStream(JOutputStream* out, jint size=8192);
             static JClass* getClazz();
-            virtual void write(jbyte b);
+            virtual void write(jint b);
             virtual void write(jbyte b[], jint off, jint len);
             virtual void flush();
             virtual ~JBufferedOutputStream();

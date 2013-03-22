@@ -12,8 +12,6 @@ namespace jcpp{
             namespace impl{
                 namespace connection{
                     class JObjectHandlerClass : public JClass{
-                        //TODO following should be serialized. invoker,proxy,interfaces;
-                        //TODO do it while testing proxy
                       public:
                         JObjectHandlerClass(){
                             this->canonicalName="jcpp.rmi.server.impl.connection.ObjectHandler";
@@ -21,6 +19,7 @@ namespace jcpp{
                             this->simpleName="ObjectHandler";
                             addInterface(JSerializable::getClazz());
                             addInterface(JInvocationHandler::getClazz());
+                            addInterface(JCloneable::getClazz());
                             serialVersionUID=3179670252394270616ULL;
                         }
 
@@ -69,7 +68,8 @@ namespace jcpp{
                         return interfaces;
                     }
 
-                    JObject* JObjectHandler::invoke(JObject* proxy, JMethod* method, vector<JObject*>* args){//TODO what to do for Object methods (toString, equals, hashcode,...)
+                    //TODO what to do for Object methods (toString, equals, hashcode,...)
+                    JObject* JObjectHandler::invoke(JObject* proxy, JMethod* method, vector<JObject*>* args){
                         JObject* invocationResult = NULL;
                         try {
                             invocationResult = invoker->invoke(method, args);

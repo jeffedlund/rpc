@@ -52,11 +52,11 @@ namespace jcpp{
             return in->skip(n);
         }
 
-        void JFilterInputStream::mark(int m){
+        void JFilterInputStream::mark(jint m){
             in->mark(m);
         }
 
-        jlong JFilterInputStream::available(){
+        jint JFilterInputStream::available(){
             return in->available();
         }
 
@@ -64,12 +64,12 @@ namespace jcpp{
             return in->waitForReadyRead(i);
         }
 
-        jbyte JFilterInputStream::read(){
+        jint JFilterInputStream::read(){
             return in->read();
         }
 
-        jbyte JFilterInputStream::peekByte(){
-            return in->peekByte();
+        jint JFilterInputStream::peek(){
+            return in->peek();
         }
 
         void JFilterInputStream::reset(){

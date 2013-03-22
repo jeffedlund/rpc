@@ -22,6 +22,7 @@ namespace jcpp{
             static JClass* getClazz();
             virtual bool isEmpty();
             virtual bool contains(JObject* o);
+            virtual JPrimitiveArray* toArray();
             virtual bool add(JObject* e);
             virtual bool remove(JObject* o);
             virtual bool containsAll(JCollection* c);

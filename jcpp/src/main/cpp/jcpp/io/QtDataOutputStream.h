@@ -25,7 +25,7 @@ namespace jcpp{
             QDataStream* getStream();
             void setStream(QDataStream* in);
 
-            virtual void write(jbyte b);
+            virtual void write(jint b);
             virtual void flush();
             virtual void close();
             virtual ~QtDataOutputStream();

@@ -119,6 +119,10 @@ namespace jcpp{
                         return site;
                     }
 
+                    jint JEndPoint::hashCode(){
+                        return address->getPHostName()->hashCode()+address->getPPort()->get()+site->hashCode();
+                    }
+
                     string JEndPoint::toString(){
                         return "EndPoint["+address->toString()+":"+site->toString()+"]";
                     }

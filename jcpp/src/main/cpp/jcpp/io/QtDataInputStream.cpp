@@ -47,35 +47,36 @@ namespace jcpp{
             this->in=in;
         }
 
-        jlong QtDataInputStream::available() {
-            return in->device()->bytesAvailable();
+        jint QtDataInputStream::available() {
+            return (jint)in->device()->bytesAvailable();
         }
 
         bool QtDataInputStream::waitForReadyRead(int i) {
-            return in->device()->waitForReadyRead(i);
+            bool b=false;
+            QIODevice* dev=in->device();
+            if (dev!=NULL){
+                b=dev->waitForReadyRead(i);
+            }
+            return b;
         }
 
-        jbyte QtDataInputStream::peekByte() {
+        jint QtDataInputStream::peek() {
             jbyte b;
             while (available() < 1) {
                 waitForReadyRead(-1);
             }
             in->device()->peek((char*) &b,1);
-            return b;
+            return b & 0xFF;
         }
 
-        jbyte QtDataInputStream::read() {
-            return readByte();
-        }
-
-        jbyte QtDataInputStream::readByte() {
+        jint QtDataInputStream::read() {
             jbyte b;
             while (available() < 1) {
                 waitForReadyRead(-1);
             }
             (*in)>>b;
             //bytes->push_back(b); TODO for debugging, remove later
-            return b;
+            return (jint)b & 0xFF;
         }
 
         void QtDataInputStream::close(){

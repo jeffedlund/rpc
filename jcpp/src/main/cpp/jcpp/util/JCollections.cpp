@@ -163,6 +163,13 @@ namespace jcpp{
                 return b;
             }
 
+            JPrimitiveArray* toArray(){
+                mutex->lock();
+                JPrimitiveArray* a=c->toArray();
+                mutex->unlock();
+                return a;
+            }
+
             void clear() {
                 mutex->lock();
                 c->clear();
@@ -267,6 +274,10 @@ namespace jcpp{
 
             bool retainAll(JCollection* c){
                 return JSynchronizedCollection::retainAll(c);
+            }
+
+            JPrimitiveArray* toArray(){
+                return JSynchronizedCollection::toArray();
             }
 
             void clear(){

@@ -35,7 +35,10 @@ namespace jcpp{
               this->name="java.util.ArrayList";
               this->simpleName="ArrayList";
               this->serialVersionUID=8683452581122892189ULL;
+              addInterface(JList::getClazz());
               addInterface(JSerializable::getClazz());
+              addInterface(JRandomAccess::getClazz());
+              addInterface(JCloneable::getClazz());
               vector<JClass*>* paramType=new vector<JClass*>();
               paramType->push_back(JObjectInputStream::getClazz());
               addMethod(new JMethod("readObject",this,JVoid::getClazz(),paramType,invokeReadObject));
@@ -170,12 +173,14 @@ namespace jcpp{
         }
 
         bool JArrayList::remove(JObject* e){
+            modCount++;
             bool b=deleteFromVector(items,e);
             isize->set(items->size());
             return b;
         }
 
         void JArrayList::clear(){
+            modCount++;
             items->clear();
             isize->set(0);
         }
@@ -188,6 +193,10 @@ namespace jcpp{
             }
             list->isize->set(isize->get());
             return list;
+        }
+
+        JPrimitiveArray* JArrayList::toArray(){
+            return JAbstractList::toArray();
         }
 
         bool JArrayList::addAll(JCollection* c){

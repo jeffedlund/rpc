@@ -95,7 +95,7 @@ namespace jcpp{
             }
         }
 
-        jlong JObjectInputStream::available() {
+        jint JObjectInputStream::available() {
             return bin->available();
         }
 
@@ -648,7 +648,7 @@ namespace jcpp{
             }
         }
 
-        jbyte JObjectInputStream::read() {
+        jint JObjectInputStream::read() {
             return bin->read();
         }
 
@@ -660,8 +660,8 @@ namespace jcpp{
             return bin->readByte();
         }
 
-        jbyte JObjectInputStream::peekByte() {
-            return bin->peekByte();
+        jint JObjectInputStream::peek() {
+            return bin->peek();
         }
 
         jchar JObjectInputStream::readChar() {

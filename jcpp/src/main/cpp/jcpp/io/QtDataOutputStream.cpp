@@ -59,7 +59,7 @@ namespace jcpp{
             this->out=out;
         }
 
-        void QtDataOutputStream::write(jbyte b){
+        void QtDataOutputStream::write(jint b){
             (*out)<<((jbyte)b);
             //TODO for debugging remove later// bytes->push_back(b);
         }

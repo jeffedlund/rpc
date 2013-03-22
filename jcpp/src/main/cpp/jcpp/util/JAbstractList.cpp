@@ -646,6 +646,10 @@ namespace jcpp{
             return modified;
         }
 
+        JPrimitiveArray* JAbstractList::toArray(){
+            return JAbstractCollection::toArray();
+        }
+
         JIterator* JAbstractList::iterator() {
             return new JItr(this);
         }

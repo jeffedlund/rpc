@@ -51,11 +51,11 @@ namespace jcpp{
             virtual void writeLong(JPrimitiveLong* l);
             virtual void writeShort(JPrimitiveShort* s);
             virtual void writeInt(JPrimitiveInt* i);
-            virtual void writeByte(jbyte b);
-            virtual void write(jbyte b);
+            virtual void writeByte(jint b);
+            virtual void write(jint b);
             virtual void write(jbyte b[], int off, int len);
-            virtual void writeChar(jchar v);
-            virtual void writeShort(jshort v);
+            virtual void writeChar(jint v);
+            virtual void writeShort(jint v);
             virtual void writeInt(jint v);
             virtual void writeLong(jlong v);
             virtual void writeFloat(jfloat v);

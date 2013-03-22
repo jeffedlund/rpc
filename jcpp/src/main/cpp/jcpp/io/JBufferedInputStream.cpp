@@ -93,7 +93,7 @@ namespace jcpp{
             }
         }
 
-        jbyte JBufferedInputStream::read(){
+        jint JBufferedInputStream::read(){
             if (pos >= count) {
                 fill();
                 if (pos >= count){
@@ -164,7 +164,7 @@ namespace jcpp{
             return skipped;
         }
 
-        jlong JBufferedInputStream::available(){
+        jint JBufferedInputStream::available(){
             return getInIfOpen()->available() + (count - pos);
         }
 
@@ -172,7 +172,7 @@ namespace jcpp{
             return in->waitForReadyRead(i);//maybe bugged
         }
 
-        jbyte JBufferedInputStream::peekByte(){
+        jint JBufferedInputStream::peek(){
             if (pos >= count) {
                 fill();
                 if (pos >= count){

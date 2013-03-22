@@ -34,6 +34,7 @@ namespace jcpp{
                             this->name="jcpp.rmi.server.impl.gateway.Address";
                             this->simpleName="Address";
                             addInterface(JSerializable::getClazz());
+                            addInterface(JCloneable::getClazz());
                             addField(new JField("hostName",JString::getClazz(),staticGetHostName,staticSetHostName));
                             addField(new JField("port",JPrimitiveInt::getClazz(),staticGetPort,staticSetPort));
                             serialVersionUID=1;
@@ -108,6 +109,10 @@ namespace jcpp{
 
                     JPrimitiveInt* JAddress::getPPort(){
                         return port;
+                    }
+
+                    jint JAddress::hashCode(){
+                        return (hostName!=NULL?hostName->hashCode()*37+port->get():port->get());
                     }
 
                     JAddress* JAddress::clone(){

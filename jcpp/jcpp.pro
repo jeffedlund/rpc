@@ -230,7 +230,9 @@ SOURCES += \
     src/main/cpp/jcpp/util/JVector.cpp \
     src/main/cpp/jcpp/util/JEnumeration.cpp \
     src/main/cpp/jcpp/lang/exception/JArrayIndexOutOfBoundsException.cpp \
-    src/main/cpp/jcpp/util/JCollections.cpp
+    src/main/cpp/jcpp/util/JCollections.cpp \
+    src/main/cpp/jcpp/lang/exception/JCloneNotSupportedException.cpp \
+    src/main/cpp/jcpp/lang/JComparable.cpp
     
     
 HEADERS += \
@@ -428,7 +430,9 @@ HEADERS += \
     src/main/cpp/jcpp/util/JVector.h \
     src/main/cpp/jcpp/util/JEnumeration.h \
     src/main/cpp/jcpp/lang/exception/JArrayIndexOutOfBoundsException.h \
-    src/main/cpp/jcpp/util/JCollections.h
+    src/main/cpp/jcpp/util/JCollections.h \
+    src/main/cpp/jcpp/lang/exception/JCloneNotSupportedException.h \
+    src/main/cpp/jcpp/lang/JComparable.h
     
     
 OTHER_FILES += \

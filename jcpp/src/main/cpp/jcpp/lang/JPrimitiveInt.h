@@ -29,7 +29,7 @@ namespace jcpp{
                 virtual bool equals(JObject* other);
                 virtual jint hashCode();
                 virtual string toString();
-                JPrimitiveInt* clone();
+                virtual JPrimitiveInt* clone();
                 virtual ~JPrimitiveInt();
         };
     }

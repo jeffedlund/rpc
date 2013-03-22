@@ -22,22 +22,14 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace gateway{
-                    class JCPP_LIBRARY_EXPORT JGatewayCompressionInputStream : public JInputStream{
+                    class JCPP_LIBRARY_EXPORT JGatewayCompressionInputStream : public JFilterInputStream{
                         protected:
                             JGatewayInputStream* gatewayInputStream;
 
                         public:
                             JGatewayCompressionInputStream(JInputStream* i,JGatewayConfiguration* gatewayConfiguration);
-
                             static JClass* getClazz();
-
                             JRoute* getRoute();
-                            virtual jlong available();
-                            virtual bool waitForReadyRead(int = 30000);
-                            virtual jbyte read();
-                            virtual jint read(jbyte b[], int off, int len);
-                            virtual jbyte peekByte();
-                            virtual void close();
                             virtual ~JGatewayCompressionInputStream();
                     };
                 }

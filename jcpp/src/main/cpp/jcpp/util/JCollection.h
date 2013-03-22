@@ -3,6 +3,7 @@
 
 #include "JInterface.h"
 #include "JIterable.h"
+#include "JPrimitiveArray.h"
 #include "JCPP.h"
 using namespace jcpp::lang;
 
@@ -15,8 +16,7 @@ namespace jcpp{
             virtual bool isEmpty()=0;
             virtual bool contains(JObject*)=0;
             virtual JIterator* iterator()=0;
-            //TODO virtual JObject* toArray()=0; //TODO better JObject array
-            //virtual JObject* toArray(JObject*)=0;//TODO
+            virtual JPrimitiveArray* toArray()=0;
             virtual bool add(JObject* e)=0;
             virtual bool remove(JObject* o)=0;
             virtual bool containsAll(JCollection* c)=0;

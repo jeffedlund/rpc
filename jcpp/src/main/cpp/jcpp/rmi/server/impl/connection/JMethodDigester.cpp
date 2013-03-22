@@ -108,22 +108,9 @@ namespace jcpp{
                                 }
                             }
                             string methodId = method->getName() + ":" + args;
-                            unsigned char * cId= new unsigned char[methodId.size() + 1];
-                            copy(methodId.begin(), methodId.end(), cId);
-                            cId[methodId.size()] = '\0';
-
-                            MD5 context;
-                            context.update(cId, methodId.size()+1);
-                            context.finalize();
-                            unsigned char* dig=context.raw_digest();
-
-                            long digest = 0;
-                            for (int k = 0; k < 8; k++) {
-                                digest += (dig[7 - k] ^ dig[15 - k]) << (64 - (8 * (k + 1)));
-                            }
+                            long digest = JString::hashCode(methodId);
                             iDigestToMethodMap->insert(pair<long,JMethod*>(digest, method));
                             iMethodToDigestMap->insert(pair<JMethod*,long>(method, digest));
-                            delete cId;
                         }
                         digestToMethodMap->insert(pair<JClass*,map<long,JMethod*>*>(classObject, iDigestToMethodMap));
                         methodToDigestMap->insert(pair<JClass*,map<JMethod*,long>*>(classObject, iMethodToDigestMap));

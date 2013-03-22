@@ -15,7 +15,6 @@
 #include "JEndPoint.h"
 #include "JObjectInformations.h"
 #include "JObjectPointer.h"
-#include "MD5.h" //TODO define security.MessageDigest
 #include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;

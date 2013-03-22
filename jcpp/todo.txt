@@ -1,11 +1,10 @@
 group1:
 -------
--work on hashCode on all objects
--work on equals on all objects
--work on clone of JObject/clone layer
+-implement comparable on objects
 -what to do with map/keys as pointers
 -what to do for Comparable and ordering. Look at JObjectStreamField
 -implement all JSystem class
+-make thread excecption handling more robust
 -work on wiki documentation
 -use which cast? () or dynamic or static?
 -implement socket/read/connecttimeout

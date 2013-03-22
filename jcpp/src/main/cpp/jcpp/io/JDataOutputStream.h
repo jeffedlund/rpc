@@ -5,11 +5,12 @@
 #include "JOutputStream.h"
 #include "Object.h"
 #include "JCPP.h"
+#include "JFilterOutputStream.h"
 using namespace std;
 
 namespace jcpp{
     namespace io{
-        class JCPP_LIBRARY_EXPORT JDataOutputStream : public JOutputStream{
+        class JCPP_LIBRARY_EXPORT JDataOutputStream : public JFilterOutputStream{
         private:
             jint length;
             jbyte* bytearr;
@@ -17,23 +18,20 @@ namespace jcpp{
             jint written;
             void incCount(jint value);
 
-        protected:
-            JOutputStream* out;
-
         public:
             JDataOutputStream();
             JDataOutputStream(JOutputStream* out);
             static JClass* getClazz();
             void setOutputStream(JOutputStream* out);
-            virtual void write(jbyte b);
+            virtual void write(jint b);
             virtual void write(jbyte b[], int off, int len);
             virtual void flush() ;
             virtual void close();
 
             virtual void writeBoolean(jbool v);
-            virtual void writeByte(jbyte v);
-            virtual void writeShort(jshort v);
-            virtual void writeChar(jchar v);
+            virtual void writeByte(jint v);
+            virtual void writeShort(jint v);
+            virtual void writeChar(jint v);
             virtual void writeInt(jint v);
             virtual void writeLong(jlong v);
             virtual void writeFloat(jfloat v);

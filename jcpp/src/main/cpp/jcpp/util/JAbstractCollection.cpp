@@ -62,17 +62,27 @@ namespace jcpp{
             return false;
         }
 
-        /*TODO
-Object[] toArray() {
-    Object[] r = new Object[size()];
-        Iterator<E> it = iterator();
-    for (int i = 0; i < r.length; i++) {
-        if (! it.hasNext())
-        return Arrays.copyOf(r, i);
-        r[i] = it.next();
-    }
-    return it.hasNext() ? finishToArray(r, it) : r;
-    }*/
+
+        JPrimitiveArray* JAbstractCollection::toArray(){
+            JClass* _class=NULL;
+            JPrimitiveArray* r=NULL;
+            JIterator* it = iterator();
+            if (it->hasNext()){
+                JObject* o=it->next();
+                _class=o->getClass();
+                r=new JPrimitiveArray(_class,size());
+            }
+            for (int i = 1; i < r->size(); i++) {
+                it->hasNext();
+                JObject* o=it->next();
+                if (o->getClass()!=_class){
+                    //TODO issue, all the items are not of the same class type ...
+                }
+                r->set(i,o);
+            }
+            delete it;
+            return r;
+        }
 
         bool JAbstractCollection::add(JObject*){
             throw new JUnsupportedOperationException();

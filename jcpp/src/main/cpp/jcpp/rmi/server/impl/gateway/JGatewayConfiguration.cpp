@@ -47,24 +47,14 @@ namespace jcpp{
                         s->setReadTimeout((JInteger*)value);
                     }
 
-                    static JObject* staticGetEstablishConnectionInitialTimeout(JObject* object){
+                    static JObject* staticGetConnectionTimeout(JObject* object){
                         JGatewayConfiguration* s=(JGatewayConfiguration*)object;
-                        return s->getEstablishConnectionInitialTimeout();
+                        return s->getConnectionTimeout();
                     }
 
-                    static void staticSetEstablishConnectionInitialTimeout(JObject* object,JObject* value){
+                    static void staticSetConnectionTimeout(JObject* object,JObject* value){
                         JGatewayConfiguration* s=(JGatewayConfiguration*)object;
-                        s->setEstablishConnectionInitialTimeout((JInteger*)value);
-                    }
-
-                    static JObject* staticGetEstablishConnectionMinTimeout(JObject* object){
-                        JGatewayConfiguration* s=(JGatewayConfiguration*)object;
-                        return s->getEstablishConnectionMinTimeout();
-                    }
-
-                    static void staticSetEstablishConnectionMinTimeout(JObject* object,JObject* value){
-                        JGatewayConfiguration* s=(JGatewayConfiguration*)object;
-                        s->setEstablishConnectionMinTimeout((JInteger*)value);
+                        s->setConnectionTimeout((JInteger*)value);
                     }
 
                     class JGatewayConfigurationClass : public JClass{
@@ -78,8 +68,7 @@ namespace jcpp{
                             addField(new JField("receiveBufferSize",JInteger::getClazz(),staticGetReceiveBufferSize,staticSetReceiveBufferSize));
                             addField(new JField("sendBufferSize",JInteger::getClazz(),staticGetSendBufferSize,staticSetSendBufferSize));
                             addField(new JField("readTimeout",JInteger::getClazz(),staticGetReadTimeout,staticSetReadTimeout));
-                            addField(new JField("establishConnectionInitialTimeout",JInteger::getClazz(),staticGetEstablishConnectionInitialTimeout,staticSetEstablishConnectionInitialTimeout));
-                            addField(new JField("establishConnectionMinTimeout",JInteger::getClazz(),staticGetEstablishConnectionMinTimeout,staticSetEstablishConnectionMinTimeout));
+                            addField(new JField("connectionTimeout",JInteger::getClazz(),staticGetConnectionTimeout,staticSetConnectionTimeout));
                             serialVersionUID=7816914239055009789ULL;
                         }
 
@@ -101,13 +90,12 @@ namespace jcpp{
                         return clazz;
                     }
 
-                    JGatewayConfiguration::JGatewayConfiguration(JInteger* backLog, JInteger* receiveBufferSize, JInteger* sendBufferSize, JInteger* readTimeout, JInteger* establishConnectionInitialTimeout, JInteger* establishConnectionMinTimeout):JObject(getClazz()){
+                    JGatewayConfiguration::JGatewayConfiguration(JInteger* backLog, JInteger* receiveBufferSize, JInteger* sendBufferSize, JInteger* readTimeout, JInteger* connectionTimeout):JObject(getClazz()){
                         this->backLog=backLog;
                         this->receiveBufferSize=receiveBufferSize;
                         this->sendBufferSize=sendBufferSize;
                         this->readTimeout=readTimeout;
-                        this->establishConnectionInitialTimeout=establishConnectionInitialTimeout;
-                        this->establishConnectionMinTimeout=establishConnectionMinTimeout;
+                        this->connectionTimeout=connectionTimeout;
                     }
 
                     JGatewayConfiguration::JGatewayConfiguration():JObject(getClazz()){
@@ -115,8 +103,7 @@ namespace jcpp{
                         receiveBufferSize=new JInteger(RECEIVE_BUFFER_SIZE);
                         sendBufferSize=new JInteger(SEND_BUFFER_SIZE);
                         readTimeout=new JInteger(READ_TIMEOUT);
-                        establishConnectionInitialTimeout=new JInteger(ESTABLISH_CONNECTION_INITIAL_TO);
-                        establishConnectionMinTimeout=new JInteger(ESTABLISH_CONNECTION_MIN_TO);
+                        connectionTimeout=new JInteger(CONNECTION_TIME_OUT);
                     }
 
                     JInteger* JGatewayConfiguration::getBackLog(){
@@ -135,12 +122,8 @@ namespace jcpp{
                         return readTimeout;
                     }
 
-                    JInteger* JGatewayConfiguration::getEstablishConnectionInitialTimeout(){
-                        return establishConnectionInitialTimeout;
-                    }
-
-                    JInteger* JGatewayConfiguration::getEstablishConnectionMinTimeout(){
-                        return establishConnectionMinTimeout;
+                    JInteger* JGatewayConfiguration::getConnectionTimeout(){
+                        return connectionTimeout;
                     }
 
                     void JGatewayConfiguration::setBackLog(JInteger* backLog){
@@ -163,14 +146,9 @@ namespace jcpp{
                         this->readTimeout=readTimeout;
                     }
 
-                    void JGatewayConfiguration::setEstablishConnectionInitialTimeout(JInteger* establishConnectionInitialTimeout){
-                        delete this->establishConnectionInitialTimeout;
-                        this->establishConnectionInitialTimeout=establishConnectionInitialTimeout;
-                    }
-
-                    void JGatewayConfiguration::setEstablishConnectionMinTimeout(JInteger* establishConnectionMinTimeout){
-                        delete this->establishConnectionMinTimeout;
-                        this->establishConnectionMinTimeout=establishConnectionMinTimeout;
+                    void JGatewayConfiguration::setConnectionTimeout(JInteger* connectionTimeout){
+                        delete this->connectionTimeout;
+                        this->connectionTimeout=connectionTimeout;
                     }
 
                     JGatewayConfiguration::~JGatewayConfiguration(){
@@ -178,8 +156,7 @@ namespace jcpp{
                         delete receiveBufferSize;
                         delete sendBufferSize;
                         delete readTimeout;
-                        delete establishConnectionInitialTimeout;
-                        delete establishConnectionMinTimeout;
+                        delete connectionTimeout;
                     }
                 }
             }

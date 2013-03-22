@@ -44,6 +44,14 @@ namespace jcpp{
             this->skipBuffer=NULL;
         }
 
+        jbyte JInputStream::peekByte(){
+            jint val = peek();
+            if (val < 0) {
+                throw new JEOFException();
+            }
+            return (jbyte) val;
+        }
+
         void JInputStream::readFully(jbyte b[], jint off, jint len) {
             if (len < 0){
                 throw new JIndexOutOfBoundsException;
@@ -93,7 +101,7 @@ namespace jcpp{
             return n - remaining;
         }
 
-        void JInputStream::mark(int){
+        void JInputStream::mark(jint){
         }
 
         void JInputStream::reset(){

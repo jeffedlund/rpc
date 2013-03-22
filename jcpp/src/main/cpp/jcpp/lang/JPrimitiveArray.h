@@ -12,10 +12,10 @@ namespace jcpp{
         class JCPP_LIBRARY_EXPORT JPrimitiveArray : public JObject{
         private:
             vector<JObject*>* objects;
-            int len;
+            jint len;
 
         public:
-            JPrimitiveArray(JClass* arrayClass,int len=10);
+            JPrimitiveArray(JClass* arrayClass,jint len=10);
 
             JPrimitiveArray(JClass* arrayClass,vector<JObject*>* objects);
 
@@ -26,13 +26,13 @@ namespace jcpp{
             //TODO test cases for this method
             static JClass* loadClassBySignature(JClassLoader* classLoader,string name);
 
-            int size();
+            jint size();
 
-            void setSize(int len);
+            void setSize(jint len);
 
-            JObject* get(int i);
+            JObject* get(jint i);
 
-            void set(int i,JObject* value);
+            void set(jint i,JObject* value);
 
             vector<JObject*>* getObjects();
 

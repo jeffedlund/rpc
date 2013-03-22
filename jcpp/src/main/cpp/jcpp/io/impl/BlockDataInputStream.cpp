@@ -171,26 +171,18 @@ namespace jcpp{
             this->defaultDataEnd=defaultDataEnd;
         }
 
-        jbyte BlockDataInputStream::peek() {
+        jint BlockDataInputStream::peek() {
             if (blkmode) {
                 if (pos == end) {
                     refill();
                 }
                 return (end >= 0) ? (buf[pos] & 0xFF) : -1;
             }else {
-                return in->peekByte();
+                return in->peek();
             }
         }
 
-        jbyte BlockDataInputStream::peekByte() {
-            jbyte val = peek();
-            if (val < 0) {
-                throw new JEOFException();
-            }
-            return (jbyte) val;
-        }
-
-        jbyte BlockDataInputStream::read() {
+        jint BlockDataInputStream::read() {
             if (blkmode) {
                 if (pos == end) {
                     refill();
@@ -229,7 +221,7 @@ namespace jcpp{
             return len - remain;
         }
 
-        jlong BlockDataInputStream::available() {
+        jint BlockDataInputStream::available() {
             if (blkmode) {
                 if ((pos == end) && (unread == 0)) {
                     jint n;
@@ -251,7 +243,7 @@ namespace jcpp{
                     }
                 }
                 // avoid unnecessary call to in.available() if possible
-                jlong unreadAvail = (unread > 0) ? min(in->available(), (jlong) unread) : 0;
+                jint unreadAvail = (unread > 0) ? min(in->available(), unread) : 0;
                 return (end >= 0) ? (end - pos) + unreadAvail : 0;
             }else {
                 return in->available();

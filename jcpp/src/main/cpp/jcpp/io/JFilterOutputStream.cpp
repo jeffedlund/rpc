@@ -38,10 +38,12 @@ namespace jcpp{
         }
 
         void JFilterOutputStream::write(jbyte b[], int off, int len){
-            out->write(b,off,len);
+            for (int i=0;i<len;i++){
+                out->write(b[off+i]);
+            }
         }
 
-        void JFilterOutputStream::write(jbyte b){
+        void JFilterOutputStream::write(jint b){
             out->write(b);
         }
 

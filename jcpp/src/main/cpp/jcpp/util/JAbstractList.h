@@ -38,6 +38,7 @@ namespace jcpp{
             virtual jint lastIndexOf(JObject* o);
             virtual void clear();
             virtual bool addAll(jint index, JCollection* c);
+            virtual JPrimitiveArray* toArray();
             virtual JIterator* iterator();
             virtual JListIterator* listIterator();
             virtual JListIterator* listIterator(jint index);

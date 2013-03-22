@@ -92,6 +92,13 @@ namespace jcpp{
                         this->id=id;
                     }
 
+                    jint JObjectPointer::hashCode(){
+                        jint h=1;
+                        h=h*31+id->hashCode();
+                        h=h*31+endPoint->hashCode();
+                        return h;
+                    }
+
                     string JObjectPointer::toString(){
                         return "ObjectPointer[" + endPoint->toString() + "[Id:" + id->toString() + "]]";
                     }

@@ -42,7 +42,7 @@ namespace jcpp{
                             static const jbyte MSG_TYPE_CALL = (jbyte) 0x21;
                             static const jbyte MSG_TYPE_OK = (jbyte) 0x31;
                             static const jbyte MSG_TYPE_EXCEPTION = (jbyte) 0x41;
-                            static const jint MAGIC_NUMBER = 0x4d524d49;
+                            static const jint MAGIC_NUMBER = 1234;
                             static const jlong DEFAULT_CONNECTION_POOL_TIMEOUT = 60000 * 10;
                             static const jint DEFAULT_SOCKET_TIMEOUT = 24 * 3600 * 1000; // 24 hours
                             static const jint DEFAULT_PING_TIMEOUT = 30000;

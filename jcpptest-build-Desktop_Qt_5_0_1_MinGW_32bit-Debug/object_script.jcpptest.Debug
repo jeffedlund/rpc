@@ -50,4 +50,7 @@ INPUT(
 ./debug\JScheduledExecutorServiceTest.o
 ./debug\JTransportTest.o
 ./debug\JServerTest.o
+./debug\JExternalizableTest.o
+./debug\JExternalizableObject.o
+./debug\JSerializableTest.o
 );

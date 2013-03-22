@@ -37,7 +37,7 @@ namespace jcpp{
                     JGatewaySocket::JGatewaySocket(JRoute* route,JGatewayConfiguration* gatewayConfiguration):JSocket(getClazz()){
                         JAddress* address = route->popAddress();
                         this->gatewayConfiguration = gatewayConfiguration;
-                        this->socket = new JSocket(address->getPHostName(),address->getPPort(),gatewayConfiguration->getEstablishConnectionMinTimeout()->get());
+                        this->socket = new JSocket(address->getPHostName(),address->getPPort(),gatewayConfiguration->getConnectionTimeout()->get());
                         this->output = new JGatewayCompressionOutputStream(socket->getOutputStream(), route);
                         this->input = socket->getInputStream();
                         this->bSendSocket = true;

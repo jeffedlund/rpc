@@ -18,14 +18,14 @@ namespace jcpp{
 
         public:
             static JClass* getClazz();
-            virtual jlong available();
+            virtual jint available();
             virtual bool waitForReadyRead(int = 30000);
-            virtual jbyte read();
-            virtual jbyte peekByte();
+            virtual jint read();
+            virtual jint peek();
             virtual void readFully(jbyte b[], jint off, jint len);
             virtual jint read(jbyte b[], int off, int len);
             virtual jlong skip(jlong n);
-            virtual void mark(int readlimit);
+            virtual void mark(jint readlimit);
             virtual void reset();
             virtual bool markSupported();
             virtual void close();

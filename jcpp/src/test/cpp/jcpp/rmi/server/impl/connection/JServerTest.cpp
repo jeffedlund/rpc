@@ -14,11 +14,11 @@ namespace jcpp{
                     void JServerTest::test(){
                         JEndPoint* localEndPoint1=new JEndPoint();
                         localEndPoint1->getAddress()->setHostName("localhost");
-                        localEndPoint1->getAddress()->setPort(9999);
+                        localEndPoint1->getAddress()->setPort(9876);
                         localEndPoint1->setSite(new JString("site1"));
                         JTransportRouter* router1=new JTransportRouter();
                         JConnectionConfiguration* cc1=new JConnectionConfiguration();
-                        JServer* server1=new JServer(localEndPoint1,router1,cc1);
+                        //JServer* server1=new JServer(localEndPoint1,router1,cc1);
 
                         JEndPoint* localEndPoint2=new JEndPoint();
                         localEndPoint2->getAddress()->setHostName("localhost");
