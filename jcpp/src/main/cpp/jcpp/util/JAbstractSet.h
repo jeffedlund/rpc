@@ -24,6 +24,7 @@ namespace jcpp{
             static JClass* getClazz();
             virtual JPrimitiveArray* toArray();
             virtual jint size()=0;
+            virtual jbool isEmpty();
             virtual JIterator* iterator()=0;
             virtual jbool add(JObject* e);
             virtual jbool remove(JObject* o);

@@ -24,8 +24,6 @@ namespace jcpp{
             virtual bool removeAll(JCollection* c)=0;
             virtual bool retainAll(JCollection* c)=0;
             virtual void clear()=0;
-            virtual bool equals(JObject* o)=0;
-            virtual jint hashCode()=0;
             virtual ~JCollection();
         };
     }

@@ -197,4 +197,6 @@ INPUT(
 ./release\JHashSet.o
 ./release\JMap.o
 ./release\JAbstractMap.o
+./release\JHashMap.o
+./release\JDictionary.o
 );

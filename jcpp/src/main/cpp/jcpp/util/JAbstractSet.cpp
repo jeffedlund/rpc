@@ -46,6 +46,10 @@ namespace jcpp{
             return JAbstractCollection::toArray();
         }
 
+        jbool JAbstractSet::isEmpty(){
+            return JAbstractCollection::isEmpty();
+        }
+
         jbool JAbstractSet::add(JObject* e){
             return JAbstractCollection::add(e);
         }

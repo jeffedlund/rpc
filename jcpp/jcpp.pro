@@ -237,7 +237,9 @@ SOURCES += \
     src/main/cpp/jcpp/util/JAbstractSet.cpp \
     src/main/cpp/jcpp/util/JHashSet.cpp \
     src/main/cpp/jcpp/util/JMap.cpp \
-    src/main/cpp/jcpp/util/JAbstractMap.cpp
+    src/main/cpp/jcpp/util/JAbstractMap.cpp \
+    src/main/cpp/jcpp/util/JHashMap.cpp \
+    src/main/cpp/jcpp/util/JDictionary.cpp
     
     
 HEADERS += \
@@ -442,7 +444,9 @@ HEADERS += \
     src/main/cpp/jcpp/util/JAbstractSet.h \
     src/main/cpp/jcpp/util/JHashSet.h \
     src/main/cpp/jcpp/util/JMap.h \
-    src/main/cpp/jcpp/util/JAbstractMap.h
+    src/main/cpp/jcpp/util/JAbstractMap.h \
+    src/main/cpp/jcpp/util/JHashMap.h \
+    src/main/cpp/jcpp/util/JDictionary.h
     
     
 OTHER_FILES += \

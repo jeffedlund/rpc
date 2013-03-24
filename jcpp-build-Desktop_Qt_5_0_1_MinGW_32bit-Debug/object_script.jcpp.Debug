@@ -197,4 +197,6 @@ INPUT(
 ./debug\JHashSet.o
 ./debug\JMap.o
 ./debug\JAbstractMap.o
+./debug\JHashMap.o
+./debug\JDictionary.o
 );
