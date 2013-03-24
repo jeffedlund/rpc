@@ -17,6 +17,7 @@ namespace jcpp{
                 this->simpleName="boolean";
                 this->bIsPrimitive=true;
                 addInterface(JSerializable::getClazz());
+                addInterface(JComparable::getClazz());
             }
 
             JClass* getSuperclass(){
@@ -59,6 +60,11 @@ namespace jcpp{
 
         jbool JPrimitiveBoolean::get(){
             return value;
+        }
+
+        jint JPrimitiveBoolean::compareTo(JObject* o){
+            JPrimitiveBoolean* b=dynamic_cast<JPrimitiveBoolean*>(o);
+            return (get() == b->get()) ? 0 : (get() ? 1 : -1);
         }
 
         jint JPrimitiveBoolean::hashCode(){

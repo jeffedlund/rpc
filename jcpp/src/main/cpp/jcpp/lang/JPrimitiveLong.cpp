@@ -15,6 +15,7 @@ namespace jcpp{
                 this->name="long";
                 this->simpleName="long";
                 this->bIsPrimitive=true;
+                addInterface(JComparable::getClazz());
             }
 
             JClass* getSuperclass(){
@@ -41,6 +42,11 @@ namespace jcpp{
 
         JPrimitiveLong::JPrimitiveLong():JObject(getClazz()){
             this->value=0;
+        }
+
+        jint JPrimitiveLong::compareTo(JObject* o){
+            JPrimitiveLong* s=dynamic_cast<JPrimitiveLong*>(o);
+            return get()-s->get();
         }
 
         bool JPrimitiveLong::equals(JObject* other){

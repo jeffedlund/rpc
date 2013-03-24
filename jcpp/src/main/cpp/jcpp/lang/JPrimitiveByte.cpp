@@ -15,6 +15,7 @@ namespace jcpp{
                 this->name="byte";
                 this->simpleName="byte";
                 this->bIsPrimitive=true;
+                addInterface(JComparable::getClazz());
             }
 
             JClass* getSuperclass(){
@@ -64,6 +65,11 @@ namespace jcpp{
 
         jbyte JPrimitiveByte::get(){
             return value;
+        }
+
+        jint JPrimitiveByte::compareTo(JObject* o){
+            JPrimitiveByte* b=dynamic_cast<JPrimitiveByte*>(o);
+            return get()-b->get();
         }
 
         bool JPrimitiveByte::equals(JObject* other){

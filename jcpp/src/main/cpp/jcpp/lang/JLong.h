@@ -7,11 +7,12 @@
 #include <iostream>
 #include "JPrimitiveLong.h"
 #include "JCPP.h"
+#include "JComparable.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JCPP_LIBRARY_EXPORT JLong : public JNumber{
+        class JCPP_LIBRARY_EXPORT JLong : public JNumber, public JComparable{
 
             protected:
                 JPrimitiveLong* value;
@@ -23,6 +24,7 @@ namespace jcpp{
                 static jlong MIN_VALUE;
                 static jlong MAX_VALUE;
                 static jint hashCode(jlong l);
+                static jint compare(jlong x,jlong y);
                 JLong operator+=(jlong f);
                 JLong operator-=(jlong f);
                 JLong operator*=(jlong f);
@@ -30,6 +32,7 @@ namespace jcpp{
                 jlong get();
                 void setPrimitiveLong(JPrimitiveLong* value);
                 JPrimitiveLong* getPrimitiveLong();
+                virtual jint compareTo(JObject* o);
                 virtual bool equals(JObject* other);
                 virtual jint hashCode();
                 virtual string toString();

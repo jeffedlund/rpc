@@ -7,11 +7,12 @@
 #include <iostream>
 #include "JPrimitiveFloat.h"
 #include "JCPP.h"
+#include "JComparable.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JCPP_LIBRARY_EXPORT JFloat : public JNumber{
+        class JCPP_LIBRARY_EXPORT JFloat : public JNumber, public JComparable{
 
             protected:
                 JPrimitiveFloat* value;
@@ -23,6 +24,7 @@ namespace jcpp{
                 static jfloat MIN_VALUE;
                 static jfloat MAX_VALUE;
                 static jint hashCode(jfloat f);
+                static jint compare(jfloat f1,jfloat f2);
                 JFloat operator+=(jfloat f);
                 JFloat operator-=(jfloat f);
                 JFloat operator*=(jfloat f);
@@ -30,6 +32,7 @@ namespace jcpp{
                 float get();
                 void setPrimitiveFloat(JPrimitiveFloat* value);
                 JPrimitiveFloat* getPrimitiveFloat();
+                virtual jint compareTo(JObject* o);
                 virtual bool equals(JObject* other);
                 virtual jint hashCode();
                 string toString();

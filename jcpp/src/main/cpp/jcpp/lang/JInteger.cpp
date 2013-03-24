@@ -28,6 +28,7 @@ namespace jcpp{
                 this->simpleName="Integer";
                 this->serialVersionUID=1360826667806852920ULL;
                 addInterface(JSerializable::getClazz());
+                addInterface(JComparable::getClazz());
                 addField(new JField("value",JPrimitiveInt::getClazz(),staticGetValue,staticSetValue));
             }
 
@@ -47,6 +48,14 @@ namespace jcpp{
                 clazz=new JIntegerClass();
             }
             return clazz;
+        }
+
+        jint JInteger::hashCode(jint i){
+            return i;
+        }
+
+        jint JInteger::compare(jint x,jint y){
+            return x-y;
         }
 
         jint JInteger::MIN_VALUE = 0x80000000;
@@ -101,8 +110,13 @@ namespace jcpp{
             return value;
         }
 
+        jint JInteger::compareTo(JObject *o){
+            JInteger* i=dynamic_cast<JInteger*>(o);
+            return compare(get(),i->get());
+        }
+
         jint JInteger::hashCode(){
-            return value->get();
+            return hashCode(value->get());
         }
 
         string JInteger::toString(){

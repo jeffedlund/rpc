@@ -5,11 +5,12 @@
 #include <vector>
 #include <iostream>
 #include "JCPP.h"
+#include "JComparable.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JCPP_LIBRARY_EXPORT JPrimitiveDouble : public JObject{
+        class JCPP_LIBRARY_EXPORT JPrimitiveDouble : public JObject, public JComparable{
 
             protected:
                 jdouble value;
@@ -23,6 +24,7 @@ namespace jcpp{
                 static JClass* getClazz();
                 void set(jdouble value);
                 jdouble get();
+                virtual jint compareTo(JObject* o);
                 virtual bool equals(JObject* other);
                 virtual jint hashCode();
                 virtual string toString();

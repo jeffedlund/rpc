@@ -7,11 +7,12 @@
 #include <iostream>
 #include "JPrimitiveShort.h"
 #include "JCPP.h"
+#include "JComparable.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JCPP_LIBRARY_EXPORT JShort : public JNumber{
+        class JCPP_LIBRARY_EXPORT JShort : public JNumber, public JComparable{
             protected:
                 JPrimitiveShort* value;
 
@@ -22,6 +23,7 @@ namespace jcpp{
                 static jshort MIN_VALUE;
                 static jshort MAX_VALUE;
                 static jint hashCode(jshort);
+                static jint compare(jshort x,jshort y);
                 JShort operator+=(jshort f);
                 JShort operator-=(jshort f);
                 JShort operator*=(jshort f);
@@ -29,6 +31,7 @@ namespace jcpp{
                 jshort get();
                 void setPrimitiveShort(JPrimitiveShort* value);
                 JPrimitiveShort* getPrimitiveShort();
+                virtual jint compareTo(JObject* o);
                 virtual bool equals(JObject* other);
                 virtual jint hashCode();
                 virtual string toString();

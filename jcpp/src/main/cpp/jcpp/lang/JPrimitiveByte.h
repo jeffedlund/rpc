@@ -6,11 +6,12 @@
 #include <iostream>
 #include "Object.h"
 #include "JCPP.h"
+#include "JComparable.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JCPP_LIBRARY_EXPORT JPrimitiveByte : public JObject{
+        class JCPP_LIBRARY_EXPORT JPrimitiveByte : public JObject, public JComparable{
 
             protected:
                 jbyte value;
@@ -24,9 +25,10 @@ namespace jcpp{
                 static JClass* getClazz();
                 void set(jbyte value);
                 jbyte get();
-                bool equals(JObject* other);
-                jint hashCode();
-                string toString();
+                virtual jint compareTo(JObject* o);
+                virtual bool equals(JObject* other);
+                virtual jint hashCode();
+                virtual string toString();
                 virtual ~JPrimitiveByte();
         };
     }

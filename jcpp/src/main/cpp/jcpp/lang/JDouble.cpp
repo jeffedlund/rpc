@@ -29,6 +29,7 @@ namespace jcpp{
                 this->simpleName="Double";
                 this->serialVersionUID=-9172774392245257468ULL;
                 addInterface(JSerializable::getClazz());
+                addInterface(JComparable::getClazz());
                 addField(new JField("value",JPrimitiveDouble::getClazz(),staticGetValue,staticSetValue));
             }
 
@@ -52,6 +53,10 @@ namespace jcpp{
 
         jint JDouble::hashCode(jdouble d){
             return (jint)d;
+        }
+
+        jint JDouble::compare(jdouble d1,jdouble d2){
+            return d1-d2;
         }
 
         jdouble JDouble::MIN_VALUE = 0x0.0000000000001P-1022;
@@ -104,6 +109,11 @@ namespace jcpp{
 
         JPrimitiveDouble* JDouble::getPrimitiveDouble(){
             return value;
+        }
+
+        jint JDouble::compareTo(JObject *o){
+            JDouble* d=dynamic_cast<JDouble*>(o);
+            return compare(value->get(),d->get());
         }
 
         jint JDouble::hashCode(){

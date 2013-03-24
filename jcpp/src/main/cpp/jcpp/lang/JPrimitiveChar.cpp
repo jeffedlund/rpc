@@ -15,6 +15,7 @@ namespace jcpp{
                 this->name="char";
                 this->simpleName="char";
                 this->bIsPrimitive=true;
+                addInterface(JComparable::getClazz());
             }
 
             JClass* getSuperclass(){
@@ -53,6 +54,11 @@ namespace jcpp{
 
         jchar JPrimitiveChar::get(){
             return value;
+        }
+
+        jint JPrimitiveChar::compareTo(JObject* o){
+            JPrimitiveChar* s=dynamic_cast<JPrimitiveChar*>(o);
+            return get()-s->get();
         }
 
         bool JPrimitiveChar::equals(JObject* other){

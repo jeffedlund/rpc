@@ -27,6 +27,7 @@ namespace jcpp{
                 this->simpleName="Byte";
                 this->serialVersionUID=-7183698231559129828ULL;
                 addInterface(JSerializable::getClazz());
+                addInterface(JComparable::getClazz());
                 addField(new JField("value",JPrimitiveByte::getClazz(),staticGetValue,staticSetValue));
             }
 
@@ -50,6 +51,10 @@ namespace jcpp{
 
         jint JByte::hashCode(jbyte b){
             return (jint)b;
+        }
+
+        jint JByte::compare(jbyte x,jbyte y){
+            return x-y;
         }
 
         jbyte JByte::MIN_VALUE=-128;
@@ -102,6 +107,11 @@ namespace jcpp{
 
         JPrimitiveByte* JByte::getPrimitiveByte(){
             return value;
+        }
+
+        jint JByte::compareTo(JObject *o){
+            JByte* b=dynamic_cast<JByte*>(o);
+            return compare(value->get(),b->get());
         }
 
         jint JByte::hashCode(){

@@ -192,4 +192,9 @@ INPUT(
 ./release\JCollections.o
 ./release\JCloneNotSupportedException.o
 ./release\JComparable.o
+./release\JSet.o
+./release\JAbstractSet.o
+./release\JHashSet.o
+./release\JMap.o
+./release\JAbstractMap.o
 );

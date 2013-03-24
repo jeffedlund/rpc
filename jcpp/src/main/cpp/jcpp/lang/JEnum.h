@@ -7,12 +7,13 @@
 #include "JString.h"
 #include "JInstantiationException.h"
 #include "JCPP.h"
+#include "JComparable.h"
 using namespace std;
 
 //TODO write enum test case
 namespace jcpp{
     namespace lang{
-        class JCPP_LIBRARY_EXPORT JEnum: public JObject{
+        class JCPP_LIBRARY_EXPORT JEnum: public JObject, public JComparable{
 
         protected:
 
@@ -23,6 +24,7 @@ namespace jcpp{
                     this->name="java.lang.Enum";
                     this->simpleName="Enum";
                     this->bIsEnum=true;
+                    addInterface(JComparable::getClazz());
                 }
 
                 JClass* getSuperclass(){
@@ -42,6 +44,7 @@ namespace jcpp{
             static JClass* getClazz();
             JString* getName();
             JPrimitiveInt* getOrdinal();
+            virtual jint compareTo(JObject* o);
             virtual bool equals(JObject* other);
             virtual jint hashCode();
             virtual string toString();

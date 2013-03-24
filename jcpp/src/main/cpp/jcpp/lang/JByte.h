@@ -7,11 +7,12 @@
 #include <iostream>
 #include "JPrimitiveByte.h"
 #include "JCPP.h"
+#include "JComparable.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JCPP_LIBRARY_EXPORT JByte : public JNumber{
+        class JCPP_LIBRARY_EXPORT JByte : public JNumber, public JComparable{
 
             protected:
                 JPrimitiveByte* value;
@@ -21,6 +22,7 @@ namespace jcpp{
                 JByte(jbyte value);
                 static JClass* getClazz();
                 static jint hashCode(jbyte b);
+                static jint compare(jbyte x,jbyte y);
                 static jbyte MIN_VALUE;
                 static jbyte MAX_VALUE;
                 JByte operator+=(jbyte f);
@@ -30,6 +32,7 @@ namespace jcpp{
                 jbyte get();
                 void setPrimitiveByte(JPrimitiveByte* value);
                 JPrimitiveByte* getPrimitiveByte();
+                virtual jint compareTo(JObject * o);
                 virtual jint hashCode();
                 virtual bool equals(JObject* other);
                 virtual string toString();

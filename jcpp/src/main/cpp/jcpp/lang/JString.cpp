@@ -15,6 +15,7 @@ namespace jcpp{
               this->simpleName="String";
               this->serialVersionUID=-6849794470754667710ULL;
               addInterface(JSerializable::getClazz());
+              addInterface(JComparable::getClazz());
           }
 
           JClass* getSuperclass(){
@@ -59,6 +60,23 @@ namespace jcpp{
             return h;
         }
 
+        jint JString::compare(string s1,string s2){
+            jint len1 = s1.size();
+            jint len2 = s2.size();
+            jint lim = (len1<len2?len1:len2);
+
+            jint k = 0;
+            while (k < lim) {
+                jchar c1 = s1.at(k);
+                jchar c2 = s1.at(k);
+                if (c1 != c2) {
+                    return c1 - c2;
+                }
+                k++;
+            }
+            return len1 - len2;
+        }
+
         JString::JString(): JObject(getClazz()){
         }
 
@@ -91,6 +109,11 @@ namespace jcpp{
 
         void JString::setString(string str) {
             this->str = str;
+        }
+
+        jint JString::compareTo(JObject* o){
+            JString* s=dynamic_cast<JString*>(o);
+            return compare(str,s->str);
         }
 
         JString* JString::clone(){

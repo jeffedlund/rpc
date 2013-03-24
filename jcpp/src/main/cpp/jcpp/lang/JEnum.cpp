@@ -1,5 +1,6 @@
 #include "JEnum.h"
 #include "JClass.h"
+#include "JClassCastException.h"
 
 namespace jcpp{
     namespace lang{
@@ -23,6 +24,14 @@ namespace jcpp{
 
         JPrimitiveInt* JEnum::getOrdinal(){
             return ordinal;
+        }
+
+        jint JEnum::compareTo(JObject* o){
+            JEnum* e=dynamic_cast<JEnum*>(o);
+            if (getClass() != e->getClass()){//TODO implement && this->getgetDeclaringClass() != other.getDeclaringClass())
+                throw new JClassCastException();
+            }
+            return ordinal - e->getOrdinal();
         }
 
         bool JEnum::equals(JObject* other){

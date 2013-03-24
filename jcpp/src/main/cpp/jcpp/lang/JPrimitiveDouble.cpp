@@ -15,6 +15,7 @@ namespace jcpp{
                 this->name="double";
                 this->simpleName="double";
                 this->bIsPrimitive=true;
+                addInterface(JComparable::getClazz());
             }
 
             JClass* getSuperclass(){
@@ -41,6 +42,11 @@ namespace jcpp{
 
         JPrimitiveDouble::JPrimitiveDouble():JObject(getClazz()){
             this->value=0;
+        }
+
+        jint JPrimitiveDouble::compareTo(JObject* o){
+            JPrimitiveDouble* s=dynamic_cast<JPrimitiveDouble*>(o);
+            return get()-s->get();
         }
 
         bool JPrimitiveDouble::equals(JObject* other){

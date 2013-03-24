@@ -53,6 +53,10 @@ namespace jcpp{
             return (jint)l;
         }
 
+        jint JLong::compare(jlong x,jlong y){
+            return x-y;
+        }
+
         jlong JLong::MIN_VALUE = 0x8000000000000000L;
 
         jlong JLong::MAX_VALUE = 0x7fffffffffffffffL;
@@ -103,6 +107,11 @@ namespace jcpp{
 
         JPrimitiveLong* JLong::getPrimitiveLong(){
             return value;
+        }
+
+        jint JLong::compareTo(JObject *o){
+            JLong* l=dynamic_cast<JLong*>(o);
+            return compare(get(),l->get());
         }
 
         jint JLong::hashCode(){

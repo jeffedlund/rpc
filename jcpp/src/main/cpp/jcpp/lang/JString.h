@@ -3,11 +3,12 @@
 
 #include "JObject.h"
 #include "JCPP.h"
+#include "JComparable.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JCPP_LIBRARY_EXPORT JString : public JObject{
+        class JCPP_LIBRARY_EXPORT JString : public JObject, public JComparable{
             string str;
 
         public:
@@ -21,6 +22,7 @@ namespace jcpp{
             };
             static JString* intern(string s);
             static jint hashCode(string s);
+            static jint compare(string s1,string s2);
             JString();
             JString(string str);
             JString(JString* str);
@@ -28,6 +30,7 @@ namespace jcpp{
             bool operator<(JString &other);
             string getString();
             void setString(string str);
+            virtual jint compareTo(JObject* o);
             virtual JString* clone();
             virtual bool equals(JObject* other);
             virtual jint hashCode();

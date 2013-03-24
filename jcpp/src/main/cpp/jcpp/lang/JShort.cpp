@@ -29,6 +29,7 @@ namespace jcpp{
                 this->simpleName="Short";
                 this->serialVersionUID=7515723908773894738ULL;
                 addInterface(JSerializable::getClazz());
+                addInterface(JComparable::getClazz());
                 addField(new JField("value",JPrimitiveShort::getClazz(),staticGetValue,staticSetValue));
             }
 
@@ -54,6 +55,10 @@ namespace jcpp{
             return (jint)s;
         }
 
+        jint JShort::compare(jshort x, jshort y){
+            return x-y;
+        }
+
         jshort JShort::MIN_VALUE = -32768;
 
         jshort JShort::MAX_VALUE = 32767;
@@ -64,6 +69,11 @@ namespace jcpp{
 
         JShort::JShort():JNumber(getClazz()){
             this->value=new JPrimitiveShort(0);
+        }
+
+        jint JShort::compareTo(JObject* o){
+            JShort* s=dynamic_cast<JShort*>(o);
+            return compare(get(),s->get());
         }
 
         bool JShort::equals(JObject* other){

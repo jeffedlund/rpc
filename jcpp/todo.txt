@@ -1,18 +1,17 @@
 group1:
 -------
--implement comparable on objects
 -what to do with map/keys as pointers
--what to do for Comparable and ordering. Look at JObjectStreamField
--implement all JSystem class
 -make thread excecption handling more robust
+-implement all JSystem class
+-implement all jcpp.util, jcpp.io, jcpp.net (a quite big list :))
+
 -work on wiki documentation
 -use which cast? () or dynamic or static?
 -implement socket/read/connecttimeout
--create adapters socket, serversocket
 -test case for enum with io and rpc
 -in rmi : test proxy in parameter, return, in somewhere deep in an object
 -issue with duplicate methods in object and its interface. what to do?
--implement all jcpp.util, jcpp.io, jcpp.net (a quite big list :))
+
 
 group2:
 -------

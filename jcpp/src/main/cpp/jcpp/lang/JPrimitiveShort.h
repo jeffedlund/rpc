@@ -6,11 +6,12 @@
 #include <iostream>
 #include "Object.h"
 #include "JCPP.h"
+#include "JComparable.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JCPP_LIBRARY_EXPORT JPrimitiveShort : public JObject{
+        class JCPP_LIBRARY_EXPORT JPrimitiveShort : public JObject, public JComparable{
 
             protected:
                 jshort value;
@@ -24,6 +25,7 @@ namespace jcpp{
                 static JClass* getClazz();
                 void set(jshort value);
                 jshort get();
+                virtual jint compareTo(JObject* o);
                 virtual bool equals(JObject* other);
                 virtual jint hashCode();
                 virtual string toString();

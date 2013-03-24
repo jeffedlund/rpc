@@ -192,4 +192,9 @@ INPUT(
 ./debug\JCollections.o
 ./debug\JCloneNotSupportedException.o
 ./debug\JComparable.o
+./debug\JSet.o
+./debug\JAbstractSet.o
+./debug\JHashSet.o
+./debug\JMap.o
+./debug\JAbstractMap.o
 );

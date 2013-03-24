@@ -28,6 +28,7 @@ namespace jcpp{
                 this->simpleName="Float";
                 this->serialVersionUID=-2671257302660747028ULL;
                 addInterface(JSerializable::getClazz());
+                addInterface(JComparable::getClazz());
                 addField(new JField("value",JPrimitiveFloat::getClazz(),staticGetValue,staticSetValue));
             }
 
@@ -51,6 +52,10 @@ namespace jcpp{
 
         jint JFloat::hashCode(jfloat f){
             return (jint)f;
+        }
+
+        jint JFloat::compare(jfloat f1,jfloat f2){
+            return f1-f2;
         }
 
         jfloat JFloat::MIN_VALUE = 0x0.000002P-126f;
@@ -103,6 +108,11 @@ namespace jcpp{
 
         JPrimitiveFloat* JFloat::getPrimitiveFloat(){
             return value;
+        }
+
+        jint JFloat::compareTo(JObject *o){
+            JFloat* f=dynamic_cast<JFloat*>(o);
+            return compare(get(),f->get());
         }
 
         jint JFloat::hashCode(){

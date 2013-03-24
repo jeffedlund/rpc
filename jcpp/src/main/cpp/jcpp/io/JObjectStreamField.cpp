@@ -11,6 +11,7 @@ namespace jcpp{
                 canonicalName="java.io.ObjectStreamField";
                 name="java.io.ObjectStreamField";
                 simpleName="ObjectStreamField";
+                addInterface(JComparable::getClazz());
             }
 
             JClass* getSuperclass(){
@@ -149,6 +150,16 @@ namespace jcpp{
 
         string JObjectStreamField::getSignature(){
             return signature;
+        }
+
+        jint JObjectStreamField::compareTo(JObject* o){
+            JObjectStreamField* other=dynamic_cast<JObjectStreamField*>(o);
+            bool isPrim = getType()->isPrimitive();
+            if (isPrim != other->getType()->isPrimitive()) {
+                return isPrim ? -1 : 1;
+            }
+            return JString::compare(getName(),other->getName());
+
         }
 
         JObjectStreamField::~JObjectStreamField(){

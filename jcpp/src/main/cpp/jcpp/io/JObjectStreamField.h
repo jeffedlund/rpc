@@ -9,13 +9,14 @@
 #include "JString.h"
 #include "Object.h"
 #include "JCPP.h"
+#include "JComparable.h"
 using namespace std;
 using namespace jcpp::lang::reflect;
 using namespace jcpp::lang;
 
 namespace jcpp{
     namespace io{
-        class JCPP_LIBRARY_EXPORT JObjectStreamField : public JObject{
+        class JCPP_LIBRARY_EXPORT JObjectStreamField : public JObject, public JComparable{
         private:
             string name;
             string signature;
@@ -55,6 +56,7 @@ namespace jcpp{
             bool isUnshared();
             JField* getField();
             string getSignature();
+            virtual jint compareTo(JObject* o);
             virtual ~JObjectStreamField();
         };
     }

@@ -28,6 +28,7 @@ namespace jcpp{
                 this->simpleName="Boolean";
                 this->serialVersionUID=-3665804199014368530ULL;
                 addInterface(JSerializable::getClazz());
+                addInterface(JComparable::getClazz());
                 addField(new JField("value",JPrimitiveBoolean::getClazz(),getValue,setValue));
             }
 
@@ -51,6 +52,10 @@ namespace jcpp{
 
         jint JBoolean::hashCode(bool value){
             return (value ? 1231 : 1237);
+        }
+
+        jint JBoolean::compare(jbool v1,jbool v2){
+            return (v1 == v2) ? 0 : (v1 ? 1 : -1);
         }
 
         JBoolean::JBoolean(bool value):JObject(getClazz()){
@@ -84,6 +89,11 @@ namespace jcpp{
         void JBoolean::setPrimitiveBoolean(JPrimitiveBoolean* value){
             delete this->value;
             this->value=value;
+        }
+
+        jint JBoolean::compareTo(JObject *o){
+            JBoolean* b=dynamic_cast<JBoolean*>(o);
+            return compare(value->get(),b->value->get());
         }
 
         jint JBoolean::hashCode(){

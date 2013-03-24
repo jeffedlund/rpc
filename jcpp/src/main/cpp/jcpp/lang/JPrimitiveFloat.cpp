@@ -15,6 +15,7 @@ namespace jcpp{
                 this->name="float";
                 this->simpleName="float";
                 this->bIsPrimitive=true;
+                addInterface(JComparable::getClazz());
             }
 
             JClass* getSuperclass(){
@@ -41,6 +42,11 @@ namespace jcpp{
 
         JPrimitiveFloat::JPrimitiveFloat():JObject(getClazz()){
             this->value=0;
+        }
+
+        jint JPrimitiveFloat::compareTo(JObject* o){
+            JPrimitiveFloat* s=dynamic_cast<JPrimitiveFloat*>(o);
+            return get()-s->get();
         }
 
         bool JPrimitiveFloat::equals(JObject* other){

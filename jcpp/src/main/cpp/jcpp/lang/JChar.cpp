@@ -52,6 +52,10 @@ namespace jcpp{
             return (jint)c;
         }
 
+        jint JChar::compare(jchar x,jchar y){
+            return x-y;
+        }
+
         jchar JChar::MIN_VALUE = '\u0000';
 
         jchar JChar::MAX_VALUE = (jchar)'\uffff';
@@ -91,6 +95,11 @@ namespace jcpp{
 
         JPrimitiveChar* JChar::getPrimitiveChar(){
             return value;
+        }
+
+        jint JChar::compareTo(JObject *o){
+            JChar* c=dynamic_cast<JChar*>(o);
+            return compare(value->get(),c->value->get());
         }
 
         jint JChar::hashCode(){

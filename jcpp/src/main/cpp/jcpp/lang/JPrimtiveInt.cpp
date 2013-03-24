@@ -16,6 +16,7 @@ namespace jcpp{
                 this->name="int";
                 this->simpleName="int";
                 this->bIsPrimitive=true;
+                addInterface(JComparable::getClazz());
             }
 
             JClass* getSuperclass(){
@@ -46,6 +47,11 @@ namespace jcpp{
 
         JPrimitiveInt::JPrimitiveInt():JObject(getClazz()){
             this->value=0;
+        }
+
+        jint JPrimitiveInt::compareTo(JObject* o){
+            JPrimitiveInt* s=dynamic_cast<JPrimitiveInt*>(o);
+            return get()-s->get();
         }
 
         bool JPrimitiveInt::equals(JObject* other){

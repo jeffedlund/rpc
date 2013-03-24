@@ -232,7 +232,12 @@ SOURCES += \
     src/main/cpp/jcpp/lang/exception/JArrayIndexOutOfBoundsException.cpp \
     src/main/cpp/jcpp/util/JCollections.cpp \
     src/main/cpp/jcpp/lang/exception/JCloneNotSupportedException.cpp \
-    src/main/cpp/jcpp/lang/JComparable.cpp
+    src/main/cpp/jcpp/lang/JComparable.cpp \
+    src/main/cpp/jcpp/util/JSet.cpp \
+    src/main/cpp/jcpp/util/JAbstractSet.cpp \
+    src/main/cpp/jcpp/util/JHashSet.cpp \
+    src/main/cpp/jcpp/util/JMap.cpp \
+    src/main/cpp/jcpp/util/JAbstractMap.cpp
     
     
 HEADERS += \
@@ -432,7 +437,12 @@ HEADERS += \
     src/main/cpp/jcpp/lang/exception/JArrayIndexOutOfBoundsException.h \
     src/main/cpp/jcpp/util/JCollections.h \
     src/main/cpp/jcpp/lang/exception/JCloneNotSupportedException.h \
-    src/main/cpp/jcpp/lang/JComparable.h
+    src/main/cpp/jcpp/lang/JComparable.h \
+    src/main/cpp/jcpp/util/JSet.h \
+    src/main/cpp/jcpp/util/JAbstractSet.h \
+    src/main/cpp/jcpp/util/JHashSet.h \
+    src/main/cpp/jcpp/util/JMap.h \
+    src/main/cpp/jcpp/util/JAbstractMap.h
     
     
 OTHER_FILES += \
