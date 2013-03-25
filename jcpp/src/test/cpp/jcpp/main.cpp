@@ -73,6 +73,8 @@
 #include "JSerializableTest.h"
 #include "JExternalizableTest.h"
 #include "JExternalizableObject.h"
+#include "JHashMapTest.h"
+#include "JHashSetTest.h"
 using namespace std;
 using namespace jcpp::util;
 using namespace jcpp::lang;
@@ -83,7 +85,7 @@ using namespace jcpp::rmi::server::impl::transport;
 using namespace jcpp::rmi::server::impl::gateway;
 using namespace jcpp::rmi::server::impl::connection;
 
-static int TEST_SIZE = 47;
+static int TEST_SIZE = 49;
 static JTest* tests[] = {new JThrowableTest(),new JErrorTest(),new JExceptionTest(),new JRuntimeExceptionTest(),
                          new JClassCastExceptionTest(),new JClassNotFoundExceptionTest(),new JIllegalArgumentExceptionTest(),
                          new JIllegalStateExceptionTest(),new JIndexOutOfBoundsExceptionTest(),new JInstantiationExceptionTest(),
@@ -97,7 +99,8 @@ static JTest* tests[] = {new JThrowableTest(),new JErrorTest(),new JExceptionTes
                          new JPrimitiveBooleanTest(),new JPrimitiveByteTest(),new JPrimitiveCharTest(),
                          new JPrimitiveDoubleTest(),new JPrimitiveFloatTest(),new JPrimitiveLongTest(),
                          new JPrimitiveShortTest(),new JPrimitiveIntTest(),new JArrayListTest(),
-                        new JBitsTest,new JSerializableTest,new JExternalizableTest,new JServerTest};
+                         new JBitsTest,new JSerializableTest,new JExternalizableTest,
+                         new JHashMapTest,new JHashSetTest,new JServerTest};
 
 void registerClasses(){
     JClassLoader::getBootClassLoader()->addClass(JSampleObject::getClazz());

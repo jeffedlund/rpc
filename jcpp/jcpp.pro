@@ -239,7 +239,11 @@ SOURCES += \
     src/main/cpp/jcpp/util/JMap.cpp \
     src/main/cpp/jcpp/util/JAbstractMap.cpp \
     src/main/cpp/jcpp/util/JHashMap.cpp \
-    src/main/cpp/jcpp/util/JDictionary.cpp
+    src/main/cpp/jcpp/util/JDictionary.cpp \
+    src/main/cpp/jcpp/io/JInvalidObjectException.cpp \
+    src/main/cpp/jcpp/util/JComparator.cpp \
+    src/main/cpp/jcpp/util/JQueue.cpp \
+    src/main/cpp/jcpp/util/JAbstractQueue.cpp
     
     
 HEADERS += \
@@ -446,7 +450,11 @@ HEADERS += \
     src/main/cpp/jcpp/util/JMap.h \
     src/main/cpp/jcpp/util/JAbstractMap.h \
     src/main/cpp/jcpp/util/JHashMap.h \
-    src/main/cpp/jcpp/util/JDictionary.h
+    src/main/cpp/jcpp/util/JDictionary.h \
+    src/main/cpp/jcpp/io/JInvalidObjectException.h \
+    src/main/cpp/jcpp/util/JComparator.h \
+    src/main/cpp/jcpp/util/JQueue.h \
+    src/main/cpp/jcpp/util/JAbstractQueue.h
     
     
 OTHER_FILES += \

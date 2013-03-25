@@ -25,6 +25,12 @@ namespace jcpp{
                 JObject(bool root);
 
             public:
+                struct POINTER_COMPARATOR{//TODO bugged if 2 objects have the same hashcode in hashmap?
+                    bool operator()(JObject* e1, JObject* e2){
+                        return (e1==NULL ? (e2==NULL ? true : 0<e2->hashCode()): e1->hashCode()<e2->hashCode());
+                    }
+                };
+
                 JObject();
 
                 static JClass* getClazz();

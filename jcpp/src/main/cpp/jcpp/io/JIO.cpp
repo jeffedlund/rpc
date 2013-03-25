@@ -15,6 +15,7 @@ namespace jcpp{
             classes->push_back(JFilterOutputStream::getClazz());
             classes->push_back(JInputStream::getClazz());
             classes->push_back(JInvalidClassException::getClazz());
+            classes->push_back(JInvalidObjectException::getClazz());
             classes->push_back(JIOException::getClazz());
             classes->push_back(JNotActiveException::getClazz());
             classes->push_back(JNotSerializableException::getClazz());

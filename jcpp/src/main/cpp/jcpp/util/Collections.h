@@ -106,6 +106,34 @@ namespace jcpp{
             }
         }
 
+        template<class K, class V, class Z>
+        V* getAndDeleteFromMap(map<K*,V*,Z>* elements, K* k){
+            typename map<K*,V*,Z>::const_iterator i;
+            i= elements->find(k);
+            if (i!=elements->end()){
+                V* v=(*i).second;
+                elements->erase(k);
+                return v;
+            }else{
+                return NULL;
+            }
+        }
+
+        template<class K, class V, class Z>
+        bool hasValueFromMap(map<K*,V*,Z>* elements, V* v){
+            typename map<K*,V*,Z>::const_iterator i;
+            for(i = elements->begin(); i != elements->end(); ++i){
+                if (v==NULL){
+                    if ((*i).second==NULL){
+                        return true;
+                    }
+                }else if ((*v)==(*(*i).second)){
+                    return true;
+                }
+            }
+            return false;
+        }
+
         template<class K, class V>
         vector<V*>* getValues(map<K,V*>* elements){
             vector<V*>* vec=new vector<V*>();

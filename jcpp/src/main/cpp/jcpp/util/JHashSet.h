@@ -13,14 +13,15 @@
 #include "JCloneable.h"
 #include "JSerializable.h"
 #include "JSet.h"
+#include "JHashMap.h"
 using namespace std;
 using namespace jcpp::io;
 
 namespace jcpp{
     namespace util{
-        class JCPP_LIBRARY_EXPORT JHashSet : public JAbstractSet, public JSet, public JCloneable, public JSerializable{
+        class JCPP_LIBRARY_EXPORT JHashSet : public JAbstractSet, public JCloneable, public JSerializable{
         protected:
-            //TODO use HashMap
+            JHashMap* map;
 
         public:
             JHashSet(jint initialCapacity = 10, jfloat loadFactor=0);

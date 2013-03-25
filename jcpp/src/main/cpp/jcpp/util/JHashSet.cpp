@@ -8,14 +8,14 @@ namespace jcpp{
         class JHashSetClass : public JClass{
 
             static JObject* invokeWriteObject(JObject* object,vector<JObject*>* args){
-                JHashSet* HashSet=(JHashSet*)object;
-                HashSet->writeObject((JObjectOutputStream*)args->at(0));
+                JHashSet* hashSet=(JHashSet*)object;
+                hashSet->writeObject((JObjectOutputStream*)args->at(0));
                 return NULL;
             }
 
             static JObject* invokeReadObject(JObject* object,vector<JObject*>* args){
-                JHashSet* HashSet=(JHashSet*)object;
-                HashSet->readObject((JObjectInputStream*)args->at(0));
+                JHashSet* hashSet=(JHashSet*)object;
+                hashSet->readObject((JObjectInputStream*)args->at(0));
                 return NULL;
             }
 
@@ -55,19 +55,23 @@ namespace jcpp{
             return clazz;
         }
 
-        JHashSet::JHashSet(jint initialCapacity, jfloat loadFactor):JAbstractSet(getClazz()){
+        static JObject* PRESENT = new JObject();
+
+        JHashSet::JHashSet(jint, jfloat):JAbstractSet(getClazz()){
+            this->map=new JHashMap();
         }
 
         JHashSet::JHashSet(JCollection* c):JAbstractSet(getClazz()){
-
+            this->map=new JHashMap();
+            addAll(c);
         }
 
         JIterator* JHashSet::iterator(){
-            return NULL;
+            return map->keySet()->iterator();
         }
 
         jint JHashSet::size(){
-            return 0;
+            return map->size();
         }
 
         JPrimitiveArray* JHashSet::toArray(){
@@ -99,38 +103,55 @@ namespace jcpp{
         }
 
         jbool JHashSet::isEmpty(){
-            return false;
+            return map->isEmpty();
         }
 
         jbool JHashSet::contains(JObject* o){
-            return 0;
+            return map->containsKey(o);
         }
 
         jbool JHashSet::add(JObject* item){
-            return false;
+            return map->put(item,PRESENT)==NULL;
         }
 
         jbool JHashSet::remove(JObject* e){
-            return false;
+            return map->remove(e)==PRESENT;
         }
 
         void JHashSet::clear(){
+            map->clear();
         }
 
         JHashSet* JHashSet::clone(){
-            return NULL;
+            return new JHashSet(dynamic_cast<JAbstractCollection*>(this));
         }
 
         void JHashSet::writeObject(JObjectOutputStream* out){
-
+            out->defaultWriteObject();
+            out->writeInt(map->size());//capacity
+            out->writeFloat(map->loadFactor);//loadFactor
+            out->writeInt(map->size());
+            JIterator* iterator=map->keySet()->iterator();
+            while (iterator->hasNext()){
+                JObject* e=iterator->next();
+                out->writeObject(e);
+            }
+            delete iterator;
         }
 
         void JHashSet::readObject(JObjectInputStream* in){
-
+            in->defaultReadObject();
+            in->readInt();
+            in->readFloat();
+            jint size = in->readInt();
+            for (int i=0; i<size; i++) {
+                JObject* e= in->readObject();
+                map->put(e, PRESENT);
+            }
         }
 
         JHashSet::~JHashSet(){
-
+            delete map;
         }
     }
 }

@@ -98,7 +98,9 @@ SOURCES += \
     src/test/cpp/jcpp/rmi/server/impl/connection/JServerTest.cpp \
     src/test/cpp/jcpp/io/JExternalizableTest.cpp \
     src/test/cpp/jcpp/io/JExternalizableObject.cpp \
-    src/test/cpp/jcpp/io/JSerializableTest.cpp
+    src/test/cpp/jcpp/io/JSerializableTest.cpp \
+    src/test/cpp/jcpp/util/JHashMapTest.cpp \
+    src/test/cpp/jcpp/util/JHashSetTest.cpp
     
     
 HEADERS += \
@@ -154,7 +156,9 @@ HEADERS += \
     src/test/cpp/jcpp/rmi/server/impl/connection/JServerTest.h \
     src/test/cpp/jcpp/io/JExternalizableTest.h \
     src/test/cpp/jcpp/io/JExternalizableObject.h \
-    src/test/cpp/jcpp/io/JSerializableTest.h
+    src/test/cpp/jcpp/io/JSerializableTest.h \
+    src/test/cpp/jcpp/util/JHashMapTest.h \
+    src/test/cpp/jcpp/util/JHashSetTest.h
     
     
 OTHER_FILES += \

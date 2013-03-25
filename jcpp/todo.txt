@@ -1,6 +1,5 @@
 group1:
 -------
--what to do with map/keys as pointers
 -make thread excecption handling more robust
 -implement all JSystem class
 -implement all jcpp.util, jcpp.io, jcpp.net (a quite big list :))

@@ -13,6 +13,7 @@
 #include "JFilterOutputStream.h"
 #include "JInputStream.h"
 #include "JInvalidClassException.h"
+#include "JInvalidObjectException.h"
 #include "JIOException.h"
 #include "JNotActiveException.h"
 #include "JNotSerializableException.h"

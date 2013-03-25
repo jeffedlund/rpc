@@ -18,31 +18,44 @@ namespace jcpp{
         class JCPP_LIBRARY_EXPORT JHashMap : public JAbstractMap, public JCloneable, public JSerializable{
         protected:
             class JEntryImpl : public JEntry, public JObject{
+            protected:
+            class JEntryImplClass : public JClass{
+            public:
+                JEntryImplClass(){
+                    this->canonicalName="java.util.HashMap$Entry";
+                    this->name="java.util.HashMap$Entry";
+                    this->simpleName="HashMap$Entry";
+                    addInterface(JEntry::getClazz());
+                }
+
+                JClass* getSuperclass(){
+                    return JObject::getClazz();
+                }
+
+                JObject* newInstance(){
+                    throw new JInstantiationException("cannot instantiate object of class "+getName());
+                }
+            };
+            map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator it;
 
             public:
-                JObject* key;
-                JObject*  value;
-                JEntryImpl* next;
-                jint hash;
+                static JClass* getClazz();
 
-                JEntryImpl(jint h, JObject* k, JObject* v, JEntryImpl* n) {
-                    value = v;
-                    next = n;
-                    key = k;
-                    hash = h;
+                JEntryImpl(map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator it) :JObject(getClazz()){
+                    this->it=it;
                 }
 
                 virtual JObject* getKey() {
-                    return key;
+                    return (*it).first;
                 }
 
                 virtual JObject* getValue() {
-                    return value;
+                    return (*it).second;
                 }
 
                 virtual JObject* setValue(JObject* newValue) {
-                    JObject* oldValue = value;
-                    value = newValue;
+                    JObject* oldValue = (*it).second;
+                    (*it).second=newValue;
                     return oldValue;
                 }
 
@@ -64,43 +77,31 @@ namespace jcpp{
                 }
 
                 virtual jint hashCode() {
-                    return (key==NULL   ? 0 : key->hashCode()) ^ (value==NULL ? 0 : value->hashCode());
+                    return (getKey()==NULL   ? 0 : getKey()->hashCode()) ^ (getValue()==NULL ? 0 : getValue()->hashCode());
                 }
 
                 virtual string toString() {
                     return getKey()->toString() + "=" + getValue()->toString();
                 }
-
-                virtual void recordAccess(JHashMap*) {
-                }
-
-                virtual void recordRemoval(JHashMap*) {
-                }
             };
 
-            JSet* internalEntrySet;
-            vector<JEntryImpl*>* table;
-            jint isize;
-            jint threshold;
-            jfloat loadFactor;
+            map<JObject*, JObject*, JObject::POINTER_COMPARATOR>* table;
+            JPrimitiveInt* threshold;
+            JPrimitiveFloat* loadFactor;
             jint modCount;
             void init(jint initialCapacity, jfloat loadFactor);
-            void putForCreate(JObject* key, JObject* value);
-            JObject *putForNullKey(JObject* value);
-            JEntryImpl* removeMapping(JObject* o);
-            JEntryImpl* removeEntryForKey(JObject* key);
-            jbool containsNullValue();
-            void addEntry(jint hash, JObject* key, JObject* value, jint bucketIndex);
-            void createEntry(jint hash, JObject* key, JObject* value, jint bucketIndex);
             JSet* entrySet0();
-            JEntryImpl* getEntry(JObject* key);
             JIterator* newKeyIterator();
             JIterator* newValueIterator();
             JIterator* newEntryIterator();
+            friend class JEntryImpl;
             friend class JHashIterator;
+            friend class JEntryIterator;
             friend class JKeySetImpl;
             friend class JValues;
             friend class JEntrySetImpl;
+            friend class JHashMapClass;
+            friend class JHashSet;
 
         public:
             JHashMap(jint initialCapacity = 10, jfloat loadFactor=0.75);

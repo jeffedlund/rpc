@@ -98,7 +98,7 @@ namespace jcpp{
             if (!JSet::getClazz()->isAssignableFrom(o->getClass())){
                 return false;
             }
-            JCollection* c = dynamic_cast<JCollection*>(o);
+            JSet* c = dynamic_cast<JSet*>(o);
             if (c->size() != size()){
                 return false;
             }

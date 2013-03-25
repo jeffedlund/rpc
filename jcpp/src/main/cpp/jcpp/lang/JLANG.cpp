@@ -6,6 +6,8 @@ namespace jcpp{
     namespace lang{
         JLANG::JLANG():JPackage("jcpp.lang",JPackage::getClazz()){//better class
             Object::init();
+            classes->push_back(JArrayIndexOutOfBoundsException::getClazz());
+            classes->push_back(JCloneNotSupportedException::getClazz());
             classes->push_back(JClassCastException::getClazz());
             classes->push_back(JClassNotFoundException::getClazz());
             classes->push_back(JError::getClazz());
@@ -27,6 +29,8 @@ namespace jcpp{
             classes->push_back(JChar::getClazz());
             classes->push_back(JClass::getClazz());
             classes->push_back(JClassLoader::getClazz());
+            classes->push_back(JCloneable::getClazz());
+            classes->push_back(JComparable::getClazz());
             classes->push_back(JDouble::getClazz());
             classes->push_back(JEnum::getClazz());
             classes->push_back(JFloat::getClazz());

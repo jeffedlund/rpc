@@ -1,8 +1,10 @@
 #ifndef JLANG_H
 #define JLANG_H
 
+#include "JArrayIndexOutOfBoundsException.h"
 #include "JClassCastException.h"
 #include "JClassNotFoundException.h"
+#include "JCloneNotSupportedException.h"
 #include "JError.h"
 #include "JException.h"
 #include "JIllegalArgumentException.h"
@@ -22,6 +24,7 @@
 #include "JChar.h"
 #include "JClass.h"
 #include "JClassLoader.h"
+#include "JCloneable.h"
 #include "JDouble.h"
 #include "JEnum.h"
 #include "JFloat.h"

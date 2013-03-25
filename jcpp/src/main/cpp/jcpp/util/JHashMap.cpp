@@ -5,11 +5,19 @@
 #include "JNoSuchElementException.h"
 #include "JConcurrentModificationException.h"
 #include "JAbstractSet.h"
+#include "JInvalidObjectException.h"
 
 namespace jcpp{
     namespace util{
-        class JHashMapClass : public JClass{
+        static JClass* entryImplClass;
+        JClass* JHashMap::JEntryImpl::getClazz(){
+            if (entryImplClass==NULL){
+                entryImplClass=new JEntryImplClass();
+            }
+            return entryImplClass;
+        }
 
+        class JHashMapClass : public JClass{
             static JObject* invokeWriteObject(JObject* object,vector<JObject*>* args){
                 JHashMap* hashMap=(JHashMap*)object;
                 hashMap->writeObject((JObjectOutputStream*)args->at(0));
@@ -22,13 +30,26 @@ namespace jcpp{
                 return NULL;
             }
 
-            static JObject* staticGetSize(JObject* object){
+            static JObject* staticGetThreshold(JObject* object){
                 JHashMap* s=(JHashMap*)object;
-                return NULL;
+                return s->threshold;
             }
 
-            static void staticSetSize(JObject* object,JObject* value){
+            static void staticSetThreshold(JObject* object,JObject* value){
                 JHashMap* s=(JHashMap*)object;
+                delete s->threshold;
+                s->threshold=(JPrimitiveInt*)value;
+            }
+
+            static JObject* staticGetLoadFactor(JObject* object){
+                JHashMap* s=(JHashMap*)object;
+                return s->loadFactor;
+            }
+
+            static void staticSetLoadFactor(JObject* object,JObject* value){
+                JHashMap* s=(JHashMap*)object;
+                delete s->loadFactor;
+                s->loadFactor=(JPrimitiveFloat*)value;
             }
 
         public:
@@ -49,7 +70,8 @@ namespace jcpp{
               paramType->push_back(JObjectOutputStream::getClazz());
               addMethod(new JMethod("writeObject",this,JVoid::getClazz(),paramType,invokeWriteObject));
 
-              addField(new JField("size",JPrimitiveInt::getClazz(),staticGetSize,staticSetSize));
+              addField(new JField("threshold",JPrimitiveInt::getClazz(),staticGetThreshold,staticSetThreshold));
+              addField(new JField("loadFactor",JPrimitiveFloat::getClazz(),staticGetLoadFactor,staticSetLoadFactor));
           }
 
           JClass* getSuperclass(){
@@ -71,10 +93,9 @@ namespace jcpp{
         }
 
         static jint DEFAULT_INITIAL_CAPACITY = 16;
-
         static jint MAXIMUM_CAPACITY = 1 << 30;
-
         static jfloat DEFAULT_LOAD_FACTOR = 0.75f;
+        static JObject* NULL_KEY = new JObject();
 
         JHashMap::JHashMap(jint initialCapacity, jfloat loadFactor):JAbstractMap(getClazz()){
             init(initialCapacity,loadFactor);
@@ -87,6 +108,7 @@ namespace jcpp{
         }
 
         void JHashMap::init(jint initialCapacity, jfloat loadFactor){
+            this->loadFactor=new JPrimitiveFloat(loadFactor);
             if (initialCapacity < 0){
                 throw new JIllegalArgumentException("Illegal initial capacity: ");
             }
@@ -96,103 +118,46 @@ namespace jcpp{
             if (loadFactor <= 0){
                 throw new JIllegalArgumentException("Illegal load factor: ");
             }
-
             jint capacity = 1;
             while (capacity < initialCapacity){
                 capacity <<= 1;
             }
-
-            this->loadFactor = loadFactor;
-            threshold = (jint)(capacity * loadFactor< MAXIMUM_CAPACITY + 1 ? capacity * loadFactor : MAXIMUM_CAPACITY + 1);
-            table = new vector<JEntryImpl*>();
+            this->threshold=new JPrimitiveInt((jint)(capacity * loadFactor< MAXIMUM_CAPACITY + 1 ? capacity * loadFactor : MAXIMUM_CAPACITY + 1));
+            table = new map<JObject*, JObject*, JObject::POINTER_COMPARATOR>();
             init();
         }
 
         void JHashMap::init(){
         }
 
-        static jint indexFor(jint h, jint length) {
-            return h & (length-1);
-        }
-
         jint JHashMap::size(){
-            return isize;
+            return table->size();
         }
 
         jbool JHashMap::isEmpty(){
-            return isize==0;
+            return table->size()==0;
         }
 
         JObject* JHashMap::get(JObject* key){
-            JEntry* entry = getEntry(key);
-            return (entry==NULL ? NULL : entry->getValue());
+            if (key==NULL){
+                key=NULL_KEY;
+            }
+            JObject* value=getFromMap(table,key);
+            return value;
         }
 
         jbool JHashMap::containsKey(JObject* key){
-            return getEntry(key) != NULL;
-        }
-
-        JHashMap::JEntryImpl* JHashMap::getEntry(JObject* key) {
-            jint hash = (key == NULL) ? 0 : key->hashCode();
-            for (JEntryImpl* e = table->at(indexFor(hash, table->size())); e != NULL; e = e->next) {
-                JObject* k;
-                if (e->hash == hash && ((k = e->key) == key || (key != NULL && key->equals(k)))){
-                    return e;
-                }
-            }
-            return NULL;
+            return get(key) != NULL;
         }
 
         JObject* JHashMap::put(JObject* key, JObject* value){
-            if (key == NULL){
-                return putForNullKey(value);
+            if (key==NULL){
+                key=NULL_KEY;
             }
-            jint hash = key->hashCode();
-            jint i = indexFor(hash, table->size());
-            JEntryImpl* e = table->at(i);
-            for(; e != NULL; e = e->next) {
-                JObject* k;
-                if (e->hash == hash && ((k = e->key) == key || key->equals(k))) {
-                    JObject* oldValue = e->value;
-                    e->value = value;
-                    e->recordAccess(this);
-                    return oldValue;
-                }
-            }
-
+            JObject* old=getAndDeleteFromMap(table,key);
+            table->insert(pair<JObject*,JObject*>(key,value));
             modCount++;
-            addEntry(hash, key, value, i);
-            return NULL;
-        }
-
-        JObject* JHashMap::putForNullKey(JObject* value) {
-            JEntryImpl* e = table->at(0);
-            for(; e != NULL; e = e->next) {
-                if (e->key == NULL) {
-                    JObject* oldValue = e->value;
-                    e->value = value;
-                    e->recordAccess(this);
-                    return oldValue;
-                }
-            }
-            modCount++;
-            addEntry(0, NULL, value, 0);
-            return NULL;
-        }
-
-        void JHashMap::putForCreate(JObject* key, JObject* value) {
-            jint hash = key == NULL ? 0 : key->hashCode();
-            jint i = indexFor(hash, table->size());
-
-            for (JEntryImpl* e = table->at(i); e != NULL; e = e->next) {
-                JObject* k;
-                if (e->hash == hash && ((k = e->key) == key || (key != NULL && key->equals(k)))) {
-                    e->value = value;
-                    return;
-                }
-            }
-
-            createEntry(hash, key, value, i);
+            return old;
         }
 
         void JHashMap::putAll(JMap* m) {
@@ -201,198 +166,107 @@ namespace jcpp{
                 JEntry* e=dynamic_cast<JEntry*>(i->next());
                 put(e->getKey(), e->getValue());
             }
+            delete i;
         }
 
         JObject* JHashMap::remove(JObject* key){
-            JEntryImpl* e = removeEntryForKey(key);
-            return (e == NULL ? NULL : e->value);
-        }
-
-        JHashMap::JEntryImpl* JHashMap::removeEntryForKey(JObject* key) {
-            jint hash = (key == NULL) ? 0 : key->hashCode();
-            jint i = indexFor(hash, table->size());
-            JEntryImpl* prev = table->at(i);
-            JEntryImpl* e = prev;
-
-            while (e != NULL) {
-                JEntryImpl* next = e->next;
-                JObject* k;
-                if (e->hash == hash && ((k = e->key) == key || (key != NULL && key->equals(k)))) {
-                    modCount++;
-                    isize--;
-                    if (prev == e){
-                        //TODO table->at(table->begin()+i) = next;
-                    }else{
-                        prev->next = next;
-                    }
-                    e->recordRemoval(this);
-                    return e;
-                }
-                prev = e;
-                e = next;
+            if (key==NULL){
+                key=NULL_KEY;
             }
-            return e;
-        }
-
-        JHashMap::JEntryImpl* JHashMap::removeMapping(JObject* o) {
-            if (!(JEntry::getClazz()->isAssignableFrom(o->getClass()))){
-                return NULL;
-            }
-
-            JEntry* entry = dynamic_cast<JEntry*>(o);
-            JObject* key = entry->getKey();
-            jint hash = (key == NULL) ? 0 : key->hashCode();
-            jint i = indexFor(hash, table->size());
-            JEntryImpl* prev = table->at(i);
-            JEntryImpl* e = prev;
-
-            while (e != NULL) {
-                JEntryImpl* next = e->next;
-                if (e->hash == hash && e->equals((JObject*)entry)) {
-                    modCount++;
-                    isize--;
-                    if (prev == e){
-                        //TODO (*table)[table->begin()+i] = next;
-                    }else{
-                        prev->next = next;
-                    }
-                    e->recordRemoval(this);
-                    return e;
-                }
-                prev = e;
-                e = next;
-            }
-            return e;
+            JObject* old=getAndDeleteFromMap(table,key);
+            return old;
         }
 
         void JHashMap::clear(){
             modCount++;
-            for (int i = 0; i < table->size(); i++){
-                delete table->at(i);
-            }
             table->clear();
-            isize = 0;
         }
 
         jbool JHashMap::containsValue(JObject* value){
-            if (value == NULL){
-                return containsNullValue();
-            }
-
-            for (int i = 0; i < table->size(); i++){
-                for (JEntryImpl* e = table->at(i) ; e != NULL ; e = e->next){
-                    if (value->equals(e->value)){
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-        jbool JHashMap::containsNullValue() {
-            for (int i = 0; i < table->size(); i++){
-                for (JEntryImpl* e = table->at(i) ; e != NULL ; e = e->next){
-                    if (e->value == NULL){
-                        return true;
-                    }
-                }
-            }
-            return false;
+            return hasValueFromMap(table,value);
         }
 
         JHashMap* JHashMap::clone(){
             return new JHashMap(this);
         }
 
-        void JHashMap::addEntry(jint hash, JObject* key, JObject* value, jint bucketIndex) {
-            createEntry(hash, key, value, bucketIndex);
-        }
-
-        void JHashMap::createEntry(jint hash, JObject* key, JObject* value, jint bucketIndex) {
-            JEntryImpl* e = table->at(bucketIndex);
-            //TODO table->at(table->begin()+bucketIndex) = new JEntryImpl(hash, key, value, e);
-            isize++;
-        }
-
         class JHashIterator : public JObject, public JIterator {
-            JHashMap::JEntryImpl* next;
+            JHashMap* hashMap;
             jint expectedModCount;
-            jint index;
-            JHashMap::JEntryImpl* current;
-            JHashMap* map;
+            jbool first;
+            map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator begin;
+            map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator current;
+            map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator end;
 
         public:
-            JHashIterator(JHashMap* map) {
-                this->map=map;
-                expectedModCount = map->modCount;
-                if (map->size()> 0) {
-                    while (index < map->table->size() && (next = map->table->at(index++)) == NULL){
-                        ;
-                    }
-                }
+            JHashIterator(JHashMap* hashMap) {
+                this->hashMap=hashMap;
+                expectedModCount = hashMap->modCount;
+                begin=hashMap->table->begin();
+                first=true;
+                end=hashMap->table->end();
             }
 
             jbool hasNext() {
-                return next != NULL;
+                if (first){
+                    return hashMap->size()>0;
+                }
+                return current!= end;
             }
 
-            JHashMap::JEntryImpl* nextEntry() {
-                if (map->modCount!= expectedModCount){
+            map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator nextEntry() {
+                if (hashMap->modCount!= expectedModCount){
                     throw new JConcurrentModificationException();
                 }
-                JHashMap::JEntryImpl* e = next;
-                if (e == NULL){
+                if (!hasNext()){
                     throw new JNoSuchElementException();
                 }
-
-                if ((next = e->next) == NULL) {
-                    while (index < map->table->size() && (next = map->table->at(index++)) == NULL){
-                        ;
-                    }
+                map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator result;
+                if (first){
+                    first=false;
+                    current=begin;
                 }
-                current = e;
-                return e;
+                result=current;
+                current++;
+                return result;
             }
 
             void remove() {
-                if (current == NULL){
-                    throw new JIllegalStateException();
-                }
-                if (map->modCount!= expectedModCount){
+                if (hashMap->modCount!= expectedModCount){
                     throw new JConcurrentModificationException();
                 }
-                JObject* k = current->key;
-                current = NULL;
-                map->removeEntryForKey(k);
-                expectedModCount = map->modCount;
+                JObject* k = (*current).first;
+                hashMap->remove(k);
+                expectedModCount = hashMap->modCount;
             }
         };
 
         class JValueIterator : public JHashIterator {
         public:
-            JValueIterator(JHashMap* m):JHashIterator(m){
+            JValueIterator(JHashMap* hashMap):JHashIterator(hashMap){
             }
 
             JObject* next() {
-                return nextEntry()->value;
+                return (*nextEntry()).second;
             }
         };
 
         class JKeyIterator : public JHashIterator {
         public:
-            JKeyIterator(JHashMap* m):JHashIterator(m){
+            JKeyIterator(JHashMap* hashMap):JHashIterator(hashMap){
             }
             JObject* next() {
-                return nextEntry()->getKey();
+                return (*nextEntry()).first;
             }
         };
 
         class JEntryIterator : public JHashIterator{
         public:
-            JEntryIterator(JHashMap* m):JHashIterator(m){
+            JEntryIterator(JHashMap* hashMap):JHashIterator(hashMap){
             }
             JObject* next() {
-                return nextEntry();
+                map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator i=nextEntry();
+                return new JHashMap::JEntryImpl(i);
             }
         };
 
@@ -408,11 +282,35 @@ namespace jcpp{
             return new JEntryIterator(this);
         }
 
+        static JClass* keySetImplClass;
         class JKeySetImpl : public JAbstractSet {
         protected:
+            class JKeySetImplClass : public JClass{
+            public:
+              JKeySetImplClass(){
+                  this->canonicalName="java.util.HashMap$KeySet";
+                  this->name="java.util.HashMap$KeySet";
+                  this->simpleName="HashMap$KeySet";
+              }
+
+              JClass* getSuperclass(){
+                  return JAbstractSet::getClazz();
+              }
+
+              JObject* newInstance(){
+                  throw new JInstantiationException("cannot instantiate object of class "+getName());
+              }
+            };
             JHashMap* map;
         public:
-            JKeySetImpl(JHashMap* map):JAbstractSet(NULL){//TODO
+            static JClass* getClazz(){
+                if (keySetImplClass==NULL){
+                    keySetImplClass=new JKeySetImplClass();
+                }
+                return keySetImplClass;
+            }
+
+            JKeySetImpl(JHashMap* map):JAbstractSet(getClazz()){
                 this->map=map;
             }
 
@@ -429,7 +327,7 @@ namespace jcpp{
             }
 
             jbool remove(JObject* o) {
-                return map->removeEntryForKey(o) != NULL;
+                return map->remove(o) != NULL;
             }
 
             void clear() {
@@ -438,15 +336,38 @@ namespace jcpp{
         };
 
         JSet* JHashMap::keySet(){
-            JSet* ks = internalKeySet;
-            return (ks != NULL ? ks : (internalKeySet = new JKeySetImpl(this)));
+            return new JKeySetImpl(this);
         }
 
+        static JClass* valuesClass;
         class JValues : public JAbstractCollection {
         protected:
+            class JValuesClass : public JClass{
+            public:
+              JValuesClass(){
+                  this->canonicalName="java.util.HashMap$Values";
+                  this->name="java.util.HashMap$Values";
+                  this->simpleName="HashMap$Values";
+              }
+
+              JClass* getSuperclass(){
+                  return JAbstractCollection::getClazz();
+              }
+
+              JObject* newInstance(){
+                  throw new JInstantiationException("cannot instantiate object of class "+getName());
+              }
+            };
             JHashMap* map;
         public:
-            JValues(JHashMap* map):JAbstractCollection(NULL){//TODO
+            static JClass* getClazz(){
+                if (valuesClass==NULL){
+                    valuesClass=new JValuesClass();
+                }
+                return valuesClass;
+            }
+
+            JValues(JHashMap* map):JAbstractCollection(getClazz()){
                 this->map=map;
             }
 
@@ -468,15 +389,38 @@ namespace jcpp{
         };
 
         JCollection* JHashMap::values(){
-            JCollection* vs = internalValues;
-            return (vs != NULL ? vs : (internalValues = new JValues(this)));
+            return new JValues(this);
         }
 
+        static JClass* entrySetClass;
         class JEntrySetImpl : public JAbstractSet{
         protected:
+            class JEntrySetImplClass : public JClass{
+            public:
+              JEntrySetImplClass(){
+                  this->canonicalName="java.util.HashMap$EntrySet";
+                  this->name="java.util.HashMap$EntrySet";
+                  this->simpleName="HashMap$EntrySet";
+              }
+
+              JClass* getSuperclass(){
+                  return JAbstractSet::getClazz();
+              }
+
+              JObject* newInstance(){
+                  throw new JInstantiationException("cannot instantiate object of class "+getName());
+              }
+            };
             JHashMap* map;
         public:
-            JEntrySetImpl(JHashMap* map):JAbstractSet(NULL){//TODO
+            static JClass* getClazz(){
+                if (entrySetClass==NULL){
+                    entrySetClass=new JEntrySetImplClass();
+                }
+                return entrySetClass;
+            }
+
+            JEntrySetImpl(JHashMap* map):JAbstractSet(getClazz()){
                 this->map=map;
             }
 
@@ -489,12 +433,16 @@ namespace jcpp{
                     return false;
                 }
                 JMap::JEntry* e = dynamic_cast<JMap::JEntry*>(o);
-                JHashMap::JEntryImpl* candidate = map->getEntry(e->getKey());
-                return candidate != NULL && candidate->equals(o);
+                JObject* v1=map->get(e->getKey());
+                return v1->equals(e->getValue());
             }
 
             jbool remove(JObject* o) {
-                return map->removeMapping(o) != NULL;
+                if (!(JMap::JEntry::getClazz()->isAssignableFrom(o->getClass()))){
+                    return false;
+                }
+                JMap::JEntry* e = dynamic_cast<JMap::JEntry*>(o);
+                return map->remove(e->getKey());
             }
 
             jint size() {
@@ -511,15 +459,14 @@ namespace jcpp{
         }
 
         JSet* JHashMap::entrySet0(){
-            JSet* es = internalEntrySet;
-            return es != NULL ? es : (internalEntrySet = new JEntrySetImpl(this));
+            return new JEntrySetImpl(this);
         }
 
         void JHashMap::writeObject(JObjectOutputStream* out){
             out->defaultWriteObject();
             out->writeInt(table->size());
-            out->writeInt(isize);
-            JIterator* i = (isize > 0) ? entrySet0()->iterator() : NULL;
+            out->writeInt(table->size());
+            JIterator* i = (table->size() > 0) ? entrySet0()->iterator() : NULL;
             if (i!=NULL){
                 while (i->hasNext()){
                     JEntry* e=dynamic_cast<JEntry*>(i->next());
@@ -536,18 +483,20 @@ namespace jcpp{
 
             jint mappings = in->readInt();
             if (mappings < 0){
-                throw "TODO";//TODOnew JInvalidObjectException("Illegal mappings count");
+                throw new JInvalidObjectException("Illegal mappings count");
             }
-            table = new vector<JEntryImpl*>();
             init();
             for (int i=0; i<mappings; i++) {
                 JObject* key = in->readObject();
                 JObject* value = in->readObject();
-                putForCreate(key, value);
+                put(key, value);
             }
         }
 
         JHashMap::~JHashMap(){
+            delete table;
+            delete threshold;
+            delete loadFactor;
         }
     }
 }
