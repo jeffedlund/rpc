@@ -1,5 +1,6 @@
 group1:
 -------
+-implement JHashtable
 -make thread excecption handling more robust
 -implement all JSystem class
 -implement all jcpp.util, jcpp.io, jcpp.net (a quite big list :))
@@ -10,7 +11,7 @@ group1:
 -test case for enum with io and rpc
 -in rmi : test proxy in parameter, return, in somewhere deep in an object
 -issue with duplicate methods in object and its interface. what to do?
-
+-register inner and anonymous classes in their JPackage
 
 group2:
 -------

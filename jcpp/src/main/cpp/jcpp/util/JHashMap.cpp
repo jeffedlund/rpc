@@ -101,10 +101,10 @@ namespace jcpp{
             init(initialCapacity,loadFactor);
         }
 
-        JHashMap::JHashMap(JHashMap* m):JAbstractMap(getClazz()){
+        JHashMap::JHashMap(JMap* m):JAbstractMap(getClazz()){
             jint s=((m->size() / DEFAULT_LOAD_FACTOR) + 1 ?  (m->size() / DEFAULT_LOAD_FACTOR) + 1 : DEFAULT_INITIAL_CAPACITY);
             init(s,DEFAULT_LOAD_FACTOR);
-            putAll(dynamic_cast<JMap*>(m));
+            putAll(m);
         }
 
         void JHashMap::init(jint initialCapacity, jfloat loadFactor){
@@ -282,12 +282,12 @@ namespace jcpp{
             return new JEntryIterator(this);
         }
 
-        static JClass* keySetImplClass;
-        class JKeySetImpl : public JAbstractSet {
+        static JClass* hashMapKeySetImplClass;
+        class JHashMapKeySetImpl : public JAbstractSet {
         protected:
-            class JKeySetImplClass : public JClass{
+            class JHashMapKeySetImplClass : public JClass{
             public:
-              JKeySetImplClass(){
+              JHashMapKeySetImplClass(){
                   this->canonicalName="java.util.HashMap$KeySet";
                   this->name="java.util.HashMap$KeySet";
                   this->simpleName="HashMap$KeySet";
@@ -304,13 +304,13 @@ namespace jcpp{
             JHashMap* map;
         public:
             static JClass* getClazz(){
-                if (keySetImplClass==NULL){
-                    keySetImplClass=new JKeySetImplClass();
+                if (hashMapKeySetImplClass==NULL){
+                    hashMapKeySetImplClass=new JHashMapKeySetImplClass();
                 }
-                return keySetImplClass;
+                return hashMapKeySetImplClass;
             }
 
-            JKeySetImpl(JHashMap* map):JAbstractSet(getClazz()){
+            JHashMapKeySetImpl(JHashMap* map):JAbstractSet(getClazz()){
                 this->map=map;
             }
 
@@ -336,11 +336,11 @@ namespace jcpp{
         };
 
         JSet* JHashMap::keySet(){
-            return new JKeySetImpl(this);
+            return new JHashMapKeySetImpl(this);
         }
 
-        static JClass* valuesClass;
-        class JValues : public JAbstractCollection {
+        static JClass* hashMapValuesClass;
+        class JHashMapValues : public JAbstractCollection {
         protected:
             class JValuesClass : public JClass{
             public:
@@ -361,13 +361,13 @@ namespace jcpp{
             JHashMap* map;
         public:
             static JClass* getClazz(){
-                if (valuesClass==NULL){
-                    valuesClass=new JValuesClass();
+                if (hashMapValuesClass==NULL){
+                    hashMapValuesClass=new JValuesClass();
                 }
-                return valuesClass;
+                return hashMapValuesClass;
             }
 
-            JValues(JHashMap* map):JAbstractCollection(getClazz()){
+            JHashMapValues(JHashMap* map):JAbstractCollection(getClazz()){
                 this->map=map;
             }
 
@@ -389,11 +389,11 @@ namespace jcpp{
         };
 
         JCollection* JHashMap::values(){
-            return new JValues(this);
+            return new JHashMapValues(this);
         }
 
-        static JClass* entrySetClass;
-        class JEntrySetImpl : public JAbstractSet{
+        static JClass* hashMapEntrySetClass;
+        class JHashMapEntrySetImpl : public JAbstractSet{
         protected:
             class JEntrySetImplClass : public JClass{
             public:
@@ -414,13 +414,13 @@ namespace jcpp{
             JHashMap* map;
         public:
             static JClass* getClazz(){
-                if (entrySetClass==NULL){
-                    entrySetClass=new JEntrySetImplClass();
+                if (hashMapEntrySetClass==NULL){
+                    hashMapEntrySetClass=new JEntrySetImplClass();
                 }
-                return entrySetClass;
+                return hashMapEntrySetClass;
             }
 
-            JEntrySetImpl(JHashMap* map):JAbstractSet(getClazz()){
+            JHashMapEntrySetImpl(JHashMap* map):JAbstractSet(getClazz()){
                 this->map=map;
             }
 
@@ -459,7 +459,7 @@ namespace jcpp{
         }
 
         JSet* JHashMap::entrySet0(){
-            return new JEntrySetImpl(this);
+            return new JHashMapEntrySetImpl(this);
         }
 
         void JHashMap::writeObject(JObjectOutputStream* out){

@@ -17,6 +17,7 @@ namespace jcpp{
             classes->push_back(JDictionary::getClazz());
             classes->push_back(JEnumeration::getClazz());
             classes->push_back(JHashMap::getClazz());
+            classes->push_back(JHashtable::getClazz());
             classes->push_back(JHashSet::getClazz());
             classes->push_back(JIterator::getClazz());
             classes->push_back(JList::getClazz());
@@ -29,7 +30,6 @@ namespace jcpp{
             classes->push_back(JTimer::getClazz());
             classes->push_back(JTimerTask::getClazz());
             classes->push_back(JVector::getClazz());
-            //TODO JHashtable::getC
         }
 
         JPackage* JUTIL::getSuperPackage(){

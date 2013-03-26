@@ -390,7 +390,11 @@ namespace jcpp{
         }
 
         JObject *JObjectStreamClass::newInstance() {
-            return jClass->newInstance();
+            if (jClass!=NULL){
+                return jClass->newInstance();
+            }else{
+                return NULL;
+            }
         }
 
         void JObjectStreamClass::computeFieldOffsets() {

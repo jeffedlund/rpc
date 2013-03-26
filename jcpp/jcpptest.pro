@@ -100,7 +100,8 @@ SOURCES += \
     src/test/cpp/jcpp/io/JExternalizableObject.cpp \
     src/test/cpp/jcpp/io/JSerializableTest.cpp \
     src/test/cpp/jcpp/util/JHashMapTest.cpp \
-    src/test/cpp/jcpp/util/JHashSetTest.cpp
+    src/test/cpp/jcpp/util/JHashSetTest.cpp \
+    src/test/cpp/jcpp/util/JHashtableTest.cpp
     
     
 HEADERS += \
@@ -158,7 +159,8 @@ HEADERS += \
     src/test/cpp/jcpp/io/JExternalizableObject.h \
     src/test/cpp/jcpp/io/JSerializableTest.h \
     src/test/cpp/jcpp/util/JHashMapTest.h \
-    src/test/cpp/jcpp/util/JHashSetTest.h
+    src/test/cpp/jcpp/util/JHashSetTest.h \
+    src/test/cpp/jcpp/util/JHashtableTest.h
     
     
 OTHER_FILES += \

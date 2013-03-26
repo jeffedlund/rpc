@@ -97,15 +97,15 @@ namespace jcpp{
             friend class JEntryImpl;
             friend class JHashIterator;
             friend class JEntryIterator;
-            friend class JKeySetImpl;
-            friend class JValues;
-            friend class JEntrySetImpl;
+            friend class JHashMapKeySetImpl;
+            friend class JHashMapValues;
+            friend class JHashMapEntrySetImpl;
             friend class JHashMapClass;
             friend class JHashSet;
 
         public:
             JHashMap(jint initialCapacity = 10, jfloat loadFactor=0.75);
-            JHashMap(JHashMap* c);
+            JHashMap(JMap* c);
             static JClass* getClazz();
             virtual void init();
             virtual jint size();

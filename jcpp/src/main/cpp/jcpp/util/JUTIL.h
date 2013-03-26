@@ -17,6 +17,8 @@
 #include "JHashSet.h"
 #include "JHashtable.h"
 #include "JIterator.h"
+#include "JListIterator.h"
+#include "JList.h"
 #include "JMap.h"
 #include "JNoSuchElementException.h"
 #include "JQueue.h"

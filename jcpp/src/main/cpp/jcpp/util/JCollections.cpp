@@ -416,6 +416,16 @@ namespace jcpp{
             return (JRandomAccess::getClazz()->isAssignableFrom(o->getClass()) ? new JSynchronizedRandomAccessList(list) : new JSynchronizedList(list));
         }
 
+        JIterator* JCollections::emptyIterator(){
+            //TODO
+            return NULL;
+        }
+
+        JEnumeration* JCollections::emptyEnumeration(){
+            //TODO
+            return NULL;
+        }
+
         JCollections::~JCollections(){
         }
     }

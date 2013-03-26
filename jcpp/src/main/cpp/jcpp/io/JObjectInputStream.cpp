@@ -552,6 +552,9 @@ namespace jcpp{
         }
 
         void JObjectInputStream::readSerialData(JObject *obj, JObjectStreamClass *desc) {
+            if (obj==NULL){
+                return;
+            }
             vector<JObjectStreamClass::ClassDataSlot*>* dataSlots=desc->getClassDataLayout();
             for (unsigned int i=0;i<dataSlots->size();i++){
                 JObjectStreamClass::ClassDataSlot* dataSlot=dataSlots->at(i);
