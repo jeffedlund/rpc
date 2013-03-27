@@ -16,6 +16,7 @@
 #include <sstream>
 #include "JInternalError.h"
 #include <algorithm>
+#include "JIllegalArgumentException.h"
 using namespace std;
 using namespace jcpp::util;
 
@@ -155,7 +156,14 @@ namespace jcpp{
             return objects->at(i);
         }
 
+        void JPrimitiveArray::checkType(JObject* o){
+            if (o!=NULL && o->getClass()!=getClass()->getComponentType()){
+                throw new JIllegalArgumentException("attempt to insert object of type "+o->getClass()->toString()+" in array of component type "+getClass()->getComponentType()->toString());
+            }
+        }
+
         void JPrimitiveArray::set(jint i,JObject* value){//TODO throw exception if greater than size
+            checkType(value);
             (*objects)[i]=value;
         }
 

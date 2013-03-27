@@ -2,8 +2,11 @@
 #define COLLECTIONS_H
 
 #include <vector>
+#include "JObject.h"
 using namespace std;
+using namespace jcpp::lang;
 
+//TODO maybe put in JCollections?
 namespace jcpp{
     namespace util{
         template <class T>
@@ -19,13 +22,16 @@ namespace jcpp{
             }
         }
 
-        template <class T, class E>
-        bool deleteFromVector(T *vector, E* e) {
-            if (vector!=NULL){
-              typename T::iterator i;
-              for (i = vector->begin(); i < vector->end(); ++i) {
-                  if ((*i)==e){
-                      vector->erase(i);
+        template <class E>
+        bool deleteFromVector(vector<E*>* v, E* e) {
+            if (v!=NULL){
+              JObject* oe=dynamic_cast<JObject*>(e);
+              typename vector<E*>::iterator i;
+              for (i = v->begin(); i < v->end(); ++i) {
+                  E* el=(*i);
+                  JObject* o=dynamic_cast<JObject*>(el);
+                  if ((*o)==(*oe)){
+                      v->erase(i);
                       return true;
                   }
               }
@@ -53,7 +59,7 @@ namespace jcpp{
 
         template<class K, class V>
         V* getFromMap(map<K,V*>* elements, K k){
-            typename map<K,V*>::const_iterator i;
+            typename map<K,V*>::iterator i;
             i= elements->find(k);
             if (i!=elements->end()){
                 return (*i).second;
@@ -64,7 +70,7 @@ namespace jcpp{
 
         template<class K, class V>
         V getFromMap(map<K,V>* elements, K k, V defaultNull){
-            typename map<K,V>::const_iterator i;
+            typename map<K,V>::iterator i;
             i= elements->find(k);
             if (i!=elements->end()){
                 return (*i).second;
@@ -75,7 +81,7 @@ namespace jcpp{
 
         template<class K, class V>
         V* getFromMap(map<K*,V*>* elements, K* k){
-            typename map<K*,V*>::const_iterator i;
+            typename map<K*,V*>::iterator i;
             i= elements->find(k);
             if (i!=elements->end()){
                 return (*i).second;
@@ -86,7 +92,7 @@ namespace jcpp{
 
         template<class K, class V, class Z>
         V* getFromMap(map<K,V*,Z>* elements, K k){
-            typename map<K,V*,Z>::const_iterator i;
+            typename map<K,V*,Z>::iterator i;
             i= elements->find(k);
             if (i!=elements->end()){
                 return (*i).second;
@@ -97,7 +103,7 @@ namespace jcpp{
 
         template<class K, class V, class Z>
         V* getFromMap(map<K,V*,Z>* elements, K* k){
-            typename map<K,V*,Z>::const_iterator i;
+            typename map<K,V*,Z>::iterator i;
             i= elements->find(k);
             if (i!=elements->end()){
                 return (*i).second;
@@ -108,7 +114,7 @@ namespace jcpp{
 
         template<class K, class V, class Z>
         V* getAndDeleteFromMap(map<K*,V*,Z>* elements, K* k){
-            typename map<K*,V*,Z>::const_iterator i;
+            typename map<K*,V*,Z>::iterator i;
             i= elements->find(k);
             if (i!=elements->end()){
                 V* v=(*i).second;
@@ -121,7 +127,7 @@ namespace jcpp{
 
         template<class K, class V, class Z>
         bool hasValueFromMap(map<K*,V*,Z>* elements, V* v){
-            typename map<K*,V*,Z>::const_iterator i;
+            typename map<K*,V*,Z>::iterator i;
             for(i = elements->begin(); i != elements->end(); ++i){
                 if (v==NULL){
                     if ((*i).second==NULL){

@@ -87,7 +87,7 @@ namespace jcpp{
             bool isInterface();
             bool isPrimitive();
             bool isPackage();
-            virtual JObject* newInstance()=0;
+            virtual JObject* newInstance();
             jlong getSerialVersionUID();
             string toString();
             virtual ~JClass();

@@ -8,19 +8,15 @@ namespace jcpp{
         class JDictionaryClass : public JClass{
 
         public:
-          JDictionaryClass(){
-              this->canonicalName="java.util.Dictionary";
-              this->name="java.util.Dictionary";
-              this->simpleName="Dictionary";
-          }
+            JDictionaryClass(){
+                this->canonicalName="java.util.Dictionary";
+                this->name="java.util.Dictionary";
+                this->simpleName="Dictionary";
+            }
 
-          JClass* getSuperclass(){
-              return JObject::getClazz();
-          }
-
-          JObject* newInstance(){
-              throw new JInstantiationException("cannot instantiate object of class "+getName());
-          }
+            JClass* getSuperclass(){
+                return JObject::getClazz();
+            }
         };
 
         static JClass* clazz;

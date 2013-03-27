@@ -13,6 +13,7 @@ namespace jcpp{
         private:
             vector<JObject*>* objects;
             jint len;
+            void checkType(JObject* o);
 
         public:
             JPrimitiveArray(JClass* arrayClass,jint len=10);

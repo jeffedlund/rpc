@@ -4,26 +4,23 @@
 #include <cstdio>
 #include "JRandomAccess.h"
 #include "JCollection.h"
+#include "JNoSuchElementException.h"
 
 namespace jcpp{
     namespace util{
         class JCollectionsClass : public JClass{
 
         public:
-          JCollectionsClass(){
-              this->canonicalName="java.util.Collections";
-              this->name="java.util.Collections";
-              this->simpleName="Collections";
-              this->serialVersionUID=0;
-          }
+            JCollectionsClass(){
+                this->canonicalName="java.util.Collections";
+                this->name="java.util.Collections";
+                this->simpleName="Collections";
+                this->serialVersionUID=0;
+            }
 
-          JClass* getSuperclass(){
-              return JObject::getClazz();
-          }
-
-          JObject* newInstance(){
-              throw new JInstantiationException("cannot instantiate object of class "+getName());
-          }
+            JClass* getSuperclass(){
+                return JObject::getClazz();
+            }
         };
 
         static JClass* clazz;
@@ -202,17 +199,12 @@ namespace jcpp{
                   this->canonicalName="java.util.Collections$SynchronizedList";
                   this->name="java.util.Collections$SynchronizedList";
                   this->simpleName="Collections$SynchronizedList";
-                  addInterface(JSynchronizedCollection::getClazz());
                   this->serialVersionUID=-7754090372962971524ULL;
                   addInterface(JList::getClazz());
               }
 
               JClass* getSuperclass(){
                   return JSynchronizedCollection::getClazz();
-              }
-
-              JObject* newInstance(){
-                  throw new JInstantiationException("cannot instantiate object of class "+getName());
               }
             };
             JList* list;
@@ -285,6 +277,9 @@ namespace jcpp{
             }
 
             bool equals(JObject* o) {
+                if (o==this){
+                    return true;
+                }
                 mutex->lock();
                 bool b=list->equals(o);
                 mutex->unlock();
@@ -377,15 +372,11 @@ namespace jcpp{
                   this->name="java.util.Collections$SynchronizedRandomAccessList";
                   this->simpleName="Collections$SynchronizedRandomAccessList";
                   addInterface(JRandomAccess::getClazz());
-                  this->serialVersionUID=-1530674583602358482L;
+                  this->serialVersionUID=1530674583602358482ULL;
               }
 
               JClass* getSuperclass(){
                   return JSynchronizedList::getClazz();
-              }
-
-              JObject* newInstance(){
-                  throw new JInstantiationException("cannot instantiate object of class "+getName());
               }
             };
 
@@ -416,14 +407,99 @@ namespace jcpp{
             return (JRandomAccess::getClazz()->isAssignableFrom(o->getClass()) ? new JSynchronizedRandomAccessList(list) : new JSynchronizedList(list));
         }
 
+        static JClass* emptyIteratorClazz;
+        class JEmptyIterator : public JObject, public JIterator{
+        protected:
+            class JEmptyIteratorClass : public JClass{
+
+            public:
+              JEmptyIteratorClass(){
+                  this->canonicalName="java.util.Collections$EmptyIterator";
+                  this->name="java.util.Collections$EmptyIterator";
+                  this->simpleName="Collections$EmptyIterator";
+                  addInterface(JIterator::getClazz());
+              }
+
+              JClass* getSuperclass(){
+                  return JObject::getClazz();
+              }
+            };
+
+        public:
+            JClass* getClazz(){
+                if (emptyIteratorClazz==NULL){
+                    emptyIteratorClazz=new JEmptyIteratorClass();
+                }
+                return emptyIteratorClazz;
+            }
+
+            JEmptyIterator():JObject(getClazz()){
+            }
+
+            bool hasNext(){
+                return false;
+            }
+
+            JObject* next(){
+                throw new JNoSuchElementException();
+            }
+
+            void remove(){
+                throw new JIllegalStateException();
+            }
+
+            ~JEmptyIterator(){
+            }
+        };
+
+
         JIterator* JCollections::emptyIterator(){
-            //TODO
-            return NULL;
+            return new JEmptyIterator();
         }
 
+        static JClass* emptyEnumerationClazz;
+        class JEmptyEnumeration : public JObject, public JEnumeration{
+        protected:
+            class JEmptyEnumerationClass : public JClass{
+
+            public:
+              JEmptyEnumerationClass(){
+                  this->canonicalName="java.util.Collections$EmptyEnumeration";
+                  this->name="java.util.Collections$EmptyEnumeration";
+                  this->simpleName="Collections$EmptyEnumeration";
+                  addInterface(JEnumeration::getClazz());
+              }
+
+              JClass* getSuperclass(){
+                  return JObject::getClazz();
+              }
+            };
+        public:
+            JClass* getClazz(){
+                if (emptyEnumerationClazz==NULL){
+                    emptyEnumerationClazz=new JEmptyEnumerationClass();
+                }
+                return emptyEnumerationClazz;
+            }
+
+            JEmptyEnumeration():JObject(getClazz()){
+            }
+
+            bool hasMoreElements(){
+                return false;
+            }
+
+            JObject* nextElement(){
+                throw new JNoSuchElementException();
+            }
+
+
+            ~JEmptyEnumeration(){
+            }
+        };
+
         JEnumeration* JCollections::emptyEnumeration(){
-            //TODO
-            return NULL;
+            return new JEmptyEnumeration();
         }
 
         JCollections::~JCollections(){

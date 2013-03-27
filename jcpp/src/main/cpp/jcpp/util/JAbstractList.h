@@ -20,6 +20,10 @@ namespace jcpp{
         protected:
             jint modCount;
             JAbstractList(JClass* _class);
+            friend class JItr;
+            friend class JListIteratorImpl;
+            friend class JListItr;
+            friend class JSubList;
 
         public:
             static JClass* getClazz();
@@ -46,8 +50,6 @@ namespace jcpp{
             virtual bool equals(JObject* o);
             virtual jint hashCode();
             virtual void removeRange(jint fromIndex, jint toIndex);
-            virtual jint getModCount();
-            virtual void incrementModCount();
             virtual ~JAbstractList();
         };
     }

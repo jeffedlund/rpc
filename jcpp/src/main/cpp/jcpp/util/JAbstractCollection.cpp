@@ -75,9 +75,6 @@ namespace jcpp{
             for (int i = 1; i < r->size(); i++) {
                 it->hasNext();
                 JObject* o=it->next();
-                if (o->getClass()!=_class){
-                    //TODO issue, all the items are not of the same class type ...
-                }
                 r->set(i,o);
             }
             delete it;

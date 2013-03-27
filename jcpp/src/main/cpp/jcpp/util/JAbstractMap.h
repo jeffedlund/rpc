@@ -16,8 +16,6 @@ namespace jcpp{
     namespace util{
         class JCPP_LIBRARY_EXPORT JAbstractMap: public JObject, public JMap{
         protected:
-            JSet* internalKeySet;
-            JCollection* internalValues;
             JAbstractMap(JClass* _class);
 
         public:
@@ -56,10 +54,6 @@ namespace jcpp{
 
                   JClass* getSuperclass(){
                       return JObject::getClazz();
-                  }
-
-                  JObject* newInstance(){
-                      throw new JInstantiationException("cannot instantiate object of class "+getName());
                   }
                 };
 

@@ -8,6 +8,7 @@ namespace jcpp{
                 canonicalName="java.util.ConcurrentModificationException";
                 name="java.util.ConcurrentModificationException";
                 simpleName="ConcurrentModificationException";
+                serialVersionUID=3666751008965953603ULL;
             }
 
             JClass* getSuperclass(){

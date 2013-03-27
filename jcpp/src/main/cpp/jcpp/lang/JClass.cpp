@@ -367,6 +367,10 @@ namespace jcpp{
             return bIsPackage;
         }
 
+        JObject* JClass::newInstance(){
+            throw new JInstantiationException("cannot instantiate object of class "+getName());
+        }
+
         jlong JClass::getSerialVersionUID(){
             return serialVersionUID;
         }

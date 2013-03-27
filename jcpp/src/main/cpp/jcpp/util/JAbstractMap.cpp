@@ -14,16 +14,11 @@ namespace jcpp{
               this->canonicalName="java.util.AbstractMap";
               this->name="java.util.AbstractMap";
               this->simpleName="AbstractMap";
-              this->serialVersionUID=0;
               addInterface(JMap::getClazz());
           }
 
           JClass* getSuperclass(){
               return JObject::getClazz();
-          }
-
-          JObject* newInstance(){
-              throw new JInstantiationException("cannot instantiate object of class "+getName());
           }
         };
 
@@ -37,8 +32,6 @@ namespace jcpp{
         }
 
         JAbstractMap::JAbstractMap(JClass* _class):JObject(_class){
-            this->internalKeySet=NULL;
-            this->internalValues=NULL;
         }
 
         jint JAbstractMap::size(){
@@ -178,10 +171,6 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JObject::getClazz();
               }
-
-              JObject* newInstance(){
-                  throw new JInstantiationException("cannot instantiate object of class "+getName());
-              }
             };
 
             JIterator* i;
@@ -209,6 +198,10 @@ namespace jcpp{
             void remove() {
                 i->remove();
             }
+
+            ~JAbstractSetIteratorImpl(){
+                delete i;
+            }
         };
 
         static JClass* abstractSetImplClazz;
@@ -225,10 +218,6 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JAbstractSet::getClazz();
-              }
-
-              JObject* newInstance(){
-                  throw new JInstantiationException("cannot instantiate object of class "+getName());
               }
             };
         public:
@@ -266,10 +255,7 @@ namespace jcpp{
         };
 
         JSet* JAbstractMap::keySet(){
-            if (internalKeySet==NULL){
-                internalKeySet=new JAbstractSetImpl(this);
-            }
-            return internalKeySet;
+            return new JAbstractSetImpl(this);
         }
 
         static JClass* abstractCollectionIteratorImplClazz;
@@ -286,10 +272,6 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JObject::getClazz();
-              }
-
-              JObject* newInstance(){
-                  throw new JInstantiationException("cannot instantiate object of class "+getName());
               }
             };
 
@@ -317,6 +299,10 @@ namespace jcpp{
 
             void remove() {
                 i->remove();
+            }
+
+            ~JAbstractCollectionIteratorImpl(){
+                delete i;
             }
         };
 
@@ -374,19 +360,16 @@ namespace jcpp{
             }
 
             virtual jbool equals(JObject *o){
-                return this==o;
+                return JObject::equals(o);
             }
 
             virtual jint hashCode(){
-                return (jint)this;
+                return JObject::hashCode();
             }
         };
 
         JCollection* JAbstractMap::values(){
-            if (internalValues==NULL){
-                internalValues=new JAbstractCollectionImpl(this);
-            }
-            return internalValues;
+            return new JAbstractCollectionImpl(this);
         }
 
         jbool JAbstractMap::equals(JObject* o){
@@ -466,8 +449,6 @@ namespace jcpp{
         }
 
         JAbstractMap::~JAbstractMap(){
-            delete internalKeySet;
-            delete internalValues;
         }
     }
 }

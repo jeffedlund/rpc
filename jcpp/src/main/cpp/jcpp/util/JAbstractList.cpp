@@ -17,16 +17,11 @@ namespace jcpp{
               this->canonicalName="java.util.AbstractList";
               this->name="java.util.AbstractList";
               this->simpleName="AbstractList";
-              this->serialVersionUID=0;
               addInterface(JList::getClazz());
           }
 
           JClass* getSuperclass(){
               return JAbstractCollection::getClazz();
-          }
-
-          JObject* newInstance(){
-              throw new JInstantiationException("cannot instantiate object of class "+getName());
           }
         };
 
@@ -72,14 +67,14 @@ namespace jcpp{
                 this->list=list;
                 cursor = 0;
                 lastRet = -1;
-                expectedModCount = list->getModCount();
+                expectedModCount = list->modCount;
             }
 
             JItr(JAbstractList* list):JObject(getClazz()){
                 this->list=list;
                 cursor = 0;
                 lastRet = -1;
-                expectedModCount = list->getModCount();
+                expectedModCount = list->modCount;
             }
 
             static JClass* getClazz(){
@@ -96,8 +91,10 @@ namespace jcpp{
             JObject* next() {
                 checkForComodification();
                 try {
-                    JObject* next = list->get(cursor);
-                    lastRet = cursor++;
+                    jint i=cursor;
+                    JObject* next = list->get(i);
+                    lastRet = i;
+                    cursor=i+1;
                     return next;
                 } catch (JIndexOutOfBoundsException* e) {
                     checkForComodification();
@@ -106,7 +103,7 @@ namespace jcpp{
             }
 
             void remove() {
-                if (lastRet == -1){
+                if (lastRet <0){
                     throw new JIllegalStateException();
                 }
                 checkForComodification();
@@ -116,14 +113,14 @@ namespace jcpp{
                         cursor--;
                     }
                     lastRet = -1;
-                    expectedModCount = list->getModCount();
+                    expectedModCount = list->modCount;
                 } catch (JIndexOutOfBoundsException* e) {
                     throw new JConcurrentModificationException();
                 }
             }
 
             void checkForComodification() {
-                if (list->getModCount() != expectedModCount){
+                if (list->modCount != expectedModCount){
                     throw new JConcurrentModificationException();
                 }
             }
@@ -144,10 +141,6 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JItr::getClazz();
-              }
-
-              JObject* newInstance(){
-                  throw new JInstantiationException("cannot instantiate object of class "+getName());
               }
             };
 
@@ -202,14 +195,14 @@ namespace jcpp{
             }
 
             void set(JObject* e) {
-                if (lastRet == -1){
+                if (lastRet<0){
                     throw new JIllegalStateException();
                 }
                 checkForComodification();
 
                 try {
                     list->set(lastRet, e);
-                    expectedModCount = list->getModCount();
+                    expectedModCount = list->modCount;
                 } catch (JIndexOutOfBoundsException* ex) {
                     throw new JConcurrentModificationException();
                 }
@@ -218,9 +211,11 @@ namespace jcpp{
             void add(JObject* e) {
                 checkForComodification();
                 try {
-                    list->add(cursor++, e);
+                    jint i=cursor;
+                    list->add(i, e);
                     lastRet = -1;
-                    expectedModCount = list->getModCount();
+                    cursor=i+1;
+                    expectedModCount = list->modCount;
                 } catch (JIndexOutOfBoundsException* ex) {
                     throw new JConcurrentModificationException();
                 }
@@ -228,7 +223,6 @@ namespace jcpp{
         };
 
         static JClass* subListClazz;
-
         class JSubList : public JAbstractList {
         protected:
             JAbstractList* l;
@@ -237,9 +231,7 @@ namespace jcpp{
             jint expectedModCount;
 
             class JSubListClass : public JClass{
-
             public:
-
               JSubListClass(){
                   this->canonicalName="java.util.SubList";
                   this->name="java.util.SubList";
@@ -248,10 +240,6 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JAbstractList::getClazz();
-              }
-
-              JObject* newInstance(){
-                  throw new JInstantiationException("cannot instantiate object of class "+getName());
               }
             };
 
@@ -277,7 +265,7 @@ namespace jcpp{
                 l = list;
                 offset = fromIndex;
                 isize = toIndex - fromIndex;
-                expectedModCount = l->getModCount();
+                expectedModCount = l->modCount;
             }
 
             JSubList(JClass* _class,JAbstractList* list, jint fromIndex, jint toIndex) : JAbstractList(_class){
@@ -293,7 +281,7 @@ namespace jcpp{
                 l = list;
                 offset = fromIndex;
                 isize = toIndex - fromIndex;
-                expectedModCount = l->getModCount();
+                expectedModCount = l->modCount;
             }
 
             JObject* set(jint index, JObject* element) {
@@ -331,7 +319,7 @@ namespace jcpp{
                 }
                 checkForComodification();
                 l->add(index+offset, element);
-                expectedModCount = l->getModCount();
+                expectedModCount = l->modCount;
                 isize++;
                 modCount++;
             }
@@ -340,7 +328,7 @@ namespace jcpp{
                 rangeCheck(index);
                 checkForComodification();
                 JObject* result = l->remove(index+offset);
-                expectedModCount = l->getModCount();
+                expectedModCount = l->modCount;
                 isize--;
                 modCount++;
                 return result;
@@ -349,7 +337,7 @@ namespace jcpp{
             void removeRange(jint fromIndex, jint toIndex) {
                 checkForComodification();
                 l->removeRange(fromIndex+offset, toIndex+offset);
-                expectedModCount = l->getModCount();
+                expectedModCount = l->modCount;
                 isize -= (toIndex-fromIndex);
                 modCount++;
             }
@@ -368,7 +356,7 @@ namespace jcpp{
                 }
                 checkForComodification();
                 l->addAll(offset+index, c);
-                expectedModCount = l->getModCount();
+                expectedModCount = l->modCount;
                 isize += cSize;
                 modCount++;
                 return true;
@@ -391,14 +379,13 @@ namespace jcpp{
             }
 
             void checkForComodification() {
-                if (l->getModCount() != expectedModCount){
+                if (l->modCount != expectedModCount){
                     throw new JConcurrentModificationException();
                 }
             }
         };
 
         static JClass* randomAccessSubListClazz;
-
         class JRandomAccessSubList: public JSubList, public JRandomAccess {
         protected:
             class JRandomAccessSubListClass : public JClass{
@@ -408,14 +395,11 @@ namespace jcpp{
                   this->canonicalName="java.util.RandomAccessSubList";
                   this->name="java.util.RandomAccessSubList";
                   this->simpleName="RandomAccessSubList";
+                  addInterface(JRandomAccess::getClazz());
               }
 
               JClass* getSuperclass(){
                   return JSubList::getClazz();
-              }
-
-              JObject* newInstance(){
-                  throw new JInstantiationException("cannot instantiate object of class "+getName());
               }
             };
 
@@ -450,10 +434,6 @@ namespace jcpp{
 
                   JClass* getSuperclass(){
                       return JObject::getClazz();
-                  }
-
-                  JObject* newInstance(){
-                      throw new JInstantiationException("cannot instantiate object of class "+getName());
                   }
                 };
 
@@ -511,9 +491,8 @@ namespace jcpp{
 
                 void remove() {
                     i->remove();
-                    l->setExpectedModCount(l->getModCount());
+                    l->setExpectedModCount(l->modCount);
                     l->decrementSize();
-                    l->incrementModCount();
                 }
 
                 void set(JObject* e) {
@@ -522,9 +501,8 @@ namespace jcpp{
 
                 void add(JObject* e) {
                     i->add(e);
-                    l->setExpectedModCount(l->getModCount());
+                    l->setExpectedModCount(l->modCount);
                     l->incrementSize();
-                    l->incrementModCount();
                 }
 
                 ~JListIteratorImpl(){
@@ -715,14 +693,6 @@ namespace jcpp{
                 it->remove();
             }
             delete it;
-        }
-
-        jint JAbstractList::getModCount(){
-            return modCount;
-        }
-
-        void JAbstractList::incrementModCount(){
-            modCount++;
         }
 
         JAbstractList::~JAbstractList(){
