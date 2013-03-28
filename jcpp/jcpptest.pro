@@ -90,7 +90,6 @@ SOURCES += \
     src/test/cpp/jcpp/lang/JPrimitiveShortTest.cpp \
     src/test/cpp/jcpp/lang/JPrimitiveIntTest.cpp \
     src/test/cpp/jcpp/util/JArrayListTest.cpp \
-    src/test/cpp/jcpp/util/JBitsTest.cpp \
     src/test/cpp/jcpp/util/JTimerTest.cpp \
     src/test/cpp/jcpp/net/JSocketTest.cpp \
     src/test/cpp/jcpp/util/concurrent/JScheduledExecutorServiceTest.cpp \
@@ -149,7 +148,6 @@ HEADERS += \
     src/test/cpp/jcpp/lang/JPrimitiveShortTest.h \
     src/test/cpp/jcpp/lang/JPrimitiveIntTest.h \
     src/test/cpp/jcpp/util/JArrayListTest.h \
-    src/test/cpp/jcpp/util/JBitsTest.h \
     src/test/cpp/jcpp/util/JTimerTest.h \
     src/test/cpp/jcpp/net/JSocketTest.h \
     src/test/cpp/jcpp/util/concurrent/JScheduledExecutorServiceTest.h \

@@ -17,16 +17,11 @@ namespace jcpp{
               this->canonicalName="java.util.AbstractSet";
               this->name="java.util.AbstractSet";
               this->simpleName="AbstractSet";
-              this->serialVersionUID=0;
               addInterface(JSet::getClazz());
           }
 
           JClass* getSuperclass(){
               return JAbstractCollection::getClazz();
-          }
-
-          JObject* newInstance(){
-              throw new JInstantiationException("cannot instantiate object of class "+getName());
           }
         };
 

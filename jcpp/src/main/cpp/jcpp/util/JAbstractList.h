@@ -24,6 +24,10 @@ namespace jcpp{
             friend class JListIteratorImpl;
             friend class JListItr;
             friend class JSubList;
+            friend class JArrayListItr;
+            friend class JArrayListListItr;
+            friend class JArrayListSubList;
+            friend class JArrayListSubListIterator;
 
         public:
             static JClass* getClazz();

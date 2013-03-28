@@ -5,7 +5,6 @@
 #include <sstream>
 #include "JUTFDataFormatException.h"
 #include "JInstantiationException.h"
-using namespace jcpp::util;
 
 namespace jcpp{
     namespace io{

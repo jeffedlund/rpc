@@ -31,10 +31,6 @@ namespace jcpp{
                 JClass* getSuperclass(){
                     return JObject::getClazz();
                 }
-
-                JObject* newInstance(){
-                    throw new JInstantiationException("cannot instantiate object of class "+getName());
-                }
             };
             map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator it;
 

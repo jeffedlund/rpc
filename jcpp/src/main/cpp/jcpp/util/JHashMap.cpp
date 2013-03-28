@@ -190,16 +190,46 @@ namespace jcpp{
             return new JHashMap(this);
         }
 
+        static JClass* hashMapHashIteratorClass;
         class JHashIterator : public JObject, public JIterator {
+        protected:
+            class JHashIteratorClass : public JClass{
+            public:
+              JHashIteratorClass(){
+                  this->canonicalName="java.util.HashMap$HashIterator";
+                  this->name="java.util.HashMap$HashIterator";
+                  this->simpleName="HashMap$HashIterator";
+                  addInterface(JIterator::getClazz());
+              }
+
+              JClass* getSuperclass(){
+                  return JObject::getClazz();
+              }
+            };
             JHashMap* hashMap;
             jint expectedModCount;
             jbool first;
             map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator begin;
+            map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator previous;
             map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator current;
             map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator end;
+            JHashIterator(JClass* _class,JHashMap* hashMap):JObject(_class) {
+                this->hashMap=hashMap;
+                expectedModCount = hashMap->modCount;
+                begin=hashMap->table->begin();
+                first=true;
+                end=hashMap->table->end();
+            }
 
         public:
-            JHashIterator(JHashMap* hashMap) {
+            static JClass* getClazz(){
+                if (hashMapHashIteratorClass==NULL){
+                    hashMapHashIteratorClass=new JHashIteratorClass();
+                }
+                return hashMapHashIteratorClass;
+            }
+
+            JHashIterator(JHashMap* hashMap):JObject(getClazz()) {
                 this->hashMap=hashMap;
                 expectedModCount = hashMap->modCount;
                 begin=hashMap->table->begin();
@@ -221,29 +251,49 @@ namespace jcpp{
                 if (!hasNext()){
                     throw new JNoSuchElementException();
                 }
-                map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator result;
                 if (first){
                     first=false;
                     current=begin;
                 }
-                result=current;
+                previous=current;
                 current++;
-                return result;
+                return previous;
             }
 
             void remove() {
-                if (hashMap->modCount!= expectedModCount){
+                if (!first || hashMap->modCount!= expectedModCount){
                     throw new JConcurrentModificationException();
                 }
-                JObject* k = (*current).first;
+                JObject* k = (*previous).first;
                 hashMap->remove(k);
                 expectedModCount = hashMap->modCount;
             }
         };
 
+        static JClass* hashMapValueIteratorClass;
         class JValueIterator : public JHashIterator {
+        protected:
+            class JValueIteratorClass : public JClass{
+            public:
+              JValueIteratorClass(){
+                  this->canonicalName="java.util.HashMap$ValueIterator";
+                  this->name="java.util.HashMap$ValueIterator";
+                  this->simpleName="HashMap$ValueIterator";
+              }
+
+              JClass* getSuperclass(){
+                  return JHashIterator::getClazz();
+              }
+            };
         public:
-            JValueIterator(JHashMap* hashMap):JHashIterator(hashMap){
+            static JClass* getClazz(){
+                if (hashMapValueIteratorClass==NULL){
+                    hashMapValueIteratorClass=new JValueIteratorClass();
+                }
+                return hashMapValueIteratorClass;
+            }
+
+            JValueIterator(JHashMap* hashMap):JHashIterator(getClazz(),hashMap){
             }
 
             JObject* next() {
@@ -251,19 +301,63 @@ namespace jcpp{
             }
         };
 
+        static JClass* hashMapKeyIteratorClass;
         class JKeyIterator : public JHashIterator {
+        protected:
+            class JKeyIteratorClass : public JClass{
+            public:
+              JKeyIteratorClass(){
+                  this->canonicalName="java.util.HashMap$KeyIterator";
+                  this->name="java.util.HashMap$KeyIterator";
+                  this->simpleName="HashMap$KeyIterator";
+              }
+
+              JClass* getSuperclass(){
+                  return JHashIterator::getClazz();
+              }
+            };
         public:
-            JKeyIterator(JHashMap* hashMap):JHashIterator(hashMap){
+            static JClass* getClazz(){
+                if (hashMapKeyIteratorClass==NULL){
+                    hashMapKeyIteratorClass=new JKeyIteratorClass();
+                }
+                return hashMapKeyIteratorClass;
             }
+
+            JKeyIterator(JHashMap* hashMap):JHashIterator(getClazz(),hashMap){
+            }
+
             JObject* next() {
                 return (*nextEntry()).first;
             }
         };
 
+        static JClass* hashMapEntryIteratorClass;
         class JEntryIterator : public JHashIterator{
+        protected:
+            class JEntryIteratorClass : public JClass{
+            public:
+              JEntryIteratorClass(){
+                  this->canonicalName="java.util.HashMap$EntryIterator";
+                  this->name="java.util.HashMap$EntryIterator";
+                  this->simpleName="HashMap$EntryIterator";
+              }
+
+              JClass* getSuperclass(){
+                  return JHashIterator::getClazz();
+              }
+            };
         public:
-            JEntryIterator(JHashMap* hashMap):JHashIterator(hashMap){
+            static JClass* getClazz(){
+                if (hashMapEntryIteratorClass==NULL){
+                    hashMapEntryIteratorClass=new JEntryIteratorClass();
+                }
+                return hashMapEntryIteratorClass;
             }
+
+            JEntryIterator(JHashMap* hashMap):JHashIterator(getClazz(),hashMap){
+            }
+
             JObject* next() {
                 map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator i=nextEntry();
                 return new JHashMap::JEntryImpl(i);
@@ -295,10 +389,6 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JAbstractSet::getClazz();
-              }
-
-              JObject* newInstance(){
-                  throw new JInstantiationException("cannot instantiate object of class "+getName());
               }
             };
             JHashMap* map;
@@ -353,10 +443,6 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JAbstractCollection::getClazz();
               }
-
-              JObject* newInstance(){
-                  throw new JInstantiationException("cannot instantiate object of class "+getName());
-              }
             };
             JHashMap* map;
         public:
@@ -405,10 +491,6 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JAbstractSet::getClazz();
-              }
-
-              JObject* newInstance(){
-                  throw new JInstantiationException("cannot instantiate object of class "+getName());
               }
             };
             JHashMap* map;

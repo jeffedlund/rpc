@@ -5,7 +5,7 @@
 #include "JCPP.h"
 
 namespace jcpp{
-    namespace util{
+    namespace io{
         class JCPP_LIBRARY_EXPORT JBits {
         public:
 

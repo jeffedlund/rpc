@@ -1,11 +1,12 @@
 group1:
 -------
 -implement JHashtable
--review call of all entrySet/iterator and check that we call delete
+-review call of all keySet/entrySet/iterator and check that we call delete
 -find a way for internal classes, maybe in JClass or in static getClazzes()
 -make thread excecption handling more robust
 -check clone layer
 -implement all JSystem class
+-check call to delete[]
 -implement all jcpp.util, jcpp.io, jcpp.net (a quite big list :))
 
 -work on wiki documentation

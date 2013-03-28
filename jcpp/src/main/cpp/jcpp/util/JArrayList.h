@@ -21,13 +21,13 @@ namespace jcpp{
         protected:
             vector<JObject*>* items;
             JPrimitiveInt* isize;
+            friend class JArrayListClass;
+            friend class JArrayListSubList;
 
         public:
             JArrayList(int initialCapacity = 10);
             JArrayList(JCollection* c);
             static JClass* getClazz();
-            virtual void setPSize(JPrimitiveInt* s);
-            virtual JPrimitiveInt* getPSize();
             virtual void trimToSize();
             virtual void ensureCapacity(jint minCapacity);
             virtual jint size();
@@ -48,6 +48,9 @@ namespace jcpp{
             virtual bool addAll(jint index, JCollection* c);
             virtual void writeObject(JObjectOutputStream* out);
             virtual void readObject(JObjectInputStream* in);
+            virtual JListIterator* listIterator();
+            virtual JIterator* iterator();
+            virtual JList* subList(jint fromIndex, jint toIndex);
             virtual ~JArrayList();
         };
     }

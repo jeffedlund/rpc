@@ -3,7 +3,10 @@
 
 #include "stdint.h"
 #include "cassert"
+#include <sstream>
 #include "JCPP.h"
+using namespace std;
+
 namespace jcpp{
     namespace lang{
         //TODO is it correct values cross OS?
@@ -26,6 +29,12 @@ namespace jcpp{
                 assert(sizeof(jlong)==8);
                 assert(sizeof(jfloat)==4);
                 assert(sizeof(jdouble)==8);
+            }
+
+            static string concat(string s, jint i){
+                stringstream ss;
+                ss<<s<<i;
+                return ss.str();
             }
         };
     }

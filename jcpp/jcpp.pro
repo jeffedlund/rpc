@@ -262,7 +262,6 @@ HEADERS += \
     src/main/cpp/jcpp/util/JArrayList.h \
     src/main/cpp/jcpp/io/JSerializable.h \
     src/main/cpp/jcpp/util/JCollection.h \
-    src/main/cpp/jcpp/util/JBits.h \
     src/main/cpp/jcpp/util/JHashtable.h \
     src/main/cpp/jcpp/lang/JPrimitiveBoolean.h \
     src/main/cpp/jcpp/lang/JBoolean.h \
@@ -454,7 +453,8 @@ HEADERS += \
     src/main/cpp/jcpp/io/JInvalidObjectException.h \
     src/main/cpp/jcpp/util/JComparator.h \
     src/main/cpp/jcpp/util/JQueue.h \
-    src/main/cpp/jcpp/util/JAbstractQueue.h
+    src/main/cpp/jcpp/util/JAbstractQueue.h \
+    src/main/cpp/jcpp/io/JBits.h
     
     
 OTHER_FILES += \
