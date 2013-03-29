@@ -13,16 +13,11 @@ namespace jcpp{
               this->canonicalName="java.util.List";
               this->name="java.util.List";
               this->simpleName="List";
-              this->serialVersionUID=0;
               this->bIsInterface=true;
           }
 
           JClass* getSuperclass(){
               return JCollection::getClazz();
-          }
-
-          JObject* newInstance(){
-              throw new JInstantiationException("cannot instantiate object of class "+getName());
           }
         };
 

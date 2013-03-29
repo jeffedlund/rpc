@@ -8,6 +8,7 @@ namespace jcpp{
                 canonicalName="java.util.NoSuchElementException";
                 name="java.util.NoSuchElementException";
                 simpleName="NoSuchElementException";
+                serialVersionUID=6769829250639411880ULL;
             }
 
             JClass* getSuperclass(){

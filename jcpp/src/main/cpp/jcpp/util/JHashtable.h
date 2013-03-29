@@ -29,7 +29,6 @@ namespace jcpp{
 
 
         public:
-            //TODO review that everything is locked
             JHashtable(jint initialCapacity = 10, jfloat loadFactor=0.75);
             JHashtable(JMap* c);
             static JClass* getClazz();

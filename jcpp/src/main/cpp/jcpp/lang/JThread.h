@@ -6,6 +6,7 @@
 #include <QThread>
 #include "QObjectAware.h"
 #include "JCPP.h"
+#include "JThreadLocal.h"
 using namespace std;
 
 namespace jcpp{
@@ -31,6 +32,10 @@ namespace jcpp{
             bool deletable;
             JRunnable* runnable;
             JThread(QThread* thread);
+
+            static jbool addObjectLocked(JObject* o);
+            static jbool removeObjectLocked(JObject* o);
+            friend class JObject;
 
         public:
             JThread();

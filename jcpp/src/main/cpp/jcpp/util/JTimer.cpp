@@ -123,7 +123,7 @@ namespace jcpp{
                 }
                 mutex->unlock();
             }
-            delete[] todos;
+            delete todos;
         }
 
         void JTimer::cancel(){
@@ -142,7 +142,7 @@ namespace jcpp{
         }
 
         void JTimer::schedule(JTimerTask* task, jlong delay){
-            task->setTimer(this);
+            task->timer=this;
             mutex->lock();
             timerItems->push_back(new TimerItem(task, delay,0));
             waitCondition->wakeAll();
@@ -150,7 +150,7 @@ namespace jcpp{
         }
 
         void JTimer::schedule(JTimerTask* task, jlong delay, jlong period){
-            task->setTimer(this);
+            task->timer=this;
             mutex->lock();
             timerItems->push_back(new TimerItem(task, delay,period));
             waitCondition->wakeAll();
@@ -176,6 +176,7 @@ namespace jcpp{
             delete thread;
             delete mutex;
             delete waitCondition;
+            delete timerItems;
         }
     }
 }

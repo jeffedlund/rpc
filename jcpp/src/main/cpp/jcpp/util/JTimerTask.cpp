@@ -18,10 +18,6 @@ namespace jcpp{
           JClass* getSuperclass(){
               return JObject::getClazz();
           }
-
-          JObject* newInstance(){
-              throw new JInstantiationException("cannot instantiate object of class "+getName());
-          }
         };
 
         static JClass* clazz;
@@ -35,10 +31,6 @@ namespace jcpp{
 
         JTimerTask::JTimerTask(JClass* _class):JObject(_class){
             this->bCancelled=false;
-        }
-
-        void JTimerTask::setTimer(JTimer* timer){
-            this->timer=timer;
         }
 
         bool JTimerTask::cancel(){

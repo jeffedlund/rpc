@@ -17,10 +17,6 @@ namespace jcpp{
           JClass* getSuperclass(){
               return JInterface::getClazz();
           }
-
-          JObject* newInstance(){
-              throw new JInstantiationException("cannot instantiate object of class "+getName());
-          }
         };
 
         static JClass* clazz;
@@ -43,10 +39,6 @@ namespace jcpp{
 
           JClass* getSuperclass(){
               return JInterface::getClazz();
-          }
-
-          JObject* newInstance(){
-              throw new JInstantiationException("cannot instantiate object of class "+getName());
           }
         };
 

@@ -113,26 +113,41 @@ namespace jcpp{
         }
 
         jint JHashtable::size(){
-            return table->size();
+            lock();
+            jint i=table->size();
+            unlock();
+            return i;
         }
 
         jbool JHashtable::isEmpty(){
-            return table->size()==0;
+            lock();
+            bool b=table->size()==0;
+            unlock();
+            return b;
         }
 
         JEnumeration* JHashtable::keys(){
-            return getEnumeration(KEYS);
+            lock();
+            JEnumeration* e=getEnumeration(KEYS);
+            unlock();
+            return e;
         }
 
         JEnumeration* JHashtable::elements(){
-            return getEnumeration(VALUES);
+            lock();
+            JEnumeration* e=getEnumeration(VALUES);
+            unlock();
+            return e;
         }
 
         jbool JHashtable::contains(JObject* value){
             if (value==NULL){
                 throw new JNullPointerException();
             }
-            return hasValueFromMap(table,value);
+            lock();
+            jbool b=hasValueFromMap(table,value);
+            unlock();
+            return b;
         }
 
         jbool JHashtable::containsValue(JObject* value){
@@ -147,7 +162,9 @@ namespace jcpp{
             if (key==NULL){
                 throw new JNullPointerException();
             }
+            lock();
             JObject* value=getFromMap(table,key);
+            unlock();
             return value;
         }
 
@@ -155,9 +172,11 @@ namespace jcpp{
             if (key==NULL || value==NULL){
                 throw new JNullPointerException();
             }
+            lock();
             JObject* old=getAndDeleteFromMap(table,key);
             table->insert(pair<JObject*,JObject*>(key,value));
             modCount++;
+            unlock();
             return old;
         }
 
@@ -165,26 +184,35 @@ namespace jcpp{
             if (key==NULL){
                 throw new JNullPointerException();
             }
+            lock();
             JObject* old=getAndDeleteFromMap(table,key);
+            unlock();
             return old;
         }
 
         void JHashtable::putAll(JMap* m) {
+            lock();
             JIterator* i=m->entrySet()->iterator();
             while (i->hasNext()){
                 JEntry* e=dynamic_cast<JEntry*>(i->next());
-                put(e->getKey(), e->getValue());
+                getAndDeleteFromMap(table,e->getKey());
+                table->insert(pair<JObject*,JObject*>(e->getKey(),e->getValue()));
             }
+            modCount++;
             delete i;
+            unlock();
         }
 
         void JHashtable::clear(){
+            lock();
             modCount++;
             table->clear();
+            unlock();
         }
 
         JHashtable* JHashtable::clone(){
-            return new JHashtable(this);
+            JHashtable* h=new JHashtable(this);
+            return h;
         }
 
         string JHashtable::toString(){
@@ -193,23 +221,23 @@ namespace jcpp{
                 return "{}";
             }
 
+            lock();
             stringstream ss;
             JIterator* it = entrySet()->iterator();
-
             ss<<'{';
-            for (int i = 0; ; i++) {
+            while (it->hasNext()) {
                 JMap::JEntry* e = dynamic_cast<JMap::JEntry*>(it->next());
                 JObject* key = e->getKey();
                 JObject* value = e->getValue();
                 ss<<(key   == this ? "(this Map)" : key->toString());
                 ss<<'=';
                 ss<<(value == this ? "(this Map)" : value->toString());
-                if (i == max){
-                    ss<<'}';
-                    return ss.str();
-                }
                 ss<<", ";
             }
+            delete it;
+            ss<<'}';
+            unlock();
+            return ss.str();
         }
 
         static JClass* hashtableKeySetImplClass;
@@ -225,10 +253,6 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JAbstractSet::getClazz();
-              }
-
-              JObject* newInstance(){
-                  throw new JInstantiationException("cannot instantiate object of class "+getName());
               }
             };
             JHashtable* map;
@@ -282,10 +306,6 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JAbstractSet::getClazz();
-              }
-
-              JObject* newInstance(){
-                  throw new JInstantiationException("cannot instantiate object of class "+getName());
               }
             };
             JHashtable* map;
@@ -353,10 +373,6 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JAbstractCollection::getClazz();
               }
-
-              JObject* newInstance(){
-                  throw new JInstantiationException("cannot instantiate object of class "+getName());
-              }
             };
             JHashtable* map;
         public:
@@ -404,6 +420,7 @@ namespace jcpp{
             if (t->size() != size()){
                 return false;
             }
+            lock();
             JIterator* i = entrySet()->iterator();
             try {
                 while (i->hasNext()) {
@@ -413,23 +430,28 @@ namespace jcpp{
                     if (value == NULL) {
                         if (!(t->get(key)==NULL && t->containsKey(key))){
                             delete i;
+                            unlock();
                             return false;
                         }
                     } else {
                         if (!value->equals(t->get(key))){
                             delete i;
+                            unlock();
                             return false;
                         }
                     }
                 }
             } catch (JClassCastException* unused)   {
                 delete i;
+                unlock();
                 return false;
             } catch (JNullPointerException* unused) {
                 delete i;
+                unlock();
                 return false;
             }
             delete i;
+            unlock();
             return true;
         }
 
@@ -438,16 +460,18 @@ namespace jcpp{
             if (size()== 0){
                 return h;
             }
+            lock();
             JIterator* i = entrySet()->iterator();
             while (i->hasNext()) {
                 JEntry* e = dynamic_cast<JEntry*>(i->next());
                 h+=e->hashCode();
             }
             delete i;
+            unlock();
             return h;
         }
 
-        void JHashtable::writeObject(JObjectOutputStream* out){
+        void JHashtable::writeObject(JObjectOutputStream* out){//should do something to synchronize
             out->defaultWriteObject();
             out->writeInt(table->size());
             out->writeInt(table->size());
@@ -490,10 +514,6 @@ namespace jcpp{
 
             JClass* getSuperclass(){
                 return JObject::getClazz();
-            }
-
-            JObject* newInstance(){
-                throw new JInstantiationException("cannot instantiate object of class "+getName());
             }
         };
         map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator it;
@@ -556,19 +576,42 @@ namespace jcpp{
             return hashtableEntryImplClass;
         }
 
+        static JClass* hashtableEnumeratorImplClazz;
         class JHashtableEnumeratorImpl: public JObject, public JEnumeration, public JIterator {
         protected:
+            class JHashtableEnumeratorImplClass : public JClass{
+            public:
+                JHashtableEnumeratorImplClass(){
+                    this->canonicalName="java.util.Hashtable$Enumerator";
+                    this->name="java.util.Hashtable$Enumerator";
+                    this->simpleName="Hashtable$Enumerator";
+                    addInterface(JEnumeration::getClazz());
+                    addInterface(JIterator::getClazz());
+                }
+
+                JClass* getSuperclass(){
+                    return JObject::getClazz();
+                }
+            };
             JHashtable* hashtable;
             jbool first;
             map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator begin;
             map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator current;
+            map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator previous;
             map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator end;
             jint type;
             jbool isIterator;
             jint expectedModCount;
 
         public:
-            JHashtableEnumeratorImpl(JHashtable* hashtable,jint type, jbool isIterator) {//TODO
+            JClass* getClazz(){
+                if (hashtableEnumeratorImplClazz==NULL){
+                    hashtableEnumeratorImplClazz=new JHashtableEnumeratorImplClass();
+                }
+                return hashtableEnumeratorImplClazz;
+            }
+
+            JHashtableEnumeratorImpl(JHashtable* hashtable,jint type, jbool isIterator):JObject(getClazz()) {
                 this->hashtable=hashtable;
                 this->type = type;
                 this->isIterator = isIterator;
@@ -592,19 +635,18 @@ namespace jcpp{
                 if (!hasNext()){
                     throw new JNoSuchElementException();
                 }
-                map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator result;
                 if (first){
                     first=false;
                     current=begin;
                 }
-                result=current;
+                previous=current;
                 current++;
                 if (type==KEYS){
-                    return (*result).first;
+                    return (*previous).first;
                 }else if (type==VALUES){
-                    return (*result).second;
+                    return (*previous).second;
                 }else{
-                    return new JHashtableEntryImpl(result);
+                    return new JHashtableEntryImpl(previous);
                 }
             }
 
@@ -620,10 +662,10 @@ namespace jcpp{
             }
 
             void remove() {
-                if (hashtable->modCount!= expectedModCount){
+                if (!first || hashtable->modCount!= expectedModCount){
                     throw new JConcurrentModificationException();
                 }
-                JObject* k = (*current).first;//TODO bugged here and in hasmap
+                JObject* k = (*previous).first;
                 hashtable->remove(k);
                 expectedModCount = hashtable->modCount;
             }
@@ -638,7 +680,7 @@ namespace jcpp{
         }
 
         JIterator* JHashtable::getIterator(jint type) {
-            if (size()== 0) {
+            if (table->size()== 0) {
                 return JCollections::emptyIterator();
             } else {
                 return new JHashtableEnumeratorImpl(this,type, true);

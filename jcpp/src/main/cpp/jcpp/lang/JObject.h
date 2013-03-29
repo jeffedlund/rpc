@@ -7,6 +7,7 @@
 #include <iostream>
 #include "Object.h"
 #include "JCPP.h"
+#include <QThreadStorage>
 using namespace std;
 
 namespace jcpp{
@@ -19,7 +20,6 @@ namespace jcpp{
                 QWaitCondition* waitCondition;
 
             protected:
-
                 JClass* _class;
                 JObject(JClass* _class);
                 JObject(bool root);

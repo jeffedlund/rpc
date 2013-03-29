@@ -243,7 +243,8 @@ SOURCES += \
     src/main/cpp/jcpp/io/JInvalidObjectException.cpp \
     src/main/cpp/jcpp/util/JComparator.cpp \
     src/main/cpp/jcpp/util/JQueue.cpp \
-    src/main/cpp/jcpp/util/JAbstractQueue.cpp
+    src/main/cpp/jcpp/util/JAbstractQueue.cpp \
+    src/main/cpp/jcpp/lang/JThreadLocal.cpp
     
     
 HEADERS += \
@@ -454,7 +455,8 @@ HEADERS += \
     src/main/cpp/jcpp/util/JComparator.h \
     src/main/cpp/jcpp/util/JQueue.h \
     src/main/cpp/jcpp/util/JAbstractQueue.h \
-    src/main/cpp/jcpp/io/JBits.h
+    src/main/cpp/jcpp/io/JBits.h \
+    src/main/cpp/jcpp/lang/JThreadLocal.h
     
     
 OTHER_FILES += \

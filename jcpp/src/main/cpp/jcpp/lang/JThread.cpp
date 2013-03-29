@@ -4,6 +4,7 @@
 #include <QCoreApplication>
 #include "Collections.h"
 #include "QObjectHolder.h"
+#include "JHashMap.h"
 using namespace std;
 using namespace jcpp::util;
 
@@ -21,10 +22,6 @@ namespace jcpp{
             JClass* getSuperclass(){
                 return JObject::getClazz();
             }
-
-            JObject* newInstance(){
-                throw new JInstantiationException("cannot instantiate object of class "+getName());
-            }
         };
 
         static JClass* clazz;
@@ -34,6 +31,39 @@ namespace jcpp{
                 clazz=new JThreadClass();
             }
             return clazz;
+        }
+
+        static JThreadLocal lockedObjects;
+
+        jbool JThread::addObjectLocked(JObject* o){
+            JHashMap* m=(JHashMap*)lockedObjects.get();//TODO use JIdentityHashMap
+            if (m==NULL){
+                m=new JHashMap();
+                lockedObjects.set(m);
+            }
+            JInteger* i=(JInteger*)m->get(o);
+            if (i==NULL){
+                i=new JInteger(0);
+                m->put(o,i);
+            }
+            i->set(i->get()+1);
+            return i->get()==1;
+        }
+
+        jbool JThread::removeObjectLocked(JObject* o){
+            bool b=false;
+            JHashMap* m=(JHashMap*)lockedObjects.get();
+            if (m!=NULL){
+                JInteger* i=(JInteger*)m->get(o);
+                if (i!=NULL){
+                    i->set(i->get()-1);
+                    if (i->get()==0){
+                        m->remove(o);
+                        b=true;
+                    }
+                }
+            }
+            return b;
         }
 
         JThread::JThread(QThread* thread):JObject(getClazz()){

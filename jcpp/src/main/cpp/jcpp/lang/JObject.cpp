@@ -5,6 +5,7 @@
 #include "JIllegalArgumentException.h"
 #include "JCloneNotSupportedException.h"
 #include "JCloneable.h"
+#include "JThread.h"
 using namespace std;
 
 namespace jcpp{
@@ -41,7 +42,6 @@ namespace jcpp{
             this->waitCondition=new QWaitCondition();
         }
 
-
         JObject::JObject(JClass* _class){
             this->_class=_class;
             this->mutex=new QMutex(QMutex::NonRecursive);
@@ -74,11 +74,15 @@ namespace jcpp{
         }
 
         void JObject::lock(){
-            mutex->lock();
+            //if (JThread::addObjectLocked(this)){ TODO change once using identityhashmap
+                mutex->lock();
+            //}
         }
 
         void JObject::unlock(){
-            mutex->unlock();
+            //TODO same if (JThread::removeObjectLocked(this)){
+                mutex->unlock();
+            //}
         }
 
         void JObject::wait(){//we don't lock/unlock here, but at the caller level

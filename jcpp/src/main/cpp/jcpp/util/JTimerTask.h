@@ -18,11 +18,10 @@ namespace jcpp{
             bool bCancelled;
             JTimer* timer;
             JTimerTask(JClass* _class);
+            friend class JTimer;
 
         public:
             static JClass* getClazz();
-
-            void setTimer(JTimer* timer);
             virtual bool cancel();
             bool isCancelled();
             virtual void run()=0;

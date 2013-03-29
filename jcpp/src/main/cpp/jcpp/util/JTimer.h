@@ -39,6 +39,8 @@ namespace jcpp{
             JThread* thread;
             vector<TimerItem*>* timerItems;
             virtual void run();
+            void cancel(JTimerTask* task);
+            friend class JTimerTask;
 
         public:
             JTimer();
@@ -47,7 +49,6 @@ namespace jcpp{
             bool isCancelled();
             void schedule(JTimerTask* task, jlong delay);
             void schedule(JTimerTask* task, jlong delay, jlong period);
-            void cancel(JTimerTask* task);
             virtual ~JTimer();
         };
     }
