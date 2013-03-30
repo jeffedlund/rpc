@@ -6,6 +6,7 @@
 #include "JNoSuchElementException.h"
 #include <sstream>
 #include "JCollections.h"
+#include "JConcurrentModificationException.h"
 
 namespace jcpp{
     namespace util{
@@ -111,6 +112,13 @@ namespace jcpp{
             return capacityIncrement;
         }
 
+        jint JVector::getModCount(){
+            lock();
+            jint i=modCount;
+            unlock();
+            return i;
+        }
+
         void JVector::copyInto(JPrimitiveArray* anArray) {
             lock();
             clear();
@@ -169,14 +177,6 @@ namespace jcpp{
             return b;
         }
 
-        JIterator* JVector::iterator(){
-            return JAbstractList::iterator();
-        }
-
-        JListIterator* JVector::listIterator(){
-            return JAbstractList::listIterator();
-        }
-
         JListIterator* JVector::listIterator(jint index){
             return JAbstractList::listIterator(index);
         }
@@ -199,10 +199,6 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JObject::getClazz();
-              }
-
-              JObject* newInstance(){
-                  throw new JInstantiationException("cannot instantiate object of class "+getName());
               }
             };
 
@@ -231,6 +227,7 @@ namespace jcpp{
                     o=v->get(count);
                     count++;
                 }else{
+                    v->unlock();
                     throw new JNoSuchElementException("Vector Enumeration");
                 }
                 v->unlock();
@@ -305,6 +302,7 @@ namespace jcpp{
             JObject* r=NULL;
             lock();
             if (index >= elementCount->get()) {
+                unlock();
                 throw new JArrayIndexOutOfBoundsException();
             }
             r=items->at(index);
@@ -316,6 +314,7 @@ namespace jcpp{
             JObject* r=NULL;
             lock();
             if (elementCount->get() == 0) {
+                unlock();
                 throw new JNoSuchElementException();
             }
             r=items->at(0);
@@ -327,6 +326,7 @@ namespace jcpp{
             JObject* r=NULL;
             lock();
             if (elementCount->get() == 0) {
+                unlock();
                 throw new JNoSuchElementException();
             }
             r=items->at(elementCount->get()-1);
@@ -337,6 +337,7 @@ namespace jcpp{
         void JVector::setElementAt(JObject* obj, jint index) {
             lock();
             if (index >= elementCount->get()) {
+                unlock();
                 throw new JArrayIndexOutOfBoundsException();
             }
             (*items)[index]=obj;
@@ -347,8 +348,10 @@ namespace jcpp{
             lock();
             modCount++;
             if (index >= elementCount->get()) {
+                unlock();
                 throw new JArrayIndexOutOfBoundsException();
             }else if (index < 0) {
+                unlock();
                 throw new JArrayIndexOutOfBoundsException();
             }
             items->erase(items->begin()+index);
@@ -360,6 +363,7 @@ namespace jcpp{
             lock();
             modCount++;
             if (index > elementCount->get()) {
+                unlock();
                 throw new JArrayIndexOutOfBoundsException();
             }
             items->insert(items->begin()+index,obj);
@@ -380,7 +384,7 @@ namespace jcpp{
             modCount++;
             jint i = indexOf(obj);
             if (i >= 0) {
-                removeElementAt(i);//TODO bug because of the lock
+                removeElementAt(i);
                 unlock();
                 return true;
             }
@@ -453,6 +457,7 @@ namespace jcpp{
             if (index >= elementCount->get()){
                 stringstream ss;
                 ss<<"index ="<<index<<" size="<<elementCount->get();
+                unlock();
                 throw new JArrayIndexOutOfBoundsException(ss.str());
             }
             JObject* o=items->at(index);
@@ -557,6 +562,190 @@ namespace jcpp{
             lock();
             out->defaultWriteObject();
             unlock();
+        }
+
+        static JClass* vectorJItrClazz;
+        class JVectorItr : public JObject, public JIterator {
+        protected:
+            class JVectorItrClass : public JClass{
+            public:
+              JVectorItrClass(){
+                  this->canonicalName="java.util.Vector$Itr";
+                  this->name="java.util.Vector$Itr";
+                  this->simpleName="Vector$Itr";
+                  addInterface(JIterator::getClazz());
+              }
+
+              JClass* getSuperclass(){
+                  return JObject::getClazz();
+              }
+            };
+            JVector* v;
+            jint cursor;
+            jint lastRet;
+            jint expectedModCount;
+
+            JVectorItr(JClass* _class, JVector* v):JObject(_class){
+                this->v=v;
+                cursor=0;
+                lastRet=-1;
+                this->expectedModCount=v->getModCount();
+            }
+
+        public:
+            static JClass* getClazz(){
+                if (vectorJItrClazz==NULL){
+                    vectorJItrClazz=new JVectorItrClass();
+                }
+                return vectorJItrClazz;
+            }
+
+            JVectorItr(JVector* v):JObject(getClazz()){
+                this->v=v;
+                cursor=0;
+                lastRet=-1;
+                this->expectedModCount=v->modCount;
+            }
+
+            jbool hasNext() {
+                return cursor != v->size();
+            }
+
+            JObject* next() {
+                v->lock();
+                checkForComodification();
+                jint i = cursor;
+                if (i >= v->size()){
+                    v->unlock();
+                    throw new JNoSuchElementException();
+                }
+                cursor = i + 1;
+                JObject* o=v->get(lastRet = i);
+                v->unlock();
+                return o;
+
+            }
+
+            void remove() {
+                if (lastRet == -1){
+                    throw new JIllegalStateException();
+                }
+                v->lock();
+                checkForComodification();
+                v->remove(lastRet);
+                expectedModCount = v->getModCount();
+                cursor = lastRet;
+                lastRet = -1;
+            }
+
+            void checkForComodification() {
+                if (v->getModCount() != expectedModCount){
+                    throw new JConcurrentModificationException();
+                }
+            }
+        };
+
+        static JClass* vectorListItrClazz;
+        class JVectorListItr : public JVectorItr , public JListIterator {
+        protected:
+            class JVectorListItrClass : public JClass{
+            public:
+              JVectorListItrClass(){
+                  this->canonicalName="java.util.Vector$ListItr";
+                  this->name="java.util.Vector$ListItr";
+                  this->simpleName="Vector$ListItr";
+                  addInterface(JListIterator::getClazz());
+              }
+
+              JClass* getSuperclass(){
+                  return JVectorItr::getClazz();
+              }
+            };
+
+        public:
+            static JClass* getClazz(){
+                if (vectorListItrClazz==NULL){
+                    vectorListItrClazz=new JVectorListItrClass();
+                }
+                return vectorListItrClazz;
+            }
+
+            JVectorListItr(JVector* v, jint index):JVectorItr(getClazz(),v) {
+                cursor = index;
+            }
+
+            jbool hasNext(){
+                return JVectorItr::hasNext();
+            }
+
+            JObject* next(){
+                return JVectorItr::next();
+            }
+
+            void remove(){
+                return JVectorItr::remove();
+            }
+
+            jbool hasPrevious() {
+                return cursor != 0;
+            }
+
+            jint nextIndex() {
+                return cursor;
+            }
+
+            jint previousIndex() {
+                return cursor - 1;
+            }
+
+            JObject* previous() {
+                v->lock();
+                checkForComodification();
+                jint i = cursor - 1;
+                if (i < 0){
+                    v->unlock();
+                    throw new JNoSuchElementException();
+                }
+                cursor = i;
+                JObject* o=v->get(lastRet = i);
+                v->unlock();
+                return o;
+            }
+
+            void set(JObject* e) {
+                if (lastRet == -1){
+                    throw new JIllegalStateException();
+                }
+                v->lock();
+                checkForComodification();
+                v->set(lastRet, e);
+                v->unlock();
+            }
+
+            void add(JObject* e) {
+                jint i = cursor;
+                v->lock();
+                checkForComodification();
+                v->add(i, e);
+                expectedModCount = v->getModCount();
+                cursor = i + 1;
+                lastRet = -1;
+                v->unlock();
+            }
+        };
+
+        JListIterator* JVector::listIterator() {
+            lock();
+            JListIterator* l=new JVectorListItr(this,0);
+            unlock();
+            return l;
+        }
+
+        JIterator* JVector::iterator() {
+            lock();
+            JVectorItr* i=new JVectorItr(this);
+            unlock();
+            return i;
         }
 
         JVector::~JVector(){

@@ -22,15 +22,19 @@ namespace jcpp{
             vector<JObject*>* items;
             JPrimitiveInt* elementCount;
             JPrimitiveInt* capacityIncrement;
+            virtual void setElementCount(JPrimitiveInt* s);
+            virtual JPrimitiveInt* getElementCount();
+            virtual void setCapacityIncrement(JPrimitiveInt* s);
+            virtual JPrimitiveInt* getCapacityIncrement();
+            jint getModCount();
+            friend class JVectorClass;
+            friend class JVectorItr;
+            friend class JVectorListItr;
 
         public:
             JVector(jint initialCapacity = 10, jint capacityIncrement=0);
             JVector(JCollection* c);
             static JClass* getClazz();
-            virtual void setElementCount(JPrimitiveInt* s);
-            virtual JPrimitiveInt* getElementCount();
-            virtual void setCapacityIncrement(JPrimitiveInt* s);
-            virtual JPrimitiveInt* getCapacityIncrement();
             void copyInto(JPrimitiveArray* anArray);
             void trimToSize();
             void ensureCapacity(jint minCapacity);
