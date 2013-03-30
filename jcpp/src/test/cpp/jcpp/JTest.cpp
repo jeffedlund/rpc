@@ -57,7 +57,9 @@ namespace jcpp{
             }
             cout<<"\r\n";
             cout.flush();
-            assert ((*read)==(*object));
+            if (applyEqual()){
+                assert ((*read)==(*object));
+            }
         }
     }
 

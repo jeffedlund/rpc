@@ -39,6 +39,10 @@ namespace jcpp{
             return NULL;
         }
 
+        virtual bool applyEqual(){
+            return true;
+        }
+
         void testWrite(JObject* object);
 
         JObject* testRead();

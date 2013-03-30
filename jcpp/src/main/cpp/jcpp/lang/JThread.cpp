@@ -4,7 +4,7 @@
 #include <QCoreApplication>
 #include "Collections.h"
 #include "QObjectHolder.h"
-#include "JHashMap.h"
+#include "JIdentityHashMap.h"
 using namespace std;
 using namespace jcpp::util;
 
@@ -36,9 +36,9 @@ namespace jcpp{
         static JThreadLocal lockedObjects;
 
         jbool JThread::addObjectLocked(JObject* o){
-            JHashMap* m=(JHashMap*)lockedObjects.get();//TODO use JIdentityHashMap
+            JIdentityHashMap* m=(JIdentityHashMap*)lockedObjects.get();
             if (m==NULL){
-                m=new JHashMap();
+                m=new JIdentityHashMap();
                 lockedObjects.set(m);
             }
             JInteger* i=(JInteger*)m->get(o);
@@ -52,7 +52,7 @@ namespace jcpp{
 
         jbool JThread::removeObjectLocked(JObject* o){
             bool b=false;
-            JHashMap* m=(JHashMap*)lockedObjects.get();
+            JIdentityHashMap* m=(JIdentityHashMap*)lockedObjects.get();
             if (m!=NULL){
                 JInteger* i=(JInteger*)m->get(o);
                 if (i!=NULL){

@@ -31,6 +31,12 @@ namespace jcpp{
                     }
                 };
 
+                struct POINTER_ID_COMPARATOR{
+                    bool operator()(JObject* e1, JObject* e2){
+                        return (e1==NULL ? (e2==NULL ? true : 0<(jint)e2): (jint)e1<(jint)e2);
+                    }
+                };
+
                 JObject();
 
                 static JClass* getClazz();

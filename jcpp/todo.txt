@@ -8,7 +8,7 @@ group1:
 -implement all JSystem class
 -check call to delete[]
 -implement all jcpp.util, jcpp.io, jcpp.net (a quite big list :))
-
+-remove implementation allowing == to call equals ?
 -work on wiki documentation
 -use which cast? () or dynamic or static?
 -implement socket/read/connecttimeout

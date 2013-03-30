@@ -19,6 +19,7 @@ namespace jcpp{
             classes->push_back(JHashMap::getClazz());
             classes->push_back(JHashtable::getClazz());
             classes->push_back(JHashSet::getClazz());
+            classes->push_back(JIdentityHashMap::getClazz());
             classes->push_back(JIterator::getClazz());
             classes->push_back(JList::getClazz());
             classes->push_back(JListIterator::getClazz());

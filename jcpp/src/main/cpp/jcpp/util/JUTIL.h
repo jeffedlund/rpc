@@ -16,6 +16,7 @@
 #include "JHashMap.h"
 #include "JHashSet.h"
 #include "JHashtable.h"
+#include "JIdentityHashMap.h"
 #include "JIterator.h"
 #include "JListIterator.h"
 #include "JList.h"

@@ -396,7 +396,8 @@ namespace jcpp{
                             return false;
                         }
                     } else {
-                        if (!value->equals(m->get(key))){
+                        JObject* v2=m->get(key);
+                        if (v2==NULL || !value->equals(v2)){
                             delete i;
                             return false;
                         }

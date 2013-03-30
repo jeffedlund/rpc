@@ -74,15 +74,15 @@ namespace jcpp{
         }
 
         void JObject::lock(){
-            //if (JThread::addObjectLocked(this)){ TODO change once using identityhashmap
+            if (JThread::addObjectLocked(this)){
                 mutex->lock();
-            //}
+            }
         }
 
         void JObject::unlock(){
-            //TODO same if (JThread::removeObjectLocked(this)){
+            if (JThread::removeObjectLocked(this)){
                 mutex->unlock();
-            //}
+            }
         }
 
         void JObject::wait(){//we don't lock/unlock here, but at the caller level
