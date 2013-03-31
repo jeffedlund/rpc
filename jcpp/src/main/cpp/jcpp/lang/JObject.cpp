@@ -6,6 +6,7 @@
 #include "JCloneNotSupportedException.h"
 #include "JCloneable.h"
 #include "JThread.h"
+#include "JNullPointerException.h"
 using namespace std;
 
 namespace jcpp{
@@ -63,6 +64,13 @@ namespace jcpp{
 
         bool JObject::operator!=(JObject &other){
             return !(*this==other);
+        }
+
+        jbool JObject::isInstanceOf(JClass* c){
+            if (c==NULL){
+                throw new JNullPointerException();
+            }
+            return c->isAssignableFrom(getClass());
         }
 
         string JObject::toString(){

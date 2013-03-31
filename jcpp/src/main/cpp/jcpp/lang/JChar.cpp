@@ -9,24 +9,25 @@ using namespace jcpp::io;
 
 namespace jcpp{
     namespace lang{
-        static JObject* staticGetValue(JObject* object){
-            JChar* b=(JChar*)object;
-            return b->getPrimitiveChar();
-        }
-
-        static void staticSetValue(JObject* obj,JObject* value){
-            JChar* b=(JChar*)obj;
-            b->setPrimitiveChar((JPrimitiveChar*)value);
-        }
-
         class JCharClass : public JClass{
-          public:
+        protected:
+            static JObject* staticGetValue(JObject* object){
+                JChar* b=(JChar*)object;
+                return b->getPrimitiveChar();
+            }
+
+            static void staticSetValue(JObject* obj,JObject* value){
+                JChar* b=(JChar*)obj;
+                b->setPrimitiveChar((JPrimitiveChar*)value);
+            }
+        public:
             JCharClass(){
                 this->canonicalName="java.lang.Character";
                 this->name="java.lang.Character";
                 this->simpleName="Character";
                 this->serialVersionUID=3786198910865385080ULL;
                 addInterface(JSerializable::getClazz());
+                addInterface(JComparable::getClazz());
                 addField(new JField("value",JPrimitiveChar::getClazz(),staticGetValue,staticSetValue));
             }
 
@@ -60,6 +61,8 @@ namespace jcpp{
 
         jchar JChar::MAX_VALUE = (jchar)'\uffff';
 
+        JClass* JChar::TYPE = JPrimitiveChar::getClazz();
+
         JChar::JChar(char value):JObject(getClazz()){
             this->value=new JPrimitiveChar(value);
         }
@@ -80,11 +83,15 @@ namespace jcpp{
             return false;
         }
 
-        void JChar::set(char value){
+        void JChar::set(jchar value){
             this->value->set(value);
         }
 
-        char JChar::get(){
+        jchar JChar::get(){
+            return value->get();
+        }
+
+        jchar JChar::charValue(){
             return value->get();
         }
 
@@ -107,7 +114,9 @@ namespace jcpp{
         }
 
         string JChar::toString(){
-            return ""+value->get();
+            string s="";
+            s.push_back(value->get());
+            return s;
         }
 
         JChar::~JChar(){

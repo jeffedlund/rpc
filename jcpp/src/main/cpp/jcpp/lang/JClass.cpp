@@ -34,6 +34,7 @@ namespace jcpp{
                 this->name="java.lang.Class";
                 this->simpleName="Class";
                 this->serialVersionUID=3206093459760846163ULL;
+                addInterface(JSerializable::getClazz());
             }
 
             JClassLoader* getClassLoader(){
@@ -98,48 +99,20 @@ namespace jcpp{
         }
 
         JClass::JClass(JClassLoader* classLoader):JObject(JClass::getClazz()){
-            this->classLoader=classLoader;
-            this->bIsArray=false;
-            this->bIsProxy=false;
-            this->bIsEnum=false;
-            this->bIsInterface=false;
-            this->bIsPrimitive=false;
-            this->bIsPackage=false;
-            this->componentType=NULL;
-            this->enumConstants=new vector<JEnum*>;
-            this->fields=new map<string,JField*>;
-            this->fieldsList=new vector<JField*>;
-            this->declaredFields=new map<string,JField*>;
-            this->declaredFieldsList=new vector<JField*>;
-            this->methods=new map<string,JMethod*>;
-            this->methodsList=new vector<JMethod*>;
-            this->declaredMethods=new map<string,JMethod*>;
-            this->declaredMethodsList=new vector<JMethod*>;
-            this->interfaces=new vector<JClass*>;
+            init(classLoader);
         }
 
         JClass::JClass():JObject(JClass::getClazz()){
-            this->classLoader=JClassLoader::getBootClassLoader();
-            this->bIsArray=false;
-            this->bIsProxy=false;
-            this->bIsEnum=false;
-            this->bIsInterface=false;
-            this->bIsPrimitive=false;
-            this->bIsPackage=false;
-            this->componentType=NULL;
-            this->enumConstants=new vector<JEnum*>;
-            this->fields=new map<string,JField*>;
-            this->fieldsList=new vector<JField*>;
-            this->declaredFields=new map<string,JField*>;
-            this->declaredFieldsList=new vector<JField*>;
-            this->methods=new map<string,JMethod*>;
-            this->methodsList=new vector<JMethod*>;
-            this->declaredMethods=new map<string,JMethod*>;
-            this->declaredMethodsList=new vector<JMethod*>;
-            this->interfaces=new vector<JClass*>;
+            init(JClassLoader::getBootClassLoader());
         }
 
         JClass::JClass(bool root):JObject(root){
+            init(NULL);
+        }
+
+        void JClass::init(JClassLoader* cl){
+            this->classLoader=cl;
+            this->serialVersionUID=0;
             this->bIsArray=false;
             this->bIsProxy=false;
             this->bIsEnum=false;
@@ -347,12 +320,12 @@ namespace jcpp{
             return false;
         }
 
-        bool JClass::isInstance(JObject* object){
-            if (object==NULL){
+        bool JClass::isInstance(JObject* o){
+            if (o==NULL){
                 throw new JNullPointerException();
             }
-            JClass* classObject=object->getClass();
-            return isAssignableFrom(classObject);
+            JClass* c=o->getClass();
+            return isAssignableFrom(c);
         }
 
         bool JClass::isInterface(){

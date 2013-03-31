@@ -9,18 +9,18 @@ using namespace jcpp::io;
 
 namespace jcpp{
     namespace lang{
-        static JObject* staticGetValue(JObject* object){
-            JByte* b=(JByte*)object;
-            return b->getPrimitiveByte();
-        }
-
-        static void staticSetValue(JObject* obj,JObject* value){
-            JByte* b=(JByte*)obj;
-            b->setPrimitiveByte((JPrimitiveByte*)value);
-        }
-
         class JByteClass : public JClass{
-          public:
+        protected:
+            static JObject* staticGetValue(JObject* object){
+                JByte* b=(JByte*)object;
+                return b->getPrimitiveByte();
+            }
+
+            static void staticSetValue(JObject* obj,JObject* value){
+                JByte* b=(JByte*)obj;
+                b->setPrimitiveByte((JPrimitiveByte*)value);
+            }
+        public:
             JByteClass():JClass(){
                 this->canonicalName="java.lang.Byte";
                 this->name="java.lang.Byte";
@@ -61,6 +61,20 @@ namespace jcpp{
 
         jbyte JByte::MAX_VALUE=127;
 
+        JClass* JByte::TYPE = JPrimitiveByte::getClazz();
+
+        jint JByte::toUnsignedInt(jbyte x){
+            return ((jint) x) & 0xff;
+        }
+
+        jlong JByte::toUnsignedLong(jbyte x){
+            return ((jlong) x) & 0xffL;
+        }
+
+        jint JByte::SIZE = 8;
+
+        jint JByte::BYTES = SIZE / JByte::SIZE;
+
         JByte::JByte(jbyte value):JNumber(getClazz()){
             this->value=new JPrimitiveByte(value);
         }
@@ -98,6 +112,30 @@ namespace jcpp{
 
         jbyte JByte::get(){
             return value->get();
+        }
+
+        jbyte JByte::byteValue(){
+            return value->get();
+        }
+
+        jshort JByte::shortValue() {
+            return (jshort)value->get();
+        }
+
+        jint JByte::intValue(){
+            return (jint)value->get();
+        }
+
+        jlong JByte::longValue(){
+            return (jlong)value->get();
+        }
+
+        jfloat JByte::floatValue(){
+            return (jfloat)value->get();
+        }
+
+        jdouble JByte::doubleValue(){
+            return (jdouble)value->get();
         }
 
         void JByte::setPrimitiveByte(JPrimitiveByte* value){

@@ -16,6 +16,9 @@ namespace jcpp{
 
             protected:
                 JPrimitiveByte* value;
+                void setPrimitiveByte(JPrimitiveByte* value);
+                JPrimitiveByte* getPrimitiveByte();
+                friend class JByteClass;
 
             public:
                 JByte();
@@ -25,13 +28,22 @@ namespace jcpp{
                 static jint compare(jbyte x,jbyte y);
                 static jbyte MIN_VALUE;
                 static jbyte MAX_VALUE;
+                static JClass* TYPE;
+                static jint toUnsignedInt(jbyte x);
+                static jlong toUnsignedLong(jbyte x);
+                static jint SIZE;
+                static jint BYTES;
                 JByte operator+=(jbyte f);
                 JByte operator-=(jbyte f);
                 JByte operator*=(jbyte f);
                 void set(jbyte value);
                 jbyte get();
-                void setPrimitiveByte(JPrimitiveByte* value);
-                JPrimitiveByte* getPrimitiveByte();
+                jbyte byteValue();
+                jshort shortValue();
+                jint intValue();
+                jlong longValue();
+                jfloat floatValue();
+                jdouble doubleValue();
                 virtual jint compareTo(JObject * o);
                 virtual jint hashCode();
                 virtual bool equals(JObject* other);

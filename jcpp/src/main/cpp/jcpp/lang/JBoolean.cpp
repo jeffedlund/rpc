@@ -10,17 +10,18 @@ using namespace jcpp::lang::reflect;
 
 namespace jcpp{
     namespace lang{
-        static JObject* getValue(JObject* object){
-            JBoolean* b=(JBoolean*)object;
-            return b->getPrimitiveBoolean();
-        }
-
-        static void setValue(JObject* obj,JObject* value){
-            JBoolean* b=(JBoolean*)obj;
-            b->setPrimitiveBoolean((JPrimitiveBoolean*)value);
-        }
-
         class JBooleanClass : public JClass{
+        protected:
+            static JObject* getValue(JObject* object){
+                JBoolean* b=(JBoolean*)object;
+                return b->getPrimitiveBoolean();
+            }
+
+            static void setValue(JObject* obj,JObject* value){
+                JBoolean* b=(JBoolean*)obj;
+                b->setPrimitiveBoolean((JPrimitiveBoolean*)value);
+            }
+
           public:
             JBooleanClass(){
                 this->canonicalName="java.lang.Boolean";
@@ -50,12 +51,39 @@ namespace jcpp{
             return clazz;
         }
 
+        JBoolean* JBoolean::TRUE = new JBoolean(true);
+
+        JBoolean* JBoolean::FALSE = new JBoolean(false);
+
+        JClass* JBoolean::TYPE = JPrimitiveBoolean::getClazz();
+
+        jbool JBoolean::parseBoolean(string s){
+            return s=="true";
+        }
+
+        JBoolean* JBoolean::valueOf(jbool b){
+            return (b ? TRUE : FALSE);
+        }
+
+        JBoolean* JBoolean::valueOf(string s){
+            return (parseBoolean(s) ? TRUE : FALSE );
+        }
+
+        string JBoolean::toString(jbool b){
+            return (b ? "true" : "false");
+        }
+
         jint JBoolean::hashCode(bool value){
             return (value ? 1231 : 1237);
         }
 
         jint JBoolean::compare(jbool v1,jbool v2){
             return (v1 == v2) ? 0 : (v1 ? 1 : -1);
+        }
+
+        jbool JBoolean::getBoolean(string){
+            jbool result = false;//TODO  parseBoolean(System.getProperty(name));
+            return result;
         }
 
         JBoolean::JBoolean(bool value):JObject(getClazz()){
@@ -74,11 +102,15 @@ namespace jcpp{
             return (*value)==(*b->value);
         }
 
-        void JBoolean::set(bool value){
+        void JBoolean::set(jbool value){
             this->value->set(value);
         }
 
-        bool JBoolean::get(){
+        jbool JBoolean::get(){
+            return value->get();
+        }
+
+        jbool JBoolean::booleanValue(){
             return value->get();
         }
 

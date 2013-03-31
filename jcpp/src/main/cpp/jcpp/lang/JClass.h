@@ -19,9 +19,12 @@ namespace jcpp{
         class JEnum;
         class JClassLoader;
 
-        //TODO implement forName,
+        //TODO implement JClass::forName,, getPackage, getenclosingMethod,getEnclosingConstructor,
+        //getDeclaringClass,isAnonymousClass,isLocalClass,isMemberClass,getClasses, getDeclaredClasses,
+        //getResourceAsStream, getResource,getPrimitiveClass, cast,annotations,
         class JCPP_LIBRARY_EXPORT JClass : public JObject{
         private:
+            void init(JClassLoader* cl);
             void initFields();
             void initMethods();
         protected:
@@ -83,7 +86,7 @@ namespace jcpp{
             bool isProxy();
             bool isEnum();
             bool isAssignableFrom(JClass* clazz);
-            bool isInstance(JObject* object);
+            bool isInstance(JObject* o);
             bool isInterface();
             bool isPrimitive();
             bool isPackage();

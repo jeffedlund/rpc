@@ -6,23 +6,24 @@
 #include <string>
 #include <sstream>
 #include "JSerializable.h"
+#include "JByte.h"
 using namespace std;
 using namespace jcpp::io;
 
 namespace jcpp{
     namespace lang{
-        static JObject* staticGetValue(JObject* object){
-            JDouble* b=(JDouble*)object;
-            return b->getPrimitiveDouble();
-        }
-
-        static void staticSetValue(JObject* obj,JObject* value){
-            JDouble* b=(JDouble*)obj;
-            b->setPrimitiveDouble((JPrimitiveDouble*)value);
-        }
-
         class JDoubleClass : public JClass{
-          public:
+        protected:
+            static JObject* staticGetValue(JObject* object){
+                JDouble* b=(JDouble*)object;
+                return b->getPrimitiveDouble();
+            }
+
+            static void staticSetValue(JObject* obj,JObject* value){
+                JDouble* b=(JDouble*)obj;
+                b->setPrimitiveDouble((JPrimitiveDouble*)value);
+            }
+        public:
             JDoubleClass(){
                 this->canonicalName="java.lang.Double";
                 this->name="java.lang.Double";
@@ -63,6 +64,12 @@ namespace jcpp{
 
         jdouble JDouble::MAX_VALUE = 0x1.fffffffffffffP+1023;
 
+        jint JDouble::SIZE = 64;
+
+        jint JDouble::BYTES = SIZE / JByte::SIZE;
+
+        JClass* JDouble::TYPE = JPrimitiveDouble::getClazz();
+
         JDouble::JDouble(double value):JNumber(JDouble::getClazz()){
             this->value=new JPrimitiveDouble(value);
         }
@@ -94,11 +101,35 @@ namespace jcpp{
             return *this;
         }
 
-        void JDouble::set(double value){
+        void JDouble::set(jdouble value){
             this->value->set(value);
         }
 
-        double JDouble::get(){
+        jdouble JDouble::get(){
+            return value->get();
+        }
+
+        jbyte JDouble::byteValue(){
+            return (jbyte)value->get();
+        }
+
+        jshort JDouble::shortValue(){
+            return (jshort)value->get();
+        }
+
+        jint JDouble::intValue(){
+            return (jint)value->get();
+        }
+
+        jlong JDouble::longValue(){
+            return (jlong)value->get();
+        }
+
+        jfloat JDouble::floatValue(){
+            return (jfloat)value->get();
+        }
+
+        jdouble JDouble::doubleValue(){
             return value->get();
         }
 

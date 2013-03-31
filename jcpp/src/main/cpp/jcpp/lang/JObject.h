@@ -47,6 +47,8 @@ namespace jcpp{
 
                 virtual bool operator!=(JObject &other);
 
+                jbool isInstanceOf(JClass* c);
+
                 virtual string toString();
 
                 void lock();

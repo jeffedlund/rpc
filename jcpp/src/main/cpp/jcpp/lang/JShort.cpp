@@ -107,6 +107,30 @@ namespace jcpp{
             return value->get();
         }
 
+        jbyte JShort::byteValue(){
+            return (jbyte)value->get();
+        }
+
+        jshort JShort::shortValue(){
+            return value->get();
+        }
+
+        jint JShort::intValue(){
+            return (jint)value->get();
+        }
+
+        jlong JShort::longValue(){
+            return (jlong)value->get();
+        }
+
+        jfloat JShort::floatValue(){
+            return (jfloat)value->get();
+        }
+
+        jdouble JShort::doubleValue(){
+            return (jdouble)value->get();
+        }
+
         void JShort::setPrimitiveShort(JPrimitiveShort* value){
             delete this->value;
             this->value=value;

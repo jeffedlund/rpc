@@ -21,10 +21,6 @@ namespace jcpp{
             JClass* getSuperclass(){
                 return JObject::getClazz();
             }
-
-            JObject* newInstance(){
-                throw new JInstantiationException("cannot instantiate object of class "+getName());
-            }
         };
 
         JNumber::JNumber(JClass* _class):JObject(_class){

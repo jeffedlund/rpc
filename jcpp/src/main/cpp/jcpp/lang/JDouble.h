@@ -13,9 +13,11 @@ using namespace std;
 namespace jcpp{
     namespace lang{
         class JCPP_LIBRARY_EXPORT JDouble : public JNumber, public JComparable{
-
             protected:
                 JPrimitiveDouble* value;
+                void setPrimitiveDouble(JPrimitiveDouble* value);
+                JPrimitiveDouble* getPrimitiveDouble();
+                friend class JDoubleClass;
 
             public:
                 JDouble();
@@ -23,17 +25,24 @@ namespace jcpp{
                 static JClass* getClazz();
                 static jdouble MIN_VALUE;
                 static jdouble MAX_VALUE;
+                static jint SIZE;
+                static jint BYTES;
+                static JClass* TYPE;
                 static jint hashCode(jdouble);
                 static jint compare(jdouble d1,jdouble d2);
                 JDouble operator+=(jdouble f);
                 JDouble operator-=(jdouble f);
                 JDouble operator*=(jdouble f);
-                void set(double value);
-                double get();
-                void setPrimitiveDouble(JPrimitiveDouble* value);
-                JPrimitiveDouble* getPrimitiveDouble();
+                void set(jdouble value);
+                jdouble get();
+                jbyte byteValue();
+                jshort shortValue();
+                jint intValue();
+                jlong longValue();
+                jfloat floatValue();
+                jdouble doubleValue();
                 virtual jint compareTo(JObject* o);
-                virtual bool equals(JObject* other);
+                virtual jbool equals(JObject* other);
                 virtual jint hashCode();
                 virtual string toString();
                 virtual ~JDouble();

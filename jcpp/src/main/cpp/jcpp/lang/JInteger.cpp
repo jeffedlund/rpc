@@ -101,6 +101,30 @@ namespace jcpp{
             return value->get();
         }
 
+        jbyte JInteger::byteValue(){
+            return (jbyte)value->get();
+        }
+
+        jshort JInteger::shortValue(){
+            return (jshort)value->get();
+        }
+
+        jint JInteger::intValue(){
+            return value->get();
+        }
+
+        jlong JInteger::longValue(){
+            return (jlong)value->get();
+        }
+
+        jfloat JInteger::floatValue(){
+            return (jfloat)value->get();
+        }
+
+        jdouble JInteger::doubleValue(){
+            return (jdouble)value->get();
+        }
+
         void JInteger::setPrimitiveInt(JPrimitiveInt* value){
             delete this->value;
             this->value=value;

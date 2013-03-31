@@ -30,6 +30,12 @@ namespace jcpp{
                 JFloat operator*=(jfloat f);
                 void set(float value);
                 float get();
+                jbyte byteValue();
+                jshort shortValue();
+                jint intValue();
+                jlong longValue();
+                jfloat floatValue();
+                jdouble doubleValue();
                 void setPrimitiveFloat(JPrimitiveFloat* value);
                 JPrimitiveFloat* getPrimitiveFloat();
                 virtual jint compareTo(JObject* o);

@@ -7,14 +7,19 @@
 #include "JPrimitiveChar.h"
 #include "JCPP.h"
 #include "JComparable.h"
+#include "JSerializable.h"
 using namespace std;
+using namespace jcpp::io;
 
 namespace jcpp{
     namespace lang{
-        class JCPP_LIBRARY_EXPORT JChar : public JObject, public JComparable{
+        class JCPP_LIBRARY_EXPORT JChar : public JObject, public JComparable, public JSerializable{
 
             protected:
                 JPrimitiveChar* value;
+                void setPrimitiveChar(JPrimitiveChar* value);
+                JPrimitiveChar* getPrimitiveChar();
+                friend class JCharClass;
 
             public:
                 JChar();
@@ -25,12 +30,12 @@ namespace jcpp{
                 static jint compare(jchar x,jchar y);
                 static jchar MIN_VALUE;
                 static jchar MAX_VALUE;
-                void set(char value);
-                char get();
-                void setPrimitiveChar(JPrimitiveChar* value);
-                JPrimitiveChar* getPrimitiveChar();
+                static JClass* TYPE;
+                void set(jchar value);
+                jchar get();
+                jchar charValue();
                 virtual jint compareTo(JObject * o);
-                virtual bool equals(JObject* other);
+                virtual jbool equals(JObject* other);
                 virtual jint hashCode();
                 virtual string toString();
                 virtual ~JChar();

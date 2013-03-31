@@ -101,6 +101,30 @@ namespace jcpp{
             return value->get();
         }
 
+        jbyte JFloat::byteValue(){
+            return (jbyte)value->get();
+        }
+
+        jshort JFloat::shortValue(){
+            return (jshort)value->get();
+        }
+
+        jint JFloat::intValue(){
+            return (jint)value->get();
+        }
+
+        jlong JFloat::longValue(){
+            return (jlong)value->get();
+        }
+
+        jfloat JFloat::floatValue(){
+            return value->get();
+        }
+
+        jdouble JFloat::doubleValue(){
+            return (jdouble)value->get();
+        }
+
         void JFloat::setPrimitiveFloat(JPrimitiveFloat* value){
             delete this->value;
             this->value=value;

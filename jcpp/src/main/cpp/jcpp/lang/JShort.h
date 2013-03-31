@@ -29,6 +29,12 @@ namespace jcpp{
                 JShort operator*=(jshort f);
                 void set(jshort value);
                 jshort get();
+                jbyte byteValue();
+                jshort shortValue();
+                jint intValue();
+                jlong longValue();
+                jfloat floatValue();
+                jdouble doubleValue();
                 void setPrimitiveShort(JPrimitiveShort* value);
                 JPrimitiveShort* getPrimitiveShort();
                 virtual jint compareTo(JObject* o);

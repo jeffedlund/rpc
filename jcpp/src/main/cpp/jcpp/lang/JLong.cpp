@@ -100,6 +100,30 @@ namespace jcpp{
             return value->get();
         }
 
+        jbyte JLong::byteValue(){
+            return (jbyte)value->get();
+        }
+
+        jshort JLong::shortValue(){
+            return (jshort)value->get();
+        }
+
+        jint JLong::intValue(){
+            return (jint)value->get();
+        }
+
+        jlong JLong::longValue(){
+            return value->get();
+        }
+
+        jfloat JLong::floatValue(){
+            return (jfloat)value->get();
+        }
+
+        jdouble JLong::doubleValue(){
+            return (jdouble)value->get();
+        }
+
         void JLong::setPrimitiveLong(JPrimitiveLong* value){
             delete this->value;
             this->value=value;

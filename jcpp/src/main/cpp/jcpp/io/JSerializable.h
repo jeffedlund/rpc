@@ -2,11 +2,10 @@
 #define JSERIALIZABLE_H
 
 #include "JObject.h"
-#include "JClass.h"
 #include "JInterface.h"
 #include "JCPP.h"
+#include "JClass.h"
 using namespace jcpp::lang;
-using namespace jcpp::lang::reflect;
 
 namespace jcpp{
     namespace io{
