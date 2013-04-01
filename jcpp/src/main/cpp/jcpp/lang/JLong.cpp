@@ -5,23 +5,24 @@
 #include <string>
 #include <sstream>
 #include "JSerializable.h"
+#include "JByte.h"
 using namespace std;
 using namespace jcpp::io;
 
 namespace jcpp{
     namespace lang{
-        static JObject* staticGetValue(JObject* object){
-            JLong* b=(JLong*)object;
-            return b->getPrimitiveLong();
-        }
-
-        static void staticSetValue(JObject* obj,JObject* value){
-            JLong* b=(JLong*)obj;
-            b->setPrimitiveLong((JPrimitiveLong*)value);
-        }
-
         class JLongClass : public JClass{
-          public:
+        protected:
+            static JObject* staticGetValue(JObject* object){
+                JLong* b=(JLong*)object;
+                return b->getPrimitiveLong();
+            }
+
+            static void staticSetValue(JObject* obj,JObject* value){
+                JLong* b=(JLong*)obj;
+                b->setPrimitiveLong((JPrimitiveLong*)value);
+            }
+        public:
             JLongClass(){
                 this->canonicalName="java.lang.Long";
                 this->name="java.lang.Long";
@@ -60,6 +61,12 @@ namespace jcpp{
         jlong JLong::MIN_VALUE = 0x8000000000000000L;
 
         jlong JLong::MAX_VALUE = 0x7fffffffffffffffL;
+
+        JClass* JLong::TYPE = JPrimitiveLong::getClazz();
+
+        jint JLong::SIZE = 64;
+
+        jint JLong::BYTES = SIZE / JByte::SIZE;
 
         JLong::JLong(jlong value):JNumber(getClazz()){
             this->value=new JPrimitiveLong(value);

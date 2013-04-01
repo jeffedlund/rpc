@@ -14,29 +14,17 @@ namespace jcpp{
             vector<JObject*>* objects;
             jint len;
             void checkType(JObject* o);
+            void setSize(jint len);
 
         public:
             JPrimitiveArray(JClass* arrayClass,jint len=10);
-
             JPrimitiveArray(JClass* arrayClass,vector<JObject*>* objects);
-
-            virtual bool equals(JObject* other);
-
             static JClass* getClazz(JClass* componentType);
-
-            //TODO test cases for this method
-            static JClass* loadClassBySignature(JClassLoader* classLoader,string name);
-
             jint size();
-
-            void setSize(jint len);
-
             JObject* get(jint i);
-
-            void set(jint i,JObject* value);
-
             vector<JObject*>* getObjects();
-
+            void set(jint i,JObject* value);
+            virtual bool equals(JObject* other);
             virtual ~JPrimitiveArray();
         };
     }

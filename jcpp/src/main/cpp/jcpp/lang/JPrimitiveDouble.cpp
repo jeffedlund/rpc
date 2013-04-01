@@ -16,6 +16,7 @@ namespace jcpp{
                 this->simpleName="double";
                 this->bIsPrimitive=true;
                 addInterface(JComparable::getClazz());
+                addInterface(JSerializable::getClazz());
             }
 
             JClass* getSuperclass(){
@@ -36,7 +37,7 @@ namespace jcpp{
             return clazz;
         }
 
-        JPrimitiveDouble::JPrimitiveDouble(double value):JObject(getClazz()){
+        JPrimitiveDouble::JPrimitiveDouble(jdouble value):JObject(getClazz()){
             this->value=value;
         }
 
@@ -49,7 +50,7 @@ namespace jcpp{
             return get()-s->get();
         }
 
-        bool JPrimitiveDouble::equals(JObject* other){
+        jbool JPrimitiveDouble::equals(JObject* other){
             if (other->getClass()!=getClazz()){
                 return false;
             }
@@ -72,11 +73,11 @@ namespace jcpp{
             return *this;
         }
 
-        void JPrimitiveDouble::set(double value){
+        void JPrimitiveDouble::set(jdouble value){
             this->value=value;
         }
 
-        double JPrimitiveDouble::get(){
+        jdouble JPrimitiveDouble::get(){
             return value;
         }
 

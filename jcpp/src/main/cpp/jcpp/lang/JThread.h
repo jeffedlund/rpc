@@ -7,11 +7,22 @@
 #include "QObjectAware.h"
 #include "JCPP.h"
 #include "JThreadLocal.h"
+#include "JThrowable.h"
 using namespace std;
 
 namespace jcpp{
     namespace lang{
         class JCPP_LIBRARY_EXPORT JThread : public JObject, public JRunnable, public QObjectAware{
+        public:
+            class JUncaughtExceptionHandler : public JInterface{
+            public:
+                static JClass* getClazz();
+                virtual void uncaughtException(JThread* t, JThrowable* e)=0;
+                virtual ~JUncaughtExceptionHandler();
+            };
+            static JUncaughtExceptionHandler* getDefaultUncaughtExceptionHandler();
+            static void setDefaultUncaughtExceptionHandler(JUncaughtExceptionHandler* eh);
+
         protected:
             class JQThread : public QThread{
                 JRunnable* runnable;
@@ -21,7 +32,11 @@ namespace jcpp{
                     this->runnable=runnable;
                 }
                 void run(){
-                    runnable->run();
+                    try{
+                        runnable->run();
+                    }catch(JThrowable* th){
+                        th->printStackTrace(&cout);//TODO call JUncaughtExceptionHandler
+                    }
                 }
                 static void extSleep(jlong s){
                     sleep(s);
@@ -31,6 +46,7 @@ namespace jcpp{
             QThread* thread;
             bool deletable;
             JRunnable* runnable;
+            JUncaughtExceptionHandler* ueh;
             JThread(QThread* thread);
 
             static jbool addObjectLocked(JObject* o);
@@ -47,6 +63,8 @@ namespace jcpp{
             virtual void releaseOwner();
             virtual QObject* getQObject();
             void move(QObjectAware* objectAware);
+            JUncaughtExceptionHandler* getUncaughtExceptionHandler();
+            void setUncaughtExceptionHandler(JUncaughtExceptionHandler* eh);
             virtual void run();
             void start();
             string toString();

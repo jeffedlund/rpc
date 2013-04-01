@@ -33,6 +33,42 @@ namespace jcpp{
             return clazz;
         }
 
+
+        class JUncaughtExceptionHandlerClass : public JClass{
+          public:
+            JUncaughtExceptionHandlerClass():JClass(){
+                this->canonicalName="java.lang.Thread$UncaughtExceptionHandler";
+                this->name="java.lang.Thread$UncaughtExceptionHandler";
+                this->simpleName="Thread$UncaughtExceptionHandler";
+                this->bIsInterface=true;
+            }
+
+            JClass* getSuperclass(){
+                return JInterface::getClazz();
+            }
+        };
+
+        static JClass* uncaughtExceptionHandlerClazz=NULL;
+
+        JClass* JThread::JUncaughtExceptionHandler::getClazz(){
+            if (uncaughtExceptionHandlerClazz==NULL){
+                uncaughtExceptionHandlerClazz=new JUncaughtExceptionHandlerClass();
+            }
+            return uncaughtExceptionHandlerClazz;
+        }
+
+        JThread::JUncaughtExceptionHandler::~JUncaughtExceptionHandler(){
+        }
+
+        static JThread::JUncaughtExceptionHandler* staticUEH =NULL;
+        JThread::JUncaughtExceptionHandler* JThread::getDefaultUncaughtExceptionHandler(){
+            return staticUEH;
+        }
+
+        void JThread::setDefaultUncaughtExceptionHandler(JUncaughtExceptionHandler* eh){
+            staticUEH=eh;
+        }
+
         static JThreadLocal lockedObjects;
 
         jbool JThread::addObjectLocked(JObject* o){
@@ -69,16 +105,19 @@ namespace jcpp{
         JThread::JThread(QThread* thread):JObject(getClazz()){
             this->thread=thread;
             this->deletable=false;
+            this->ueh=staticUEH;
         }
 
         JThread::JThread():JObject(getClazz()){
             this->thread=new JQThread(this);
             this->deletable=true;
+            this->ueh=staticUEH;
         }
 
         JThread::JThread(JRunnable* runnable):JObject(getClazz()){
             this->runnable=runnable;
             this->thread=new JQThread(runnable);
+            this->ueh=staticUEH;
         }
 
         void JThread::takeOwner(){
@@ -104,6 +143,14 @@ namespace jcpp{
 
         void JThread::sleep(jlong s){
             JQThread::extSleep(s);
+        }
+
+        JThread::JUncaughtExceptionHandler* JThread::getUncaughtExceptionHandler(){
+            return this->ueh;
+        }
+
+        void JThread::setUncaughtExceptionHandler(JUncaughtExceptionHandler* eh){
+            this->ueh=eh;
         }
 
         void JThread::run(){

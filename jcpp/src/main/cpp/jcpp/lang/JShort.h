@@ -15,6 +15,9 @@ namespace jcpp{
         class JCPP_LIBRARY_EXPORT JShort : public JNumber, public JComparable{
             protected:
                 JPrimitiveShort* value;
+                void setPrimitiveShort(JPrimitiveShort* value);
+                JPrimitiveShort* getPrimitiveShort();
+                friend class JShortClass;
 
             public:
                 JShort();
@@ -22,6 +25,9 @@ namespace jcpp{
                 static JClass* getClazz();
                 static jshort MIN_VALUE;
                 static jshort MAX_VALUE;
+                static jint SIZE;
+                static jint BYTES;
+                static JClass* TYPE;
                 static jint hashCode(jshort);
                 static jint compare(jshort x,jshort y);
                 JShort operator+=(jshort f);
@@ -35,8 +41,6 @@ namespace jcpp{
                 virtual jlong longValue();
                 virtual jfloat floatValue();
                 virtual jdouble doubleValue();
-                void setPrimitiveShort(JPrimitiveShort* value);
-                JPrimitiveShort* getPrimitiveShort();
                 virtual jint compareTo(JObject* o);
                 virtual bool equals(JObject* other);
                 virtual jint hashCode();

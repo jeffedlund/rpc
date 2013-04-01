@@ -16,6 +16,9 @@ namespace jcpp{
 
             protected:
                 JPrimitiveLong* value;
+                void setPrimitiveLong(JPrimitiveLong* value);
+                JPrimitiveLong* getPrimitiveLong();
+                friend class JLongClass;
 
             public:
                 JLong();
@@ -23,6 +26,9 @@ namespace jcpp{
                 static JClass* getClazz();
                 static jlong MIN_VALUE;
                 static jlong MAX_VALUE;
+                static jint SIZE;
+                static jint BYTES;
+                static JClass* TYPE;
                 static jint hashCode(jlong l);
                 static jint compare(jlong x,jlong y);
                 JLong operator+=(jlong f);
@@ -36,8 +42,6 @@ namespace jcpp{
                 virtual jlong longValue();
                 virtual jfloat floatValue();
                 virtual jdouble doubleValue();
-                void setPrimitiveLong(JPrimitiveLong* value);
-                JPrimitiveLong* getPrimitiveLong();
                 virtual jint compareTo(JObject* o);
                 virtual bool equals(JObject* other);
                 virtual jint hashCode();

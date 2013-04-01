@@ -16,6 +16,7 @@ namespace jcpp{
                 this->simpleName="char";
                 this->bIsPrimitive=true;
                 addInterface(JComparable::getClazz());
+                addInterface(JSerializable::getClazz());
             }
 
             JClass* getSuperclass(){

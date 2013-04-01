@@ -5,23 +5,24 @@
 #include <string>
 #include <sstream>
 #include "JSerializable.h"
+#include "JByte.h"
 using namespace std;
 using namespace jcpp::io;
 
 namespace jcpp{
     namespace lang{
-        static JObject* staticGetValue(JObject* object){
-            JFloat* b=(JFloat*)object;
-            return b->getPrimitiveFloat();
-        }
-
-        static void staticSetValue(JObject* obj,JObject* value){
-            JFloat* b=(JFloat*)obj;
-            b->setPrimitiveFloat((JPrimitiveFloat*)value);
-        }
-
         class JFloatClass : public JClass{
-          public:
+        protected:
+            static JObject* staticGetValue(JObject* object){
+                JFloat* b=(JFloat*)object;
+                return b->getPrimitiveFloat();
+            }
+
+            static void staticSetValue(JObject* obj,JObject* value){
+                JFloat* b=(JFloat*)obj;
+                b->setPrimitiveFloat((JPrimitiveFloat*)value);
+            }
+        public:
             JFloatClass(){
                 this->canonicalName="java.lang.Float";
                 this->name="java.lang.Float";
@@ -62,7 +63,13 @@ namespace jcpp{
 
         jfloat JFloat::MAX_VALUE = 0x1.fffffeP+127f;
 
-        JFloat::JFloat(float value):JNumber(getClazz()){
+        jint JFloat::SIZE = 32;
+
+        jint JFloat::BYTES = SIZE / JByte::SIZE;
+
+        JClass* JFloat::TYPE = JPrimitiveFloat::getClazz();
+
+        JFloat::JFloat(jfloat value):JNumber(getClazz()){
             this->value=new JPrimitiveFloat(value);
         }
 

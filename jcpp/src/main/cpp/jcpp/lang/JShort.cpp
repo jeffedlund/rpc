@@ -6,23 +6,24 @@
 #include <sstream>
 #include "JSerializable.h"
 #include "JPrimitiveShort.h"
+#include "JByte.h"
 using namespace std;
 using namespace jcpp::io;
 
 namespace jcpp{
     namespace lang{
-        static JObject* staticGetValue(JObject* object){
-            JShort* s=(JShort*)object;
-            return s->getPrimitiveShort();
-        }
-
-        static void staticSetValue(JObject* object,JObject* value){
-            JShort* s=(JShort*)object;
-            s->setPrimitiveShort((JPrimitiveShort*)value);
-        }
-
         class JShortClass : public JClass{
-          public:
+        protected:
+            static JObject* staticGetValue(JObject* object){
+                JShort* s=(JShort*)object;
+                return s->getPrimitiveShort();
+            }
+
+            static void staticSetValue(JObject* object,JObject* value){
+                JShort* s=(JShort*)object;
+                s->setPrimitiveShort((JPrimitiveShort*)value);
+            }
+        public:
             JShortClass(){
                 this->canonicalName="java.lang.Short";
                 this->name="java.lang.Short";
@@ -62,6 +63,12 @@ namespace jcpp{
         jshort JShort::MIN_VALUE = -32768;
 
         jshort JShort::MAX_VALUE = 32767;
+
+        jint JShort::SIZE = 16;
+
+        jint JShort::BYTES = SIZE / JByte::SIZE;
+
+        JClass* JShort::TYPE = JPrimitiveShort::getClazz();
 
         JShort::JShort(jshort value):JNumber(getClazz()){
             this->value=new JPrimitiveShort(value);

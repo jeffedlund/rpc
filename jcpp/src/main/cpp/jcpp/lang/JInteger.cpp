@@ -5,23 +5,24 @@
 #include <string>
 #include <sstream>
 #include "JSerializable.h"
+#include "JByte.h"
 using namespace std;
 using namespace jcpp::io;
 
 namespace jcpp{
     namespace lang{
-        static JObject* staticGetValue(JObject* object){
-            JInteger* b=(JInteger*)object;
-            return b->getPrimitiveInt();
-        }
-
-        static void staticSetValue(JObject* obj,JObject* value){
-            JInteger* b=(JInteger*)obj;
-            b->setPrimitiveInt((JPrimitiveInt*)value);
-        }
-
         class JIntegerClass : public JClass{
-          public:
+        protected:
+            static JObject* staticGetValue(JObject* object){
+                JInteger* b=(JInteger*)object;
+                return b->getPrimitiveInt();
+            }
+
+            static void staticSetValue(JObject* obj,JObject* value){
+                JInteger* b=(JInteger*)obj;
+                b->setPrimitiveInt((JPrimitiveInt*)value);
+            }
+        public:
             JIntegerClass(){
                 this->canonicalName="java.lang.Integer";
                 this->name="java.lang.Integer";
@@ -61,6 +62,12 @@ namespace jcpp{
         jint JInteger::MIN_VALUE = 0x80000000;
 
         jint JInteger::MAX_VALUE = 0x7fffffff;
+
+        jint JInteger::SIZE = 32;
+
+        jint JInteger::BYTES = SIZE / JByte::SIZE;
+
+        JClass* JInteger::TYPE = JPrimitiveInt::getClazz();
 
         JInteger::JInteger(jint value):JNumber(getClazz()){
             this->value=new JPrimitiveInt(value);

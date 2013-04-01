@@ -6,11 +6,13 @@
 #include <iostream>
 #include "JCPP.h"
 #include "JComparable.h"
+#include "JSerializable.h"
 using namespace std;
+using namespace jcpp::io;
 
 namespace jcpp{
     namespace lang{
-        class JCPP_LIBRARY_EXPORT JPrimitiveDouble : public JObject, public JComparable{
+        class JCPP_LIBRARY_EXPORT JPrimitiveDouble : public JObject, public JComparable, public JSerializable{
 
             protected:
                 jdouble value;
@@ -25,7 +27,7 @@ namespace jcpp{
                 void set(jdouble value);
                 jdouble get();
                 virtual jint compareTo(JObject* o);
-                virtual bool equals(JObject* other);
+                virtual jbool equals(JObject* other);
                 virtual jint hashCode();
                 virtual string toString();
                 virtual ~JPrimitiveDouble();

@@ -29,6 +29,8 @@ namespace jcpp{
             bool isBootClassLoader();
             void addClass(JClass* jClass);
             JClass* loadClass(string string);
+            //TODO test cases for this method
+            JClass* loadClassBySignature(string name);
             static JClass* getClazz();
             virtual ~JClassLoader();
         };

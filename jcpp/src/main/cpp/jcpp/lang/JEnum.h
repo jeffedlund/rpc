@@ -10,13 +10,11 @@
 #include "JComparable.h"
 using namespace std;
 
-//TODO write enum test case
+//TODO write enum test case, implement valueOf
 namespace jcpp{
     namespace lang{
-        class JCPP_LIBRARY_EXPORT JEnum: public JObject, public JComparable{
-
+        class JCPP_LIBRARY_EXPORT JEnum: public JObject, public JComparable, public JSerializable{
         protected:
-
             class JEnumClass : public JClass{
               public:
                 JEnumClass(){
@@ -25,14 +23,11 @@ namespace jcpp{
                     this->simpleName="Enum";
                     this->bIsEnum=true;
                     addInterface(JComparable::getClazz());
+                    addInterface(JSerializable::getClazz());
                 }
 
                 JClass* getSuperclass(){
                     return JObject::getClazz();
-                }
-
-                virtual JObject* newInstance(){
-                    throw new JInstantiationException("cannot instantiate enum of class "+getName());
                 }
             };
 

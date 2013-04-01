@@ -7,11 +7,13 @@
 #include <iostream>
 #include "JCPP.h"
 #include "JComparable.h"
+#include "JSerializable.h"
 using namespace std;
+using namespace jcpp::io;
 
 namespace jcpp{
     namespace lang{
-        class JCPP_LIBRARY_EXPORT JPrimitiveBoolean : public JObject, public JComparable{
+        class JCPP_LIBRARY_EXPORT JPrimitiveBoolean : public JObject, public JComparable, public JSerializable{
 
             protected:
                 jbool value;
@@ -21,7 +23,7 @@ namespace jcpp{
                 JPrimitiveBoolean(jbool value);
                 static JClass* getClazz();
                 void set(jbool value);
-                bool get();
+                jbool get();
                 virtual jint compareTo(JObject* o);
                 virtual bool equals(JObject* other);
                 virtual jint hashCode();

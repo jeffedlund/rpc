@@ -17,7 +17,11 @@ namespace jcpp{
                 }
 
                 void run(){
-                    runnable->run();
+                    try{
+                        runnable->run();
+                    }catch(JThrowable* th){
+                        th->printStackTrace(&cout);//TODO call JUncaughtExceptionHandler
+                    }
                 }
             };
 

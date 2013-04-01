@@ -16,6 +16,7 @@ namespace jcpp{
                 this->simpleName="float";
                 this->bIsPrimitive=true;
                 addInterface(JComparable::getClazz());
+                addInterface(JSerializable::getClazz());
             }
 
             JClass* getSuperclass(){
@@ -36,7 +37,7 @@ namespace jcpp{
             return clazz;
         }
 
-        JPrimitiveFloat::JPrimitiveFloat(float value):JObject(getClazz()){
+        JPrimitiveFloat::JPrimitiveFloat(jfloat value):JObject(getClazz()){
             this->value=value;
         }
 
@@ -49,7 +50,7 @@ namespace jcpp{
             return get()-s->get();
         }
 
-        bool JPrimitiveFloat::equals(JObject* other){
+        jbool JPrimitiveFloat::equals(JObject* other){
             if (other->getClass()!=getClazz()){
                 return false;
             }
@@ -72,11 +73,11 @@ namespace jcpp{
             return *this;
         }
 
-        void JPrimitiveFloat::set(float value){
+        void JPrimitiveFloat::set(jfloat value){
             this->value=value;
         }
 
-        float JPrimitiveFloat::get(){
+        jfloat JPrimitiveFloat::get(){
             return value;
         }
 

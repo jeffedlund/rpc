@@ -17,6 +17,9 @@ namespace jcpp{
 
             protected:
                 JPrimitiveInt* value;
+                void setPrimitiveInt(JPrimitiveInt* value);
+                JPrimitiveInt* getPrimitiveInt();
+                friend class JIntegerClass;
 
             public:
                 JInteger();
@@ -26,6 +29,9 @@ namespace jcpp{
                 static jint compare(jint x,jint y);
                 static jint MIN_VALUE;
                 static jint MAX_VALUE;
+                static jint SIZE;
+                static jint BYTES;
+                static JClass* TYPE;
                 JInteger operator+=(jint f);
                 JInteger operator-=(jint f);
                 JInteger operator*=(jint f);
@@ -37,8 +43,6 @@ namespace jcpp{
                 virtual jlong longValue();
                 virtual jfloat floatValue();
                 virtual jdouble doubleValue();
-                void setPrimitiveInt(JPrimitiveInt* value);
-                JPrimitiveInt* getPrimitiveInt();
                 virtual jint compareTo(JObject* o);
                 virtual bool equals(JObject* other);
                 virtual jint hashCode();

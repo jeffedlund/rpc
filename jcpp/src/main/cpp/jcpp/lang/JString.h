@@ -6,6 +6,7 @@
 #include "JComparable.h"
 using namespace std;
 
+//TODO implement more method + charsequence
 namespace jcpp{
     namespace lang{
         class JCPP_LIBRARY_EXPORT JString : public JObject, public JComparable{
@@ -27,12 +28,15 @@ namespace jcpp{
             JString(string str);
             JString(JString* str);
             static JClass* getClazz();
-            bool operator<(JString &other);
+            jint length();
+            jbool isEmpty();
+            jchar charAt(jint index);
+            jbool operator<(JString &other);
             string getString();
             void setString(string str);
             virtual jint compareTo(JObject* o);
             virtual JString* clone();
-            virtual bool equals(JObject* other);
+            virtual jbool equals(JObject* other);
             virtual jint hashCode();
             virtual string toString();
             virtual ~JString();

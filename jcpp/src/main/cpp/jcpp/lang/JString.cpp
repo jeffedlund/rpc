@@ -88,6 +88,18 @@ namespace jcpp{
             this->str=str->str.c_str();
         }
 
+        jint JString::length(){
+            return str.size();
+        }
+
+        jbool JString::isEmpty(){
+            return str.size()==0;
+        }
+
+        jchar JString::charAt(jint index){
+            return (jchar)str.at(index);
+        }
+
         bool JString::equals(JObject* other){
             if (other->getClass()==getClazz()){
                 JString* s=dynamic_cast<JString*>(other);

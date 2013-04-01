@@ -7,11 +7,13 @@
 #include "Object.h"
 #include "JCPP.h"
 #include "JComparable.h"
+#include "JSerializable.h"
 using namespace std;
+using namespace jcpp::io;
 
 namespace jcpp{
     namespace lang{
-        class JCPP_LIBRARY_EXPORT JPrimitiveByte : public JObject, public JComparable{
+        class JCPP_LIBRARY_EXPORT JPrimitiveByte : public JObject, public JComparable, public JSerializable{
 
             protected:
                 jbyte value;
@@ -26,7 +28,7 @@ namespace jcpp{
                 void set(jbyte value);
                 jbyte get();
                 virtual jint compareTo(JObject* o);
-                virtual bool equals(JObject* other);
+                virtual jbool equals(JObject* other);
                 virtual jint hashCode();
                 virtual string toString();
                 virtual ~JPrimitiveByte();
