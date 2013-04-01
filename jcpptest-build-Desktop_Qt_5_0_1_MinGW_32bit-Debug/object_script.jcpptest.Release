@@ -44,7 +44,6 @@ INPUT(
 ./release\JPrimitiveShortTest.o
 ./release\JPrimitiveIntTest.o
 ./release\JArrayListTest.o
-./release\JBitsTest.o
 ./release\JTimerTest.o
 ./release\JSocketTest.o
 ./release\JScheduledExecutorServiceTest.o
@@ -53,4 +52,8 @@ INPUT(
 ./release\JExternalizableTest.o
 ./release\JExternalizableObject.o
 ./release\JSerializableTest.o
+./release\JHashMapTest.o
+./release\JHashSetTest.o
+./release\JHashtableTest.o
+./release\JIdentityHashMapTest.o
 );

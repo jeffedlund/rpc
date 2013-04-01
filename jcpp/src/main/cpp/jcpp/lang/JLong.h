@@ -30,12 +30,12 @@ namespace jcpp{
                 JLong operator*=(jlong f);
                 void set(jlong value);
                 jlong get();
-                jbyte byteValue();
-                jshort shortValue();
-                jint intValue();
-                jlong longValue();
-                jfloat floatValue();
-                jdouble doubleValue();
+                virtual jbyte byteValue();
+                virtual jshort shortValue();
+                virtual jint intValue();
+                virtual jlong longValue();
+                virtual jfloat floatValue();
+                virtual jdouble doubleValue();
                 void setPrimitiveLong(JPrimitiveLong* value);
                 JPrimitiveLong* getPrimitiveLong();
                 virtual jint compareTo(JObject* o);

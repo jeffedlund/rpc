@@ -6,6 +6,7 @@
 #include "JCPP.h"
 #include "JClass.h"
 using namespace jcpp::lang;
+using namespace jcpp::lang::reflect;
 
 namespace jcpp{
     namespace io{

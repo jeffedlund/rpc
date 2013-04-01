@@ -31,12 +31,12 @@ namespace jcpp{
                 JInteger operator*=(jint f);
                 void set(jint value);
                 jint get();
-                jbyte byteValue();
-                jshort shortValue();
-                jint intValue();
-                jlong longValue();
-                jfloat floatValue();
-                jdouble doubleValue();
+                virtual jbyte byteValue();
+                virtual jshort shortValue();
+                virtual jint intValue();
+                virtual jlong longValue();
+                virtual jfloat floatValue();
+                virtual jdouble doubleValue();
                 void setPrimitiveInt(JPrimitiveInt* value);
                 JPrimitiveInt* getPrimitiveInt();
                 virtual jint compareTo(JObject* o);

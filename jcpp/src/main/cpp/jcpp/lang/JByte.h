@@ -38,12 +38,12 @@ namespace jcpp{
                 JByte operator*=(jbyte f);
                 void set(jbyte value);
                 jbyte get();
-                jbyte byteValue();
-                jshort shortValue();
-                jint intValue();
-                jlong longValue();
-                jfloat floatValue();
-                jdouble doubleValue();
+                virtual jbyte byteValue();
+                virtual jshort shortValue();
+                virtual jint intValue();
+                virtual jlong longValue();
+                virtual jfloat floatValue();
+                virtual jdouble doubleValue();
                 virtual jint compareTo(JObject * o);
                 virtual jint hashCode();
                 virtual bool equals(JObject* other);

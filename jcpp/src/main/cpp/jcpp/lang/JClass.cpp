@@ -34,7 +34,6 @@ namespace jcpp{
                 this->name="java.lang.Class";
                 this->simpleName="Class";
                 this->serialVersionUID=3206093459760846163ULL;
-                addInterface(JSerializable::getClazz());
             }
 
             JClassLoader* getClassLoader(){

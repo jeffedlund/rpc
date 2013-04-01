@@ -199,4 +199,10 @@ INPUT(
 ./release\JAbstractMap.o
 ./release\JHashMap.o
 ./release\JDictionary.o
+./release\JInvalidObjectException.o
+./release\JComparator.o
+./release\JQueue.o
+./release\JAbstractQueue.o
+./release\JThreadLocal.o
+./release\JIdentityHashMap.o
 );

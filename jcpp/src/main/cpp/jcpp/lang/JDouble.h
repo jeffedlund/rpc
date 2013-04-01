@@ -35,12 +35,12 @@ namespace jcpp{
                 JDouble operator*=(jdouble f);
                 void set(jdouble value);
                 jdouble get();
-                jbyte byteValue();
-                jshort shortValue();
-                jint intValue();
-                jlong longValue();
-                jfloat floatValue();
-                jdouble doubleValue();
+                virtual jbyte byteValue();
+                virtual jshort shortValue();
+                virtual jint intValue();
+                virtual jlong longValue();
+                virtual jfloat floatValue();
+                virtual jdouble doubleValue();
                 virtual jint compareTo(JObject* o);
                 virtual jbool equals(JObject* other);
                 virtual jint hashCode();
