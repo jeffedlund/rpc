@@ -75,12 +75,12 @@ namespace jcpp{
                             this->name="jcpp.rmi.server.impl.transport.TransportConfiguration";
                             this->simpleName="TransportConfiguration";
                             addInterface(JSerializable::getClazz());
-                            addField(new JField("gatewayConfiguration",JGatewayConfiguration::getClazz(),staticGetGatewayConfiguration,staticSetGatewayConfiguration));
-                            addField(new JField("connectionPoolTimeout",JLong::getClazz(),staticGetConnectionPoolTimeout,staticSetConnectionPoolTimeout));
-                            addField(new JField("socketTimeout",JInteger::getClazz(),staticGetSocketTimeout,staticSetSocketTimeout));
-                            addField(new JField("pingTimeout",JInteger::getClazz(),staticGetPingTimeout,staticSetPingTimeout));
-                            addField(new JField("limitedSocketTimeout",JInteger::getClazz(),staticGetLimitedSocketTimeout,staticSetLimitedSocketTimeout));
-                            addField(new JField("timeoutTimerInterval",JLong::getClazz(),staticGetTimeoutTimerInterval,staticSetTimeoutTimerInterval));
+                            addField(new JField("gatewayConfiguration",JGatewayConfiguration::getClazz(),this,staticGetGatewayConfiguration,staticSetGatewayConfiguration));
+                            addField(new JField("connectionPoolTimeout",JLong::getClazz(),this,staticGetConnectionPoolTimeout,staticSetConnectionPoolTimeout));
+                            addField(new JField("socketTimeout",JInteger::getClazz(),this,staticGetSocketTimeout,staticSetSocketTimeout));
+                            addField(new JField("pingTimeout",JInteger::getClazz(),this,staticGetPingTimeout,staticSetPingTimeout));
+                            addField(new JField("limitedSocketTimeout",JInteger::getClazz(),this,staticGetLimitedSocketTimeout,staticSetLimitedSocketTimeout));
+                            addField(new JField("timeoutTimerInterval",JLong::getClazz(),this,staticGetTimeoutTimerInterval,staticSetTimeoutTimerInterval));
                             serialVersionUID=721031819973449961ULL;
                         }
 

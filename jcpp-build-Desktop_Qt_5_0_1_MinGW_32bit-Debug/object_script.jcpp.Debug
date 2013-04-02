@@ -51,7 +51,6 @@ INPUT(
 ./debug\SerialCallbackContext.o
 ./debug\HandleTable.o
 ./debug\HandleList.o
-./debug\BlockDataInputStream.o
 ./debug\JObjectStreamException.o
 ./debug\JInvalidClassException.o
 ./debug\JError.o
@@ -65,7 +64,6 @@ INPUT(
 ./debug\JClassCastException.o
 ./debug\JOutputStream.o
 ./debug\JDataOutputStream.o
-./debug\BlockDataOutputStream.o
 ./debug\OutputHandleTable.o
 ./debug\JObjectOutputStream.o
 ./debug\JObjectStreamField.o
@@ -205,4 +203,8 @@ INPUT(
 ./debug\JAbstractQueue.o
 ./debug\JThreadLocal.o
 ./debug\JIdentityHashMap.o
+./debug\JMember.o
+./debug\JModifier.o
+./debug\JBlockDataInputStream.o
+./debug\JBlockDataOutputStream.o
 );

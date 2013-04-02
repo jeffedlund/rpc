@@ -64,11 +64,11 @@ namespace jcpp{
                             this->name="jcpp.rmi.server.impl.gateway.GatewayConfiguration";
                             this->simpleName="GatewayConfiguration";
                             addInterface(JSerializable::getClazz());
-                            addField(new JField("backLog",JInteger::getClazz(),staticGetBackLog,staticSetBackLog));
-                            addField(new JField("receiveBufferSize",JInteger::getClazz(),staticGetReceiveBufferSize,staticSetReceiveBufferSize));
-                            addField(new JField("sendBufferSize",JInteger::getClazz(),staticGetSendBufferSize,staticSetSendBufferSize));
-                            addField(new JField("readTimeout",JInteger::getClazz(),staticGetReadTimeout,staticSetReadTimeout));
-                            addField(new JField("connectionTimeout",JInteger::getClazz(),staticGetConnectionTimeout,staticSetConnectionTimeout));
+                            addField(new JField("backLog",JInteger::getClazz(),this,staticGetBackLog,staticSetBackLog));
+                            addField(new JField("receiveBufferSize",JInteger::getClazz(),this,staticGetReceiveBufferSize,staticSetReceiveBufferSize));
+                            addField(new JField("sendBufferSize",JInteger::getClazz(),this,staticGetSendBufferSize,staticSetSendBufferSize));
+                            addField(new JField("readTimeout",JInteger::getClazz(),this,staticGetReadTimeout,staticSetReadTimeout));
+                            addField(new JField("connectionTimeout",JInteger::getClazz(),this,staticGetConnectionTimeout,staticSetConnectionTimeout));
                             serialVersionUID=7816914239055009789ULL;
                         }
 

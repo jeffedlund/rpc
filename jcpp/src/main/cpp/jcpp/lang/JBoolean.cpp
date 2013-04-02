@@ -30,7 +30,7 @@ namespace jcpp{
                 this->serialVersionUID=-3665804199014368530ULL;
                 addInterface(JSerializable::getClazz());
                 addInterface(JComparable::getClazz());
-                addField(new JField("value",JPrimitiveBoolean::getClazz(),getValue,setValue));
+                addField(new JField("value",JPrimitiveBoolean::getClazz(),this,getValue,setValue));
             }
 
             JClass* getSuperclass(){

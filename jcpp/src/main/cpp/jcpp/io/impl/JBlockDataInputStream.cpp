@@ -1,10 +1,11 @@
-#include "BlockDataInputStream.h"
+#include "JBlockDataInputStream.h"
 #include "JIllegalStateException.h"
 #include "JStreamCorruptedException.h"
 #include "JEOFException.h"
 #include <sstream>
 #include "JUTFDataFormatException.h"
 #include "JInstantiationException.h"
+#include "JObjectInputStream.h"
 
 namespace jcpp{
     namespace io{
@@ -20,21 +21,21 @@ namespace jcpp{
                 return JInputStream::getClazz();
             }
 
-            JObject* newInstance(){
-                throw new JInstantiationException("cannot instantiate object of class "+getName());
+            virtual JClass* getDeclaringClass(){
+                return JObjectInputStream::getClazz();
             }
         };
 
         static JClass* clazz;
 
-        JClass* BlockDataInputStream::getClazz(){
+        JClass* JBlockDataInputStream::getClazz(){
             if (clazz==NULL){
                 clazz=new JBlockDataInputStreamClass();
             }
             return clazz;
         }
 
-        BlockDataInputStream::BlockDataInputStream(JInputStream *in): JInputStream(getClazz()) {
+        JBlockDataInputStream::JBlockDataInputStream(JInputStream *in): JInputStream(getClazz()) {
             this->blkmode=false;
             this->pos=0;
             this->end=-1;
@@ -44,7 +45,7 @@ namespace jcpp{
             this->din = new JDataInputStream(this);
         }
 
-        bool BlockDataInputStream::setBlockDataMode(bool newmode) {
+        bool JBlockDataInputStream::setBlockDataMode(bool newmode) {
             if (blkmode == newmode) {
                 return blkmode;
             }
@@ -59,11 +60,11 @@ namespace jcpp{
             return !blkmode;
         }
 
-        bool BlockDataInputStream::getBlockDataMode() {
+        bool JBlockDataInputStream::getBlockDataMode() {
             return blkmode;
         }
 
-        void BlockDataInputStream::skipBlockData() {
+        void JBlockDataInputStream::skipBlockData() {
             if (!blkmode) {
                 throw new JIllegalStateException("not in block data mode");
             }
@@ -72,7 +73,7 @@ namespace jcpp{
             }
         }
 
-        jint BlockDataInputStream::readBlockHeader(bool canBlock) {
+        jint JBlockDataInputStream::readBlockHeader(bool canBlock) {
             if (defaultDataEnd) {
                 return -1;
             }
@@ -130,7 +131,7 @@ namespace jcpp{
             }
         }
 
-        void BlockDataInputStream::refill() {
+        void JBlockDataInputStream::refill() {
             do {
                 pos = 0;
                 if (unread > 0) {
@@ -154,7 +155,7 @@ namespace jcpp{
             } while (pos == end);
         }
 
-        jint BlockDataInputStream::currentBlockRemaining() {
+        jint JBlockDataInputStream::currentBlockRemaining() {
             if (blkmode) {
                 return (end >= 0) ? (end - pos) + unread : 0;
             }else {
@@ -162,15 +163,15 @@ namespace jcpp{
             }
         }
 
-        bool BlockDataInputStream::isDefaultDataEnd(){
+        bool JBlockDataInputStream::isDefaultDataEnd(){
             return defaultDataEnd;
         }
 
-        void BlockDataInputStream::setDefaultDataEnd(bool defaultDataEnd){
+        void JBlockDataInputStream::setDefaultDataEnd(bool defaultDataEnd){
             this->defaultDataEnd=defaultDataEnd;
         }
 
-        jint BlockDataInputStream::peek() {
+        jint JBlockDataInputStream::peek() {
             if (blkmode) {
                 if (pos == end) {
                     refill();
@@ -181,7 +182,7 @@ namespace jcpp{
             }
         }
 
-        jint BlockDataInputStream::read() {
+        jint JBlockDataInputStream::read() {
             if (blkmode) {
                 if (pos == end) {
                     refill();
@@ -192,11 +193,11 @@ namespace jcpp{
             }
         }
 
-        int BlockDataInputStream::read(jbyte b[], int off, int len) {
+        int JBlockDataInputStream::read(jbyte b[], int off, int len) {
             return read(b, off, len, false);
         }
 
-        jlong BlockDataInputStream::skip(jlong len){
+        jlong JBlockDataInputStream::skip(jlong len){
             jlong remain = len;
             while (remain > 0) {
                 if (blkmode) {
@@ -220,7 +221,7 @@ namespace jcpp{
             return len - remain;
         }
 
-        jint BlockDataInputStream::available() {
+        jint JBlockDataInputStream::available() {
             if (blkmode) {
                 if ((pos == end) && (unread == 0)) {
                     jint n;
@@ -249,11 +250,11 @@ namespace jcpp{
             }
         }
 
-        bool BlockDataInputStream::waitForReadyRead(int i) {
+        bool JBlockDataInputStream::waitForReadyRead(int i) {
             return in->waitForReadyRead(i);
         }
 
-        void BlockDataInputStream::close() {
+        void JBlockDataInputStream::close() {
             if (blkmode) {
                 pos = 0;
                 end = -1;
@@ -262,7 +263,7 @@ namespace jcpp{
             in->close();
         }
 
-        int BlockDataInputStream::read(jbyte b[], int off, int len, bool copy) {
+        int JBlockDataInputStream::read(jbyte b[], int off, int len, bool copy) {
             if (len == 0) {
                 return 0;
             }else if (blkmode) {
@@ -287,11 +288,11 @@ namespace jcpp{
             }
         }
 
-        void BlockDataInputStream::readFully(jbyte *b, int off, int len) {
+        void JBlockDataInputStream::readFully(jbyte *b, int off, int len) {
             readFully(b, off, len, false);
         }
 
-        void BlockDataInputStream::readFully(jbyte *b, int off, int len, bool copy) {
+        void JBlockDataInputStream::readFully(jbyte *b, int off, int len, bool copy) {
             while (len > 0) {
                 int n = read(b, off, len, copy);
                 if (n < 0) {
@@ -302,11 +303,11 @@ namespace jcpp{
             }
         }
 
-        jint BlockDataInputStream::skipBytes(jint n){
+        jint JBlockDataInputStream::skipBytes(jint n){
             return din->skipBytes(n);
         }
 
-        jbyte BlockDataInputStream::readUnsignedByte() {
+        jbyte JBlockDataInputStream::readUnsignedByte() {
             jbyte v = read();
             if (v < 0) {
                 throw new JEOFException();
@@ -314,7 +315,7 @@ namespace jcpp{
             return (jbyte) v;
         }
 
-        jbyte BlockDataInputStream::readByte() {
+        jbyte JBlockDataInputStream::readByte() {
             jbyte v = read();
             if (v < 0) {
                 throw new JEOFException();
@@ -322,7 +323,7 @@ namespace jcpp{
             return (jbyte) v;
         }
 
-        jshort BlockDataInputStream::readShort() {
+        jshort JBlockDataInputStream::readShort() {
             if (!blkmode) {
                 pos = 0;
                 in->readFully(buf,0,2);
@@ -335,7 +336,7 @@ namespace jcpp{
             return v;
         }
 
-        jshort BlockDataInputStream::readUnsignedShort(){
+        jshort JBlockDataInputStream::readUnsignedShort(){
             if (!blkmode) {
                 pos = 0;
                 in->readFully(buf, 0, 2);
@@ -347,7 +348,7 @@ namespace jcpp{
             return v;
         }
 
-        jint BlockDataInputStream::readInt() {
+        jint JBlockDataInputStream::readInt() {
             if (!blkmode) {
                 pos = 0;
                 in->readFully(buf, 0, 4);
@@ -360,7 +361,7 @@ namespace jcpp{
             return v;
         }
 
-        float BlockDataInputStream::readFloat() {
+        float JBlockDataInputStream::readFloat() {
             if (!blkmode) {
                 pos = 0;
                 in->readFully(buf, 0, 4);
@@ -373,7 +374,7 @@ namespace jcpp{
             return v;
         }
 
-        jlong BlockDataInputStream::readLong() {
+        jlong JBlockDataInputStream::readLong() {
             if (!blkmode) {
                 pos = 0;
                 in->readFully(buf, 0, 8);
@@ -386,7 +387,7 @@ namespace jcpp{
             return v;
         }
 
-        jdouble BlockDataInputStream::readDouble() {
+        jdouble JBlockDataInputStream::readDouble() {
             if (!blkmode) {
                 pos = 0;
                 in->readFully(buf, 0, 8);
@@ -399,7 +400,7 @@ namespace jcpp{
             return v;
         }
 
-        jchar BlockDataInputStream::readChar() {
+        jchar JBlockDataInputStream::readChar() {
             if (!blkmode) {
                pos = 0;
                in->readFully(buf, 0, 2);
@@ -411,7 +412,7 @@ namespace jcpp{
            return v;
         }
 
-        jbool BlockDataInputStream::readBool() {
+        jbool JBlockDataInputStream::readBool() {
             int v = read();
             if (v < 0) {
                 throw new JEOFException();
@@ -419,7 +420,7 @@ namespace jcpp{
             return (v != 0);
         }
 
-        string BlockDataInputStream::readUTFBody(jlong utflen) {
+        string JBlockDataInputStream::readUTFBody(jlong utflen) {
             vector<jchar>* sbuf=new vector<jchar>();
             if (!blkmode) {
                 end = pos = 0;
@@ -459,7 +460,7 @@ namespace jcpp{
             return str;
         }
 
-        void BlockDataInputStream::arraycopy(jbyte src[],jint srcPos, jbyte dest[], jint destPos, jint length){
+        void JBlockDataInputStream::arraycopy(jbyte src[],jint srcPos, jbyte dest[], jint destPos, jint length){
             jbyte* ptr = &src[srcPos];
             for(int i = 0; i < length; ++i){
                 dest[destPos+i] = *ptr;
@@ -467,7 +468,7 @@ namespace jcpp{
             }
         }
 
-        jlong BlockDataInputStream::readUTFSpan(vector<jchar>* sbuf, jlong utflen) {
+        jlong JBlockDataInputStream::readUTFSpan(vector<jchar>* sbuf, jlong utflen) {
             jint cpos = 0;
             jint start = pos;
             jint avail = min(end - pos, CHAR_BUF_SIZE);
@@ -526,7 +527,7 @@ namespace jcpp{
             return pos - start;
         }
 
-        jint BlockDataInputStream::readUTFChar(vector<jchar>* sbuf, jlong utflen){
+        jint JBlockDataInputStream::readUTFChar(vector<jchar>* sbuf, jlong utflen){
             jint b1, b2, b3;
             b1 = readByte() & 0xFF;
             switch (b1 >> 4) {
@@ -574,15 +575,15 @@ namespace jcpp{
         }
 
 
-        string BlockDataInputStream::readUTF() {
+        string JBlockDataInputStream::readUTF() {
             return readUTFBody(readUnsignedShort());
         }
 
-        string BlockDataInputStream::readLongUTF() {
+        string JBlockDataInputStream::readLongUTF() {
             return readUTFBody(readLong());
         }
 
-        void BlockDataInputStream::readBools(jbool *v, int off, int len) {
+        void JBlockDataInputStream::readBools(jbool *v, int off, int len) {
             int stop, endoff = off+ len;
             while(off < endoff) {
                 if (!blkmode) {
@@ -602,7 +603,7 @@ namespace jcpp{
             }
         }
 
-        void BlockDataInputStream::readChars(jchar *v, int off, int len) {
+        void JBlockDataInputStream::readChars(jchar *v, int off, int len) {
             int stop, endoff = off+ len;
             while(off < endoff) {
                 if (!blkmode) {
@@ -623,7 +624,7 @@ namespace jcpp{
             }
         }
 
-        void BlockDataInputStream::readShorts(jshort *v, int off, int len) {
+        void JBlockDataInputStream::readShorts(jshort *v, int off, int len) {
             int stop, endoff = off + len;
             while (off < endoff) {
                 if (!blkmode) {
@@ -645,7 +646,7 @@ namespace jcpp{
             }
         }
 
-        void BlockDataInputStream::readInts(jint *v, int off, int len) {
+        void JBlockDataInputStream::readInts(jint *v, int off, int len) {
             int stop, endoff = off + len;
             while (off < endoff) {
                 if (!blkmode) {
@@ -667,7 +668,7 @@ namespace jcpp{
             }
         }
 
-        void BlockDataInputStream::readFloats(jfloat *v, int off, int len) {
+        void JBlockDataInputStream::readFloats(jfloat *v, int off, int len) {
             int stop, endoff = off + len;
             while (off < endoff) {
                 if (!blkmode) {
@@ -689,7 +690,7 @@ namespace jcpp{
             }
         }
 
-        void BlockDataInputStream::readLongs(jlong *v, int off, int len) {
+        void JBlockDataInputStream::readLongs(jlong *v, int off, int len) {
             int stop, endoff = off + len;
             while (off < endoff) {
                 if (!blkmode) {
@@ -711,7 +712,7 @@ namespace jcpp{
             }
         }
 
-        void BlockDataInputStream::readDoubles(jdouble *v, int off, int len) {
+        void JBlockDataInputStream::readDoubles(jdouble *v, int off, int len) {
             int stop, endoff = off + len;
             while (off < endoff) {
                 if (!blkmode) {
@@ -733,7 +734,7 @@ namespace jcpp{
             }
         }
 
-        BlockDataInputStream::~BlockDataInputStream() {
+        JBlockDataInputStream::~JBlockDataInputStream() {
             delete din;
         }
     }

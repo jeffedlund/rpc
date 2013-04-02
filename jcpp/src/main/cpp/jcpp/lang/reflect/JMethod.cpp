@@ -1,6 +1,7 @@
 #include "JMethod.h"
 #include "JClass.h"
 #include "JInstantiationException.h"
+#include "JModifier.h"
 #include <sstream>
 
 namespace jcpp{
@@ -13,14 +14,11 @@ namespace jcpp{
                         canonicalName="java.lang.reflect.Method";
                         name="java.lang.reflect.Method";
                         simpleName="Method";
+                        addInterface(JMember::getClazz());
                     }
 
                     JClass* getSuperclass(){
                         return JAccessibleObject::getClazz();
-                    }
-
-                    JObject* newInstance(){
-                        throw new JInstantiationException("cannot instantiate object of class "+getName());
                     }
             };
 
@@ -47,6 +45,14 @@ namespace jcpp{
 
             JClass* JMethod::getDeclaringClass(){
                 return declaringClass;
+            }
+
+            jint JMethod::getModifiers(){
+                return modifiers;
+            }
+
+            jbool JMethod::isSynthetic() {
+                return JModifier::isSynthetic(getModifiers());
             }
 
             JClass* JMethod::getReturnType(){

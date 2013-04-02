@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include "JObjectOutputStream.h"
-#include "BlockDataOutputStream.h"
+#include "JBlockDataOutputStream.h"
 #include "JClassLoader.h"
 #include "JObject.h"
 #include "JEnum.h"
@@ -28,10 +28,6 @@ namespace jcpp{
 
             JClass* getSuperclass(){
                 return JOutputStream::getClazz();
-            }
-
-            JObject* newInstance(){
-                throw new JInstantiationException("cannot instantiate object of class "+getName());
             }
         };
 

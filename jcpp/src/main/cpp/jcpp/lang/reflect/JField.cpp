@@ -1,4 +1,5 @@
 #include "JField.h"
+#include "JModifier.h"
 #include "JClass.h"
 #include "JInstantiationException.h"
 #include "JException.h"
@@ -13,14 +14,11 @@ namespace jcpp{
                     canonicalName="java.lang.reflect.Field";
                     name="java.lang.reflect.Field";
                     simpleName="Field";
+                    addInterface(JMember::getClazz());
                 }
 
                 JClass* getSuperclass(){
                     return JAccessibleObject::getClazz();
-                }
-
-                JObject* newInstance(){
-                    throw new JInstantiationException("cannot instantiate object of class "+getName());
                 }
             };
 
@@ -33,17 +31,18 @@ namespace jcpp{
                 return clazz;
             }
 
-            //TODO add declaringClass
-            JField::JField(string name,JClass* type):JAccessibleObject(getClazz()){
+            JField::JField(string name,JClass* type, JClass* declaringClass):JAccessibleObject(getClazz()){
                 this->name=name;
                 this->type=type;
+                this->declaringClass=declaringClass;
                 this->g=NULL;
                 this->s=NULL;
             }
 
-            JField::JField(string name,JClass* type,getter g,setter s):JAccessibleObject(getClazz()){
+            JField::JField(string name,JClass* type,JClass* declaringClass, getter g,setter s):JAccessibleObject(getClazz()){
                 this->name=name;
                 this->type=type;
+                this->declaringClass=declaringClass;
                 this->g=g;
                 this->s=s;
             }
@@ -72,20 +71,33 @@ namespace jcpp{
                 }
             }
 
+            JClass* JField::getDeclaringClass(){
+                return declaringClass;
+            }
+
+            jint JField::getModifiers(){
+                return iModifiers;
+            }
+
+            jbool JField::isSynthetic(){
+                return JModifier::isSynthetic(getModifiers());
+            }
+
             bool JField::equals(JObject* o){
                 if (o->getClass()!=getClazz()){
                     return false;
                 }
                 JField* f=dynamic_cast<JField*>(o);
-                return this->getName()==f->getName() && this->getType()==f->getType();//TODO add getDeclaringClass.equals
+                return this->getName()==f->getName() && this->getType()==f->getType() &&
+                       this->getDeclaringClass()==f->getDeclaringClass();
             }
 
             jint JField::hashCode(){
-                return JString::hashCode(getName());//TODO add getDeclaringClass.getName
+                return JString::hashCode(getDeclaringClass()->getName())^JString::hashCode(getName());
             }
 
             string JField::toString(){
-                return getType()->getName()+"."+getName();//TODO getDeclaringClass
+                return getType()->getName()+" "+getDeclaringClass()->getName()+"."+getName();
             }
 
              JField::~JField(){

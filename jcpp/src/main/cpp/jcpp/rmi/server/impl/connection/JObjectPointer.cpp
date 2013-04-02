@@ -34,8 +34,8 @@ namespace jcpp{
                             this->name="jcpp.rmi.server.impl.connection.ObjectPointer";
                             this->simpleName="ObjectPointer";
                             addInterface(JSerializable::getClazz());
-                            addField(new JField("endPoint",JEndPoint::getClazz(),staticGetEndPoint,staticSetEndPoint));
-                            addField(new JField("id",JString::getClazz(),staticGetId,staticSetId));
+                            addField(new JField("endPoint",JEndPoint::getClazz(),this,staticGetEndPoint,staticSetEndPoint));
+                            addField(new JField("id",JString::getClazz(),this,staticGetId,staticSetId));
                             serialVersionUID=1L;
                         }
 

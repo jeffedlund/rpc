@@ -23,6 +23,7 @@
 #include "JExternalizable.h"
 #include "Object.h"
 #include "JProxy.h"
+#include "JBlockDataInputStream.h"
 
 using namespace std;
 using namespace jcpp::lang::reflect;
@@ -41,8 +42,8 @@ namespace jcpp{
                 return JInputStream::getClazz();
             }
 
-            JObject* newInstance(){
-                throw new JInstantiationException("cannot instantiate object of class "+getName());
+            virtual void fillDeclaredClasses(){
+                addDeclaredClass(JBlockDataInputStream::getClazz());
             }
         };
 
@@ -65,7 +66,7 @@ namespace jcpp{
 
         void JObjectInputStream::init(JInputStream* in){
             inputClassLoader=JClassLoader::getBootClassLoader();
-            bin = new BlockDataInputStream(in);
+            bin = new JBlockDataInputStream(in);
             passHandle = NULL_HANDLE;
             handles = new HandleTable(100);
             primVals = NULL;

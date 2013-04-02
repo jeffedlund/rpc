@@ -22,6 +22,7 @@
 #include "JInternalError.h"
 #include <algorithm>
 #include "JNullPointerException.h"
+#include "JModifier.h"
 using namespace std;
 using namespace jcpp::util;
 
@@ -129,6 +130,10 @@ namespace jcpp{
             this->declaredMethods=new map<string,JMethod*>;
             this->declaredMethodsList=new vector<JMethod*>;
             this->interfaces=new vector<JClass*>;
+            this->publicClasses=new vector<JClass*>();
+            this->inheritedPublicClasses=new vector<JClass*>();
+            this->declaredClasses=new vector<JClass*>();
+            this->modifier=0;
         }
 
         string JClass::getCanonicalName(){
@@ -266,6 +271,41 @@ namespace jcpp{
             return declaredMethodsList;
         }
 
+        vector<JClass*>* JClass::getClasses(){
+            initInheritedPublicClasses();
+            return inheritedPublicClasses;
+        }
+
+        void JClass::addDeclaredClass(JClass* c){
+            declaredClasses->push_back(c);
+        }
+
+        void JClass::fillDeclaredClasses(){
+        }
+
+        vector<JClass*>* JClass::getDeclaredClasses(){
+            if (declaredClasses->size()==0){
+                fillDeclaredClasses();
+            }
+            return declaredClasses;
+        }
+
+        void JClass::initInheritedPublicClasses(){
+            if (inheritedPublicClasses->size()==0){
+                JClass* current=this;
+                while (current!=NULL){
+                    vector<JClass*>* members=current->getDeclaredClasses();
+                    for (unsigned int i=0;members->size();i++){
+                        JClass* c=members->at(i);
+                        if (JModifier::isPublic(c->getModifiers())){
+                            inheritedPublicClasses->push_back(c);
+                        }
+                    }
+                    current=current->getSuperclass();
+                }
+            }
+        }
+
         void JClass::addEnumConstant(JEnum* enumConstant){
             enumConstants->push_back(enumConstant);
         }
@@ -339,8 +379,16 @@ namespace jcpp{
             return bIsPackage;
         }
 
+        jint JClass::getModifiers(){
+            return modifier;
+        }
+
         JObject* JClass::newInstance(){
             throw new JInstantiationException("cannot instantiate object of class "+getName());
+        }
+
+        JClass* JClass::getDeclaringClass(){
+            return NULL;
         }
 
         jlong JClass::getSerialVersionUID(){

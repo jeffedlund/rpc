@@ -6,6 +6,8 @@
 #include <string>
 #include "Collections.h"
 #include <sstream>
+#include "JNullPointerException.h"
+#include "JIllegalArgumentException.h"
 using namespace jcpp::util;
 using namespace jcpp::io;
 using namespace jcpp::lang::reflect;
@@ -29,7 +31,7 @@ namespace jcpp{
                 simpleName="Proxy";
                 bIsProxy=true;
                 serialVersionUID=-2222568056686623797ULL;
-                addField(new JField("h",JInvocationHandler::getClazz(),staticGetInvocationHandler,staticSetInvocationHandler));
+                addField(new JField("h",JInvocationHandler::getClazz(),this,staticGetInvocationHandler,staticSetInvocationHandler));
                 addInterface(JSerializable::getClazz());
             }
 
@@ -81,7 +83,7 @@ namespace jcpp{
                 return pc;
             }
 
-            JProxy* JProxy::create(vector<JClass*>* interfaces, JInvocationHandler* ih){
+            JProxy* JProxy::newProxyInstance(vector<JClass*>* interfaces, JInvocationHandler* ih){
                 JProxy* proxy=NULL;
                 JClass* pc=getProxyClass(interfaces);
                 if (pc!=NULL){
@@ -93,6 +95,21 @@ namespace jcpp{
                     proxy=new JProxy(interfaces,ih);
                 }
                 return proxy;
+            }
+
+            jbool JProxy::isProxyClass(JClass* cl){
+                if (cl==NULL){
+                    throw new JNullPointerException();
+                }
+                return cl->isProxy();
+            }
+
+            JInvocationHandler* JProxy::getInvocationHandler(JObject* proxy){
+                if (!proxy->getClass()->isProxy()){
+                    throw new JIllegalArgumentException("not a proxy instance");
+                }
+                JProxy* p=dynamic_cast<JProxy*>(proxy);
+                return p->getInvocationHandler();
             }
 
             JObject* JProxy::invoke(string method,vector<JObject*>* args){

@@ -70,8 +70,8 @@ namespace jcpp{
               paramType->push_back(JObjectOutputStream::getClazz());
               addMethod(new JMethod("writeObject",this,JVoid::getClazz(),paramType,invokeWriteObject));
 
-              addField(new JField("threshold",JPrimitiveInt::getClazz(),staticGetThreshold,staticSetThreshold));
-              addField(new JField("loadFactor",JPrimitiveFloat::getClazz(),staticGetLoadFactor,staticSetLoadFactor));
+              addField(new JField("threshold",JPrimitiveInt::getClazz(),this,staticGetThreshold,staticSetThreshold));
+              addField(new JField("loadFactor",JPrimitiveFloat::getClazz(),this,staticGetLoadFactor,staticSetLoadFactor));
           }
 
           JClass* getSuperclass(){

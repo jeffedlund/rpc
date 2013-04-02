@@ -26,10 +26,6 @@ namespace jcpp{
                         JClass* getSuperclass(){
                             return JObject::getClazz();
                         }
-
-                        JObject* newInstance(){
-                            throw new JInstantiationException("cannot instantiate object of class "+getName());
-                        }
                     };
 
                     static JClass* clazz;
@@ -51,7 +47,7 @@ namespace jcpp{
 
                     JObjectHandler::JObjectHandler(JObjectInformations* objectInformations,vector<JClass*>* interfaces, JObjectPointer* objectPointer){
                         this->invoker = new JInvoker(objectInformations, objectPointer);
-                        this->proxy = JProxy::create(interfaces, this);
+                        this->proxy = JProxy::newProxyInstance(interfaces, this);
                         this->interfaces = interfaces;
                         this->invocationListener = objectInformations->getInvocationListener();
                     }

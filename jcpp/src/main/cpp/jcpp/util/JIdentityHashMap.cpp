@@ -120,7 +120,7 @@ namespace jcpp{
               paramType->push_back(JObjectOutputStream::getClazz());
               addMethod(new JMethod("writeObject",this,JVoid::getClazz(),paramType,invokeWriteObject));
 
-              addField(new JField("size",JPrimitiveInt::getClazz(),staticGetSize,staticSetSize));
+              addField(new JField("size",JPrimitiveInt::getClazz(),this,staticGetSize,staticSetSize));
           }
 
           JClass* getSuperclass(){

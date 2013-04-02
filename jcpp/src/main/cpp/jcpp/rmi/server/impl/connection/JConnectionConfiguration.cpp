@@ -64,11 +64,11 @@ namespace jcpp{
                             this->name="jcpp.rmi.server.impl.connection.ConnectionConfiguration";
                             this->simpleName="ConnectionConfiguration";
                             addInterface(JSerializable::getClazz());
-                            addField(new JField("transportConfiguration",JTransportConfiguration::getClazz(),staticGetTransportConfiguration,staticSetTransportConfiguration));
-                            addField(new JField("gcTimeout",JLong::getClazz(),staticGetGcTimeout,staticSetGcTimeout));
-                            addField(new JField("gcClientTimeout",JLong::getClazz(),staticGetGcClientTimeout,staticSetGcClientTimeout));
-                            addField(new JField("gcClientExceptionThreshold",JInteger::getClazz(),staticGetGcClientExceptionThreshold,staticSetGcClientExceptionThreshold));
-                            addField(new JField("executorCorePoolSize",JInteger::getClazz(),staticGetExecutorCorePoolSize,staticSetExecutorCorePoolSize));
+                            addField(new JField("transportConfiguration",JTransportConfiguration::getClazz(),this,staticGetTransportConfiguration,staticSetTransportConfiguration));
+                            addField(new JField("gcTimeout",JLong::getClazz(),this,staticGetGcTimeout,staticSetGcTimeout));
+                            addField(new JField("gcClientTimeout",JLong::getClazz(),this,staticGetGcClientTimeout,staticSetGcClientTimeout));
+                            addField(new JField("gcClientExceptionThreshold",JInteger::getClazz(),this,staticGetGcClientExceptionThreshold,staticSetGcClientExceptionThreshold));
+                            addField(new JField("executorCorePoolSize",JInteger::getClazz(),this,staticGetExecutorCorePoolSize,staticSetExecutorCorePoolSize));
                             serialVersionUID=-7733929591819747912ULL;
                         }
 

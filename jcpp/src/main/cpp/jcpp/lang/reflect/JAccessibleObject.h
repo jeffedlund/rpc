@@ -13,7 +13,6 @@ namespace jcpp{
                 JAccessibleObject(JClass* clazz);
 
             public:
-
                 static JClass* getClazz();
                 virtual ~JAccessibleObject();
             };

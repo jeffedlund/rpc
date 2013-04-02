@@ -26,21 +26,17 @@ namespace jcpp{
             public:
                 JProxy();
                 JProxy(vector<JClass*>* interfaces, JInvocationHandler* i);
+                static JClass* getClazz();
                 static JClass* getProxyClass(vector<JClass*>* interfaces);
-                static JProxy* create(vector<JClass*>* interfaces, JInvocationHandler* i);
-
+                static JProxy* newProxyInstance(vector<JClass*>* interfaces, JInvocationHandler* i);
+                static jbool isProxyClass(JClass* cl);
+                static JInvocationHandler* getInvocationHandler(JObject* proxy);
                 JInvocationHandler* getInvocationHandler();
                 void setInvocationHandler(JInvocationHandler* invocationHandler);
-
                 vector<JClass*>* getInterfaces();
                 void setInterfaces(vector<JClass*>* interfaces);
-
-                static JClass* getClazz();
-
                 JObject* invoke(string method, vector<JObject*>* args);
-
-                string toString();
-
+                virtual string toString();
                 virtual ~JProxy();
             };
         }

@@ -42,9 +42,9 @@ namespace jcpp{
                 this->name="java.lang.Throwable";
                 this->simpleName="Throwable";
                 this->serialVersionUID=-3042686055658047285ULL;
-                this->addField(new JField("detailMessage",JString::getClazz(),staticGetDetailMessage,staticSetDetailMessage));
-                this->addField(new JField("cause",this,staticGetCause,staticSetCause));
-                this->addField(new JField("stackTrace",JPrimitiveArray::getClazz(JStackTraceElement::getClazz()),staticGetStackTrace,staticSetStackTrace));
+                this->addField(new JField("detailMessage",JString::getClazz(),this,staticGetDetailMessage,staticSetDetailMessage));
+                this->addField(new JField("cause",this,this,staticGetCause,staticSetCause));
+                this->addField(new JField("stackTrace",JPrimitiveArray::getClazz(JStackTraceElement::getClazz()),this,staticGetStackTrace,staticSetStackTrace));
                 this->addInterface(JSerializable::getClazz());
             }
 

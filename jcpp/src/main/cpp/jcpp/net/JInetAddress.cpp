@@ -41,9 +41,9 @@ namespace jcpp{
               this->simpleName="InetAddress";
               this->serialVersionUID=3286316764910316507ULL;
               addInterface(JSerializable::getClazz());
-              addField(new JField("hostName",JString::getClazz(),staticGetHostName,staticSetHostName));
-              addField(new JField("address",JPrimitiveInt::getClazz(),staticGetAddress,staticSetAddress));
-              addField(new JField("family",JPrimitiveInt::getClazz(),staticGetFamily,staticSetFamily));
+              addField(new JField("hostName",JString::getClazz(),this,staticGetHostName,staticSetHostName));
+              addField(new JField("address",JPrimitiveInt::getClazz(),this,staticGetAddress,staticSetAddress));
+              addField(new JField("family",JPrimitiveInt::getClazz(),this,staticGetFamily,staticSetFamily));
           }
 
           JClass* getSuperclass(){

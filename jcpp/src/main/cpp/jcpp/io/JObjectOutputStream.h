@@ -5,7 +5,7 @@
 #include "string.h"
 #include "JObjectStreamClass.h"
 #include "JObjectStreamConstants.h"
-#include "BlockDataOutputStream.h"
+#include "JBlockDataOutputStream.h"
 #include "JClassLoader.h"
 #include "JDataOutputStream.h"
 #include "SerialCallbackContext.h"

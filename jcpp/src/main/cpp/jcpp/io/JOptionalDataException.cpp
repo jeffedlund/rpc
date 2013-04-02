@@ -29,8 +29,8 @@ namespace jcpp{
                 name="java.io.OptionalDataException";
                 simpleName="OptionalDataException";
                 serialVersionUID=-8011121865681257820ULL;
-                this->addField(new JField("length",JPrimitiveInt::getClazz(),staticGetLength,staticSetLength));
-                this->addField(new JField("eof",JPrimitiveBoolean::getClazz(),staticGetEOF,staticSetEOF));
+                this->addField(new JField("length",JPrimitiveInt::getClazz(),this,staticGetLength,staticSetLength));
+                this->addField(new JField("eof",JPrimitiveBoolean::getClazz(),this,staticGetEOF,staticSetEOF));
             }
 
             JClass* getSuperclass(){

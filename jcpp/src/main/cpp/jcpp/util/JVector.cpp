@@ -51,8 +51,8 @@ namespace jcpp{
               vector<JClass*>* paramType=new vector<JClass*>();
               paramType->push_back(JObjectOutputStream::getClazz());
               addMethod(new JMethod("writeObject",this,JVoid::getClazz(),paramType,invokeWriteObject));
-              addField(new JField("elementCount",JPrimitiveInt::getClazz(),staticGetElementCount,staticSetElementCount));
-              addField(new JField("capacityIncrement",JPrimitiveInt::getClazz(),staticGetCapacityIncrement,staticSetCapacityIncrement));
+              addField(new JField("elementCount",JPrimitiveInt::getClazz(),this,staticGetElementCount,staticSetElementCount));
+              addField(new JField("capacityIncrement",JPrimitiveInt::getClazz(),this,staticGetCapacityIncrement,staticSetCapacityIncrement));
           }
 
           JClass* getSuperclass(){

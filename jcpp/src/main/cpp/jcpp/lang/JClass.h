@@ -27,6 +27,7 @@ namespace jcpp{
             void init(JClassLoader* cl);
             void initFields();
             void initMethods();
+            void initInheritedPublicClasses();
         protected:
             string canonicalName;
             string name;
@@ -43,6 +44,9 @@ namespace jcpp{
             map<string,JMethod*>* declaredMethods;
             vector<JMethod*>* declaredMethodsList;
             vector<JClass*>* interfaces;
+            vector<JClass*>* publicClasses;
+            vector<JClass*>* inheritedPublicClasses;
+            vector<JClass*>* declaredClasses;
             bool bIsArray;
             bool bIsProxy;
             bool bIsEnum;
@@ -50,6 +54,7 @@ namespace jcpp{
             bool bIsPrimitive;
             bool bIsPackage;
             jlong serialVersionUID;
+            jint modifier;
             JClass(JClassLoader* classLoader);
             JClass();
             JClass(bool root);
@@ -58,6 +63,8 @@ namespace jcpp{
             void addField(JField* field);
             void addMethod(JMethod* method);
             void addInterface(JClass* interface);
+            void addDeclaredClass(JClass* c);
+            void fillDeclaredClasses();
 
          public:
 
@@ -81,6 +88,8 @@ namespace jcpp{
             bool hasDeclaredMethod(string name, vector<JClass*>* parameterTypes);
             JMethod* getDeclaredMethod(string name, vector<JClass*>* parameterTypes);
             vector<JMethod*>* getDeclaredMethods();
+            vector<JClass*>* getClasses();
+            vector<JClass*>* getDeclaredClasses();
             virtual JClass* getSuperclass()=0;
             bool isArray();
             bool isProxy();
@@ -90,7 +99,9 @@ namespace jcpp{
             bool isInterface();
             bool isPrimitive();
             bool isPackage();
+            jint getModifiers();
             virtual JObject* newInstance();
+            virtual JClass* getDeclaringClass();
             jlong getSerialVersionUID();
             string toString();
             virtual ~JClass();

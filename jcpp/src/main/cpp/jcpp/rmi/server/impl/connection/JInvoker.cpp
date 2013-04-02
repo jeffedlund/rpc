@@ -29,7 +29,7 @@ namespace jcpp{
                             this->name="jcpp.rmi.server.impl.connection.Invoker";
                             this->simpleName="Invoker";
                             addInterface(JSerializable::getClazz());
-                            addField(new JField("objectPointer",JObjectPointer::getClazz(),staticGetObjectPointer,staticSetObjectPointer));
+                            addField(new JField("objectPointer",JObjectPointer::getClazz(),this,staticGetObjectPointer,staticSetObjectPointer));
                             serialVersionUID=-5888955964943945437ULL;
                         }
 

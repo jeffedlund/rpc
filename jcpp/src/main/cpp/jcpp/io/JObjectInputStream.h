@@ -16,7 +16,7 @@ class SerialCallbackContext;
 #include "SerialCallbackContext.h"
 #include "HandleList.h"
 #include "HandleTable.h"
-#include "BlockDataInputStream.h"
+#include "JBlockDataInputStream.h"
 #include "JIOException.h"
 #include "JLANG.h"
 #include "Object.h"
@@ -28,7 +28,7 @@ namespace jcpp{
         static const int NULL_HANDLE = -1;
 
         class JCPP_LIBRARY_EXPORT JObjectInputStream : public JInputStream, public JObjectStreamConstants{
-            BlockDataInputStream *bin;
+            JBlockDataInputStream *bin;
             JClassLoader* inputClassLoader;
             HandleTable* handles;
             jint passHandle;

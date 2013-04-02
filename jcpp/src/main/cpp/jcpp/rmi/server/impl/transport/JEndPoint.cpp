@@ -34,8 +34,8 @@ namespace jcpp{
                             this->name="jcpp.rmi.server.impl.transport.EndPoint";
                             this->simpleName="EndPoint";
                             addInterface(JSerializable::getClazz());
-                            addField(new JField("address",JAddress::getClazz(),staticGetAddress,staticSetAddress));
-                            addField(new JField("site",JString::getClazz(),staticGetSite,staticSetSite));
+                            addField(new JField("address",JAddress::getClazz(),this,staticGetAddress,staticSetAddress));
+                            addField(new JField("site",JString::getClazz(),this,staticGetSite,staticSetSite));
                             serialVersionUID=1L;
                         }
 

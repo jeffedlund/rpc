@@ -29,7 +29,7 @@ namespace jcpp{
                 this->simpleName="Long";
                 this->serialVersionUID=4290774380558885855ULL;
                 addInterface(JSerializable::getClazz());
-                addField(new JField("value",JPrimitiveLong::getClazz(),staticGetValue,staticSetValue));
+                addField(new JField("value",JPrimitiveLong::getClazz(),this,staticGetValue,staticSetValue));
             }
 
             JClass* getSuperclass(){

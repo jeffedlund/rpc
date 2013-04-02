@@ -35,8 +35,8 @@ namespace jcpp{
                             this->simpleName="Address";
                             addInterface(JSerializable::getClazz());
                             addInterface(JCloneable::getClazz());
-                            addField(new JField("hostName",JString::getClazz(),staticGetHostName,staticSetHostName));
-                            addField(new JField("port",JPrimitiveInt::getClazz(),staticGetPort,staticSetPort));
+                            addField(new JField("hostName",JString::getClazz(),this,staticGetHostName,staticSetHostName));
+                            addField(new JField("port",JPrimitiveInt::getClazz(),this,staticGetPort,staticSetPort));
                             serialVersionUID=1;
                         }
 

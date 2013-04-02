@@ -5,7 +5,7 @@
 namespace jcpp{
     class JBool1Field : public JField{
     public:
-        JBool1Field():JField("bool1",JPrimitiveBoolean::getClazz()){
+        JBool1Field(JClass* p):JField("bool1",JPrimitiveBoolean::getClazz(),p){
         }
 
         JObject* get(JObject *object){
@@ -21,7 +21,7 @@ namespace jcpp{
 
     class JByte1Field : public JField{
     public:
-        JByte1Field():JField("byte1",JPrimitiveByte::getClazz()){
+        JByte1Field(JClass* p):JField("byte1",JPrimitiveByte::getClazz(),p){
         }
 
         JObject* get(JObject *object){
@@ -37,7 +37,7 @@ namespace jcpp{
 
     class JChar1Field : public JField{
     public:
-        JChar1Field():JField("c1",JPrimitiveChar::getClazz()){
+        JChar1Field(JClass* p):JField("c1",JPrimitiveChar::getClazz(),p){
         }
 
         JObject* get(JObject *object){
@@ -53,7 +53,7 @@ namespace jcpp{
 
     class JDouble1Field : public JField{
     public:
-        JDouble1Field():JField("d1",JPrimitiveDouble::getClazz()){
+        JDouble1Field(JClass* p):JField("d1",JPrimitiveDouble::getClazz(),p){
         }
 
         JObject* get(JObject *object){
@@ -69,7 +69,7 @@ namespace jcpp{
 
     class JFloat1Field : public JField{
     public:
-        JFloat1Field():JField("f1",JPrimitiveFloat::getClazz()){
+        JFloat1Field(JClass* p):JField("f1",JPrimitiveFloat::getClazz(),p){
         }
 
         JObject* get(JObject *object){
@@ -85,7 +85,7 @@ namespace jcpp{
 
     class JLong1Field : public JField{
     public:
-        JLong1Field():JField("l1",JPrimitiveLong::getClazz()){
+        JLong1Field(JClass* p):JField("l1",JPrimitiveLong::getClazz(),p){
         }
 
         JObject* get(JObject *object){
@@ -101,7 +101,7 @@ namespace jcpp{
 
     class JShort1Field : public JField{
     public:
-        JShort1Field():JField("s1",JPrimitiveShort::getClazz()){
+        JShort1Field(JClass* p):JField("s1",JPrimitiveShort::getClazz(),p){
         }
 
         JObject* get(JObject *object){
@@ -117,7 +117,7 @@ namespace jcpp{
 
     class JInt1Field : public JField{
     public:
-        JInt1Field():JField("i1",JPrimitiveInt::getClazz()){
+        JInt1Field(JClass* p):JField("i1",JPrimitiveInt::getClazz(),p){
         }
 
         JObject* get(JObject *object){
@@ -138,14 +138,14 @@ namespace jcpp{
             this->name="SampleObject";
             this->simpleName="SampleObject";
             this->serialVersionUID=40;
-            addField(new JBool1Field());
-            addField(new JByte1Field());
-            addField(new JChar1Field());
-            addField(new JDouble1Field());
-            addField(new JFloat1Field());
-            addField(new JLong1Field());
-            addField(new JShort1Field());
-            addField(new JInt1Field());
+            addField(new JBool1Field(this));
+            addField(new JByte1Field(this));
+            addField(new JChar1Field(this));
+            addField(new JDouble1Field(this));
+            addField(new JFloat1Field(this));
+            addField(new JLong1Field(this));
+            addField(new JShort1Field(this));
+            addField(new JInt1Field(this));
             addInterface(JSerializable::getClazz());
         }
 

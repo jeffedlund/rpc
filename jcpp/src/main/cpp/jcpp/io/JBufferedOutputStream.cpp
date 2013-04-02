@@ -21,10 +21,6 @@ namespace jcpp{
             JClass* getSuperclass(){
                 return JFilterOutputStream::getClazz();
             }
-
-            JObject* newInstance(){
-                throw new JInstantiationException("cannot instantiate object of instance "+getName());
-            }
         };
 
         static JClass* clazz;

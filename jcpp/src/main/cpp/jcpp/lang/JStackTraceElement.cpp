@@ -10,12 +10,12 @@ using namespace std;
 
 namespace jcpp{
     namespace lang{
-        static JObject* getDeclaringClass(JObject* object){
+        static JObject* staticGetDeclaringClass(JObject* object){
             JStackTraceElement* e=(JStackTraceElement*)object;
             return e->getDeclaringClass();
         }
 
-        static void setDeclaringClass(JObject* object,JObject* value){
+        static void staticSetDeclaringClass(JObject* object,JObject* value){
             JStackTraceElement* th=(JStackTraceElement*)object;
             th->setDeclaringClass((JString*)value);
         }
@@ -57,10 +57,10 @@ namespace jcpp{
                 this->name="java.lang.StackTraceElement";
                 this->simpleName="StackTraceElement";
                 this->serialVersionUID=6992337162326171013ULL;
-                addField(new JField("declaringClass",JString::getClazz(),getDeclaringClass,setDeclaringClass));
-                addField(new JField("methodName",JString::getClazz(),getMethodName,setMethodName));
-                addField(new JField("fileName",JString::getClazz(),getFileName,setFileName));
-                addField(new JField("lineNumber",JPrimitiveInt::getClazz(),getLineNumber,setLineNumber));
+                addField(new JField("declaringClass",JString::getClazz(),this,staticGetDeclaringClass,staticSetDeclaringClass));
+                addField(new JField("methodName",JString::getClazz(),this,getMethodName,setMethodName));
+                addField(new JField("fileName",JString::getClazz(),this,getFileName,setFileName));
+                addField(new JField("lineNumber",JPrimitiveInt::getClazz(),this,getLineNumber,setLineNumber));
                 addInterface(JSerializable::getClazz());
             }
 

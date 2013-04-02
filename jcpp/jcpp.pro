@@ -92,7 +92,6 @@ SOURCES += \
     src/main/cpp/jcpp/io/impl/SerialCallbackContext.cpp \
     src/main/cpp/jcpp/io/impl/HandleTable.cpp \
     src/main/cpp/jcpp/io/impl/HandleList.cpp \
-    src/main/cpp/jcpp/io/impl/BlockDataInputStream.cpp \
     src/main/cpp/jcpp/io/JObjectStreamException.cpp \
     src/main/cpp/jcpp/io/JInvalidClassException.cpp \
     src/main/cpp/jcpp/lang/exception/JError.cpp \
@@ -106,7 +105,6 @@ SOURCES += \
     src/main/cpp/jcpp/lang/exception/JClassCastException.cpp \
     src/main/cpp/jcpp/io/JOutputStream.cpp \
     src/main/cpp/jcpp/io/JDataOutputStream.cpp \
-    src/main/cpp/jcpp/io/impl/BlockDataOutputStream.cpp \
     src/main/cpp/jcpp/io/impl/OutputHandleTable.cpp \
     src/main/cpp/jcpp/io/JObjectOutputStream.cpp \
     src/main/cpp/jcpp/io/JObjectStreamField.cpp \
@@ -245,7 +243,11 @@ SOURCES += \
     src/main/cpp/jcpp/util/JQueue.cpp \
     src/main/cpp/jcpp/util/JAbstractQueue.cpp \
     src/main/cpp/jcpp/lang/JThreadLocal.cpp \
-    src/main/cpp/jcpp/util/JIdentityHashMap.cpp
+    src/main/cpp/jcpp/util/JIdentityHashMap.cpp \
+    src/main/cpp/jcpp/lang/reflect/JMember.cpp \
+    src/main/cpp/jcpp/lang/reflect/JModifier.cpp \
+    src/main/cpp/jcpp/io/impl/JBlockDataInputStream.cpp \
+    src/main/cpp/jcpp/io/impl/JBlockDataOutputStream.cpp
     
     
 HEADERS += \
@@ -304,7 +306,6 @@ HEADERS += \
     src/main/cpp/jcpp/io/impl/SerialCallbackContext.h \
     src/main/cpp/jcpp/io/impl/HandleTable.h \
     src/main/cpp/jcpp/io/impl/HandleList.h \
-    src/main/cpp/jcpp/io/impl/BlockDataInputStream.h \
     src/main/cpp/jcpp/io/JObjectStreamException.h \
     src/main/cpp/jcpp/io/JInvalidClassException.h \
     src/main/cpp/jcpp/lang/exception/JError.h \
@@ -319,7 +320,6 @@ HEADERS += \
     src/main/cpp/jcpp/lang/exception/JClassCastException.h \
     src/main/cpp/jcpp/io/JOutputStream.h \
     src/main/cpp/jcpp/io/JDataOutputStream.h \
-    src/main/cpp/jcpp/io/impl/BlockDataOutputStream.h \
     src/main/cpp/jcpp/io/impl/OutputHandleTable.h \
     src/main/cpp/jcpp/io/JObjectOutputStream.h \
     src/main/cpp/jcpp/io/JObjectStreamField.h \
@@ -458,7 +458,11 @@ HEADERS += \
     src/main/cpp/jcpp/util/JAbstractQueue.h \
     src/main/cpp/jcpp/io/JBits.h \
     src/main/cpp/jcpp/lang/JThreadLocal.h \
-    src/main/cpp/jcpp/util/JIdentityHashMap.h
+    src/main/cpp/jcpp/util/JIdentityHashMap.h \
+    src/main/cpp/jcpp/lang/reflect/JMember.h \
+    src/main/cpp/jcpp/lang/reflect/JModifier.h \
+    src/main/cpp/jcpp/io/impl/JBlockDataInputStream.h \
+    src/main/cpp/jcpp/io/impl/JBlockDataOutputStream.h
     
     
 OTHER_FILES += \
