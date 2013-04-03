@@ -56,4 +56,5 @@ INPUT(
 ./release\JHashSetTest.o
 ./release\JHashtableTest.o
 ./release\JIdentityHashMapTest.o
+./release\JPrimitiveArrayTest.o
 );

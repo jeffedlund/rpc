@@ -101,7 +101,8 @@ SOURCES += \
     src/test/cpp/jcpp/util/JHashMapTest.cpp \
     src/test/cpp/jcpp/util/JHashSetTest.cpp \
     src/test/cpp/jcpp/util/JHashtableTest.cpp \
-    src/test/cpp/jcpp/util/JIdentityHashMapTest.cpp
+    src/test/cpp/jcpp/util/JIdentityHashMapTest.cpp \
+    src/test/cpp/jcpp/lang/JPrimitiveArrayTest.cpp
     
     
 HEADERS += \
@@ -160,7 +161,8 @@ HEADERS += \
     src/test/cpp/jcpp/util/JHashMapTest.h \
     src/test/cpp/jcpp/util/JHashSetTest.h \
     src/test/cpp/jcpp/util/JHashtableTest.h \
-    src/test/cpp/jcpp/util/JIdentityHashMapTest.h
+    src/test/cpp/jcpp/util/JIdentityHashMapTest.h \
+    src/test/cpp/jcpp/lang/JPrimitiveArrayTest.h
     
     
 OTHER_FILES += \

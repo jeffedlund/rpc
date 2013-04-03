@@ -1,4 +1,11 @@
-group1:
+group:
+------
+-in io, test case for enum
+-object containing proxy
+-in rmi : test proxy in parameter+ in return+ in somewhere deep in an object
+
+
+group:
 -------
 -implement all JSystem class
 -make thread excecption handling more robust
@@ -11,22 +18,14 @@ group1:
 -wiki page to explain how to setup qt ide + compile project
 -what is the equivalence to load dynamically jars?
 
-group2:
+
+group:
 -------
 -tree of classloader
 -check all new/delete calls
 -check call to delete[]
 -constructor in order to ease casting
 
-group3: TODO have test cases for input stream
--------
--primitive arrays of primitive type
--primitive arrays of object
--primitive array of primitive array
--object of object of object
--object containing proxy
--in rmi : test proxy in parameter+ in return+ in somewhere deep in an object
--test case for enum with io and rpc
 
 -add more attributes to JField like static, transient, ...
 -generate proxy classes for interfaces => use java parser module for that

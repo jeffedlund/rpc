@@ -56,4 +56,5 @@ INPUT(
 ./debug\JHashSetTest.o
 ./debug\JHashtableTest.o
 ./debug\JIdentityHashMapTest.o
+./debug\JPrimitiveArrayTest.o
 );

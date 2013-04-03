@@ -77,6 +77,7 @@
 #include "JHashSetTest.h"
 #include "JHashtableTest.h"
 #include "JIdentityHashMapTest.h"
+#include "JPrimitiveArrayTest.h"
 using namespace std;
 using namespace jcpp::util;
 using namespace jcpp::lang;
@@ -87,7 +88,7 @@ using namespace jcpp::rmi::server::impl::transport;
 using namespace jcpp::rmi::server::impl::gateway;
 using namespace jcpp::rmi::server::impl::connection;
 
-static int TEST_SIZE = 50;
+static int TEST_SIZE = 51;
 static JTest* tests[] = {new JThrowableTest(),new JErrorTest(),new JExceptionTest(),new JRuntimeExceptionTest(),
                          new JClassCastExceptionTest(),new JClassNotFoundExceptionTest(),new JIllegalArgumentExceptionTest(),
                          new JIllegalStateExceptionTest(),new JIndexOutOfBoundsExceptionTest(),new JInstantiationExceptionTest(),
@@ -102,7 +103,8 @@ static JTest* tests[] = {new JThrowableTest(),new JErrorTest(),new JExceptionTes
                          new JPrimitiveDoubleTest(),new JPrimitiveFloatTest(),new JPrimitiveLongTest(),
                          new JPrimitiveShortTest(),new JPrimitiveIntTest(),new JArrayListTest(),
                          new JSerializableTest,new JExternalizableTest,new JHashMapTest,
-                         new JHashSetTest,new JIdentityHashMapTest, new JHashtableTest,new JServerTest};
+                         new JHashSetTest,new JIdentityHashMapTest, new JHashtableTest,
+                         new JPrimitiveArrayTest,new JServerTest};
 
 void registerClasses(){
     JClassLoader::getBootClassLoader()->addClass(JSampleObject::getClazz());

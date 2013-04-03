@@ -110,7 +110,7 @@ namespace jcpp{
         }
 
         void JPrimitiveArray::checkType(JObject* o){
-            if (o!=NULL && o->getClass()!=getClass()->getComponentType()){
+            if (o!=NULL && !(o->isInstanceOf(getClass()->getComponentType()))){
                 throw new JIllegalArgumentException("attempt to insert object of type "+o->getClass()->toString()+" in array of component type "+getClass()->getComponentType()->toString());
             }
         }
