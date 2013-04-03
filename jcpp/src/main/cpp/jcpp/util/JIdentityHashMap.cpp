@@ -25,6 +25,8 @@ namespace jcpp{
             JClass* getSuperclass(){
                 return JObject::getClazz();
             }
+
+            virtual JClass* getDeclaringClass();
         };
         map<JObject*,JObject*,JObject::POINTER_ID_COMPARATOR>::iterator it;
 
@@ -130,6 +132,8 @@ namespace jcpp{
           JObject* newInstance(){
               return new JIdentityHashMap();
           }
+
+          virtual void fillDeclaredClasses();
         };
 
         static JClass* clazz;
@@ -234,6 +238,10 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JObject::getClazz();
               }
+
+              virtual JClass* getDeclaringClass(){
+                  return JIdentityHashMap::getClazz();
+              }
             };
             JIdentityHashMap* identityHashMap;
             jint expectedModCount;
@@ -314,6 +322,10 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JIdentityHashMapIterator::getClazz();
               }
+
+              virtual JClass* getDeclaringClass(){
+                  return JIdentityHashMap::getClazz();
+              }
             };
         public:
             static JClass* getClazz(){
@@ -344,6 +356,10 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JIdentityHashMapIterator::getClazz();
+              }
+
+              virtual JClass* getDeclaringClass(){
+                  return JIdentityHashMap::getClazz();
               }
             };
         public:
@@ -380,6 +396,14 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JIdentityHashMapIterator::getClazz();
               }
+
+              virtual JClass* getDeclaringClass(){
+                  return JIdentityHashMap::getClazz();
+              }
+
+              virtual void fillDeclaredClasses(){
+                  addDeclaredClass(JIdentityHashMapEntryImpl::getClazz());
+              }
             };
         public:
             static JClass* getClazz(){
@@ -398,6 +422,10 @@ namespace jcpp{
             }
         };
 
+        JClass* JIdentityHashMapEntryImpl::JIdentityHashMapEntryImplClass::getDeclaringClass(){
+            return JIdentityHashMapEntryIterator::getClazz();
+        }
+
         static JClass* identityHashMapKeySetImplClass;
         class JIdentityHashMapKeySetImpl : public JAbstractSet {
         protected:
@@ -411,6 +439,10 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JAbstractSet::getClazz();
+              }
+
+              virtual JClass* getDeclaringClass(){
+                  return JIdentityHashMap::getClazz();
               }
             };
             JIdentityHashMap* map;
@@ -465,6 +497,10 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JAbstractCollection::getClazz();
               }
+
+              virtual JClass* getDeclaringClass(){
+                  return JIdentityHashMap::getClazz();
+              }
             };
             JIdentityHashMap* map;
         public:
@@ -513,6 +549,10 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JAbstractSet::getClazz();
+              }
+
+              virtual JClass* getDeclaringClass(){
+                  return JIdentityHashMap::getClazz();
               }
             };
             JIdentityHashMap* map;
@@ -588,6 +628,16 @@ namespace jcpp{
                 JObject* value = in->readObject();
                 put(key, value);
             }
+        }
+
+        void JIdentityHashMapClass::fillDeclaredClasses(){
+            addDeclaredClass(JIdentityHashMapEntrySetImpl::getClazz());
+            addDeclaredClass(JIdentityHashMapValues::getClazz());
+            addDeclaredClass(JIdentityHashMapKeySetImpl::getClazz());
+            addDeclaredClass(JIdentityHashMapEntryIterator::getClazz());
+            addDeclaredClass(JIdentityHashMapKeyIterator::getClazz());
+            addDeclaredClass(JIdentityHashMapValueIterator::getClazz());
+            addDeclaredClass(JIdentityHashMapIterator::getClazz());
         }
 
         JIdentityHashMap::~JIdentityHashMap(){

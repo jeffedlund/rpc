@@ -62,6 +62,8 @@ namespace jcpp{
           JObject* newInstance(){
               return new JVector();
           }
+
+          virtual void fillDeclaredClasses();
         };
 
         static JClass* clazz;
@@ -199,6 +201,10 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JObject::getClazz();
+              }
+
+              virtual JClass* getDeclaringClass(){
+                  return JVector::getClazz();
               }
             };
 
@@ -580,6 +586,10 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JObject::getClazz();
               }
+
+              virtual JClass* getDeclaringClass(){
+                  return JVector::getClazz();
+              }
             };
             JVector* v;
             jint cursor;
@@ -661,6 +671,10 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JVectorItr::getClazz();
+              }
+
+              virtual JClass* getDeclaringClass(){
+                  return JVector::getClazz();
               }
             };
 
@@ -748,6 +762,12 @@ namespace jcpp{
             JVectorItr* i=new JVectorItr(this);
             unlock();
             return i;
+        }
+
+        void JVectorClass::fillDeclaredClasses(){
+            addDeclaredClass(JEnumerationImpl::getClazz());
+            addDeclaredClass(JVectorItr::getClazz());
+            addDeclaredClass(JVectorListItr::getClazz());
         }
 
         JVector::~JVector(){

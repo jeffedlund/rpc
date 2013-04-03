@@ -8,7 +8,9 @@ namespace jcpp{
                 classes->push_back(JAccessibleObject::getClazz());
                 classes->push_back(JField::getClazz());
                 classes->push_back(JInvocationHandler::getClazz());
+                classes->push_back(JMember::getClazz());
                 classes->push_back(JMethod::getClazz());
+                classes->push_back(JModifier::getClazz());
                 classes->push_back(JPackage::getClazz());
                 classes->push_back(JProxy::getClazz());
             }

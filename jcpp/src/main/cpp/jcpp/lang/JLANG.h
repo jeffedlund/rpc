@@ -46,6 +46,7 @@
 #include "JStackTraceElement.h"
 #include "JString.h"
 #include "JThread.h"
+#include "JThreadLocal.h"
 #include "JIllegalStateException.h"
 #include "JVoid.h"
 #include "JPackage.h"

@@ -277,6 +277,9 @@ namespace jcpp{
         }
 
         void JClass::addDeclaredClass(JClass* c){
+            if (c->getDeclaringClass()!=this){
+                throw new JIllegalArgumentException("Declaring class of "+c->getName()+" is not "+getName()+". It is "+c->getDeclaringClass()->getName());
+            }
             declaredClasses->push_back(c);
         }
 

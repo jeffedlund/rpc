@@ -22,6 +22,10 @@ namespace jcpp{
             JClass* getSuperclass(){
                 return JObject::getClazz();
             }
+
+            virtual void fillDeclaredClasses(){
+                addDeclaredClass(JThread::JUncaughtExceptionHandler::getClazz());
+            }
         };
 
         static JClass* clazz;
@@ -45,6 +49,10 @@ namespace jcpp{
 
             JClass* getSuperclass(){
                 return JInterface::getClazz();
+            }
+
+            virtual JClass* getDeclaringClass(){
+                return JThread::getClazz();
             }
         };
 

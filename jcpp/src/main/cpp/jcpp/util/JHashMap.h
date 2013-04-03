@@ -31,6 +31,10 @@ namespace jcpp{
                 JClass* getSuperclass(){
                     return JObject::getClazz();
                 }
+
+                virtual JClass* getDeclaringClass(){
+                    return JHashMap::getClazz();
+                }
             };
             map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator it;
 

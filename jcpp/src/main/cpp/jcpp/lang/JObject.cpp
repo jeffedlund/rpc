@@ -121,7 +121,7 @@ namespace jcpp{
         }
 
         JObject* JObject::clone(){
-             throw new JCloneNotSupportedException("not clonable "+toString());//TODO add check is instanceof cloneable
+             throw new JCloneNotSupportedException("not clonable "+toString());
         }
 
         JObject::~JObject(){

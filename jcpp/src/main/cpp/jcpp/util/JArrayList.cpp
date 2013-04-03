@@ -59,6 +59,8 @@ namespace jcpp{
           JObject* newInstance(){
               return new JArrayList();
           }
+
+          virtual void fillDeclaredClasses();
         };
 
         static JClass* clazz;
@@ -255,6 +257,10 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JObject::getClazz();
               }
+
+              virtual JClass* getDeclaringClass(){
+                  return JArrayList::getClazz();
+              }
             };
 
             JArrayList* list;
@@ -334,6 +340,10 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JArrayListItr::getClazz();
+              }
+
+              virtual JClass* getDeclaringClass(){
+                  return JArrayList::getClazz();
               }
             };
 
@@ -423,6 +433,12 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JAbstractList::getClazz();
               }
+
+              virtual JClass* getDeclaringClass(){
+                  return JArrayList::getClazz();
+              }
+
+              virtual void fillDeclaredClasses();
             };
 
             JArrayList* list;
@@ -567,6 +583,10 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JObject::getClazz();
               }
+
+              virtual JClass* getDeclaringClass(){
+                  return JArrayListSubList::getClazz();
+              }
             };
 
         public:
@@ -670,6 +690,10 @@ namespace jcpp{
             }
         };
 
+        void JArrayListSubList::JArrayListSubListClass::fillDeclaredClasses(){
+            addDeclaredClass(JArrayListSubListIterator::getClazz());
+        }
+
         JListIterator* JArrayListSubList::listIterator(jint index) {
             checkForComodification();
             rangeCheckForAdd(index);
@@ -695,6 +719,12 @@ namespace jcpp{
                 throw new JIllegalArgumentException(Object::concat("fromIndex(", fromIndex) +Object::concat(") > toIndex(",toIndex) + ")");
             }
             return new JArrayListSubList(this,this, 0, fromIndex, toIndex);
+        }
+
+        void JArrayListClass::fillDeclaredClasses(){
+            addDeclaredClass(JArrayListItr::getClazz());
+            addDeclaredClass(JArrayListListItr::getClazz());
+            addDeclaredClass(JArrayListSubList::getClazz());
         }
 
         JArrayList::~JArrayList(){

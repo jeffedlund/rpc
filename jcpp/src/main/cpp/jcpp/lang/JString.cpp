@@ -16,6 +16,7 @@ namespace jcpp{
               this->serialVersionUID=-6849794470754667710ULL;
               addInterface(JSerializable::getClazz());
               addInterface(JComparable::getClazz());
+              addInterface(JCloneable::getClazz());
           }
 
           JClass* getSuperclass(){

@@ -20,6 +20,8 @@ namespace jcpp{
           JClass* getSuperclass(){
               return JObject::getClazz();
           }
+
+          virtual void fillDeclaredClasses();
         };
 
         static JClass* clazz;
@@ -29,6 +31,22 @@ namespace jcpp{
                 clazz=new JAbstractMapClass();
             }
             return clazz;
+        }
+
+        static JClass* simpleEntryClazz=NULL;
+        JClass* JAbstractMap::JSimpleEntry::getClazz(){
+            if (simpleEntryClazz==NULL){
+                simpleEntryClazz=new JSimpleEntryClass();
+            }
+            return simpleEntryClazz;
+        }
+
+        static JClass* simpleImmutableEntryClazz;
+        JClass* JAbstractMap::JSimpleImmutableEntry::getClazz(){
+            if (simpleImmutableEntryClazz==NULL){
+                simpleImmutableEntryClazz=new JSimpleImmutableEntryClass();
+            }
+            return simpleImmutableEntryClazz;
         }
 
         JAbstractMap::JAbstractMap(JClass* _class):JObject(_class){
@@ -171,11 +189,13 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JObject::getClazz();
               }
+
+              virtual JClass* getDeclaringClass();
             };
 
             JIterator* i;
         public:
-            JClass* getClazz(){
+            static JClass* getClazz(){
                 if (abstractSetIteratorImplClazz==NULL){
                     abstractSetIteratorImplClazz=new JAbstractSetIteratorImplClass();
                 }
@@ -219,10 +239,18 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JAbstractSet::getClazz();
               }
+
+              virtual JClass* getDeclaringClass(){
+                  return JAbstractMap::getClazz();
+              }
+
+              virtual void fillDeclaredClasses(){
+                  addDeclaredClass(JAbstractSetIteratorImpl::getClazz());
+              }
             };
         public:
 
-            JClass* getClazz(){
+            static JClass* getClazz(){
                 if (abstractSetImplClazz==NULL){
                     abstractSetImplClazz=new JAbstractSetImplClass();
                 }
@@ -254,6 +282,10 @@ namespace jcpp{
             }
         };
 
+        JClass* JAbstractSetIteratorImpl::JAbstractSetIteratorImplClass::getDeclaringClass(){
+            return JAbstractSetImpl::getClazz();
+        }
+
         JSet* JAbstractMap::keySet(){
             return new JAbstractSetImpl(this);
         }
@@ -273,11 +305,13 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JObject::getClazz();
               }
+
+              virtual JClass* getDeclaringClass();
             };
 
             JIterator* i;
         public:
-            JClass* getClazz(){
+            static JClass* getClazz(){
                 if (abstractCollectionIteratorImplClazz==NULL){
                     abstractCollectionIteratorImplClazz=new JAbstractCollectionIteratorImplClass();
                 }
@@ -321,10 +355,18 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JAbstractCollection::getClazz();
               }
+
+              virtual JClass* getDeclaringClass(){
+                  return JAbstractMap::getClazz();
+              }
+
+              virtual void fillDeclaredClasses(){
+                  addDeclaredClass(JAbstractCollectionIteratorImpl::getClazz());
+              }
             };
         public:
 
-            JClass* getClazz(){
+            static JClass* getClazz(){
                 if (abstractCollectionImplClazz==NULL){
                     abstractCollectionImplClazz=new JAbstractCollectionImplClass();
                 }
@@ -363,6 +405,10 @@ namespace jcpp{
                 return JObject::hashCode();
             }
         };
+
+        JClass* JAbstractCollectionIteratorImpl::JAbstractCollectionIteratorImplClass::getDeclaringClass(){
+            return JAbstractCollectionImpl::getClazz();
+        }
 
         JCollection* JAbstractMap::values(){
             return new JAbstractCollectionImpl(this);
@@ -443,6 +489,13 @@ namespace jcpp{
                 }
                 ss<<','<<' ';
             }
+        }
+
+        void JAbstractMapClass::fillDeclaredClasses(){
+            addDeclaredClass(JAbstractMap::JSimpleEntry::getClazz());
+            addDeclaredClass(JAbstractMap::JSimpleImmutableEntry::getClazz());
+            addDeclaredClass(JAbstractCollectionImpl::getClazz());
+            addDeclaredClass(JAbstractSetImpl::getClazz());
         }
 
         JAbstractMap::~JAbstractMap(){

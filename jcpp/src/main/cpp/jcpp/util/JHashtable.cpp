@@ -77,6 +77,8 @@ namespace jcpp{
           JObject* newInstance(){
               return new JHashtable();
           }
+
+          virtual void fillDeclaredClasses();
         };
 
         static JClass* clazz;
@@ -254,6 +256,10 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JAbstractSet::getClazz();
               }
+
+              virtual JClass* getDeclaringClass(){
+                  return JHashtable::getClazz();
+              }
             };
             JHashtable* map;
         public:
@@ -306,6 +312,10 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JAbstractSet::getClazz();
+              }
+
+              virtual JClass* getDeclaringClass(){
+                  return JHashtable::getClazz();
               }
             };
             JHashtable* map;
@@ -372,6 +382,10 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JAbstractCollection::getClazz();
+              }
+
+              virtual JClass* getDeclaringClass(){
+                  return JHashtable::getClazz();
               }
             };
             JHashtable* map;
@@ -515,6 +529,10 @@ namespace jcpp{
             JClass* getSuperclass(){
                 return JObject::getClazz();
             }
+
+            virtual JClass* getDeclaringClass(){
+                return JHashtable::getClazz();
+            }
         };
         map<JObject*,JObject*,JObject::POINTER_COMPARATOR>::iterator it;
 
@@ -592,6 +610,10 @@ namespace jcpp{
                 JClass* getSuperclass(){
                     return JObject::getClazz();
                 }
+
+                virtual JClass* getDeclaringClass(){
+                    return JHashtable::getClazz();
+                }
             };
             JHashtable* hashtable;
             jbool first;
@@ -604,7 +626,7 @@ namespace jcpp{
             jint expectedModCount;
 
         public:
-            JClass* getClazz(){
+            static JClass* getClazz(){
                 if (hashtableEnumeratorImplClazz==NULL){
                     hashtableEnumeratorImplClazz=new JHashtableEnumeratorImplClass();
                 }
@@ -685,6 +707,15 @@ namespace jcpp{
             } else {
                 return new JHashtableEnumeratorImpl(this,type, true);
             }
+        }
+
+        void JHashtableClass::fillDeclaredClasses(){
+            addDeclaredClass(JHashtableKeySetImpl::getClazz());
+            addDeclaredClass(JHashtableEntrySetImpl::getClazz());
+            addDeclaredClass(JHashtableValues::getClazz());
+            addDeclaredClass(JHashtableEntryImpl::getClazz());
+            addDeclaredClass(JHashtableEntrySetImpl::getClazz());
+            addDeclaredClass(JHashtableEnumeratorImpl::getClazz());
         }
 
         JHashtable::~JHashtable(){

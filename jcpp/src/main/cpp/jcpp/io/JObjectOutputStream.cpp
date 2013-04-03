@@ -29,6 +29,10 @@ namespace jcpp{
             JClass* getSuperclass(){
                 return JOutputStream::getClazz();
             }
+
+            virtual void fillDeclaredClasses(){
+                addDeclaredClass(JBlockDataOutputStream::getClazz());
+            }
         };
 
         static JClass* clazz;

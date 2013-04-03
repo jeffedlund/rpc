@@ -17,6 +17,8 @@ namespace jcpp{
           JClass* getSuperclass(){
               return JInterface::getClazz();
           }
+
+          virtual void fillDeclaredClasses();
         };
 
         static JClass* clazz;
@@ -40,6 +42,10 @@ namespace jcpp{
           JClass* getSuperclass(){
               return JInterface::getClazz();
           }
+
+          virtual JClass* getDeclaringClass(){
+              return JMap::getClazz();
+          }
         };
 
         static JClass* entryClazz;
@@ -52,6 +58,10 @@ namespace jcpp{
         }
 
         JMap::JEntry::~JEntry(){
+        }
+
+        void JMapClass::fillDeclaredClasses(){
+            addDeclaredClass(JMap::JEntry::getClazz());
         }
 
         JMap::~JMap(){

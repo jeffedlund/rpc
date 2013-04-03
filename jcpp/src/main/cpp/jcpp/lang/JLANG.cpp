@@ -53,6 +53,7 @@ namespace jcpp{
             classes->push_back(JString::getClazz());
             classes->push_back(JSystem::getClazz());
             classes->push_back(JThread::getClazz());
+            classes->push_back(JThreadLocal::getClazz());
             classes->push_back(JVoid::getClazz());
         }
 

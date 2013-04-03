@@ -4,12 +4,13 @@
 #include "JObject.h"
 #include "JCPP.h"
 #include "JComparable.h"
+#include "JCloneable.h"
 using namespace std;
 
 //TODO implement more method + charsequence
 namespace jcpp{
     namespace lang{
-        class JCPP_LIBRARY_EXPORT JString : public JObject, public JComparable{
+        class JCPP_LIBRARY_EXPORT JString : public JObject, public JComparable, public JCloneable{
             string str;
 
         public:

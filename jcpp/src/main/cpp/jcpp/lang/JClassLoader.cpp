@@ -101,7 +101,12 @@ namespace jcpp{
 
         void JClassLoader::initClasses(JPackage* p){
             for (unsigned int i=0;i<p->getClasses()->size();i++){
-                addClass(p->getClasses()->at(i));
+                JClass* c=p->getClasses()->at(i);
+                addClass(c);
+                vector<JClass*>* dc=c->getDeclaredClasses();
+                for (unsigned int j=0;j<dc->size();j++){
+                    addClass(dc->at(j));
+                }
             }
             for (unsigned int i=0;i<p->getPackages()->size();i++){
                 initClasses(p->getPackages()->at(i));

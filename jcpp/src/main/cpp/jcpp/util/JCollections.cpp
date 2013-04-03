@@ -21,6 +21,8 @@ namespace jcpp{
             JClass* getSuperclass(){
                 return JObject::getClazz();
             }
+
+            virtual void fillDeclaredClasses();
         };
 
         static JClass* clazz;
@@ -50,6 +52,10 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JObject::getClazz();
+              }
+
+              virtual JClass* getDeclaringClass(){
+                  return JCollections::getClazz();
               }
             };
             JCollection* c;
@@ -201,6 +207,10 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JSynchronizedCollection::getClazz();
+              }
+
+              virtual JClass* getDeclaringClass(){
+                  return JCollections::getClazz();
               }
             };
             JList* list;
@@ -374,10 +384,14 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JSynchronizedList::getClazz();
               }
+
+              virtual JClass* getDeclaringClass(){
+                  return JCollections::getClazz();
+              }
             };
 
         public:
-            JClass* getClazz(){
+            static JClass* getClazz(){
                 if (synchronizedRandomAccessListClazz==NULL){
                     synchronizedRandomAccessListClazz=new JSynchronizedRandomAccessListClass();
                 }
@@ -419,10 +433,14 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JObject::getClazz();
               }
+
+              virtual JClass* getDeclaringClass(){
+                  return JCollections::getClazz();
+              }
             };
 
         public:
-            JClass* getClazz(){
+            static JClass* getClazz(){
                 if (emptyIteratorClazz==NULL){
                     emptyIteratorClazz=new JEmptyIteratorClass();
                 }
@@ -469,9 +487,13 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JObject::getClazz();
               }
+
+              virtual JClass* getDeclaringClass(){
+                  return JCollections::getClazz();
+              }
             };
         public:
-            JClass* getClazz(){
+            static JClass* getClazz(){
                 if (emptyEnumerationClazz==NULL){
                     emptyEnumerationClazz=new JEmptyEnumerationClass();
                 }
@@ -496,6 +518,14 @@ namespace jcpp{
 
         JEnumeration* JCollections::emptyEnumeration(){
             return new JEmptyEnumeration();
+        }
+
+        void JCollectionsClass::fillDeclaredClasses(){
+            addDeclaredClass(JSynchronizedCollection::getClazz());
+            addDeclaredClass(JSynchronizedList::getClazz());
+            addDeclaredClass(JSynchronizedRandomAccessList::getClazz());
+            addDeclaredClass(JEmptyIterator::getClazz());
+            addDeclaredClass(JEmptyEnumeration::getClazz());
         }
 
         JCollections::~JCollections(){

@@ -81,6 +81,8 @@ namespace jcpp{
           JObject* newInstance(){
               return new JHashMap();
           }
+
+          virtual void fillDeclaredClasses();
         };
 
         static JClass* clazz;
@@ -205,6 +207,10 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JObject::getClazz();
               }
+
+              virtual JClass* getDeclaringClass(){
+                  return JHashMap::getClazz();
+              }
             };
             JHashMap* hashMap;
             jint expectedModCount;
@@ -284,6 +290,10 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JHashIterator::getClazz();
               }
+
+              virtual JClass* getDeclaringClass(){
+                  return JHashMap::getClazz();
+              }
             };
         public:
             static JClass* getClazz(){
@@ -315,6 +325,10 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JHashIterator::getClazz();
               }
+
+              virtual JClass* getDeclaringClass(){
+                  return JHashMap::getClazz();
+              }
             };
         public:
             static JClass* getClazz(){
@@ -345,6 +359,10 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JHashIterator::getClazz();
+              }
+
+              virtual JClass* getDeclaringClass(){
+                  return JHashMap::getClazz();
               }
             };
         public:
@@ -389,6 +407,10 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JAbstractSet::getClazz();
+              }
+
+              virtual JClass* getDeclaringClass(){
+                  return JHashMap::getClazz();
               }
             };
             JHashMap* map;
@@ -443,6 +465,10 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JAbstractCollection::getClazz();
               }
+
+              virtual JClass* getDeclaringClass(){
+                  return JHashMap::getClazz();
+              }
             };
             JHashMap* map;
         public:
@@ -491,6 +517,10 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JAbstractSet::getClazz();
+              }
+
+              virtual JClass* getDeclaringClass(){
+                  return JHashMap::getClazz();
               }
             };
             JHashMap* map;
@@ -573,6 +603,17 @@ namespace jcpp{
                 JObject* value = in->readObject();
                 put(key, value);
             }
+        }
+
+        void JHashMapClass::fillDeclaredClasses(){
+            addDeclaredClass(JHashIterator::getClazz());
+            addDeclaredClass(JValueIterator::getClazz());
+            addDeclaredClass(JKeyIterator::getClazz());
+            addDeclaredClass(JEntryIterator::getClazz());
+            addDeclaredClass(JHashMapKeySetImpl::getClazz());
+            addDeclaredClass(JHashMapValues::getClazz());
+            addDeclaredClass(JHashMapEntrySetImpl::getClazz());
+            addDeclaredClass(JHashMap::JEntryImpl::getClazz());
         }
 
         JHashMap::~JHashMap(){

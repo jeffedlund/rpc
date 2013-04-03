@@ -23,6 +23,8 @@ namespace jcpp{
           JClass* getSuperclass(){
               return JAbstractCollection::getClazz();
           }
+
+          virtual void fillDeclaredClasses();
         };
 
         static JClass* clazz;
@@ -54,6 +56,10 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JObject::getClazz();
+              }
+
+              virtual JClass* getDeclaringClass(){
+                  return JAbstractList::getClazz();
               }
             };
 
@@ -137,6 +143,10 @@ namespace jcpp{
 
               JClass* getSuperclass(){
                   return JItr::getClazz();
+              }
+
+              virtual JClass* getDeclaringClass(){
+                  return JAbstractList::getClazz();
               }
             };
 
@@ -237,6 +247,8 @@ namespace jcpp{
               JClass* getSuperclass(){
                   return JAbstractList::getClazz();
               }
+
+              virtual void fillDeclaredClasses();
             };
 
         public:
@@ -431,6 +443,10 @@ namespace jcpp{
                   JClass* getSuperclass(){
                       return JObject::getClazz();
                   }
+
+                  virtual JClass* getDeclaringClass(){
+                      return JSubList::getClazz();
+                  }
                 };
 
                 JSubList* l;
@@ -505,6 +521,10 @@ namespace jcpp{
                     delete i;
                 }
         };
+
+        void JSubList::JSubListClass::fillDeclaredClasses(){
+            addDeclaredClass(JListIteratorImpl::getClazz());
+        }
 
         JListIterator* JSubList::listIterator(jint index) {
             checkForComodification();
@@ -689,6 +709,11 @@ namespace jcpp{
                 it->remove();
             }
             delete it;
+        }
+
+        void JAbstractListClass::fillDeclaredClasses(){
+            addDeclaredClass(JItr::getClazz());
+            addDeclaredClass(JListItr::getClazz());
         }
 
         JAbstractList::~JAbstractList(){

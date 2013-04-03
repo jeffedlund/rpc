@@ -1,27 +1,21 @@
 group1:
 -------
--review jpackages filled + implement fillDeclaredClasses+declaringClass
--check clone layer
-
+-implement all JSystem class
 -make thread excecption handling more robust
 -review call of all keySet/entrySet/iterator and check that we call delete
--implement all JSystem class
--check call to delete[]
 -implement all jcpp.util, jcpp.io, jcpp.net (a quite big list :))
 -remove implementation allowing == to call equals ?
--work on wiki documentation
--use which cast? () or dynamic or static?
 -implement socket/read/connecttimeout
--test case for enum with io and rpc
--issue with duplicate methods in object and its interface. what to do?
 -keep operator+= -= *= ?
 -wiki pages on how to generate classes, interfaces, proxy
+-wiki page to explain how to setup qt ide + compile project
+-what is the equivalence to load dynamically jars?
 
 group2:
 -------
 -tree of classloader
--check all new/delete calls, check delete[] for arrays
--test with java 1.8
+-check all new/delete calls
+-check call to delete[]
 -constructor in order to ease casting
 
 group3: TODO have test cases for input stream
@@ -31,8 +25,8 @@ group3: TODO have test cases for input stream
 -primitive array of primitive array
 -object of object of object
 -object containing proxy
--in rmi : test proxy in parameter, return, in somewhere deep in an object
-
+-in rmi : test proxy in parameter+ in return+ in somewhere deep in an object
+-test case for enum with io and rpc
 
 -add more attributes to JField like static, transient, ...
 -generate proxy classes for interfaces => use java parser module for that

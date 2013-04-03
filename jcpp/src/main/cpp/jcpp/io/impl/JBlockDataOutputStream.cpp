@@ -4,6 +4,7 @@
 #include "JObjectStreamConstants.h"
 #include "Collections.h"
 #include "JInstantiationException.h"
+#include "JObjectOutputStream.h"
 using namespace std;
 using namespace jcpp::util;
 
@@ -19,6 +20,10 @@ namespace jcpp{
 
             JClass* getSuperclass(){
                 return JOutputStream::getClazz();
+            }
+
+            virtual JClass* getDeclaringClass(){
+                return JObjectOutputStream::getClazz();
             }
         };
 

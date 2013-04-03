@@ -1,9 +1,12 @@
 #ifndef JREFLECT_H
 #define JREFLECT_H
 
+#include "JAccessibleObject.h"
 #include "JField.h"
 #include "JInvocationHandler.h"
+#include "JMember.h"
 #include "JMethod.h"
+#include "JModifier.h"
 #include "JProxy.h"
 #include "JPackage.h"
 #include "JCPP.h"

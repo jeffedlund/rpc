@@ -17,6 +17,7 @@ namespace jcpp{
         class JCPP_LIBRARY_EXPORT JAbstractMap: public JObject, public JMap{
         protected:
             JAbstractMap(JClass* _class);
+            friend class JSimpleEntry;
 
         public:
             static JClass* getClazz();
@@ -55,18 +56,16 @@ namespace jcpp{
                   JClass* getSuperclass(){
                       return JObject::getClazz();
                   }
+
+                  virtual JClass* getDeclaringClass(){
+                      return JAbstractMap::getClazz();
+                  }
                 };
 
-                static JClass* clazz;
                 JObject* key;
                 JObject* value;
             public:
-                JClass* getClazz(){
-                    if (clazz==NULL){
-                        clazz=new JSimpleEntryClass();
-                    }
-                    return clazz;
-                }
+                static JClass* getClazz();
 
                 JSimpleEntry(JObject* key, JObject* value) {
                     this->key   = key;
@@ -131,17 +130,14 @@ namespace jcpp{
                   JClass* getSuperclass(){
                       return JObject::getClazz();
                   }
+
+                  virtual JClass* getDeclaringClass(){
+                      return JAbstractMap::getClazz();
+                  }
                 };
 
-                static JClass* clazz;
-
             public:
-                JClass* getClazz(){
-                    if (clazz==NULL){
-                        clazz=new JSimpleImmutableEntryClass();
-                    }
-                    return clazz;
-                }
+                static JClass* getClazz();
 
                 JSimpleImmutableEntry(JObject* key, JObject* value) {
                     this->key   = key;
