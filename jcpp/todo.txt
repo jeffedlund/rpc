@@ -1,6 +1,5 @@
 group:
 ------
--in io, test case for enum
 -object containing proxy
 -in rmi : test proxy in parameter+ in return+ in somewhere deep in an object
 
@@ -25,7 +24,6 @@ group:
 -check all new/delete calls
 -check call to delete[]
 -constructor in order to ease casting
-
 
 -add more attributes to JField like static, transient, ...
 -generate proxy classes for interfaces => use java parser module for that

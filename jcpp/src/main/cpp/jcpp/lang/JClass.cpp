@@ -157,10 +157,21 @@ namespace jcpp{
         }
 
         vector<JEnum*>* JClass::getEnumConstants(){
+            initEnumConstants();
             return enumConstants;
         }
 
+        void JClass::initEnumConstants(){
+            if (enumConstants->size()==0){
+                fillEnumConstants();
+            }
+        }
+
+        void JClass::fillEnumConstants(){
+        }
+
         JEnum* JClass::valueOf(string value){
+            initEnumConstants();
             for (unsigned int i=0;i<enumConstants->size();i++){
                 JEnum* e=enumConstants->at(i);
                 if (e->getName()->getString()==value){
