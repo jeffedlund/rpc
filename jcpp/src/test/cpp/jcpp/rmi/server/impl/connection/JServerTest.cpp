@@ -79,10 +79,15 @@ namespace jcpp{
                         cout<<"\r\n";
                         cout.flush();
                         JIRemoteSample* rsample=remoteSample->getRemoteSample();
-                        JProxy* rsproxy=(JProxy*)(rsample);
                         JObject* remoteSampleObject=(JObject*)(rsample);
                         cout<<remoteSampleObject->toString();
                         cout<<"\r\n";
+                        cout.flush();
+                        cout<<so->getRemoteSample()->getRemoteSample();
+                        cout<<"\r\n";
+                        cout.flush();
+                        so->getRemoteSample()->checkRemoteSample(so->getRemoteSample());
+                        cout<<"check with pointer as param worked.";
                         cout.flush();
                         JThread::sleep(10000);
                     }

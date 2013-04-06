@@ -7,11 +7,13 @@
 #include "JSampleObject.h"
 
 namespace jcpp{
+    class JSampleObject;
     class JIRemoteSample : public JInterface{
     public:
         static JClass* getClazz();
         virtual JSampleObject* getSampleObject()=0;
         virtual JIRemoteSample* getRemoteSample()=0;
+        virtual void checkRemoteSample(JIRemoteSample* rs)=0;
         virtual ~JIRemoteSample();
     };
 }

@@ -14,6 +14,12 @@ namespace jcpp{
         return dynamic_cast<JObject*>(r->getRemoteSample());
     }
 
+    static JObject* invokeCheckRemoteSample(JObject* object,vector<JObject*>* args){
+        JIRemoteSample* r=dynamic_cast<JIRemoteSample*>(object);
+        r->checkRemoteSample(dynamic_cast<JIRemoteSample*>(args->at(0)));
+        return NULL;
+    }
+
     class JIRemoteSampleClass : public JClass{
       public:
         JIRemoteSampleClass(){
@@ -29,6 +35,10 @@ namespace jcpp{
 
             param=new vector<JClass*>();
             addMethod(new JMethod("getRemoteSample",this,JIRemoteSample::getClazz(),param,invokeGetRemoteSample));
+
+            param=new vector<JClass*>();
+            param->push_back(JIRemoteSample::getClazz());
+            addMethod(new JMethod("checkRemoteSample",this,JIRemoteSample::getClazz(),param,invokeCheckRemoteSample));
         }
 
         JClass* getSuperclass(){

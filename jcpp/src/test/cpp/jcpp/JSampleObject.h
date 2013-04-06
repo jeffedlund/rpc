@@ -12,9 +12,11 @@
 #include "JPrimitiveLong.h"
 #include "JPrimitiveShort.h"
 #include "JSerializable.h"
+#include "JIRemoteSample.h"
 using namespace jcpp::io;
 
 namespace jcpp{
+    class JIRemoteSample;
     class JSampleObject : public JObject, public JSerializable{
     private:
         JPrimitiveBoolean* bool1;
@@ -25,6 +27,7 @@ namespace jcpp{
         JPrimitiveLong* l1;
         JPrimitiveShort* s1;
         JPrimitiveInt* i1;
+        JIRemoteSample* rs;
 
     public:
         JSampleObject();
@@ -64,6 +67,10 @@ namespace jcpp{
         JPrimitiveInt* getI1();
 
         void setI1(JPrimitiveInt* i1);
+
+        JIRemoteSample* getRemoteSample();
+
+        void setRemoteSample(JIRemoteSample* rs);
 
         string toString();
 

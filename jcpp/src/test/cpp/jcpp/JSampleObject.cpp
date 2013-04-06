@@ -1,6 +1,7 @@
 #include "JSampleObject.h"
 #include <sstream>
 #include "JField.h"
+#include "JIRemoteSample.h"
 
 namespace jcpp{
     class JBool1Field : public JField{
@@ -131,6 +132,27 @@ namespace jcpp{
         }
     };
 
+    class JRSField : public JField{
+    public:
+        JRSField(JClass* p):JField("rs",JIRemoteSample::getClazz(),p){
+        }
+
+        JObject* get(JObject *object){
+            JSampleObject* sampleObject=(JSampleObject*)object;
+            JIRemoteSample* rs=sampleObject->getRemoteSample();
+            if (rs==NULL){
+                return NULL;
+            }
+            JObject* o=dynamic_cast<JObject*>(rs);
+            return o;
+        }
+
+        void set(JObject *object, JObject *value){
+            JSampleObject* sampleObject=(JSampleObject*)object;
+            sampleObject->setRemoteSample((JIRemoteSample*)value);
+        }
+    };
+
     class JSampleObjectClass : public JClass{
       public:
         JSampleObjectClass(){
@@ -146,6 +168,7 @@ namespace jcpp{
             addField(new JLong1Field(this));
             addField(new JShort1Field(this));
             addField(new JInt1Field(this));
+            addField(new JRSField(this));
             addInterface(JSerializable::getClazz());
         }
 
@@ -168,6 +191,15 @@ namespace jcpp{
     }
 
     JSampleObject::JSampleObject():JObject(getClazz()){
+        bool1=NULL;
+        byte1=NULL;
+        c1=NULL;
+        d1=NULL;
+        f1=NULL;
+        l1=NULL;
+        s1=NULL;
+        i1=NULL;
+        rs=NULL;
     }
 
     bool JSampleObject::equals(JObject* other){
@@ -259,6 +291,17 @@ namespace jcpp{
         this->i1=i1;
     }
 
+    JIRemoteSample* JSampleObject::getRemoteSample(){
+        return rs;
+    }
+
+    void JSampleObject::setRemoteSample(JIRemoteSample* rs){
+        if (this->rs!=NULL){
+            delete this->rs;
+        }
+        this->rs=rs;
+    }
+
     string JSampleObject::toString(){
         stringstream ss;
         ss<<"bool1="<<(bool1!=NULL?bool1->toString():"")<<"\r\n";
@@ -269,6 +312,7 @@ namespace jcpp{
         ss<<"l1="<<(l1!=NULL?l1->toString():"NULL")<<"\r\n";
         ss<<"s1="<<(s1!=NULL?s1->toString():"NULL")<<"\r\n";
         ss<<"i1="<<(i1!=NULL?i1->toString():"NULL")<<"\r\n";
+        ss<<"rs="<<(rs!=NULL?((JObject*)rs)->toString():"NULL")<<"\r\n";
         return ss.str();
     }
 
@@ -281,5 +325,6 @@ namespace jcpp{
         delete l1;
         delete s1;
         delete i1;
+        delete rs;
     }
 }

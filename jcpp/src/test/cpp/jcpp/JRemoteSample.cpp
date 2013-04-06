@@ -39,11 +39,16 @@ namespace jcpp{
         o->setL1(new JPrimitiveLong(124));
         o->setS1(new JPrimitiveShort(235));
         o->setI1(new JPrimitiveInt(345));
+        o->setRemoteSample(this);
         return o;
     }
 
     JIRemoteSample* JRemoteSample::getRemoteSample(){
         return this;
+    }
+
+    void JRemoteSample::checkRemoteSample(JIRemoteSample* rs){
+        assert(rs==this);
     }
 
     JRemoteSample::~JRemoteSample(){

@@ -47,6 +47,12 @@ namespace jcpp{
         return (JIRemoteSample*)invoke("getRemoteSample",&args);
     }
 
+    void JIRemoteSampleProxy::checkRemoteSample(JIRemoteSample* rs){
+        vector<JObject*> args;
+        args.push_back(dynamic_cast<JObject*>(rs));
+        (JIRemoteSample*)invoke("checkRemoteSample",&args);
+    }
+
     JIRemoteSampleProxy::~JIRemoteSampleProxy(){
     }
 }
