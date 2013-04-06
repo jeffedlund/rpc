@@ -50,8 +50,9 @@ namespace jcpp{
                     JObject* JConnectionInputStream::resolveObject(JObject* obj){
                         if (obj->getClass()->isProxy()) {
                             JInvocationHandler* invocationHandler = ((JProxy*)obj)->getInvocationHandler();
-                            if (((JObject*)invocationHandler)->getClass()==JObjectHandler::getClazz()) {
-                                JObjectHandler* objectHandler = (JObjectHandler*) invocationHandler;
+                            JObject* oih=dynamic_cast<JObject*>(invocationHandler);
+                            if (oih->getClass()==JObjectHandler::getClazz()) {
+                                JObjectHandler* objectHandler = dynamic_cast<JObjectHandler*>(invocationHandler);
                                 objectHandler->setObjectInformations(objectInformations);
                                 JObjectPointer* objectPointer = objectHandler->getInvoker()->getObjectPointer();
                                 if ((*objectPointer->getEndPoint())==(*objectInformations->getTransport()->getLocalEndPoint())) {

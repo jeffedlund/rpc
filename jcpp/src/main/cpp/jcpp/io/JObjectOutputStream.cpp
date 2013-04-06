@@ -188,20 +188,58 @@ namespace jcpp{
                 }else if (JObjectStreamClass::getClazz()->isAssignableFrom(obj->getClass())){
                     writeClassDesc((JObjectStreamClass*)obj);
                 }else{
-                    JObjectStreamClass* desc = JObjectStreamClass::lookup(obj->getClass());
-                    if (obj->getClass()==JString::getClazz()){
-                        writeString((JString*)obj);
+                    JObject* orig = obj;
+                    JClass* cl = obj->getClass();
+                    JObjectStreamClass* desc=NULL;
+                    for (;;) {
+                        JClass* repCl;
+                        desc = JObjectStreamClass::lookup(cl);
+                        if (desc==NULL || !desc->hasWriteReplaceMethod() ||
+                            (obj = desc->invokeWriteReplace(obj)) == NULL|| (repCl = obj->getClass()) == cl){
+                            break;
+                        }
+                        cl = repCl;
+                    }
+                    if (enableReplace) {
+                        JObject* rep = replaceObject(obj);
+                        if (rep != obj && rep != NULL) {
+                            cl = rep->getClass();
+                            desc = JObjectStreamClass::lookup(cl);
+                        }
+                        obj = rep;
+                    }
 
-                    }else if(obj->getClass()->isArray()){
-                        writeArray(obj,desc);
-
-                    } else if (obj->getClass()->isEnum()){
-                         writeEnum(obj, desc);
-
-                    }else if (JSerializable::getClazz()->isAssignableFrom(obj->getClass())){
-                        writeOrdinaryObject(obj,desc);
-                    }else{
-                        throw new JNotSerializableException(obj->getClass()->getName());
+                    bool avoid=false;
+                    if (obj != orig) {
+                        if (obj == NULL) {
+                            writeNull();
+                            avoid=true;
+                        }else{
+                            desc=JObjectStreamClass::lookup(obj->getClass());
+                            if( (handle = handles->lookup(obj) != -1) ){
+                                writeHandle(handle);
+                                avoid=true;
+                            }else if (JClass::getClazz()->isAssignableFrom(obj->getClass())){
+                                writeClass((JClass*)obj);
+                                avoid=true;
+                            }else if (JObjectStreamClass::getClazz()->isAssignableFrom(obj->getClass())){
+                                writeClassDesc((JObjectStreamClass*)obj);
+                                avoid=true;
+                            }
+                        }
+                    }
+                    if (!avoid){
+                        if (obj->getClass()==JString::getClazz()){
+                            writeString((JString*)obj);
+                        }else if(obj->getClass()->isArray()){
+                            writeArray(obj,desc);
+                        } else if (obj->getClass()->isEnum()){
+                             writeEnum(obj, desc);
+                        }else if (JSerializable::getClazz()->isAssignableFrom(obj->getClass())){
+                            writeOrdinaryObject(obj,desc);
+                        }else{
+                            throw new JNotSerializableException(obj->getClass()->getName());
+                        }
                     }
                 }
             }

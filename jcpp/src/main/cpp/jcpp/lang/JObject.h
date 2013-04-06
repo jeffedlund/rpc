@@ -43,15 +43,15 @@ namespace jcpp{
                 virtual bool operator==(JObject &other);
                 virtual bool operator!=(JObject &other);
                 jbool isInstanceOf(JClass* c);
-                virtual string toString();
                 void lock();
                 void unlock();
                 void wait();
                 void wait(jlong);
                 void notify();
                 void notifyAll();
-                virtual bool equals(JObject* o);
+                virtual jbool equals(JObject* o);
                 virtual jint hashCode();
+                virtual string toString();
                 virtual JObject* clone();
                 virtual ~JObject();
         };

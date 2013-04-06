@@ -104,7 +104,10 @@ SOURCES += \
     src/test/cpp/jcpp/util/JIdentityHashMapTest.cpp \
     src/test/cpp/jcpp/lang/JPrimitiveArrayTest.cpp \
     src/test/cpp/jcpp/lang/JEnumTest.cpp \
-    src/test/cpp/jcpp/JEnumSample.cpp
+    src/test/cpp/jcpp/JEnumSample.cpp \
+    src/test/cpp/jcpp/JIRemoteSample.cpp \
+    src/test/cpp/jcpp/JRemoteSample.cpp \
+    src/test/cpp/jcpp/JIRemoteSampleProxy.cpp
     
     
 HEADERS += \
@@ -166,7 +169,10 @@ HEADERS += \
     src/test/cpp/jcpp/util/JIdentityHashMapTest.h \
     src/test/cpp/jcpp/lang/JPrimitiveArrayTest.h \
     src/test/cpp/jcpp/lang/JEnumTest.h \
-    src/test/cpp/jcpp/JEnumSample.h
+    src/test/cpp/jcpp/JEnumSample.h \
+    src/test/cpp/jcpp/JIRemoteSample.h \
+    src/test/cpp/jcpp/JRemoteSample.h \
+    src/test/cpp/jcpp/JIRemoteSampleProxy.h
     
     
 OTHER_FILES += \

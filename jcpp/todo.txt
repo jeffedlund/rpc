@@ -3,7 +3,6 @@ group:
 -object containing proxy
 -in rmi : test proxy in parameter+ in return+ in somewhere deep in an object
 
-
 group:
 -------
 -implement all JSystem class

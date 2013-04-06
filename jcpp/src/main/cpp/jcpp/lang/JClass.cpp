@@ -235,6 +235,7 @@ namespace jcpp{
         }
 
         bool JClass::hasDeclaredMethod(string name, vector<JClass*>*){
+            initDeclaredMethods();
             JMethod* method=getFromMap(declaredMethods,name);
             if (method==NULL){
                 return false;
@@ -252,6 +253,7 @@ namespace jcpp{
         }
 
         JMethod* JClass::getDeclaredMethod(string name, vector<JClass*>*){
+            initDeclaredMethods();
             JMethod* method=getFromMap(declaredMethods,name);
             if (method==NULL){
                 throw JNoSuchMethodException("method "+name+" not declared in "+getName());//we should check using signature ...
@@ -263,10 +265,21 @@ namespace jcpp{
             if (methodsList->size()==0){
                 JClass* current=this;
                 while (current!=NULL){
+                    current->initDeclaredMethods();
                     for (unsigned int i=0;i<current->declaredMethodsList->size();i++){
                         JMethod* m=current->declaredMethodsList->at(i);//TODO add it or check before ...
                         methodsList->push_back(m);
                         methods->insert(pair<string,JMethod*>(m->getName(),m));
+                    }
+                    vector<JClass*>* interf=current->getInterfaces();
+                    for (unsigned int i=0;i<interf->size();i++){
+                        JClass* c=interf->at(i);
+                        c->initDeclaredMethods();
+                        for (unsigned int j=0;j<c->declaredMethodsList->size();j++){
+                            JMethod* m=c->declaredMethodsList->at(j);
+                            methodsList->push_back(m);
+                            methods->insert(pair<string,JMethod*>(m->getName(),m));
+                        }
                     }
                     current=current->getSuperclass();
                 }
@@ -279,7 +292,17 @@ namespace jcpp{
         }
 
         vector<JMethod*>* JClass::getDeclaredMethods(){
+            initDeclaredMethods();
             return declaredMethodsList;
+        }
+
+        void JClass::initDeclaredMethods(){
+            if (declaredMethods->size()==0){
+                fillDeclaredMethods();
+            }
+        }
+
+        void JClass::fillDeclaredMethods(){
         }
 
         vector<JClass*>* JClass::getClasses(){

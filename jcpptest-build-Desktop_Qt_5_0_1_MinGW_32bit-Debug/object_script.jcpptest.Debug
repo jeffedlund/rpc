@@ -59,4 +59,7 @@ INPUT(
 ./debug\JPrimitiveArrayTest.o
 ./debug\JEnumTest.o
 ./debug\JEnumSample.o
+./debug\JIRemoteSample.o
+./debug\JRemoteSample.o
+./debug\JIRemoteSampleProxy.o
 );

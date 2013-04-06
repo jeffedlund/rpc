@@ -12,7 +12,17 @@ namespace jcpp{
             namespace impl{
                 namespace connection{
                     class JObjectHandlerClass : public JClass{
-                      public:
+                    static JObject* staticGetInvoker(JObject* object){
+                        JObjectHandler* s=(JObjectHandler*)object;
+                        return s->invoker;
+                    }
+
+                    static void staticSetInvoker(JObject* object,JObject* value){
+                        JObjectHandler* s=(JObjectHandler*)object;
+                        s->invoker=((JInvoker*)value);
+                    }
+
+                    public:
                         JObjectHandlerClass(){
                             this->canonicalName="jcpp.rmi.server.impl.connection.ObjectHandler";
                             this->name="jcpp.rmi.server.impl.connection.ObjectHandler";
@@ -21,10 +31,15 @@ namespace jcpp{
                             addInterface(JInvocationHandler::getClazz());
                             addInterface(JCloneable::getClazz());
                             serialVersionUID=3179670252394270616ULL;
+                            addField(new JField("invoker",JInvoker::getClazz(),this,staticGetInvoker,staticSetInvoker));
                         }
 
-                        JClass* getSuperclass(){
+                        virtual JClass* getSuperclass(){
                             return JObject::getClazz();
+                        }
+
+                        virtual JObject* newInstance(){
+                            return new JObjectHandler();
                         }
                     };
 
@@ -45,7 +60,7 @@ namespace jcpp{
                         this->invocationListener=NULL;
                     }
 
-                    JObjectHandler::JObjectHandler(JObjectInformations* objectInformations,vector<JClass*>* interfaces, JObjectPointer* objectPointer){
+                    JObjectHandler::JObjectHandler(JObjectInformations* objectInformations,vector<JClass*>* interfaces, JObjectPointer* objectPointer):JObject(getClazz()){
                         this->invoker = new JInvoker(objectInformations, objectPointer);
                         this->proxy = JProxy::newProxyInstance(interfaces, this);
                         this->interfaces = interfaces;
@@ -80,6 +95,37 @@ namespace jcpp{
                     void JObjectHandler::setObjectInformations(JObjectInformations* objectInformations){
                         invoker->setObjectInformations(objectInformations);
                         invocationListener = objectInformations->getInvocationListener();
+                    }
+
+                    string JObjectHandler::toString(){
+                        string strInterfaces = "";
+                        if (interfaces!=NULL && interfaces->size()>0){
+                            for (unsigned int i = 0; i < (interfaces->size() - 1); i++) {
+                                JClass* c=interfaces->at(i);
+                                strInterfaces += c->getName() + ", ";
+                            }
+                            JClass* c=interfaces->at(interfaces->size()-1);
+                            strInterfaces += c->getName();
+                        }
+                        return "Proxy[" + invoker->getObjectPointer()->toString() + ", Interfaces[" + strInterfaces + "]]";
+                    }
+
+                    jint JObjectHandler::hashCode(){
+                        return invoker->getObjectPointer()->hashCode();
+                    }
+
+                    jbool JObjectHandler::equals(JObject *o){
+                        if (o->getClass()->isProxy()){
+                            JProxy* p=(JProxy*)o;
+                            JInvocationHandler* invocationHandler = p->getInvocationHandler();
+                            JObject* oih=dynamic_cast<JObject*>(invocationHandler);
+                            if (oih->isInstanceOf(JObjectHandler::getClazz())){
+                                JObjectHandler* objectHandler = (JObjectHandler*) oih;
+                                JObjectPointer* objectPointer = objectHandler->getInvoker()->getObjectPointer();
+                                return invoker->getObjectPointer()->equals(objectPointer);
+                            }
+                        }
+                        return false;
                     }
 
                     JObject* JObjectHandler::clone(){

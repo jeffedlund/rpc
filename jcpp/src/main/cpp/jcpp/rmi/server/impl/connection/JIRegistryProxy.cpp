@@ -14,6 +14,8 @@ namespace jcpp{
                         this->canonicalName="jcpp.rmi.server.impl.connection.IRegistryProxy";
                         this->name="jcpp.rmi.server.impl.connection.IRegistryProxy";
                         this->simpleName="IRegistryProxy";
+                        this->bIsProxy=true;
+                        addInterface(JIRegistry::getClazz());
                     }
 
                     JClass* JIRegistryProxy::JIRegistryProxyClass::getSuperclass(){

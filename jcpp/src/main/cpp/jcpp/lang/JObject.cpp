@@ -109,8 +109,8 @@ namespace jcpp{
             waitCondition->wakeAll();
         }
 
-        bool JObject::equals(JObject* o){
-            if (getClass()!=o->getClass()){
+        jbool JObject::equals(JObject* o){
+            if (o==NULL || getClass()!=o->getClass()){
                 return false;
             }
             return this==o;

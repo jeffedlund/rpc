@@ -14,6 +14,7 @@ namespace jcpp{
                         this->canonicalName="jcpp.rmi.server.impl.connection.IGCProxy";
                         this->name="jcpp.rmi.server.impl.connection.IGCProxy";
                         this->simpleName="IGCProxy";
+                        this->bIsProxy=true;
                     }
 
                     JClass* JIGCProxy::JIGCProxyClass::getSuperclass(){

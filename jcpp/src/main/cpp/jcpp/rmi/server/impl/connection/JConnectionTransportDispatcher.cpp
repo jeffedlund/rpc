@@ -124,14 +124,19 @@ namespace jcpp{
                                 exceptionThrown = true;
                                 vector<JMethod*>* methods = objectInformations->getMethodDigester()->getMethods(object);
                                 stringstream ss;
-                                ss<<"No method found for digest: " << digest + " on object: " << object->toString() << "\n";
-                                ss<<"Methods available for type " << object->getClass()->toString() << ":\n";
+                                ss<<"No method found for digest: ";
+                                ss<< digest;
+                                ss<< " on object: ";
+                                ss<< object->toString();
+                                ss<< "\n";
+                                ss<<"Methods available for type ";
+                                ss<< object->getClass()->toString();
+                                ss<< ":\n";
                                 for (unsigned int i=0;i<methods->size();i++){
                                     JMethod* m=methods->at(i);
                                     ss<< "\t" << m->toString() << ";\n";
                                 }
                                 result = new JConnectionException(ss.str());
-                                delete methods;
                             } else {
                                 try {
                                     result = method->invoke(object, args);

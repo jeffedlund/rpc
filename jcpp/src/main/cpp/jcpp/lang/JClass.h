@@ -27,6 +27,7 @@ namespace jcpp{
             void init(JClassLoader* cl);
             void initFields();
             void initMethods();
+            void initDeclaredMethods();
             void initInheritedPublicClasses();
             void initEnumConstants();
         protected:
@@ -65,6 +66,7 @@ namespace jcpp{
             void addMethod(JMethod* method);
             void addInterface(JClass* interface);
             void addDeclaredClass(JClass* c);
+            virtual void fillDeclaredMethods();
             virtual void fillDeclaredClasses();
             virtual void fillEnumConstants();
 

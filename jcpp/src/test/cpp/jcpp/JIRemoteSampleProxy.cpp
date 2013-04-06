@@ -1,0 +1,52 @@
+#include "JIRemoteSampleProxy.h"
+#include "JSerializable.h"
+#include "JInstantiationException.h"
+#include "JVoid.h"
+#include "JProxy.h"
+using namespace jcpp::io;
+using namespace jcpp::lang;
+using namespace jcpp::lang::reflect;
+
+namespace jcpp{
+
+    JIRemoteSampleProxy::JIRemoteSampleProxyClass::JIRemoteSampleProxyClass():JProxyClass(){
+        this->canonicalName="IRemoteSampleProxy";
+        this->name="IRemoteSampleProxy";
+        this->simpleName="IRemoteSampleProxy";
+        this->bIsProxy=true;
+        addInterface(JIRemoteSample::getClazz());
+    }
+
+    JClass* JIRemoteSampleProxy::JIRemoteSampleProxyClass::getSuperclass(){
+        return JProxy::getClazz();
+    }
+
+    JObject* JIRemoteSampleProxy::JIRemoteSampleProxyClass::newInstance(){
+        return new JIRemoteSampleProxy();
+    }
+
+    static JClass* clazz;
+
+    JClass* JIRemoteSampleProxy::getClazz(){
+        if (clazz==NULL){
+            clazz=new JIRemoteSampleProxyClass();
+        }
+        return clazz;
+    }
+
+    JIRemoteSampleProxy::JIRemoteSampleProxy():JProxy(getClazz()){
+    }
+
+    JSampleObject* JIRemoteSampleProxy::getSampleObject(){
+        vector<JObject*> args;
+        return (JSampleObject*)invoke("getSampleObject",&args);
+    }
+
+    JIRemoteSample* JIRemoteSampleProxy::getRemoteSample(){
+        vector<JObject*> args;
+        return (JIRemoteSample*)invoke("getRemoteSample",&args);
+    }
+
+    JIRemoteSampleProxy::~JIRemoteSampleProxy(){
+    }
+}

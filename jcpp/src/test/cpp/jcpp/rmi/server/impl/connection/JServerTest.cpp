@@ -1,6 +1,8 @@
 #include "JServerTest.h"
 #include "JTransportRouter.h"
 #include "JProxy.h"
+#include "JIRemoteSample.h"
+#include "JRemoteSample.h"
 using namespace jcpp::lang::reflect;
 
 namespace jcpp{
@@ -18,7 +20,11 @@ namespace jcpp{
                         localEndPoint1->setSite(new JString("site1"));
                         JTransportRouter* router1=new JTransportRouter();
                         JConnectionConfiguration* cc1=new JConnectionConfiguration();
-                        //JServer* server1=new JServer(localEndPoint1,router1,cc1);
+                        JServer* server1=new JServer(localEndPoint1,router1,cc1);
+                        JRemoteSample* rs=new JRemoteSample();
+                        JPrimitiveArray* i=new JPrimitiveArray(JClass::getClazz(),1);
+                        i->set(0,JIRemoteSample::getClazz());
+                        server1->getIRegistry()->bind(JString::intern(JIRemoteSample::getClazz()->getName()),rs,i);
 
                         JEndPoint* localEndPoint2=new JEndPoint();
                         localEndPoint2->getAddress()->setHostName("localhost");
@@ -57,6 +63,27 @@ namespace jcpp{
                                 cout.flush();
                             }
                         }
+
+                        JObject* remoteObject=server2->lookup(localEndPoint1,JIRemoteSample::getClazz());
+                        cout<<remoteObject->getClass()->getName();
+                        cout<<"\r\n";
+                        cout<<remoteObject->toString();
+                        cout<<"\r\n";
+                        cout.flush();
+                        JIRemoteSample* remoteSample=dynamic_cast<JIRemoteSample*>(remoteObject);
+                        JSampleObject* so=remoteSample->getSampleObject();
+                        cout<<so->toString();
+                        cout<<"\r\n";
+                        cout.flush();
+                        cout<<remoteSample->getRemoteSample();
+                        cout<<"\r\n";
+                        cout.flush();
+                        JIRemoteSample* rsample=remoteSample->getRemoteSample();
+                        JProxy* rsproxy=(JProxy*)(rsample);
+                        JObject* remoteSampleObject=(JObject*)(rsample);
+                        cout<<remoteSampleObject->toString();
+                        cout<<"\r\n";
+                        cout.flush();
                         JThread::sleep(10000);
                     }
 

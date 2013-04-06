@@ -43,18 +43,21 @@ namespace jcpp{
                         JClassLoader* classLoader;
                         vector<JClass*>* interfaces;
                         JIInvocationListener* invocationListener;
+                        friend class JObjectHandlerClass;
 
                     public:
                         JObjectHandler();
                         JObjectHandler(JObjectInformations* objectInformations,vector<JClass*>* interfaces, JObjectPointer* objectPointer);
                         static JClass* getClazz();
-
                         JObject* getProxy();
                         JInvoker* getInvoker();
                         JClassLoader* getClassLoader();
                         vector<JClass*>* getInterfaces();
                         virtual JObject* invoke(JObject* proxy, JMethod* method, vector<JObject*>* args);
                         void setObjectInformations(JObjectInformations* objectInformations);
+                        virtual string toString();
+                        virtual jint hashCode();
+                        virtual jbool equals(JObject *o);
                         virtual JObject* clone();
                         virtual ~JObjectHandler();
                     };

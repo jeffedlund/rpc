@@ -48,6 +48,7 @@ namespace jcpp{
             JClass* jClass;
             JMethod* readObjectMethod;
             JMethod* writeObjectMethod;
+            JMethod* writeReplaceMethod;
             vector<ClassDataSlot*>* dataLayout;
 
             void computeFieldOffsets();
@@ -79,11 +80,13 @@ namespace jcpp{
             void initProxy(JClass* jClass,JClassNotFoundException* resolveEx,JObjectStreamClass* jObjectStreamClass);
             void invokeReadObject(JObject* objet, JObjectInputStream* in);
             void invokeWriteObject(JObject* object, JObjectOutputStream* out);
+            JObject* invokeWriteReplace(JObject* obj);
             void writeNonProxy(JObjectOutputStream* out);
             JObject* newInstance();
             bool hasReadObjectMethod();
             bool hasWriteObjectMethod();
             bool hasWriteObjectData();
+            bool hasWriteReplaceMethod();
             bool isExternalizable();
             bool hasBlockExternalData();
             vector<ClassDataSlot*>* getClassDataLayout();

@@ -80,6 +80,9 @@
 #include "JPrimitiveArrayTest.h"
 #include "JEnumTest.h"
 #include "JEnumSample.h"
+#include "JRemoteSample.h"
+#include "JIRemoteSample.h"
+#include "JIRemoteSampleProxy.h"
 using namespace std;
 using namespace jcpp::util;
 using namespace jcpp::lang;
@@ -112,6 +115,9 @@ void registerClasses(){
     JClassLoader::getBootClassLoader()->addClass(JSampleObject::getClazz());
     JClassLoader::getBootClassLoader()->addClass(JExternalizableObject::getClazz());
     JClassLoader::getBootClassLoader()->addClass(JEnumSample::getClazz());
+    JClassLoader::getBootClassLoader()->addClass(JIRemoteSample::getClazz());
+    JClassLoader::getBootClassLoader()->addClass(JIRemoteSampleProxy::getClazz());
+    JClassLoader::getBootClassLoader()->addClass(JRemoteSample::getClazz());
 }
 
 void testException(){
@@ -145,7 +151,13 @@ int main(int argc, char *argv[]){
     for (int i=0;i<TEST_SIZE;i++){
         cout<<"testing in file"<<tests[i]->getFileName();
         cout.flush();
-        tests[i]->test();
+        try{
+            tests[i]->test();
+        }catch(JThrowable* th){
+            th->printStackTrace(&cout);
+            cout.flush();
+            throw th;
+        }
         cout<<"end testing in file"<<tests[i]->getFileName();
         cout.flush();
     }

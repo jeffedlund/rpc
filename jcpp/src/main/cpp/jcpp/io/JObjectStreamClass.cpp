@@ -97,6 +97,7 @@ namespace jcpp{
             this->resolveEx=NULL;
             this->jClass=NULL;
             this->readObjectMethod=NULL;
+            this->writeReplaceMethod=NULL;
             this->dataLayout=NULL;
         }
 
@@ -122,8 +123,7 @@ namespace jcpp{
 
         static vector<JObjectStreamField*>* getSerialFields(JClass* cl){
             vector<JObjectStreamField*>* fields=NULL;
-            if (JSerializable::getClazz()->isAssignableFrom(cl) && !JExternalizable::getClazz()->isAssignableFrom(cl) &&
-                !cl->isProxy() && !cl->isInterface()){
+            if (JSerializable::getClazz()->isAssignableFrom(cl) && !JExternalizable::getClazz()->isAssignableFrom(cl) && !cl->isInterface() && !cl->isProxy()){
                 fields = getDefaultSerialFields(cl);
                 if (fields!=NULL){
                     sort(fields->begin(),fields->end(),JObjectStreamField::comparator);
@@ -147,6 +147,7 @@ namespace jcpp{
             this->superDesc=NULL;
             this->resolveEx=NULL;
             this->readObjectMethod=NULL;
+            this->writeReplaceMethod=NULL;
             this->writeObjectMethod=NULL;
             this->dataLayout=NULL;
 
@@ -175,6 +176,10 @@ namespace jcpp{
                 if (_class->hasMethod("readObject",NULL)){
                     this->readObjectMethod=_class->getMethod("readObject",NULL);
                 }
+                if (_class->hasMethod("writeReplace",NULL)){
+                    this->writeReplaceMethod=_class->getMethod("writeReplace",NULL);
+                }
+
             }else{
                 suid=0;
                 fields=NULL;
@@ -199,6 +204,10 @@ namespace jcpp{
 
         bool JObjectStreamClass::hasWriteObjectData() {
             return writeObjectData;
+        }
+
+        bool JObjectStreamClass::hasWriteReplaceMethod(){
+            return (writeReplaceMethod != NULL);
         }
 
         bool JObjectStreamClass::isExternalizable(){
@@ -319,6 +328,7 @@ namespace jcpp{
                 }
                 this->writeObjectMethod= localDesc->writeObjectMethod;
                 this->readObjectMethod = localDesc->readObjectMethod;
+                this->writeReplaceMethod=localDesc->writeReplaceMethod;
             }
         }
 
@@ -337,6 +347,7 @@ namespace jcpp{
                 }
                 name = localDesc->getName();
                 externalizable=localDesc->externalizable;
+                writeReplaceMethod=localDesc->writeReplaceMethod;
             }
         }
 
@@ -356,6 +367,15 @@ namespace jcpp{
                 args.push_back(out);
                 writeObjectMethod->invoke(object,&args);
             }else{
+                throw new JUnsupportedOperationException();
+            }
+        }
+
+        JObject* JObjectStreamClass::invokeWriteReplace(JObject* obj){
+            if (writeReplaceMethod != NULL) {
+                vector<JObject*> args;
+                return writeReplaceMethod->invoke(obj, &args);
+            } else {
                 throw new JUnsupportedOperationException();
             }
         }

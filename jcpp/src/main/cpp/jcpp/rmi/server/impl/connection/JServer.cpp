@@ -40,6 +40,9 @@ namespace jcpp{
                     }
 
                     JServer::JServer(JEndPoint* endPoint, JITransportRouter* transportRouter, JConnectionConfiguration* connectionConfiguration){
+                        this->notExportedObjectListener=NULL;
+                        this->notSerializableObjectHandler=NULL;
+                        this->invocationExceptionHandler=NULL;
                         this->endPoint = endPoint;
                         this->connectionConfiguration = connectionConfiguration;
                         this->lifecycles = new vector<JILifecycle*>();

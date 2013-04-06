@@ -777,7 +777,7 @@ namespace jcpp{
                 interfaces->push_back(c);
             }
             JClass* pc=JProxy::getProxyClass(interfaces);
-            delete[] interfaces;
+            delete interfaces;
             return pc;
         }
 

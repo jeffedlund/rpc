@@ -38,7 +38,7 @@ namespace jcpp{
                         }
 
                         JObject* newInstance(){
-                            throw new JInvoker();
+                            return new JInvoker();
                         }
                     };
 

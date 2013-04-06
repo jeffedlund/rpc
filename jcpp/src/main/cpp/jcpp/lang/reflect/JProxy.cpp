@@ -17,19 +17,18 @@ namespace jcpp{
         namespace reflect{
             static JObject* staticGetInvocationHandler(JObject* obj){
                 JProxy* proxy=(JProxy*)obj;
-                return (JObject*)proxy->getInvocationHandler();
+                return dynamic_cast<JObject*>(proxy->getInvocationHandler());
             }
 
             static void staticSetInvocationHandler(JObject* obj,JObject* value){
                 JProxy* proxy=(JProxy*)obj;
-                proxy->setInvocationHandler((JInvocationHandler*)value);
+                proxy->setInvocationHandler(dynamic_cast<JInvocationHandler*>(value));
             }
 
             JProxy::JProxyClass::JProxyClass():JClass(JClassLoader::getBootClassLoader()){
                 canonicalName="java.lang.reflect.Proxy";
                 name="java.lang.reflect.Proxy";
                 simpleName="Proxy";
-                bIsProxy=true;
                 serialVersionUID=-2222568056686623797ULL;
                 addField(new JField("h",JInvocationHandler::getClazz(),this,staticGetInvocationHandler,staticSetInvocationHandler));
                 addInterface(JSerializable::getClazz());
@@ -53,17 +52,14 @@ namespace jcpp{
             }
 
             JProxy::JProxy(JClass* _class):JObject(_class){
-                this->interfaces=NULL;
                 this->invocationHandler=NULL;
             }
 
             JProxy::JProxy():JObject(getClazz()){
-                this->interfaces=NULL;
                 this->invocationHandler=NULL;
             }
 
-            JProxy::JProxy(vector<JClass*>* interfaces, JInvocationHandler* i):JObject(getClazz()){
-                this->interfaces=interfaces;
+            JProxy::JProxy(JInvocationHandler* i):JObject(getClazz()){
                 this->invocationHandler=i;
             }
 
@@ -88,11 +84,10 @@ namespace jcpp{
                 JClass* pc=getProxyClass(interfaces);
                 if (pc!=NULL){
                     proxy=(JProxy*)pc->newInstance();
-                    proxy->setInterfaces(interfaces);
                     proxy->setInvocationHandler(ih);
                 }
                 if (proxy==NULL){
-                    proxy=new JProxy(interfaces,ih);
+                    proxy=new JProxy(ih);
                 }
                 return proxy;
             }
@@ -114,8 +109,8 @@ namespace jcpp{
 
             JObject* JProxy::invoke(string method,vector<JObject*>* args){
                 JMethod* jMethod=NULL;
-                for (unsigned int i=0;i<interfaces->size();i++){
-                    JClass* jclass=interfaces->at(i);
+                for (unsigned int i=0;i<getClass()->getInterfaces()->size();i++){
+                    JClass* jclass=getClass()->getInterfaces()->at(i);
                     if (jclass->hasMethod(method,NULL)){//should pass paramtype too
                         jMethod=jclass->getMethod(method,NULL);
                         break;
@@ -136,22 +131,27 @@ namespace jcpp{
                 this->invocationHandler = invocationHandler;
             }
 
-            vector<JClass*>* JProxy::getInterfaces(){
-                return interfaces;
+            jint JProxy::hashCode(){
+                JObject* myh=dynamic_cast<JObject*>(invocationHandler);
+                return myh->hashCode();
             }
 
-            void JProxy::setInterfaces(vector<JClass*>* interfaces){
-                if (this->interfaces!=NULL){
-                    delete this->interfaces;
+            jbool JProxy::equals(JObject *o){
+                if (o->getClass()!=getClass()){
+                    return false;
                 }
-                this->interfaces=interfaces;
+                JProxy* p=(JProxy*)o;
+                JObject* myh=dynamic_cast<JObject*>(invocationHandler);
+                JObject* oyh=dynamic_cast<JObject*>(p->invocationHandler);
+                return myh->equals(oyh);
             }
 
             string JProxy::toString(){
                 stringstream ss;
-                ss<<"Proxy[InvocationHandler:"<<((JObject*)invocationHandler)->toString()<<"][Interfaces:";
-                for (unsigned int i=0;i<interfaces->size();i++){
-                    JClass* jclass=interfaces->at(i);
+                JObject* o=dynamic_cast<JObject*>(invocationHandler);
+                ss<<"Proxy[InvocationHandler:"<<o->toString()<<"][Interfaces:";
+                for (unsigned int i=0;i<getClass()->getInterfaces()->size();i++){
+                    JClass* jclass=getClass()->getInterfaces()->at(i);
                     ss<<jclass->getName()<<",";
                 }
                 ss<<"]";
@@ -159,7 +159,6 @@ namespace jcpp{
             }
 
             JProxy::~JProxy() {
-                delete interfaces;
             }
         }
     }

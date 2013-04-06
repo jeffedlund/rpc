@@ -11,29 +11,29 @@ namespace jcpp{
             namespace impl{
                 namespace connection{
                     static JObject* invokeBind(JObject* object,vector<JObject*>*args){
-                        JIRegistry* r=(JIRegistry*)object;
+                        JIRegistry* r=dynamic_cast<JIRegistry*>(object);
                         r->bind((JString*)args->at(0),(JObject*)args->at(1),(JPrimitiveArray*)args->at(2));
                         return NULL;
                     }
 
                     static JObject* invokeList(JObject* object,vector<JObject*>*){
-                        JIRegistry* r=(JIRegistry*)object;
+                        JIRegistry* r=dynamic_cast<JIRegistry*>(object);
                         return r->list();
                     }
 
                     static JObject* invokeLookup(JObject* object,vector<JObject*>*args){
-                        JIRegistry* r=(JIRegistry*)object;
+                        JIRegistry* r=dynamic_cast<JIRegistry*>(object);
                         return r->lookup((JString*)args->at(0));
                     }
 
                     static JObject* invokeRebind(JObject* object,vector<JObject*>*args){
-                        JIRegistry* r=(JIRegistry*)object;
+                        JIRegistry* r=dynamic_cast<JIRegistry*>(object);
                         r->rebind((JString*)args->at(0),(JObject*)args->at(1),(JPrimitiveArray*)args->at(2));
                         return NULL;
                     }
 
                     static JObject* invokeUnbind(JObject* object,vector<JObject*>*args){
-                        JIRegistry* r=(JIRegistry*)object;
+                        JIRegistry* r=dynamic_cast<JIRegistry*>(object);
                         r->unbind((JString*)args->at(0));
                         return NULL;
                     }
