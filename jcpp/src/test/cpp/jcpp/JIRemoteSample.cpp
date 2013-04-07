@@ -20,11 +20,17 @@ namespace jcpp{
         return NULL;
     }
 
+    static JObject* invokeCheckCalback(JObject* object,vector<JObject*>* args){
+        JIRemoteSample* r=dynamic_cast<JIRemoteSample*>(object);
+        r->checkCallback(dynamic_cast<JIRemoteSample*>(args->at(0)));
+        return NULL;
+    }
+
     class JIRemoteSampleClass : public JClass{
       public:
         JIRemoteSampleClass(){
-            this->canonicalName="IRemoteSample";
-            this->name="IRemoteSample";
+            this->canonicalName="jcpp.IRemoteSample";
+            this->name="jcpp.IRemoteSample";
             this->simpleName="IRemoteSample";
             this->bIsInterface=true;
         }
@@ -39,6 +45,10 @@ namespace jcpp{
             param=new vector<JClass*>();
             param->push_back(JIRemoteSample::getClazz());
             addMethod(new JMethod("checkRemoteSample",this,JIRemoteSample::getClazz(),param,invokeCheckRemoteSample));
+
+            param=new vector<JClass*>();
+            param->push_back(JIRemoteSample::getClazz());
+            addMethod(new JMethod("checkCallback",this,JIRemoteSample::getClazz(),param,invokeCheckCalback));
         }
 
         JClass* getSuperclass(){

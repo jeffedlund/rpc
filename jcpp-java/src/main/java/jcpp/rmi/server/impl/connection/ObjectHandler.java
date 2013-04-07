@@ -72,6 +72,7 @@ public class ObjectHandler implements InvocationHandler, Serializable, Cloneable
             invocationResult = invoker.invoke(method, args);
             invocationListener.invocationSucceeded(proxy, method, args);
         } catch (Throwable e) {
+            e.printStackTrace();//TODO
             invocationListener.invocationFailed(proxy, method, args, e);
             throw e;
         }

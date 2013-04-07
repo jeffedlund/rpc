@@ -20,11 +20,12 @@ namespace jcpp{
                         localEndPoint1->setSite(new JString("site1"));
                         JTransportRouter* router1=new JTransportRouter();
                         JConnectionConfiguration* cc1=new JConnectionConfiguration();
-                        JServer* server1=new JServer(localEndPoint1,router1,cc1);
+                        /*JServer* server1=new JServer(localEndPoint1,router1,cc1);
                         JRemoteSample* rs=new JRemoteSample();
                         JPrimitiveArray* i=new JPrimitiveArray(JClass::getClazz(),1);
                         i->set(0,JIRemoteSample::getClazz());
                         server1->getIRegistry()->bind(JString::intern(JIRemoteSample::getClazz()->getName()),rs,i);
+                        */
 
                         JEndPoint* localEndPoint2=new JEndPoint();
                         localEndPoint2->getAddress()->setHostName("localhost");
@@ -33,7 +34,10 @@ namespace jcpp{
                         JTransportRouter* router2=new JTransportRouter();
                         JConnectionConfiguration* cc2=new JConnectionConfiguration();
                         JServer* server2=new JServer(localEndPoint2,router2,cc2);
-
+                        JRemoteSample* rs2=new JRemoteSample();
+                        JPrimitiveArray* i2=new JPrimitiveArray(JClass::getClazz(),1);
+                        i2->set(0,JIRemoteSample::getClazz());
+                        server2->getIRegistry()->bind(JString::intern(JIRemoteSample::getClazz()->getName()),rs2,i2);
 
                         JObject* obj=server2->lookup(localEndPoint1,JIRegistry::getClazz());
                         cout<<obj->getClass()->getName();
@@ -89,6 +93,20 @@ namespace jcpp{
                         so->getRemoteSample()->checkRemoteSample(so->getRemoteSample());
                         cout<<"check with pointer as param worked.";
                         cout.flush();
+                        JIRemoteSample* irs2=so->getRemoteSample();
+                        JIRemoteSample* localrs2=(JIRemoteSample*)(rs2);
+                        JObject* oo2=(JObject*)(irs2);
+                        cout<<oo2->getClass()->toString();
+                        cout<<"\r\n";
+                        cout.flush();
+                        oo2=(JObject*)(rs2);
+                        cout<<oo2->getClass()->toString();
+                        cout<<"\r\n";
+                        cout.flush();
+                        cout<<remoteSample->getSampleObject();;
+                        cout<<"\r\n";
+                        cout.flush();
+                        remoteSample->checkCallback(rs2);
                         JThread::sleep(10000);
                     }
 

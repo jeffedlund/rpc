@@ -10,8 +10,8 @@ using namespace jcpp::lang::reflect;
 namespace jcpp{
 
     JIRemoteSampleProxy::JIRemoteSampleProxyClass::JIRemoteSampleProxyClass():JProxyClass(){
-        this->canonicalName="IRemoteSampleProxy";
-        this->name="IRemoteSampleProxy";
+        this->canonicalName="jcpp.IRemoteSampleProxy";
+        this->name="jcpp.IRemoteSampleProxy";
         this->simpleName="IRemoteSampleProxy";
         this->bIsProxy=true;
         addInterface(JIRemoteSample::getClazz());
@@ -50,7 +50,13 @@ namespace jcpp{
     void JIRemoteSampleProxy::checkRemoteSample(JIRemoteSample* rs){
         vector<JObject*> args;
         args.push_back(dynamic_cast<JObject*>(rs));
-        (JIRemoteSample*)invoke("checkRemoteSample",&args);
+        invoke("checkRemoteSample",&args);
+    }
+
+    void JIRemoteSampleProxy::checkCallback(JIRemoteSample* rs){
+        vector<JObject*> args;
+        args.push_back(dynamic_cast<JObject*>(rs));
+        invoke("checkCallback",&args);
     }
 
     JIRemoteSampleProxy::~JIRemoteSampleProxy(){

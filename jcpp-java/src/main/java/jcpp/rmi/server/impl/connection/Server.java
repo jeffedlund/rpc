@@ -66,6 +66,7 @@ public class Server implements IServer {
         this.gcClientListeners = new ArrayList<IGCClientListener>();
         this.gcClientListenerImpl = new GCClientListenerImpl();
         this.invocationListeners = new ArrayList<IInvocationListener>();
+        this.invocationListenerImpl=new InvocationListenerImpl();
         this.executorService = Executors.newCachedThreadPool();
 
         System.setProperty(NANO_TIMER_PROVIDER_PROP, "edu.emory.mathcs.backport.java.util.concurrent.helpers.Utils$MillisProvider");

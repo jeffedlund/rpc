@@ -3,16 +3,12 @@
 
 #include "JObject.h"
 #include "JCollection.h"
-#include "JExternalizable.h"
 #include "Object.h"
-#include "JObjectInputStream.h"
-#include "JObjectOutputStream.h"
 #include "JCollection.h"
 #include "JIterator.h"
 #include "JListIterator.h"
 #include "JCPP.h"
 using namespace std;
-using namespace jcpp::io;
 
 namespace jcpp{
     namespace util{
@@ -45,7 +41,6 @@ namespace jcpp{
             virtual JListIterator* listIterator(jint index)=0;
             virtual JList* subList(jint fromIndex, jint toIndex)=0;
             virtual ~JList();
-
         };
     }
 }

@@ -16,6 +16,7 @@ namespace jcpp{
         virtual JSampleObject* getSampleObject();
         virtual JIRemoteSample* getRemoteSample();
         virtual void checkRemoteSample(JIRemoteSample* rs);
+        virtual void checkCallback(JIRemoteSample* rs);
         virtual ~JRemoteSample();
     };
 }

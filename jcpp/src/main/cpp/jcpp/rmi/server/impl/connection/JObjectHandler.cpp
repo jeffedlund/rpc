@@ -12,15 +12,39 @@ namespace jcpp{
             namespace impl{
                 namespace connection{
                     class JObjectHandlerClass : public JClass{
-                    static JObject* staticGetInvoker(JObject* object){
-                        JObjectHandler* s=(JObjectHandler*)object;
-                        return s->invoker;
-                    }
+                    protected:
+                        static JObject* staticGetInvoker(JObject* object){
+                            JObjectHandler* s=(JObjectHandler*)object;
+                            return s->invoker;
+                        }
 
-                    static void staticSetInvoker(JObject* object,JObject* value){
-                        JObjectHandler* s=(JObjectHandler*)object;
-                        s->invoker=((JInvoker*)value);
-                    }
+                        static void staticSetInvoker(JObject* object,JObject* value){
+                            JObjectHandler* s=(JObjectHandler*)object;
+                            s->invoker=((JInvoker*)value);
+                        }
+
+                        static JObject* staticGetProxy(JObject* object){
+                            JObjectHandler* s=(JObjectHandler*)object;
+                            return s->proxy;
+                        }
+
+                        static void staticSetProxy(JObject* object,JObject* value){
+                            JObjectHandler* s=(JObjectHandler*)object;
+                            s->proxy=value;
+                        }
+
+                        static JObject* staticGetInterfaces(JObject* object){
+                            JObjectHandler* s=(JObjectHandler*)object;
+                            return s->pinterfaces;
+                        }
+
+                        static void staticSetInterfaces(JObject* object,JObject* value){
+                            JObjectHandler* s=(JObjectHandler*)object;
+                            if (s->pinterfaces!=NULL){
+                                delete s->pinterfaces;
+                            }
+                            s->pinterfaces=(JPrimitiveArray*)value;
+                        }
 
                     public:
                         JObjectHandlerClass(){
@@ -32,6 +56,8 @@ namespace jcpp{
                             addInterface(JCloneable::getClazz());
                             serialVersionUID=3179670252394270616ULL;
                             addField(new JField("invoker",JInvoker::getClazz(),this,staticGetInvoker,staticSetInvoker));
+                            addField(new JField("proxy",JObject::getClazz(),this,staticGetProxy,staticSetProxy));
+                            addField(new JField("interfaces",JPrimitiveArray::getClazz(JClass::getClazz()),this,staticGetInterfaces,staticSetInterfaces));
                         }
 
                         virtual JClass* getSuperclass(){
@@ -56,14 +82,14 @@ namespace jcpp{
                         this->invoker=NULL;
                         this->proxy=NULL;
                         this->classLoader=NULL;
-                        this->interfaces=NULL;
+                        this->pinterfaces=NULL;
                         this->invocationListener=NULL;
                     }
 
                     JObjectHandler::JObjectHandler(JObjectInformations* objectInformations,vector<JClass*>* interfaces, JObjectPointer* objectPointer):JObject(getClazz()){
                         this->invoker = new JInvoker(objectInformations, objectPointer);
                         this->proxy = JProxy::newProxyInstance(interfaces, this);
-                        this->interfaces = interfaces;
+                        this->pinterfaces = new JPrimitiveArray(JClass::getClazz(),(vector<JObject*>*)interfaces);
                         this->invocationListener = objectInformations->getInvocationListener();
                     }
 
@@ -76,7 +102,7 @@ namespace jcpp{
                     }
 
                     vector<JClass*>* JObjectHandler::getInterfaces(){
-                        return interfaces;
+                        return (pinterfaces!=NULL? (vector<JClass*>*)(pinterfaces->getObjects()):NULL);
                     }
 
                     //TODO what to do for Object methods (toString, equals, hashcode,...)
@@ -99,12 +125,12 @@ namespace jcpp{
 
                     string JObjectHandler::toString(){
                         string strInterfaces = "";
-                        if (interfaces!=NULL && interfaces->size()>0){
-                            for (unsigned int i = 0; i < (interfaces->size() - 1); i++) {
-                                JClass* c=interfaces->at(i);
+                        if (getInterfaces()!=NULL && getInterfaces()->size()>0){
+                            for (unsigned int i = 0; i < (getInterfaces()->size() - 1); i++) {
+                                JClass* c=getInterfaces()->at(i);
                                 strInterfaces += c->getName() + ", ";
                             }
-                            JClass* c=interfaces->at(interfaces->size()-1);
+                            JClass* c=getInterfaces()->at(getInterfaces()->size()-1);
                             strInterfaces += c->getName();
                         }
                         return "Proxy[" + invoker->getObjectPointer()->toString() + ", Interfaces[" + strInterfaces + "]]";
@@ -129,19 +155,17 @@ namespace jcpp{
                     }
 
                     JObject* JObjectHandler::clone(){
-                        JObjectHandler* objectHandler = new JObjectHandler(invoker->getObjectInformations(), interfaces, invoker->getObjectPointer());
+                        JObjectHandler* objectHandler = new JObjectHandler(invoker->getObjectInformations(), getInterfaces(), invoker->getObjectPointer());
                         return objectHandler;
                     }
 
                     JObjectHandler::~JObjectHandler(){
                         delete invoker;
                         delete proxy;
+                        delete pinterfaces;
                     }
                 }
             }
         }
     }
 }
-
-
-

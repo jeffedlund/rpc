@@ -59,7 +59,7 @@ namespace jcpp{
             JObjectStreamClass();
             JObjectStreamClass(JClass* _class);
             static JClass* getClazz();
-            static JObjectStreamClass* lookup(JClass* obj);
+            static JObjectStreamClass* lookup(JClass* obj,bool all);
 
             JClass* getJClass();
             bool isEnum();

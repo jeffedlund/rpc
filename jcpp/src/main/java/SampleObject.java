@@ -23,5 +23,6 @@ public class SampleObject implements Serializable{
 				"[l1:"+l1+"]"+
 				"[s1:"+s1+"]"+
 				"[i1:"+i1+"]";
+
 	}
 }

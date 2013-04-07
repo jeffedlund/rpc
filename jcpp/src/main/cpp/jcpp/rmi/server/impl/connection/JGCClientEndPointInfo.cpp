@@ -85,10 +85,12 @@ namespace jcpp{
                             bresult=true;
                         }
                         gcExceptionCount = 0;
-                        for (i = 0; i < ping->size(); i++) {
-                            JBoolean* b=(JBoolean*)ping->get(i);
-                            if (b==NULL || !b->get()) {
-                                unexport((JString*)idsArray->get(i));
+                        if (ping!=NULL){
+                            for (i = 0; i < ping->size(); i++) {
+                                JBoolean* b=(JBoolean*)ping->get(i);
+                                if (b==NULL || !b->get()) {
+                                    unexport((JString*)idsArray->get(i));
+                                }
                             }
                         }
                         lock();

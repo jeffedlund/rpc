@@ -49,6 +49,9 @@ namespace jcpp{
                 return this;//returning itself, bof ...
             }
 
+            void fillInterfaces(){
+                addInterface(JSerializable::getClazz());
+            }
         };
 
         static JClass* clazz;
@@ -222,7 +225,17 @@ namespace jcpp{
         }
 
         vector<JClass*>* JClass::getInterfaces(){
+            initInterfaces();
             return interfaces;
+        }
+
+        void JClass::initInterfaces(){
+            if (interfaces->size()==0){
+                fillInterfaces();
+            }
+        }
+
+        void JClass::fillInterfaces(){
         }
 
         bool JClass::hasMethod(string name, vector<JClass*>*){

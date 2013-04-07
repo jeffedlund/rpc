@@ -156,8 +156,8 @@ namespace jcpp{
     class JSampleObjectClass : public JClass{
       public:
         JSampleObjectClass(){
-            this->canonicalName="SampleObject";
-            this->name="SampleObject";
+            this->canonicalName="jcpp.SampleObject";
+            this->name="jcpp.SampleObject";
             this->simpleName="SampleObject";
             this->serialVersionUID=40;
             addField(new JBool1Field(this));

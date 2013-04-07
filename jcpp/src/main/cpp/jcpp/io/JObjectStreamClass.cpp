@@ -60,11 +60,11 @@ namespace jcpp{
 
         static map<JClass*, JObjectStreamClass*>* allObjectStreamClass;
 
-        JObjectStreamClass* JObjectStreamClass::lookup(JClass* meta){
+        JObjectStreamClass* JObjectStreamClass::lookup(JClass* meta, bool all){
             if(meta == NULL){
                 return NULL;
             }
-            if (!JSerializable::getClazz()->isAssignableFrom(meta)){
+            if (!all && !JSerializable::getClazz()->isAssignableFrom(meta)){
                 return NULL;
             }
             JObjectStreamClass* desc=NULL;
@@ -153,7 +153,7 @@ namespace jcpp{
 
 
             JClass* superCl=_class->getSuperclass();
-            superDesc=(superCl != NULL)?lookup(superCl):NULL;
+            superDesc=(superCl != NULL)?lookup(superCl,false):NULL;
             if (serializable){
                 if (bIsEnum) {
                     suid = 0;
@@ -289,7 +289,7 @@ namespace jcpp{
                     if ((tcode=='L' || (tcode=='['))){
                         JString* readString=in->readTypeString();
                         signature=readString->getString();
-                        delete readString;
+                        //TODO bug review all new/delete : delete readString;
                     }else{
                         signature.push_back(tcode);
                     }
@@ -319,7 +319,7 @@ namespace jcpp{
             numObjFields = model->numObjFields;
 
             if (jClass!=NULL){
-                JObjectStreamClass* localDesc=lookup(jClass);
+                JObjectStreamClass* localDesc=lookup(jClass,true);
                 if (localDesc->isProxy()) {
                     throw new JInvalidClassException("cannot bind non-proxy descriptor to a proxy class");
                 }
@@ -341,7 +341,7 @@ namespace jcpp{
             suid = 0;
             fields = NULL;
             if (jClass!=NULL){
-                JObjectStreamClass* localDesc=lookup(jClass);
+                JObjectStreamClass* localDesc=lookup(jClass,true);
                 if (!localDesc->isProxy()){
                     throw new JInvalidClassException("cannot bind proxy descriptor to a non-proxy class");
                 }
@@ -505,7 +505,7 @@ namespace jcpp{
 
                 if (match != NULL) {
                     for (JClass* c = start; c != match; c = c->getSuperclass()) {
-                        classDataSlots->push_back(new ClassDataSlot(JObjectStreamClass::lookup(c), false));
+                        classDataSlots->push_back(new ClassDataSlot(JObjectStreamClass::lookup(c,true), false));
                     }
                     start = match->getSuperclass();
                 }
@@ -513,7 +513,7 @@ namespace jcpp{
             }
 
             for (JClass* c = start; c != end; c = c->getSuperclass()) {
-                classDataSlots->push_back(new ClassDataSlot(JObjectStreamClass::lookup(c), false));
+                classDataSlots->push_back(new ClassDataSlot(JObjectStreamClass::lookup(c,true), false));
             }
 
             reverse(classDataSlots->begin(),classDataSlots->end());

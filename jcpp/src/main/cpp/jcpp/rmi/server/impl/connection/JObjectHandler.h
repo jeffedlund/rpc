@@ -41,7 +41,7 @@ namespace jcpp{
                         JInvoker* invoker;
                         JObject* proxy;
                         JClassLoader* classLoader;
-                        vector<JClass*>* interfaces;
+                        JPrimitiveArray* pinterfaces;
                         JIInvocationListener* invocationListener;
                         friend class JObjectHandlerClass;
 

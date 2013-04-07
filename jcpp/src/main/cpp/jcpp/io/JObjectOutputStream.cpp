@@ -193,7 +193,7 @@ namespace jcpp{
                     JObjectStreamClass* desc=NULL;
                     for (;;) {
                         JClass* repCl;
-                        desc = JObjectStreamClass::lookup(cl);
+                        desc = JObjectStreamClass::lookup(cl,true);
                         if (desc==NULL || !desc->hasWriteReplaceMethod() ||
                             (obj = desc->invokeWriteReplace(obj)) == NULL|| (repCl = obj->getClass()) == cl){
                             break;
@@ -204,7 +204,7 @@ namespace jcpp{
                         JObject* rep = replaceObject(obj);
                         if (rep != obj && rep != NULL) {
                             cl = rep->getClass();
-                            desc = JObjectStreamClass::lookup(cl);
+                            desc = JObjectStreamClass::lookup(cl,true);
                         }
                         obj = rep;
                     }
@@ -215,7 +215,7 @@ namespace jcpp{
                             writeNull();
                             avoid=true;
                         }else{
-                            desc=JObjectStreamClass::lookup(obj->getClass());
+                            desc=JObjectStreamClass::lookup(obj->getClass(),true);
                             if( (handle = handles->lookup(obj) != -1) ){
                                 writeHandle(handle);
                                 avoid=true;
@@ -265,7 +265,7 @@ namespace jcpp{
 
         void JObjectOutputStream::writeClass(JClass* cl){
             bout->writeByte(TC_CLASS);
-            writeClassDesc(JObjectStreamClass::lookup(cl));
+            writeClassDesc(JObjectStreamClass::lookup(cl,true));
             handles->assign(cl);
         }
 

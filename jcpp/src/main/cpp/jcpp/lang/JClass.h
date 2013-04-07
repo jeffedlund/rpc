@@ -30,6 +30,7 @@ namespace jcpp{
             void initDeclaredMethods();
             void initInheritedPublicClasses();
             void initEnumConstants();
+            void initInterfaces();
         protected:
             string canonicalName;
             string name;
@@ -69,6 +70,7 @@ namespace jcpp{
             virtual void fillDeclaredMethods();
             virtual void fillDeclaredClasses();
             virtual void fillEnumConstants();
+            virtual void fillInterfaces();
 
          public:
 

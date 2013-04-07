@@ -5,6 +5,9 @@
 #include "JRandomAccess.h"
 #include "JCollection.h"
 #include "JNoSuchElementException.h"
+#include "JNullPointerException.h"
+#include "JIllegalStateException.h"
+#include "JObjectOutputStream.h"
 
 namespace jcpp{
     namespace util{

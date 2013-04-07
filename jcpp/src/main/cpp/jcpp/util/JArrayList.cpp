@@ -232,10 +232,8 @@ namespace jcpp{
 
         void JArrayList::readObject(JObjectInputStream* in){
             in->defaultReadObject();
-            JPrimitiveInt* arrayLength = in->readPrimitiveInt();
-            delete isize;
+            in->readPrimitiveInt();
             delete items;
-            isize=arrayLength;
             items=new vector<JObject*>();
             for (int i=0;i<isize->get();i++){
                 items->push_back(in->readObject());

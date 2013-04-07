@@ -86,7 +86,7 @@ namespace jcpp{
                                 throw readException;
                             }
                             //TODO think when to delete created objects, lifecycle in general of unmarshalled objects
-                            InvocationResult* invocationResult = invokeMethod(objectId, digest, args->getObjects(), fromEndPoint);
+                            InvocationResult* invocationResult = invokeMethod(objectId, digest, (args!=NULL ? args->getObjects() : NULL), fromEndPoint);
                             JObject* result = invocationResult->getResult();
                             if (invocationResult->isExceptionThrown()) {
                                 throw (JThrowable*) result;

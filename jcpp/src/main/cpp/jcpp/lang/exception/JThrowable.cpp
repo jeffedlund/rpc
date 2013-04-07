@@ -2,40 +2,54 @@
 #include "JClass.h"
 #include "Collections.h"
 #include "JString.h"
+#include "JArrayList.h"
 
 namespace jcpp{
     namespace lang{
-        static JObject* staticGetDetailMessage(JObject* object){
-            JThrowable* th=(JThrowable*)object;
-            return th->getMessage();
-        }
-
-        static void staticSetDetailMessage(JObject* object,JObject* value){
-            JThrowable* th=(JThrowable*)object;
-            th->setMessage((JString*)value);
-        }
-
-        static JObject* staticGetCause(JObject* object){
-            JThrowable* th=(JThrowable*)object;
-            return th->getCause();
-        }
-
-        static void staticSetCause(JObject* object,JObject* value){
-            JThrowable* th=(JThrowable*)object;
-            th->setCause((JThrowable*)value);
-        }
-
-        static JObject* staticGetStackTrace(JObject* object){
-            JThrowable* th=(JThrowable*)object;
-            return th->getStackTrace();
-        }
-
-        static void staticSetStackTrace(JObject* object,JObject* value){
-            JThrowable* th=(JThrowable*)object;
-            th->setStackTrace((JPrimitiveArray*)value);
-        }
-
         class JThrowableClass : public JClass{
+        protected:
+            static JObject* staticGetDetailMessage(JObject* object){
+                JThrowable* th=(JThrowable*)object;
+                return th->getMessage();
+            }
+
+            static void staticSetDetailMessage(JObject* object,JObject* value){
+                JThrowable* th=(JThrowable*)object;
+                th->setMessage((JString*)value);
+            }
+
+            static JObject* staticGetCause(JObject* object){
+                JThrowable* th=(JThrowable*)object;
+                return th->getCause();
+            }
+
+            static void staticSetCause(JObject* object,JObject* value){
+                JThrowable* th=(JThrowable*)object;
+                th->setCause((JThrowable*)value);
+            }
+
+            static JObject* staticGetStackTrace(JObject* object){
+                JThrowable* th=(JThrowable*)object;
+                return th->getStackTrace();
+            }
+
+            static void staticSetStackTrace(JObject* object,JObject* value){
+                JThrowable* th=(JThrowable*)object;
+                th->setStackTrace((JPrimitiveArray*)value);
+            }
+
+            static JObject* staticGetSuppressedExceptions(JObject* object){
+                JThrowable* th=(JThrowable*)object;
+                return dynamic_cast<JObject*>(th->getSuppressedExceptions());
+            }
+
+            static void staticSetSuppressedExceptions(JObject* object,JObject* value){
+                JThrowable* th=(JThrowable*)object;
+                if (th->suppressedExceptions!=NULL){
+                    delete th->suppressedExceptions;
+                }
+                th->suppressedExceptions=dynamic_cast<JList*>(value);
+            }
         public :
             JThrowableClass():JClass(){
                 this->canonicalName="java.lang.Throwable";
@@ -45,6 +59,7 @@ namespace jcpp{
                 this->addField(new JField("detailMessage",JString::getClazz(),this,staticGetDetailMessage,staticSetDetailMessage));
                 this->addField(new JField("cause",this,this,staticGetCause,staticSetCause));
                 this->addField(new JField("stackTrace",JPrimitiveArray::getClazz(JStackTraceElement::getClazz()),this,staticGetStackTrace,staticSetStackTrace));
+                this->addField(new JField("suppressedExceptions",JList::getClazz(),this,staticGetSuppressedExceptions,staticSetSuppressedExceptions));
                 this->addInterface(JSerializable::getClazz());
             }
 
@@ -71,36 +86,42 @@ namespace jcpp{
             this->message=NULL;
             this->cause=NULL;
             this->stackTrace=NULL;
+            this->suppressedExceptions=NULL;
         }
 
         JThrowable::JThrowable():JObject(getClazz()){
             this->message=NULL;
             this->cause=NULL;
             this->stackTrace=NULL;
+            this->suppressedExceptions=NULL;
         }
 
         JThrowable::JThrowable(string message):JObject(getClazz()){
             this->message = new JString(message);
             this->cause=NULL;
             this->stackTrace=NULL;
+            this->suppressedExceptions=NULL;
         }
 
         JThrowable::JThrowable(JString* message):JObject(getClazz()){
             this->message = message;
             this->cause=NULL;
             this->stackTrace=NULL;
+            this->suppressedExceptions=NULL;
         }
 
         JThrowable::JThrowable(string message, JThrowable *cause):JObject(getClazz()){
             this->message = new JString(message);
             this->cause = cause;
             this->stackTrace=NULL;
+            this->suppressedExceptions=NULL;
         }
 
         JThrowable::JThrowable(JString* message, JThrowable *cause):JObject(getClazz()){
             this->message = message;
             this->cause = cause;
             this->stackTrace=NULL;
+            this->suppressedExceptions=NULL;
         }
 
         bool JThrowable::equals(JObject* o){
@@ -166,13 +187,24 @@ namespace jcpp{
                     str="\tat "+s->toString()+"\r\n";
                     os->write(str.c_str(),str.size());
                 }
-                if (getCause()!=NULL){
+                if (getCause()!=NULL && getCause()!=this){
                     str="Caused by:\r\n";
                     os->write(str.c_str(),str.size());
                     getCause()->printStackTrace(os);
                 }
             }
             os->flush();
+        }
+
+        JList* JThrowable::getSuppressedExceptions(){
+            return suppressedExceptions;
+        }
+
+        void JThrowable::addSuppressedException(JThrowable* t){
+            if (suppressedExceptions==NULL){
+                suppressedExceptions=new JArrayList();
+            }
+            suppressedExceptions->add(t);
         }
 
         string JThrowable::toString(){
@@ -183,6 +215,9 @@ namespace jcpp{
             delete stackTrace;
             delete cause;
             delete message;
+            if (suppressedExceptions!=NULL){
+                delete suppressedExceptions;
+            }
         }
     }
 }

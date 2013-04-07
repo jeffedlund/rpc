@@ -6,9 +6,9 @@ namespace jcpp{
     class JRemoteSampleClass : public JClass{
       public:
         JRemoteSampleClass(){
-            this->canonicalName="RemoteSample";
-            this->name="RemoteObject";
-            this->simpleName="RemoteObject";
+            this->canonicalName="jcpp.RemoteSample";
+            this->name="jcpp.RemoteSample";
+            this->simpleName="RemoteSample";
             addInterface(JIRemoteSample::getClazz());
         }
 
@@ -49,6 +49,13 @@ namespace jcpp{
 
     void JRemoteSample::checkRemoteSample(JIRemoteSample* rs){
         assert(rs==this);
+    }
+
+    void JRemoteSample::checkCallback(JIRemoteSample* rs){
+        cout<<"debut checkcallback\r\n";
+        cout<<rs->getSampleObject();
+        cout<<"\r\n";
+        cout.flush();
     }
 
     JRemoteSample::~JRemoteSample(){

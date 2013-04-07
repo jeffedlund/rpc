@@ -215,7 +215,7 @@ namespace jcpp{
         }
 
         JObject* JObjectInputStream::checkResolve(JObject *obj) {
-            if (!enableResolve || handles->lookupException(passHandle)) {
+            if (!enableResolve || handles->lookupException(passHandle)!=NULL) {
                 return obj;
             }
             JObject* rep = resolveObject(obj);

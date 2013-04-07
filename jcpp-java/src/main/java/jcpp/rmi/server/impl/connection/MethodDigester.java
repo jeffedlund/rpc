@@ -68,7 +68,7 @@ public class MethodDigester {
             for (Class<?> paramType : paramTypes) {
                 args += paramType.getName() + ",";
             }
-            String methodId = method.getName() + ":" + args.substring(0, args.length());
+            String methodId = method.getName() + ":" + (args.length()>0 ? args.substring(0, args.length()-1) : "");
             Long digestLong=new Long(methodId.hashCode());
             iDigestToMethodMap.put(digestLong, method);
             iMethodToDigestMap.put(method, digestLong);

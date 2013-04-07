@@ -1,5 +1,7 @@
 group:
 ------
+-test proxy with java
+-test all un/marshal with java, to find bug like in ArrayList.readObject() with difference with size/capacity
 -wiki pages on how to generate classes, interfaces, proxy
 -wiki page to explain how to setup qt ide + compile project
 -generate proxy classes for interfaces => use java parser module for that
