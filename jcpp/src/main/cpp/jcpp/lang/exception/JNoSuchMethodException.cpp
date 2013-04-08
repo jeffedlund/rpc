@@ -8,7 +8,7 @@ namespace jcpp{
                 canonicalName="java.lang.NoSuchMethodException";
                 name="java.lang.NoSuchMethodException";
                 simpleName="NoSuchMethodException";
-                serialVersionUID=-3387516993124229948ULL;
+                serialVersionUID=5034388446362600923ULL;
             }
 
             JClass* getSuperclass(){

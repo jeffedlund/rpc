@@ -8,7 +8,7 @@ namespace jcpp{
                 canonicalName="java.lang.ClassCastException";
                 name="java.lang.ClassCastException";
                 simpleName="ClassCastException";
-                serialVersionUID=-7034897190745766939ULL;
+                serialVersionUID=-9223365651070458532ULL;
             }
 
             JClass* getSuperclass(){

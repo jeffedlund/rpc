@@ -207,4 +207,9 @@ INPUT(
 ./release\JModifier.o
 ./release\JBlockDataInputStream.o
 ./release\JBlockDataOutputStream.o
+./release\JDataInput.o
+./release\JDataOutput.o
+./release\JAutoCloseable.o
+./release\JObjectInput.o
+./release\JObjectOutput.o
 );

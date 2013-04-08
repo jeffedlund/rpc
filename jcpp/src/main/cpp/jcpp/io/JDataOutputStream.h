@@ -6,11 +6,20 @@
 #include "Object.h"
 #include "JCPP.h"
 #include "JFilterOutputStream.h"
+#include "JDataOutput.h"
+#include "JPrimitiveBoolean.h"
+#include "JPrimitiveByte.h"
+#include "JPrimitiveShort.h"
+#include "JPrimitiveChar.h"
+#include "JPrimitiveInt.h"
+#include "JPrimitiveLong.h"
+#include "JPrimitiveDouble.h"
+#include "JPrimitiveFloat.h"
 using namespace std;
 
 namespace jcpp{
     namespace io{
-        class JCPP_LIBRARY_EXPORT JDataOutputStream : public JFilterOutputStream{
+        class JCPP_LIBRARY_EXPORT JDataOutputStream : public JFilterOutputStream, public JDataOutput{
         private:
             jint length;
             jbyte* bytearr;
@@ -27,7 +36,6 @@ namespace jcpp{
             virtual void write(jbyte b[], int off, int len);
             virtual void flush() ;
             virtual void close();
-
             virtual void writeBoolean(jbool v);
             virtual void writeByte(jint v);
             virtual void writeShort(jint v);
@@ -36,6 +44,14 @@ namespace jcpp{
             virtual void writeLong(jlong v);
             virtual void writeFloat(jfloat v);
             virtual void writeDouble(jdouble v);
+            virtual void writeBoolean(JPrimitiveBoolean* v);
+            virtual void writeByte(JPrimitiveByte* v);
+            virtual void writeShort(JPrimitiveShort* v);
+            virtual void writeChar(JPrimitiveChar* v);
+            virtual void writeInt(JPrimitiveInt* v);
+            virtual void writeLong(JPrimitiveLong* v);
+            virtual void writeFloat(JPrimitiveFloat* v);
+            virtual void writeDouble(JPrimitiveDouble* v);
             virtual void writeBytes(string s);
             virtual void writeChars(string s);
             virtual void writeUTF(string str);

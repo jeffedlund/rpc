@@ -17,7 +17,6 @@ namespace jcpp{
         this->canonicalName="jcpp.EnumSample";
         this->name="jcpp.EnumSample";
         this->simpleName="EnumSample";
-        this->serialVersionUID=40;
         addField(new JField("fieldString",JString::getClazz(),this,staticGetFieldString,staticSetFieldString));
     }
 

@@ -17,6 +17,7 @@ namespace jcpp{
                 canonicalName="java.io.DataOutputStream";
                 name="java.io.DataOutputStream";
                 simpleName="DataOutputStream";
+                addInterface(JDataOutput::getClazz());
             }
 
             JClass* getSuperclass(){
@@ -124,6 +125,38 @@ namespace jcpp{
             JBits::putDouble(b, 0, v);
             jlong* val = (jlong*)b;
             writeLong(*val);
+        }
+
+        void JDataOutputStream::writeBoolean(JPrimitiveBoolean* b){
+            writeBoolean(b->get());
+        }
+
+        void JDataOutputStream::writeByte(JPrimitiveByte* b){
+            writeByte(b->get());
+        }
+
+        void JDataOutputStream::writeChar(JPrimitiveChar* c){
+            writeChar(c->get());
+        }
+
+        void JDataOutputStream::writeDouble(JPrimitiveDouble* d){
+            writeDouble(d->get());
+        }
+
+        void JDataOutputStream::writeFloat(JPrimitiveFloat* f){
+            writeFloat(f->get());
+        }
+
+        void JDataOutputStream::writeLong(JPrimitiveLong* l){
+            writeLong(l->get());
+        }
+
+        void JDataOutputStream::writeShort(JPrimitiveShort* s){
+            writeShort(s->get());
+        }
+
+        void JDataOutputStream::writeInt(JPrimitiveInt* i){
+            writeInt(i->get());
         }
 
         void JDataOutputStream::writeBytes(string s){

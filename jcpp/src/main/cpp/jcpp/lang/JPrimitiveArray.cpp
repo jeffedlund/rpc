@@ -47,11 +47,17 @@ namespace jcpp{
               }
         };
 
-        static JObject* lockObject = new JObject();
+        static JObject* lockObject = NULL;
         static map<string,JPrimitiveArrayClass*>* jPrimitiveArrayClasses;
+        static JObject* getLockObject(){
+            if (lockObject==NULL){
+                lockObject=new JObject();
+            }
+            return lockObject;
+        }
 
         JClass* JPrimitiveArray::getClazz(JClass* componentType){
-            lockObject->lock();
+            getLockObject()->lock();
             if (jPrimitiveArrayClasses==NULL){
                 jPrimitiveArrayClasses=new map<string,JPrimitiveArrayClass*>();
             }
@@ -60,7 +66,7 @@ namespace jcpp{
                 jPrimitiveArrayClass=new JPrimitiveArrayClass(componentType);
                 jPrimitiveArrayClasses->insert(pair<string,JPrimitiveArrayClass*>(componentType->getName(),jPrimitiveArrayClass));
             }
-            lockObject->unlock();
+            getLockObject()->unlock();
             return jPrimitiveArrayClass;
         }
 

@@ -19,6 +19,7 @@
 #include "JThrowable.h"
 #include "JUnsupportedOperationException.h"
 #include "JVirtualMachineError.h"
+#include "JAutoCloseable.h"
 #include "JBoolean.h"
 #include "JByte.h"
 #include "JChar.h"

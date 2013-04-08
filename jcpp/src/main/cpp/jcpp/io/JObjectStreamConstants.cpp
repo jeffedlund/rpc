@@ -9,6 +9,7 @@ namespace jcpp{
                 canonicalName="java.io.ObjectStreamConstants";
                 name="java.io.ObjectStreamConstants";
                 simpleName="ObjectStreamConstants";
+                this->bIsInterface=true;
             }
 
             JClass* getSuperclass(){

@@ -6,12 +6,13 @@
 #include "Object.h"
 #include "JCPP.h"
 #include "JFilterInputStream.h"
+#include "JDataInput.h"
 using namespace std;
 
 namespace jcpp{
     namespace io{
         //TODO implement readLine
-        class JCPP_LIBRARY_EXPORT JDataInputStream : public JFilterInputStream{
+        class JCPP_LIBRARY_EXPORT JDataInputStream : public JFilterInputStream, public JDataInput{
 
         public:
             JDataInputStream();
@@ -33,6 +34,14 @@ namespace jcpp{
             virtual jlong readLong();
             virtual jfloat readFloat();
             virtual jdouble readDouble();
+            virtual JPrimitiveByte* readPrimitiveByte();
+            virtual JPrimitiveChar* readPrimitiveChar();
+            virtual JPrimitiveDouble* readPrimitiveDouble();
+            virtual JPrimitiveFloat* readPrimitiveFloat();
+            virtual JPrimitiveInt* readPrimitiveInt();
+            virtual JPrimitiveLong* readPrimitiveLong();
+            virtual JPrimitiveShort* readPrimitiveShort();
+            virtual JPrimitiveBoolean* readPrimitiveBool();
             virtual string readUTF();
             virtual jint available();
             virtual bool waitForReadyRead(int = 30000);//TODO use readtimeout

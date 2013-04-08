@@ -20,6 +20,7 @@ class SerialCallbackContext;
 #include "JIOException.h"
 #include "JLANG.h"
 #include "Object.h"
+#include "JObjectInput.h"
 #include "JCPP.h"
 
 namespace jcpp{
@@ -27,7 +28,7 @@ namespace jcpp{
         class JObjectStreamClass;
         static const int NULL_HANDLE = -1;
 
-        class JCPP_LIBRARY_EXPORT JObjectInputStream : public JInputStream, public JObjectStreamConstants{
+        class JCPP_LIBRARY_EXPORT JObjectInputStream : public JInputStream, public JObjectInput, public JObjectStreamConstants{
             JBlockDataInputStream *bin;
             JClassLoader* inputClassLoader;
             HandleTable* handles;
@@ -67,6 +68,11 @@ namespace jcpp{
 
             void setInputClassLoader(JClassLoader* inputClassLoader);
             static JClass* getClazz();
+            virtual void readFully(jbyte b[], jint off, jint len);
+            virtual jint skipBytes(jint n);
+            virtual jlong skip(jlong n);
+            virtual jint readUnsignedByte();
+            virtual jint readUnsignedShort();
             virtual JObject* readObject();
             virtual JString* readString();
             virtual JString* readTypeString();
@@ -95,7 +101,6 @@ namespace jcpp{
             virtual string readUTF();
             virtual string readLongUTF();
             virtual void close();
-
             virtual ~JObjectInputStream();
         };
     }

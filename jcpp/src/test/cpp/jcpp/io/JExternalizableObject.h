@@ -2,6 +2,7 @@
 #define JEXTERNALIZABLEOBJECT_H
 
 #include "JExternalizable.h"
+#include "JLANG.h"
 
 namespace jcpp{
     namespace io{
@@ -57,9 +58,9 @@ namespace jcpp{
 
             string toString();
 
-            virtual void writeExternal(JObjectOutputStream* out);
+            virtual void writeExternal(JObjectOutput* out);
 
-            virtual void readExternal(JObjectInputStream* in);
+            virtual void readExternal(JObjectInput* in);
 
             virtual ~JExternalizableObject();
         };

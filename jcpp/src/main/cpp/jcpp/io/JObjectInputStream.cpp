@@ -36,6 +36,8 @@ namespace jcpp{
                 canonicalName="java.io.ObjectInputStream";
                 name="java.io.ObjectInputStream";
                 simpleName="ObjectInputStream";
+                addInterface(JObjectStreamConstants::getClazz());
+                addInterface(JObjectInput::getClazz());
             }
 
             JClass* getSuperclass(){
@@ -110,6 +112,26 @@ namespace jcpp{
             }
             enableResolve = enable;
             return !enableResolve;
+        }
+
+        void JObjectInputStream::readFully(jbyte b[], jint off, jint len){
+            bin->readFully(b,off,len,false);
+        }
+
+        jint JObjectInputStream::skipBytes(jint n){
+            return bin->skipBytes(n);
+        }
+
+        jlong JObjectInputStream::skip(jlong n){
+            return bin->skip(n);
+        }
+
+        jint JObjectInputStream::readUnsignedByte(){
+            return bin->readUnsignedByte();
+        }
+
+        jint JObjectInputStream::readUnsignedShort(){
+            return bin->readUnsignedShort();
         }
 
         JObject* JObjectInputStream::readObject() {
@@ -544,7 +566,7 @@ namespace jcpp{
                 bin->setBlockDataMode(true);
             }
             if (obj!=NULL){
-                ((JExternalizable*)obj)->readExternal(this);
+                (dynamic_cast<JExternalizable*>(obj))->readExternal(this);
             }
             if (blocked){
                 skipCustomData();
@@ -721,7 +743,7 @@ namespace jcpp{
         }
 
         JPrimitiveShort* JObjectInputStream::readPrimitiveShort(){
-            return new JPrimitiveShort(readLong());
+            return new JPrimitiveShort(readShort());
         }
 
         JPrimitiveBoolean* JObjectInputStream::readPrimitiveBool(){

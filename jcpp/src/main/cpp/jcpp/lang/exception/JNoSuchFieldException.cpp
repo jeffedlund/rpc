@@ -8,7 +8,7 @@ namespace jcpp{
                 canonicalName="java.lang.NoSuchFieldException";
                 name="java.lang.NoSuchFieldException";
                 simpleName="NoSuchFieldException";
-                serialVersionUID=-3387516993124229948ULL;
+                serialVersionUID=-6143714805279938260ULL;
             }
 
             JClass* getSuperclass(){

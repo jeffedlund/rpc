@@ -14,7 +14,7 @@ namespace jcpp{
             }
 
             JClass* getSuperclass(){
-                return JInterface::getClazz();
+                return JSerializable::getClazz();
             }
         };
 

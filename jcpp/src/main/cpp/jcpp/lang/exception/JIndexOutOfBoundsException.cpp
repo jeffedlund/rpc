@@ -8,7 +8,7 @@ namespace jcpp{
                 canonicalName="java.lang.IndexOutOfBoundsException";
                 name="java.lang.IndexOutOfBoundsException";
                 simpleName="IndexOutOfBoundsException";
-                serialVersionUID=-7034897190745766939ULL;
+                serialVersionUID=234122996006267687ULL;
             }
 
             JClass* getSuperclass(){

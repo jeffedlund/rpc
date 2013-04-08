@@ -15,6 +15,7 @@ namespace jcpp{
                 canonicalName="java.io.DataInputStream";
                 name="java.io.DataInputStream";
                 simpleName="DataInputStream";
+                addInterface(JDataInput::getClazz());
             }
 
             JClass* getSuperclass(){
@@ -247,6 +248,38 @@ namespace jcpp{
                 throw new JEOFException();
             }
             return b!=0;
+        }
+
+        JPrimitiveByte* JDataInputStream::readPrimitiveByte(){
+            return new JPrimitiveByte(readByte());
+        }
+
+        JPrimitiveChar* JDataInputStream::readPrimitiveChar(){
+            return new JPrimitiveChar(readChar());
+        }
+
+        JPrimitiveDouble* JDataInputStream::readPrimitiveDouble(){
+            return new JPrimitiveDouble(readDouble());
+        }
+
+        JPrimitiveFloat* JDataInputStream::readPrimitiveFloat(){
+            return new JPrimitiveFloat(readFloat());
+        }
+
+        JPrimitiveInt* JDataInputStream::readPrimitiveInt(){
+            return new JPrimitiveInt(readInt());
+        }
+
+        JPrimitiveLong* JDataInputStream::readPrimitiveLong(){
+            return new JPrimitiveLong(readLong());
+        }
+
+        JPrimitiveShort* JDataInputStream::readPrimitiveShort(){
+            return new JPrimitiveShort(readShort());
+        }
+
+        JPrimitiveBoolean* JDataInputStream::readPrimitiveBool(){
+            return new JPrimitiveBoolean(readBool());
         }
 
         void JDataInputStream::close() {

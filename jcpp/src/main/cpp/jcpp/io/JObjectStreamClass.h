@@ -5,6 +5,7 @@
 #include "JString.h"
 #include "JInputStream.h"
 #include "JObjectStreamConstants.h"
+#include "JObjectOutputStream.h"
 #include "JObjectInputStream.h"
 #include "JClassNotFoundException.h"
 #include "JObjectStreamField.h"

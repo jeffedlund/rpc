@@ -8,7 +8,7 @@ namespace jcpp{
                 canonicalName="java.lang.NullPointerException";
                 name="java.lang.NullPointerException";
                 simpleName="NullPointerException";
-                serialVersionUID=-7034897190745766939ULL;
+                serialVersionUID=5162710183389028792ULL;
             }
 
             JClass* getSuperclass(){

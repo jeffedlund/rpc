@@ -247,7 +247,12 @@ SOURCES += \
     src/main/cpp/jcpp/lang/reflect/JMember.cpp \
     src/main/cpp/jcpp/lang/reflect/JModifier.cpp \
     src/main/cpp/jcpp/io/impl/JBlockDataInputStream.cpp \
-    src/main/cpp/jcpp/io/impl/JBlockDataOutputStream.cpp
+    src/main/cpp/jcpp/io/impl/JBlockDataOutputStream.cpp \
+    src/main/cpp/jcpp/io/JDataInput.cpp \
+    src/main/cpp/jcpp/io/JDataOutput.cpp \
+    src/main/cpp/jcpp/lang/JAutoCloseable.cpp \
+    src/main/cpp/jcpp/io/JObjectInput.cpp \
+    src/main/cpp/jcpp/io/JObjectOutput.cpp
     
     
 HEADERS += \
@@ -462,7 +467,12 @@ HEADERS += \
     src/main/cpp/jcpp/lang/reflect/JMember.h \
     src/main/cpp/jcpp/lang/reflect/JModifier.h \
     src/main/cpp/jcpp/io/impl/JBlockDataInputStream.h \
-    src/main/cpp/jcpp/io/impl/JBlockDataOutputStream.h
+    src/main/cpp/jcpp/io/impl/JBlockDataOutputStream.h \
+    src/main/cpp/jcpp/io/JDataInput.h \
+    src/main/cpp/jcpp/io/JDataOutput.h \
+    src/main/cpp/jcpp/lang/JAutoCloseable.h \
+    src/main/cpp/jcpp/io/JObjectInput.h \
+    src/main/cpp/jcpp/io/JObjectOutput.h
     
     
 OTHER_FILES += \

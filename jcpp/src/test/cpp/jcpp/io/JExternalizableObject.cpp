@@ -147,7 +147,7 @@ namespace jcpp{
                 addField(new JLong1Field(this));
                 addField(new JShort1Field(this));
                 addField(new JInt1Field(this));
-                addInterface(JSerializable::getClazz());
+                addInterface(JExternalizable::getClazz());
             }
 
             JClass* getSuperclass(){
@@ -169,6 +169,14 @@ namespace jcpp{
         }
 
         JExternalizableObject::JExternalizableObject():JObject(getClazz()){
+            bool1=NULL;
+            byte1=NULL;
+            c1=NULL;
+            d1=NULL;
+            f1=NULL;
+            l1=NULL;
+            s1=NULL;
+            i1=NULL;
         }
 
         bool JExternalizableObject::equals(JObject* other){
@@ -273,7 +281,7 @@ namespace jcpp{
             return ss.str();
         }
 
-        void JExternalizableObject::writeExternal(JObjectOutputStream* out){
+        void JExternalizableObject::writeExternal(JObjectOutput* out){
             out->writeBoolean(bool1);
             out->writeByte(byte1);
             out->writeChar(c1);
@@ -284,7 +292,7 @@ namespace jcpp{
             out->writeInt(i1);
         }
 
-        void JExternalizableObject::readExternal(JObjectInputStream* in){
+        void JExternalizableObject::readExternal(JObjectInput* in){
             bool1=in->readPrimitiveBool();
             byte1=in->readPrimitiveByte();
             c1=in->readPrimitiveChar();

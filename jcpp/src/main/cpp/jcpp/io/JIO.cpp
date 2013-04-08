@@ -7,7 +7,9 @@ namespace jcpp{
             classes->push_back(JBlockDataOutputStream::getClazz());
             classes->push_back(JBufferedInputStream::getClazz());
             classes->push_back(JBufferedOutputStream::getClazz());
+            classes->push_back(JDataInput::getClazz());
             classes->push_back(JDataInputStream::getClazz());
+            classes->push_back(JDataOutput::getClazz());
             classes->push_back(JDataOutputStream::getClazz());
             classes->push_back(JEOFException::getClazz());
             classes->push_back(JExternalizable::getClazz());
@@ -19,7 +21,9 @@ namespace jcpp{
             classes->push_back(JIOException::getClazz());
             classes->push_back(JNotActiveException::getClazz());
             classes->push_back(JNotSerializableException::getClazz());
+            classes->push_back(JObjectInput::getClazz());
             classes->push_back(JObjectInputStream::getClazz());
+            classes->push_back(JObjectOutput::getClazz());
             classes->push_back(JObjectOutputStream::getClazz());
             classes->push_back(JObjectStreamClass::getClazz());
             classes->push_back(JObjectStreamConstants::getClazz());

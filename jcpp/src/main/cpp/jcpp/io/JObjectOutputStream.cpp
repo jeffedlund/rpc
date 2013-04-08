@@ -24,6 +24,8 @@ namespace jcpp{
                 canonicalName="java.io.ObjectOutputStream";
                 name="java.io.ObjectOutputStream";
                 simpleName="ObjectOutputStream";
+                addInterface(JObjectOutput::getClazz());
+                addInterface(JObjectStreamConstants::getClazz());
             }
 
             JClass* getSuperclass(){
@@ -328,7 +330,7 @@ namespace jcpp{
             SerialCallbackContext* oldContext=curContext;
             curContext=NULL;
             bout->setBlockDataMode(true);
-            ((JExternalizable*)obj)->writeExternal(this);
+            (dynamic_cast<JExternalizable*>(obj))->writeExternal(this);
             bout->setBlockDataMode(false);
             bout->writeByte(TC_ENDBLOCKDATA);
             curContext=oldContext;

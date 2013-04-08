@@ -8,7 +8,7 @@ namespace jcpp{
                 canonicalName="java.lang.InstantiationException";
                 name="java.lang.InstantiationException";
                 simpleName="InstantiationException";
-                serialVersionUID=-3387516993124229948ULL;
+                serialVersionUID=-8441929162975509110ULL;
             }
 
             JClass* getSuperclass(){

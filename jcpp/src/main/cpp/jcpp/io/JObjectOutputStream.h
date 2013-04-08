@@ -13,12 +13,15 @@
 #include "JLANG.h"
 #include "Object.h"
 #include "JCPP.h"
+#include "JObjectOutput.h"
+#include "JIOException.h"
 
 namespace jcpp{
     namespace io{
         class SerialCallbackContext;
         class ObjectStreamClass;
-        class JCPP_LIBRARY_EXPORT JObjectOutputStream : public JOutputStream, public JObjectStreamConstants{
+        //TODO move some methods to protected and use friends to solve it. same for ObjectIStream
+        class JCPP_LIBRARY_EXPORT JObjectOutputStream : public JOutputStream, public JObjectOutput, public JObjectStreamConstants{
         private:
             JBlockDataOutputStream* bout;
             OutputHandleTable* handles;

@@ -9,7 +9,7 @@ namespace jcpp{
                 canonicalName="java.lang.VirtualMachineError";
                 name="java.lang.VirtualMachineError";
                 simpleName="VirtualMachineError";
-                serialVersionUID=4980196508277280342ULL;
+                serialVersionUID=4161983926571568670ULL;
             }
 
             JClass* getSuperclass(){

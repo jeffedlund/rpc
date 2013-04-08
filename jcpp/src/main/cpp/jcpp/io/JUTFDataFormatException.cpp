@@ -8,7 +8,7 @@ namespace jcpp{
                 canonicalName="java.io.UTFDataFormatException";
                 name="java.io.UTFDataFormatException";
                 simpleName="UTFDataFormatException";
-                serialVersionUID=7818375828146090155ULL;
+                serialVersionUID=420743449228280612ULL;
             }
 
             JClass* getSuperclass(){

@@ -387,6 +387,7 @@ namespace jcpp{
             jbyte flags = 0;
             if (externalizable) {
                 flags |= JObjectStreamConstants::SC_EXTERNALIZABLE;
+                flags |= JObjectStreamConstants::SC_BLOCK_DATA;
             } else if (serializable) {
                 flags |= JObjectStreamConstants::SC_SERIALIZABLE;
             }

@@ -3,21 +3,22 @@
 
 #include "JObject.h"
 #include "JClass.h"
-#include "JObjectOutputStream.h"
-#include "JObjectInputStream.h"
+#include "JObjectOutput.h"
+#include "JObjectInput.h"
+#include "JSerializable.h"
 #include "JCPP.h"
 
 namespace jcpp{
     namespace io{
-        class JCPP_LIBRARY_EXPORT JExternalizable:JInterface{
+        class JCPP_LIBRARY_EXPORT JExternalizable : public JSerializable{
         protected:
         public:
 
             static JClass* getClazz();
 
-            virtual void writeExternal(JObjectOutputStream* out)=0;
+            virtual void writeExternal(JObjectOutput* out)=0;
 
-            virtual void readExternal(JObjectInputStream* in)=0;
+            virtual void readExternal(JObjectInput* in)=0;
 
             virtual ~JExternalizable();
         };

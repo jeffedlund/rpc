@@ -402,6 +402,10 @@ namespace jcpp{
                      JClass* interf=current->getInterfaces()->at(i);
                      if (this==interf){
                         return true;
+                     }else{
+                         if (isAssignableFrom(interf)){
+                             return true;
+                         }
                      }
                 }
                 current=current->getSuperclass();//check also interfaces

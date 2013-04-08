@@ -24,6 +24,7 @@ namespace jcpp{
             classes->push_back(JThrowable::getClazz());
             classes->push_back(JUnsupportedOperationException::getClazz());
             classes->push_back(JVirtualMachineError::getClazz());
+            classes->push_back(JAutoCloseable::getClazz());
             classes->push_back(JBoolean::getClazz());
             classes->push_back(JByte::getClazz());
             classes->push_back(JChar::getClazz());

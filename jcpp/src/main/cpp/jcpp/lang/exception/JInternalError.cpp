@@ -9,7 +9,7 @@ namespace jcpp{
                 canonicalName="java.lang.InternalError";
                 name="java.lang.InternalError";
                 simpleName="InternalError";
-                serialVersionUID=4980196508277280342ULL;
+                serialVersionUID=-9062593416125562365ULL;
             }
 
             JClass* getSuperclass(){
