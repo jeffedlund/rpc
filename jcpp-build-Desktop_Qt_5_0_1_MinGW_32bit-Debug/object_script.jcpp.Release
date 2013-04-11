@@ -212,4 +212,5 @@ INPUT(
 ./release\JAutoCloseable.o
 ./release\JObjectInput.o
 ./release\JObjectOutput.o
+./release\JBits.o
 );

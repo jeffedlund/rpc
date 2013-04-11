@@ -252,7 +252,8 @@ SOURCES += \
     src/main/cpp/jcpp/io/JDataOutput.cpp \
     src/main/cpp/jcpp/lang/JAutoCloseable.cpp \
     src/main/cpp/jcpp/io/JObjectInput.cpp \
-    src/main/cpp/jcpp/io/JObjectOutput.cpp
+    src/main/cpp/jcpp/io/JObjectOutput.cpp \
+    src/main/cpp/jcpp/io/JBits.cpp
     
     
 HEADERS += \

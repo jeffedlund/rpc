@@ -200,7 +200,7 @@ namespace jcpp{
         }
 
         JBufferedInputStream::~JBufferedInputStream() {
-            delete[] buf;
+            delete buf;
             delete in;
         }
     }

@@ -3,6 +3,7 @@
 
 #include "JBlockDataInputStream.h"
 #include "JBlockDataOutputStream.h"
+#include "JBits.h"
 #include "JBufferedInputStream.h"
 #include "JBufferedOutputStream.h"
 #include "JDataInput.h"

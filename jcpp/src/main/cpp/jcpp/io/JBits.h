@@ -2,12 +2,16 @@
 #define JBITS_H
 
 #include "Object.h"
+#include "JObject.h"
 #include "JCPP.h"
+#include "JClass.h"
+using namespace jcpp::lang;
 
 namespace jcpp{
     namespace io{
-        class JCPP_LIBRARY_EXPORT JBits {
+        class JCPP_LIBRARY_EXPORT JBits : public JObject{
         public:
+            static JClass* getClazz();
 
             static void putBoolean(jbyte b[], int off, bool val) {
                 b[off] = (jbyte) (val ? 1 : 0);

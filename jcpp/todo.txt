@@ -1,9 +1,9 @@
 group:
 ------
--wiki pages on how to generate classes, interfaces, proxy
+-wiki pages on how to generate classes
 -wiki page to explain how to setup qt ide + compile project
--generate proxy classes for interfaces => use java parser module for that
--generate interfaces, classes, proxies, ... using java-parser module
+-implement jcpp::io package
+-check call to delete[], it should be applied only to "new toto[4]"
 
 group:
 -------
@@ -21,7 +21,5 @@ group:
 -------
 -tree of classloader
 -check all new/delete calls
--check call to delete[]
 -constructor in order to ease casting
-
 -add more attributes to JField like static, transient, ...

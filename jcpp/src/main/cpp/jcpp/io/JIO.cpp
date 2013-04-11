@@ -5,6 +5,7 @@ namespace jcpp{
         JIO::JIO():JPackage("jcpp.io",JPackage::getClazz()){//better class
             classes->push_back(JBlockDataInputStream::getClazz());
             classes->push_back(JBlockDataOutputStream::getClazz());
+            classes->push_back(JBits::getClazz());
             classes->push_back(JBufferedInputStream::getClazz());
             classes->push_back(JBufferedOutputStream::getClazz());
             classes->push_back(JDataInput::getClazz());
