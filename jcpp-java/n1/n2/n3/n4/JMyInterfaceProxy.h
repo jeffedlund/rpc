@@ -1,5 +1,5 @@
-#ifndef JMYINTERFACE_HPROXY
-#define JMYINTERFACE_HPROXY
+#ifndef JMYINTERFACEPROXY_H
+#define JMYINTERFACEPROXY_H
 
 //include declaration
 #include "JProxy.h"
@@ -39,4 +39,4 @@ class JMyInterfaceProxy : public JProxy  , public JMyInterface  {
     }
 }
 
-#endif // JMYINTERFACE_HPROXY
+#endif // JMYINTERFACEPROXY_H

@@ -1,1 +1,0 @@
-d:\java\apache-maven-3.0.3\bin\mvn -Dmaven.test.skip=true clean install

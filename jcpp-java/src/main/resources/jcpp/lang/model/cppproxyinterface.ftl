@@ -37,7 +37,8 @@ ${""?left_pad(ns_index*4)}namespace ${ns}{
 	   <#list methods as method>
             ${method.returnType} ${className}::${method.name}(<#list method.parameterType as param>${param}* p${param_index}<#if param_has_next>,</#if> </#list>){
                 vector<JObject*> args;
-                <#list method.parameterType as param>args.push_back(p${param_index});
+                <#list method.parameterType as param>
+                args.push_back(p${param_index});
                 </#list>
                 <#if !method.getIsReturnTypeVoid()>${method.returnType}* r=</#if>invoke("${method.name}",&args);
                 return <#if !method.getIsReturnTypeVoid()>r<#else>NULL</#if>;

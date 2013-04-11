@@ -2,23 +2,23 @@
 #define JMYINTERFACE_H
 
 //include declaration
-#include "JList.h"
-#include "JToto.h"
-#include "JI1.h"
-#include "JP1.h"
 #include "JI2.h"
-#include "JR1.h"
-#include "JP2.h"
+#include "JList.h"
 #include "JMyParent.h"
+#include "JP2.h"
+#include "JR1.h"
+#include "JP1.h"
+#include "JI1.h"
 #include "JCollection.h"
+#include "JToto.h"
 #include "JArrayList.h"
 
 //use namespace declaration
+using namespace f1::f2::f3;
 using namespace i1::i2::i3;
 using namespace java::util;
 using namespace n1::n2::n3::n4::n5;
 using namespace p1::p2::p3;
-using namespace f1::f2::f3;
 
 //namespace declaration
 namespace n1{
