@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<javaClass>
+	<canonicalName>n1.n2.n3.n4.MyObject</canonicalName>
+	<simpleName>MyObject</simpleName>
+	<name>n1.n2.n3.n4.MyObject</name>
+	<imports>
+		<imports>java.util.List</imports>
+		<imports>java.util.ArrayList</imports>
+		<imports>java.util.Collection</imports>
+		<imports>n1.n2.n3.n4.n5.Toto</imports>
+	</imports>
+	<parent>p1.p2.p3.MyParent</parent>
+	<interfaces>
+		<interfaces>i1.i2.i3.I1</interfaces>
+		<interfaces>i1.i2.i3.I2</interfaces>
+	</interfaces>
+	<fields>
+		<fields>
+			<name>f1</name>
+			<type>n1.n2.n3.R1</type>
+			<getter>getF1</getter>
+			<setter>setF1</setter>
+		</fields>
+		<fields>
+			<name>f2</name>
+			<type>java.util.Collection</type>
+			<getter>getF2</getter>
+			<setter>setF2</setter>
+		</fields>
+	</fields>
+	<methods/>
+	<isInterface>false</isInterface>
+	<serialVersionUID>0</serialVersionUID>
+</javaClass>

@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.*;
 import java.util.*;
 
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class JavaMethod{
     @XmlElement
     private String name;

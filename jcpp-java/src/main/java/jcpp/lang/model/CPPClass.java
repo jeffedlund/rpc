@@ -4,7 +4,8 @@ import javax.xml.bind.annotation.*;
 import java.util.*;
 
 @XmlRootElement
-public class HCPPInterface{
+@XmlAccessorType(XmlAccessType.FIELD)
+public class CPPClass{
     @XmlElement
     private String ifndef;
     @XmlElementWrapper
@@ -30,12 +31,18 @@ public class HCPPInterface{
     private List<String> interfaces;
     @XmlElementWrapper
     @XmlElement
+    private List<CPPField> fields;
+    @XmlElementWrapper
+    @XmlElement
     private List<CPPMethod> methods;
+    @XmlElement
+    private long serialVersionUID;
 
-    public HCPPInterface(){
+    public CPPClass(){
         includes=new ArrayList<String>();
         namespaces=new ArrayList<String>();
         interfaces=new ArrayList<String>();
+        fields=new ArrayList<CPPField>();
         methods=new ArrayList<CPPMethod>();
     }
 
@@ -119,12 +126,28 @@ public class HCPPInterface{
         this.interfaces=i;
     }
 
+    public List<CPPField> getFields(){
+        return fields;
+    }
+
+    public void setFields(List<CPPField> f){
+        this.fields=f;
+    }
+
     public List<CPPMethod> getMethods(){
         return methods;
     }
 
     public void setMethods(List<CPPMethod> m){
         this.methods=m;
+    }
+
+    public long getSerialVersionUID(){
+        return serialVersionUID;
+    }
+
+    public void setSerialVersionUID(long serialVersionUID){
+        this.serialVersionUID=serialVersionUID;
     }
 
     public String getHFilePath(){
@@ -154,7 +177,9 @@ public class HCPPInterface{
         m.put("name",name);
         m.put("parent",parent);
         m.put("interfaces",interfaces);
+        m.put("fields",fields);
         m.put("methods",methods);
+        m.put("serialVersionUID",serialVersionUID);
         return m;
     }
 }

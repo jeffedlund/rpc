@@ -1,64 +1,64 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" tests="0" time="0.016" skipped="0" failures="0" name="jcpp.rmi.server.impl.connection.TestServer">
+<testsuite skipped="0" tests="0" name="jcpp.rmi.server.impl.connection.TestServer" errors="0" time="0.005" failures="0">
   <properties>
-    <property value="sun.awt.windows.WToolkit" name="awt.toolkit"/>
-    <property value="C:\Users\cyazbeck" name="user.home"/>
-    <property value="cyazbeck" name="user.name"/>
-    <property value="http://bugreport.sun.com/bugreport/" name="java.vendor.url.bug"/>
-    <property value="1.8.0-ea-b76" name="java.runtime.version"/>
-    <property value="mixed mode" name="java.vm.info"/>
-    <property value="sun.awt.Win32GraphicsEnvironment" name="java.awt.graphicsenv"/>
-    <property value="D:\projet\rpc\jcpp-java\target\test-classes;D:\projet\rpc\jcpp-java\target\classes;d:\.m2\log4j\log4j\1.2.14\log4j-1.2.14.jar;d:\.m2\commons-logging\commons-logging\1.1.1\commons-logging-1.1.1.jar;d:\.m2\commons-io\commons-io\1.4\commons-io-1.4.jar;d:\.m2\backport-util-concurrent\backport-util-concurrent\2.1\backport-util-concurrent-2.1.jar;d:\.m2\freemarker\freemarker\2.3.8\freemarker-2.3.8.jar;" name="java.class.path"/>
-    <property value="D:\projet\rpc\jcpp-java\target\surefire\surefirebooter4735506687961681316.jar D:\projet\rpc\jcpp-java\target\surefire\surefire6610127058559564947tmp D:\projet\rpc\jcpp-java\target\surefire\surefire6685036884727513331tmp" name="sun.java.command"/>
-    <property value="\" name="file.separator"/>
-    <property value="Oracle Corporation" name="java.specification.vendor"/>
-    <property value="D:\projet\rpc\jcpp-java\target\test-classes;D:\projet\rpc\jcpp-java\target\classes;d:\.m2\log4j\log4j\1.2.14\log4j-1.2.14.jar;d:\.m2\commons-logging\commons-logging\1.1.1\commons-logging-1.1.1.jar;d:\.m2\commons-io\commons-io\1.4\commons-io-1.4.jar;d:\.m2\backport-util-concurrent\backport-util-concurrent\2.1\backport-util-concurrent-2.1.jar;d:\.m2\freemarker\freemarker\2.3.8\freemarker-2.3.8.jar;" name="surefire.test.class.path"/>
-    <property value="sun.awt.windows.WPrinterJob" name="java.awt.printerjob"/>
-    <property value="" name="user.script"/>
-    <property value="Oracle Corporation" name="java.vendor"/>
-    <property value="52.0" name="java.class.version"/>
-    <property value="" name="user.variant"/>
-    <property value="" name="sun.os.patch.level"/>
-    <property value="en" name="user.language"/>
-    <property value="D:\projet\rpc\jcpp-java" name="user.dir"/>
-    <property value="C:\Users\cyazbeck\AppData\Local\Temp\" name="java.io.tmpdir"/>
-    <property value="windows" name="sun.desktop"/>
-    <property value="Oracle Corporation" name="java.vm.specification.vendor"/>
-    <property value="Cp1252" name="sun.jnu.encoding"/>
-    <property value=";" name="path.separator"/>
-    <property value="Cp1252" name="file.encoding"/>
-    <property value="amd64" name="os.arch"/>
-    <property value="d:\java\jdk1.8.0\jre\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\Support Tools;u:\tools\sybase\11.1.1-swr8229\dll;u:\tools\sybase\11.1.1-swr8229\bin;U:\tools\bin;R:\tools;u:\devtools\watcom10.6\binnt;u:\devtools\watcom10.6\binw;U:\Tools\Oracle\Ora92\bin;U:\Tools\Oracle\Ora92\lib;c:\Program Files\Perforce;C:\Program Files\TortoiseSVN\bin;C:\Program Files (x86)\Perforce;d:\java\jEdit;D:\java\TortoiseSVN\bin;C:\Program Files (x86)\Enterprise Vault\EVClient\;C:\Program Files (x86)\Microsoft SQL Server\90\Tools\binn\;C:\Program Files\TortoiseGit\bin;D:\Program Files (x86)\Perforce;e:\cygwin\bin;d:\projet\rpc\jcpp-build-Desktop_Qt_5_0_1_MinGW_32bit-Debug\debug;D:\Qt\Qt5.0.1\5.0.1\mingw47_32\lib;D:\Qt\Qt5.0.1\Tools\QtCreator\bin;." name="java.library.path"/>
-    <property value="Java HotSpot(TM) 64-Bit Server VM" name="java.vm.name"/>
-    <property value="d:\java\jdk1.8.0\jre\lib\ext;C:\Windows\Sun\Java\lib\ext" name="java.ext.dirs"/>
-    <property value="d:\.m2" name="localRepository"/>
-    <property value="little" name="sun.cpu.endian"/>
-    <property value="D:\projet\rpc\jcpp-java\target\surefire\surefirebooter4735506687961681316.jar" name="surefire.real.class.path"/>
-    <property value="
-" name="line.separator"/>
-    <property value="" name="user.timezone"/>
-    <property value="d:\java\jdk1.8.0\jre\lib\endorsed" name="java.endorsed.dirs"/>
-    <property value="UnicodeLittle" name="sun.io.unicode.encoding"/>
-    <property value="25.0-b17" name="java.vm.version"/>
-    <property value="Oracle Corporation" name="java.vm.vendor"/>
-    <property value="SUN_STANDARD" name="sun.java.launcher"/>
-    <property value="1.8" name="java.specification.version"/>
-    <property value="Java Virtual Machine Specification" name="java.vm.specification.name"/>
-    <property value="Java Platform API Specification" name="java.specification.name"/>
-    <property value="Java(TM) SE Runtime Environment" name="java.runtime.name"/>
-    <property value="1.8.0-ea" name="java.version"/>
-    <property value="sun.io" name="file.encoding.pkg"/>
-    <property value="d:\java\jdk1.8.0\jre\bin" name="sun.boot.library.path"/>
-    <property value="D:\projet\rpc\jcpp-java" name="basedir"/>
-    <property value="amd64" name="sun.cpu.isalist"/>
-    <property value="1.8" name="java.vm.specification.version"/>
-    <property value="64" name="sun.arch.data.model"/>
-    <property value="d:\java\jdk1.8.0\jre\lib\resources.jar;d:\java\jdk1.8.0\jre\lib\rt.jar;d:\java\jdk1.8.0\jre\lib\sunrsasign.jar;d:\java\jdk1.8.0\jre\lib\jsse.jar;d:\java\jdk1.8.0\jre\lib\jce.jar;d:\java\jdk1.8.0\jre\lib\charsets.jar;d:\java\jdk1.8.0\jre\lib\jfr.jar;d:\java\jdk1.8.0\jre\classes" name="sun.boot.class.path"/>
-    <property value="Windows 7" name="os.name"/>
-    <property value="http://java.oracle.com/" name="java.vendor.url"/>
-    <property value="d:\java\jdk1.8.0\jre" name="java.home"/>
-    <property value="HotSpot 64-Bit Tiered Compilers" name="sun.management.compiler"/>
-    <property value="6.1" name="os.version"/>
-    <property value="US" name="user.country"/>
+    <property name="java.version" value="1.8.0-ea"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="file.separator" value="\"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="sun.java.command" value="D:\projet\rpc\jcpp-java\target\surefire\surefirebooter430437429461719640.jar D:\projet\rpc\jcpp-java\target\surefire\surefire146695310380491428tmp D:\projet\rpc\jcpp-java\target\surefire\surefire1511434937437500767tmp"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="java.vm.version" value="25.0-b17"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="os.name" value="Windows 7"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="java.class.version" value="52.0"/>
+    <property name="line.separator" value="
+"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="sun.boot.class.path" value="d:\java\jdk1.8.0\jre\lib\resources.jar;d:\java\jdk1.8.0\jre\lib\rt.jar;d:\java\jdk1.8.0\jre\lib\sunrsasign.jar;d:\java\jdk1.8.0\jre\lib\jsse.jar;d:\java\jdk1.8.0\jre\lib\jce.jar;d:\java\jdk1.8.0\jre\lib\charsets.jar;d:\java\jdk1.8.0\jre\lib\jfr.jar;d:\java\jdk1.8.0\jre\classes"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.class.path" value="D:\projet\rpc\jcpp-java\target\test-classes;D:\projet\rpc\jcpp-java\target\classes;d:\.m2\log4j\log4j\1.2.14\log4j-1.2.14.jar;d:\.m2\commons-logging\commons-logging\1.1.1\commons-logging-1.1.1.jar;d:\.m2\commons-io\commons-io\1.4\commons-io-1.4.jar;d:\.m2\backport-util-concurrent\backport-util-concurrent\2.1\backport-util-concurrent-2.1.jar;d:\.m2\freemarker\freemarker\2.3.8\freemarker-2.3.8.jar;"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.io.tmpdir" value="C:\Users\cyazbeck\AppData\Local\Temp\"/>
+    <property name="java.runtime.version" value="1.8.0-ea-b76"/>
+    <property name="user.dir" value="D:\projet\rpc\jcpp-java"/>
+    <property name="surefire.test.class.path" value="D:\projet\rpc\jcpp-java\target\test-classes;D:\projet\rpc\jcpp-java\target\classes;d:\.m2\log4j\log4j\1.2.14\log4j-1.2.14.jar;d:\.m2\commons-logging\commons-logging\1.1.1\commons-logging-1.1.1.jar;d:\.m2\commons-io\commons-io\1.4\commons-io-1.4.jar;d:\.m2\backport-util-concurrent\backport-util-concurrent\2.1\backport-util-concurrent-2.1.jar;d:\.m2\freemarker\freemarker\2.3.8\freemarker-2.3.8.jar;"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="path.separator" value=";"/>
+    <property name="basedir" value="D:\projet\rpc\jcpp-java"/>
+    <property name="java.library.path" value="d:\java\jdk1.8.0\jre\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\Support Tools;u:\tools\sybase\11.1.1-swr8229\dll;u:\tools\sybase\11.1.1-swr8229\bin;U:\tools\bin;R:\tools;u:\devtools\watcom10.6\binnt;u:\devtools\watcom10.6\binw;U:\Tools\Oracle\Ora92\bin;U:\Tools\Oracle\Ora92\lib;c:\Program Files\Perforce;C:\Program Files\TortoiseSVN\bin;C:\Program Files (x86)\Perforce;d:\java\jEdit;D:\java\TortoiseSVN\bin;C:\Program Files (x86)\Enterprise Vault\EVClient\;C:\Program Files (x86)\Microsoft SQL Server\90\Tools\binn\;C:\Program Files\TortoiseGit\bin;D:\Program Files (x86)\Perforce;e:\cygwin\bin;."/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="java.endorsed.dirs" value="d:\java\jdk1.8.0\jre\lib\endorsed"/>
+    <property name="surefire.real.class.path" value="D:\projet\rpc\jcpp-java\target\surefire\surefirebooter430437429461719640.jar"/>
+    <property name="user.home" value="C:\Users\cyazbeck"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="user.timezone" value=""/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.home" value="d:\java\jdk1.8.0\jre"/>
+    <property name="user.language" value="en"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="localRepository" value="d:\.m2"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="os.version" value="6.1"/>
+    <property name="java.ext.dirs" value="d:\java\jdk1.8.0\jre\lib\ext;C:\Windows\Sun\Java\lib\ext"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.boot.library.path" value="d:\java\jdk1.8.0\jre\bin"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="user.name" value="cyazbeck"/>
+    <property name="user.script" value=""/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
   </properties>
 </testsuite>

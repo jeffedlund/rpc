@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.*;
 import java.util.*;
 
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CPPMethod{
     @XmlElement
     private String name;
@@ -33,7 +34,6 @@ public class CPPMethod{
 
     public void setReturnType(String n){
         this.returnType=n;
-        this.isReturnTypeVoid=n.equals("void");
     }
 
     public List<String> getParameterType(){
@@ -45,6 +45,7 @@ public class CPPMethod{
     }
 
     public boolean getIsReturnTypeVoid(){
+        this.isReturnTypeVoid=returnType.equals("void");
         return this.isReturnTypeVoid;
     }
 

@@ -1,10 +1,13 @@
 package jcpp.lang.model;
 
 import javax.xml.bind.annotation.*;
+import javax.xml.bind.*;
 import java.util.*;
+import java.io.*;
 
 @XmlRootElement
-public class JavaInterface{
+@XmlAccessorType(XmlAccessType.FIELD)
+public class JavaClass{
 	@XmlElement
 	private String canonicalName;
 	@XmlElement
@@ -21,11 +24,19 @@ public class JavaInterface{
     private List<String> interfaces;
     @XmlElementWrapper
     @XmlElement
+    private List<JavaField> fields;
+    @XmlElementWrapper
+    @XmlElement
     private List<JavaMethod> methods;
+    @XmlElement
+    private boolean isInterface;
+    @XmlElement
+    private long serialVersionUID;
 
-    public JavaInterface(){
+    public JavaClass(){
 		imports=new ArrayList<String>();
 		interfaces=new ArrayList<String>();
+    	fields=new ArrayList<JavaField>();
     	methods=new ArrayList<JavaMethod>();
     }
 
@@ -77,11 +88,47 @@ public class JavaInterface{
     	this.interfaces=i;
     }
 
+	public List<JavaField> getFields(){
+		return fields;
+	}
+
+	public void setFields(List<JavaField> f){
+		this.fields=f;
+	}
+
 	public List<JavaMethod> getMethods(){
 		return methods;
 	}
 
 	public void setMethods(List<JavaMethod> m){
 		this.methods=m;
+	}
+
+	public boolean isInterface(){
+		return isInterface;
+	}
+
+	public void setIsInterface(boolean isInterface){
+		this.isInterface=isInterface;
+	}
+
+	public long getSerialVersionUID(){
+		return serialVersionUID;
+	}
+
+	public void setSerialVersionUID(long serialVersionUID){
+		this.serialVersionUID=serialVersionUID;
+	}
+
+	public void write(OutputStream out) throws Exception{
+		JAXBContext jaxbContext=JAXBContext.newInstance(JavaClass.class);
+		jaxbContext.createMarshaller().marshal(this,out);
+	}
+
+	public static JavaClass from(InputStream in) throws Exception{
+		JAXBContext jaxbContext=JAXBContext.newInstance(JavaClass.class);
+		JavaClass jc=(JavaClass)jaxbContext.createUnmarshaller().unmarshal(in);
+		in.close();
+		return jc;
 	}
 }

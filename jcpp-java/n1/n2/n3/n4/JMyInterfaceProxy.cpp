@@ -35,20 +35,22 @@ namespace n1{
         JMyInterfaceProxy::JMyInterfaceProxy():JProxy(getClazz()){
         }
 
-            void JMyInterfaceProxy::m1(JP1* p0, JP2* p1 ){
-                vector<JObject*> args;
-                args.push_back(p0);
-args.push_back(p1);
-                invoke("m1",&args);
-                return NULL;
-            }
-            JR1 JMyInterfaceProxy::m2(JP1* p0, JP2* p1 ){
-                vector<JObject*> args;
-                args.push_back(p0);
-args.push_back(p1);
-                JR1* r=invoke("m2",&args);
-                return r;
-            }
+        void JMyInterfaceProxy::m1(JP1* p0, JP2* p1 ){
+            vector<JObject*> args;
+            args.push_back(p0);
+            args.push_back(p1);
+            invoke("m1",&args);
+            return NULL;
+        }
+            
+        JR1 JMyInterfaceProxy::m2(JP1* p0, JP2* p1 ){
+            vector<JObject*> args;
+            args.push_back(p0);
+            args.push_back(p1);
+            JR1* r=invoke("m2",&args);
+            return r;
+        }
+            
 
         JMyInterfaceProxy::~JMyInterfaceProxy(){
         }

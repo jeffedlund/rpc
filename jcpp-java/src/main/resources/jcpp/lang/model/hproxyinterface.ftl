@@ -34,7 +34,7 @@ class ${className} : public JProxy <#list interfaces as interface> , public ${in
 
 		//methods declaration
 		<#list methods as method>
-		virtual ${method.returnType} <#if !method.getIsReturnTypeVoid()>*</#if> ${method.name}(<#list method.parameterType as param>${param}* <#if param_has_next>,</#if> </#list>);
+		virtual ${method.returnType} <#if !method.getIsReturnTypeVoid()>*</#if> ${method.name}(<#list method.parameterType as param>${param}* p${param_index}<#if param_has_next>,</#if> </#list>);
 										</#list>
 
 		virtual ~${className}();

@@ -3,8 +3,10 @@
 
 //include declaration
 #include "JProxy.h"
+#include "JProxy.h"
 
 //use namespace declaration
+using namespace jcpp::lang::reflect;
 using namespace jcpp::lang::reflect;
 
 //namespace declaration
@@ -28,8 +30,8 @@ class JMyInterfaceProxy : public JProxy  , public JMyInterface  {
 		static JClass* getClazz();
 
 		//methods declaration
-		virtual void  m1(JP1* , JP2*  );
-		virtual JR1 * m2(JP1* , JP2*  );
+		virtual void  m1(JP1* p0, JP2* p1 );
+		virtual JR1 * m2(JP1* p0, JP2* p1 );
 
 		virtual ~JMyInterfaceProxy();
 
