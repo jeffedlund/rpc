@@ -213,4 +213,14 @@ INPUT(
 ./release\JObjectInput.o
 ./release\JObjectOutput.o
 ./release\JBits.o
+./release\JFlushable.o
+./release\JCloseable.o
+./release\JObjectInputValidation.o
+./release\JIOError.o
+./release\JWriteAbortedException.o
+./release\JUnsupportedEncodingException.o
+./release\JSyncFailedException.o
+./release\JInterruptedIOException.o
+./release\JFileNotFoundException.o
+./release\JCharConversionException.o
 );

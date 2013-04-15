@@ -253,7 +253,17 @@ SOURCES += \
     src/main/cpp/jcpp/lang/JAutoCloseable.cpp \
     src/main/cpp/jcpp/io/JObjectInput.cpp \
     src/main/cpp/jcpp/io/JObjectOutput.cpp \
-    src/main/cpp/jcpp/io/JBits.cpp
+    src/main/cpp/jcpp/io/JBits.cpp \
+    src/main/cpp/jcpp/io/JFlushable.cpp \
+    src/main/cpp/jcpp/io/JCloseable.cpp \
+    src/main/cpp/jcpp/io/JObjectInputValidation.cpp \
+    src/main/cpp/jcpp/io/JIOError.cpp \
+    src/main/cpp/jcpp/io/JWriteAbortedException.cpp \
+    src/main/cpp/jcpp/io/JUnsupportedEncodingException.cpp \
+    src/main/cpp/jcpp/io/JSyncFailedException.cpp \
+    src/main/cpp/jcpp/io/JInterruptedIOException.cpp \
+    src/main/cpp/jcpp/io/JFileNotFoundException.cpp \
+    src/main/cpp/jcpp/io/JCharConversionException.cpp
     
     
 HEADERS += \
@@ -473,7 +483,17 @@ HEADERS += \
     src/main/cpp/jcpp/io/JDataOutput.h \
     src/main/cpp/jcpp/lang/JAutoCloseable.h \
     src/main/cpp/jcpp/io/JObjectInput.h \
-    src/main/cpp/jcpp/io/JObjectOutput.h
+    src/main/cpp/jcpp/io/JObjectOutput.h \
+    src/main/cpp/jcpp/io/JFlushable.h \
+    src/main/cpp/jcpp/io/JCloseable.h \
+    src/main/cpp/jcpp/io/JObjectInputValidation.h \
+    src/main/cpp/jcpp/io/JIOError.h \
+    src/main/cpp/jcpp/io/JWriteAbortedException.h \
+    src/main/cpp/jcpp/io/JUnsupportedEncodingException.h \
+    src/main/cpp/jcpp/io/JSyncFailedException.h \
+    src/main/cpp/jcpp/io/JInterruptedIOException.h \
+    src/main/cpp/jcpp/io/JFileNotFoundException.h \
+    src/main/cpp/jcpp/io/JCharConversionException.h
     
     
 OTHER_FILES += \

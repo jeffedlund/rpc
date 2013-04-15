@@ -2,8 +2,8 @@
 #define JFILEINPUTSTREAM_H
 
 //include declaration
-#include "JFileChannel.h"
 #include "JInputStream.h"
+#include "JFileChannel.h"
 #include "JFileDescriptor.h"
 
 //use namespace declaration

@@ -1,5 +1,6 @@
 //include declaration
 #include "${className}.h"
+#include "JClass.h"
 
 //namespace declaration
 <#list namespace as ns>

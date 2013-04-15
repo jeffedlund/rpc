@@ -78,7 +78,7 @@ namespace jcpp{
                     vector<jbyte>* nbuf = new vector<jbyte>();
                     length=nsz;
                     arraycopy(buffer, 0, nbuf, 0, pos);
-                    delete[] buffer;
+                    delete buffer;
                     buffer = nbuf;
                 }
                 count = pos;

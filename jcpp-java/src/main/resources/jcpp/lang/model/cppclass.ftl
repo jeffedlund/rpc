@@ -1,5 +1,6 @@
 //include declaration
 #include "${className}.h"
+#include "JClass.h"
 
 //namespace declaration
 <#list namespace as ns>
@@ -59,7 +60,7 @@ ${""?left_pad(ns_index*4)}namespace ${ns}{
             return clazz;
         }
 
-        ${className}(){
+        ${className}::${className}(){
             //TODO
         }
 

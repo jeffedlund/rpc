@@ -31,7 +31,11 @@ public class JavaClassBuilder{
 		javaClass.setCanonicalName(clazz.getCanonicalName());
 		javaClass.setSimpleName(clazz.getSimpleName());
 		javaClass.setName(clazz.getName());
-		javaClass.setParent(clazz.getSuperclass().getName());
+		if (clazz.getSuperclass()!=null){
+			javaClass.setParent(clazz.getSuperclass().getName());
+		}else if (clazz.isInterface()){
+			javaClass.setParent("java.lang.Interface");//TODO dans constant
+		}
 		javaClass.setIsInterface(clazz.isInterface());
 
 		long uid=0;
@@ -40,6 +44,7 @@ public class JavaClassBuilder{
 			f.setAccessible(true);
 			uid=f.getLong(null);
 		}catch(Exception e){
+			e.printStackTrace();
 		}
 		javaClass.setSerialVersionUID(uid);
 
@@ -71,7 +76,7 @@ public class JavaClassBuilder{
 		JavaClassBuilder javaClassBuilder=JavaClassBuilder.create().setClassName(argv[0]);
 		JavaClass jc=javaClassBuilder.build();
 		JCPPClass jcppi=JCPPClassBuilder.create().setJavaClass(jc).build();
-  		JCPPClassExporter.create().setOutput(new File(".")).setJCPPClass(jcppi).export();
+  		JCPPClassExporter.create().setOutput(new File(argv[1])).setJCPPClass(jcppi).export();
   		jcppi.write(new FileOutputStream(new File(argv[0]+".xml")));
 	}
 }

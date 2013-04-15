@@ -1,5 +1,6 @@
 //include declaration
 #include "${className}.h"
+#include "JClass.h"
 
 //namespace declaration
 <#list namespace as ns>
@@ -43,7 +44,7 @@ ${""?left_pad(ns_index*4)}namespace ${ns}{
             <#if !method.getIsReturnTypeVoid()>${method.returnType}* r=</#if>invoke("${method.name}",&args);
             return <#if !method.getIsReturnTypeVoid()>r<#else>NULL</#if>;
         }
-            
+
     	</#list>
 
         ${className}::~${className}(){

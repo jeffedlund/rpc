@@ -1,3 +1,3 @@
 d:\java\jdk1.8.0\bin\java -cp target\jcpp-java-1.0.jar;D:\.m2\freemarker\freemarker\2.3.8\freemarker-2.3.8.jar jcpp.lang.model.JCPPInterfaceExporter
 d:\java\jdk1.8.0\bin\java -cp target\jcpp-java-1.0.jar;D:\.m2\freemarker\freemarker\2.3.8\freemarker-2.3.8.jar jcpp.lang.model.JCPPClassExporter
-d:\java\jdk1.8.0\bin\java -cp target\jcpp-java-1.0.jar;D:\.m2\freemarker\freemarker\2.3.8\freemarker-2.3.8.jar;D:\.m2\javassist\javassist\3.10.0.GA\javassist-3.10.0.GA.jar jcpp.lang.model.JavaClassBuilder java.io.FileInputStream
+d:\java\jdk1.8.0\bin\java -cp target\jcpp-java-1.0.jar;D:\.m2\freemarker\freemarker\2.3.8\freemarker-2.3.8.jar;D:\.m2\javassist\javassist\3.10.0.GA\javassist-3.10.0.GA.jar jcpp.lang.model.JavaClassBuilder java.io.FileInputStream .
