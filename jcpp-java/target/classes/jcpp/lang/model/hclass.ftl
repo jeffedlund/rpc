@@ -38,7 +38,7 @@ class ${className} : public ${parent} <#list interfaces as i> , public ${i} </#l
 
 		<#list methods as method>
 		//method ${method.name}
-		virtual ${method.returnType} <#if !method.getIsReturnTypeVoid()>*</#if> ${method.name}(<#list method.parameterType as param>${param}* <#if param_has_next>,</#if> </#list>);
+		virtual ${method.returnType} <#if !method.getIsReturnTypeVoid()>*</#if> ${method.name}(<#list method.parameterType as param>${param}* p${param_index}<#if param_has_next>,</#if> </#list>);
 		</#list>
 
 		virtual ~${className}();

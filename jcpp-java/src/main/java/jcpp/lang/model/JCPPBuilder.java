@@ -5,8 +5,10 @@ import java.util.*;
 
 public abstract class JCPPBuilder{
     protected JavaClass javaClass;
+    protected NameResolver nameResolver;
 
 	protected JCPPBuilder(){
+        this.nameResolver=NameResolver.getDefault();
 	}
 
     public JCPPBuilder setJavaClass(JavaClass javaClass){
@@ -14,19 +16,23 @@ public abstract class JCPPBuilder{
         return this;
     }
 
+    public JCPPBuilder setNameResolver(NameResolver nameResolver){
+        this.nameResolver=nameResolver;
+        return this;
+    }
 
     protected void fillCPPClass(CPPClass cppClass,Set<String> includes,Set<String> namespaces){
         //TODO introduce INamespaceResovler{string resolve(string)}
     	int i=javaClass.getName().lastIndexOf(".");
     	if (i>0){
-    		cppClass.setNamespace(javaClass.getName().substring(0,i));
+    		cppClass.setNamespace(nameResolver.resolvePackage(javaClass.getName().substring(0,i)));
     	}else{
     		cppClass.setNamespace("");
     	}
 
     	cppClass.setCanonicalName(javaClass.getCanonicalName());
     	cppClass.setSimpleName(javaClass.getSimpleName());
-    	cppClass.setClassName("J"+javaClass.getSimpleName());
+    	cppClass.setClassName(nameResolver.resolveClassName(javaClass.getSimpleName()));
     	cppClass.setIfndef(cppClass.getClassName().toUpperCase()+"_H");
     	cppClass.setName(javaClass.getName());
     	cppClass.setParent(parseClassName(includes,namespaces, javaClass.getParent()));
@@ -63,12 +69,13 @@ public abstract class JCPPBuilder{
 	protected String parseClassName(Set<String> includes,Set<String> namespaces,String s){
 		int i=s.lastIndexOf(".");
 		if (i>0){
-			String tmp1=s.substring(0,i);
-			String tmp2="J"+s.substring(i+1,s.length());
-			namespaces.add(tmp1.replaceAll("\\.","::"));
-			includes.add("\""+tmp2+".h\"");
+			String tmp1=nameResolver.resolvePackage(s.substring(0,i));
+			String tmp2=nameResolver.resolveClassName(s.substring(i+1,s.length()));
+			namespaces.add(tmp1);
+			includes.add(nameResolver.resolveInclude(tmp2));
 			return tmp2;
-		}
-		return s;
+		}else{
+            return nameResolver.resolveClassName(s);
+        }
 	}
 }

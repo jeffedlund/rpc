@@ -30,8 +30,8 @@ public class JCPPInterfaceBuilder extends JCPPBuilder{
     	cppClass.getNamespaces().addAll(namespaces);
 
     	CPPClass proxyInterface=jcppInterface.getProxyInterface();
-    	proxyInterface.getIncludes().add("\"JProxy.h\"");//TODO factoriser
-		proxyInterface.getNamespaces().add("jcpp::lang::reflect");//TODO factoriser
+    	proxyInterface.getIncludes().add("\"JProxy.h\"");//TODO put in NameResolver constant
+		proxyInterface.getNamespaces().add("jcpp::lang::reflect");//TODO put in NameResolver constant
 
 		proxyInterface.setIfndef(cppClass.getClassName().toUpperCase()+"PROXY_H");
 		proxyInterface.setNamespace(cppClass.getNamespace());

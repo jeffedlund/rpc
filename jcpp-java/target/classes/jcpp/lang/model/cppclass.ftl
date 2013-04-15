@@ -80,7 +80,7 @@ ${""?left_pad(ns_index*4)}namespace ${ns}{
 
         <#list methods as method>
         //method ${method.name}
-        ${method.returnType} <#if !method.getIsReturnTypeVoid()>*</#if> ${className}::${method.name}(<#list method.parameterType as param>${param}* <#if param_has_next>,</#if> </#list>){
+        ${method.returnType} <#if !method.getIsReturnTypeVoid()>*</#if> ${className}::${method.name}(<#list method.parameterType as param>${param}* p${param_index}<#if param_has_next>,</#if> </#list>){
             return NULL;//TODO
         }
         </#list>

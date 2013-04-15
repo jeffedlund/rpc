@@ -2,20 +2,20 @@
 #define JMYOBJECT_H
 
 //include declaration
-#include "JI2.h"
-#include "JI1.h"
-#include "JList.h"
 #include "JToto.h"
-#include "JArrayList.h"
+#include "JList.h"
 #include "JMyParent.h"
+#include "JI2.h"
 #include "JR1.h"
+#include "JI1.h"
 #include "JCollection.h"
+#include "JArrayList.h"
 
 //use namespace declaration
-using namespace i1::i2::i3;
-using namespace java::util;
-using namespace p1::p2::p3;
 using namespace n1::n2::n3;
+using namespace i1::i2::i3;
+using namespace jcpp::util;
+using namespace p1::p2::p3;
 using namespace n1::n2::n3::n4::n5;
 
 //namespace declaration

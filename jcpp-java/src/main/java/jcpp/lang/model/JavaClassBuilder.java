@@ -48,13 +48,15 @@ public class JavaClassBuilder{
 		}
 
 		for (Method m : clazz.getMethods()){
-			JavaMethod jm=new JavaMethod();
-			jm.setName(m.getName());
-			jm.setReturnType(m.getReturnType().getName());
-			for (Class pc : m.getParameterTypes()){
-				jm.getParameterType().add(pc.getName());
+			if (m.getDeclaringClass().equals(clazz)){
+				JavaMethod jm=new JavaMethod();
+				jm.setName(m.getName());
+				jm.setReturnType(m.getReturnType().getName());
+				for (Class pc : m.getParameterTypes()){
+					jm.getParameterType().add(pc.getName());
+				}
+				javaClass.getMethods().add(jm);
 			}
-			javaClass.getMethods().add(jm);
 		}
 
 		/*

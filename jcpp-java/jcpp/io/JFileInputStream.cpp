@@ -2,7 +2,7 @@
 #include "JFileInputStream.h"
 
 //namespace declaration
-namespace java{
+namespace jcpp{
     namespace io{
 
     class JFileInputStreamClass : public JClass{

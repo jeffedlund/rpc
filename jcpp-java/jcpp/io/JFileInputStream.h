@@ -2,16 +2,16 @@
 #define JFILEINPUTSTREAM_H
 
 //include declaration
-#include "JInputStream.h"
 #include "JFileChannel.h"
+#include "JInputStream.h"
 #include "JFileDescriptor.h"
 
 //use namespace declaration
-using namespace java::nio::channels;
-using namespace java::io;
+using namespace jcpp::io;
+using namespace jcpp::nio::channels;
 
 //namespace declaration
-namespace java{
+namespace jcpp{
     namespace io{
 
 //class declaration

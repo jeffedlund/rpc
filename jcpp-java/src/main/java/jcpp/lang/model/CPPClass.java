@@ -151,11 +151,11 @@ public class CPPClass{
     }
 
     public String getHFilePath(){
-        return namespace.replace('.','/')+'/'+className+".h";
+        return namespace.replaceAll("::","/")+'/'+className+".h";
     }
 
     public String getCPPFilePath(){
-        return namespace.replace('.','/')+'/'+className+".cpp";
+        return namespace.replace("::","/")+'/'+className+".cpp";
     }
 
     public Map<String,Object> getTemplateInput(){
@@ -165,7 +165,7 @@ public class CPPClass{
         m.put("namespaces",namespaces);
 
         List<String> l=new ArrayList();
-        StringTokenizer tks=new StringTokenizer(namespace,".");
+        StringTokenizer tks=new StringTokenizer(namespace,"::");
         while (tks.hasMoreElements()){
             l.add((String)tks.nextElement());
         }
