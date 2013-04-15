@@ -96,6 +96,7 @@ namespace n1{
         }
 
 
+
         JMyObject::~JMyObject(){
             delete this->f1;
             delete this->f2;

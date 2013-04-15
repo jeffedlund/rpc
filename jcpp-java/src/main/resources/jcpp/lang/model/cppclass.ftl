@@ -78,6 +78,13 @@ ${""?left_pad(ns_index*4)}namespace ${ns}{
 
         </#list>
 
+        <#list methods as method>
+        //method ${method.name}
+        ${method.returnType} <#if !method.getIsReturnTypeVoid()>*</#if> ${className}::${method.name}(<#list method.parameterType as param>${param}* <#if param_has_next>,</#if> </#list>){
+            return NULL;//TODO
+        }
+        </#list>
+
         ${className}::~${className}(){
             <#list fields as field>
             delete this->${field.name};

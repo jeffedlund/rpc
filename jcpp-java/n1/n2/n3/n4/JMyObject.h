@@ -2,21 +2,21 @@
 #define JMYOBJECT_H
 
 //include declaration
+#include "JI2.h"
 #include "JI1.h"
+#include "JList.h"
+#include "JToto.h"
 #include "JArrayList.h"
 #include "JMyParent.h"
 #include "JR1.h"
-#include "JToto.h"
-#include "JI2.h"
-#include "JList.h"
 #include "JCollection.h"
 
 //use namespace declaration
-using namespace p1::p2::p3;
 using namespace i1::i2::i3;
-using namespace n1::n2::n3::n4::n5;
 using namespace java::util;
+using namespace p1::p2::p3;
 using namespace n1::n2::n3;
+using namespace n1::n2::n3::n4::n5;
 
 //namespace declaration
 namespace n1{
@@ -42,6 +42,8 @@ class JMyObject : public JMyParent  , public JI1  , public JI2  {
 		//field f2
 		JCollection* getF2();
 		void setF2(JCollection* f2);
+
+
 
 
 		virtual ~JMyObject();

@@ -25,7 +25,7 @@ class ${className} : public ${parent} <#list interfaces as interface> , public $
 		//methods declaration
 		<#list methods as method>
 		virtual ${method.returnType} <#if !method.getIsReturnTypeVoid()>*</#if> ${method.name}(<#list method.parameterType as param>${param}* <#if param_has_next>,</#if> </#list>)=0;
-										</#list>
+		</#list>
 
 		virtual ~${className}();
 
