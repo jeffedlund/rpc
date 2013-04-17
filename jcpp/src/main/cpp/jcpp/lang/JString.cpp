@@ -78,6 +78,10 @@ namespace jcpp{
             return len1 - len2;
         }
 
+        string JString::valueOf(JObject* obj){
+            return (obj==NULL ? "null" : obj->toString());
+        }
+
         JString::JString(): JObject(getClazz()){
         }
 
@@ -118,6 +122,12 @@ namespace jcpp{
 
         string JString::getString(){
             return str;
+        }
+
+        void JString::getChars(jint srcBegin, jint srcEnd, jchar dst[], jint dstBegin){
+            for (jint i=0;i<srcEnd-srcBegin;i++){
+                dst[dstBegin+i]=(jchar)str.at(srcBegin+i);
+            }
         }
 
         void JString::setString(string str) {

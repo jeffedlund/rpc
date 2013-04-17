@@ -37,6 +37,22 @@ namespace jcpp{
             return clazz;
         }
 
+        JPrimitiveArray* JPrimitiveChar::toArray(string str){
+            JPrimitiveArray* a=new JPrimitiveArray(getClazz(),str.length());
+            for (unsigned int i=0;i<str.length();i++){
+                a->set(i,new JPrimitiveChar((jchar)str.at(i)));
+            }
+            return a;
+        }
+
+        string JPrimitiveChar::fromArray(JPrimitiveArray* a){
+            string s;
+            for (int i=0;i<a->size();i++){
+                s+=((JPrimitiveChar*)a->get(i))->get();
+            }
+            return s;
+        }
+
         JPrimitiveChar::JPrimitiveChar(char value):JObject(getClazz()){
             this->value=value;
         }

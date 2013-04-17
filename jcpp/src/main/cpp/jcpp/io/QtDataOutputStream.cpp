@@ -76,7 +76,9 @@ namespace jcpp{
         }
 
         void QtDataOutputStream::close(){
-            out->device()->close();
+            if (out->device()!=NULL && out->device()->isOpen()){
+                out->device()->close();
+            }
         }
 
         QtDataOutputStream::~QtDataOutputStream(){

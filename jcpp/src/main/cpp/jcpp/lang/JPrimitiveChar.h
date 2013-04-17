@@ -7,6 +7,7 @@
 #include "JCPP.h"
 #include "JComparable.h"
 #include "JSerializable.h"
+#include "JPrimitiveArray.h"
 using namespace std;
 using namespace jcpp::io;
 
@@ -22,6 +23,8 @@ namespace jcpp{
                 JPrimitiveChar(char value);
                 JPrimitiveChar(jchar value);
                 static JClass* getClazz();
+                static JPrimitiveArray* toArray(string str);
+                static string fromArray(JPrimitiveArray* a);
                 void set(jchar value);
                 jchar get();
                 virtual jint compareTo(JObject* o);

@@ -223,4 +223,11 @@ INPUT(
 ./release\JInterruptedIOException.o
 ./release\JFileNotFoundException.o
 ./release\JCharConversionException.o
+./release\JAppendable.o
+./release\JCharSequence.o
+./release\JWriter.o
+./release\JStringWriter.o
+./release\JStringBuilder.o
+./release\JStringBuffer.o
+./release\JAbstractStringBuilder.o
 );

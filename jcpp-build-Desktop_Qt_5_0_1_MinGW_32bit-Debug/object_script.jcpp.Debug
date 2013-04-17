@@ -223,4 +223,11 @@ INPUT(
 ./debug\JInterruptedIOException.o
 ./debug\JFileNotFoundException.o
 ./debug\JCharConversionException.o
+./debug\JAppendable.o
+./debug\JCharSequence.o
+./debug\JWriter.o
+./debug\JStringWriter.o
+./debug\JStringBuilder.o
+./debug\JStringBuffer.o
+./debug\JAbstractStringBuilder.o
 );

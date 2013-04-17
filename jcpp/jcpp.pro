@@ -263,7 +263,14 @@ SOURCES += \
     src/main/cpp/jcpp/io/JSyncFailedException.cpp \
     src/main/cpp/jcpp/io/JInterruptedIOException.cpp \
     src/main/cpp/jcpp/io/JFileNotFoundException.cpp \
-    src/main/cpp/jcpp/io/JCharConversionException.cpp
+    src/main/cpp/jcpp/io/JCharConversionException.cpp \
+    src/main/cpp/jcpp/lang/JAppendable.cpp \
+    src/main/cpp/jcpp/lang/JCharSequence.cpp \
+    src/main/cpp/jcpp/io/JWriter.cpp \
+    src/main/cpp/jcpp/io/JStringWriter.cpp \
+    src/main/cpp/jcpp/lang/JStringBuilder.cpp \
+    src/main/cpp/jcpp/lang/JStringBuffer.cpp \
+    src/main/cpp/jcpp/lang/JAbstractStringBuilder.cpp
     
     
 HEADERS += \
@@ -493,7 +500,14 @@ HEADERS += \
     src/main/cpp/jcpp/io/JSyncFailedException.h \
     src/main/cpp/jcpp/io/JInterruptedIOException.h \
     src/main/cpp/jcpp/io/JFileNotFoundException.h \
-    src/main/cpp/jcpp/io/JCharConversionException.h
+    src/main/cpp/jcpp/io/JCharConversionException.h \
+    src/main/cpp/jcpp/lang/JAppendable.h \
+    src/main/cpp/jcpp/lang/JCharSequence.h \
+    src/main/cpp/jcpp/io/JWriter.h \
+    src/main/cpp/jcpp/io/JStringWriter.h \
+    src/main/cpp/jcpp/lang/JStringBuilder.h \
+    src/main/cpp/jcpp/lang/JStringBuffer.h \
+    src/main/cpp/jcpp/lang/JAbstractStringBuilder.h
     
     
 OTHER_FILES += \
