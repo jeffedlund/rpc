@@ -6,7 +6,7 @@ using namespace jcpp::lang;
 
 namespace jcpp{
     namespace io{
-        class JObjectInputValidation : public JInterface  {
+        class JCPP_LIBRARY_EXPORT JObjectInputValidation : public JInterface  {
             public:
                 static JClass* getClazz();
                 virtual void  validateObject()=0;

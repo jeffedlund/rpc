@@ -32,7 +32,7 @@ namespace jcpp{
                 namespace connection{
                     class JCPP_LIBRARY_EXPORT JIRegistryProxy : public JProxy, public JIRegistry{
                     protected:
-                        class JIRegistryProxyClass : public JProxyClass {
+                        class JCPP_LIBRARY_EXPORT JIRegistryProxyClass : public JProxyClass {
                         public:
                             JIRegistryProxyClass();
                             virtual JClass* getSuperclass();

@@ -231,4 +231,17 @@ INPUT(
 ./release\JStringBuffer.o
 ./release\JAbstractStringBuilder.o
 ./release\JBufferedWriter.o
+./release\JByteArrayInputStream.o
+./release\JByteArrayOutputStream.o
+./release\JCharArrayWriter.o
+./release\JOutputStreamWriter.o
+./release\JStringBufferInputStream.o
+./release\JSequenceInputStream.o
+./release\JGuard.o
+./release\JSECURITY_PACKAGE.o
+./release\JPermission.o
+./release\JPermissionCollection.o
+./release\JBasicPermission.o
+./release\JSerializablePermission.o
+./release\JPushbackInputStream.o
 );

@@ -4,11 +4,13 @@
 #include "JLANG.h"
 #include "JNET.h"
 #include "JRMI.h"
+#include "JSECURITY_PACKAGE.h"
 using namespace jcpp::io;
 using namespace jcpp::util;
 using namespace jcpp::lang;
 using namespace jcpp::net;
 using namespace jcpp::rmi;
+using namespace jcpp::security;
 
 namespace jcpp{
     JCPP_PACKAGE::JCPP_PACKAGE():JPackage("jcpp",JPackage::getClazz()){//better class
@@ -25,6 +27,7 @@ namespace jcpp{
             packages->push_back(JLANG::getPackage());
             packages->push_back(JNET::getPackage());
             packages->push_back(JRMI::getPackage());
+            packages->push_back(JSECURITY_PACKAGE::getPackage());
         }
         return packages;
     }

@@ -39,7 +39,7 @@ namespace jcpp{
             virtual JObject* clone()=0;
             virtual ~JAbstractMap();
 
-            class JSimpleEntry : public JEntry, public JObject, public JSerializable{
+            class JCPP_LIBRARY_EXPORT JSimpleEntry : public JEntry, public JObject, public JSerializable{
             protected:
                 class JSimpleEntryClass : public JClass{
 
@@ -111,7 +111,7 @@ namespace jcpp{
             };
 
 
-            class JSimpleImmutableEntry : public JEntry , public JSerializable{
+            class JCPP_LIBRARY_EXPORT JSimpleImmutableEntry : public JEntry , public JSerializable{
             protected:
                 JObject* key;
                 JObject* value;

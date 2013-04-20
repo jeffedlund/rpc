@@ -21,7 +21,7 @@ namespace jcpp{
 
         class JCPP_LIBRARY_EXPORT JObjectStreamClass : public JObject{
         public:
-            class ClassDataSlot{
+            class JCPP_LIBRARY_EXPORT ClassDataSlot{
                 public:
                     JObjectStreamClass* desc;
                     bool hasData;

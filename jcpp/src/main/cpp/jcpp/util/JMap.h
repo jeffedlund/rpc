@@ -20,7 +20,7 @@ namespace jcpp{
         class JCPP_LIBRARY_EXPORT JMap : public JInterface{
 
         public:
-            class JEntry : public JInterface {
+            class JCPP_LIBRARY_EXPORT JEntry : public JInterface {
             public:
                 static JClass* getClazz();
                 virtual JObject* getKey()=0;

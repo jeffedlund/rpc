@@ -8,6 +8,10 @@ namespace jcpp{
             classes->push_back(JBits::getClazz());
             classes->push_back(JBufferedInputStream::getClazz());
             classes->push_back(JBufferedOutputStream::getClazz());
+            classes->push_back(JBufferedWriter::getClazz());
+            classes->push_back(JByteArrayInputStream::getClazz());
+            classes->push_back(JByteArrayOutputStream::getClazz());
+            classes->push_back(JCharArrayWriter::getClazz());
             classes->push_back(JCharConversionException::getClazz());
             classes->push_back(JCloseable::getClazz());
             classes->push_back(JDataInput::getClazz());
@@ -39,7 +43,11 @@ namespace jcpp{
             classes->push_back(JObjectStreamField::getClazz());
             classes->push_back(JOptionalDataException::getClazz());
             classes->push_back(JOutputStream::getClazz());
+            classes->push_back(JOutputStreamWriter::getClazz());
+            classes->push_back(JPushbackInputStream::getClazz());
+            classes->push_back(JSequenceInputStream::getClazz());
             classes->push_back(JSerializable::getClazz());
+            classes->push_back(JSerializablePermission::getClazz());
             classes->push_back(JStreamCorruptedException::getClazz());
             classes->push_back(JStringWriter::getClazz());
             classes->push_back(JSyncFailedException::getClazz());

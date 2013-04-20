@@ -7,7 +7,7 @@
 
 namespace jcpp{
     namespace lang{
-        class JAppendable : public JInterface  {
+        class JCPP_LIBRARY_EXPORT JAppendable : public JInterface  {
         public:
             static JClass* getClazz();
             virtual JAppendable* append(jchar c)=0;

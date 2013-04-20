@@ -271,7 +271,20 @@ SOURCES += \
     src/main/cpp/jcpp/lang/JStringBuilder.cpp \
     src/main/cpp/jcpp/lang/JStringBuffer.cpp \
     src/main/cpp/jcpp/lang/JAbstractStringBuilder.cpp \
-    src/main/cpp/jcpp/io/JBufferedWriter.cpp
+    src/main/cpp/jcpp/io/JBufferedWriter.cpp \
+    src/main/cpp/jcpp/io/JByteArrayInputStream.cpp \
+    src/main/cpp/jcpp/io/JByteArrayOutputStream.cpp \
+    src/main/cpp/jcpp/io/JCharArrayWriter.cpp \
+    src/main/cpp/jcpp/io/JOutputStreamWriter.cpp \
+    src/main/cpp/jcpp/io/JStringBufferInputStream.cpp \
+    src/main/cpp/jcpp/io/JSequenceInputStream.cpp \
+    src/main/cpp/jcpp/security/JGuard.cpp \
+    src/main/cpp/jcpp/security/JSECURITY_PACKAGE.cpp \
+    src/main/cpp/jcpp/security/JPermission.cpp \
+    src/main/cpp/jcpp/security/JPermissionCollection.cpp \
+    src/main/cpp/jcpp/security/JBasicPermission.cpp \
+    src/main/cpp/jcpp/io/JSerializablePermission.cpp \
+    src/main/cpp/jcpp/io/JPushbackInputStream.cpp
     
     
 HEADERS += \
@@ -509,7 +522,20 @@ HEADERS += \
     src/main/cpp/jcpp/lang/JStringBuilder.h \
     src/main/cpp/jcpp/lang/JStringBuffer.h \
     src/main/cpp/jcpp/lang/JAbstractStringBuilder.h \
-    src/main/cpp/jcpp/io/JBufferedWriter.h
+    src/main/cpp/jcpp/io/JBufferedWriter.h \
+    src/main/cpp/jcpp/io/JByteArrayInputStream.h \
+    src/main/cpp/jcpp/io/JByteArrayOutputStream.h \
+    src/main/cpp/jcpp/io/JCharArrayWriter.h \
+    src/main/cpp/jcpp/io/JOutputStreamWriter.h \
+    src/main/cpp/jcpp/io/JStringBufferInputStream.h \
+    src/main/cpp/jcpp/io/JSequenceInputStream.h \
+    src/main/cpp/jcpp/security/JGuard.h \
+    src/main/cpp/jcpp/security/JSECURITY_PACKAGE.h \
+    src/main/cpp/jcpp/security/JPermission.h \
+    src/main/cpp/jcpp/security/JPermissionCollection.h \
+    src/main/cpp/jcpp/security/JBasicPermission.h \
+    src/main/cpp/jcpp/io/JSerializablePermission.h \
+    src/main/cpp/jcpp/io/JPushbackInputStream.h
     
     
 OTHER_FILES += \

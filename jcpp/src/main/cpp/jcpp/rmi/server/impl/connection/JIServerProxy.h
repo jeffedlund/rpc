@@ -31,7 +31,7 @@ namespace jcpp{
                 namespace connection{
                     class JCPP_LIBRARY_EXPORT JIServerProxy : public JProxy, public JIServer{
                     protected:
-                        class JIServerProxyClass : public JProxyClass {
+                        class JCPP_LIBRARY_EXPORT JIServerProxyClass : public JProxyClass {
                         public:
                             JIServerProxyClass();
                             virtual JClass* getSuperclass();
