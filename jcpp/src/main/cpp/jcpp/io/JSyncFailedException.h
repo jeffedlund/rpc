@@ -5,7 +5,7 @@
 
 namespace jcpp{
     namespace io{
-        class JSyncFailedException : public JIOException  {
+        class JCPP_LIBRARY_EXPORT JSyncFailedException : public JIOException  {
             public:
                 static JClass* getClazz();
                 JSyncFailedException();

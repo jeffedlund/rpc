@@ -15,7 +15,12 @@ using namespace jcpp::io;
 
 namespace jcpp{
     namespace lang{
-        class JStringBuilder : public JAbstractStringBuilder  , public JSerializable{
+        class JCPP_LIBRARY_EXPORT JStringBuilder : public JAbstractStringBuilder  , public JSerializable{
+            protected:
+                virtual void writeObject(JObjectOutputStream* out);
+                virtual void readObject(JObjectInputStream* in);
+                friend class JStringBuilderClass;
+
             public:
                 static JClass* getClazz();
                 JStringBuilder();
@@ -28,6 +33,7 @@ namespace jcpp{
                 virtual JStringBuilder* append(JCharSequence* sq);
                 virtual JStringBuilder* append(JCharSequence* sq,jint start,jint end);
                 virtual JStringBuilder* append(jchar str[],jint offset,jint len);
+                virtual JStringBuilder* append(string str,jint offset,jint len);
                 virtual JStringBuilder* append(jbool b);
                 virtual JStringBuilder* append(jchar c);
                 virtual JStringBuilder* append(jint i);
@@ -51,8 +57,6 @@ namespace jcpp{
                 virtual JStringBuilder* insert(jint offset,jfloat f);
                 virtual JStringBuilder* insert(jint offset,jdouble d);
                 virtual JStringBuilder* reverse();
-                virtual void writeObject(JObjectOutputStream* out);
-                virtual void readObject(JObjectInputStream* in);
                 virtual ~JStringBuilder();
         };
     }

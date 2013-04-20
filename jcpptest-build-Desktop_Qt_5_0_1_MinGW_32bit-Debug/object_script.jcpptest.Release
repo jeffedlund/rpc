@@ -62,4 +62,6 @@ INPUT(
 ./release\JIRemoteSample.o
 ./release\JRemoteSample.o
 ./release\JIRemoteSampleProxy.o
+./release\JStringBuilderTest.o
+./release\JStringBufferTest.o
 );

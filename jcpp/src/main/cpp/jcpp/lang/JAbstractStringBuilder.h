@@ -5,14 +5,18 @@
 #include "JObject.h"
 #include "JCharSequence.h"
 #include "JAppendable.h"
+#include "JPrimitiveArray.h"
 
 namespace jcpp{
     namespace lang{
         class JStringBuffer;
-        class JAbstractStringBuilder : public JObject  , public JAppendable  , public JCharSequence  {
+        class JCPP_LIBRARY_EXPORT JAbstractStringBuilder : public JObject  , public JAppendable  , public JCharSequence  {
             protected:
                 string value;
+                JPrimitiveArray* pvalue;
                 JAbstractStringBuilder(JClass* _class);
+                JPrimitiveArray* getPrimitiveArray();
+                void setPrimitiveArray(JPrimitiveArray* a);
 
             public:
                 static JClass* getClazz();
@@ -31,6 +35,7 @@ namespace jcpp{
                 virtual JAbstractStringBuilder* append(JCharSequence* s);
                 virtual JAbstractStringBuilder* append(JCharSequence* s,jint start,jint end);
                 virtual JAbstractStringBuilder* append(jchar str[],jint offset,jint length);
+                virtual JAbstractStringBuilder* append(string str,jint offset,jint length);
                 virtual JAbstractStringBuilder* append(jbool b);
                 virtual JAbstractStringBuilder* append(jchar c);
                 virtual JAbstractStringBuilder* append(jint i);
@@ -62,6 +67,7 @@ namespace jcpp{
                 virtual jint lastIndexOf(JString* str,jint fromIndex);
                 virtual JAbstractStringBuilder* reverse();
                 virtual string toString();
+                virtual jbool equals(JObject *o);
                 virtual ~JAbstractStringBuilder();
         };
     }

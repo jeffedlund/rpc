@@ -12,7 +12,7 @@ using namespace jcpp::lang;
 
 namespace jcpp{
     namespace io{
-        class JWriter : public JObject  , public JAppendable  , public JCloseable  , public JFlushable  {
+        class JCPP_LIBRARY_EXPORT JWriter : public JObject  , public JAppendable  , public JCloseable  , public JFlushable  {
             protected:
                 jchar* writeBuffer;
                 JObject* lock;

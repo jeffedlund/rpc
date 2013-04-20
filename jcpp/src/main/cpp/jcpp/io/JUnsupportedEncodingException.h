@@ -5,7 +5,7 @@
 
 namespace jcpp{
     namespace io{
-        class JUnsupportedEncodingException : public JIOException  {
+        class JCPP_LIBRARY_EXPORT JUnsupportedEncodingException : public JIOException  {
             public:
                 static JClass* getClazz();
                 JUnsupportedEncodingException();

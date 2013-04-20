@@ -83,6 +83,8 @@
 #include "JRemoteSample.h"
 #include "JIRemoteSample.h"
 #include "JIRemoteSampleProxy.h"
+#include "JStringBufferTest.h"
+#include "JStringBuilderTest.h"
 using namespace std;
 using namespace jcpp::util;
 using namespace jcpp::lang;
@@ -93,7 +95,7 @@ using namespace jcpp::rmi::server::impl::transport;
 using namespace jcpp::rmi::server::impl::gateway;
 using namespace jcpp::rmi::server::impl::connection;
 
-static int TEST_SIZE = 52;
+static int TEST_SIZE = 54;
 static JTest* tests[] = {new JThrowableTest(),new JErrorTest(),new JExceptionTest(),new JRuntimeExceptionTest(),
                          new JClassCastExceptionTest(),new JClassNotFoundExceptionTest(),new JIllegalArgumentExceptionTest(),
                          new JIllegalStateExceptionTest(),new JIndexOutOfBoundsExceptionTest(),new JInstantiationExceptionTest(),
@@ -109,7 +111,8 @@ static JTest* tests[] = {new JThrowableTest(),new JErrorTest(),new JExceptionTes
                          new JPrimitiveShortTest(),new JPrimitiveIntTest(),new JArrayListTest(),
                          new JSerializableTest,new JExternalizableTest,new JHashMapTest,
                          new JHashSetTest,new JIdentityHashMapTest, new JHashtableTest,
-                         new JPrimitiveArrayTest,new JEnumTest,new JServerTest};
+                         new JPrimitiveArrayTest,new JEnumTest,new JStringBufferTest(),
+                         new JStringBuilderTest,new JServerTest};
 
 void registerClasses(){
     JClassLoader::getBootClassLoader()->addClass(JSampleObject::getClazz());

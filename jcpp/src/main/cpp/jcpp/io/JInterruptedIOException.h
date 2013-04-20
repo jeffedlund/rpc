@@ -5,7 +5,7 @@
 
 namespace jcpp{
     namespace io{
-        class JInterruptedIOException : public JIOException  {
+        class JCPP_LIBRARY_EXPORT JInterruptedIOException : public JIOException  {
             protected:
                 JPrimitiveInt* bytesTransferred;
 

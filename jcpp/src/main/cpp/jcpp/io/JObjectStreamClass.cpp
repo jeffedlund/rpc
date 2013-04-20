@@ -93,6 +93,7 @@ namespace jcpp{
             this->primDataSize=0;
             this->numObjFields=0;
             this->fields = NULL;
+            this->localDesc=NULL;
             this->superDesc=NULL;
             this->resolveEx=NULL;
             this->jClass=NULL;
@@ -121,10 +122,42 @@ namespace jcpp{
             return NULL;
         }
 
+
+        static vector<JObjectStreamField*>* getDeclaredSerialFields(JClass* cl){
+            JPrimitiveArray* array=NULL;
+            vector<JObjectStreamField*>* serialPersistentFields = NULL;
+            if (cl->hasDeclaredField("serialPersistentFields")){
+                JField* f = cl->getDeclaredField("serialPersistentFields");
+                array= (JPrimitiveArray*) f->get(NULL);
+            }
+            if (array == NULL) {
+                return NULL;
+            } else if (array->size() == 0) {
+                delete array;
+                return NULL;
+            }
+            serialPersistentFields=new vector<JObjectStreamField*>();
+            for (int i = 0; i < array->size(); i++) {
+                JObjectStreamField* spf = (JObjectStreamField*)array->get(i);
+
+                string fname = spf->getName();
+                if (cl->hasDeclaredField(fname)){
+                    JField* f = cl->getDeclaredField(fname);
+                    serialPersistentFields->push_back(new JObjectStreamField(f, spf->isUnshared(), true));
+                }else{
+                    serialPersistentFields->push_back(new JObjectStreamField(fname, spf->getType(), spf->isUnshared()));
+                }
+            }
+            return serialPersistentFields;
+        }
+
         static vector<JObjectStreamField*>* getSerialFields(JClass* cl){
             vector<JObjectStreamField*>* fields=NULL;
             if (JSerializable::getClazz()->isAssignableFrom(cl) && !JExternalizable::getClazz()->isAssignableFrom(cl) && !cl->isInterface() && !cl->isProxy()){
-                fields = getDefaultSerialFields(cl);
+                fields = getDeclaredSerialFields(cl);
+                if (fields==NULL){
+                    fields = getDefaultSerialFields(cl);
+                }
                 if (fields!=NULL){
                     sort(fields->begin(),fields->end(),JObjectStreamField::comparator);
                 }
@@ -144,6 +177,7 @@ namespace jcpp{
             this->suid=0;
             this->writeObjectData=false;
             this->blockExternalData=true;
+            this->localDesc=NULL;
             this->superDesc=NULL;
             this->resolveEx=NULL;
             this->readObjectMethod=NULL;
@@ -154,6 +188,7 @@ namespace jcpp{
 
             JClass* superCl=_class->getSuperclass();
             superDesc=(superCl != NULL)?lookup(superCl,false):NULL;
+            localDesc=this;
             if (serializable){
                 if (bIsEnum) {
                     suid = 0;
@@ -237,12 +272,36 @@ namespace jcpp{
             return fields->at(i);
         }
 
+        vector<JObjectStreamField*>* JObjectStreamClass::getFields(){
+            return fields;
+        }
+
+        JObjectStreamField* JObjectStreamClass::getField(string name,JClass* type){
+            for (unsigned int i=0;i<fields->size();i++){
+                JObjectStreamField* f=fields->at(i);
+                if (f->getName()==name){
+                    if (type==NULL || (type==JObject::getClazz() && !f->isPrimitive())){
+                        return f;
+                    }
+                    JClass* ft=f->getType();
+                    if (ft!=NULL && type->isAssignableFrom(ft)){
+                        return f;
+                    }
+                }
+            }
+            return NULL;
+        }
+
         string JObjectStreamClass::getName(){
             return name;
         }
 
         int JObjectStreamClass::getPrimDataSize(){
             return primDataSize;
+        }
+
+        JObjectStreamClass* JObjectStreamClass::getLocalDesc(){
+            return localDesc;
         }
 
         JObjectStreamClass *JObjectStreamClass::getSuperDesc(){
@@ -319,7 +378,7 @@ namespace jcpp{
             numObjFields = model->numObjFields;
 
             if (jClass!=NULL){
-                JObjectStreamClass* localDesc=lookup(jClass,true);
+                localDesc=lookup(jClass,true);
                 if (localDesc->isProxy()) {
                     throw new JInvalidClassException("cannot bind non-proxy descriptor to a proxy class");
                 }
@@ -341,7 +400,7 @@ namespace jcpp{
             suid = 0;
             fields = NULL;
             if (jClass!=NULL){
-                JObjectStreamClass* localDesc=lookup(jClass,true);
+                localDesc=lookup(jClass,true);
                 if (!localDesc->isProxy()){
                     throw new JInvalidClassException("cannot bind proxy descriptor to a non-proxy class");
                 }

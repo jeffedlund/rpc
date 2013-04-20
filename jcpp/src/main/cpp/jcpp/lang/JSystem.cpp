@@ -31,6 +31,30 @@ namespace jcpp{
         jlong JSystem::currentTimeMillis(){
             return QDateTime::currentMSecsSinceEpoch();
         }
+
+        void JSystem::arraycopy(jbyte src[],jint srcPos, jbyte dest[], jint destPos, jint length){
+            for (jint i=0;i<length;i++){
+                dest[destPos+i]=src[srcPos+i];
+            }
+        }
+
+        void JSystem::arraycopy(jchar src[],jint srcPos, jchar dest[], jint destPos, jint length){
+            for (jint i=0;i<length;i++){
+                dest[destPos+i]=src[srcPos+i];
+            }
+        }
+
+        void JSystem::arraycopy(string src,jint srcPos, jchar dest[], jint destPos, jint length){
+            for (jint i=0;i<length;i++){
+                dest[destPos+i]=(jchar)src.at(srcPos+i);
+            }
+        }
+
+        void JSystem::arraycopy(JString* src,jint srcPos, jchar dest[], jint destPos, jint length){
+            for (jint i=0;i<length;i++){
+                dest[destPos+i]=(jchar)src->getString().at(srcPos+i);
+            }
+        }
     }
 }
 

@@ -24,6 +24,7 @@
 #include "Object.h"
 #include "JProxy.h"
 #include "JBlockDataInputStream.h"
+#include "JInvalidObjectException.h"
 
 using namespace std;
 using namespace jcpp::lang::reflect;
@@ -44,9 +45,7 @@ namespace jcpp{
                 return JInputStream::getClazz();
             }
 
-            virtual void fillDeclaredClasses(){
-                addDeclaredClass(JBlockDataInputStream::getClazz());
-            }
+            virtual void fillDeclaredClasses();
         };
 
         static JClass* clazz;
@@ -57,6 +56,174 @@ namespace jcpp{
             }
             return clazz;
         }
+
+        class JGetFieldClass : public JClass{
+        public:
+            JGetFieldClass():JClass(JClassLoader::getBootClassLoader()){
+                canonicalName="java.io.ObjectInputStream$GetField";
+                name="java.io.ObjectInputStream$GetField";
+                simpleName="ObjectInputStream$GetField";
+            }
+
+            JClass* getSuperclass(){
+                return JObject::getClazz();
+            }
+
+            virtual JClass* getDeclaringClass(){
+                return JObjectInputStream::getClazz();
+            }
+        };
+
+        static JClass* getFieldClazz;
+        JClass* JObjectInputStream::JGetField::getClazz(){
+            if (getFieldClazz==NULL){
+                getFieldClazz=new JGetFieldClass();
+            }
+            return getFieldClazz;
+        }
+
+        JObjectInputStream::JGetField::~JGetField(){
+        }
+
+        class JGetFieldImplClass : public JClass{
+        public:
+            JGetFieldImplClass():JClass(JClassLoader::getBootClassLoader()){
+                canonicalName="java.io.ObjectInputStream$GetFieldImpl";
+                name="java.io.ObjectInputStream$GetFieldImpl";
+                simpleName="ObjectInputStream$GetFieldImpl";
+            }
+
+            JClass* getSuperclass(){
+                return JObjectInputStream::JGetField::getClazz();
+            }
+
+            virtual JClass* getDeclaringClass(){
+                return JObjectInputStream::getClazz();
+            }
+        };
+
+        static JClass* getFieldImplClazz;
+        class JGetFieldImpl : public JObjectInputStream::JGetField{
+        protected:
+            JObjectInputStream* in;
+            JObjectStreamClass* desc;
+            jbyte* primVals;
+            JObject** objVals;
+            jint* objHandles;
+
+        public:
+            JGetFieldImpl(JObjectInputStream* in,JObjectStreamClass* desc):JGetField(getClazz()){
+                this->in=in;
+                this->desc=desc;
+                primVals=new jbyte[desc->getPrimDataSize()];
+                objVals=new JObject*[desc->getNumObjFields()];
+                objHandles=new jint[desc->getNumObjFields()];
+            }
+
+            static JClass* getClazz(){
+                if (getFieldImplClazz==NULL){
+                    getFieldImplClazz=new JGetFieldImplClass();
+                }
+                return getFieldImplClazz;
+            }
+
+            JObjectStreamClass* getObjectStreamClass(){
+                return desc;
+            }
+
+            virtual jbool defaulted(string name){
+                return (getFieldOffset(name, NULL) < 0);
+            }
+
+            virtual jbool get(string name, jbool val){
+                jint off = getFieldOffset(name, JBoolean::TYPE);
+                return ((off >= 0) ? JBits::getBool(primVals, off) : val);
+            }
+
+            virtual jbyte get(string name, jbyte val){
+                jint off = getFieldOffset(name, JByte::TYPE);
+                return (off >= 0) ? primVals[off] : val;
+            }
+
+            virtual jchar get(string name, jchar val){
+                jint off = getFieldOffset(name, JChar::TYPE);
+                return (off >= 0) ? JBits::getChar(primVals, off) : val;
+            }
+
+            virtual jshort get(string name, jshort val){
+                jint off = getFieldOffset(name, JShort::TYPE);
+                return (off >= 0) ? JBits::getShort(primVals, off) : val;
+            }
+
+            virtual jint get(string name, int val){
+                jint off = getFieldOffset(name, JInteger::TYPE);
+                return (off >= 0) ? JBits::getInt(primVals, off) : val;
+            }
+
+            virtual jfloat get(string name, jfloat val){
+                jint off = getFieldOffset(name, JFloat::TYPE);
+                return (off >= 0) ? JBits::getFloat(primVals, off) : val;
+            }
+
+            virtual jlong get(string name, jlong val){
+                jint off = getFieldOffset(name, JLong::TYPE);
+                return (off >= 0) ? JBits::getLong(primVals, off) : val;
+            }
+
+            virtual jdouble get(string name, jdouble val){
+                jint off = getFieldOffset(name, JDouble::TYPE);
+                return (off >= 0) ? JBits::getDouble(primVals, off) : val;
+            }
+
+            virtual JObject* get(string name, JObject* val){
+                jint off = getFieldOffset(name, JObject::getClazz());
+                if (off >= 0) {
+                    jint objHandle = objHandles[off];
+                    in->handles->markDependency(in->passHandle, objHandle);
+                    return ((in->handles->lookupException(objHandle) == NULL) ? objVals[off] : NULL);
+                } else {
+                    return val;
+                }
+            }
+
+            void readFields(){
+                in->bin->readFully(primVals, 0, desc->getPrimDataSize(), false);
+                jint oldHandle = in->passHandle;
+                vector<JObjectStreamField*>* fields = desc->getFields();
+                jint numPrimFields = fields->size()- desc->getNumObjFields();
+                for (int i = 0; i < desc->getNumObjFields(); i++) {
+                    JObjectStreamField* f=fields->at(numPrimFields + i);
+                    objVals[i] = in->readObject0(f->isUnshared());
+                    objHandles[i] = in->passHandle;
+                }
+                in->passHandle = oldHandle;
+            }
+
+            jint getFieldOffset(string name, JClass* type) {
+                JObjectStreamField* field = desc->getField(name, type);
+                if (field != NULL) {
+                    return field->getOffset();
+                } else if (desc->getLocalDesc()->getField(name, type) != NULL) {
+                    return -1;
+                } else {
+                    throw new JIllegalArgumentException("no such field " + name +" with type " + type->toString());
+                }
+            }
+
+            ~JGetFieldImpl(){
+                delete[] primVals;
+                delete[] objVals;
+                delete[] objHandles;
+            }
+        };
+
+        void JObjectInputStreamClass::fillDeclaredClasses(){
+            addDeclaredClass(JBlockDataInputStream::getClazz());
+            addDeclaredClass(JObjectInputStream::JGetField::getClazz());
+            addDeclaredClass(JGetFieldImpl::getClazz());
+        }
+
+        static JObject* unsharedMarker = new JObject();
 
         JObjectInputStream::JObjectInputStream(JInputStream *in,JClass* _class):JInputStream(_class){
             init(in);
@@ -136,7 +303,7 @@ namespace jcpp{
 
         JObject* JObjectInputStream::readObject() {
             int outerHandle=passHandle;
-            JObject* obj=readObject0();
+            JObject* obj=readObject0(false);
             handles->markDependency(outerHandle,passHandle);
             JClassNotFoundException* ex=handles->lookupException(passHandle);
             if (ex!=NULL){
@@ -146,7 +313,7 @@ namespace jcpp{
             return obj;
         }
 
-        JObject* JObjectInputStream::readObject0() {
+        JObject* JObjectInputStream::readObject0(jbool unshared) {
             bool oldMode = bin->getBlockDataMode();
             if (oldMode) {
                 int remain = bin->currentBlockRemaining();
@@ -171,33 +338,33 @@ namespace jcpp{
                 break;
 
             case TC_REFERENCE:
-                obj = readHandle();
+                obj = readHandle(unshared);
                 break;
 
             case TC_CLASS:
-                obj=readClass();
+                obj=readClass(unshared);
                 break;
 
             case TC_CLASSDESC:
             case TC_PROXYCLASSDESC:
-                obj=readClassDesc();
+                obj=readClassDesc(unshared);
                 break;
 
             case TC_STRING:
             case TC_LONGSTRING:
-                obj = checkResolve(readString());
+                obj = checkResolve(readString(unshared));
                 break;
 
             case TC_ARRAY:
-                obj = checkResolve(readArray());
+                obj = checkResolve(readArray(unshared));
                 break;
 
             case TC_ENUM:
-                obj = checkResolve(readEnum());
+                obj = checkResolve(readEnum(unshared));
                 break;
 
             case TC_OBJECT:
-                obj = checkResolve(readOrdinaryObject());
+                obj = checkResolve(readOrdinaryObject(unshared));
                 break;
 
             case TC_EXCEPTION:{
@@ -254,7 +421,7 @@ namespace jcpp{
             switch (tc) {
                 case TC_STRING:
                 case TC_LONGSTRING:
-                    jstring=readString();
+                    jstring=readString(false);
                     break;
 
                 case TC_NULL:
@@ -262,7 +429,7 @@ namespace jcpp{
                     break;
 
                 case TC_REFERENCE:
-                    jstring=(JString*) (readHandle());
+                    jstring=(JString*) (readHandle(false));
                     break;
 
                 default:
@@ -273,6 +440,18 @@ namespace jcpp{
             }
             passHandle=oldHandle;
             return jstring;
+        }
+
+        JObject* JObjectInputStream::readUnshared(){
+            jint outerHandle=passHandle;
+            JObject* obj=readObject0(true);
+            handles->markDependency(outerHandle,passHandle);
+            JClassNotFoundException* ex=handles->lookupException(passHandle);
+            passHandle=outerHandle;
+            if (ex!=NULL){
+                throw ex;
+            }
+            return obj;
         }
 
         void JObjectInputStream::defaultReadObject() {
@@ -293,6 +472,19 @@ namespace jcpp{
             }
         }
 
+        JObjectInputStream::JGetField* JObjectInputStream::readFields(){
+            if (curContext == NULL) {
+                throw new JNotActiveException("not in call to readObject");
+            }
+            curContext->getObj();
+            JObjectStreamClass* curDesc = curContext->getDesc();
+            bin->setBlockDataMode(false);
+            JGetFieldImpl* getField = new JGetFieldImpl(this,curDesc);
+            getField->readFields();
+            bin->setBlockDataMode(true);
+            return getField;
+        }
+
         JObject* JObjectInputStream::resolveObject(JObject *obj) {
             return obj;
         }
@@ -305,7 +497,7 @@ namespace jcpp{
             return NULL;
         }
 
-        JObject* JObjectInputStream::readHandle() {
+        JObject* JObjectInputStream::readHandle(jbool unshared) {
             if (bin->readByte() != TC_REFERENCE) {
                 throw new JInternalError();
             }
@@ -313,18 +505,23 @@ namespace jcpp{
             if (passHandle < 0 || passHandle >= handles->getSize()) {
                 throw new JStreamCorruptedException("invalid handle value");
             }
-
+            if (unshared){
+                throw new JInvalidObjectException("cannot read back reference as unshared");
+            }
             JObject* obj = handles->lookupObject(passHandle);
+            if (obj==unsharedMarker){
+                throw new JInvalidObjectException("cannot read back reference as unshared");
+            }
             return obj;
         }
 
-        JObject* JObjectInputStream::readClass(){
+        JObject* JObjectInputStream::readClass(jbool unshared){
             if (bin->readByte() != TC_CLASS){
                 throw new JInternalError();
             }
-            JObjectStreamClass* desc=readClassDesc();
+            JObjectStreamClass* desc=readClassDesc(false);
             JClass* jClass=desc->getJClass();
-            passHandle=handles->assign(jClass);
+            passHandle=handles->assign((unshared ? unsharedMarker : jClass));
 
             JClassNotFoundException* resolveEx = desc->getResolveException();
             if (resolveEx!=NULL){
@@ -335,12 +532,12 @@ namespace jcpp{
             return jClass;
         }
 
-        JObject* JObjectInputStream::readArray(){
+        JObject* JObjectInputStream::readArray(jbool unshared){
             if (bin->readByte() != TC_ARRAY) {
                 throw new JInternalError();
             }
 
-            JObjectStreamClass* desc = readClassDesc();
+            JObjectStreamClass* desc = readClassDesc(false);
             int len = bin->readInt();
 
             JPrimitiveArray* pArray = NULL;
@@ -351,7 +548,7 @@ namespace jcpp{
                 pArray = new JPrimitiveArray(ccl,len);
             }
 
-            int arrayHandle = handles->assign(pArray);
+            int arrayHandle = handles->assign((unshared ? unsharedMarker : pArray));
             JClassNotFoundException* resolveEx=desc->getResolveException();
             if (resolveEx!=NULL){
                 handles->markException(arrayHandle,resolveEx);
@@ -359,7 +556,7 @@ namespace jcpp{
 
             if(ccl==NULL) {
                 for (int i = 0; i < len; i++) {
-                    readObject0();
+                    readObject0(false);
                 }
             }else if (ccl->isPrimitive()){
                 if (ccl == JPrimitiveByte::getClazz()) {
@@ -407,7 +604,7 @@ namespace jcpp{
                 }
             }else{
                 for (int i = 0 ; i < len; ++i) {
-                    pArray->set(i,readObject0());
+                    pArray->set(i,readObject0(false));
                     handles->markDependency(arrayHandle,passHandle);
                 }
             }
@@ -417,31 +614,33 @@ namespace jcpp{
             return pArray;
         }
 
-        JObject* JObjectInputStream::readEnum() {
+        JObject* JObjectInputStream::readEnum(jbool unshared) {
             if (bin->readByte() != TC_ENUM) {
                 throw new JInternalError();
             }
-            JObjectStreamClass* desc = readClassDesc();
+            JObjectStreamClass* desc = readClassDesc(false);
             if (!desc->isEnum()){
                 throw new JInvalidClassException("non-enum class: " + desc->toString());
             }
 
-            int enumHandle = handles->assign(NULL);
+            int enumHandle = handles->assign((unshared ? unsharedMarker : NULL));
             JClassNotFoundException* resolveEx=desc->getResolveException();
             if (resolveEx!=NULL){
                 handles->markException(enumHandle,resolveEx);
             }
 
-            JString* mname = readString();
+            JString* mname = readString(false);
             string name = mname->getString();
             JEnum* en = desc->getJClass()->valueOf(name);
-            handles->setObject(enumHandle,en);
+            if (!unshared){
+                handles->setObject(enumHandle,en);
+            }
             handles->finish(enumHandle);
             passHandle = enumHandle;
             return en;
         }
 
-        JObjectStreamClass* JObjectInputStream::readClassDesc() {
+        JObjectStreamClass* JObjectInputStream::readClassDesc(jbool unshared) {
             jbyte tc = bin->peekByte();
 
             switch (tc) {
@@ -449,13 +648,13 @@ namespace jcpp{
                 return (JObjectStreamClass*) (readNull());
 
             case TC_REFERENCE:
-                return (JObjectStreamClass*) (readHandle());
+                return (JObjectStreamClass*) (readHandle(unshared));
 
             case TC_CLASSDESC:
-                return readNonProxyDesc();
+                return readNonProxyDesc(unshared);
 
             case TC_PROXYCLASSDESC:
-                return readProxyDesc();
+                return readProxyDesc(unshared);
 
             default:
                 stringstream ss;
@@ -464,12 +663,12 @@ namespace jcpp{
             }
         }
 
-        JObjectStreamClass* JObjectInputStream::readProxyDesc() {
+        JObjectStreamClass* JObjectInputStream::readProxyDesc(jbool unshared) {
             if (bin->readByte() != TC_PROXYCLASSDESC) {
                 throw new JInternalError();
             }
             JObjectStreamClass* desc = new JObjectStreamClass;
-            jint descHandle = handles->assign(desc);
+            jint descHandle = handles->assign((unshared ? unsharedMarker : desc));
             passHandle = NULL_HANDLE;
 
             int numIfaces = bin->readInt();
@@ -491,7 +690,7 @@ namespace jcpp{
             }
             skipCustomData();
 
-            desc->initProxy(metaObj, resolveEx,readClassDesc());
+            desc->initProxy(metaObj, resolveEx,readClassDesc(false));
 
             handles->finish(descHandle);
             passHandle = descHandle;
@@ -501,12 +700,12 @@ namespace jcpp{
             return desc;
         }
 
-        JObjectStreamClass* JObjectInputStream::readNonProxyDesc() {
+        JObjectStreamClass* JObjectInputStream::readNonProxyDesc(jbool unshared) {
             if (bin->readByte() != TC_CLASSDESC) {
                 throw new JInternalError();
             }
             JObjectStreamClass* desc = new JObjectStreamClass;
-            jint descHandle = handles->assign(desc);
+            jint descHandle = handles->assign((unshared ? unsharedMarker : desc));
             passHandle = NULL_HANDLE;
 
             JObjectStreamClass *readDesc = new JObjectStreamClass;
@@ -525,7 +724,7 @@ namespace jcpp{
             }
             skipCustomData();
 
-            desc->initNonProxy(readDesc, metaObj, resolveEx,readClassDesc());
+            desc->initNonProxy(readDesc, metaObj, resolveEx,readClassDesc(false));
 
             handles->finish(descHandle);
             passHandle = descHandle;
@@ -535,14 +734,14 @@ namespace jcpp{
             return desc;
         }
 
-        JObject* JObjectInputStream::readOrdinaryObject() {
+        JObject* JObjectInputStream::readOrdinaryObject(jbool unshared) {
             if (bin->readByte() != TC_OBJECT) {
                 throw new JInternalError();
             }
-            JObjectStreamClass* desc = readClassDesc();
+            JObjectStreamClass* desc = readClassDesc(false);
 
             JObject* obj = desc->newInstance();
-            passHandle = handles->assign(obj);
+            passHandle = handles->assign((unshared ? unsharedMarker : obj));
             JClassNotFoundException* resolveEx=desc->getResolveException();
             if (resolveEx!=NULL){
                 handles->markException(passHandle,resolveEx);
@@ -628,7 +827,7 @@ namespace jcpp{
             int numPrimFields=desc->getNumFields()-desc->getNumObjFields();
             for (int i = 0; i < numObjFields; ++i) {
                 JObjectStreamField* f=desc->getField(numPrimFields+i);
-                JObject* readObj = readObject0();
+                JObject* readObj = readObject0(f->isUnshared());
                 objVals[i] = readObj;
                 if (f->getField()!=NULL){
                     handles->markDependency(objHandle,passHandle);
@@ -646,7 +845,7 @@ namespace jcpp{
                 throw new JInternalError();
             }
             clear();
-            return (JIOException*)readObject0();
+            return (JIOException*)readObject0(false);
         }
 
         void JObjectInputStream::skipCustomData() {
@@ -668,7 +867,7 @@ namespace jcpp{
                         return;
 
                     default:
-                        readObject0();
+                        readObject0(false);
                         break;
                 }
             }
@@ -758,7 +957,7 @@ namespace jcpp{
             return bin->readLongUTF();
         }
 
-        JString* JObjectInputStream::readString() {
+        JString* JObjectInputStream::readString(jbool unshared) {
             jbyte tc = bin->readByte();
             string str;
             switch (tc) {
@@ -776,7 +975,7 @@ namespace jcpp{
                 throw new JStreamCorruptedException(ss.str());
             }
             JString* mstr = new JString(str);
-            passHandle = handles->assign((JObject*) mstr);
+            passHandle = handles->assign((unshared ? unsharedMarker : (JObject*) mstr));
             handles->finish(passHandle);
             return mstr;
         }

@@ -9,7 +9,7 @@ using namespace jcpp::lang;
 
 namespace jcpp{
     namespace io{
-        class JWriteAbortedException : public JObjectStreamException  {
+        class JCPP_LIBRARY_EXPORT JWriteAbortedException : public JObjectStreamException  {
             protected:
                 JException* detail;
 

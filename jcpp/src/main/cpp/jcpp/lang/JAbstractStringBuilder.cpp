@@ -3,6 +3,7 @@
 #include "algorithm"
 #include "sstream"
 #include "JStringBuffer.h"
+#include "JPrimitiveChar.h"
 
 using namespace std;
 
@@ -33,8 +34,21 @@ namespace jcpp{
         }
 
         JAbstractStringBuilder::JAbstractStringBuilder(JClass* _class):JObject(_class){
+            pvalue=NULL;
         }
 
+        JPrimitiveArray* JAbstractStringBuilder::getPrimitiveArray(){
+            if (this->pvalue!=NULL){
+                delete this->pvalue;//TODO finalizeAll
+            }
+            this->pvalue=JPrimitiveChar::toArray(value);
+            return pvalue;
+        }
+
+        void JAbstractStringBuilder::setPrimitiveArray(JPrimitiveArray* a){
+            value=JPrimitiveChar::fromArray(a);
+            delete a;
+        }
 
         jint JAbstractStringBuilder::length(){
             return value.size();
@@ -100,6 +114,13 @@ namespace jcpp{
         JAbstractStringBuilder* JAbstractStringBuilder::append(jchar str[],jint offset,jint length){
             for (jint i=0;i<length;i++){
                 value.push_back(str[offset+i]);
+            }
+            return this;
+        }
+
+        JAbstractStringBuilder* JAbstractStringBuilder::append(string str,jint offset,jint length){
+            for (jint i=0;i<length;i++){
+                value.push_back(str.at(offset+i));
             }
             return this;
         }
@@ -267,7 +288,17 @@ namespace jcpp{
             return value;
         }
 
+        jbool JAbstractStringBuilder::equals(JObject *o){
+            if (getClass()!=o->getClass()){
+                return false;
+            }
+            return value==((dynamic_cast<JAbstractStringBuilder*>(o))->value);
+        }
+
         JAbstractStringBuilder::~JAbstractStringBuilder(){
+            if (pvalue!=NULL){
+                delete pvalue;
+            }
         }
     }
 }

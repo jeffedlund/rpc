@@ -270,7 +270,8 @@ SOURCES += \
     src/main/cpp/jcpp/io/JStringWriter.cpp \
     src/main/cpp/jcpp/lang/JStringBuilder.cpp \
     src/main/cpp/jcpp/lang/JStringBuffer.cpp \
-    src/main/cpp/jcpp/lang/JAbstractStringBuilder.cpp
+    src/main/cpp/jcpp/lang/JAbstractStringBuilder.cpp \
+    src/main/cpp/jcpp/io/JBufferedWriter.cpp
     
     
 HEADERS += \
@@ -507,7 +508,8 @@ HEADERS += \
     src/main/cpp/jcpp/io/JStringWriter.h \
     src/main/cpp/jcpp/lang/JStringBuilder.h \
     src/main/cpp/jcpp/lang/JStringBuffer.h \
-    src/main/cpp/jcpp/lang/JAbstractStringBuilder.h
+    src/main/cpp/jcpp/lang/JAbstractStringBuilder.h \
+    src/main/cpp/jcpp/io/JBufferedWriter.h
     
     
 OTHER_FILES += \

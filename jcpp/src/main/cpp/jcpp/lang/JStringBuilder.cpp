@@ -4,6 +4,19 @@
 namespace jcpp{
     namespace lang{
         class JStringBuilderClass : public JClass{
+            protected:
+                static JObject* invokeWriteObject(JObject* object,vector<JObject*>* args){
+                    JStringBuilder* b=(JStringBuilder*)object;
+                    b->writeObject((JObjectOutputStream*)args->at(0));
+                    return NULL;
+                }
+
+                static JObject* invokeReadObject(JObject* object,vector<JObject*>* args){
+                    JStringBuilder* b=(JStringBuilder*)object;
+                    b->readObject((JObjectInputStream*)args->at(0));
+                    return NULL;
+                }
+
             public:
                 JStringBuilderClass(){
                     this->canonicalName="java.lang.StringBuilder";
@@ -13,6 +26,14 @@ namespace jcpp{
 
                     addInterface(JSerializable::getClazz());
                     addInterface(JCharSequence::getClazz());
+
+                    vector<JClass*>* paramType=new vector<JClass*>();
+                    paramType->push_back(JObjectInputStream::getClazz());
+                    addMethod(new JMethod("readObject",this,JVoid::getClazz(),paramType,invokeReadObject));
+
+                    paramType=new vector<JClass*>;
+                    paramType->push_back(JObjectOutputStream::getClazz());
+                    addMethod(new JMethod("writeObject",this,JVoid::getClazz(),paramType,invokeWriteObject));
                 }
 
                 JClass* getSuperclass(){
@@ -75,6 +96,11 @@ namespace jcpp{
         }
 
         JStringBuilder* JStringBuilder::append(jchar str[],jint offset,jint len){
+            JAbstractStringBuilder::append(str,offset,len);
+            return this;
+        }
+
+        JStringBuilder* JStringBuilder::append(string str,jint offset,jint len){
             JAbstractStringBuilder::append(str,offset,len);
             return this;
         }
@@ -197,16 +223,14 @@ namespace jcpp{
         void JStringBuilder::writeObject(JObjectOutputStream* out){
             out->defaultWriteObject();
             out->writeInt(value.size());
-            JPrimitiveArray* a=JPrimitiveChar::toArray(value);
-            out->writeObject(a);
-            //TODO a.finalizeAll() ??
+            out->writeObject(getPrimitiveArray());
         }
 
         void JStringBuilder::readObject(JObjectInputStream* in){
             in->defaultReadObject();
-            jint i=in->readInt();
+            in->readInt();
             JPrimitiveArray* a=(JPrimitiveArray*)in->readObject();
-            value=JPrimitiveChar::fromArray(a);//TODO not ideal ...
+            setPrimitiveArray(a);
         }
 
         JStringBuilder::~JStringBuilder(){

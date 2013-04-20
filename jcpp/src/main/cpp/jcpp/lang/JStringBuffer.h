@@ -11,8 +11,18 @@
 using namespace jcpp::io;
 
 namespace jcpp{
+    namespace io{
+        class JObjectOutputStream;
+        class JObjectInputStream;
+    }
     namespace lang{
-        class JStringBuffer : public JAbstractStringBuilder  , public JSerializable{
+        class JCPP_LIBRARY_EXPORT JStringBuffer : public JAbstractStringBuilder  , public JSerializable{
+            protected:
+                static JPrimitiveArray* getSerialPersistentFields();
+                void writeObject(JObjectOutputStream* s);
+                void readObject(JObjectInputStream* s);
+                friend class JStringBufferClass;
+
             public:
                 static JClass* getClazz();
                 JStringBuffer();
@@ -34,6 +44,7 @@ namespace jcpp{
                 virtual JStringBuffer* append(JCharSequence* s);
                 virtual JStringBuffer* append(JCharSequence* s,jint start,jint end);
                 virtual JStringBuffer* append(jchar str[],jint offset,jint length);
+                virtual JStringBuffer* append(string str,jint offset,jint length);
                 virtual JStringBuffer* append(jbool b);
                 virtual JStringBuffer* append(jchar c);
                 virtual JStringBuffer* append(jint i);

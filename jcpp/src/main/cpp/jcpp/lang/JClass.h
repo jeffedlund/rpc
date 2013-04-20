@@ -85,6 +85,7 @@ namespace jcpp{
             virtual JEnum* valueOf(string value);
             virtual JField* getField(string name);
             virtual vector<JField*>* getFields();
+            virtual jbool hasDeclaredField(string name);
             virtual JField* getDeclaredField(string name);
             virtual vector<JField*>* getDeclaredFields();
             virtual vector<JClass*>* getInterfaces();

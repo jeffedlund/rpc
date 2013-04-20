@@ -6,7 +6,7 @@ using namespace jcpp::lang;
 
 namespace jcpp{
     namespace io{
-        class JCloseable : public JAutoCloseable  {
+        class JCPP_LIBRARY_EXPORT JCloseable : public JAutoCloseable  {
         public:
             static JClass* getClazz();
             virtual void  close()=0;

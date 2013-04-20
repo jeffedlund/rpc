@@ -41,10 +41,12 @@ namespace jcpp{
             classes->push_back(JOutputStream::getClazz());
             classes->push_back(JSerializable::getClazz());
             classes->push_back(JStreamCorruptedException::getClazz());
+            classes->push_back(JStringWriter::getClazz());
             classes->push_back(JSyncFailedException::getClazz());
             classes->push_back(JUnsupportedEncodingException::getClazz());
             classes->push_back(JUTFDataFormatException::getClazz());
             classes->push_back(JWriteAbortedException::getClazz());
+            classes->push_back(JWriter::getClazz());
             classes->push_back(QtDataInputStream::getClazz());
             classes->push_back(QtDataOutputStream::getClazz());
         }

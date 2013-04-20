@@ -16,7 +16,7 @@ namespace jcpp{
                 }
 
                 JObject* newInstance(){
-                    return NULL;//TODO new JStringWriter();
+                    return new JStringWriter();
                 }
         };
 
@@ -30,9 +30,69 @@ namespace jcpp{
         }
 
         JStringWriter::JStringWriter():JWriter(getClazz()){
+            this->buf=new JStringBuffer();
+            this->lock=buf;
+        }
+
+        void JStringWriter::write(jint c){
+            buf->append((jint)c);
+        }
+
+        void JStringWriter::write(jchar buf[],jint off,jint len){
+            this->buf->append(buf,off,len);
+        }
+
+        void JStringWriter::write(JString* str){
+            buf->append((JString*)str);
+        }
+
+        void JStringWriter::write(string str){
+            buf->append((string)str);
+        }
+
+        void JStringWriter::write(JString* str,jint off,jint len){
+            buf->append(dynamic_cast<JCharSequence*>(str),off,len);
+        }
+
+        void JStringWriter::write(string str,jint off,jint len){
+            buf->append((string)str,off,len);
+        }
+
+        JStringWriter* JStringWriter::append(JCharSequence* csq){
+            if (csq==NULL){
+                write("null");
+            }else{
+                write(csq->toString());
+            }
+            return this;
+        }
+
+        JStringWriter* JStringWriter::append(JCharSequence* csq,jint start,jint end){
+            buf->append(csq,start,end);
+            return this;
+        }
+
+        JStringWriter* JStringWriter::append(jchar c){
+            buf->append((jchar)c);
+            return this;
+        }
+
+        string JStringWriter::toString(){
+            return buf->toString();
+        }
+
+        JStringBuffer* JStringWriter::getBuffer(){
+            return buf;
+        }
+
+        void JStringWriter::flush(){
+        }
+
+        void JStringWriter::close(){
         }
 
         JStringWriter::~JStringWriter(){
+            delete buf;
         }
     }
 }

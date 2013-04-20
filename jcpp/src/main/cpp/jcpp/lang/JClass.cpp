@@ -193,6 +193,11 @@ namespace jcpp{
             return field;
         }
 
+        jbool JClass::hasDeclaredField(string name){
+            JField* field=getFromMap(declaredFields,name);
+            return (field!=NULL);
+        }
+
         JField* JClass::getDeclaredField(string name){
             JField* field=getFromMap(declaredFields,name);
             if (field==NULL){

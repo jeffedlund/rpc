@@ -44,6 +44,7 @@ namespace jcpp{
             vector<JObjectStreamField*>* fields;
             int primDataSize;
             int numObjFields;
+            JObjectStreamClass* localDesc;
             JObjectStreamClass* superDesc;
             JClassNotFoundException* resolveEx;
             JClass* jClass;
@@ -68,8 +69,11 @@ namespace jcpp{
             jshort getNumFields();
             jint getNumObjFields();
             JObjectStreamField* getField(int i);
+            vector<JObjectStreamField*>* getFields();
+            JObjectStreamField* getField(string name,JClass* type);
             string getName();
             int getPrimDataSize();
+            JObjectStreamClass* getLocalDesc();
             JObjectStreamClass* getSuperDesc();
             JClassNotFoundException* getResolveException();
             void setPrimFieldValues(JObject *obj,jbyte *buf);

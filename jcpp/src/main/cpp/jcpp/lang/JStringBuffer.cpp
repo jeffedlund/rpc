@@ -1,9 +1,33 @@
 #include "JStringBuffer.h"
 #include "JClass.h"
+#include "JObjectStreamField.h"
+#include "JPrimitiveArray.h"
+#include "JPrimitiveChar.h"
+#include "JInteger.h"
+#include "JBoolean.h"
+#include "JObjectInputStream.h"
+#include "JObjectOutputStream.h"
 
 namespace jcpp{
     namespace lang{
         class JStringBufferClass : public JClass{
+            protected:
+                static JObject* staticGetserialPersistentFields(JObject*){
+                    return JStringBuffer::getSerialPersistentFields();
+                }
+
+                static JObject* invokeWriteObject(JObject* object,vector<JObject*>* args){
+                    JStringBuffer* b=(JStringBuffer*)object;
+                    b->writeObject((JObjectOutputStream*)args->at(0));
+                    return NULL;
+                }
+
+                static JObject* invokeReadObject(JObject* object,vector<JObject*>* args){
+                    JStringBuffer* b=(JStringBuffer*)object;
+                    b->readObject((JObjectInputStream*)args->at(0));
+                    return NULL;
+                }
+
             public:
                 JStringBufferClass(){
                     this->canonicalName="java.lang.StringBuffer";
@@ -12,6 +36,15 @@ namespace jcpp{
                     this->serialVersionUID=3388685877147921107ULL;
                     addInterface(JSerializable::getClazz());
                     addInterface(JCharSequence::getClazz());
+                    addField(new JField("serialPersistentFields",JPrimitiveArray::getClazz(JObjectStreamField::getClazz()),this,staticGetserialPersistentFields,NULL));
+
+                    vector<JClass*>* paramType=new vector<JClass*>();
+                    paramType->push_back(JObjectInputStream::getClazz());
+                    addMethod(new JMethod("readObject",this,JVoid::getClazz(),paramType,invokeReadObject));
+
+                    paramType=new vector<JClass*>;
+                    paramType->push_back(JObjectOutputStream::getClazz());
+                    addMethod(new JMethod("writeObject",this,JVoid::getClazz(),paramType,invokeWriteObject));
                 }
 
                 JClass* getSuperclass(){
@@ -189,6 +222,13 @@ namespace jcpp{
             return this;
         }
 
+        JStringBuffer* JStringBuffer::append(string str,jint offset,jint length){
+            lock();
+            JAbstractStringBuilder::append(str,offset,length);
+            unlock();
+            return this;
+        }
+
         JStringBuffer* JStringBuffer::deleteChar(jint start,jint end){
             lock();
             JAbstractStringBuilder::deleteChar(start,end);
@@ -362,6 +402,31 @@ namespace jcpp{
             string str=JAbstractStringBuilder::toString();
             unlock();
             return str;
+        }
+
+        static JPrimitiveArray* serialPersistentFields;
+        JPrimitiveArray* JStringBuffer::getSerialPersistentFields(){
+            if (serialPersistentFields==NULL){
+                serialPersistentFields=new JPrimitiveArray(JObjectStreamField::getClazz(),3);
+                serialPersistentFields->set(0,new JObjectStreamField("value",JPrimitiveArray::getClazz(JPrimitiveChar::getClazz())));
+                serialPersistentFields->set(1,new JObjectStreamField("count",JInteger::TYPE));
+                serialPersistentFields->set(2,new JObjectStreamField("shared",JBoolean::TYPE));
+            }
+            return serialPersistentFields;
+        }
+
+        void JStringBuffer::writeObject(JObjectOutputStream* out){
+            JObjectOutputStream::JPutField* fields = out->putFields();
+            fields->put("value", getPrimitiveArray());
+            fields->put("count", (jint)value.size());
+            fields->put("shared", false);
+            out->writeFields();
+        }
+
+        void JStringBuffer::readObject(JObjectInputStream* in){
+            JObjectInputStream::JGetField* fields = in->readFields();
+            setPrimitiveArray((JPrimitiveArray*)fields->get("value", (JObject*)NULL));
+            fields->get("count", 0);
         }
 
         JStringBuffer::~JStringBuffer(){

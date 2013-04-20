@@ -4,6 +4,7 @@
 #include "JObject.h"
 #include "Object.h"
 #include "JCPP.h"
+#include "JString.h"
 using namespace std;
 
 namespace jcpp{
@@ -13,9 +14,13 @@ namespace jcpp{
         public:
             static JClass* getClazz();
             static jlong currentTimeMillis();
-            //TODO void arraycopy(jbyte src[],jint srcPos, jbyte dest[], jint destPos, jint length){
+            static void arraycopy(jbyte src[],jint srcPos, jbyte dest[], jint destPos, jint length);
+            static void arraycopy(jchar src[],jint srcPos, jchar dest[], jint destPos, jint length);
+            static void arraycopy(string src,jint srcPos, jchar dest[], jint destPos, jint length);
+            static void arraycopy(JString* src,jint srcPos, jchar dest[], jint destPos, jint length);
             virtual ~JSystem()=0;
         };
     }
 }
 #endif // JSYSTEM_H
+

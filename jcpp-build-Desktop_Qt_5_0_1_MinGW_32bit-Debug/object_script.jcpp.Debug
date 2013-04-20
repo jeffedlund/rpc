@@ -230,4 +230,5 @@ INPUT(
 ./debug\JStringBuilder.o
 ./debug\JStringBuffer.o
 ./debug\JAbstractStringBuilder.o
+./debug\JBufferedWriter.o
 );

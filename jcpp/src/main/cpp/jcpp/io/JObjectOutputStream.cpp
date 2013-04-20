@@ -14,6 +14,7 @@
 #include "JExternalizable.h"
 #include "Object.h"
 #include "Collections.h"
+#include "JNotActiveException.h"
 using namespace jcpp::util;
 
 namespace jcpp{
@@ -32,9 +33,7 @@ namespace jcpp{
                 return JOutputStream::getClazz();
             }
 
-            virtual void fillDeclaredClasses(){
-                addDeclaredClass(JBlockDataOutputStream::getClazz());
-            }
+            virtual void fillDeclaredClasses();
         };
 
         static JClass* clazz;
@@ -44,6 +43,159 @@ namespace jcpp{
                 clazz=new JObjectOutputStreamClass();
             }
             return clazz;
+        }
+
+
+        class JPutFieldClass : public JClass{
+        public:
+            JPutFieldClass():JClass(JClassLoader::getBootClassLoader()){
+                canonicalName="java.io.ObjectOutputStream$PutField";
+                name="java.io.ObjectOutputStream$PutField";
+                simpleName="ObjectOutputStream$PutField";
+            }
+
+            JClass* getSuperclass(){
+                return JObject::getClazz();
+            }
+
+            virtual JClass* getDeclaringClass(){
+                return JObjectOutputStream::getClazz();
+            }
+        };
+
+        static JClass* putFieldClazz;
+        JClass* JObjectOutputStream::JPutField::getClazz(){
+            if (putFieldClazz==NULL){
+                putFieldClazz=new JPutFieldClass();
+            }
+            return putFieldClazz;
+        }
+
+        JObjectOutputStream::JPutField::~JPutField(){
+        }
+
+        class JPutFieldImplClass : public JClass{
+        public:
+            JPutFieldImplClass():JClass(JClassLoader::getBootClassLoader()){
+                canonicalName="java.io.ObjectOutputStream$PutFieldImpl";
+                name="java.io.ObjectOutputStream$PutFieldImpl";
+                simpleName="ObjectOutputStream$PutFieldImpl";
+            }
+
+            JClass* getSuperclass(){
+                return JObjectOutputStream::JPutField::getClazz();
+            }
+
+            virtual JClass* getDeclaringClass(){
+                return JObjectOutputStream::getClazz();
+            }
+        };
+
+        static JClass* putFieldImplClazz;
+        class JPutFieldImpl : public JObjectOutputStream::JPutField{
+        protected:
+            JObjectOutputStream* s;
+            JObjectStreamClass* desc;
+            jbyte* primVals;
+            JObject** objVals;
+
+        public:
+            JPutFieldImpl(JObjectOutputStream* s,JObjectStreamClass* desc):JPutField(getClazz()){
+                this->s=s;
+                this->desc=desc;
+                primVals=new jbyte[desc->getPrimDataSize()];
+                objVals=new JObject*[desc->getNumObjFields()];
+            }
+
+            static JClass* getClazz(){
+                if (putFieldImplClazz==NULL){
+                    putFieldImplClazz=new JPutFieldImplClass();
+                }
+                return putFieldImplClazz;
+            }
+
+            virtual void put(string name, bool val){
+                JBits::putBoolean(primVals,getFieldOffset(name,JBoolean::TYPE),val);
+            }
+
+            virtual void put(string name, jbyte val){
+                primVals[getFieldOffset(name,JByte::TYPE)]=val;
+            }
+
+            virtual void put(string name, jchar val){
+                JBits::putChar(primVals,getFieldOffset(name,JChar::TYPE),val);
+            }
+
+            virtual void put(string name, jshort val){
+                JBits::putShort(primVals,getFieldOffset(name,JShort::TYPE),val);
+            }
+
+            virtual void put(string name, jint val){
+                JBits::putInt(primVals,getFieldOffset(name,JInteger::TYPE),val);
+            }
+
+            virtual void put(string name, jfloat val){
+                JBits::putFloat(primVals,getFieldOffset(name,JFloat::TYPE),val);
+            }
+
+            virtual void put(string name, jlong val){
+                JBits::putLong(primVals,getFieldOffset(name,JLong::TYPE),val);
+            }
+
+            virtual void put(string name, jdouble val){
+                JBits::putDouble(primVals,getFieldOffset(name,JDouble::TYPE),val);
+            }
+
+            virtual void put(string name, JObject* val){
+                objVals[getFieldOffset(name,JObject::getClazz())]=val;
+            }
+
+            virtual void write(JObjectOutput *out){
+                if (s!=out){
+                    throw new JIllegalArgumentException("wrong stream");
+                }
+                out->write(primVals,0,desc->getPrimDataSize());
+
+                vector<JObjectStreamField*>* fields=desc->getFields();
+                jint numPrimFields=fields->size()-desc->getNumObjFields();
+                for (int i=0;i<desc->getNumObjFields();i++){
+                    JObjectStreamField* f=fields->at(numPrimFields+i);
+                    if (f->isUnshared()){
+                        throw new JIOException("cannot write unshared object");
+                    }
+                    out->writeObject(objVals[i]);
+                }
+            }
+
+            void writeFields(){
+                s->bout->write(primVals, 0, desc->getPrimDataSize(), false);
+
+                vector<JObjectStreamField*>* fields = desc->getFields();
+                jint numPrimFields=fields->size()-desc->getNumObjFields();
+                for (int i = 0; i < desc->getNumObjFields(); i++) {
+                    JObjectStreamField* f=fields->at(numPrimFields + i);
+                    s->writeObject0(objVals[i],f->isUnshared());
+                }
+            }
+
+            jint getFieldOffset(string name, JClass* type) {
+                JObjectStreamField* field = desc->getField(name, type);
+                if (field == NULL) {
+                    throw new JIllegalArgumentException("no such field " + name + " with type " + type->toString());
+                }
+                return field->getOffset();
+            }
+
+            ~JPutFieldImpl(){
+                delete[] primVals;
+                delete[] objVals;
+            }
+        };
+
+        void JObjectOutputStreamClass::fillDeclaredClasses(){
+            addDeclaredClass(JBlockDataOutputStream::getClazz());
+            addDeclaredClass(JObjectOutputStream::JPutField::getClazz());
+            addDeclaredClass(JPutFieldImpl::getClazz());
         }
 
         JObjectOutputStream::JObjectOutputStream(JOutputStream* out):JOutputStream(getClazz()){
@@ -66,6 +218,7 @@ namespace jcpp{
             this->lengthPrimVals=0;
             this->primVals=NULL;
             curContext=NULL;
+            curPut=NULL;
         }
 
         bool JObjectOutputStream::enableReplaceObject(bool enable) {
@@ -148,12 +301,23 @@ namespace jcpp{
             bout->writeLong(v);
         }
 
+        void JObjectOutputStream::writeUnshared(JObject* object){
+            try{
+                writeObject0(object,true);
+            }catch(JIOException* ex){
+                if (depth==0){
+                    writeFatalException(ex);
+                }
+                throw ex;
+            }
+        }
+
         void JObjectOutputStream::writeObject(JObject *obj){
             if(enableOverride)
                 writeObjectOverride(obj);
             else{
                 try{
-                    writeObject0(obj);
+                    writeObject0(obj,false);
                 }catch(JIOException* e){
                     if (depth == 0) {
                         writeFatalException(e);
@@ -176,19 +340,19 @@ namespace jcpp{
             bout->writeShort(STREAM_VERSION);
         }
 
-        void JObjectOutputStream::writeObject0(JObject* obj){
+        void JObjectOutputStream::writeObject0(JObject* obj,jbool unshared){
             bool oldMode = bout->setBlockDataMode(false);
             depth++;
             if(obj == NULL){
                 writeNull();
             }else{
                 int handle;
-                if( (handle = handles->lookup(obj) != -1) ){
+                if(!unshared && (handle = handles->lookup(obj) != -1) ){
                     writeHandle(handle);
                 }else if (JClass::getClazz()->isAssignableFrom(obj->getClass())){
-                    writeClass((JClass*)obj);
+                    writeClass((JClass*)obj,unshared);
                 }else if (JObjectStreamClass::getClazz()->isAssignableFrom(obj->getClass())){
-                    writeClassDesc((JObjectStreamClass*)obj);
+                    writeClassDesc((JObjectStreamClass*)obj,unshared);
                 }else{
                     JObject* orig = obj;
                     JClass* cl = obj->getClass();
@@ -218,27 +382,27 @@ namespace jcpp{
                             avoid=true;
                         }else{
                             desc=JObjectStreamClass::lookup(obj->getClass(),true);
-                            if( (handle = handles->lookup(obj) != -1) ){
+                            if(!unshared && (handle = handles->lookup(obj) != -1) ){
                                 writeHandle(handle);
                                 avoid=true;
                             }else if (JClass::getClazz()->isAssignableFrom(obj->getClass())){
-                                writeClass((JClass*)obj);
+                                writeClass((JClass*)obj,unshared);
                                 avoid=true;
                             }else if (JObjectStreamClass::getClazz()->isAssignableFrom(obj->getClass())){
-                                writeClassDesc((JObjectStreamClass*)obj);
+                                writeClassDesc((JObjectStreamClass*)obj,unshared);
                                 avoid=true;
                             }
                         }
                     }
                     if (!avoid){
                         if (obj->getClass()==JString::getClazz()){
-                            writeString((JString*)obj);
+                            writeString((JString*)obj,unshared);
                         }else if(obj->getClass()->isArray()){
-                            writeArray(obj,desc);
+                            writeArray(obj,desc,unshared);
                         } else if (obj->getClass()->isEnum()){
-                             writeEnum(obj, desc);
+                             writeEnum(obj, desc,unshared);
                         }else if (JSerializable::getClazz()->isAssignableFrom(obj->getClass())){
-                            writeOrdinaryObject(obj,desc);
+                            writeOrdinaryObject(obj,desc,unshared);
                         }else{
                             throw new JNotSerializableException(obj->getClass()->getName());
                         }
@@ -253,10 +417,10 @@ namespace jcpp{
             return obj;
         }
 
-        void JObjectOutputStream::writeOrdinaryObject(JObject* obj, JObjectStreamClass* desc){
+        void JObjectOutputStream::writeOrdinaryObject(JObject* obj, JObjectStreamClass* desc,jbool unshared){
             writeByte(TC_OBJECT);
-            writeClassDesc(desc);
-            handles->assign(obj);
+            writeClassDesc(desc,false);
+            handles->assign((unshared?NULL : obj));
 
             if (desc->isExternalizable() && !desc->isProxy()){
                 writeExternalData(obj);
@@ -265,28 +429,28 @@ namespace jcpp{
             }
         }
 
-        void JObjectOutputStream::writeClass(JClass* cl){
+        void JObjectOutputStream::writeClass(JClass* cl,jbool unshared){
             bout->writeByte(TC_CLASS);
-            writeClassDesc(JObjectStreamClass::lookup(cl,true));
-            handles->assign(cl);
+            writeClassDesc(JObjectStreamClass::lookup(cl,true),false);
+            handles->assign((unshared ? NULL : cl));
         }
 
-        void JObjectOutputStream::writeClassDesc(JObjectStreamClass* desc){
+        void JObjectOutputStream::writeClassDesc(JObjectStreamClass* desc,jbool unshared){
             jint handle;
             if(desc == NULL){
                 writeNull();
-            } else if( (handle = handles->lookup(desc)) != -1) {
+            } else if(!unshared && (handle = handles->lookup(desc)) != -1) {
                 writeHandle(handle);
             } else if(desc->isProxy()){
-                writeProxyDesc(desc);
+                writeProxyDesc(desc,unshared);
             } else{
-                writeNonProxyDesc(desc);
+                writeNonProxyDesc(desc,unshared);
             }
         }
 
-        void JObjectOutputStream::writeProxyDesc(JObjectStreamClass *desc){
+        void JObjectOutputStream::writeProxyDesc(JObjectStreamClass *desc,jbool unshared){
             bout->writeByte(TC_PROXYCLASSDESC);
-            handles->assign(desc);
+            handles->assign((unshared?NULL :desc));
 
             JClass* cl=desc->getJClass();
             vector<JClass*>* interfaces=cl->getInterfaces();
@@ -299,7 +463,7 @@ namespace jcpp{
             bout->setBlockDataMode(true);
             bout->setBlockDataMode(false);
             bout->writeByte(TC_ENDBLOCKDATA);
-            writeClassDesc(desc->getSuperDesc());
+            writeClassDesc(desc->getSuperDesc(),false);
         }
 
         void JObjectOutputStream::writeHandle(jint handle){
@@ -307,26 +471,29 @@ namespace jcpp{
             bout->writeInt(baseWireHandle + handle);
         }
 
-        void JObjectOutputStream::writeEnum(JObject *obj, JObjectStreamClass* desc){
+        void JObjectOutputStream::writeEnum(JObject *obj, JObjectStreamClass* desc,jbool unshared){
             bout->writeByte(TC_ENUM);
             JObjectStreamClass* sdesc=desc->getSuperDesc();
-            writeClassDesc((sdesc->getJClass()==JEnum::getClazz()?desc:sdesc));
-            handles->assign(obj);
-            writeString( ((JEnum*)obj)->getName());
+            writeClassDesc((sdesc->getJClass()==JEnum::getClazz()?desc:sdesc),false);
+            handles->assign((unshared?NULL : obj));
+            writeString( ((JEnum*)obj)->getName(),false);
         }
 
-        void JObjectOutputStream::writeNonProxyDesc(JObjectStreamClass* desc){
+        void JObjectOutputStream::writeNonProxyDesc(JObjectStreamClass* desc,jbool unshared){
             bout->writeByte(TC_CLASSDESC);
-            handles->assign(desc);
+            handles->assign((unshared?NULL : desc));
             writeClassDescriptor(desc);
             bout->setBlockDataMode(true);
             //annotateClass
             bout->setBlockDataMode(false);
             bout->writeByte(TC_ENDBLOCKDATA);
-            writeClassDesc(desc->getSuperDesc());
+            writeClassDesc(desc->getSuperDesc(),false);
         }
 
         void JObjectOutputStream::writeExternalData(JObject* obj){
+            JPutField* oldPut=curPut;
+            curPut=NULL;
+
             SerialCallbackContext* oldContext=curContext;
             curContext=NULL;
             bout->setBlockDataMode(true);
@@ -334,6 +501,7 @@ namespace jcpp{
             bout->setBlockDataMode(false);
             bout->writeByte(TC_ENDBLOCKDATA);
             curContext=oldContext;
+            curPut=oldPut;
         }
 
         void JObjectOutputStream::writeSerialData(JObject *obj, JObjectStreamClass* desc){
@@ -342,6 +510,8 @@ namespace jcpp{
                 JObjectStreamClass::ClassDataSlot* dataSlot=classDataSlots->at(i);
                 JObjectStreamClass* slotDesc=dataSlot->desc;
                 if (slotDesc->hasWriteObjectMethod()) {
+                    JPutField* oldPut=curPut;
+                    curPut=NULL;
                     SerialCallbackContext* oldContext = curContext;
                     curContext = new SerialCallbackContext();
                     curContext->setContext(obj, slotDesc);
@@ -351,6 +521,7 @@ namespace jcpp{
                     bout->writeByte(TC_ENDBLOCKDATA);
                     delete curContext;
                     curContext = oldContext;
+                    curPut=oldPut;
                 } else {
                     defaultWriteFields(obj, slotDesc);
                 }
@@ -366,10 +537,32 @@ namespace jcpp{
             bout->setBlockDataMode(true);
         }
 
-        void JObjectOutputStream::writeArray(JObject *obj, JObjectStreamClass* desc){
+        JObjectOutputStream::JPutField* JObjectOutputStream::putFields(){
+            if (curPut==NULL){
+                if (curContext==NULL){
+                    throw new JNotActiveException("not in call to writeObject");
+                }
+                curContext->getObj();
+                JObjectStreamClass* curDesc=curContext->getDesc();
+                curPut=new JPutFieldImpl(this,curDesc);
+            }
+            return curPut;
+        }
+
+        void JObjectOutputStream::writeFields(){
+            if (curPut==NULL){
+                throw new JNotActiveException("no current PutField object");
+            }
+            bout->setBlockDataMode(false);
+            JPutFieldImpl* impl=dynamic_cast<JPutFieldImpl*>(curPut);
+            impl->writeFields();
+            bout->setBlockDataMode(true);
+        }
+
+        void JObjectOutputStream::writeArray(JObject *obj, JObjectStreamClass* desc,jbool unshared){
             bout->writeByte(TC_ARRAY);
-            writeClassDesc(desc);
-            handles->assign(obj);
+            writeClassDesc(desc,false);
+            handles->assign((unshared?NULL : obj));
 
             writeArrayProperties(obj);
         }
@@ -424,7 +617,7 @@ namespace jcpp{
                 }
             }else{
                 for (int i=0;i<primitiveArray->size();i++){
-                    writeObject0(primitiveArray->get(i));
+                    writeObject0(primitiveArray->get(i),false);
                 }
             }
         }
@@ -444,7 +637,7 @@ namespace jcpp{
         void JObjectOutputStream::writeFatalException(JIOException* ex){
             bool oldMode=bout->setBlockDataMode(false);
             bout->writeByte(TC_EXCEPTION);
-            writeObject0(ex);
+            writeObject0(ex,false);
             bout->setBlockDataMode(oldMode);
         }
 
@@ -466,7 +659,7 @@ namespace jcpp{
                 if(osf->isPrimitive()){
                     continue;
                 }
-                writeObject0(osf->getField()->get(obj));
+                writeObject0(osf->getField()->get(obj),osf->isUnshared());
             }
         }
 
@@ -481,7 +674,7 @@ namespace jcpp{
             } else if((handle = handles->lookup(str) != -1)){
                 writeHandle(handle);
             } else{
-                writeString(str);
+                writeString(str,false);
             }
         }
 
@@ -489,8 +682,8 @@ namespace jcpp{
             bout->writeByte(TC_NULL);
         }
 
-        void JObjectOutputStream::writeString(JString* str){
-            handles->assign(str);
+        void JObjectOutputStream::writeString(JString* str,jbool unshared){
+            handles->assign((unshared?NULL : str));
             jlong utflen = bout->getUTFLength(str->getString());
             if(utflen <= 0xFFFF){
                 bout->writeByte(TC_STRING);
@@ -521,6 +714,9 @@ namespace jcpp{
         JObjectOutputStream::~JObjectOutputStream(){
             delete handles;
             delete bout;
+            if (curPut!=NULL){
+                delete curPut;
+            }
             delete curContext;
             delete[] primVals;
         }

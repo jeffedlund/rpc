@@ -24,10 +24,13 @@ namespace jcpp{
             classes->push_back(JThrowable::getClazz());
             classes->push_back(JUnsupportedOperationException::getClazz());
             classes->push_back(JVirtualMachineError::getClazz());
+            classes->push_back(JAbstractStringBuilder::getClazz());
+            classes->push_back(JAppendable::getClazz());
             classes->push_back(JAutoCloseable::getClazz());
             classes->push_back(JBoolean::getClazz());
             classes->push_back(JByte::getClazz());
             classes->push_back(JChar::getClazz());
+            classes->push_back(JCharSequence::getClazz());
             classes->push_back(JClass::getClazz());
             classes->push_back(JClassLoader::getClazz());
             classes->push_back(JCloneable::getClazz());
@@ -37,6 +40,7 @@ namespace jcpp{
             classes->push_back(JFloat::getClazz());
             classes->push_back(JInteger::getClazz());
             classes->push_back(JInterface::getClazz());
+            classes->push_back(JIterable::getClazz());
             classes->push_back(JLong::getClazz());
             classes->push_back(JNumber::getClazz());
             classes->push_back(JObject::getClazz());
@@ -52,6 +56,8 @@ namespace jcpp{
             classes->push_back(JShort::getClazz());
             classes->push_back(JStackTraceElement::getClazz());
             classes->push_back(JString::getClazz());
+            classes->push_back(JStringBuffer::getClazz());
+            classes->push_back(JStringBuilder::getClazz());
             classes->push_back(JSystem::getClazz());
             classes->push_back(JThread::getClazz());
             classes->push_back(JThreadLocal::getClazz());

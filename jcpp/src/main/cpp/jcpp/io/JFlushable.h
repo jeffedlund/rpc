@@ -6,7 +6,7 @@ using namespace jcpp::lang;
 
 namespace jcpp{
     namespace io{
-       class JFlushable : public JInterface {
+       class JCPP_LIBRARY_EXPORT JFlushable : public JInterface {
             public:
                 static JClass* getClazz();
                 virtual void  flush()=0;

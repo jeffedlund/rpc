@@ -5,7 +5,7 @@
 
 namespace jcpp{
     namespace io{
-        class JFileNotFoundException : public JIOException  {
+        class JCPP_LIBRARY_EXPORT JFileNotFoundException : public JIOException  {
             public:
                 static JClass* getClazz();
                 JFileNotFoundException();

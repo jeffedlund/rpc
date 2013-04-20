@@ -6,7 +6,7 @@ using namespace jcpp::lang;
 
 namespace jcpp{
     namespace io{
-        class JIOError : public JError {
+        class JCPP_LIBRARY_EXPORT JIOError : public JError {
             public:
                 static JClass* getClazz();
                 JIOError(string message);

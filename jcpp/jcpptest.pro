@@ -107,7 +107,9 @@ SOURCES += \
     src/test/cpp/jcpp/JEnumSample.cpp \
     src/test/cpp/jcpp/JIRemoteSample.cpp \
     src/test/cpp/jcpp/JRemoteSample.cpp \
-    src/test/cpp/jcpp/JIRemoteSampleProxy.cpp
+    src/test/cpp/jcpp/JIRemoteSampleProxy.cpp \
+    src/test/cpp/jcpp/lang/JStringBuilderTest.cpp \
+    src/test/cpp/jcpp/lang/JStringBufferTest.cpp
     
     
 HEADERS += \
@@ -172,7 +174,9 @@ HEADERS += \
     src/test/cpp/jcpp/JEnumSample.h \
     src/test/cpp/jcpp/JIRemoteSample.h \
     src/test/cpp/jcpp/JRemoteSample.h \
-    src/test/cpp/jcpp/JIRemoteSampleProxy.h
+    src/test/cpp/jcpp/JIRemoteSampleProxy.h \
+    src/test/cpp/jcpp/lang/JStringBuilderTest.h \
+    src/test/cpp/jcpp/lang/JStringBufferTest.h
     
     
 OTHER_FILES += \

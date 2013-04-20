@@ -5,7 +5,7 @@
 
 namespace jcpp{
     namespace io{
-        class JCharConversionException : public JIOException  {
+        class JCPP_LIBRARY_EXPORT JCharConversionException : public JIOException  {
             public:
                 static JClass* getClazz();
                 JCharConversionException();
