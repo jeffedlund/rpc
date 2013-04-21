@@ -4,7 +4,6 @@ JInputStreamReader
 JLineNumberReader
 JPipedReader
 JPipedWriter
-JPushbackReader
 JStreamTokenizer
 
 JFileFilter
