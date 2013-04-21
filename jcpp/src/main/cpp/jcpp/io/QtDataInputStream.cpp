@@ -31,11 +31,13 @@ namespace jcpp{
 
         QtDataInputStream::QtDataInputStream():JInputStream(getClazz()){
             bytes=new vector<jbyte>();
+            bIsClosed=false;
         }
 
         QtDataInputStream::QtDataInputStream(QDataStream* in):JInputStream(getClazz()){
             this->in = in;
             bytes=new vector<jbyte>();
+            bIsClosed=false;
         }
 
         QDataStream* QtDataInputStream::getStream(){
@@ -61,8 +63,8 @@ namespace jcpp{
 
         jint QtDataInputStream::peek() {
             jbyte b;
-            while (available() < 1) {
-                waitForReadyRead(-1);
+            while (!isClosed() && available() < 1) {
+                waitForReadyRead(100);
             }
             in->device()->peek((char*) &b,1);
             return b & 0xFF;
@@ -70,7 +72,7 @@ namespace jcpp{
 
         jint QtDataInputStream::read() {
             jbyte b;
-            while (available() < 1) {
+            while (!isClosed() && available() < 1) {
                 waitForReadyRead(-1);
             }
             (*in)>>b;
@@ -78,8 +80,18 @@ namespace jcpp{
             return (jint)b & 0xFF;
         }
 
+        jbool QtDataInputStream::isClosed(){
+            lock();
+            jbool b=bIsClosed;
+            unlock();
+            return b;
+        }
+
         void QtDataInputStream::close(){
+            lock();
+            bIsClosed=true;
             this->in->setDevice(0);
+            unlock();
         }
 
         QtDataInputStream::~QtDataInputStream() {

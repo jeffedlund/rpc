@@ -185,15 +185,29 @@ namespace jcpp{
         }
 
         void JSocket::close(){
+            lock();
             bIsClosed=true;
-            in->close();
-            out->close();
-            socket->flush();
-            socket->close();
+            if (socket!=NULL && socket->thread()==QThread::currentThread()){
+                socket->flush();
+            }
+            if (in!=NULL){
+                in->close();
+            }
+            if (out!=NULL){
+                out->close();
+            }
+            if (socket!=NULL && socket->thread()==QThread::currentThread()){
+                socket->close();
+                socket=NULL;
+            }
+            unlock();
         }
 
         bool JSocket::isClosed(){
-            return bIsClosed;
+            lock();
+            jbool b=bIsClosed;
+            unlock();
+            return b;
         }
 
         JSocket::~JSocket() {

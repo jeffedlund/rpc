@@ -291,7 +291,10 @@ SOURCES += \
     src/main/cpp/jcpp/lang/JReadable.cpp \
     src/main/cpp/jcpp/io/JStringReader.cpp \
     src/main/cpp/jcpp/io/JFilterWriter.cpp \
-    src/main/cpp/jcpp/io/JFilterReader.cpp
+    src/main/cpp/jcpp/io/JFilterReader.cpp \
+    src/main/cpp/jcpp/io/JBufferedReader.cpp \
+    src/main/cpp/jcpp/io/JCharArrayReader.cpp \
+    src/main/cpp/jcpp/io/JPushbackReader.cpp
     
     
 HEADERS += \
@@ -549,7 +552,10 @@ HEADERS += \
     src/main/cpp/jcpp/lang/JReadable.h \
     src/main/cpp/jcpp/io/JStringReader.h \
     src/main/cpp/jcpp/io/JFilterWriter.h \
-    src/main/cpp/jcpp/io/JFilterReader.h
+    src/main/cpp/jcpp/io/JFilterReader.h \
+    src/main/cpp/jcpp/io/JBufferedReader.h \
+    src/main/cpp/jcpp/io/JCharArrayReader.h \
+    src/main/cpp/jcpp/io/JPushbackReader.h
     
     
 OTHER_FILES += \

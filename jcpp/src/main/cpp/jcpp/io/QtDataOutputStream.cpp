@@ -3,6 +3,7 @@
 #include "JNullPointerException.h"
 #include "Collections.h"
 #include "JBits.h"
+#include <QThread>
 using namespace jcpp::util;
 
 namespace jcpp{
@@ -34,7 +35,11 @@ namespace jcpp{
         }
 
         QtDataOutputStream::QtDataOutputStream():JOutputStream(getClazz()){
+            out=NULL;
+            file=NULL;
+            socket=NULL;
             bytes=new vector<jbyte>();
+            this->bIsClosed=false;
         }
 
         QtDataOutputStream::QtDataOutputStream(QDataStream* out,QFile* file):JOutputStream(getClazz()){
@@ -42,6 +47,7 @@ namespace jcpp{
             this->file=file;
             this->socket=NULL;
             bytes=new vector<jbyte>();
+            this->bIsClosed=false;
         }
 
         QtDataOutputStream::QtDataOutputStream(QDataStream* out,QAbstractSocket* socket):JOutputStream(getClazz()){
@@ -49,6 +55,7 @@ namespace jcpp{
             this->file=NULL;
             this->socket=socket;
             bytes=new vector<jbyte>();
+            this->bIsClosed=false;
         }
 
         QDataStream* QtDataOutputStream::getStream(){
@@ -69,16 +76,28 @@ namespace jcpp{
                 file->flush();
             }
             if (socket!=NULL){
-                while (socket->bytesToWrite()>0){
+                while (!isClosed() && socket->bytesToWrite()>0){
                     socket->waitForBytesWritten();
                 }
             }
         }
 
+        jbool QtDataOutputStream::isClosed(){
+            lock();
+            jbool b=bIsClosed;
+            unlock();
+            return b;
+        }
+
         void QtDataOutputStream::close(){
-            if (out->device()!=NULL && out->device()->isOpen()){
-                out->device()->close();
+            lock();
+            this->bIsClosed=true;
+            if (out->device()->thread()==QThread::currentThread()){
+                if (out->device()!=NULL && out->device()->isOpen()){
+                    out->device()->close();
+                }
             }
+            unlock();
         }
 
         QtDataOutputStream::~QtDataOutputStream(){

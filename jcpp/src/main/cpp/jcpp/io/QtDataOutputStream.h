@@ -11,10 +11,13 @@
 namespace jcpp{
     namespace io{
         class JCPP_LIBRARY_EXPORT QtDataOutputStream : public JOutputStream{
+            jbool bIsClosed;
             QDataStream* out;
             QFile* file;
             QAbstractSocket* socket;
             vector<jbyte>* bytes;
+            jbool isClosed();
+
         public:
             QtDataOutputStream();
             QtDataOutputStream(QDataStream* out,QFile* file);

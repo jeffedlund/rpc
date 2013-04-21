@@ -12,7 +12,10 @@ namespace jcpp{
     namespace io{
         class JCPP_LIBRARY_EXPORT QtDataInputStream : public JInputStream{
             QDataStream* in;
+            jbool bIsClosed;
             vector<jbyte>* bytes;
+            jbool isClosed();
+
         public:
             QtDataInputStream();
             QtDataInputStream(QDataStream*);

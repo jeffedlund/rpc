@@ -251,4 +251,7 @@ INPUT(
 ./debug\JStringReader.o
 ./debug\JFilterWriter.o
 ./debug\JFilterReader.o
+./debug\JBufferedReader.o
+./debug\JCharArrayReader.o
+./debug\JPushbackReader.o
 );

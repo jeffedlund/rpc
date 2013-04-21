@@ -1,7 +1,5 @@
 Implement io classes:
 ---------------------
-JBufferedReader
-JCharArrayReader
 JInputStreamReader
 JLineNumberReader
 JPipedReader

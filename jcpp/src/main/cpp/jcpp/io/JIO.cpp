@@ -8,9 +8,11 @@ namespace jcpp{
             classes->push_back(JBits::getClazz());
             classes->push_back(JBufferedInputStream::getClazz());
             classes->push_back(JBufferedOutputStream::getClazz());
+            classes->push_back(JBufferedReader::getClazz());
             classes->push_back(JBufferedWriter::getClazz());
             classes->push_back(JByteArrayInputStream::getClazz());
             classes->push_back(JByteArrayOutputStream::getClazz());
+            classes->push_back(JCharArrayReader::getClazz());
             classes->push_back(JCharArrayWriter::getClazz());
             classes->push_back(JCharConversionException::getClazz());
             classes->push_back(JCloseable::getClazz());
@@ -49,6 +51,7 @@ namespace jcpp{
             classes->push_back(JPipedInputStream::getClazz());
             classes->push_back(JPipedOutputStream::getClazz());
             classes->push_back(JPushbackInputStream::getClazz());
+            classes->push_back(JPushbackReader::getClazz());
             classes->push_back(JReader::getClazz());
             classes->push_back(JSequenceInputStream::getClazz());
             classes->push_back(JSerializable::getClazz());
