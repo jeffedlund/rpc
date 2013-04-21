@@ -47,6 +47,7 @@
 #include "JPrimitiveLong.h"
 #include "JRunnable.h"
 #include "JPrimitiveShort.h"
+#include "JReadable.h"
 #include "JShort.h"
 #include "JStackTraceElement.h"
 #include "JString.h"

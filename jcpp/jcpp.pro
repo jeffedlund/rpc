@@ -284,7 +284,14 @@ SOURCES += \
     src/main/cpp/jcpp/security/JPermissionCollection.cpp \
     src/main/cpp/jcpp/security/JBasicPermission.cpp \
     src/main/cpp/jcpp/io/JSerializablePermission.cpp \
-    src/main/cpp/jcpp/io/JPushbackInputStream.cpp
+    src/main/cpp/jcpp/io/JPushbackInputStream.cpp \
+    src/main/cpp/jcpp/io/JPipedOutputStream.cpp \
+    src/main/cpp/jcpp/io/JPipedInputStream.cpp \
+    src/main/cpp/jcpp/io/JReader.cpp \
+    src/main/cpp/jcpp/lang/JReadable.cpp \
+    src/main/cpp/jcpp/io/JStringReader.cpp \
+    src/main/cpp/jcpp/io/JFilterWriter.cpp \
+    src/main/cpp/jcpp/io/JFilterReader.cpp
     
     
 HEADERS += \
@@ -535,7 +542,14 @@ HEADERS += \
     src/main/cpp/jcpp/security/JPermissionCollection.h \
     src/main/cpp/jcpp/security/JBasicPermission.h \
     src/main/cpp/jcpp/io/JSerializablePermission.h \
-    src/main/cpp/jcpp/io/JPushbackInputStream.h
+    src/main/cpp/jcpp/io/JPushbackInputStream.h \
+    src/main/cpp/jcpp/io/JPipedOutputStream.h \
+    src/main/cpp/jcpp/io/JPipedInputStream.h \
+    src/main/cpp/jcpp/io/JReader.h \
+    src/main/cpp/jcpp/lang/JReadable.h \
+    src/main/cpp/jcpp/io/JStringReader.h \
+    src/main/cpp/jcpp/io/JFilterWriter.h \
+    src/main/cpp/jcpp/io/JFilterReader.h
     
     
 OTHER_FILES += \

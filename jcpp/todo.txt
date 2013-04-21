@@ -1,10 +1,16 @@
 Implement io classes:
 ---------------------
+JBufferedReader
+JCharArrayReader
+JInputStreamReader
+JLineNumberReader
+JPipedReader
+JPipedWriter
+JPushbackReader
+JStreamTokenizer
 
 JFileFilter
 JFilenameFilter
-JBufferedReader
-JCharArrayReader
 JConsole
 JFile
 JFileDescriptor
@@ -13,27 +19,13 @@ JFileOutputStream
 JFilePermission
 JFileReader
 JFileWriter
-JFilterReader
-JFilterWriter
-JInputStreamReader
-JLineNumberInputStream
-JLineNumberReader
-JPipedInputStream
-JPipedOutputStream
-JPipedReader
-JPipedWriter
 JPrintStream
 JPrintWriter
-JPushbackReader
 JRandomAccessFile
-JReader
-JStreamTokenizer
-JStringReader
 
 
 group:
 ------
--implement jcpp::io package
 -wiki pages on how to generate classes
 -wiki page to explain how to setup qt ide + compile project
 

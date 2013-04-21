@@ -23,6 +23,8 @@ namespace jcpp{
             classes->push_back(JFileNotFoundException::getClazz());
             classes->push_back(JFilterInputStream::getClazz());
             classes->push_back(JFilterOutputStream::getClazz());
+            classes->push_back(JFilterReader::getClazz());
+            classes->push_back(JFilterWriter::getClazz());
             classes->push_back(JFlushable::getClazz());
             classes->push_back(JInputStream::getClazz());
             classes->push_back(JInterruptedIOException::getClazz());
@@ -44,11 +46,15 @@ namespace jcpp{
             classes->push_back(JOptionalDataException::getClazz());
             classes->push_back(JOutputStream::getClazz());
             classes->push_back(JOutputStreamWriter::getClazz());
+            classes->push_back(JPipedInputStream::getClazz());
+            classes->push_back(JPipedOutputStream::getClazz());
             classes->push_back(JPushbackInputStream::getClazz());
+            classes->push_back(JReader::getClazz());
             classes->push_back(JSequenceInputStream::getClazz());
             classes->push_back(JSerializable::getClazz());
             classes->push_back(JSerializablePermission::getClazz());
             classes->push_back(JStreamCorruptedException::getClazz());
+            classes->push_back(JStringReader::getClazz());
             classes->push_back(JStringWriter::getClazz());
             classes->push_back(JSyncFailedException::getClazz());
             classes->push_back(JUnsupportedEncodingException::getClazz());

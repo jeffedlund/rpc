@@ -244,4 +244,11 @@ INPUT(
 ./debug\JBasicPermission.o
 ./debug\JSerializablePermission.o
 ./debug\JPushbackInputStream.o
+./debug\JPipedOutputStream.o
+./debug\JPipedInputStream.o
+./debug\JReader.o
+./debug\JReadable.o
+./debug\JStringReader.o
+./debug\JFilterWriter.o
+./debug\JFilterReader.o
 );
