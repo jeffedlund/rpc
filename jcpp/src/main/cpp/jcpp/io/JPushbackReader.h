@@ -5,7 +5,7 @@
 
 namespace jcpp{
     namespace io{
-        class JPushbackReader : public JFilterReader  {
+        class JCPP_LIBRARY_EXPORT JPushbackReader : public JFilterReader  {
             protected:
                 jchar* buf;
                 jint pos;

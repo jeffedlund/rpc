@@ -38,6 +38,8 @@ INCLUDEPATH += \
         src/main/cpp/jcpp/rmi/server/impl/connection/serialization \
         src/main/cpp/jcpp/net \
         src/main/cpp/jcpp/security \
+        src/main/cpp/jcpp/nio \
+        src/main/cpp/jcpp/nio/file \
 
 SOURCES += \
     src/main/cpp/jcpp/lang/JClass.cpp \
@@ -294,7 +296,48 @@ SOURCES += \
     src/main/cpp/jcpp/io/JFilterReader.cpp \
     src/main/cpp/jcpp/io/JBufferedReader.cpp \
     src/main/cpp/jcpp/io/JCharArrayReader.cpp \
-    src/main/cpp/jcpp/io/JPushbackReader.cpp
+    src/main/cpp/jcpp/io/JPushbackReader.cpp \
+    src/main/cpp/jcpp/io/JPipedWriter.cpp \
+    src/main/cpp/jcpp/io/JPipedReader.cpp \
+    src/main/cpp/jcpp/io/JInputStreamReader.cpp \
+    src/main/cpp/jcpp/io/JLineNumberReader.cpp \
+    src/main/cpp/jcpp/nio/JNIO_PACKAGE.cpp \
+    src/main/cpp/jcpp/nio/file/JNIO_FILE_PACKAGE.cpp \
+    src/main/cpp/jcpp/nio/file/JWatchEvent.cpp \
+    src/main/cpp/jcpp/nio/file/JWatchable.cpp \
+    src/main/cpp/jcpp/nio/file/JWatchService.cpp \
+    src/main/cpp/jcpp/nio/file/JWatchKey.cpp \
+    src/main/cpp/jcpp/nio/file/JOpenOption.cpp \
+    src/main/cpp/jcpp/nio/file/JCopyOption.cpp \
+    src/main/cpp/jcpp/nio/file/JDirectoryStream.cpp \
+    src/main/cpp/jcpp/nio/file/JFileSystemException.cpp \
+    src/main/cpp/jcpp/nio/file/JAccessDeniedException.cpp \
+    src/main/cpp/jcpp/nio/file/JAtomicMoveNotSupportedException.cpp \
+    src/main/cpp/jcpp/nio/file/JClosedDirectoryStreamException.cpp \
+    src/main/cpp/jcpp/nio/file/JClosedFileSystemException.cpp \
+    src/main/cpp/jcpp/nio/file/JClosedWatchServiceException.cpp \
+    src/main/cpp/jcpp/nio/file/JDirectoryNotEmptyException.cpp \
+    src/main/cpp/jcpp/nio/file/JFileAlreadyExistsException.cpp \
+    src/main/cpp/jcpp/nio/file/JFileSystemAlreadyExistsException.cpp \
+    src/main/cpp/jcpp/nio/file/JFileSystemLoopException.cpp \
+    src/main/cpp/jcpp/nio/file/JFileSystemNotFoundException.cpp \
+    src/main/cpp/jcpp/nio/file/JNoSuchFileException.cpp \
+    src/main/cpp/jcpp/nio/file/JNotDirectoryException.cpp \
+    src/main/cpp/jcpp/nio/file/JNotLinkException.cpp \
+    src/main/cpp/jcpp/nio/file/JProviderMismatchException.cpp \
+    src/main/cpp/jcpp/nio/file/JProviderNotFoundException.cpp \
+    src/main/cpp/jcpp/nio/file/JReadOnlyFileSystemException.cpp \
+    src/main/cpp/jcpp/nio/file/JDirectoryIteratorException.cpp \
+    src/main/cpp/jcpp/nio/file/JInvalidPathException.cpp \
+    src/main/cpp/jcpp/nio/file/JAccessMode.cpp \
+    src/main/cpp/jcpp/nio/file/JFileVisitOption.cpp \
+    src/main/cpp/jcpp/nio/file/JFileVisitResult.cpp \
+    src/main/cpp/jcpp/nio/file/JLinkOption.cpp \
+    src/main/cpp/jcpp/nio/file/JStandardOpenOption.cpp \
+    src/main/cpp/jcpp/nio/file/JStandardCopyOption.cpp \
+    src/main/cpp/jcpp/nio/file/JSecureDirectoryStream.cpp \
+    src/main/cpp/jcpp/nio/file/JFileVisitor.cpp \
+    src/main/cpp/jcpp/nio/file/JFileSystem.cpp
     
     
 HEADERS += \
@@ -555,7 +598,48 @@ HEADERS += \
     src/main/cpp/jcpp/io/JFilterReader.h \
     src/main/cpp/jcpp/io/JBufferedReader.h \
     src/main/cpp/jcpp/io/JCharArrayReader.h \
-    src/main/cpp/jcpp/io/JPushbackReader.h
+    src/main/cpp/jcpp/io/JPushbackReader.h \
+    src/main/cpp/jcpp/io/JPipedWriter.h \
+    src/main/cpp/jcpp/io/JPipedReader.h \
+    src/main/cpp/jcpp/io/JInputStreamReader.h \
+    src/main/cpp/jcpp/io/JLineNumberReader.h \
+    src/main/cpp/jcpp/nio/JNIO_PACKAGE.h \
+    src/main/cpp/jcpp/nio/file/JNIO_FILE_PACKAGE.h \
+    src/main/cpp/jcpp/nio/file/JWatchEvent.h \
+    src/main/cpp/jcpp/nio/file/JWatchable.h \
+    src/main/cpp/jcpp/nio/file/JWatchService.h \
+    src/main/cpp/jcpp/nio/file/JWatchKey.h \
+    src/main/cpp/jcpp/nio/file/JOpenOption.h \
+    src/main/cpp/jcpp/nio/file/JCopyOption.h \
+    src/main/cpp/jcpp/nio/file/JDirectoryStream.h \
+    src/main/cpp/jcpp/nio/file/JFileSystemException.h \
+    src/main/cpp/jcpp/nio/file/JAccessDeniedException.h \
+    src/main/cpp/jcpp/nio/file/JAtomicMoveNotSupportedException.h \
+    src/main/cpp/jcpp/nio/file/JClosedDirectoryStreamException.h \
+    src/main/cpp/jcpp/nio/file/JClosedFileSystemException.h \
+    src/main/cpp/jcpp/nio/file/JClosedWatchServiceException.h \
+    src/main/cpp/jcpp/nio/file/JDirectoryNotEmptyException.h \
+    src/main/cpp/jcpp/nio/file/JFileAlreadyExistsException.h \
+    src/main/cpp/jcpp/nio/file/JFileSystemAlreadyExistsException.h \
+    src/main/cpp/jcpp/nio/file/JFileSystemLoopException.h \
+    src/main/cpp/jcpp/nio/file/JFileSystemNotFoundException.h \
+    src/main/cpp/jcpp/nio/file/JNoSuchFileException.h \
+    src/main/cpp/jcpp/nio/file/JNotDirectoryException.h \
+    src/main/cpp/jcpp/nio/file/JNotLinkException.h \
+    src/main/cpp/jcpp/nio/file/JProviderMismatchException.h \
+    src/main/cpp/jcpp/nio/file/JProviderNotFoundException.h \
+    src/main/cpp/jcpp/nio/file/JReadOnlyFileSystemException.h \
+    src/main/cpp/jcpp/nio/file/JDirectoryIteratorException.h \
+    src/main/cpp/jcpp/nio/file/JInvalidPathException.h \
+    src/main/cpp/jcpp/nio/file/JAccessMode.h \
+    src/main/cpp/jcpp/nio/file/JFileVisitOption.h \
+    src/main/cpp/jcpp/nio/file/JFileVisitResult.h \
+    src/main/cpp/jcpp/nio/file/JLinkOption.h \
+    src/main/cpp/jcpp/nio/file/JStandardOpenOption.h \
+    src/main/cpp/jcpp/nio/file/JStandardCopyOption.h \
+    src/main/cpp/jcpp/nio/file/JSecureDirectoryStream.h \
+    src/main/cpp/jcpp/nio/file/JFileVisitor.h \
+    src/main/cpp/jcpp/nio/file/JFileSystem.h
     
     
 OTHER_FILES += \

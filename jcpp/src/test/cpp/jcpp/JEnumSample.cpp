@@ -20,10 +20,6 @@ namespace jcpp{
         addField(new JField("fieldString",JString::getClazz(),this,staticGetFieldString,staticSetFieldString));
     }
 
-    JClass* JEnumSample::JEnumSampleClass::getSuperclass(){
-        return JEnum::getClazz();
-    }
-
     void JEnumSample::JEnumSampleClass::fillEnumConstants(){
         addEnumConstant(JEnumSample::E1);
         addEnumConstant(JEnumSample::E2);

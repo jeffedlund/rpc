@@ -23,6 +23,7 @@ namespace jcpp{
                 void fill();
                 jint read1(jchar cbuf[], jint off,jint len);
                 string readLine(jbool ignoreLF);
+                JBufferedReader(JClass* _class,JReader* in,jint sz=8192);
 
             public:
                 static JClass* getClazz();

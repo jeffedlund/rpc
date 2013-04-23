@@ -29,6 +29,9 @@ namespace jcpp{
             return clazz;
         }
 
+        JConcurrentModificationException::JConcurrentModificationException(JClass* _class):JRuntimeException(_class){
+        }
+
         JConcurrentModificationException::JConcurrentModificationException():JRuntimeException(getClazz()){
         }
 

@@ -9,8 +9,9 @@ using namespace std;
 namespace jcpp{
     namespace lang{
 
-        class JCPP_LIBRARY_EXPORT JUnsupportedOperationException : public JRuntimeException
-        {
+        class JCPP_LIBRARY_EXPORT JUnsupportedOperationException : public JRuntimeException{
+        protected:
+            JUnsupportedOperationException(JClass* _class);
         public:
             JUnsupportedOperationException();
             JUnsupportedOperationException(string message);

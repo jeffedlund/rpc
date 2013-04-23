@@ -8,7 +8,7 @@ using namespace jcpp::lang;
 
 namespace jcpp{
     namespace io{
-        class JFilterWriter : public JWriter  {
+        class JCPP_LIBRARY_EXPORT JFilterWriter : public JWriter  {
             protected:
                 JWriter* out;
                 JFilterWriter(JClass* _class,JWriter* out);

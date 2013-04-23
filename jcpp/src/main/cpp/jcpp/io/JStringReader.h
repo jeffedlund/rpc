@@ -6,7 +6,7 @@
 
 namespace jcpp{
     namespace io{
-        class JStringReader : public JReader  {
+        class JCPP_LIBRARY_EXPORT JStringReader : public JReader  {
             protected:
                 JString* str;
                 jint length;

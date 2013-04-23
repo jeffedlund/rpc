@@ -1,11 +1,22 @@
+Implement nio class:
+-------------------
+Interfaces
+    Path
+    PathMatcher
+
+Classes
+    Files
+    FileStore
+    FileSystem
+    FileSystems
+    LinkPermission
+    Paths
+    SimpleFileVisitor
+    StandardWatchEventKinds
+
+
 Implement io classes:
 ---------------------
-JInputStreamReader
-JLineNumberReader
-JPipedReader
-JPipedWriter
-JStreamTokenizer
-
 JFileFilter
 JFilenameFilter
 JConsole

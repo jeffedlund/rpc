@@ -29,11 +29,13 @@ namespace jcpp{
             classes->push_back(JFilterWriter::getClazz());
             classes->push_back(JFlushable::getClazz());
             classes->push_back(JInputStream::getClazz());
+            classes->push_back(JInputStreamReader::getClazz());
             classes->push_back(JInterruptedIOException::getClazz());
             classes->push_back(JInvalidClassException::getClazz());
             classes->push_back(JInvalidObjectException::getClazz());
             classes->push_back(JIOError::getClazz());
             classes->push_back(JIOException::getClazz());
+            classes->push_back(JLineNumberReader::getClazz());
             classes->push_back(JNotActiveException::getClazz());
             classes->push_back(JNotSerializableException::getClazz());
             classes->push_back(JObjectInput::getClazz());
@@ -50,6 +52,8 @@ namespace jcpp{
             classes->push_back(JOutputStreamWriter::getClazz());
             classes->push_back(JPipedInputStream::getClazz());
             classes->push_back(JPipedOutputStream::getClazz());
+            classes->push_back(JPipedReader::getClazz());
+            classes->push_back(JPipedWriter::getClazz());
             classes->push_back(JPushbackInputStream::getClazz());
             classes->push_back(JPushbackReader::getClazz());
             classes->push_back(JReader::getClazz());

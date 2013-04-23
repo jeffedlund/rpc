@@ -5,7 +5,7 @@
 
 namespace jcpp{
     namespace io{
-        class JFilterReader : public JReader  {
+        class JCPP_LIBRARY_EXPORT JFilterReader : public JReader  {
             protected:
                 JReader* in;
                 JFilterReader(JClass* _class,JReader* in);

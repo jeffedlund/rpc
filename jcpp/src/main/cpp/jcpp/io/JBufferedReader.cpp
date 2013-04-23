@@ -32,6 +32,18 @@ namespace jcpp{
         static jint INVALIDATED = -2;
         static jint UNMARKED = -1;
 
+        JBufferedReader::JBufferedReader(JClass* _class,JReader* in,jint sz):JReader(_class,in){
+            this->in=in;
+            cb = new jchar[sz];
+            length=sz;
+            nextChar = 0;
+            nChars = 0;
+            markedChar = UNMARKED;
+            readAheadLimit=0;
+            skipLF=false;
+            markedSkipLF=false;
+        }
+
         JBufferedReader::JBufferedReader(JReader* in,jint sz):JReader(getClazz(),in){
             this->in=in;
             cb = new jchar[sz];

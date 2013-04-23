@@ -29,6 +29,9 @@ namespace jcpp{
             return clazz;
         }
 
+        JIllegalArgumentException::JIllegalArgumentException(JClass* _class):JRuntimeException(_class){
+        }
+
         JIllegalArgumentException::JIllegalArgumentException():JRuntimeException(getClazz()){
         }
 

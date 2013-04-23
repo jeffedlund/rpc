@@ -21,7 +21,11 @@ namespace jcpp{
         class JEnumSampleClass : public JEnumClass{
           public:
             JEnumSampleClass();
-            virtual JClass* getSuperclass();
+
+            virtual JClass* getSuperclass(){
+                return JEnum::getClazz();
+            }
+
             virtual void fillEnumConstants();
         };
 

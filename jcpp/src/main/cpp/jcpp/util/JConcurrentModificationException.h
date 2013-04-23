@@ -10,6 +10,8 @@ using namespace jcpp::lang;
 namespace jcpp{
     namespace util{
         class JCPP_LIBRARY_EXPORT JConcurrentModificationException : public JRuntimeException{
+        protected:
+            JConcurrentModificationException(JClass* _class);
 
         public:
             JConcurrentModificationException();

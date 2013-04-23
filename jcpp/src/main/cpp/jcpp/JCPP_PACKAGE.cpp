@@ -5,12 +5,15 @@
 #include "JNET.h"
 #include "JRMI.h"
 #include "JSECURITY_PACKAGE.h"
+#include "JNIO_PACKAGE.h"
+
 using namespace jcpp::io;
 using namespace jcpp::util;
 using namespace jcpp::lang;
 using namespace jcpp::net;
 using namespace jcpp::rmi;
 using namespace jcpp::security;
+using namespace jcpp::nio;
 
 namespace jcpp{
     JCPP_PACKAGE::JCPP_PACKAGE():JPackage("jcpp",JPackage::getClazz()){//better class
@@ -28,6 +31,7 @@ namespace jcpp{
             packages->push_back(JNET::getPackage());
             packages->push_back(JRMI::getPackage());
             packages->push_back(JSECURITY_PACKAGE::getPackage());
+            packages->push_back(JNIO_PACKAGE::getPackage());
         }
         return packages;
     }

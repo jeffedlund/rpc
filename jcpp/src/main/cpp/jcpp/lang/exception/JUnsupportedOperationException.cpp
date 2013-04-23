@@ -29,6 +29,9 @@ namespace jcpp{
             return clazz;
         }
 
+        JUnsupportedOperationException::JUnsupportedOperationException(JClass* _class):JRuntimeException(_class){
+        }
+
         JUnsupportedOperationException::JUnsupportedOperationException():JRuntimeException(getClazz()){
         }
 

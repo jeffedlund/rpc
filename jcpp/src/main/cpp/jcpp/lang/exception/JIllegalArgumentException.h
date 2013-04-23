@@ -8,8 +8,9 @@ using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JCPP_LIBRARY_EXPORT JIllegalArgumentException : public JRuntimeException
-        {
+        class JCPP_LIBRARY_EXPORT JIllegalArgumentException : public JRuntimeException{
+        protected:
+            JIllegalArgumentException(JClass* _class);
         public:
             JIllegalArgumentException();
             JIllegalArgumentException(string message);
