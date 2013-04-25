@@ -269,10 +269,6 @@ namespace jcpp{
             return bin->available();
         }
 
-        bool JObjectInputStream::waitForReadyRead(int i) {
-            return bin->waitForReadyRead(i);
-        }
-
         bool JObjectInputStream::enableResolveObject(bool enable) {
             if (enable == enableResolve) {
                 return enable;

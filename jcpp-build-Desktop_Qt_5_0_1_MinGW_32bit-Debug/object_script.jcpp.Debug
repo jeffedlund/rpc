@@ -295,4 +295,12 @@ INPUT(
 ./debug\JSecureDirectoryStream.o
 ./debug\JFileVisitor.o
 ./debug\JFileSystem.o
+./debug\JPathMatcher.o
+./debug\JPath.o
+./debug\JFile.o
+./debug\JFileFilter.o
+./debug\JFilenameFilter.o
+./debug\JIOFileSystem.o
+./debug\JFileOutputStream.o
+./debug\JFileInputStream.o
 );

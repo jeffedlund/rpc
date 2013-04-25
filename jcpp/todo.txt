@@ -7,7 +7,6 @@ Interfaces
 Classes
     Files
     FileStore
-    FileSystem
     FileSystems
     LinkPermission
     Paths
@@ -17,13 +16,7 @@ Classes
 
 Implement io classes:
 ---------------------
-JFileFilter
-JFilenameFilter
 JConsole
-JFile
-JFileDescriptor
-JFileInputStream
-JFileOutputStream
 JFilePermission
 JFileReader
 JFileWriter

@@ -63,10 +63,8 @@ namespace jcpp{
             void readFloats(jfloat *v, int off, int len);
             void readLongs(jlong *v, int off, int len);
             void readDoubles(jdouble *v, int off, int len);
-
             virtual jlong skip(jlong len);
             virtual jint available();
-            virtual bool waitForReadyRead(int = 30000);
             virtual jint read();
             virtual jint read(jbyte b[], int off, int len);
             virtual int read(jbyte b[], int off, int len, bool copy);

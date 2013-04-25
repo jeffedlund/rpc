@@ -164,10 +164,6 @@ namespace jcpp{
             return getInIfOpen()->available() + (count - pos);
         }
 
-        bool JBufferedInputStream::waitForReadyRead(int i){
-            return in->waitForReadyRead(i);//maybe bugged
-        }
-
         jint JBufferedInputStream::peek(){
             if (pos >= count) {
                 fill();

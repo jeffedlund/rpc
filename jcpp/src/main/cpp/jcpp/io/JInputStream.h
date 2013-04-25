@@ -23,7 +23,6 @@ namespace jcpp{
             static JClass* getClazz();
 
             virtual jint available()=0;
-            virtual bool waitForReadyRead(int = 30000)=0;
             virtual jint read()=0;
             virtual jint peek()=0;//TODO create a JPeekInputStream
             virtual jbyte peekByte();

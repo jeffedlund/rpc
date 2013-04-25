@@ -337,7 +337,15 @@ SOURCES += \
     src/main/cpp/jcpp/nio/file/JStandardCopyOption.cpp \
     src/main/cpp/jcpp/nio/file/JSecureDirectoryStream.cpp \
     src/main/cpp/jcpp/nio/file/JFileVisitor.cpp \
-    src/main/cpp/jcpp/nio/file/JFileSystem.cpp
+    src/main/cpp/jcpp/nio/file/JFileSystem.cpp \
+    src/main/cpp/jcpp/nio/file/JPathMatcher.cpp \
+    src/main/cpp/jcpp/nio/file/JPath.cpp \
+    src/main/cpp/jcpp/io/JFile.cpp \
+    src/main/cpp/jcpp/io/JFileFilter.cpp \
+    src/main/cpp/jcpp/io/JFilenameFilter.cpp \
+    src/main/cpp/jcpp/io/JIOFileSystem.cpp \
+    src/main/cpp/jcpp/io/JFileOutputStream.cpp \
+    src/main/cpp/jcpp/io/JFileInputStream.cpp
     
     
 HEADERS += \
@@ -639,7 +647,15 @@ HEADERS += \
     src/main/cpp/jcpp/nio/file/JStandardCopyOption.h \
     src/main/cpp/jcpp/nio/file/JSecureDirectoryStream.h \
     src/main/cpp/jcpp/nio/file/JFileVisitor.h \
-    src/main/cpp/jcpp/nio/file/JFileSystem.h
+    src/main/cpp/jcpp/nio/file/JFileSystem.h \
+    src/main/cpp/jcpp/nio/file/JPathMatcher.h \
+    src/main/cpp/jcpp/nio/file/JPath.h \
+    src/main/cpp/jcpp/io/JFile.h \
+    src/main/cpp/jcpp/io/JFileFilter.h \
+    src/main/cpp/jcpp/io/JFilenameFilter.h \
+    src/main/cpp/jcpp/io/JIOFileSystem.h \
+    src/main/cpp/jcpp/io/JFileOutputStream.h \
+    src/main/cpp/jcpp/io/JFileInputStream.h
     
     
 OTHER_FILES += \

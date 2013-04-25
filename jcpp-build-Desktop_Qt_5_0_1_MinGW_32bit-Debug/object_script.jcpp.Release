@@ -295,4 +295,12 @@ INPUT(
 ./release\JSecureDirectoryStream.o
 ./release\JFileVisitor.o
 ./release\JFileSystem.o
+./release\JPathMatcher.o
+./release\JPath.o
+./release\JFile.o
+./release\JFileFilter.o
+./release\JFilenameFilter.o
+./release\JIOFileSystem.o
+./release\JFileOutputStream.o
+./release\JFileInputStream.o
 );

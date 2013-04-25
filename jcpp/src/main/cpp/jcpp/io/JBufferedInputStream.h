@@ -31,7 +31,6 @@ namespace jcpp{
             virtual jint read(jbyte b[], int off, int len);
             virtual jlong skip(jlong n);
             virtual jint available();
-            virtual bool waitForReadyRead(int = 30000);
             virtual jint peek();
             virtual void mark(int readlimit);
             virtual void reset();

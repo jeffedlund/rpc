@@ -70,21 +70,6 @@ namespace jcpp{
             src->connect(this);
         }
 
-        jbool JPipedInputStream::waitForReadyRead(jint i){
-            lock();
-            if (in < 0) {
-                if (closedByWriter) {
-                    unlock();
-                    return false;
-                }
-                notifyAll();
-                wait(i);
-            }
-            jbool b=in>0;
-            unlock();
-            return b;
-        }
-
         jint JPipedInputStream::peek(){
             if (!connected) {
                 throw new JIOException("Pipe not connected");

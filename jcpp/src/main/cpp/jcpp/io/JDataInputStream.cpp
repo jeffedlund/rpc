@@ -145,10 +145,6 @@ namespace jcpp{
             return in->available();
         }
 
-        bool JDataInputStream::waitForReadyRead(int timeout) {
-            return in->waitForReadyRead(timeout);
-        }
-
         jint JDataInputStream::read(jbyte b[], int off, int len) {
             return in->read(b,off,len);
         }

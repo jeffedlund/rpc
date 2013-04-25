@@ -44,7 +44,6 @@ namespace jcpp{
             virtual JPrimitiveBoolean* readPrimitiveBool();
             virtual string readUTF();
             virtual jint available();
-            virtual bool waitForReadyRead(int = 30000);//TODO use readtimeout
             virtual jint peek();
             virtual void close();
             virtual ~JDataInputStream();

@@ -28,7 +28,6 @@ namespace jcpp{
                 JPipedInputStream(JPipedOutputStream* src,jint pipeSize=2014);
                 JPipedInputStream(jint pipeSize=2014);
                 virtual void connect(JPipedOutputStream* src);
-                virtual jbool waitForReadyRead(jint = 30000); //TODO remove?
                 virtual jint peek();//TODO remove ?
                 virtual jint read();
                 virtual jint read(jbyte b[],jint off,jint len);

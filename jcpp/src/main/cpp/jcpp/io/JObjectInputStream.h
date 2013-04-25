@@ -104,7 +104,6 @@ namespace jcpp{
             virtual void defaultReadObject();
             virtual JGetField* readFields();
             virtual jint available();
-            virtual bool waitForReadyRead(int = 30000);
             virtual jint read();
             virtual int read(jbyte b[], int off, int len);
             virtual jbyte readByte();

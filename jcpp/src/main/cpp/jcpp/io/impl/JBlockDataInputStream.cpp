@@ -82,11 +82,7 @@ namespace jcpp{
                 if (canBlock) {
                     avail = INT_MAX;
                 }else {
-                    if ((avail = in->available()) == 0) {
-                        if (in->waitForReadyRead(100000)) {//TODO use readtimeout
-                            avail = in->available();
-                        }
-                    }
+                    avail = in->available();
                 }
                 if (avail == 0) {
                     return HEADER_BLOCKED;
@@ -248,10 +244,6 @@ namespace jcpp{
             }else {
                 return in->available();
             }
-        }
-
-        bool JBlockDataInputStream::waitForReadyRead(int i) {
-            return in->waitForReadyRead(i);
         }
 
         void JBlockDataInputStream::close() {

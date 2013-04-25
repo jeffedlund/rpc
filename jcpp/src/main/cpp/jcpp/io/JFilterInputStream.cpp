@@ -56,10 +56,6 @@ namespace jcpp{
             return in->available();
         }
 
-        bool JFilterInputStream::waitForReadyRead(int i){
-            return in->waitForReadyRead(i);
-        }
-
         jint JFilterInputStream::read(){
             return in->read();
         }

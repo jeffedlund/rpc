@@ -19,7 +19,6 @@ namespace jcpp{
         public:
             static JClass* getClazz();
             virtual jint available();
-            virtual bool waitForReadyRead(int = 30000);
             virtual jint read();
             virtual jint peek();
             virtual void readFully(jbyte b[], jint off, jint len);
