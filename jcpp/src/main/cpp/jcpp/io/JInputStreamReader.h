@@ -12,6 +12,7 @@ namespace jcpp{
         class JCPP_LIBRARY_EXPORT JInputStreamReader : public JReader  {
             protected:
                 JInputStream* in;
+                JInputStreamReader(JClass* _class,JInputStream* in);
 
             public:
                 static JClass* getClazz();

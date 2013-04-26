@@ -9,11 +9,6 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace connection{
-                    JObject* invokeGetEndPoints(JObject* object,vector<JObject*>*){
-                        JGCClient* gcClient=(JGCClient*)object;
-                        return gcClient->getEndPoints();
-                    }
-
                     class JGCClientClass : public JClass{
                       public:
                         JGCClientClass(){
@@ -21,8 +16,6 @@ namespace jcpp{
                             this->name="jcpp.rmi.server.impl.connection.GCClient";
                             this->simpleName="GCClient";
                             addInterface(JIGCClient::getClazz());
-                            vector<JClass*>* param=new vector<JClass*>();
-                            addMethod(new JMethod("getEndPoints",this,JPrimitiveArray::getClazz(JEndPoint::getClazz()),param,invokeGetEndPoints));
                         }
 
                         JClass* getSuperclass(){

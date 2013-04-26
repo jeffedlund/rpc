@@ -15,6 +15,8 @@ namespace jcpp{
                         this->name="jcpp.rmi.server.impl.connection.IGCClientProxy";
                         this->simpleName="IGCClientProxy";
                         this->bIsProxy=true;
+
+                        addInterface(JIGCClient::getClazz());
                     }
 
                     JClass* JIGCClientProxy::JIGCClientProxyClass::getSuperclass(){

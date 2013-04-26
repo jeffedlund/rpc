@@ -107,9 +107,9 @@ namespace jcpp{
                         lastPingId = lastPingId + 1;
                         for (int i = 0; i < ids->size(); i++) {
                             if (getFromMap(exportedObjects,(JString*)ids->get(i))!=NULL) {
-                                returnPing->set(i,new JBoolean(true));
+                                returnPing->set(i,new JPrimitiveBoolean(true));
                             }else{
-                                returnPing->set(i,new JBoolean(false));
+                                returnPing->set(i,new JPrimitiveBoolean(false));
                             }
                         }
                         unlock();

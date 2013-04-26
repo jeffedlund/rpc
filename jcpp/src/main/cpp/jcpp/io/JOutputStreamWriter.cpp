@@ -25,6 +25,10 @@ namespace jcpp{
             return clazz;
         }
 
+        JOutputStreamWriter::JOutputStreamWriter(JClass* _class,JOutputStream* out):JWriter(_class){
+            this->out=out;
+        }
+
         JOutputStreamWriter::JOutputStreamWriter(JOutputStream* out):JWriter(getClazz()){
             this->out=out;
         }

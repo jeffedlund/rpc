@@ -1,9 +1,5 @@
-Implement nio class:
--------------------
-Interfaces
-    Path
-    PathMatcher
-
+Remaining classes in jcpp::nio::file:
+-------------------------------------
 Classes
     Files
     FileStore
@@ -14,12 +10,10 @@ Classes
     StandardWatchEventKinds
 
 
-Implement io classes:
----------------------
+Remaining classes in jcpp::io:
+------------------------------
 JConsole
 JFilePermission
-JFileReader
-JFileWriter
 JPrintStream
 JPrintWriter
 JRandomAccessFile
@@ -27,6 +21,7 @@ JRandomAccessFile
 
 group:
 ------
+-hava a jcpp main that takes as input the class name to start and calls its main
 -wiki pages on how to generate classes
 -wiki page to explain how to setup qt ide + compile project
 
@@ -36,7 +31,7 @@ group:
 -implement all JSystem class
 -make thread excecption handling more robust
 -review call of all keySet/entrySet/iterator and check that we call delete
--implement all jcpp.util, jcpp.io, jcpp.net (a quite big list :))
+-implement all jcpp.util, jcpp.net (a quite big list :))
 -remove implementation allowing == to call equals ?
 -implement socket/read/connecttimeout
 -keep operator+= -= *= ?

@@ -575,42 +575,42 @@ namespace jcpp{
                 if (ccl==JPrimitiveInt::getClazz()){
                     for (int i=0;i<primitiveArray->size();i++){
                         JPrimitiveInt* ji=(JPrimitiveInt*)primitiveArray->get(i);
-                        bout->writeInt(ji->get());
+                        bout->writeInt((ji!=NULL ? ji->get() : (jint)0));
                     }
                 }else if (ccl==JPrimitiveByte::getClazz()){
                     for (int i=0;i<primitiveArray->size();i++){
                         JPrimitiveByte* jb=(JPrimitiveByte*)primitiveArray->get(i);
-                        bout->writeByte(jb->get());
+                        bout->writeByte((jb!=NULL ? jb->get() : (jbyte)0));
                     }
                 }else if (ccl==JPrimitiveLong::getClazz()){
                     for (int i=0;i<primitiveArray->size();i++){
                         JPrimitiveLong* jl=(JPrimitiveLong*)primitiveArray->get(i);
-                        bout->writeLong(jl->get());
+                        bout->writeLong((jl!=NULL ? jl->get() : (jlong)0));
                     }
                 }else if (ccl==JPrimitiveFloat::getClazz()){
                     for (int i=0;i<primitiveArray->size();i++){
                         JPrimitiveFloat* jf=(JPrimitiveFloat*)primitiveArray->get(i);
-                        bout->writeFloat(jf->get());
+                        bout->writeFloat((jf!=NULL ? jf->get() : (jfloat)0));
                     }
                 }else if (ccl==JPrimitiveDouble::getClazz()){
                     for (int i=0;i<primitiveArray->size();i++){
                         JPrimitiveDouble* jd=(JPrimitiveDouble*)primitiveArray->get(i);
-                        bout->writeDouble(jd->get());
+                        bout->writeDouble((jd!=NULL ? jd->get() : (jdouble)0));
                     }
                 }else if (ccl==JPrimitiveShort::getClazz()){
                     for (int i=0;i<primitiveArray->size();i++){
                         JPrimitiveShort* js=(JPrimitiveShort*)primitiveArray->get(i);
-                        bout->writeShort(js->get());
+                        bout->writeShort((js!=NULL ? js->get() : (jshort)0));
                     }
                 }else if (ccl==JPrimitiveChar::getClazz()){
                     for (int i=0;i<primitiveArray->size();i++){
                         JPrimitiveChar* jc=(JPrimitiveChar*)primitiveArray->get(i);
-                        bout->writeChar(jc->get());
+                        bout->writeChar((jc!=NULL ? jc->get() : (jchar)0));
                     }
                 }else if (ccl==JPrimitiveBoolean::getClazz()){
                     for (int i=0;i<primitiveArray->size();i++){
                         JPrimitiveBoolean* jb=(JPrimitiveBoolean*)primitiveArray->get(i);
-                        bout->writeBoolean(jb->get());
+                        bout->writeBoolean((jb!=NULL ? jb->get() : false));
                     }
                 }else{
                     throw new JInternalError();

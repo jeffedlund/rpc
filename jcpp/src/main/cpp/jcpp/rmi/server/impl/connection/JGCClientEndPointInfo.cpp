@@ -38,7 +38,7 @@ namespace jcpp{
                         this->localServer=localServer;
                         this->remoteEndPoint = remoteEndPoint;
                         this->objects = new map<JString*, JObject*,JString::POINTER_COMPARATOR>();
-                        this->gc = (JIGC*)localServer->lookup(remoteEndPoint, JIGC::getClazz());
+                        this->gc = dynamic_cast<JIGC*>(localServer->lookup(remoteEndPoint, JIGC::getClazz()));
                         this->bIsRunning = false;
                         this->connections = localServer->getObjectInformations()->getTransport()->getConnections(remoteEndPoint);
                     }
@@ -87,7 +87,7 @@ namespace jcpp{
                         gcExceptionCount = 0;
                         if (ping!=NULL){
                             for (i = 0; i < ping->size(); i++) {
-                                JBoolean* b=(JBoolean*)ping->get(i);
+                                JPrimitiveBoolean* b=(JPrimitiveBoolean*)ping->get(i);
                                 if (b==NULL || !b->get()) {
                                     unexport((JString*)idsArray->get(i));
                                 }

@@ -179,7 +179,6 @@ SOURCES += \
     src/main/cpp/jcpp/rmi/server/impl/connection/JObjectPointer.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/JConnectionConfiguration.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/JConnectionException.cpp \
-    src/main/cpp/jcpp/rmi/server/impl/connection/IGC.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/JIGCClient.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/JIGCClientListener.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/JIInvocationExceptionHandler.cpp \
@@ -345,7 +344,10 @@ SOURCES += \
     src/main/cpp/jcpp/io/JFilenameFilter.cpp \
     src/main/cpp/jcpp/io/JIOFileSystem.cpp \
     src/main/cpp/jcpp/io/JFileOutputStream.cpp \
-    src/main/cpp/jcpp/io/JFileInputStream.cpp
+    src/main/cpp/jcpp/io/JFileInputStream.cpp \
+    src/main/cpp/jcpp/io/JFileWriter.cpp \
+    src/main/cpp/jcpp/io/JFileReader.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIGC.cpp
     
     
 HEADERS += \
@@ -655,7 +657,9 @@ HEADERS += \
     src/main/cpp/jcpp/io/JFilenameFilter.h \
     src/main/cpp/jcpp/io/JIOFileSystem.h \
     src/main/cpp/jcpp/io/JFileOutputStream.h \
-    src/main/cpp/jcpp/io/JFileInputStream.h
+    src/main/cpp/jcpp/io/JFileInputStream.h \
+    src/main/cpp/jcpp/io/JFileWriter.h \
+    src/main/cpp/jcpp/io/JFileReader.h
     
     
 OTHER_FILES += \

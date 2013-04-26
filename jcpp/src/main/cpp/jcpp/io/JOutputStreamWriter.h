@@ -12,6 +12,7 @@ namespace jcpp{
         class JCPP_LIBRARY_EXPORT JOutputStreamWriter : public JWriter  {
             protected:
                 JOutputStream* out;
+                JOutputStreamWriter(JClass* _class,JOutputStream* out);
 
             public:
                 static JClass* getClazz();

@@ -1,10 +1,10 @@
 #ifndef JFILEOUTPUTSTREAM_H
 #define JFILEOUTPUTSTREAM_H
 
-//include declaration
 #include "JOutputStream.h"
 #include <QDataStream>
 #include <QFile>
+#include "JFile.h"
 
 namespace jcpp{
     namespace io{
@@ -17,7 +17,8 @@ namespace jcpp{
 
             public:
                 static JClass* getClazz();
-                JFileOutputStream(string name);//TODO
+                JFileOutputStream(string name,jbool append=false);
+                JFileOutputStream(JFile* file,jbool append=false);
                 virtual void write(jint b);
                 virtual void flush();
                 virtual void close();

@@ -25,6 +25,10 @@ namespace jcpp{
             return clazz;
         }
 
+        JInputStreamReader::JInputStreamReader(JClass* _class,JInputStream* in):JReader(_class,in){
+            this->in=in;
+        }
+
         //TODO review encoding
         JInputStreamReader::JInputStreamReader(JInputStream* in):JReader(getClazz(),in){
             this->in=in;

@@ -9,22 +9,6 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace connection{
-                    JObject* invokePing(JObject* object,vector<JObject*>*args){
-                        JGC* gc=(JGC*)object;
-                        return gc->ping((JEndPoint*)args->at(0),(JPrimitiveArray*)args->at(1));
-                    }
-
-                    JObject* invokeEndPointDead(JObject* object,vector<JObject*>*args){
-                        JGC* gc=(JGC*)object;
-                        gc->endPointDead((JEndPoint*)args->at(0));
-                        return NULL;
-                    }
-
-                    JObject* invokeGetExportedEndPoints(JObject* object,vector<JObject*>*){
-                        JGC* gc=(JGC*)object;
-                        return gc->getExportedEndPoints();
-                    }
-
                     class JGCClass : public JClass{
                       public:
                         JGCClass(){
@@ -32,17 +16,6 @@ namespace jcpp{
                             this->name="jcpp.rmi.server.impl.connection.GC";
                             this->simpleName="GC";
                             addInterface(JIGC::getClazz());
-                            vector<JClass*>* param=new vector<JClass*>();
-                            param->push_back(JEndPoint::getClazz());
-                            param->push_back(JPrimitiveArray::getClazz(JString::getClazz()));
-                            addMethod(new JMethod("ping",this,JPrimitiveArray::getClazz(JBoolean::getClazz()),param,invokePing));
-
-                            param=new vector<JClass*>();
-                            param->push_back(JEndPoint::getClazz());
-                            addMethod(new JMethod("endPointDead",this,JVoid::getClazz(),param,invokeEndPointDead));
-
-                            param=new vector<JClass*>();
-                            addMethod(new JMethod("getExportedEndPoints",this,JPrimitiveArray::getClazz(JEndPoint::getClazz()),param,invokeGetExportedEndPoints));
                         }
 
                         JClass* getSuperclass(){
@@ -89,7 +62,7 @@ namespace jcpp{
                     }
 
                     JPrimitiveArray* JGC::ping(JEndPoint* endPoint, JPrimitiveArray* ids){
-                        JPrimitiveArray* returnPing=new JPrimitiveArray(JBoolean::getClazz(),ids->size());
+                        JPrimitiveArray* returnPing=new JPrimitiveArray(JPrimitiveBoolean::getClazz(),ids->size());
                         lock();
                         JGCEndPointInfo* endPointInfo = getFromMap(endPointInfos,endPoint);
                         unlock();

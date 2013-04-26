@@ -136,7 +136,6 @@ INPUT(
 ./release\JObjectPointer.o
 ./release\JConnectionConfiguration.o
 ./release\JConnectionException.o
-./release\IGC.o
 ./release\JIGCClient.o
 ./release\JIGCClientListener.o
 ./release\JIInvocationExceptionHandler.o
@@ -303,4 +302,7 @@ INPUT(
 ./release\JIOFileSystem.o
 ./release\JFileOutputStream.o
 ./release\JFileInputStream.o
+./release\JFileWriter.o
+./release\JFileReader.o
+./release\JIGC.o
 );
