@@ -10,26 +10,27 @@ using namespace jcpp::lang::reflect;
 
 namespace jcpp{
     namespace lang{
-    //TODO implement tree of classloader,getResource, getResources, findResource, findResources,
+    //TODO getResource, getResources, findResource, findResources,
     //getSystemResource, getSystemResources, getResourceAsStream, getSystemResourceAsStream,
-    //getParent, getSystemClassLoader, findLibrary
+    //getSystemClassLoader, findLibrary
         class JCPP_LIBRARY_EXPORT JClassLoader : public JObject{
         protected:
+            JClassLoader* parent;
             map<string, JClass*>* classes;
             bool bIsBootClassLoader;
             bool bInitialized;
             static JClass* getClazz(JClassLoader* classLoader);
             JClassLoader(bool root);
+            JClassLoader(JClass* _class,JClassLoader* parent);
             void initClasses();
             void initClasses(JPackage* p);
 
         public:
-            JClassLoader();
             static JClassLoader* getBootClassLoader();
-            bool isBootClassLoader();
+            JClassLoader* getParent();
+            jbool isBootClassLoader();
             void addClass(JClass* jClass);
             JClass* loadClass(string string);
-            //TODO test cases for this method
             JClass* loadClassBySignature(string name);
             static JClass* getClazz();
             virtual ~JClassLoader();

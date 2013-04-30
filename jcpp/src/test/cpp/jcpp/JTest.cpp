@@ -1,4 +1,5 @@
 #include "JTest.h"
+#include "JSampleObject.h"
 
 namespace jcpp{
     void JTest::testWrite(JObject* object){
@@ -30,6 +31,9 @@ namespace jcpp{
                 QDataStream* qs=new QDataStream(file);
                 QtDataInputStream* qis=new QtDataInputStream(qs);
                 JObjectInputStream* ois=new JObjectInputStream(qis);
+                cout<<"bootloader=="<<JClassLoader::getBootClassLoader()->toString()<<"\r\n";
+                cout<<"sampleobject classloader=="<<JSampleObject::getClazz()->getClassLoader()->toString()<<"\r\n";
+                ois->setInputClassLoader(JSampleObject::getClazz()->getClassLoader());
                 JObject* read2=rr(ois);
                 file->close();
                 return read2;

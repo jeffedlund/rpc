@@ -25,6 +25,9 @@ namespace jcpp{
             return clazz;
         }
 
+        JFileSystem::JFileSystem(JClass* _class):JObject(_class){
+        }
+
         jint JFileSystem::BA_EXISTS = 0x01;
         jint JFileSystem::BA_REGULAR = 0x02;
         jint JFileSystem::BA_DIRECTORY = 0x04;

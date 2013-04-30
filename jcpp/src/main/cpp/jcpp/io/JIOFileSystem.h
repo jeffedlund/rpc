@@ -10,6 +10,9 @@ namespace jcpp{
     namespace io{
         class JFile;
         class JFileSystem : public JObject  {
+        protected:
+            JFileSystem(JClass* _class);
+
             public:
                 static JClass* getClazz();
                 static jint BA_EXISTS;

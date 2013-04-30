@@ -12,17 +12,21 @@ QT       -= gui
 
 QT += network
 
-TARGET = jcpptest
+#TARGET = jcpptest
+TARGET = $$qtLibraryTarget(jtestpackageloader)
 CONFIG   += console
+CONFIG   += plugin
 CONFIG   -= app_bundle
 
-TEMPLATE = app
+TEMPLATE = lib
+#TEMPLATE = app
 
 LIBS+=  -L../jcpp-build-Desktop_Qt_5_0_1_MinGW_32bit-Debug/debug -ljcpp
 
 INCLUDEPATH += \
         src/main/cpp/jcpp/ \
         src/main/cpp/jcpp/lang \
+        src/main/cpp/jcpp/lang/boot \
         src/main/cpp/jcpp/io \
         src/main/cpp/jcpp/io/impl \
         src/main/cpp/jcpp/util \
@@ -109,7 +113,10 @@ SOURCES += \
     src/test/cpp/jcpp/JRemoteSample.cpp \
     src/test/cpp/jcpp/JIRemoteSampleProxy.cpp \
     src/test/cpp/jcpp/lang/JStringBuilderTest.cpp \
-    src/test/cpp/jcpp/lang/JStringBufferTest.cpp
+    src/test/cpp/jcpp/lang/JStringBufferTest.cpp \
+    src/test/cpp/jcpp/JTestPackageLoader.cpp \
+    src/test/cpp/jcpp/JTEST_JCPP_PACKAGE.cpp \
+    src/test/cpp/jcpp/JTestLauncher.cpp
     
     
 HEADERS += \
@@ -176,7 +183,10 @@ HEADERS += \
     src/test/cpp/jcpp/JRemoteSample.h \
     src/test/cpp/jcpp/JIRemoteSampleProxy.h \
     src/test/cpp/jcpp/lang/JStringBuilderTest.h \
-    src/test/cpp/jcpp/lang/JStringBufferTest.h
+    src/test/cpp/jcpp/lang/JStringBufferTest.h \
+    src/test/cpp/jcpp/JTestPackageLoader.h \
+    src/test/cpp/jcpp/JTEST_JCPP_PACKAGE.h \
+    src/test/cpp/jcpp/JTestLauncher.h
     
     
 OTHER_FILES += \

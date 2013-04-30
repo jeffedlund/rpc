@@ -9,6 +9,7 @@
 #include "JGuard.h"
 #include "JPermission.h"
 #include "JPermissionCollection.h"
+#include "JSecureClassLoader.h"
 
 using namespace std;
 using namespace jcpp::lang::reflect;

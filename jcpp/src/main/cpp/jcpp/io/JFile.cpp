@@ -2,6 +2,7 @@
 #include "JClass.h"
 #include "JIOFileSystem.h"
 #include "JPath.h"
+#include "JDefaultFileSystem.h"
 
 namespace jcpp{
     namespace io{
@@ -37,13 +38,13 @@ namespace jcpp{
             return clazz;
         }
 
-        jcpp::io::JFileSystem* JFile::fs = NULL;//TODO JDefaultFileSystem::getFileSystem()
+        jcpp::io::JFileSystem* JFile::fs = JDefaultFileSystem::getFileSystem();
 
-        jchar JFile::separatorChar = 0;//TODO fs->getSeparator();
+        jchar JFile::separatorChar = fs->getSeparator();
 
         string JFile::separator = ""+separatorChar;//TODO
 
-        jchar JFile::pathSeparatorChar = 0;//TODO fs->getPathSeparator();
+        jchar JFile::pathSeparatorChar = fs->getPathSeparator();
 
         string JFile::pathSeparator = ""+pathSeparatorChar;
 

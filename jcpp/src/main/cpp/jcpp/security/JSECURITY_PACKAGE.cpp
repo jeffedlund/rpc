@@ -10,6 +10,7 @@ namespace jcpp{
             classes->push_back(JGuard::getClazz());
             classes->push_back(JPermission::getClazz());
             classes->push_back(JPermissionCollection::getClazz());
+            classes->push_back(JSecureClassLoader::getClazz());
         }
 
         JPackage* JSECURITY_PACKAGE::getSuperPackage(){

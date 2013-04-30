@@ -71,6 +71,7 @@ namespace jcpp{
             virtual void fillDeclaredClasses();
             virtual void fillEnumConstants();
             virtual void fillInterfaces();
+            friend class JClassLoader;
 
          public:
 

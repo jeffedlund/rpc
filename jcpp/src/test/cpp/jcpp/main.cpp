@@ -144,7 +144,7 @@ void testException(){
     }
 }
 
-int main(int argc, char *argv[]){
+/*int main(int argc, char *argv[]){
     QCoreApplication  a(argc,argv);
 
     //TODO should be done by default ...
@@ -167,4 +167,4 @@ int main(int argc, char *argv[]){
 
     return a.exec();
 }
-
+*/

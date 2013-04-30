@@ -107,6 +107,7 @@ namespace jcpp{
                         if (future != NULL) {
                             future->cancel();
                             delete future;
+                            future=NULL;
                         }
                         scheduledFuture->cancel();
                         delete scheduledFuture;

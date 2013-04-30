@@ -37,10 +37,6 @@ namespace jcpp{
             JClass* getSuperclass(){
                 return JObject::getClazz();
             }
-
-            JObject* newInstance(){
-                return new JClassLoader();
-            }
         };
 
         static JClass* clazz;
@@ -62,7 +58,6 @@ namespace jcpp{
 
         static JClassLoader* bootClassLoader;
 
-        //implement a tree of classloaders ...
         JClassLoader* JClassLoader::getBootClassLoader(){
             if (bootClassLoader==NULL){
                 bootClassLoader=new JClassLoader(true);
@@ -70,11 +65,11 @@ namespace jcpp{
             return bootClassLoader;
         }
 
-        JClassLoader::JClassLoader():JObject(true){
+        JClassLoader::JClassLoader(JClass* _class,JClassLoader* parent):JObject(_class){
             this->classes=new map<string,JClass*>();
-            this->_class=getClazz(this);
             this->bIsBootClassLoader=false;
             this->bInitialized=false;
+            this->parent=parent;
         }
 
         JClassLoader::JClassLoader(bool root):JObject(true){
@@ -82,6 +77,7 @@ namespace jcpp{
             this->_class=getClazz(this);
             this->bIsBootClassLoader=root;
             this->bInitialized=false;
+            this->parent=NULL;
         }
 
         bool JClassLoader::isBootClassLoader(){
@@ -90,12 +86,13 @@ namespace jcpp{
 
         void JClassLoader::addClass(JClass* jClass){
             classes->insert(pair<string,JClass*>(jClass->getName(),jClass));
+            jClass->classLoader=this;
         }
 
         void JClassLoader::initClasses(){
             if (!bInitialized){
-                initClasses(JCPP_PACKAGE::getPackage());
                 bInitialized=true;
+                initClasses(JCPP_PACKAGE::getPackage());
             }
         }
 
@@ -120,9 +117,25 @@ namespace jcpp{
             if (name.at(0)=='['){
                 return loadClassBySignature(name);
             }
-            JClass* jClass=getFromMap(classes,name);
+            JClass* jClass=NULL;
+            if (!bIsBootClassLoader){
+                if (parent!=NULL){
+                    try{
+                        jClass=parent->loadClass(name);
+                    }catch(JClassNotFoundException* e1){
+                    }
+                }else{
+                    try{
+                        jClass=getBootClassLoader()->loadClass(name);
+                    }catch(JClassNotFoundException* e1){
+                    }
+                }
+            }
             if (jClass==NULL){
-                throw new JClassNotFoundException("class "+name+" not found");
+                jClass=getFromMap(classes,name);
+                if (jClass==NULL){
+                    throw new JClassNotFoundException("class "+name+" not found");
+                }
             }
             return jClass;
         }

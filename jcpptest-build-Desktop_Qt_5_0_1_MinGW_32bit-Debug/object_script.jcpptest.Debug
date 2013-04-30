@@ -64,4 +64,6 @@ INPUT(
 ./debug\JIRemoteSampleProxy.o
 ./debug\JStringBuilderTest.o
 ./debug\JStringBufferTest.o
+./debug\JLoaderPlugin.o
+./debug\moc_JLoaderPlugin.o
 );

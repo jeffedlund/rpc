@@ -16,7 +16,7 @@ CONFIG   -= app_bundle
 
 DEFINES += JCPP_LIBRARY
 
-TEMPLATE = lib
+TEMPLATE = app
 
 LIBS += -lws2_32
 
@@ -347,7 +347,12 @@ SOURCES += \
     src/main/cpp/jcpp/io/JFileInputStream.cpp \
     src/main/cpp/jcpp/io/JFileWriter.cpp \
     src/main/cpp/jcpp/io/JFileReader.cpp \
-    src/main/cpp/jcpp/rmi/server/impl/connection/JIGC.cpp
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIGC.cpp \
+    src/main/cpp/jcpp/lang/boot/Main.cpp \
+    src/main/cpp/jcpp/security/JSecureClassLoader.cpp \
+    src/main/cpp/jcpp/net/JURLClassLoader.cpp \
+    src/main/cpp/jcpp/io/JDefaultFileSystem.cpp \
+    src/main/cpp/jcpp/io/JWinNTFileSystem.cpp
     
     
 HEADERS += \
@@ -659,7 +664,12 @@ HEADERS += \
     src/main/cpp/jcpp/io/JFileOutputStream.h \
     src/main/cpp/jcpp/io/JFileInputStream.h \
     src/main/cpp/jcpp/io/JFileWriter.h \
-    src/main/cpp/jcpp/io/JFileReader.h
+    src/main/cpp/jcpp/io/JFileReader.h \
+    src/main/cpp/jcpp/lang/reflect/JIPackageLoader.h \
+    src/main/cpp/jcpp/security/JSecureClassLoader.h \
+    src/main/cpp/jcpp/net/JURLClassLoader.h \
+    src/main/cpp/jcpp/io/JDefaultFileSystem.h \
+    src/main/cpp/jcpp/io/JWinNTFileSystem.h
     
     
 OTHER_FILES += \
