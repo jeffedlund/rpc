@@ -9,7 +9,7 @@ using namespace jcpp::lang::reflect;
 
 class JTestPackageLoader : public QObject, public JIPackageLoader{
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "jtestpackageloader" )
+    Q_PLUGIN_METADATA(IID "jipackageloader" )
     Q_INTERFACES(jcpp::lang::reflect::JIPackageLoader)
 
 public:

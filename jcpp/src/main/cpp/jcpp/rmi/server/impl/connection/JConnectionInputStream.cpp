@@ -40,6 +40,7 @@ namespace jcpp{
                         this->objectInformations = objectInformations;
                         this->gcObjectPointers = new map<JObjectPointer*, JObject*,JObjectPointer::POINTER_COMPARATOR>();
                         this->remoteEndPoint = remoteEndPoint;
+                        setInputClassLoader(objectInformations->getServer()->getClassLoader());
                     }
 
                     void JConnectionInputStream::done(){

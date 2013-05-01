@@ -305,7 +305,6 @@ INPUT(
 ./debug\JFileWriter.o
 ./debug\JFileReader.o
 ./debug\JIGC.o
-./debug\Main.o
 ./debug\JSecureClassLoader.o
 ./debug\JURLClassLoader.o
 ./debug\JDefaultFileSystem.o

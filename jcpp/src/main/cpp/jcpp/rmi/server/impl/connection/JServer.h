@@ -34,6 +34,7 @@
 #include "JIInvocationExceptionHandler.h"
 #include "JIInvocationListener.h"
 #include "JConnectionTransportDispatcher.h"
+#include "JClassLoader.h"
 #include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang;
@@ -51,6 +52,7 @@ namespace jcpp{
                     class JConnectionTransportDispatcher;
                     class JCPP_LIBRARY_EXPORT JServer : public JObject, public JIServer, public JILifecycle, public JIGCClientListener, public JIInvocationListener{
                     protected:
+                        JClassLoader* classLoader;
                         JEndPoint* endPoint;
                         JIRegistry* iregistry;
                         JRegistry* registry;
@@ -87,6 +89,9 @@ namespace jcpp{
 
                         virtual JObject* lookup(JEndPoint* endPoint, JClass* clazz);
                         virtual JObject* lookup(JString* id, JEndPoint* endPoint, JPrimitiveArray* interfaces);
+
+                        JClassLoader* getClassLoader();
+                        void setClassLoader(JClassLoader* classloader);
 
                         JIRegistry* getIRegistry();
                         JEndPoint* getEndPoint();

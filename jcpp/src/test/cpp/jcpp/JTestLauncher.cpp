@@ -60,7 +60,6 @@
 #include "JSocket.h"
 #include "JServerSocket.h"
 #include "JThread.h"
-#include "QCoreApplication"
 #include "JTimerTask.h"
 #include "JTimer.h"
 #include "JSystem.h"

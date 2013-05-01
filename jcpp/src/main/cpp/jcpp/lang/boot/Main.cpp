@@ -61,6 +61,7 @@ int main(int argc, char* argv[]){
 
     cout<<"mainclass="<<mainClass;
     cout.flush();
+    JClassLoader::init();
     JURLClassLoader* urlClassLoader=new JURLClassLoader(cp,NULL);
     JClass* main=urlClassLoader->loadClass(mainClass);
     JMethod* method=main->getMethod("main",NULL);

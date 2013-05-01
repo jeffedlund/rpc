@@ -158,7 +158,7 @@ namespace jcpp{
 
             static JClass* getClazz(){
                 if (listItrClazz==NULL){
-                    listItrClazz=new JAbstractListItrClass();
+                    listItrClazz=new JAbstractListListItrClass();
                 }
                 return listItrClazz;
             }

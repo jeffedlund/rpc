@@ -65,18 +65,24 @@ namespace jcpp{
             return bootClassLoader;
         }
 
+        static jbool initialized=false;
+        void JClassLoader::init(){
+            if (!initialized){
+                initialized=true;
+                getBootClassLoader()->initClasses(JCPP_PACKAGE::getPackage());
+            }
+        }
+
         JClassLoader::JClassLoader(JClass* _class,JClassLoader* parent):JObject(_class){
             this->classes=new map<string,JClass*>();
             this->bIsBootClassLoader=false;
-            this->bInitialized=false;
-            this->parent=parent;
+            this->parent=(parent!=NULL ? parent : getBootClassLoader());
         }
 
         JClassLoader::JClassLoader(bool root):JObject(true){
             this->classes=new map<string,JClass*>();
             this->_class=getClazz(this);
             this->bIsBootClassLoader=root;
-            this->bInitialized=false;
             this->parent=NULL;
         }
 
@@ -85,15 +91,12 @@ namespace jcpp{
         }
 
         void JClassLoader::addClass(JClass* jClass){
+            JClass* tmp=getFromMap(classes,jClass->getName());
+            if (tmp!=NULL && tmp!=jClass){
+                throw new JIllegalArgumentException("class "+jClass->toString()+" already defined in classlaoder "+toString());
+            }
             classes->insert(pair<string,JClass*>(jClass->getName(),jClass));
             jClass->classLoader=this;
-        }
-
-        void JClassLoader::initClasses(){
-            if (!bInitialized){
-                bInitialized=true;
-                initClasses(JCPP_PACKAGE::getPackage());
-            }
         }
 
         void JClassLoader::initClasses(JPackage* p){
@@ -111,9 +114,6 @@ namespace jcpp{
         }
 
         JClass* JClassLoader::loadClass(string name){
-            if (bIsBootClassLoader){
-                initClasses();
-            }
             if (name.at(0)=='['){
                 return loadClassBySignature(name);
             }

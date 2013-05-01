@@ -34,6 +34,7 @@ namespace jcpp{
                         JTransportRouter* router2=new JTransportRouter();
                         JConnectionConfiguration* cc2=new JConnectionConfiguration();
                         JServer* server2=new JServer(localEndPoint2,router2,cc2);
+                        server2->setClassLoader(JSampleObject::getClazz()->getClassLoader());
                         JRemoteSample* rs2=new JRemoteSample();
                         JPrimitiveArray* i2=new JPrimitiveArray(JClass::getClazz(),1);
                         i2->set(0,JIRemoteSample::getClazz());

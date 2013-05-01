@@ -13,7 +13,7 @@ QT       -= gui
 QT += network
 
 #TARGET = jcpptest
-TARGET = $$qtLibraryTarget(jtestpackageloader)
+TARGET = $$qtLibraryTarget(jipackageloader)
 CONFIG   += console
 CONFIG   += plugin
 CONFIG   -= app_bundle
@@ -49,7 +49,6 @@ INCLUDEPATH += \
         src/test/cpp/jcpp/rmi/server/impl/connection
 
 SOURCES += \
-    src/test/cpp/jcpp/main.cpp \
     src/test/cpp/jcpp/JSampleObject.cpp \
     src/test/cpp/jcpp/JTest.cpp \
     src/test/cpp/jcpp/lang/JThrowableTest.cpp \

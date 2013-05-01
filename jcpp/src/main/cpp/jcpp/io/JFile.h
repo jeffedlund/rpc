@@ -20,7 +20,7 @@ namespace jcpp{
         }
     }
     namespace io{
-        class JFile : public JObject  , public JSerializable  , public JComparable  {
+        class JCPP_LIBRARY_EXPORT JFile : public JObject  , public JSerializable  , public JComparable  {
             protected:
                 static jcpp::io::JFileSystem* fs;
                 JString* path;

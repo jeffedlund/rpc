@@ -40,6 +40,7 @@ namespace jcpp{
                     }
 
                     JServer::JServer(JEndPoint* endPoint, JITransportRouter* transportRouter, JConnectionConfiguration* connectionConfiguration){
+                        this->classLoader=JClassLoader::getBootClassLoader();
                         this->notExportedObjectListener=NULL;
                         this->notSerializableObjectHandler=NULL;
                         this->invocationExceptionHandler=NULL;
@@ -127,6 +128,14 @@ namespace jcpp{
                     JObject* JServer::lookup(JString* id, JEndPoint* endPoint, JPrimitiveArray* interfaces){
                         JObjectHandler* objectHandler = new JObjectHandler(objectInformations, (vector<JClass*>*)interfaces->getObjects(), new JObjectPointer(endPoint, id));
                         return objectHandler->getProxy();
+                    }
+
+                    JClassLoader* JServer::getClassLoader(){
+                        return classLoader;
+                    }
+
+                    void JServer::setClassLoader(JClassLoader* classloader){
+                        this->classLoader=classloader;
                     }
 
                     JIRegistry* JServer::getIRegistry(){

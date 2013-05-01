@@ -5,7 +5,7 @@
 
 namespace jcpp{
     namespace io{
-        class JCharArrayReader : public JReader  {
+        class JCPP_LIBRARY_EXPORT JCharArrayReader : public JReader  {
             protected:
                 jchar* buf;
                 jint pos;

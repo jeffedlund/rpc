@@ -8,7 +8,7 @@ using namespace jcpp::lang;
 
 namespace jcpp{
     namespace io{
-        class JBufferedReader : public JReader  {
+        class JCPP_LIBRARY_EXPORT JBufferedReader : public JReader  {
             protected:
                 JReader* in;
                 jchar* cb;

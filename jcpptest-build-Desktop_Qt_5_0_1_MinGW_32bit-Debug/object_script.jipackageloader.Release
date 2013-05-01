@@ -1,5 +1,4 @@
 INPUT(
-./release\main.o
 ./release\JSampleObject.o
 ./release\JTest.o
 ./release\JThrowableTest.o
@@ -65,5 +64,7 @@ INPUT(
 ./release\JStringBuilderTest.o
 ./release\JStringBufferTest.o
 ./release\JTestPackageLoader.o
+./release\JTEST_JCPP_PACKAGE.o
+./release\JTestLauncher.o
 ./release\moc_JTestPackageLoader.o
 );

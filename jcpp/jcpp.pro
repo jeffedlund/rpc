@@ -16,7 +16,7 @@ CONFIG   -= app_bundle
 
 DEFINES += JCPP_LIBRARY
 
-TEMPLATE = app
+TEMPLATE = lib
 
 LIBS += -lws2_32
 
@@ -348,7 +348,6 @@ SOURCES += \
     src/main/cpp/jcpp/io/JFileWriter.cpp \
     src/main/cpp/jcpp/io/JFileReader.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/JIGC.cpp \
-    src/main/cpp/jcpp/lang/boot/Main.cpp \
     src/main/cpp/jcpp/security/JSecureClassLoader.cpp \
     src/main/cpp/jcpp/net/JURLClassLoader.cpp \
     src/main/cpp/jcpp/io/JDefaultFileSystem.cpp \

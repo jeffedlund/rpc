@@ -18,15 +18,14 @@ namespace jcpp{
             JClassLoader* parent;
             map<string, JClass*>* classes;
             bool bIsBootClassLoader;
-            bool bInitialized;
             static JClass* getClazz(JClassLoader* classLoader);
             JClassLoader(bool root);
             JClassLoader(JClass* _class,JClassLoader* parent);
-            void initClasses();
             void initClasses(JPackage* p);
 
         public:
             static JClassLoader* getBootClassLoader();
+            static void init();
             JClassLoader* getParent();
             jbool isBootClassLoader();
             void addClass(JClass* jClass);

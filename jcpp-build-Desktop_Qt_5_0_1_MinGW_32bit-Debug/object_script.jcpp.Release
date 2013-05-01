@@ -305,7 +305,6 @@ INPUT(
 ./release\JFileWriter.o
 ./release\JFileReader.o
 ./release\JIGC.o
-./release\Main.o
 ./release\JSecureClassLoader.o
 ./release\JURLClassLoader.o
 ./release\JDefaultFileSystem.o
