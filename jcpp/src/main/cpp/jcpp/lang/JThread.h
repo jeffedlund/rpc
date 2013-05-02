@@ -10,11 +10,12 @@
 #include "JThrowable.h"
 using namespace std;
 
+//TODO implement more methods + getContextClassLoader
 namespace jcpp{
     namespace lang{
         class JCPP_LIBRARY_EXPORT JThread : public JObject, public JRunnable, public QObjectAware{
         public:
-            class JUncaughtExceptionHandler : public JInterface{
+            class JCPP_LIBRARY_EXPORT JUncaughtExceptionHandler : public JInterface{
             public:
                 static JClass* getClazz();
                 virtual void uncaughtException(JThread* t, JThrowable* e)=0;

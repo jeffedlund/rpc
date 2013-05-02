@@ -7,9 +7,9 @@ namespace jcpp{
         JLANG::JLANG():JPackage("jcpp.lang",JPackage::getClazz()){//better class
             Object::init();
             classes->push_back(JArrayIndexOutOfBoundsException::getClazz());
-            classes->push_back(JCloneNotSupportedException::getClazz());
             classes->push_back(JClassCastException::getClazz());
             classes->push_back(JClassNotFoundException::getClazz());
+            classes->push_back(JCloneNotSupportedException::getClazz());
             classes->push_back(JError::getClazz());
             classes->push_back(JException::getClazz());
             classes->push_back(JIllegalArgumentException::getClazz());

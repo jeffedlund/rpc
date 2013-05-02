@@ -57,7 +57,7 @@ namespace jcpp{
             return x-y;
         }
 
-        jchar JChar::MIN_VALUE = '\u0000';
+        jchar JChar::MIN_VALUE = (jchar)0;
 
         jchar JChar::MAX_VALUE = (jchar)'\uffff';
 

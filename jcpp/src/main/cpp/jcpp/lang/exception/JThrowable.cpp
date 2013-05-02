@@ -159,10 +159,16 @@ namespace jcpp{
         }
 
         void JThrowable::setCause(JThrowable* cause) {
+            if (this->cause!=NULL){
+                delete this->cause;
+            }
             this->cause=cause;
         }
 
         void JThrowable::setMessage(JString* message){
+            if (this->message!=NULL){
+                delete this->message;
+            }
             this->message = message;
         }
 
@@ -175,6 +181,9 @@ namespace jcpp{
         }
 
         void JThrowable::setStackTrace(JPrimitiveArray* stackTrace){
+            if (this->stackTrace!=NULL){
+                delete this->stackTrace;
+            }
             this->stackTrace=stackTrace;
         }
 

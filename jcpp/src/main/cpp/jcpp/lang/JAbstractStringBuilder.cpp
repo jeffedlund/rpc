@@ -39,7 +39,7 @@ namespace jcpp{
 
         JPrimitiveArray* JAbstractStringBuilder::getPrimitiveArray(){
             if (this->pvalue!=NULL){
-                delete this->pvalue;//TODO finalizeAll
+                delete this->pvalue;
             }
             this->pvalue=JPrimitiveChar::toArray(value);
             return pvalue;

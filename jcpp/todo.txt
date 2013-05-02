@@ -22,11 +22,11 @@ JRandomAccessFile
 group:
 ------
 -wiki pages on how to generate classes
--wiki page to explain how to setup qt ide + compile project
 
 
 group:
 -------
+-add more attributes to JField like static, transient, ...
 -implement all JSystem class
 -make thread excecption handling more robust
 -review call of all keySet/entrySet/iterator and check that we call delete
@@ -39,7 +39,6 @@ group:
 
 group:
 -------
--tree of classloader
 -check all new/delete calls
 -constructor in order to ease casting
--add more attributes to JField like static, transient, ...
+

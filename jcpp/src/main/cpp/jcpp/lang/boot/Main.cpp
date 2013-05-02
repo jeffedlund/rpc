@@ -11,6 +11,11 @@ using namespace jcpp::lang::reflect;
 using namespace jcpp::net;
 using namespace jcpp::io;
 
+/*TODO
+-define and use CmdLine parser
+-print help command
+-have a class Boot{setArgs, run()} and the main calling it
+*/
 int main(int argc, char* argv[]){
     QCoreApplication coreApp(argc,argv);
 

@@ -24,7 +24,7 @@ namespace jcpp{
             JStackTraceElement(JString* declaringClass,JString* methodName,JString* fileName,JPrimitiveInt* lineNumber);
             static JClass* getClazz();
             JString* getDeclaringClass();
-            void setDeclaringClass(JString* declaringClass);
+            void setDeclaringClass(JString* declaringClass);//TODO hide JString and show only strings. use friend class
             JString* getMethodName();
             void setMethodName(JString* methodName);
             JString* getFileName();

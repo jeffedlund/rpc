@@ -103,6 +103,7 @@ namespace jcpp{
                     i->set(i->get()-1);
                     if (i->get()==0){
                         m->remove(o);
+                        delete i;
                         b=true;
                     }
                 }
@@ -125,6 +126,7 @@ namespace jcpp{
         JThread::JThread(JRunnable* runnable):JObject(getClazz()){
             this->runnable=runnable;
             this->thread=new JQThread(runnable);
+            this->deletable=true;
             this->ueh=staticUEH;
         }
 

@@ -7,7 +7,7 @@
 
 namespace jcpp{
     namespace lang{
-        class JCharSequence : public JInterface  {
+        class JCPP_LIBRARY_EXPORT JCharSequence : public JInterface  {
             public:
                 static JClass* getClazz();
                 virtual jchar charAt(jint i)=0;

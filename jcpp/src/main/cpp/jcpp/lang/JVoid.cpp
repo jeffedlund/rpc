@@ -10,7 +10,6 @@ namespace jcpp{
                 this->canonicalName="java.lang.Void";
                 this->name="java.lang.Void";
                 this->simpleName="Void";
-                this->bIsPrimitive=false;
             }
 
             JClass* getSuperclass(){

@@ -83,6 +83,10 @@ namespace jcpp{
         }
 
         JStackTraceElement::JStackTraceElement():JObject(getClazz()){
+            declaringClass=NULL;
+            methodName=NULL;
+            fileName=NULL;
+            lineNumber=NULL;
         }
 
         JStackTraceElement::JStackTraceElement(JString* declaringClass,JString* methodName,JString* fileName,JPrimitiveInt* lineNumber):JObject(getClazz()){
@@ -139,6 +143,9 @@ namespace jcpp{
         }
 
         void JStackTraceElement::setDeclaringClass(JString* declaringClass){
+            if (this->declaringClass!=NULL){
+                delete this->declaringClass;
+            }
             this->declaringClass=declaringClass;
         }
 
@@ -147,6 +154,9 @@ namespace jcpp{
         }
 
         void JStackTraceElement::setMethodName(JString* methodName){
+            if (this->methodName!=NULL){
+                delete this->methodName;
+            }
             this->methodName=methodName;
         }
 
@@ -155,6 +165,9 @@ namespace jcpp{
         }
 
         void JStackTraceElement::setFileName(JString* fileName){
+            if (this->fileName!=NULL){
+                delete this->fileName;
+            }
             this->fileName=fileName;
         }
 
@@ -163,6 +176,9 @@ namespace jcpp{
         }
 
         void JStackTraceElement::setLineNumber(JPrimitiveInt* lineNumber){
+            if (this->lineNumber!=NULL){
+                delete this->lineNumber;
+            }
             this->lineNumber=lineNumber;
         }
 

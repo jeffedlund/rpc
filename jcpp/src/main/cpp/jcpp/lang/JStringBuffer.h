@@ -16,6 +16,7 @@ namespace jcpp{
         class JObjectInputStream;
     }
     namespace lang{
+    //TODO write test cases
         class JCPP_LIBRARY_EXPORT JStringBuffer : public JAbstractStringBuilder  , public JSerializable{
             protected:
                 static JPrimitiveArray* getSerialPersistentFields();

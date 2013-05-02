@@ -10,6 +10,7 @@
 namespace jcpp{
     namespace lang{
         class JStringBuffer;
+        //TODO full test cases
         class JCPP_LIBRARY_EXPORT JAbstractStringBuilder : public JObject  , public JAppendable  , public JCharSequence  {
             protected:
                 string value;

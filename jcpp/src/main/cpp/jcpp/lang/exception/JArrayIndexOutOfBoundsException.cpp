@@ -11,7 +11,7 @@ namespace jcpp{
             }
 
             JClass* getSuperclass(){
-                return JRuntimeException::getClazz();
+                return JIndexOutOfBoundsException::getClazz();
             }
 
             JObject* newInstance(){

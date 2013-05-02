@@ -23,7 +23,7 @@ namespace jcpp{
                 JPrimitiveChar(char value);
                 JPrimitiveChar(jchar value);
                 static JClass* getClazz();
-                static JPrimitiveArray* toArray(string str);
+                static JPrimitiveArray* toArray(string str);//TODO do we keep them here?
                 static string fromArray(JPrimitiveArray* a);
                 void set(jchar value);
                 jchar get();

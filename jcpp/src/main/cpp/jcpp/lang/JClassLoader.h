@@ -14,12 +14,13 @@ namespace jcpp{
     //getSystemResource, getSystemResources, getResourceAsStream, getSystemResourceAsStream,
     //getSystemClassLoader, findLibrary
         class JCPP_LIBRARY_EXPORT JClassLoader : public JObject{
+        private:
+            JClassLoader(bool root);
         protected:
             JClassLoader* parent;
             map<string, JClass*>* classes;
             bool bIsBootClassLoader;
             static JClass* getClazz(JClassLoader* classLoader);
-            JClassLoader(bool root);
             JClassLoader(JClass* _class,JClassLoader* parent);
             void initClasses(JPackage* p);
 

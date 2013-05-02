@@ -10,7 +10,7 @@
 #include "JComparable.h"
 using namespace std;
 
-//TODO write enum test case, implement valueOf
+//TODO implement valueOf
 namespace jcpp{
     namespace lang{
         class JCPP_LIBRARY_EXPORT JEnum: public JObject, public JComparable, public JSerializable{

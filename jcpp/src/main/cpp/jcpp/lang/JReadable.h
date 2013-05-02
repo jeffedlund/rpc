@@ -5,7 +5,7 @@
 
 namespace jcpp{
     namespace lang{
-        class JReadable : public JInterface  {
+        class JCPP_LIBRARY_EXPORT JReadable : public JInterface  {
             public:
                 static JClass* getClazz();
                 //TODO virtual jint read(JCharBuffer* charBuffer);
