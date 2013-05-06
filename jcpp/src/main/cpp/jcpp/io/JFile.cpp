@@ -8,7 +8,7 @@ namespace jcpp{
     namespace io{
         class JFileClass : public JClass{
             protected:
-
+                //TODO fill serializable fields like path
 
             public:
                 JFileClass(){
@@ -215,7 +215,7 @@ namespace jcpp{
                 return names;
             }
             vector<string>* newnames=new vector<string>();
-            for (unsigned int i=0;i<names->size();i++){
+            for (jint i=0;i<names->size();i++){
                 if (filter->accept(this,names->at(i))){
                     newnames->push_back(names->at(i));
                 }
@@ -227,7 +227,7 @@ namespace jcpp{
         vector<JFile*>* JFile::listFiles(){
             vector<JFile*>* files=new vector<JFile*>();
             vector<string>* names=list();
-            for (unsigned int i=0;i<names->size();i++){
+            for (jint i=0;i<names->size();i++){
                 files->push_back(new JFile(names->at(i),this));
             }
             delete names;
@@ -237,7 +237,7 @@ namespace jcpp{
         vector<JFile*>* JFile::listFiles(JFilenameFilter* filter){
             vector<JFile*>* files=new vector<JFile*>();
             vector<string>* names=list();
-            for (unsigned int i=0;i<names->size();i++){
+            for (jint i=0;i<names->size();i++){
                 if (filter==NULL || filter->accept(this,names->at(i))){
                     files->push_back(new JFile(names->at(i),this));
                 }
@@ -249,7 +249,7 @@ namespace jcpp{
         vector<JFile*>* JFile::listFiles(JFileFilter* filter){
             vector<JFile*>* files=new vector<JFile*>();
             vector<string>* names=list();
-            for (unsigned int i=0;i<names->size();i++){
+            for (jint i=0;i<names->size();i++){
                 JFile* f=new JFile(names->at(i),this);
                 if (filter==NULL || filter->accept(f)){
                     files->push_back(f);

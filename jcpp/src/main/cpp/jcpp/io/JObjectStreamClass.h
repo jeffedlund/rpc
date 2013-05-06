@@ -19,31 +19,31 @@ namespace jcpp{
         class JObjectInputStream;
         class JObjectOutputStream;
 
+        //TODO check what should be public/protected
         class JCPP_LIBRARY_EXPORT JObjectStreamClass : public JObject{
-        public:
+        protected:
             class JCPP_LIBRARY_EXPORT ClassDataSlot{
                 public:
                     JObjectStreamClass* desc;
-                    bool hasData;
+                    jbool hasData;
 
-                    ClassDataSlot(JObjectStreamClass* desc, bool hasData) {
+                    ClassDataSlot(JObjectStreamClass* desc, jbool hasData) {
                         this->desc = desc;
                         this->hasData = hasData;
                     }
             };
 
-        private:
             string name;
             jlong suid;
-            bool bIsProxy;
-            bool bIsEnum;
-            bool serializable;
-            bool externalizable;
-            bool writeObjectData;
-            bool blockExternalData;
+            jbool bIsProxy;
+            jbool bIsEnum;
+            jbool serializable;
+            jbool externalizable;
+            jbool writeObjectData;
+            jbool blockExternalData;
             vector<JObjectStreamField*>* fields;
-            int primDataSize;
-            int numObjFields;
+            jint primDataSize;
+            jint numObjFields;
             JObjectStreamClass* localDesc;
             JObjectStreamClass* superDesc;
             JClassNotFoundException* resolveEx;
@@ -53,49 +53,53 @@ namespace jcpp{
             JMethod* writeReplaceMethod;
             vector<ClassDataSlot*>* dataLayout;
 
+            JObjectStreamClass();
+            JObjectStreamClass(JClass* _class);
             void computeFieldOffsets();
             JObjectStreamClass* getVariantFor(JClass* cl);
             vector<ClassDataSlot*>* getClassDataLayout0();
-
-        public:
-            JObjectStreamClass();
-            JObjectStreamClass(JClass* _class);
-            static JClass* getClazz();
-            static JObjectStreamClass* lookup(JClass* obj,bool all);
-
-            JClass* getJClass();
-            bool isEnum();
-            bool isProxy();
-            jshort getNumFields();
-            jint getNumObjFields();
-            JObjectStreamField* getField(int i);
+            void initProxy(JClass* jClass,JClassNotFoundException* resolveEx,JObjectStreamClass* jObjectStreamClass);
+            void initNonProxy(JObjectStreamClass* const objectStreamClass,JClass* jClass,JClassNotFoundException* resolveEx,JObjectStreamClass* jObjectStreamClass);
+            void readNonProxy(JObjectInputStream* objectInputStream);
+            void writeNonProxy(JObjectOutputStream* out);
+            JClassNotFoundException* getResolveException();
+            JObjectStreamClass* getSuperDesc();
+            JObjectStreamClass* getLocalDesc();
+            JObjectStreamField* getField(jint i);
             vector<JObjectStreamField*>* getFields();
             JObjectStreamField* getField(string name,JClass* type);
-            string getName();
-            int getPrimDataSize();
-            JObjectStreamClass* getLocalDesc();
-            JObjectStreamClass* getSuperDesc();
-            JClassNotFoundException* getResolveException();
+            jbool isEnum();
+            jbool isProxy();
+            jbool hasReadObjectMethod();
+            jbool hasWriteObjectMethod();
+            jbool hasWriteObjectData();
+            jbool hasWriteReplaceMethod();
+            jbool isExternalizable();
+            jbool hasBlockExternalData();
+            JObject* newInstance();
+            void invokeWriteObject(JObject* object, JObjectOutputStream* out);
+            void invokeReadObject(JObject* objet, JObjectInputStream* in);
+            JObject* invokeWriteReplace(JObject* obj);
+            vector<ClassDataSlot*>* getClassDataLayout();
+            vector<JObjectStreamClass*>* getHierarchy();
+            jshort getNumFields();
+            jint getNumObjFields();
+            jint getPrimDataSize();
             void setPrimFieldValues(JObject *obj,jbyte *buf);
             void writePrimFieldValues(JObject* obj,jbyte* buf,JObjectOutputStream* out);
             void getObjectFieldValues(JObject* jobject, JObject** values);
             void setObjectFieldValues(JObject* jobject, JObject** values);
-            void readNonProxy(JObjectInputStream* objectInputStream);
-            void initNonProxy(JObjectStreamClass* const objectStreamClass,JClass* jClass,JClassNotFoundException* resolveEx,JObjectStreamClass* jObjectStreamClass);
-            void initProxy(JClass* jClass,JClassNotFoundException* resolveEx,JObjectStreamClass* jObjectStreamClass);
-            void invokeReadObject(JObject* objet, JObjectInputStream* in);
-            void invokeWriteObject(JObject* object, JObjectOutputStream* out);
-            JObject* invokeWriteReplace(JObject* obj);
-            void writeNonProxy(JObjectOutputStream* out);
-            JObject* newInstance();
-            bool hasReadObjectMethod();
-            bool hasWriteObjectMethod();
-            bool hasWriteObjectData();
-            bool hasWriteReplaceMethod();
-            bool isExternalizable();
-            bool hasBlockExternalData();
-            vector<ClassDataSlot*>* getClassDataLayout();
-            vector<JObjectStreamClass*>* getHierarchy();
+            friend class JObjectInputStream;
+            friend class JObjectOutputStream;
+            friend class JObjectStreamClassClass;
+            friend class JGetFieldImpl;
+            friend class JPutFieldImpl;
+
+        public:
+            static JClass* getClazz();
+            static JObjectStreamClass* lookup(JClass* obj,jbool all);
+            string getName();
+            JClass* getJClass();
             string toString();
             virtual ~JObjectStreamClass();
         };

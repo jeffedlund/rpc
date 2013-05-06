@@ -5,11 +5,10 @@
 
 namespace jcpp{
     namespace io{
-        //HandleList
         HandleList::HandleList() {
             length = 4;
-            list = new int[length];
-            for (int i = 0; i < length ; ++i) {
+            list = new jint[length];
+            for (jint i = 0; i < length ; ++i) {
                 list[i] = 0;
             }
             size = 0;
@@ -17,26 +16,26 @@ namespace jcpp{
 
         HandleList::HandleList(const HandleList &h) {
             length = h.length;
-            list = new int[length];
+            list = new jint[length];
             size = h.size;
-            memcpy(list,h.list,sizeof(int) * size);
+            memcpy(list,h.list,sizeof(jint) * size);
         }
 
         HandleList::~HandleList() {
             delete[] list;
         }
 
-        void HandleList::add(int handle) {
+        void HandleList::add(jint handle) {
             if (size >= length) {
-                int* newList = new int[length = length << 1];
-                memcpy(newList,list,sizeof(int) * size);
+                jint* newList = new jint[length = length << 1];
+                memcpy(newList,list,sizeof(jint) * size);
                 delete[] list;
                 list = newList;
             }
             list[size++] = handle;
         }
 
-        int HandleList::get(int index) {
+        jint HandleList::get(jint index) {
             if (index >= size || index < 0) {
                 stringstream ss;
                 ss<<"size:"<<size<<" index:"<<index;
@@ -45,7 +44,7 @@ namespace jcpp{
             return list[index];
         }
 
-        int HandleList::getSize(){
+        jint HandleList::getSize(){
             return size;
         }
     }

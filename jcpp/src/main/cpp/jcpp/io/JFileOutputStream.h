@@ -8,7 +8,7 @@
 
 namespace jcpp{
     namespace io{
-        class JFileOutputStream : public JOutputStream  {
+        class JCPP_LIBRARY_EXPORT JFileOutputStream : public JOutputStream  {
             protected:
                 jbool bIsClosed;
                 QDataStream* out;

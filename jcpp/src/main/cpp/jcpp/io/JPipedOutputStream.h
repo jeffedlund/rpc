@@ -14,11 +14,11 @@ namespace jcpp{
                 static JClass* getClazz();
                 JPipedOutputStream(JPipedInputStream* sink);
                 JPipedOutputStream();
-                virtual void  connect(JPipedInputStream* sink);
-                virtual void  write(jint b);
-                virtual void  write(jbyte b[], jint off, jint len);
-                virtual void  flush();
-                virtual void  close();
+                virtual void connect(JPipedInputStream* sink);
+                virtual void write(jint b);
+                virtual void write(jbyte b[], jint off, jint len);
+                virtual void flush();
+                virtual void close();
                 virtual ~JPipedOutputStream();
         };
     }

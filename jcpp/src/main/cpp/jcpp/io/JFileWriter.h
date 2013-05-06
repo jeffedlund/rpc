@@ -6,7 +6,7 @@
 
 namespace jcpp{
     namespace io{
-        class JFileWriter : public JOutputStreamWriter  {
+        class JCPP_LIBRARY_EXPORT JFileWriter : public JOutputStreamWriter  {
             public:
                 static JClass* getClazz();
                 JFileWriter(string filename,jbool append=false);

@@ -22,11 +22,11 @@ namespace jcpp{
             virtual jint read();
             virtual jint peek();
             virtual void readFully(jbyte b[], jint off, jint len);
-            virtual jint read(jbyte b[], int off, int len);
+            virtual jint read(jbyte b[], jint off, jint len);
             virtual jlong skip(jlong n);
             virtual void mark(jint readlimit);
             virtual void reset();
-            virtual bool markSupported();
+            virtual jbool markSupported();
             virtual void close();
             virtual ~JFilterInputStream();
         };

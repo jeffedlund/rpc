@@ -14,7 +14,6 @@ namespace jcpp{
         public:
             JNotSerializableException();
             JNotSerializableException(string message);
-
             static JClass* getClazz();
             virtual ~JNotSerializableException();
         };

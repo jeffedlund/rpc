@@ -17,7 +17,7 @@ namespace jcpp{
             static JClass* getClazz();
             virtual void writeObject(JObject* object)=0;
             virtual void write(jint b)=0;
-            virtual void write(jbyte b[], int off, int len)=0;
+            virtual void write(jbyte b[], jint off, jint len)=0;
             virtual void flush()=0;
             virtual void close()=0;
             virtual ~JObjectOutput();

@@ -20,7 +20,7 @@ namespace jcpp{
                 static JClass* getClazz();
                 JSequenceInputStream(JEnumeration* e);
                 JSequenceInputStream(JInputStream* s1,JInputStream* s2);
-                virtual void  close();
+                virtual void close();
                 virtual jint read(jbyte b[], jint offset, jint len);
                 virtual jint read();
                 virtual jint available();

@@ -155,7 +155,7 @@ namespace jcpp{
                 return (off >= 0) ? JBits::getShort(primVals, off) : val;
             }
 
-            virtual jint get(string name, int val){
+            virtual jint get(string name, jint val){
                 jint off = getFieldOffset(name, JInteger::TYPE);
                 return (off >= 0) ? JBits::getInt(primVals, off) : val;
             }
@@ -191,7 +191,7 @@ namespace jcpp{
                 jint oldHandle = in->passHandle;
                 vector<JObjectStreamField*>* fields = desc->getFields();
                 jint numPrimFields = fields->size()- desc->getNumObjFields();
-                for (int i = 0; i < desc->getNumObjFields(); i++) {
+                for (jint i = 0; i < desc->getNumObjFields(); i++) {
                     JObjectStreamField* f=fields->at(numPrimFields + i);
                     objVals[i] = in->readObject0(f->isUnshared());
                     objHandles[i] = in->passHandle;
@@ -261,7 +261,10 @@ namespace jcpp{
             delete handles;
             delete bin;
             if (primVals!=NULL){
-                delete primVals;
+                delete[] primVals;
+            }
+            if (curContext!=NULL){
+                delete curContext;
             }
         }
 
@@ -269,7 +272,7 @@ namespace jcpp{
             return bin->available();
         }
 
-        bool JObjectInputStream::enableResolveObject(bool enable) {
+        jbool JObjectInputStream::enableResolveObject(jbool enable) {
             if (enable == enableResolve) {
                 return enable;
             }
@@ -298,7 +301,7 @@ namespace jcpp{
         }
 
         JObject* JObjectInputStream::readObject() {
-            int outerHandle=passHandle;
+            jint outerHandle=passHandle;
             JObject* obj=readObject0(false);
             handles->markDependency(outerHandle,passHandle);
             JClassNotFoundException* ex=handles->lookupException(passHandle);
@@ -310,9 +313,9 @@ namespace jcpp{
         }
 
         JObject* JObjectInputStream::readObject0(jbool unshared) {
-            bool oldMode = bin->getBlockDataMode();
+            jbool oldMode = bin->getBlockDataMode();
             if (oldMode) {
-                int remain = bin->currentBlockRemaining();
+                jint remain = bin->currentBlockRemaining();
                 if (remain > 0) {
                     stringstream ss;
                     ss<<remain;
@@ -412,7 +415,7 @@ namespace jcpp{
 
         JString* JObjectInputStream::readTypeString() {
             JString* jstring=NULL;
-            int oldHandle=passHandle;
+            jint oldHandle=passHandle;
             jbyte tc = bin->peekByte();
             switch (tc) {
                 case TC_STRING:
@@ -534,7 +537,7 @@ namespace jcpp{
             }
 
             JObjectStreamClass* desc = readClassDesc(false);
-            int len = bin->readInt();
+            jint len = bin->readInt();
 
             JPrimitiveArray* pArray = NULL;
             JClass* cl=desc->getJClass();
@@ -544,54 +547,54 @@ namespace jcpp{
                 pArray = new JPrimitiveArray(ccl,len);
             }
 
-            int arrayHandle = handles->assign((unshared ? unsharedMarker : pArray));
+            jint arrayHandle = handles->assign((unshared ? unsharedMarker : pArray));
             JClassNotFoundException* resolveEx=desc->getResolveException();
             if (resolveEx!=NULL){
                 handles->markException(arrayHandle,resolveEx);
             }
 
             if(ccl==NULL) {
-                for (int i = 0; i < len; i++) {
+                for (jint i = 0; i < len; i++) {
                     readObject0(false);
                 }
             }else if (ccl->isPrimitive()){
                 if (ccl == JPrimitiveByte::getClazz()) {
-                    for (int i = 0; i < len; ++i) {
+                    for (jint i = 0; i < len; ++i) {
                         pArray->set(i,new JPrimitiveByte(readByte()));
                     }
 
                 }else if (ccl==JPrimitiveChar::getClazz()) {
-                    for (int i = 0; i < len; ++i) {
+                    for (jint i = 0; i < len; ++i) {
                         pArray->set(i,new JPrimitiveChar(readChar()));
                     }
 
                 }else if (ccl==JPrimitiveDouble::getClazz()) {
-                    for (int i = 0; i < len; ++i) {
+                    for (jint i = 0; i < len; ++i) {
                         pArray->set(i,new JPrimitiveDouble(readDouble()));
                     }
 
                 }else if (ccl==JPrimitiveFloat::getClazz()) {
-                    for (int i = 0; i < len; ++i) {
+                    for (jint i = 0; i < len; ++i) {
                         pArray->set(i,new JPrimitiveFloat(readFloat()));
                     }
 
                 }else if (ccl == JPrimitiveInt::getClazz()) {
-                    for (int i = 0; i < len; ++i) {
+                    for (jint i = 0; i < len; ++i) {
                         pArray->set(i,new JPrimitiveInt(readInt()));
                     }
 
                 }else if (ccl==JPrimitiveLong::getClazz()) {
-                    for (int i = 0; i < len; ++i) {
+                    for (jint i = 0; i < len; ++i) {
                         pArray->set(i,new JPrimitiveLong(readLong()));
                     }
 
                 }else if (ccl==JPrimitiveShort::getClazz()) {
-                    for (int i = 0; i < len; ++i) {
+                    for (jint i = 0; i < len; ++i) {
                         pArray->set(i,new JPrimitiveShort(readShort()));
                     }
 
                 }else if (ccl==JPrimitiveBoolean::getClazz()) {
-                    for (int i = 0; i < len; ++i) {
+                    for (jint i = 0; i < len; ++i) {
                         pArray->set(i,new JPrimitiveBoolean(readBool()));
                     }
 
@@ -599,7 +602,7 @@ namespace jcpp{
                     throw new JInternalError();
                 }
             }else{
-                for (int i = 0 ; i < len; ++i) {
+                for (jint i = 0 ; i < len; ++i) {
                     pArray->set(i,readObject0(false));
                     handles->markDependency(arrayHandle,passHandle);
                 }
@@ -619,7 +622,7 @@ namespace jcpp{
                 throw new JInvalidClassException("non-enum class: " + desc->toString());
             }
 
-            int enumHandle = handles->assign((unshared ? unsharedMarker : NULL));
+            jint enumHandle = handles->assign((unshared ? unsharedMarker : NULL));
             JClassNotFoundException* resolveEx=desc->getResolveException();
             if (resolveEx!=NULL){
                 handles->markException(enumHandle,resolveEx);
@@ -667,9 +670,9 @@ namespace jcpp{
             jint descHandle = handles->assign((unshared ? unsharedMarker : desc));
             passHandle = NULL_HANDLE;
 
-            int numIfaces = bin->readInt();
+            jint numIfaces = bin->readInt();
             string *ifaces = new string[numIfaces];
-            for (int i = 0; i < numIfaces; ++i) {
+            for (jint i = 0; i < numIfaces; ++i) {
                 ifaces[i] = bin->readUTF();
             }
 
@@ -756,7 +759,7 @@ namespace jcpp{
         void JObjectInputStream::readExternalData(JObject* obj, JObjectStreamClass* desc){
             SerialCallbackContext* oldContext=curContext;
             curContext=NULL;
-            bool blocked=desc->hasBlockExternalData();
+            jbool blocked=desc->hasBlockExternalData();
             if (blocked){
                 bin->setBlockDataMode(true);
             }
@@ -774,7 +777,7 @@ namespace jcpp{
                 return;
             }
             vector<JObjectStreamClass::ClassDataSlot*>* dataSlots=desc->getClassDataLayout();
-            for (unsigned int i=0;i<dataSlots->size();i++){
+            for (jint i=0;i<dataSlots->size();i++){
                 JObjectStreamClass::ClassDataSlot* dataSlot=dataSlots->at(i);
                 JObjectStreamClass* slotDesc=dataSlot->desc;
                 if (obj!=NULL && slotDesc->hasReadObjectMethod() && handles->lookupException(passHandle)==NULL){
@@ -809,7 +812,7 @@ namespace jcpp{
                 throw new JClassCastException("object "+obj->toString()+" of class "+obj->getClass()->toString()+" is not instance of "+cl->toString());
             }
 
-            int primDataSize = desc->getPrimDataSize();
+            jint primDataSize = desc->getPrimDataSize();
             delete[] primVals;
             primVals = new jbyte[primDataSize];
             bin->readFully(primVals,0,primDataSize,false);
@@ -817,11 +820,11 @@ namespace jcpp{
                 desc->setPrimFieldValues(obj, primVals);
             }
 
-            int objHandle = passHandle;
-            int numObjFields = desc->getNumObjFields();
+            jint objHandle = passHandle;
+            jint numObjFields = desc->getNumObjFields();
             JObject **objVals = new JObject*[numObjFields];
-            int numPrimFields=desc->getNumFields()-desc->getNumObjFields();
-            for (int i = 0; i < numObjFields; ++i) {
+            jint numPrimFields=desc->getNumFields()-desc->getNumObjFields();
+            for (jint i = 0; i < numObjFields; ++i) {
                 JObjectStreamField* f=desc->getField(numPrimFields+i);
                 JObject* readObj = readObject0(f->isUnshared());
                 objVals[i] = readObj;
@@ -845,7 +848,7 @@ namespace jcpp{
         }
 
         void JObjectInputStream::skipCustomData() {
-            int oldHandle = passHandle;
+            jint oldHandle = passHandle;
             for (;;) {
                 if (bin->getBlockDataMode()) {
                     bin->skipBlockData();
@@ -873,7 +876,7 @@ namespace jcpp{
             return bin->read();
         }
 
-        int JObjectInputStream::read(jbyte b[], int off, int len) {
+        jint JObjectInputStream::read(jbyte b[], jint off, jint len) {
             return bin->read(b,off,len);
         }
 
@@ -987,9 +990,9 @@ namespace jcpp{
             return (inputClassLoader->loadClass(desc->getName()));
         }
 
-        JClass *JObjectInputStream::resolveProxyClass(string *ifaces, int numIfaces) {
+        JClass *JObjectInputStream::resolveProxyClass(string *ifaces, jint numIfaces) {
             vector<JClass*>* interfaces=new vector<JClass*>();
-            for (int i = 0; i < numIfaces; ++i) {
+            for (jint i = 0; i < numIfaces; ++i) {
                 JClass* c=inputClassLoader->loadClass(ifaces[i]);
                 interfaces->push_back(c);
             }

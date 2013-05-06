@@ -33,7 +33,7 @@ namespace jcpp{
             static JClass* getClazz();
             void setOutputStream(JOutputStream* out);
             virtual void write(jint b);
-            virtual void write(jbyte b[], int off, int len);
+            virtual void write(jbyte b[], jint off, jint len);
             virtual void flush() ;
             virtual void close();
             virtual void writeBoolean(jbool v);

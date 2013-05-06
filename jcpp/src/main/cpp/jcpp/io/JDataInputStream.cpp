@@ -5,7 +5,10 @@
 #include "Object.h"
 #include "Collections.h"
 #include "JBits.h"
+#include "JPushbackInputStream.h"
+#include "JSystem.h"
 using namespace jcpp::util;
+using namespace jcpp::lang;
 
 namespace jcpp{
     namespace io{
@@ -50,7 +53,7 @@ namespace jcpp{
             if (len < 0){
                 throw new JIndexOutOfBoundsException;
             }
-            int n = 0;
+            jint n = 0;
             while (n < len) {
                 jint count = in->read(b, off + n, len - n);
                 if (count < 0){
@@ -130,7 +133,7 @@ namespace jcpp{
 
             // The number of chars produced may be less than utflen
             char* cs=new char[chararr_count+1];
-            for (int i=0;i<chararr_count;i++){
+            for (jint i=0;i<chararr_count;i++){
                 cs[i]=(char)chararr[i];
             }
             cs[chararr_count] = '\0';
@@ -145,7 +148,7 @@ namespace jcpp{
             return in->available();
         }
 
-        jint JDataInputStream::read(jbyte b[], int off, int len) {
+        jint JDataInputStream::read(jbyte b[], jint off, jint len) {
             return in->read(b,off,len);
         }
 
@@ -211,7 +214,7 @@ namespace jcpp{
 
         jfloat JDataInputStream::readFloat() {
             jbyte* b=new jbyte[4];
-            for (int i=0;i<4;i++){
+            for (jint i=0;i<4;i++){
                 b[i]=(jbyte)in->read();
             }
             jfloat jf=JBits::getFloat(b,0);
@@ -221,7 +224,7 @@ namespace jcpp{
 
         jdouble JDataInputStream::readDouble() {
             jbyte* b=new jbyte[8];
-            for (int i=0;i<8;i++){
+            for (jint i=0;i<8;i++){
                 b[i]=(jbyte)in->read();
             }
             jdouble jd=JBits::getDouble(b,0);

@@ -9,7 +9,7 @@ namespace jcpp{
         class JCPP_LIBRARY_EXPORT JCloseable : public JAutoCloseable  {
         public:
             static JClass* getClazz();
-            virtual void  close()=0;
+            virtual void close()=0;
             virtual ~JCloseable();
         };
     }

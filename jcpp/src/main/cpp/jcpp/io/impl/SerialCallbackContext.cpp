@@ -11,7 +11,7 @@ namespace jcpp{
             upcall = false;
         }
 
-        bool SerialCallbackContext::setUpcall(bool v) {
+        jbool SerialCallbackContext::setUpcall(jbool v) {
             if (upcall == v) {
                 return upcall;
             }
@@ -19,7 +19,7 @@ namespace jcpp{
             return (!upcall);
         }
 
-        bool SerialCallbackContext::isUpcall(){
+        jbool SerialCallbackContext::isUpcall(){
             return upcall;
         }
 

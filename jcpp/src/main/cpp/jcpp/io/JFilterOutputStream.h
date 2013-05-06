@@ -9,6 +9,7 @@
 #include "JOutputStream.h"
 using namespace jcpp::lang;
 
+//TODO extends QObjectAware
 namespace jcpp{
     namespace io{
         class JCPP_LIBRARY_EXPORT JFilterOutputStream : public JOutputStream{
@@ -19,7 +20,7 @@ namespace jcpp{
         public:
             static JClass* getClazz();
             virtual void write(jint b);
-            virtual void write(jbyte b[], int off, int len);
+            virtual void write(jbyte b[], jint off, jint len);
             virtual void flush();
             virtual void close();
             virtual ~JFilterOutputStream();

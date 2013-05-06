@@ -11,15 +11,10 @@
 namespace jcpp{
     namespace io{
         class JCPP_LIBRARY_EXPORT JExternalizable : public JSerializable{
-        protected:
         public:
-
             static JClass* getClazz();
-
             virtual void writeExternal(JObjectOutput* out)=0;
-
             virtual void readExternal(JObjectInput* in)=0;
-
             virtual ~JExternalizable();
         };
     }

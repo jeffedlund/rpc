@@ -6,7 +6,7 @@
 
 namespace jcpp{
     namespace io{
-        class JFileReader : public JInputStreamReader  {
+        class JCPP_LIBRARY_EXPORT JFileReader : public JInputStreamReader  {
             public:
                 static JClass* getClazz();
                 JFileReader(string name);

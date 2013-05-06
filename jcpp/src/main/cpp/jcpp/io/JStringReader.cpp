@@ -35,12 +35,8 @@ namespace jcpp{
             imark=0;
         }
 
-        void JStringReader::ensureOpen(){
-        }
-
         jint JStringReader::read(){
             lock->lock();
-            ensureOpen();
             if (next >= length){
                 lock->unlock();
                 return -1;
@@ -51,7 +47,6 @@ namespace jcpp{
         }
 
         jint JStringReader::read(jchar cbuf[], jint off, jint len){
-            ensureOpen();
             if ((off < 0) || (len < 0) || ((off + len) < 0)) {
                 throw new JIndexOutOfBoundsException();
             } else if (len == 0) {
@@ -70,7 +65,6 @@ namespace jcpp{
         }
 
         jlong JStringReader::skip(jlong ns){
-            ensureOpen();
             lock->lock();
             if (next >= length){
                 lock->unlock();
@@ -84,7 +78,6 @@ namespace jcpp{
         }
 
         jbool JStringReader::ready(){
-            ensureOpen();
             return true;
         }
 
@@ -96,14 +89,12 @@ namespace jcpp{
             if (m < 0){
                 throw new JIllegalArgumentException("Read-ahead limit < 0");
             }
-            ensureOpen();
             lock->lock();
             imark = next;
             lock->unlock();
         }
 
         void JStringReader::reset(){
-            ensureOpen();
             lock->lock();
             next = imark;
             lock->unlock();

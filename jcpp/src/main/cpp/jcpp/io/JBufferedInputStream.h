@@ -9,6 +9,7 @@
 #include "JFilterInputStream.h"
 using namespace jcpp::lang;
 
+//TODO write test case for this class, and all classes
 namespace jcpp{
     namespace io{
         class JCPP_LIBRARY_EXPORT JBufferedInputStream : public JFilterInputStream{
@@ -28,13 +29,13 @@ namespace jcpp{
             JBufferedInputStream(JInputStream* in, jint size=8192);
             static JClass* getClazz();
             virtual jint read();
-            virtual jint read(jbyte b[], int off, int len);
+            virtual jint read(jbyte b[], jint off, jint len);
             virtual jlong skip(jlong n);
             virtual jint available();
             virtual jint peek();
-            virtual void mark(int readlimit);
+            virtual void mark(jint readlimit);
             virtual void reset();
-            virtual bool markSupported();
+            virtual jbool markSupported();
             virtual void close();
             virtual ~JBufferedInputStream();
         };

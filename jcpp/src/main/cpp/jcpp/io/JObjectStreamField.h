@@ -21,25 +21,24 @@ namespace jcpp{
             string name;
             string signature;
             JClass* type;
-            bool unshared;
+            jbool unshared;
             JField* field;
             jint offset;
             JString* typeString;
-
             void setTypeString();
 
         public:
             JObjectStreamField();
             JObjectStreamField(string name,JClass* type);
-            JObjectStreamField(string name,JClass* type,bool unshared);
-            JObjectStreamField(string name,string signature,bool unshared);
-            JObjectStreamField(JField* field,bool unshared,bool showType);
+            JObjectStreamField(string name,JClass* type,jbool unshared);
+            JObjectStreamField(string name,string signature,jbool unshared);
+            JObjectStreamField(JField* field,jbool unshared,jbool showType);
             static JClass* getClazz();
 
 
             //TODO what to do for PTR ==/<
-            static bool comparator (JObjectStreamField* f1,JObjectStreamField* f2) {
-                bool isPrim = f1->getType()->isPrimitive();
+            static jbool comparator (JObjectStreamField* f1,JObjectStreamField* f2) {
+                jbool isPrim = f1->getType()->isPrimitive();
                 if (isPrim != f2->getType()->isPrimitive()) {
                     return isPrim ? true : false;
                 }
@@ -52,8 +51,8 @@ namespace jcpp{
             JString* getTypeString();
             jint getOffset();
             void setOffset(jint offset);
-            bool isPrimitive();
-            bool isUnshared();
+            jbool isPrimitive();
+            jbool isUnshared();
             JField* getField();
             string getSignature();
             virtual jint compareTo(JObject* o);

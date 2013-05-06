@@ -8,6 +8,7 @@
 #include "Object.h"
 #include "JCPP.h"
 
+//TODO remove
 namespace jcpp{
     namespace io{
         class JCPP_LIBRARY_EXPORT QtDataInputStream : public JInputStream{
@@ -23,7 +24,7 @@ namespace jcpp{
             QDataStream* getStream();
             void setStream(QDataStream* in);
             virtual jint available();
-            virtual bool waitForReadyRead(int = 30000);
+            virtual jbool waitForReadyRead(jint = 30000);
             virtual jint peek();
             virtual jint read();
             virtual void close();

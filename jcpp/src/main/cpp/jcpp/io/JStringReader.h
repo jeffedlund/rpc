@@ -8,11 +8,10 @@ namespace jcpp{
     namespace io{
         class JCPP_LIBRARY_EXPORT JStringReader : public JReader  {
             protected:
-                JString* str;
+                JString* str;//TODO use string only?
                 jint length;
                 jint next;
                 jint imark;
-                void ensureOpen();
 
             public:
                 static JClass* getClazz();
@@ -22,9 +21,9 @@ namespace jcpp{
                 virtual jlong skip(jlong n);
                 virtual jbool ready();
                 virtual jbool markSupported();
-                virtual void  mark(jint m);
-                virtual void  reset();
-                virtual void  close();
+                virtual void mark(jint m);
+                virtual void reset();
+                virtual void close();
                 virtual ~JStringReader();
         };
     }

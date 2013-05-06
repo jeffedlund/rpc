@@ -89,6 +89,7 @@ namespace jcpp{
                 sink->notifyAll();
                 sink->unlock();
             }
+            unlock();
         }
 
         void JPipedWriter::close(){

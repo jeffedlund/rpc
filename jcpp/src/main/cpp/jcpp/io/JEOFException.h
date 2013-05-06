@@ -11,9 +11,7 @@ namespace jcpp{
         public:
             JEOFException();
             JEOFException(string message);
-
             static JClass* getClazz();
-
             virtual ~JEOFException();
         };
     }

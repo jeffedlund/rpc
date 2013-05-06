@@ -25,7 +25,7 @@ namespace jcpp{
                 static JClass* getClazz();
                 JPipedReader(JPipedWriter* src, jint pipeSize=1024);
                 JPipedReader(jint pipeSize=1024);
-                virtual void  connect(JPipedWriter* src);
+                virtual void connect(JPipedWriter* src);
                 virtual jint read();
                 virtual jint read(jchar cbuf[], jint off, jint len);
                 virtual jbool ready();

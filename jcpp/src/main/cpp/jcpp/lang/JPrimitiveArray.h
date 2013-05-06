@@ -7,6 +7,7 @@
 #include "JCPP.h"
 using namespace std;
 
+//TODO check JPArray initialize with default values or NULL pointers ...
 namespace jcpp{
     namespace lang{
         class JCPP_LIBRARY_EXPORT JPrimitiveArray : public JObject{

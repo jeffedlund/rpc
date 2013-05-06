@@ -13,7 +13,7 @@ namespace jcpp{
                 static JClass* getClazz();
                 JInterruptedIOException();
                 JPrimitiveInt* getBytesTransferred();
-                void setBytesTransferred(JPrimitiveInt* bt);
+                void setBytesTransferred(JPrimitiveInt* bt);//TODO use only jint
                 virtual ~JInterruptedIOException();
         };
     }

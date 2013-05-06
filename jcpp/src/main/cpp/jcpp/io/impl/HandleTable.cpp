@@ -7,7 +7,7 @@
 namespace jcpp{
     namespace io{
         void HandleTable::grow() {
-            int newCapacity = (length*2) +1;
+            jint newCapacity = (length*2) +1;
 
             jbyte *newStatus = new jbyte[newCapacity];
             JObject **newEntries = new JObject*[newCapacity];
@@ -23,7 +23,7 @@ namespace jcpp{
             status = newStatus;
             entries = newEntries;
             deps = newDeps;
-            for (int i = length; i < newCapacity; ++i) {
+            for (jint i = length; i < newCapacity; ++i) {
                 status[i] = (jbyte) 0;
                 entries[i] = NULL;
                 deps[i] = NULL;
@@ -31,7 +31,7 @@ namespace jcpp{
             length = newCapacity;
         }
 
-        HandleTable::HandleTable(int initialCapacity) {
+        HandleTable::HandleTable(jint initialCapacity) {
             length = initialCapacity;
             lowDep = -1;
             size = 0;
@@ -40,7 +40,7 @@ namespace jcpp{
             deps = new HandleList*[initialCapacity];
 
             // initialize
-            for (int i = 0; i < initialCapacity; ++i) {
+            for (jint i = 0; i < initialCapacity; ++i) {
                 status[i] = (jbyte) 0;
                 entries[i] = NULL;
                 deps[i] = NULL;
@@ -49,14 +49,14 @@ namespace jcpp{
 
         HandleTable::~HandleTable() {
             delete[] status;
-            for (int i = 0; i < size; ++i) {
+            for (jint i = 0; i < size; ++i) {
                 delete deps[i];
             }
             delete[] entries;
             delete[] deps;
         }
 
-        int HandleTable::assign(JObject *obj) {
+        jint HandleTable::assign(JObject *obj) {
             if (size >= length) {
                 grow();
             }
@@ -65,7 +65,7 @@ namespace jcpp{
             return size++;
         }
 
-        void HandleTable::markDependency(int dependent, int target) {
+        void HandleTable::markDependency(jint dependent, jint target) {
             if (dependent == NULL_HANDLE || target == NULL_HANDLE) {
                 return;
             }
@@ -73,22 +73,18 @@ namespace jcpp{
                 case STATUS_UNKNOWN:
                     switch (status[target]) {
                     case STATUS_OK:
-                        // ignore dependencies on objs with no exception
                         break;
 
                     case STATUS_EXCEPTION:
-                        // eagerly propagate exception
                         markException(dependent,(JClassNotFoundException*) entries[target]);
                         break;
 
                     case STATUS_UNKNOWN:
-                        // add dependency list of target
                         if (deps[target] == NULL) {
                             deps[target] = new HandleList;
                         }
                         deps[target]->add(dependent);
 
-                        // remember lowest unresolved target seen
                         if (lowDep < 0 || lowDep > target) {
                             lowDep = target;
                         }
@@ -107,18 +103,17 @@ namespace jcpp{
                 }
         }
 
-        void HandleTable::markException(int handle, JClassNotFoundException* ex) {
+        void HandleTable::markException(jint handle, JClassNotFoundException* ex) {
             switch (status[handle]) {
                 case STATUS_UNKNOWN:
                 {
                     status[handle] = STATUS_EXCEPTION;
                     entries[handle] = ex;
 
-                    // propagate exception to dependents
                     HandleList *dlist = deps[handle];
                     if (dlist != NULL) {
-                        int ndeps = dlist->getSize();
-                        for (int i = 0; i < ndeps; ++i) {
+                        jint ndeps = dlist->getSize();
+                        for (jint i = 0; i < ndeps; ++i) {
                             markException(dlist->get(i), ex);
                         }
                         delete deps[handle];
@@ -135,7 +130,7 @@ namespace jcpp{
             }
         }
 
-        void HandleTable::setObject(int handle, JObject* obj) {
+        void HandleTable::setObject(jint handle, JObject* obj) {
             switch (status[handle]) {
             case STATUS_UNKNOWN:
             case STATUS_OK:
@@ -150,8 +145,8 @@ namespace jcpp{
             }
         }
 
-        void HandleTable::finish(int handle) {
-            int end = 0;
+        void HandleTable::finish(jint handle) {
+            jint end = 0;
             if (lowDep < 0) {
                 end = handle + 1;
             } else if (lowDep >= handle) {
@@ -161,7 +156,7 @@ namespace jcpp{
                 return;
             }
 
-            for (int i = handle; i < end; i++) {
+            for (jint i = handle; i < end; i++) {
                 switch (status[i]) {
                 case STATUS_UNKNOWN:
                     status[i] = STATUS_OK;
@@ -179,21 +174,21 @@ namespace jcpp{
             }
         }
 
-        int HandleTable::getSize(){
+        jint HandleTable::getSize(){
             return size;
         }
 
-        JObject* HandleTable::lookupObject(int handle) {
+        JObject* HandleTable::lookupObject(jint handle) {
             return (handle != NULL_HANDLE && status[handle] != STATUS_EXCEPTION) ? entries[handle] : NULL;
         }
 
-        JClassNotFoundException* HandleTable::lookupException(int handle) {
+        JClassNotFoundException* HandleTable::lookupException(jint handle) {
             return (handle != NULL_HANDLE && status[handle] == STATUS_EXCEPTION) ? (JClassNotFoundException*) entries[handle] : NULL;
         }
 
 
         void HandleTable::clear() {
-            for (int i = 0; i < size; ++i) {
+            for (jint i = 0; i < size; ++i) {
                 status[i] = (jbyte) 0;
                 delete entries[i];
                 entries[i] = NULL;
@@ -205,5 +200,3 @@ namespace jcpp{
         }
     }
 }
-
-

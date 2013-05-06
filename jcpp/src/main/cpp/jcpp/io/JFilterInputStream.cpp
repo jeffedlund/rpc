@@ -40,7 +40,7 @@ namespace jcpp{
             in->readFully(b,off,len);
         }
 
-        jint JFilterInputStream::read(jbyte b[], int off, int len) {
+        jint JFilterInputStream::read(jbyte b[], jint off, jint len) {
             return in->read(b,off,len);
         }
 
@@ -68,7 +68,7 @@ namespace jcpp{
             in->reset();
         }
 
-        bool JFilterInputStream::markSupported(){
+        jbool JFilterInputStream::markSupported(){
             return in->markSupported();
         }
 

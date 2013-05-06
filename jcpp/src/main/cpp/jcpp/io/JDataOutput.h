@@ -22,7 +22,7 @@ namespace jcpp{
         public:
             static JClass* getClazz();
             virtual void write(jint b)=0;
-            virtual void write(jbyte b[], int off, int len)=0;
+            virtual void write(jbyte b[], jint off, jint len)=0;
             virtual void writeBoolean(jbool v)=0;
             virtual void writeBoolean(JPrimitiveBoolean* v)=0;
             virtual void writeByte(jint v)=0;

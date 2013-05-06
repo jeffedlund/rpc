@@ -8,6 +8,7 @@
 #include "Object.h"
 #include "JCPP.h"
 
+//TODO remove
 namespace jcpp{
     namespace io{
         class JCPP_LIBRARY_EXPORT QtDataOutputStream : public JOutputStream{

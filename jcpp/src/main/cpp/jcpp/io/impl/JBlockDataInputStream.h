@@ -11,74 +11,72 @@
 #include "JCPP.h"
 using namespace std;
 
-static const jint MAX_BLOCK_SIZE = 1024;
-static const jint MAX_HEADER_SIZE = 5;
-static const jint CHAR_BUF_SIZE = 256;
-static const jint HEADER_BLOCKED = -2;
-
 namespace jcpp{
     namespace io{
-        //TODO missing following methods : readLine
         class JCPP_LIBRARY_EXPORT JBlockDataInputStream : public JInputStream, public JObjectStreamConstants {
-        public:
-            jbyte buf[MAX_BLOCK_SIZE];
-            jbyte hbuf[MAX_HEADER_SIZE];
-            jchar cbuf[CHAR_BUF_SIZE];
-            bool blkmode;
+        protected:
+            static jint MAX_BLOCK_SIZE;
+            static jint MAX_HEADER_SIZE;
+            static jint CHAR_BUF_SIZE;
+            static const jint HEADER_BLOCKED;
+
+            jbyte* buf;
+            jbyte* hbuf;
+            jchar* cbuf;
+            jbool blkmode;
             jint pos;
             jint end;
             jint unread;
             JInputStream *in;
             JDataInputStream *din;
-            bool defaultDataEnd;
+            jbool defaultDataEnd;
+
             JBlockDataInputStream(JInputStream *in);
-            static JClass* getClazz();
-
-            bool setBlockDataMode(bool newmode);
-            bool getBlockDataMode();
+            jbool setBlockDataMode(jbool newmode);
+            jbool getBlockDataMode();
             void skipBlockData();
-
-        private:
-            jint readBlockHeader(bool canBlock);
-            void refill();
-
-        public:
-            jint currentBlockRemaining() ;
-            bool isDefaultDataEnd();
-            void setDefaultDataEnd(bool defaultDataEnd);
-            jint peek();
-            void readFully(jbyte *b, int off, int len);
-            void readFully(jbyte *b, int off, int len, bool copy);
-            jint skipBytes(jint n);
+            jint read(jbyte b[], jint off, jint len, jbool copy);
+            string readLongUTF();
             string readUTFBody(jlong len);
+            void arraycopy(jbyte src[],jint srcPos, jbyte dest[], jint destPos, jint length);
+            void readBools(jbool *v, jint off, jint len);
+            void readChars(jchar *v, jint off, jint len);
+            void readShorts(jshort *v, jint off, jint len);
+            void readInts(jint *v, jint off, jint len);
+            void readFloats(jfloat *v, jint off, jint len);
+            void readLongs(jlong *v, jint off, jint len);
+            void readDoubles(jdouble *v, jint off, jint len);
             jlong readUTFSpan(vector<jchar>* sbuf, jlong utflen);
             jint readUTFChar(vector<jchar>* sbuf, jlong utflen);
-            string readUTF();
-            string readLongUTF();
-            void arraycopy(jbyte src[],jint srcPos, jbyte dest[], jint destPos, jint length);
-            void readBools(jbool *v, int off, int len);
-            void readChars(jchar *v, int off, int len);
-            void readShorts(jshort *v, int off, int len);
-            void readInts(jint *v, int off, int len);
-            void readFloats(jfloat *v, int off, int len);
-            void readLongs(jlong *v, int off, int len);
-            void readDoubles(jdouble *v, int off, int len);
+            jint readBlockHeader(jbool canBlock);
+            void refill();
+            jint currentBlockRemaining() ;
+            jbool isDefaultDataEnd();
+            void setDefaultDataEnd(jbool defaultDataEnd);
+            friend class JObjectInputStream;
+
+        public:
+            static JClass* getClazz();
+            virtual jint peek();
+            virtual jint read();
+            virtual jint read(jbyte b[], jint off, jint len);
             virtual jlong skip(jlong len);
             virtual jint available();
-            virtual jint read();
-            virtual jint read(jbyte b[], int off, int len);
-            virtual int read(jbyte b[], int off, int len, bool copy);
-            virtual jbyte readUnsignedByte();
+            virtual void close();
+            virtual void readFully(jbyte *b, jint off, jint len);
+            virtual void readFully(jbyte *b, jint off, jint len, jbool copy);
+            virtual jint skipBytes(jint n);
+            virtual jbool readBool();
             virtual jbyte readByte();
+            virtual jbyte readUnsignedByte();
+            virtual jchar readChar();
             virtual jshort readShort();
             virtual jshort readUnsignedShort();
             virtual jint readInt();
-            virtual jlong readLong();
             virtual jfloat readFloat();
+            virtual jlong readLong();
             virtual jdouble readDouble();
-            virtual jchar readChar();
-            virtual jbool readBool();
-            virtual void close();
+            virtual string readUTF();
             virtual ~JBlockDataInputStream();
         };
     }

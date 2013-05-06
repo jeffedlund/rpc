@@ -63,6 +63,7 @@ namespace jcpp{
         jlong JStringBufferInputStream::skip(jlong n){
             lock();
             if (n < 0) {
+                unlock();
                 return 0;
             }
             if (n > count - pos) {

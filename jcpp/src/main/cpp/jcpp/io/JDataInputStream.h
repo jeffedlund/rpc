@@ -11,7 +11,6 @@ using namespace std;
 
 namespace jcpp{
     namespace io{
-        //TODO implement readLine
         class JCPP_LIBRARY_EXPORT JDataInputStream : public JFilterInputStream, public JDataInput{
 
         public:
@@ -21,7 +20,7 @@ namespace jcpp{
             static JClass* getClazz();
 
             void setInputStream(JInputStream *in);
-            virtual jint read(jbyte b[], int off, int len);
+            virtual jint read(jbyte b[], jint off, jint len);
             virtual void readFully(jbyte b[], jint off, jint len);
             virtual jint skipBytes(jint n);
             virtual jbool readBool();

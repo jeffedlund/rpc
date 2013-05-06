@@ -1,25 +1,22 @@
 #ifndef HANDLELIST_H
 #define HANDLELIST_H
 
+#include "Object.h"
+
 namespace jcpp{
     namespace io{
-        //HandleList
         class HandleList {
-            int* list;
-            int length;
-            int size;
+        protected:
+            jint* list;
+            jint length;
+            jint size;
         public:
             HandleList();
-
             HandleList(const HandleList &h);
-
+            void add(jint handle);
+            jint get(jint index);
+            jint getSize();
             ~HandleList();
-
-            void add(int handle);
-
-            int get(int index);
-
-            int getSize();
         };
     }
 }

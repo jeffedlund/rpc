@@ -9,7 +9,6 @@ namespace jcpp{
                 canonicalName="java.io.Serializable";
                 name="java.io.Serializable";
                 simpleName="Serializable";
-                serialVersionUID=0;
                 bIsInterface=true;
             }
 
@@ -25,9 +24,6 @@ namespace jcpp{
                 clazz=new JSerializableClass();
             }
             return clazz;
-        }
-
-        JSerializable::JSerializable():JInterface(){
         }
 
         JSerializable::~JSerializable(){

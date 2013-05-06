@@ -35,7 +35,7 @@ namespace jcpp{
 
         void JOutputStreamWriter::write(jchar c[],jint offset,jint length){
             jbyte b[length];
-            for (int i=0;i<length;i++){
+            for (jint i=0;i<length;i++){
                 b[i]=(jbyte)c[offset+i];//TODO introduce encoding
             }
             out->write(b,0,length);

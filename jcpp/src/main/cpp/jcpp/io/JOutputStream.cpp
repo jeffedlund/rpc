@@ -35,7 +35,7 @@ namespace jcpp{
         JOutputStream::JOutputStream(JClass* _class):JObject(_class){
         }
 
-        void JOutputStream::write(jbyte b[], int off, int len){
+        void JOutputStream::write(jbyte b[], jint off, jint len){
             if (b == 0) {
                 throw new JNullPointerException();
             } else {
@@ -45,7 +45,7 @@ namespace jcpp{
                 } else if (len == 0) {
                     return;
                 }
-                for (int i = 0 ; i < len ; i++) {
+                for (jint i = 0 ; i < len ; i++) {
                     write(b[off + i]);
                 }
             }

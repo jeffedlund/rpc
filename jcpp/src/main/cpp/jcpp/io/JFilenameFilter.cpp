@@ -10,6 +10,7 @@ namespace jcpp{
                     this->canonicalName="java.io.FilenameFilter";
                     this->name="java.io.FilenameFilter";
                     this->simpleName="FilenameFilter";
+                    this->bIsInterface=true;
                 }
 
                 JClass* getSuperclass(){

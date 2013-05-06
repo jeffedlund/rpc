@@ -12,9 +12,8 @@ namespace jcpp{
         public:
             JUTFDataFormatException();
             JUTFDataFormatException(string message);
-
-             static JClass* getClazz();
-             virtual ~JUTFDataFormatException();
+            static JClass* getClazz();
+            virtual ~JUTFDataFormatException();
         };
     }
 }

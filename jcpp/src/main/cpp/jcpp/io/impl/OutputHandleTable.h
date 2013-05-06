@@ -16,9 +16,8 @@ namespace jcpp{
 
         public:
             OutputHandleTable();
-
             jint assign(JObject *obj);
-            int size();
+            jint size();
             void clear();
             jint lookup(JObject* obj);
             ~OutputHandleTable();

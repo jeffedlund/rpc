@@ -11,9 +11,8 @@ namespace jcpp{
         public:
             JInvalidClassException();
             JInvalidClassException(string message);
-
-             static JClass* getClazz();
-             virtual ~JInvalidClassException();
+            static JClass* getClazz();
+            virtual ~JInvalidClassException();
         };
     }
 }

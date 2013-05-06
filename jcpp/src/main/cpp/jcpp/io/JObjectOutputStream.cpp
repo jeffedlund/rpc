@@ -114,7 +114,7 @@ namespace jcpp{
                 return putFieldImplClazz;
             }
 
-            virtual void put(string name, bool val){
+            virtual void put(string name, jbool val){
                 JBits::putBoolean(primVals,getFieldOffset(name,JBoolean::TYPE),val);
             }
 
@@ -158,7 +158,7 @@ namespace jcpp{
 
                 vector<JObjectStreamField*>* fields=desc->getFields();
                 jint numPrimFields=fields->size()-desc->getNumObjFields();
-                for (int i=0;i<desc->getNumObjFields();i++){
+                for (jint i=0;i<desc->getNumObjFields();i++){
                     JObjectStreamField* f=fields->at(numPrimFields+i);
                     if (f->isUnshared()){
                         throw new JIOException("cannot write unshared object");
@@ -172,7 +172,7 @@ namespace jcpp{
 
                 vector<JObjectStreamField*>* fields = desc->getFields();
                 jint numPrimFields=fields->size()-desc->getNumObjFields();
-                for (int i = 0; i < desc->getNumObjFields(); i++) {
+                for (jint i = 0; i < desc->getNumObjFields(); i++) {
                     JObjectStreamField* f=fields->at(numPrimFields + i);
                     s->writeObject0(objVals[i],f->isUnshared());
                 }
@@ -221,7 +221,7 @@ namespace jcpp{
             curPut=NULL;
         }
 
-        bool JObjectOutputStream::enableReplaceObject(bool enable) {
+        jbool JObjectOutputStream::enableReplaceObject(jbool enable) {
             if (enable == enableReplace) {
                 return enable;
             }
@@ -273,7 +273,7 @@ namespace jcpp{
             bout->write(b);
         }
 
-        void JObjectOutputStream::write(jbyte b[], int off, int len){
+        void JObjectOutputStream::write(jbyte b[], jint off, jint len){
             bout->write(b,off,len);
         }
 
@@ -341,12 +341,12 @@ namespace jcpp{
         }
 
         void JObjectOutputStream::writeObject0(JObject* obj,jbool unshared){
-            bool oldMode = bout->setBlockDataMode(false);
+            jbool oldMode = bout->setBlockDataMode(false);
             depth++;
             if(obj == NULL){
                 writeNull();
             }else{
-                int handle;
+                jint handle;
                 if(!unshared && (handle = handles->lookup(obj) != -1) ){
                     writeHandle(handle);
                 }else if (JClass::getClazz()->isAssignableFrom(obj->getClass())){
@@ -375,7 +375,7 @@ namespace jcpp{
                         obj = rep;
                     }
 
-                    bool avoid=false;
+                    jbool avoid=false;
                     if (obj != orig) {
                         if (obj == NULL) {
                             writeNull();
@@ -455,7 +455,7 @@ namespace jcpp{
             JClass* cl=desc->getJClass();
             vector<JClass*>* interfaces=cl->getInterfaces();
             bout->writeInt(interfaces->size());
-            for(unsigned int i = 0; i < interfaces->size(); ++i){
+            for(jint i = 0; i < interfaces->size(); ++i){
                 JClass* clazz=interfaces->at(i);
                 bout->writeUTF(clazz->getName());
             }
@@ -506,7 +506,7 @@ namespace jcpp{
 
         void JObjectOutputStream::writeSerialData(JObject *obj, JObjectStreamClass* desc){
             vector<JObjectStreamClass::ClassDataSlot*>* classDataSlots=desc->getClassDataLayout();
-            for (unsigned int i=0;i<classDataSlots->size();i++){
+            for (jint i=0;i<classDataSlots->size();i++){
                 JObjectStreamClass::ClassDataSlot* dataSlot=classDataSlots->at(i);
                 JObjectStreamClass* slotDesc=dataSlot->desc;
                 if (slotDesc->hasWriteObjectMethod()) {
@@ -573,42 +573,42 @@ namespace jcpp{
             bout->writeInt(primitiveArray->size());
             if (ccl->isPrimitive()){
                 if (ccl==JPrimitiveInt::getClazz()){
-                    for (int i=0;i<primitiveArray->size();i++){
+                    for (jint i=0;i<primitiveArray->size();i++){
                         JPrimitiveInt* ji=(JPrimitiveInt*)primitiveArray->get(i);
                         bout->writeInt((ji!=NULL ? ji->get() : (jint)0));
                     }
                 }else if (ccl==JPrimitiveByte::getClazz()){
-                    for (int i=0;i<primitiveArray->size();i++){
+                    for (jint i=0;i<primitiveArray->size();i++){
                         JPrimitiveByte* jb=(JPrimitiveByte*)primitiveArray->get(i);
                         bout->writeByte((jb!=NULL ? jb->get() : (jbyte)0));
                     }
                 }else if (ccl==JPrimitiveLong::getClazz()){
-                    for (int i=0;i<primitiveArray->size();i++){
+                    for (jint i=0;i<primitiveArray->size();i++){
                         JPrimitiveLong* jl=(JPrimitiveLong*)primitiveArray->get(i);
                         bout->writeLong((jl!=NULL ? jl->get() : (jlong)0));
                     }
                 }else if (ccl==JPrimitiveFloat::getClazz()){
-                    for (int i=0;i<primitiveArray->size();i++){
+                    for (jint i=0;i<primitiveArray->size();i++){
                         JPrimitiveFloat* jf=(JPrimitiveFloat*)primitiveArray->get(i);
                         bout->writeFloat((jf!=NULL ? jf->get() : (jfloat)0));
                     }
                 }else if (ccl==JPrimitiveDouble::getClazz()){
-                    for (int i=0;i<primitiveArray->size();i++){
+                    for (jint i=0;i<primitiveArray->size();i++){
                         JPrimitiveDouble* jd=(JPrimitiveDouble*)primitiveArray->get(i);
                         bout->writeDouble((jd!=NULL ? jd->get() : (jdouble)0));
                     }
                 }else if (ccl==JPrimitiveShort::getClazz()){
-                    for (int i=0;i<primitiveArray->size();i++){
+                    for (jint i=0;i<primitiveArray->size();i++){
                         JPrimitiveShort* js=(JPrimitiveShort*)primitiveArray->get(i);
                         bout->writeShort((js!=NULL ? js->get() : (jshort)0));
                     }
                 }else if (ccl==JPrimitiveChar::getClazz()){
-                    for (int i=0;i<primitiveArray->size();i++){
+                    for (jint i=0;i<primitiveArray->size();i++){
                         JPrimitiveChar* jc=(JPrimitiveChar*)primitiveArray->get(i);
                         bout->writeChar((jc!=NULL ? jc->get() : (jchar)0));
                     }
                 }else if (ccl==JPrimitiveBoolean::getClazz()){
-                    for (int i=0;i<primitiveArray->size();i++){
+                    for (jint i=0;i<primitiveArray->size();i++){
                         JPrimitiveBoolean* jb=(JPrimitiveBoolean*)primitiveArray->get(i);
                         bout->writeBoolean((jb!=NULL ? jb->get() : false));
                     }
@@ -616,14 +616,14 @@ namespace jcpp{
                     throw new JInternalError();
                 }
             }else{
-                for (int i=0;i<primitiveArray->size();i++){
+                for (jint i=0;i<primitiveArray->size();i++){
                     writeObject0(primitiveArray->get(i),false);
                 }
             }
         }
 
         void JObjectOutputStream::defaultWriteFields(JObject *obj, JObjectStreamClass* desc){
-            int primDataSize = desc->getPrimDataSize();
+            jint primDataSize = desc->getPrimDataSize();
             delete[] primVals;
             primVals = new jbyte[primDataSize];
             lengthPrimVals=primDataSize;
@@ -635,14 +635,14 @@ namespace jcpp{
         }
 
         void JObjectOutputStream::writeFatalException(JIOException* ex){
-            bool oldMode=bout->setBlockDataMode(false);
+            jbool oldMode=bout->setBlockDataMode(false);
             bout->writeByte(TC_EXCEPTION);
             writeObject0(ex,false);
             bout->setBlockDataMode(oldMode);
         }
 
         void JObjectOutputStream::writePrimitiveData(JObject *obj, JObjectStreamClass *desc){
-            int primDataSize = desc->getPrimDataSize();
+            jint primDataSize = desc->getPrimDataSize();
             if (primVals == NULL || lengthPrimVals < primDataSize) {
                 if (primVals!=NULL){
                     delete[] primVals;
@@ -654,7 +654,7 @@ namespace jcpp{
         }
 
         void JObjectOutputStream::writeObjectValues(JObject *obj, JObjectStreamClass *desc){
-            for(int i = 0; i < desc->getNumFields(); i++){
+            for(jint i = 0; i < desc->getNumFields(); i++){
                 JObjectStreamField* osf = desc->getField(i);
                 if(osf->isPrimitive()){
                     continue;
@@ -707,7 +707,6 @@ namespace jcpp{
         }
 
         void JObjectOutputStream::writeSerialVersionUID(){
-            /* Should implement the serial version UID generation algorithm. */
             writeLong(1);
         }
 

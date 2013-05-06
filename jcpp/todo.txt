@@ -1,31 +1,13 @@
-Remaining classes in jcpp::nio::file:
--------------------------------------
-Classes
-    Files
-    FileStore
-    FileSystems
-    LinkPermission
-    Paths
-    SimpleFileVisitor
-    StandardWatchEventKinds
-
-
-Remaining classes in jcpp::io:
-------------------------------
-JConsole
-JFilePermission
-JPrintStream
-JPrintWriter
-JRandomAccessFile
-
-
 group:
 ------
 -wiki pages on how to generate classes
-
+-wiki page on rmi package, samples + tutorial
+-develop java boot loading + translate it for jcpp
 
 group:
 -------
+-look for a better string, for encoding, jstring?
+-better way to lock/unlock while exception thrown
 -add more attributes to JField like static, transient, ...
 -implement all JSystem class
 -make thread excecption handling more robust
@@ -42,3 +24,26 @@ group:
 -check all new/delete calls
 -constructor in order to ease casting
 
+
+Remaining classes to translate by package:
+------------------------------------------
+
+jcpp::nio::file:
+----------------
+Classes
+    Files
+    FileStore
+    FileSystems
+    LinkPermission
+    Paths
+    SimpleFileVisitor
+    StandardWatchEventKinds
+
+
+jcpp::io:
+---------
+JConsole
+JFilePermission
+JPrintStream
+JPrintWriter
+JRandomAccessFile

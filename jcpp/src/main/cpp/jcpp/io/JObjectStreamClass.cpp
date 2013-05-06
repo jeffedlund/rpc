@@ -60,7 +60,7 @@ namespace jcpp{
 
         static map<JClass*, JObjectStreamClass*>* allObjectStreamClass;
 
-        JObjectStreamClass* JObjectStreamClass::lookup(JClass* meta, bool all){
+        JObjectStreamClass* JObjectStreamClass::lookup(JClass* meta, jbool all){
             if(meta == NULL){
                 return NULL;
             }
@@ -106,7 +106,7 @@ namespace jcpp{
             vector<JField*>* clFields = cl->getDeclaredFields();
             if (clFields!=NULL){
                 vector<JObjectStreamField*>* fields=new vector<JObjectStreamField*>;
-                for (unsigned int i = 0; i < clFields->size(); i++) {
+                for (jint i = 0; i < clFields->size(); i++) {
                     JField* f=clFields->at(i);
                     if (true){//TODO !f->isStatic() && !f->isTransient()) {
                         JObjectStreamField* ff=new JObjectStreamField(f,false,true);
@@ -133,11 +133,11 @@ namespace jcpp{
             if (array == NULL) {
                 return NULL;
             } else if (array->size() == 0) {
-                delete array;
+                delete array;//TODO check call to serialPersistentFields imply that we should delete the following array
                 return NULL;
             }
             serialPersistentFields=new vector<JObjectStreamField*>();
-            for (int i = 0; i < array->size(); i++) {
+            for (jint i = 0; i < array->size(); i++) {
                 JObjectStreamField* spf = (JObjectStreamField*)array->get(i);
 
                 string fname = spf->getName();
@@ -148,7 +148,7 @@ namespace jcpp{
                     serialPersistentFields->push_back(new JObjectStreamField(fname, spf->getType(), spf->isUnshared()));
                 }
             }
-            return serialPersistentFields;
+            return serialPersistentFields;//TODO check caller delete that field
         }
 
         static vector<JObjectStreamField*>* getSerialFields(JClass* cl){
@@ -221,35 +221,35 @@ namespace jcpp{
             }
         }
 
-        bool JObjectStreamClass::isEnum(){
+        jbool JObjectStreamClass::isEnum(){
             return bIsEnum;
         }
 
-        bool JObjectStreamClass::isProxy(){
+        jbool JObjectStreamClass::isProxy(){
             return bIsProxy;
         }
 
-        bool JObjectStreamClass::hasReadObjectMethod() {
+        jbool JObjectStreamClass::hasReadObjectMethod() {
             return readObjectMethod!=NULL;
         }
 
-        bool JObjectStreamClass::hasWriteObjectMethod(){
+        jbool JObjectStreamClass::hasWriteObjectMethod(){
             return writeObjectMethod!=NULL;
         }
 
-        bool JObjectStreamClass::hasWriteObjectData() {
+        jbool JObjectStreamClass::hasWriteObjectData() {
             return writeObjectData;
         }
 
-        bool JObjectStreamClass::hasWriteReplaceMethod(){
+        jbool JObjectStreamClass::hasWriteReplaceMethod(){
             return (writeReplaceMethod != NULL);
         }
 
-        bool JObjectStreamClass::isExternalizable(){
+        jbool JObjectStreamClass::isExternalizable(){
             return this->externalizable;
         }
 
-        bool JObjectStreamClass::hasBlockExternalData(){
+        jbool JObjectStreamClass::hasBlockExternalData(){
             return this->blockExternalData;
         }
 
@@ -265,7 +265,7 @@ namespace jcpp{
             return numObjFields;
         }
 
-        JObjectStreamField* JObjectStreamClass::getField(int i){
+        JObjectStreamField* JObjectStreamClass::getField(jint i){
             if (fields == NULL) {
                 throw new JInternalError("no fields!");
             }
@@ -277,7 +277,7 @@ namespace jcpp{
         }
 
         JObjectStreamField* JObjectStreamClass::getField(string name,JClass* type){
-            for (unsigned int i=0;i<fields->size();i++){
+            for (jint i=0;i<fields->size();i++){
                 JObjectStreamField* f=fields->at(i);
                 if (f->getName()==name){
                     if (type==NULL || (type==JObject::getClazz() && !f->isPrimitive())){
@@ -296,7 +296,7 @@ namespace jcpp{
             return name;
         }
 
-        int JObjectStreamClass::getPrimDataSize(){
+        jint JObjectStreamClass::getPrimDataSize(){
             return primDataSize;
         }
 
@@ -321,7 +321,7 @@ namespace jcpp{
             writeObjectData = ((flags & JObjectStreamConstants::SC_WRITE_METHOD) != 0);
             blockExternalData = ((flags & JObjectStreamConstants::SC_BLOCK_DATA) != 0);
             externalizable = ((flags & JObjectStreamConstants::SC_EXTERNALIZABLE) != 0);
-            bool sflag = ((flags & JObjectStreamConstants::SC_SERIALIZABLE) != 0);
+            jbool sflag = ((flags & JObjectStreamConstants::SC_SERIALIZABLE) != 0);
             if (externalizable && sflag) {
                 throw new JInvalidClassException(""+name+" : serializable and externalizable flags conflict");
             }
@@ -341,7 +341,7 @@ namespace jcpp{
             }
             if (numFields > 0) {
                 fields = new vector<JObjectStreamField*>();
-                for (int i = 0; i < numFields; ++i) {
+                for (jint i = 0; i < numFields; ++i) {
                     jchar tcode=(jchar) in->readByte();;
                     string fname=in->readUTF();
                     string signature;
@@ -371,7 +371,7 @@ namespace jcpp{
             blockExternalData= model->blockExternalData;
             writeObjectData = model->writeObjectData;
             fields = new vector<JObjectStreamField*>;
-            for (int i = 0; i < model->getNumFields(); ++i) {
+            for (jint i = 0; i < model->getNumFields(); ++i) {
                 fields->push_back(model->fields->at(i));
             }
             primDataSize = model->primDataSize;
@@ -459,7 +459,7 @@ namespace jcpp{
             out->writeByte(flags);
 
             out->writeShort(getNumFields());
-            for (int i = 0; i < getNumFields(); i++) {
+            for (jint i = 0; i < getNumFields(); i++) {
                 JObjectStreamField* f = fields->at(i);
                 out->writeByte(f->getTypeCode());
                 out->writeUTF(f->getName());
@@ -480,9 +480,9 @@ namespace jcpp{
         void JObjectStreamClass::computeFieldOffsets() {
             primDataSize = 0;
             numObjFields = 0;
-            int firstObjIndex = -1;
+            jint firstObjIndex = -1;
 
-            for (int i = 0; i < getNumFields(); ++i) {
+            for (jint i = 0; i < getNumFields(); ++i) {
                 switch (fields->at(i)->getTypeCode()) {
                 case 'Z':
                 case 'B':
@@ -581,8 +581,8 @@ namespace jcpp{
         }
 
         void JObjectStreamClass::setPrimFieldValues(JObject* obj, jbyte *buf) {
-            int pos = 0;
-            for (int i = 0; i < getNumFields()-numObjFields; ++i) {
+            jint pos = 0;
+            for (jint i = 0; i < getNumFields()-numObjFields; ++i) {
                 JObjectStreamField* f = fields->at(i);
                 switch (f->getTypeCode()) {
                     case 'Z': {
@@ -642,10 +642,10 @@ namespace jcpp{
             if (obj==NULL){
                 throw new JNullPointerException();
             }
-            for (int i=0 ; i< getNumFields()-numObjFields ; i++){
+            for (jint i=0 ; i< getNumFields()-numObjFields ; i++){
                 JObjectStreamField* f=fields->at(i);
                 JField* field=obj->getClass()->getField(f->getName());
-                int off=f->getOffset();
+                jint off=f->getOffset();
                 switch(f->getTypeCode()){
                     case 'Z':{
                         JPrimitiveBoolean* b=(JPrimitiveBoolean*)field->get(obj);
@@ -710,7 +710,7 @@ namespace jcpp{
             if (jobject==NULL){
                 throw new JNullPointerException;
             }
-            for (int i=getNumFields() - numObjFields;i<getNumFields();i++){
+            for (jint i=getNumFields() - numObjFields;i<getNumFields();i++){
                 switch (fields->at(i)->getTypeCode() ){
                     case 'L':
                     case '[':{
@@ -724,7 +724,7 @@ namespace jcpp{
         }
 
         void JObjectStreamClass::setObjectFieldValues(JObject* jObject,JObject** values) {
-            for (int i = getNumFields() - numObjFields; i < getNumFields(); ++i) {
+            for (jint i = getNumFields() - numObjFields; i < getNumFields(); ++i) {
                 JObject* current = values[i-getNumFields()+numObjFields];
                 jObject->getClass()->getField(fields->at(i)->getName())->set(jObject,current);
             }
@@ -735,7 +735,7 @@ namespace jcpp{
             sstr<<"Class description :\nClass name : "<<name;
             sstr<<", SUID = "<<suid<<endl;
             sstr<<"Fields description :\nNumber of serializable fields = "<<getNumFields()<<endl;
-            for (int i = 0; i < getNumFields(); ++i) {
+            for (jint i = 0; i < getNumFields(); ++i) {
                 sstr<<"type code : "<<fields->at(i)->getTypeCode()<<", name : "<<fields->at(i)->getName()<<endl;
             }
             sstr<<"Super ";

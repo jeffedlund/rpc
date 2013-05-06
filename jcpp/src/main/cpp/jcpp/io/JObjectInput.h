@@ -17,7 +17,7 @@ namespace jcpp{
             static JClass* getClazz();
             virtual JObject* readObject()=0;
             virtual jint read()=0;
-            virtual int read(jbyte b[], int off, int len)=0;
+            virtual jint read(jbyte b[], jint off, jint len)=0;
             virtual jlong skip(jlong n)=0;
             virtual jint available()=0;
             virtual void close()=0;

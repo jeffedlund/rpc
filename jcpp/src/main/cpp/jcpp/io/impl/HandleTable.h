@@ -7,7 +7,6 @@
 
 namespace jcpp{
     namespace io{
-        //Input HandleTable
         class HandleTable {
             static const jbyte STATUS_OK = 1;
             static const jbyte STATUS_UNKNOWN = 2;
@@ -16,26 +15,24 @@ namespace jcpp{
             jbyte* status;
             JObject** entries;
             HandleList** deps;
-            int lowDep;
-            int size;
-            int length;
-
+            jint lowDep;
+            jint size;
+            jint length;
             void grow();
 
         public:
 
-            HandleTable(int initialCapacity);
-            ~HandleTable();
-
-            int assign(JObject *obj);
-            void markDependency(int dependent, int target);
-            void markException(int handle, JClassNotFoundException* ex);
-            void setObject(int handle, JObject* obj);
-            void finish(int handle);
-            int getSize();
-            JObject* lookupObject(int handle);
-            JClassNotFoundException* lookupException(int handle);
+            HandleTable(jint initialCapacity);
+            jint assign(JObject* obj);
+            void markDependency(jint dependent, jint target);
+            void markException(jint handle, JClassNotFoundException* ex);
+            void setObject(jint handle, JObject* obj);
+            void finish(jint handle);
+            jint getSize();
+            JObject* lookupObject(jint handle);
+            JClassNotFoundException* lookupException(jint handle);
             void clear();
+            ~HandleTable();
          };
     }
 }

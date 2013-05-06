@@ -10,21 +10,15 @@ namespace jcpp{
         class SerialCallbackContext {
             JObject* curObj;
             JObjectStreamClass* curDesc;
-            bool upcall;
+            jbool upcall;
 
         public:
             SerialCallbackContext();
-
-            bool setUpcall(bool v);
-
-            bool isUpcall();
-
+            jbool setUpcall(jbool v);
+            jbool isUpcall();
             JObject* getObj();
-
             JObjectStreamClass* getDesc();
-
             void setContext(JObject* obj, JObjectStreamClass* desc);
-
             void clear();
         };
     }

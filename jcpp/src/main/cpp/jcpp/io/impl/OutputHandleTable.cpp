@@ -17,7 +17,7 @@ namespace jcpp{
             handleByObject->clear();
         }
 
-        int OutputHandleTable::size(){
+        jint OutputHandleTable::size(){
             return handleByObject->size();
         }
 

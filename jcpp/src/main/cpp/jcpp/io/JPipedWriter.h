@@ -17,9 +17,9 @@ namespace jcpp{
                 JPipedWriter();
                 virtual void connect(JPipedReader* snk);
                 virtual void write(jint c);
-                virtual void  write(jchar cbuf[], jint off, jint len);
-                virtual void  flush();
-                virtual void  close();
+                virtual void write(jchar cbuf[], jint off, jint len);
+                virtual void flush();
+                virtual void close();
                 virtual ~JPipedWriter();
         };
     }

@@ -63,7 +63,7 @@ namespace jcpp{
             incCount(1);
         }
 
-        void JDataOutputStream::write(jbyte b[], int off, int len){
+        void JDataOutputStream::write(jbyte b[], jint off, jint len){
             out->write(b, off, len);
             incCount(len);
         }
@@ -187,7 +187,7 @@ namespace jcpp{
             jint c, count = 0;
 
             /* use charAt instead of copying String to char array */
-            for (int i = 0; i < strlen; i++) {
+            for (jint i = 0; i < strlen; i++) {
                 c = str.c_str()[i];
                 if ((c >= 0x0001) && (c <= 0x007F)) {
                     utflen++;

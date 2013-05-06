@@ -9,7 +9,7 @@ using namespace jcpp::lang;
 namespace jcpp{
     namespace io{
         class JFile;
-        class JFilenameFilter : public JInterface  {
+        class JCPP_LIBRARY_EXPORT JFilenameFilter : public JInterface  {
             public:
                 static JClass* getClazz();
                 virtual jbool accept(JFile* dir, string name)=0;

@@ -9,7 +9,6 @@ namespace jcpp{
                 canonicalName="java.io.Externalizable";
                 name="java.io.Externalizable";
                 simpleName="Externalizable";
-                serialVersionUID=0;
                 bIsInterface=true;
             }
 

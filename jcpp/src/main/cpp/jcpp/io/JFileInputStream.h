@@ -6,15 +6,16 @@
 #include "QFile"
 #include "JFile.h"
 
+//TODO implement qobjectaware
 namespace jcpp{
     namespace io{
-        class JFileInputStream : public JInputStream  {
+        class JCPP_LIBRARY_EXPORT JFileInputStream : public JInputStream  {
             protected:
                 QFile* file;
                 QDataStream* in;
                 jbool bIsClosed;
                 jbool isClosed();
-                virtual bool waitForReadyRead(int = 30000);
+                virtual jbool waitForReadyRead(jint = 30000);
 
             public:
                 static JClass* getClazz();

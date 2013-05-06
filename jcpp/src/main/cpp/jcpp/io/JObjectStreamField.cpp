@@ -48,7 +48,7 @@ namespace jcpp{
             setTypeString();
         }
 
-        JObjectStreamField::JObjectStreamField(string name,JClass* type,bool unshared):JObject(getClazz()){
+        JObjectStreamField::JObjectStreamField(string name,JClass* type,jbool unshared):JObject(getClazz()){
             this->name=name;
             this->type=type;
             this->unshared=unshared;
@@ -57,7 +57,7 @@ namespace jcpp{
             setTypeString();
         }
 
-        JObjectStreamField::JObjectStreamField(string name,string signature,bool unshared):JObject(getClazz()){
+        JObjectStreamField::JObjectStreamField(string name,string signature,jbool unshared):JObject(getClazz()){
             this->name=name;
             this->signature=signature;
             this->unshared=unshared;
@@ -97,7 +97,7 @@ namespace jcpp{
             setTypeString();
         }
 
-        JObjectStreamField::JObjectStreamField(JField* field,bool unshared,bool showType):JObject(getClazz()){
+        JObjectStreamField::JObjectStreamField(JField* field,jbool unshared,jbool showType):JObject(getClazz()){
             this->field=field;
             this->unshared=unshared;
             this->name=field->getName();
@@ -135,12 +135,12 @@ namespace jcpp{
             this->offset=offset;
         }
 
-        bool JObjectStreamField::isPrimitive(){
+        jbool JObjectStreamField::isPrimitive(){
             char tcode=signature.at(0);
             return (tcode!='L') && (tcode!='[');
         }
 
-        bool JObjectStreamField::isUnshared(){
+        jbool JObjectStreamField::isUnshared(){
             return unshared;
         }
 
@@ -154,7 +154,7 @@ namespace jcpp{
 
         jint JObjectStreamField::compareTo(JObject* o){
             JObjectStreamField* other=dynamic_cast<JObjectStreamField*>(o);
-            bool isPrim = getType()->isPrimitive();
+            jbool isPrim = getType()->isPrimitive();
             if (isPrim != other->getType()->isPrimitive()) {
                 return isPrim ? -1 : 1;
             }

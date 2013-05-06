@@ -14,10 +14,8 @@ namespace jcpp{
         public:
             JObjectStreamException();
             JObjectStreamException(string message);
-
-             static JClass* getClazz();
-
-             virtual ~JObjectStreamException();
+            static JClass* getClazz();
+            virtual ~JObjectStreamException();
         };
     }
 }

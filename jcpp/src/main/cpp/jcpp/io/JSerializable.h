@@ -11,10 +11,7 @@ using namespace jcpp::lang::reflect;
 namespace jcpp{
     namespace io{
         class JCPP_LIBRARY_EXPORT JSerializable : public JInterface{
-        protected:
-            JSerializable();
         public:
-
             static JClass* getClazz();
             virtual ~JSerializable();
         };

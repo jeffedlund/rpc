@@ -32,7 +32,7 @@ namespace jcpp{
                 virtual jint read();
                 virtual jint read(jbyte b[],jint off,jint len);
                 virtual jint available();
-                virtual void  close();
+                virtual void close();
                 virtual ~JPipedInputStream();
         };
     }

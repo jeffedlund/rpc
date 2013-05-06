@@ -25,12 +25,12 @@ namespace jcpp{
                 virtual JCharArrayWriter* append(JCharSequence* csq);
                 virtual JCharArrayWriter* append(JCharSequence* csq,jint offset,jint len);
                 virtual JCharArrayWriter * append(jchar c);
-                virtual void  reset();
+                virtual void reset();
                 virtual vector<jchar>* toCharArray();
                 virtual jint size();
                 virtual string toString();
-                virtual void  flush();
-                virtual void  close();
+                virtual void flush();
+                virtual void close();
                 virtual ~JCharArrayWriter();
         };
     }

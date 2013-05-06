@@ -14,7 +14,6 @@ namespace jcpp{
         public:
             JNotActiveException();
             JNotActiveException(string message);
-
             static JClass* getClazz();
             virtual ~JNotActiveException();
         };

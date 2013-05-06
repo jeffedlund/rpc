@@ -8,12 +8,11 @@ using namespace jcpp::lang;
 
 namespace jcpp{
     namespace io{
-        class JDefaultFileSystem : public JObject  {
+        class JCPP_LIBRARY_EXPORT JDefaultFileSystem : public JObject  {
             public:
                 static JClass* getClazz();
                 static JFileSystem* getFileSystem();
                 virtual ~JDefaultFileSystem();
-
         };
     }
 }

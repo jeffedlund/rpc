@@ -52,7 +52,7 @@ namespace jcpp{
             if (len < 0){
                 throw new JIndexOutOfBoundsException;
             }
-            int n = 0;
+            jint n = 0;
             while (n < len) {
                 jint count = read(b, off + n, len - n);
                 if (count < 0){
@@ -62,14 +62,14 @@ namespace jcpp{
             }
         }
 
-        jint JInputStream::read(jbyte b[], int off, int len) {
+        jint JInputStream::read(jbyte b[], jint off, jint len) {
             if (b == NULL) {
                 throw new JNullPointerException();
             }else if (len == 0) {
                 return 0;
             }
 
-            for (int i=0;i<len;i++){//better handling
+            for (jint i=0;i<len;i++){//better handling
                 b[off+i]=read();
             }
             return len;
@@ -77,7 +77,7 @@ namespace jcpp{
 
         jlong JInputStream::skip(jlong n){
             jlong remaining = n;
-            int nr;
+            jint nr;
             if (skipBuffer == NULL){
                 skipBuffer = new jbyte[SKIP_BUFFER_SIZE];
             }
@@ -103,7 +103,7 @@ namespace jcpp{
         void JInputStream::reset(){
         }
 
-        bool JInputStream::markSupported(){
+        jbool JInputStream::markSupported(){
             return false;
         }
 

@@ -97,7 +97,7 @@ namespace jcpp{
 
         JSequenceInputStream::~JSequenceInputStream(){
             if (vec!=NULL){
-                delete vec;
+                delete vec;//TODO delete JVector deletes its content? do we want that?
             }
             delete this->e;
         }

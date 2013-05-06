@@ -106,7 +106,6 @@ namespace jcpp{
 
              /**
               * new Enum constant.
-              * @since 1.5
               */
              const static jbyte TC_ENUM =		(jbyte)0x7E;
 
@@ -149,7 +148,6 @@ namespace jcpp{
 
             /**
              * Bit mask for ObjectStreamClass flag. Indicates class is an enum type.
-             * @since 1.5
              */
             const static jbyte SC_ENUM = 0x10;
 

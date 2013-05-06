@@ -52,8 +52,8 @@ namespace jcpp{
             return (jint)in->device()->bytesAvailable();
         }
 
-        bool QtDataInputStream::waitForReadyRead(int i) {
-            bool b=false;
+        jbool QtDataInputStream::waitForReadyRead(jint i) {
+            jbool b=false;
             QIODevice* dev=in->device();
             if (dev!=NULL){
                 b=dev->waitForReadyRead(i);

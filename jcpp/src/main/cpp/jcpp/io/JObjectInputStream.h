@@ -26,7 +26,7 @@ class SerialCallbackContext;
 namespace jcpp{
     namespace io{
         class JObjectStreamClass;
-        static const int NULL_HANDLE = -1;
+        static const jint NULL_HANDLE = -1;
 
         class JCPP_LIBRARY_EXPORT JObjectInputStream : public JInputStream, public JObjectInput, public JObjectStreamConstants{
         public:
@@ -57,9 +57,15 @@ namespace jcpp{
             HandleTable* handles;
             jint passHandle;
             jbyte *primVals;
-            bool enableResolve;
+            jbool enableResolve;
             SerialCallbackContext* curContext;
 
+            jbool enableResolveObject(jbool enable);
+            JClass *resolveClass(JObjectStreamClass* jObjectStreamClass);
+            JClass *resolveProxyClass(string* str,jint i);
+            virtual JObject* resolveObject(JObject* jobject);
+            JObjectInputStream(JInputStream* inputStrean,JClass* _class);
+            void init(JInputStream* in);
             void skipCustomData();
             void readExternalData(JObject*, JObjectStreamClass*);
             void readSerialData(JObject*, JObjectStreamClass*);
@@ -73,59 +79,51 @@ namespace jcpp{
             JObject* readArray(jbool unshared);
             JObject* readEnum(jbool unshared);
             JObject* readOrdinaryObject(jbool unshared);
+            JString* readString(jbool unshared);
+            JString* readTypeString();
+            virtual string readLongUTF();
             JIOException* readFatalException();
             JObject* checkResolve(JObject*);
             JObject* readObject0(jbool unshared);
             void clear();
             friend class JGetFieldImpl;
-
-        protected:
-            bool enableResolveObject(bool enable);
-            JClass *resolveClass(JObjectStreamClass* jObjectStreamClass);
-            JClass *resolveProxyClass(string* str,int i);
-            virtual JObject* resolveObject(JObject* jobject);
-            JObjectInputStream(JInputStream* inputStrean,JClass* _class);
-            void init(JInputStream* in);
+            friend class JObjectStreamClass;
 
         public:
             JObjectInputStream(JInputStream* inputStrean);
-
-            void setInputClassLoader(JClassLoader* inputClassLoader);
+            void setInputClassLoader(JClassLoader* inputClassLoader);//TODO use Thread.getContextClassLoader()
             static JClass* getClazz();
+            virtual JObject* readObject();
+            virtual JObject* readUnshared();
+            virtual void defaultReadObject();
+            virtual JGetField* readFields();//TODO check when the return is deleted
+            virtual jint peek();
+            virtual jint read();
+            virtual jint read(jbyte b[], jint off, jint len);
+            virtual jint available();
+            virtual void close();
+            virtual jbool readBool();
+            virtual JPrimitiveBoolean* readPrimitiveBool();
+            virtual jbyte readByte();
+            virtual JPrimitiveByte* readPrimitiveByte();
+            virtual jint readUnsignedByte();
+            virtual jchar readChar();
+            virtual JPrimitiveChar* readPrimitiveChar();
+            virtual jshort readShort();
+            virtual jint readUnsignedShort();
+            virtual JPrimitiveShort* readPrimitiveShort();
+            virtual jint readInt();
+            virtual JPrimitiveInt* readPrimitiveInt();
+            virtual jlong readLong();
+            virtual JPrimitiveLong* readPrimitiveLong();
+            virtual jfloat readFloat();
+            virtual JPrimitiveFloat* readPrimitiveFloat();
+            virtual jdouble readDouble();
+            virtual JPrimitiveDouble* readPrimitiveDouble();
             virtual void readFully(jbyte b[], jint off, jint len);
             virtual jint skipBytes(jint n);
             virtual jlong skip(jlong n);
-            virtual jint readUnsignedByte();
-            virtual jint readUnsignedShort();
-            virtual JObject* readObject();
-            virtual JString* readString(jbool unshared);
-            virtual JString* readTypeString();
-            virtual JObject* readUnshared();
-            virtual void defaultReadObject();
-            virtual JGetField* readFields();
-            virtual jint available();
-            virtual jint read();
-            virtual int read(jbyte b[], int off, int len);
-            virtual jbyte readByte();
-            virtual jint peek();
-            virtual jchar readChar();
-            virtual jdouble readDouble();
-            virtual jfloat readFloat();
-            virtual jint readInt();
-            virtual jlong readLong();
-            virtual jshort readShort();
-            virtual jbool readBool();
-            virtual JPrimitiveByte* readPrimitiveByte();
-            virtual JPrimitiveChar* readPrimitiveChar();
-            virtual JPrimitiveDouble* readPrimitiveDouble();
-            virtual JPrimitiveFloat* readPrimitiveFloat();
-            virtual JPrimitiveInt* readPrimitiveInt();
-            virtual JPrimitiveLong* readPrimitiveLong();
-            virtual JPrimitiveShort* readPrimitiveShort();
-            virtual JPrimitiveBoolean* readPrimitiveBool();
             virtual string readUTF();
-            virtual string readLongUTF();
-            virtual void close();
             virtual ~JObjectInputStream();
         };
     }

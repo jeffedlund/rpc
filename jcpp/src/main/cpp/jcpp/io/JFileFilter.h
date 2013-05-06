@@ -3,13 +3,14 @@
 
 #include "JInterface.h"
 #include "Object.h"
+#include "JCPP.h"
 
 using namespace jcpp::lang;
 
 namespace jcpp{
     namespace io{
         class JFile;
-        class JFileFilter : public JInterface  {
+        class JCPP_LIBRARY_EXPORT JFileFilter : public JInterface  {
             public:
                 static JClass* getClazz();
                 virtual jbool accept(JFile* file)=0;

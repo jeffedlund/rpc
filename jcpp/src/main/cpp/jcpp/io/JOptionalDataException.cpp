@@ -84,11 +84,11 @@ namespace jcpp{
             this->length=l;
         }
 
-        bool JOptionalDataException::getEOF(){
+        jbool JOptionalDataException::getEOF(){
             return eof->get();
         }
 
-        void JOptionalDataException::setEOF(bool eof){
+        void JOptionalDataException::setEOF(jbool eof){
             this->eof->set(eof);
         }
 

@@ -37,7 +37,7 @@ namespace jcpp{
 
         void  JByteArrayOutputStream::write(jbyte b[], jint off, jint l){
             lock();
-            for (int i=0;i<l;i++){
+            for (jint i=0;i<l;i++){
                 buf->push_back(b[i+off]);
             }
             unlock();

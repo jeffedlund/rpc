@@ -39,7 +39,9 @@ namespace jcpp{
         }
 
         void JBufferedWriter::ensureOpen(){
-            throw new JIOException("stream closed");
+            if (out==NULL){
+                throw new JIOException("stream closed");
+            }
         }
 
         void JBufferedWriter::flushBuffer(){

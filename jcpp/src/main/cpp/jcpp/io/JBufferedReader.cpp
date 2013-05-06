@@ -233,6 +233,7 @@ namespace jcpp{
                     if (c == '\r') {
                         skipLF = true;
                     }
+                    lock->unlock();
                     return str;
                 }
 

@@ -63,7 +63,7 @@ namespace jcpp{
                 pos = 0;
             }else if (pos >= length){
                 if (markpos > 0) {
-                    int sz = pos - markpos;
+                    jint sz = pos - markpos;
                     arraycopy(buffer, markpos, buffer, 0, sz);
                     pos = sz;
                     markpos = 0;
@@ -71,7 +71,7 @@ namespace jcpp{
                     markpos = -1;
                     pos = 0;
                 } else {
-                    int nsz = pos * 2;
+                    jint nsz = pos * 2;
                     if (nsz > marklimit){
                         nsz = marklimit;
                     }
@@ -82,7 +82,7 @@ namespace jcpp{
                     buffer = nbuf;
                 }
                 count = pos;
-                int n = getInIfOpen()->read(&((*buffer)[pos]), 0, length - pos);
+                jint n = getInIfOpen()->read(&((*buffer)[pos]), 0, length - pos);
                 if (n > 0){
                     count = n + pos;
                 }
@@ -100,7 +100,7 @@ namespace jcpp{
         }
 
         jint JBufferedInputStream::read1(jbyte b[], jint off, jint len){
-            int avail = count - pos;
+            jint avail = count - pos;
             if (avail <= 0) {
                 if (len >= length && markpos < 0) {
                     return getInIfOpen()->read(b, off, len);
@@ -111,7 +111,7 @@ namespace jcpp{
                     return -1;
                 }
             }
-            int cnt = (avail < len) ? avail : len;
+            jint cnt = (avail < len) ? avail : len;
             arraycopy(getBufIfOpen(), pos, b, off, cnt);
             pos += cnt;
             return cnt;
@@ -122,7 +122,7 @@ namespace jcpp{
             if (len == 0) {
                 return 0;
             }
-            int n = 0;
+            jint n = 0;
             for (;;) {
                 jint nread = read1(b, off + n, len - n);
                 if (nread <= 0){
@@ -144,7 +144,7 @@ namespace jcpp{
             if (n <= 0) {
                 return 0;
             }
-            long avail = count - pos;
+            jlong avail = count - pos;
             if (avail <= 0) {
                 if (markpos <0) {
                     return getInIfOpen()->skip(n);
@@ -155,7 +155,7 @@ namespace jcpp{
                     return 0;
                 }
             }
-            long skipped = (avail < n) ? avail : n;
+            jlong skipped = (avail < n) ? avail : n;
             pos += skipped;
             return skipped;
         }
@@ -174,7 +174,7 @@ namespace jcpp{
             return getBufIfOpen()->at(pos) & 0xff;
         }
 
-        void JBufferedInputStream::mark(int readlimit) {
+        void JBufferedInputStream::mark(jint readlimit) {
             marklimit = readlimit;
             markpos = pos;
         }
@@ -187,7 +187,7 @@ namespace jcpp{
             pos = markpos;
         }
 
-        bool JBufferedInputStream::markSupported() {
+        jbool JBufferedInputStream::markSupported() {
             return true;
         }
 

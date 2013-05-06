@@ -14,7 +14,6 @@ namespace jcpp{
         public:
             JStreamCorruptedException();
             JStreamCorruptedException(string message);
-
             static JClass* getClazz();
             virtual ~JStreamCorruptedException();
         };

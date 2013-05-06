@@ -71,7 +71,7 @@ namespace jcpp{
         }
 
         jint JPipedInputStream::peek(){
-            if (!connected) {
+            if (!connected) {//TODO isConnected
                 throw new JIOException("Pipe not connected");
             } else if (closedByReader) {
                 throw new JIOException("Pipe closed");
@@ -91,8 +91,8 @@ namespace jcpp{
         }
 
         void JPipedInputStream::receive(jint b){
-            lock();
             checkStateForReceive();
+            lock();
             if (in == out){
                 awaitSpace();
             }
@@ -108,8 +108,8 @@ namespace jcpp{
         }
 
         void JPipedInputStream::receive(jbyte b[],jint off,jint len){
-            lock();
             checkStateForReceive();
+            lock();
             jint bytesToTransfer = len;
             while (bytesToTransfer > 0) {
                 if (in == out){
@@ -142,9 +142,9 @@ namespace jcpp{
         }
 
         void JPipedInputStream::checkStateForReceive(){
-            if (!connected) {
+            if (!connected) {//TODO isConnected
                 throw new JIOException("Pipe not connected");
-            } else if (closedByWriter || closedByReader) {
+            } else if (closedByWriter || closedByReader) {//TODO isXXX
                 throw new JIOException("Pipe closed");
             }
         }
@@ -248,8 +248,8 @@ namespace jcpp{
         }
 
         void JPipedInputStream::close(){
-            closedByReader = true;
             lock();
+            closedByReader = true;
             in = -1;
             unlock();
         }
