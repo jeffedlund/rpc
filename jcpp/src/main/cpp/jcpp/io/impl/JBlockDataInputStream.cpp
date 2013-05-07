@@ -35,18 +35,15 @@ namespace jcpp{
             return clazz;
         }
 
-        jint JBlockDataInputStream::MAX_BLOCK_SIZE = 1024;
-
-        jint JBlockDataInputStream::MAX_HEADER_SIZE = 5;
-
-        jint JBlockDataInputStream::CHAR_BUF_SIZE = 256;
-
-        jint JBlockDataInputStream::HEADER_BLOCKED = -2;
+        static const jint IN_MAX_BLOCK_SIZE = 1024;
+        static const jint IN_MAX_HEADER_SIZE = 5;
+        static const jint IN_CHAR_BUF_SIZE = 256;
+        static const jint IN_HEADER_BLOCKED = -2;
 
         JBlockDataInputStream::JBlockDataInputStream(JInputStream *in): JInputStream(getClazz()) {
-            buf=new jbyte[MAX_BLOCK_SIZE];
-            hbuf=new jbyte[MAX_HEADER_SIZE];
-            cbuf=new jchar[CHAR_BUF_SIZE];
+            buf=new jbyte[IN_MAX_BLOCK_SIZE];
+            hbuf=new jbyte[IN_MAX_HEADER_SIZE];
+            cbuf=new jchar[IN_CHAR_BUF_SIZE];
             this->blkmode=false;
             this->pos=0;
             this->end=-1;
@@ -96,14 +93,14 @@ namespace jcpp{
                     avail = in->available();
                 }
                 if (avail == 0) {
-                    return HEADER_BLOCKED;
+                    return IN_HEADER_BLOCKED;
                 }
 
                 jbyte tc = in->peekByte();
                 switch (tc) {
                 case JObjectStreamConstants::TC_BLOCKDATA:
                     if (avail < 2) {
-                        return HEADER_BLOCKED;
+                        return IN_HEADER_BLOCKED;
                     }
                     in->read(hbuf,0,2);
                     return hbuf[1] & 0xFF;
@@ -111,7 +108,7 @@ namespace jcpp{
                 case JObjectStreamConstants::TC_BLOCKDATALONG:
                 {
                     if (avail < 5) {
-                        return HEADER_BLOCKED;
+                        return IN_HEADER_BLOCKED;
                     }
                     in->read(hbuf,0,5);
                     jint len = JBits::getInt(hbuf,1);
@@ -142,7 +139,7 @@ namespace jcpp{
             do {
                 pos = 0;
                 if (unread > 0) {
-                    jint n = in->read(buf,0,min(unread, JBlockDataInputStream::MAX_BLOCK_SIZE));
+                    jint n = in->read(buf,0,min(unread, IN_MAX_BLOCK_SIZE));
                     if (n >= 0) {
                         end = n;
                         unread -= n;
@@ -218,7 +215,7 @@ namespace jcpp{
                     remain -= nread;
                     pos += nread;
                 } else {
-                    jint nread = (jint) min((jint)remain, JBlockDataInputStream::MAX_BLOCK_SIZE);
+                    jint nread = (jint) min((jint)remain, IN_MAX_BLOCK_SIZE);
                     if ((nread = in->read(buf, 0, nread)) < 0) {
                         break;
                     }
@@ -234,7 +231,7 @@ namespace jcpp{
                     jint n;
                     while ((n = readBlockHeader(false)) == 0);
                     switch (n) {
-                    case HEADER_BLOCKED:
+                    case IN_HEADER_BLOCKED:
                         break;
 
                     case -1:
@@ -280,7 +277,7 @@ namespace jcpp{
                 pos += nread;
                 return nread;
             }else if (copy) {
-                jint nread = in->read(buf,0,min(len, JBlockDataInputStream::MAX_BLOCK_SIZE));
+                jint nread = in->read(buf,0,min(len, IN_MAX_BLOCK_SIZE));
                 if (nread > 0) {
                     memcpy(b+off,buf,nread);
                 }
@@ -442,7 +439,7 @@ namespace jcpp{
                             arraycopy(buf, pos, buf, 0, avail);
                         }
                         pos = 0;
-                        end = (jint) min(JBlockDataInputStream::MAX_BLOCK_SIZE,(jint) utflen);
+                        end = (jint) min(IN_MAX_BLOCK_SIZE,(jint) utflen);
                         in->readFully(buf, avail, end - avail);
                     }
                 }
@@ -473,7 +470,7 @@ namespace jcpp{
         jlong JBlockDataInputStream::readUTFSpan(vector<jchar>* sbuf, jlong utflen) {
             jint cpos = 0;
             jint start = pos;
-            jint avail = min(end - pos, JBlockDataInputStream::CHAR_BUF_SIZE);
+            jint avail = min(end - pos, IN_CHAR_BUF_SIZE);
             jint stop = pos + ((utflen > avail) ? avail - 2 : (jint) utflen);
             jbool outOfBounds = false;
 
@@ -589,7 +586,7 @@ namespace jcpp{
             jint stop, endoff = off+ len;
             while(off < endoff) {
                 if (!blkmode) {
-                    jint span = min(endoff - off, JBlockDataInputStream::MAX_BLOCK_SIZE);
+                    jint span = min(endoff - off, IN_MAX_BLOCK_SIZE);
                     in->readFully(buf,0, span);
                     stop = off + span;
                     pos = 0;
@@ -609,7 +606,7 @@ namespace jcpp{
             jint stop, endoff = off+ len;
             while(off < endoff) {
                 if (!blkmode) {
-                    jint span = min(endoff - off, MAX_BLOCK_SIZE >> 1);
+                    jint span = min(endoff - off, IN_MAX_BLOCK_SIZE >> 1);
                     in->readFully(buf,0, span << 1);
                     stop = off + span;
                     pos = 0;
@@ -630,7 +627,7 @@ namespace jcpp{
             jint stop, endoff = off + len;
             while (off < endoff) {
                 if (!blkmode) {
-                    jint span = min(endoff - off, MAX_BLOCK_SIZE >> 1);
+                    jint span = min(endoff - off, IN_MAX_BLOCK_SIZE >> 1);
                     in->readFully(buf, 0,span << 1);
                     stop = off + span;
                     pos = 0;
@@ -652,7 +649,7 @@ namespace jcpp{
             jint stop, endoff = off + len;
             while (off < endoff) {
                 if (!blkmode) {
-                    jint span = min(endoff - off, MAX_BLOCK_SIZE >> 2);
+                    jint span = min(endoff - off, IN_MAX_BLOCK_SIZE >> 2);
                     in->readFully(buf, 0, span << 2);
                     stop = off + span;
                     pos = 0;
@@ -674,7 +671,7 @@ namespace jcpp{
             jint stop, endoff = off + len;
             while (off < endoff) {
                 if (!blkmode) {
-                    jint span = min(endoff - off, MAX_BLOCK_SIZE >> 2);
+                    jint span = min(endoff - off, IN_MAX_BLOCK_SIZE >> 2);
                     in->readFully(buf, 0, span << 2);
                     stop = off + span;
                     pos = 0;
@@ -696,7 +693,7 @@ namespace jcpp{
             jint stop, endoff = off + len;
             while (off < endoff) {
                 if (!blkmode) {
-                    jint span = min(endoff - off, MAX_BLOCK_SIZE >> 3);
+                    jint span = min(endoff - off, IN_MAX_BLOCK_SIZE >> 3);
                     in->readFully(buf, 0, span << 3);
                     stop = off + span;
                     pos = 0;
@@ -718,7 +715,7 @@ namespace jcpp{
             jint stop, endoff = off + len;
             while (off < endoff) {
                 if (!blkmode) {
-                    jint span = min(endoff - off, MAX_BLOCK_SIZE >> 3);
+                    jint span = min(endoff - off, IN_MAX_BLOCK_SIZE >> 3);
                     in->readFully(buf, 0, span << 3);
                     stop = off + span;
                     pos = 0;

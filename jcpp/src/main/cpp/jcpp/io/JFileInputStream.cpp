@@ -1,6 +1,7 @@
 #include "JFileInputStream.h"
 #include "JClass.h"
 #include <QString>
+#include "QObjectHolder.h"
 
 namespace jcpp{
     namespace io{
@@ -86,6 +87,18 @@ namespace jcpp{
             this->in->setDevice(0);
             this->file->close();
             unlock();
+        }
+
+        void JFileInputStream::takeOwner(){
+            QObjectHolder::getQObjectHolder()->takeOwner(file);
+        }
+
+        void JFileInputStream::releaseOwner(){
+            QObjectHolder::getQObjectHolder()->releaseOwner(file);
+        }
+
+        QObject* JFileInputStream::getQObject(){
+            return file;
         }
 
         JFileInputStream::~JFileInputStream() {

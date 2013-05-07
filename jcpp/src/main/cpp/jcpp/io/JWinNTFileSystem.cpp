@@ -38,6 +38,16 @@ namespace jcpp{
         }
 
         jchar JWinNTFileSystem::getPathSeparator(){
+            /*TODO a way to do it is the following :
+             #ifdef _WIN32
+             const std::string os_pathsep(";");
+             #else
+             const std::string os_pathsep(":");
+             #endif
+
+             find a better one
+                */
+
             return ';';
         }
 
@@ -75,14 +85,85 @@ namespace jcpp{
         string JWinNTFileSystem::canonicalize(string path){
             return path;//TODO
         }
+
         jint JWinNTFileSystem::getBooleanAttributes(JFile* f){
-            return 0;//TODO
+            QFileInfo info(QString::fromStdString(f->getPath()));
+            jint b=0;
+            if (info.exists()){
+                b|=BA_EXISTS;
+            }
+            if (info.isDir()){
+                b|=BA_DIRECTORY;
+            }
+            if (info.isHidden()){
+                b|=BA_HIDDEN;
+            }
+            if (info.isFile()){
+                b|=BA_REGULAR;
+            }
+            return b;
         }
+
         jbool JWinNTFileSystem::checkAccess(JFile* f, jint access){
-            return false;//TODO
+            QFileInfo info(QString::fromStdString(f->getPath()));
+            if (access==ACCESS_READ){
+                return info.isReadable();
+            }
+            if (access==ACCESS_WRITE){
+                return info.isWritable();
+            }
+            if (access==ACCESS_EXECUTE){
+                return info.isExecutable();
+            }
+            return false;
         }
+
         jbool JWinNTFileSystem::setPermission(JFile* f,jint access,jbool enable,jbool owneronly){
-            return false;//TODO
+            QFile::Permissions p;
+            if (access==ACCESS_READ){
+                if (owneronly){
+                    if (enable){
+                        p|=QFile::ReadOwner;
+                    }
+                }else{
+                    if (enable){
+                        p|=QFile::ReadOwner;
+                        p|=QFile::ReadUser;
+                        p|=QFile::ReadGroup;
+                        p|=QFile::ReadOther;
+                    }
+                }
+            }
+            if (access==ACCESS_WRITE){
+                if (owneronly){
+                    if (enable){
+                        p|=QFile::WriteOwner;
+                    }
+                }else{
+                    if (enable){
+                        p|=QFile::WriteOwner;
+                        p|=QFile::WriteUser;
+                        p|=QFile::WriteGroup;
+                        p|=QFile::WriteOther;
+                    }
+                }
+            }
+            if (access==ACCESS_EXECUTE){
+                if (owneronly){
+                    if (enable){
+                        p|=QFile::ExeOwner;
+                    }
+                }else{
+                    if (enable){
+                        p|=QFile::ExeOwner;
+                        p|=QFile::ExeUser;
+                        p|=QFile::ExeGroup;
+                        p|=QFile::ExeOther;
+                    }
+                }
+            }
+            QFile qfile(QString::fromStdString(f->getPath()));
+            return qfile.setPermissions(p);
         }
 
         jlong JWinNTFileSystem::getLastModifiedTime(JFile* f){

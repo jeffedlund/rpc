@@ -1,7 +1,6 @@
 #include "JUnsupportedEncodingException.h"
 #include "JClass.h"
 
-//namespace declaration
 namespace jcpp{
     namespace io{
 

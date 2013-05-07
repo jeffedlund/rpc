@@ -34,8 +34,5 @@ namespace jcpp{
 
         JFileReader::~JFileReader(){
         }
-
     }
 }
-
-//        

@@ -15,11 +15,6 @@ namespace jcpp{
     namespace io{
         class JCPP_LIBRARY_EXPORT JBlockDataInputStream : public JInputStream, public JObjectStreamConstants {
         protected:
-            static jint MAX_BLOCK_SIZE;
-            static jint MAX_HEADER_SIZE;
-            static jint CHAR_BUF_SIZE;
-            static const jint HEADER_BLOCKED;
-
             jbyte* buf;
             jbyte* hbuf;
             jchar* cbuf;

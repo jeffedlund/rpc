@@ -16,10 +16,10 @@ namespace jcpp{
             public:
                 static JClass* getClazz();
                 virtual void write(jint c);
-                virtual void  write(jchar cbuf[], jint off, jint len);
-                virtual void  write(JString* str, jint off, jint len);
-                virtual void  flush();
-                virtual void  close();
+                virtual void write(jchar cbuf[], jint off, jint len);
+                virtual void write(JString* str, jint off, jint len);
+                virtual void flush();
+                virtual void close();
                 virtual ~JFilterWriter();
         };
     }

@@ -5,11 +5,13 @@
 #include "QDataStream"
 #include "QFile"
 #include "JFile.h"
+#include "QObjectAware.h"
 
-//TODO implement qobjectaware
+using namespace jcpp::lang;
+
 namespace jcpp{
     namespace io{
-        class JCPP_LIBRARY_EXPORT JFileInputStream : public JInputStream  {
+        class JCPP_LIBRARY_EXPORT JFileInputStream : public JInputStream, public QObjectAware  {
             protected:
                 QFile* file;
                 QDataStream* in;
@@ -25,6 +27,9 @@ namespace jcpp{
                 virtual jint peek();
                 virtual jint read();
                 virtual void close();
+                virtual void takeOwner();
+                virtual void releaseOwner();
+                virtual QObject* getQObject();
                 virtual ~JFileInputStream();
         };
     }

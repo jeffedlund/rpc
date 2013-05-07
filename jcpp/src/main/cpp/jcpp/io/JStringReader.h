@@ -8,7 +8,7 @@ namespace jcpp{
     namespace io{
         class JCPP_LIBRARY_EXPORT JStringReader : public JReader  {
             protected:
-                JString* str;//TODO use string only?
+                string str;
                 jint length;
                 jint next;
                 jint imark;

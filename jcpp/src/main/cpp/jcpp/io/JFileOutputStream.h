@@ -5,10 +5,13 @@
 #include <QDataStream>
 #include <QFile>
 #include "JFile.h"
+#include "QObjectAware.h"
+
+using namespace jcpp::lang;
 
 namespace jcpp{
     namespace io{
-        class JCPP_LIBRARY_EXPORT JFileOutputStream : public JOutputStream  {
+        class JCPP_LIBRARY_EXPORT JFileOutputStream : public JOutputStream, public QObjectAware  {
             protected:
                 jbool bIsClosed;
                 QDataStream* out;
@@ -22,6 +25,9 @@ namespace jcpp{
                 virtual void write(jint b);
                 virtual void flush();
                 virtual void close();
+                virtual void takeOwner();
+                virtual void releaseOwner();
+                virtual QObject* getQObject();
                 virtual ~JFileOutputStream();
         };
     }

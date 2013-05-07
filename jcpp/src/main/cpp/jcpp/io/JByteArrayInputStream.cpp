@@ -97,19 +97,19 @@ namespace jcpp{
             return true;
         }
 
-        void  JByteArrayInputStream::mark(jint){
+        void JByteArrayInputStream::mark(jint){
             lock();
             imark=pos;
             unlock();
         }
 
-        void  JByteArrayInputStream::reset(){
+        void JByteArrayInputStream::reset(){
             lock();
             pos=imark;
             unlock();
         }
 
-        void  JByteArrayInputStream::close(){
+        void JByteArrayInputStream::close(){
         }
 
         JByteArrayInputStream::~JByteArrayInputStream(){

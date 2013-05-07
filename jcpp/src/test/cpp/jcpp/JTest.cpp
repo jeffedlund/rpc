@@ -1,19 +1,19 @@
 #include "JTest.h"
 #include "JSampleObject.h"
+#include "JFileInputStream.h"
+#include "JFileOutputStream.h"
+
+using namespace jcpp::io;
 
 namespace jcpp{
     void JTest::testWrite(JObject* object){
         try{
             write ww=getWrite();
             if (ww!=NULL){
-                QString name=QString::fromStdString(getFileName());
-                QFile* file=new QFile(name);
-                file->open(QIODevice::WriteOnly);
-                QDataStream* qs=new QDataStream(file);
-                QtDataOutputStream* qos=new QtDataOutputStream(qs,file);
-                JObjectOutputStream* oos=new JObjectOutputStream(qos);
+                JFileOutputStream* fos=new JFileOutputStream(getFileName());
+                JObjectOutputStream* oos=new JObjectOutputStream(fos);
                 ww(oos,object);
-                file->close();
+                fos->close();
             }
         }catch(JThrowable* th){
             th->printStackTrace(&cout);
@@ -25,17 +25,13 @@ namespace jcpp{
         try{
             read rr=getRead();
             if (rr!=NULL){
-                QString name=QString::fromStdString(getFileName());
-                QFile* file=new QFile(name);
-                file->open(QIODevice::ReadOnly);
-                QDataStream* qs=new QDataStream(file);
-                QtDataInputStream* qis=new QtDataInputStream(qs);
-                JObjectInputStream* ois=new JObjectInputStream(qis);
+                JFileInputStream* fis=new JFileInputStream(getFileName());
+                JObjectInputStream* ois=new JObjectInputStream(fis);
                 cout<<"bootloader=="<<JClassLoader::getBootClassLoader()->toString()<<"\r\n";
                 cout<<"sampleobject classloader=="<<JSampleObject::getClazz()->getClassLoader()->toString()<<"\r\n";
                 ois->setInputClassLoader(JSampleObject::getClazz()->getClassLoader());
                 JObject* read2=rr(ois);
-                file->close();
+                fis->close();
                 return read2;
             }
         }catch(JThrowable* th){

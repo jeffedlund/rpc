@@ -7,12 +7,13 @@ namespace jcpp{
             protected:
                 static JObject* getByteTransferred(JObject* object){
                     JInterruptedIOException* o=(JInterruptedIOException*)object;
-                    return o->getBytesTransferred();
+                    return o->bytesTransferred;
                 }
 
                 static void setByteTransferred(JObject* obj,JObject* value){
                     JInterruptedIOException* b=(JInterruptedIOException*)obj;
-                    b->setBytesTransferred((JPrimitiveInt*)value);
+                    delete b->bytesTransferred;
+                    b->bytesTransferred=(JPrimitiveInt*)value;
                 }
 
             public:
@@ -43,17 +44,15 @@ namespace jcpp{
         }
 
         JInterruptedIOException::JInterruptedIOException():JIOException(getClazz()){
+            bytesTransferred=new JPrimitiveInt();
         }
 
-        JPrimitiveInt* JInterruptedIOException::getBytesTransferred(){
-            return bytesTransferred;
+        jint JInterruptedIOException::getBytesTransferred(){
+            return bytesTransferred->get();
         }
 
-        void JInterruptedIOException::setBytesTransferred(JPrimitiveInt* bt){
-            if (bytesTransferred!=NULL){
-                delete bytesTransferred;
-            }
-            bytesTransferred=bt;
+        void JInterruptedIOException::setBytesTransferred(jint bt){
+            bytesTransferred->set(bt);
         }
 
         JInterruptedIOException::~JInterruptedIOException(){

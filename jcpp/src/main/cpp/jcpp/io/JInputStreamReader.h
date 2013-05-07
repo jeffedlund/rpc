@@ -20,7 +20,7 @@ namespace jcpp{
                 virtual jint read();
                 virtual jint read(jchar cbuf[],jint offset, jint length);
                 virtual jbool ready();
-                virtual void  close();
+                virtual void close();
                 virtual ~JInputStreamReader();
         };
     }

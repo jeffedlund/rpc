@@ -9,7 +9,7 @@ namespace jcpp{
        class JCPP_LIBRARY_EXPORT JFlushable : public JInterface {
             public:
                 static JClass* getClazz();
-                virtual void  flush()=0;
+                virtual void flush()=0;
                 virtual ~JFlushable();
         };
     }

@@ -8,12 +8,13 @@ namespace jcpp{
         class JCPP_LIBRARY_EXPORT JInterruptedIOException : public JIOException  {
             protected:
                 JPrimitiveInt* bytesTransferred;
+                friend class JInterruptedIOExceptionClass;
 
             public:
                 static JClass* getClazz();
                 JInterruptedIOException();
-                JPrimitiveInt* getBytesTransferred();
-                void setBytesTransferred(JPrimitiveInt* bt);//TODO use only jint
+                jint getBytesTransferred();
+                void setBytesTransferred(jint bt);
                 virtual ~JInterruptedIOException();
         };
     }

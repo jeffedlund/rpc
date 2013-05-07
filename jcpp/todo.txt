@@ -3,6 +3,8 @@ group:
 -wiki pages on how to generate classes
 -wiki page on rmi package, samples + tutorial
 -develop java boot loading + translate it for jcpp
+-dont expose JPrimitiveXX, look for then and set them protected and look that pattern everywhere and change it
+
 
 group:
 -------

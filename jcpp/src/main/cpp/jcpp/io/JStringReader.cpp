@@ -29,7 +29,7 @@ namespace jcpp{
         }
 
         JStringReader::JStringReader(string str):JReader(getClazz()){
-            this->str=new JString(str);
+            this->str=str;
             this->length=str.length();
             next=0;
             imark=0;
@@ -41,7 +41,7 @@ namespace jcpp{
                 lock->unlock();
                 return -1;
             }
-            jint i=(jint)str->charAt(next++);
+            jint i=(jint)str.at(next++);
             lock->unlock();
             return i;
         }
@@ -101,12 +101,10 @@ namespace jcpp{
         }
 
         void JStringReader::close(){
-            delete str;
-            str=NULL;
+            str="";
         }
 
         JStringReader::~JStringReader(){
-            delete str;
         }
     }
 }

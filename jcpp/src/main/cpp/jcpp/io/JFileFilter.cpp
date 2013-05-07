@@ -5,9 +5,6 @@
 namespace jcpp{
     namespace io{
         class JFileFilterClass : public JClass{
-            protected:
-
-
             public:
                 JFileFilterClass(){
                     this->canonicalName="java.io.FileFilter";

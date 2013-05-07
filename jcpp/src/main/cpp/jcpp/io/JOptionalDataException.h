@@ -8,7 +8,6 @@
 #include "JCPP.h"
 using namespace std;
 
-//TODO dont expose JPrimitiveXX, look for then and set them protected and look that pattern everywhere and change it
 namespace jcpp{
     namespace io{
         class JCPP_LIBRARY_EXPORT JOptionalDataException : public JObjectStreamException{

@@ -19,7 +19,6 @@ namespace jcpp{
         class JObjectInputStream;
         class JObjectOutputStream;
 
-        //TODO check what should be public/protected
         class JCPP_LIBRARY_EXPORT JObjectStreamClass : public JObject{
         protected:
             class JCPP_LIBRARY_EXPORT ClassDataSlot{

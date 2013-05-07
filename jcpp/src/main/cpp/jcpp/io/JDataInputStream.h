@@ -16,9 +16,7 @@ namespace jcpp{
         public:
             JDataInputStream();
             JDataInputStream(JInputStream *in);
-
             static JClass* getClazz();
-
             void setInputStream(JInputStream *in);
             virtual jint read(jbyte b[], jint off, jint len);
             virtual void readFully(jbyte b[], jint off, jint len);

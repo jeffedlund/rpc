@@ -9,7 +9,6 @@
 #include "JOutputStream.h"
 using namespace jcpp::lang;
 
-//TODO extends QObjectAware
 namespace jcpp{
     namespace io{
         class JCPP_LIBRARY_EXPORT JFilterOutputStream : public JOutputStream{

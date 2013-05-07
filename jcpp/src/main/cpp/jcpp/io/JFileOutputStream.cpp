@@ -1,6 +1,7 @@
 #include "JFileOutputStream.h"
 #include "JClass.h"
 #include <QThread>
+#include "QObjectHolder.h"
 
 namespace jcpp{
     namespace io{
@@ -66,6 +67,18 @@ namespace jcpp{
                 }
             }
             unlock();
+        }
+
+        void JFileOutputStream::takeOwner(){
+            QObjectHolder::getQObjectHolder()->takeOwner(file);
+        }
+
+        void JFileOutputStream::releaseOwner(){
+            QObjectHolder::getQObjectHolder()->releaseOwner(file);
+        }
+
+        QObject* JFileOutputStream::getQObject(){
+            return file;
         }
 
         JFileOutputStream::~JFileOutputStream(){
