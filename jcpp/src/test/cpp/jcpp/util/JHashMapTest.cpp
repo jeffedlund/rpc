@@ -5,7 +5,7 @@ namespace jcpp{
         JHashMapTest::JHashMapTest():JTest(){
         }
 
-        string JHashMapTest::getFileName(){
+        JString JHashMapTest::getFileName(){
             return "HashMap.ser";
         }
 

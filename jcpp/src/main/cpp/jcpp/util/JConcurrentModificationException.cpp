@@ -1,4 +1,5 @@
 #include "JConcurrentModificationException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace util{
@@ -35,7 +36,7 @@ namespace jcpp{
         JConcurrentModificationException::JConcurrentModificationException():JRuntimeException(getClazz()){
         }
 
-        JConcurrentModificationException::JConcurrentModificationException(string message):JRuntimeException(getClazz()){
+        JConcurrentModificationException::JConcurrentModificationException(JString message):JRuntimeException(getClazz()){
             this->message=new JString(message);
         }
 

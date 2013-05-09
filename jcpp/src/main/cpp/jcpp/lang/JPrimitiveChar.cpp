@@ -2,7 +2,6 @@
 #include "JClass.h"
 #include <vector>
 #include <iostream>
-#include <string>
 #include <sstream>
 using namespace std;
 
@@ -37,19 +36,21 @@ namespace jcpp{
             return clazz;
         }
 
-        JPrimitiveArray* JPrimitiveChar::toArray(string str){
+        JPrimitiveArray* JPrimitiveChar::toArray(JString str){
             JPrimitiveArray* a=new JPrimitiveArray(getClazz(),str.length());
-            for (unsigned int i=0;i<str.length();i++){
-                a->set(i,new JPrimitiveChar((jchar)str.at(i)));
+            for (int i=0;i<str.length();i++){
+                a->set(i,new JPrimitiveChar(str.charAt(i)));
             }
             return a;
         }
 
-        string JPrimitiveChar::fromArray(JPrimitiveArray* a){
-            string s;
+        JString JPrimitiveChar::fromArray(JPrimitiveArray* a){
+            vector<jchar>* vec=new vector<jchar>();
             for (int i=0;i<a->size();i++){
-                s+=((JPrimitiveChar*)a->get(i))->get();
+                vec->push_back(((JPrimitiveChar*)a->get(i))->get());
             }
+            JString s(vec);
+            delete vec;
             return s;
         }
 
@@ -90,10 +91,10 @@ namespace jcpp{
             return (jint)value;
         }
 
-        string JPrimitiveChar::toString(){
-            stringstream ss;
+        JString JPrimitiveChar::toString(){
+            JString ss;
             ss<<value;
-            return ss.str();
+            return ss;
         }
 
         JPrimitiveChar::~JPrimitiveChar(){

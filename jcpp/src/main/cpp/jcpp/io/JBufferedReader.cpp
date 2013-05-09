@@ -177,7 +177,7 @@ namespace jcpp{
             return n;
         }
 
-        string JBufferedReader::readLine(jbool ignoreLF){
+        JString JBufferedReader::readLine(jbool ignoreLF){
             JStringBuffer* s = NULL;
             jint startChar=0;
             ensureOpen();
@@ -195,7 +195,7 @@ namespace jcpp{
                         return s->toString();
                     }else{
                         lock->unlock();
-                        return NULL;
+                        return JString("");//TODO should be NULL;
                     }
                 }
                 jbool eol = false;
@@ -220,11 +220,9 @@ namespace jcpp{
                 nextChar = i;
 
                 if (eol) {
-                    string str;
+                    JString str;
                     if (s == NULL) {
-                        for (jint tmp=startChar;tmp<i-startChar;tmp++){
-                            str.push_back(cb[tmp]);//TODO define static method
-                        }
+                        str=JString(cb,startChar,i-startChar);
                     } else {
                         s->append(cb, startChar, i - startChar);
                         str = s->toString();
@@ -244,7 +242,7 @@ namespace jcpp{
              }
         }
 
-        string JBufferedReader::readLine(){
+        JString JBufferedReader::readLine(){
             return readLine(false);
         }
 

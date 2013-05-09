@@ -46,7 +46,7 @@ namespace jcpp{
             return JObject::hashCode();
         }
 
-        string JEnum::toString(){
+        JString JEnum::toString(){
             return name->toString();
         }
 

@@ -114,39 +114,39 @@ namespace jcpp{
                 return putFieldImplClazz;
             }
 
-            virtual void put(string name, jbool val){
+            virtual void put(JString name, jbool val){
                 JBits::putBoolean(primVals,getFieldOffset(name,JBoolean::TYPE),val);
             }
 
-            virtual void put(string name, jbyte val){
+            virtual void put(JString name, jbyte val){
                 primVals[getFieldOffset(name,JByte::TYPE)]=val;
             }
 
-            virtual void put(string name, jchar val){
+            virtual void put(JString name, jchar val){
                 JBits::putChar(primVals,getFieldOffset(name,JChar::TYPE),val);
             }
 
-            virtual void put(string name, jshort val){
+            virtual void put(JString name, jshort val){
                 JBits::putShort(primVals,getFieldOffset(name,JShort::TYPE),val);
             }
 
-            virtual void put(string name, jint val){
+            virtual void put(JString name, jint val){
                 JBits::putInt(primVals,getFieldOffset(name,JInteger::TYPE),val);
             }
 
-            virtual void put(string name, jfloat val){
+            virtual void put(JString name, jfloat val){
                 JBits::putFloat(primVals,getFieldOffset(name,JFloat::TYPE),val);
             }
 
-            virtual void put(string name, jlong val){
+            virtual void put(JString name, jlong val){
                 JBits::putLong(primVals,getFieldOffset(name,JLong::TYPE),val);
             }
 
-            virtual void put(string name, jdouble val){
+            virtual void put(JString name, jdouble val){
                 JBits::putDouble(primVals,getFieldOffset(name,JDouble::TYPE),val);
             }
 
-            virtual void put(string name, JObject* val){
+            virtual void put(JString name, JObject* val){
                 objVals[getFieldOffset(name,JObject::getClazz())]=val;
             }
 
@@ -178,7 +178,7 @@ namespace jcpp{
                 }
             }
 
-            jint getFieldOffset(string name, JClass* type) {
+            jint getFieldOffset(JString name, JClass* type) {
                 JObjectStreamField* field = desc->getField(name, type);
                 if (field == NULL) {
                     throw new JIllegalArgumentException("no such field " + name + " with type " + type->toString());
@@ -455,7 +455,7 @@ namespace jcpp{
             JClass* cl=desc->getJClass();
             vector<JClass*>* interfaces=cl->getInterfaces();
             bout->writeInt(interfaces->size());
-            for(jint i = 0; i < interfaces->size(); ++i){
+            for(unsigned int i = 0; i < interfaces->size(); ++i){
                 JClass* clazz=interfaces->at(i);
                 bout->writeUTF(clazz->getName());
             }
@@ -506,7 +506,7 @@ namespace jcpp{
 
         void JObjectOutputStream::writeSerialData(JObject *obj, JObjectStreamClass* desc){
             vector<JObjectStreamClass::ClassDataSlot*>* classDataSlots=desc->getClassDataLayout();
-            for (jint i=0;i<classDataSlots->size();i++){
+            for (unsigned int i=0;i<classDataSlots->size();i++){
                 JObjectStreamClass::ClassDataSlot* dataSlot=classDataSlots->at(i);
                 JObjectStreamClass* slotDesc=dataSlot->desc;
                 if (slotDesc->hasWriteObjectMethod()) {
@@ -694,15 +694,15 @@ namespace jcpp{
             }
         }
 
-        void JObjectOutputStream::writeUTF(string str){
+        void JObjectOutputStream::writeUTF(JString str){
             bout->writeUTF(str);
         }
 
-        void JObjectOutputStream::writeBytes(string str){
+        void JObjectOutputStream::writeBytes(JString str){
             bout->writeBytes(str);
         }
 
-        void JObjectOutputStream::writeChars(string str){
+        void JObjectOutputStream::writeChars(JString str){
             bout->writeChars(str);
         }
 

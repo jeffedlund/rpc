@@ -10,7 +10,7 @@ namespace jcpp{
                 public:
                     static JClass* getClazz();
                     JAtomicMoveNotSupportedException();
-                    JAtomicMoveNotSupportedException(string source,string target,string reason);
+                    JAtomicMoveNotSupportedException(JString source,JString target,JString reason);
                     virtual ~JAtomicMoveNotSupportedException();
             };
         }

@@ -1,4 +1,5 @@
 #include "JClassNotFoundException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace lang{
@@ -32,7 +33,7 @@ namespace jcpp{
         JClassNotFoundException::JClassNotFoundException():JException(getClazz()){
         }
 
-        JClassNotFoundException::JClassNotFoundException(string message):JException(getClazz()){
+        JClassNotFoundException::JClassNotFoundException(JString message):JException(getClazz()){
             this->message=new JString(message);
         }
 

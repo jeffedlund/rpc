@@ -77,7 +77,7 @@ namespace jcpp{
                 return (getKey()==NULL   ? 0 : (jint)getKey()) ^ (getValue()==NULL ? 0 : (jint)getValue());
             }
 
-            virtual string toString() {
+            virtual JString toString() {
                 return getKey()->toString() + "=" + getValue()->toString();
             }
         };

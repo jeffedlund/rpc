@@ -17,16 +17,16 @@ namespace jcpp{
                     friend class JFileSystemExceptionClass;
                     JFileSystemException();
                     JFileSystemException(JClass* _class);
-                    JFileSystemException(JClass* _class,string file);
-                    JFileSystemException(JClass* _class,string file,string other,string reason);
+                    JFileSystemException(JClass* _class,JString file);
+                    JFileSystemException(JClass* _class,JString file,JString other,JString reason);
 
                 public:
                     static JClass* getClazz();
-                    JFileSystemException(string file);
-                    JFileSystemException(string file,string other,string reason);
-                    virtual string getFile();
-                    virtual string getOtherFile();
-                    virtual string getReason();
+                    JFileSystemException(JString file);
+                    JFileSystemException(JString file,JString other,JString reason);
+                    virtual JString getFile();
+                    virtual JString getOtherFile();
+                    virtual JString getReason();
                     virtual ~JFileSystemException();
             };
         }

@@ -59,8 +59,8 @@ namespace jcpp{
         this->fieldString=fs;
     }
 
-    string JEnumSample::toString(){
-        string s=JEnum::toString();
+    JString JEnumSample::toString(){
+        JString s=JEnum::toString();
         s=s+"[FieldString:"+fieldString->toString()+"]";
         return s;
     }

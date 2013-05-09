@@ -10,7 +10,7 @@ namespace jcpp{
         public:
             JArrayListTest();
 
-            string getFileName();
+            JString getFileName();
 
             JObject* testReflect();
 

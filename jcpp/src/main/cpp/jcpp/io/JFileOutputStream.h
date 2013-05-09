@@ -20,7 +20,7 @@ namespace jcpp{
 
             public:
                 static JClass* getClazz();
-                JFileOutputStream(string name,jbool append=false);
+                JFileOutputStream(JString name,jbool append=false);
                 JFileOutputStream(JFile* file,jbool append=false);
                 virtual void write(jint b);
                 virtual void flush();

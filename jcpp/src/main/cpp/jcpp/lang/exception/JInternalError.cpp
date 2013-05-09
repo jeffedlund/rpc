@@ -1,5 +1,6 @@
 #include "JInternalError.h"
 #include "JClass.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace lang{
@@ -36,11 +37,11 @@ namespace jcpp{
         JInternalError::JInternalError(JClass* _class):JVirtualMachineError(_class){
         }
 
-        JInternalError::JInternalError(std::string message):JVirtualMachineError(getClazz()){
+        JInternalError::JInternalError(JString message):JVirtualMachineError(getClazz()){
             this->message = new JString(message);
         }
 
-        JInternalError::JInternalError(std::string message, JThrowable *cause):JVirtualMachineError(getClazz()){
+        JInternalError::JInternalError(JString message, JThrowable *cause):JVirtualMachineError(getClazz()){
             this->message = new JString(message);
             this->cause = cause;
         }

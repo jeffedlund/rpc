@@ -1,4 +1,5 @@
 #include "JArrayIndexOutOfBoundsException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace lang{
@@ -31,7 +32,7 @@ namespace jcpp{
         JArrayIndexOutOfBoundsException::JArrayIndexOutOfBoundsException():JIndexOutOfBoundsException(getClazz()){
         }
 
-        JArrayIndexOutOfBoundsException::JArrayIndexOutOfBoundsException(string message):JIndexOutOfBoundsException(getClazz()){
+        JArrayIndexOutOfBoundsException::JArrayIndexOutOfBoundsException(JString message):JIndexOutOfBoundsException(getClazz()){
             this->message=new JString(message);
         }
 

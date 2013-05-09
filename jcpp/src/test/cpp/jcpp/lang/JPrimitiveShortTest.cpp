@@ -7,7 +7,7 @@ namespace jcpp{
             r=NULL;
         }
 
-        string JPrimitiveShortTest::getFileName(){
+        JString JPrimitiveShortTest::getFileName(){
             return "PrimitiveShort.ser";
         }
 

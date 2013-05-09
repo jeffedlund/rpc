@@ -7,6 +7,7 @@
 #include "JCloneable.h"
 #include "JThread.h"
 #include "JNullPointerException.h"
+#include "JString.h"
 using namespace std;
 
 namespace jcpp{
@@ -73,12 +74,12 @@ namespace jcpp{
             return c->isAssignableFrom(getClass());
         }
 
-        string JObject::toString(){
-            stringstream ss;
-            ss<<getClass()->getName();
-            ss<<"@";
-            ss<<(long)this;
-            return ss.str();
+        JString JObject::toString(){
+            JString s;
+            s<<getClass()->getName();
+            s<<"@";
+            s<<(jlong)this;
+            return s;
         }
 
         void JObject::lock(){

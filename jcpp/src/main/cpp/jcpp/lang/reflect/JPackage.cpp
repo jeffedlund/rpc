@@ -30,7 +30,7 @@ namespace jcpp{
                 return clazz;
             }
 
-            JPackage::JPackage(string name,JClass* _class){
+            JPackage::JPackage(JString name,JClass* _class){
                 this->name=name;
                 this->_class=_class;
                 this->classes=new vector<JClass*>();
@@ -41,7 +41,7 @@ namespace jcpp{
                 classes->push_back(c);
             }
 
-            string JPackage::toString(){
+            JString JPackage::toString(){
                 return "package "+name;
             }
 

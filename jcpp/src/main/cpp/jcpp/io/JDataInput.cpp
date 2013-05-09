@@ -1,5 +1,6 @@
 #include "JDataInput.h"
 #include "JInstantiationException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace io{

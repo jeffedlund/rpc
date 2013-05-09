@@ -106,7 +106,7 @@ namespace jcpp{
             vector<JField*>* clFields = cl->getDeclaredFields();
             if (clFields!=NULL){
                 vector<JObjectStreamField*>* fields=new vector<JObjectStreamField*>;
-                for (jint i = 0; i < clFields->size(); i++) {
+                for (unsigned int i = 0; i < clFields->size(); i++) {
                     JField* f=clFields->at(i);
                     if (true){//TODO !f->isStatic() && !f->isTransient()) {
                         JObjectStreamField* ff=new JObjectStreamField(f,false,true);
@@ -140,7 +140,7 @@ namespace jcpp{
             for (jint i = 0; i < array->size(); i++) {
                 JObjectStreamField* spf = (JObjectStreamField*)array->get(i);
 
-                string fname = spf->getName();
+                JString fname = spf->getName();
                 if (cl->hasDeclaredField(fname)){
                     JField* f = cl->getDeclaredField(fname);
                     serialPersistentFields->push_back(new JObjectStreamField(f, spf->isUnshared(), true));
@@ -276,8 +276,8 @@ namespace jcpp{
             return fields;
         }
 
-        JObjectStreamField* JObjectStreamClass::getField(string name,JClass* type){
-            for (jint i=0;i<fields->size();i++){
+        JObjectStreamField* JObjectStreamClass::getField(JString name,JClass* type){
+            for (unsigned int i=0;i<fields->size();i++){
                 JObjectStreamField* f=fields->at(i);
                 if (f->getName()==name){
                     if (type==NULL || (type==JObject::getClazz() && !f->isPrimitive())){
@@ -292,7 +292,7 @@ namespace jcpp{
             return NULL;
         }
 
-        string JObjectStreamClass::getName(){
+        JString JObjectStreamClass::getName(){
             return name;
         }
 
@@ -328,29 +328,29 @@ namespace jcpp{
             bIsEnum = ((flags & JObjectStreamConstants::SC_ENUM) != 0);
             serializable = externalizable || sflag;
             if (bIsEnum && suid != 0) {
-                stringstream ss;
+                JString ss;
                 ss<<"enum "<<name<<" descriptor has non-zero serialVersionUID: " << suid;
-                throw new JInvalidClassException(ss.str());
+                throw new JInvalidClassException(ss);
             }
 
             jshort numFields = in->readShort();
             if (bIsEnum && numFields != 0) {
-                stringstream ss;
+                JString ss;
                 ss<<"enum "<<name<<" descriptor has non-zero field count: " << numFields;
-                throw new JInvalidClassException(ss.str());
+                throw new JInvalidClassException(ss);
             }
             if (numFields > 0) {
                 fields = new vector<JObjectStreamField*>();
                 for (jint i = 0; i < numFields; ++i) {
                     jchar tcode=(jchar) in->readByte();;
-                    string fname=in->readUTF();
-                    string signature;
+                    JString fname=in->readUTF();
+                    JString signature;
                     if ((tcode=='L' || (tcode=='['))){
                         JString* readString=in->readTypeString();
-                        signature=readString->getString();
+                        signature=JString(readString);
                         //TODO bug review all new/delete : delete readString;
                     }else{
-                        signature.push_back(tcode);
+                        signature=JString(tcode);
                     }
                     fields->push_back(new JObjectStreamField(fname,signature,false));
                 }
@@ -362,7 +362,7 @@ namespace jcpp{
             this->jClass = jClass;
             this->resolveEx=resolveEx;
             this->superDesc = superDesc;
-            name = model->name;
+            this->name = model->name;
             suid = model->suid;
             bIsProxy = false;
             bIsEnum = model->bIsEnum;
@@ -554,7 +554,7 @@ namespace jcpp{
             }
 
             for (JObjectStreamClass* d = this; d != NULL; d = d->superDesc) {
-                string searchName = (d->getJClass() != NULL) ? d->getJClass()->getName() : d->getName();
+                JString searchName = ((d->getJClass() != NULL) ? d->getJClass()->getName() : d->getName());
                 JClass* match = NULL;
                 for (JClass* c = start; c != end; c = c->getSuperclass()) {
                     if (searchName==c->getName()) {
@@ -730,22 +730,22 @@ namespace jcpp{
             }
         }
 
-        string JObjectStreamClass::toString(){
-            stringstream sstr;
+        JString JObjectStreamClass::toString(){
+            JString sstr;
             sstr<<"Class description :\nClass name : "<<name;
-            sstr<<", SUID = "<<suid<<endl;
-            sstr<<"Fields description :\nNumber of serializable fields = "<<getNumFields()<<endl;
+            sstr<<", SUID = "<<suid<<"\r\n";//TODO replace "\r\n" by something ...
+            sstr<<"Fields description :\nNumber of serializable fields = "<<getNumFields()<<"\r\n";
             for (jint i = 0; i < getNumFields(); ++i) {
-                sstr<<"type code : "<<fields->at(i)->getTypeCode()<<", name : "<<fields->at(i)->getName()<<endl;
+                sstr<<"type code : "<<fields->at(i)->getTypeCode()<<", name : "<<fields->at(i)->getName()<<"\r\n";
             }
             sstr<<"Super ";
             if (superDesc == NULL) {
-                sstr<<": NULL"<<endl<<endl;
+                sstr<<": NULL"<<"\r\n"<<"\r\n";
             }
             else {
                 sstr<<superDesc->toString();
             }
-            return sstr.str();
+            return sstr;
         }
 
         JObjectStreamClass::~JObjectStreamClass() {

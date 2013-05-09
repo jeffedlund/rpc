@@ -8,6 +8,7 @@
 #include "JPrimitiveByte.h"
 #include "JCPP.h"
 #include "JComparable.h"
+#include "JString.h"
 using namespace std;
 
 namespace jcpp{
@@ -46,8 +47,8 @@ namespace jcpp{
                 virtual jdouble doubleValue();
                 virtual jint compareTo(JObject * o);
                 virtual jint hashCode();
-                virtual bool equals(JObject* other);
-                virtual string toString();
+                virtual jbool equals(JObject* other);
+                virtual JString toString();
                 virtual ~JByte();
         };
     }

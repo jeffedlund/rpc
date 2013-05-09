@@ -39,7 +39,7 @@ namespace jcpp{
             setTypeString();
         }
 
-        JObjectStreamField::JObjectStreamField(string name,JClass* type):JObject(getClazz()){
+        JObjectStreamField::JObjectStreamField(JString name,JClass* type):JObject(getClazz()){
             this->name=name;
             this->type=type;
             this->unshared=false;
@@ -48,7 +48,7 @@ namespace jcpp{
             setTypeString();
         }
 
-        JObjectStreamField::JObjectStreamField(string name,JClass* type,jbool unshared):JObject(getClazz()){
+        JObjectStreamField::JObjectStreamField(JString name,JClass* type,jbool unshared):JObject(getClazz()){
             this->name=name;
             this->type=type;
             this->unshared=unshared;
@@ -57,12 +57,12 @@ namespace jcpp{
             setTypeString();
         }
 
-        JObjectStreamField::JObjectStreamField(string name,string signature,jbool unshared):JObject(getClazz()){
+        JObjectStreamField::JObjectStreamField(JString name,JString signature,jbool unshared):JObject(getClazz()){
             this->name=name;
             this->signature=signature;
             this->unshared=unshared;
             this->field=NULL;
-            switch(signature.at(0)){
+            switch(signature.charAt(0)){
                 case 'Z':
                     type = JPrimitiveBoolean::getClazz();
                     break;
@@ -107,7 +107,7 @@ namespace jcpp{
             setTypeString();
         }
 
-        string JObjectStreamField::getName(){
+        JString JObjectStreamField::getName(){
             return name;
         }
 
@@ -116,7 +116,7 @@ namespace jcpp{
         }
 
         jchar JObjectStreamField::getTypeCode(){
-            return (jchar)signature.at(0);
+            return (jchar)signature.charAt(0);
         }
 
         void JObjectStreamField::setTypeString(){
@@ -136,7 +136,7 @@ namespace jcpp{
         }
 
         jbool JObjectStreamField::isPrimitive(){
-            char tcode=signature.at(0);
+            jchar tcode=(jchar)signature.charAt(0);
             return (tcode!='L') && (tcode!='[');
         }
 
@@ -148,7 +148,7 @@ namespace jcpp{
             return field;
         }
 
-        string JObjectStreamField::getSignature(){
+        JString JObjectStreamField::getSignature(){
             return signature;
         }
 
@@ -159,7 +159,6 @@ namespace jcpp{
                 return isPrim ? -1 : 1;
             }
             return JString::compare(getName(),other->getName());
-
         }
 
         JObjectStreamField::~JObjectStreamField(){

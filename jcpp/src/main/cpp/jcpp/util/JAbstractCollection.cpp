@@ -163,14 +163,14 @@ namespace jcpp{
             delete e;
         }
 
-        string JAbstractCollection::toString(){
+        JString JAbstractCollection::toString(){
             JIterator* i = iterator();
             if (! i->hasNext()){
                 delete i;
-                return "[]";
+                return JString("[]");
             }
 
-            stringstream ss;
+            JString ss;
             ss<<'[';
             for (;;) {
                 JObject* o= i->next();
@@ -178,7 +178,7 @@ namespace jcpp{
                 if (! i->hasNext()){
                     delete i;
                     ss<<']';
-                    return ss.str();
+                    return ss;
                 }
                 ss<<", ";
             }

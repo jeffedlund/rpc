@@ -5,7 +5,7 @@ namespace jcpp{
         JNotSerializableExceptionTest::JNotSerializableExceptionTest():JObjectStreamExceptionTest(){
         }
 
-        string JNotSerializableExceptionTest::getFileName(){
+        JString JNotSerializableExceptionTest::getFileName(){
             return "NotSerializableException.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JNotSerializableException();
         }
 
-        string JNotSerializableExceptionTest::getThrowableClassName(){
+        JString JNotSerializableExceptionTest::getThrowableClassName(){
             return "java.io.NotSerializableException";
         }
 

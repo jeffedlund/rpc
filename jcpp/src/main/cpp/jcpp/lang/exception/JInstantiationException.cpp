@@ -1,4 +1,5 @@
 #include "JInstantiationException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace lang{
@@ -32,7 +33,7 @@ namespace jcpp{
         JInstantiationException::JInstantiationException():JException(getClazz()){
         }
 
-        JInstantiationException::JInstantiationException(string message):JException(getClazz()){
+        JInstantiationException::JInstantiationException(JString message):JException(getClazz()){
             this->message=new JString(message);
         }
 

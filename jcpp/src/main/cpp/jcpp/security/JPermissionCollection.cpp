@@ -56,7 +56,7 @@ namespace jcpp{
             return readOnly->get();
         }
 
-        string JPermissionCollection::toString(){
+        JString JPermissionCollection::toString(){
             JEnumeration* enum_ = elements();
             JStringBuilder* sb = new JStringBuilder();
             sb->append(JObject::toString()+" (\n");
@@ -66,7 +66,7 @@ namespace jcpp{
                 sb->append("\n");
             }
             sb->append(")\n");
-            string s=sb->toString();
+            JString s=sb->toString();
             delete enum_;
             delete sb;
             return s;

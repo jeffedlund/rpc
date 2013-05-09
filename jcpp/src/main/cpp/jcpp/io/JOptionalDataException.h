@@ -23,7 +23,7 @@ namespace jcpp{
 
         public:
             JOptionalDataException();
-            JOptionalDataException(string message);
+            JOptionalDataException(JString message);
             static JClass* getClazz();
             jint getLength();
             void setLength(jint l);

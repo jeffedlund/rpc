@@ -12,7 +12,7 @@ namespace jcpp{
                 public:
                     static JClass* getClazz();
                     JFileSystemNotFoundException();
-                    JFileSystemNotFoundException(string msg);
+                    JFileSystemNotFoundException(JString msg);
                     virtual ~JFileSystemNotFoundException();
             };
         }

@@ -10,7 +10,7 @@ namespace jcpp{
         public:
             JPrimitiveDoubleTest();
 
-            string getFileName();
+            JString getFileName();
 
             JObject* testReflect();
 

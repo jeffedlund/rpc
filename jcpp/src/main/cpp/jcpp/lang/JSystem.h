@@ -16,11 +16,11 @@ namespace jcpp{
             static jlong currentTimeMillis();
             static void arraycopy(jbyte src[],jint srcPos, jbyte dest[], jint destPos, jint length);
             static void arraycopy(jchar src[],jint srcPos, jchar dest[], jint destPos, jint length);
-            static void arraycopy(string src,jint srcPos, jchar dest[], jint destPos, jint length);
+            static void arraycopy(JString src,jint srcPos, jchar dest[], jint destPos, jint length);
             static void arraycopy(JString* src,jint srcPos, jchar dest[], jint destPos, jint length);
             static void arraycopy(jchar src[],jint srcPos,vector<jchar>* dest,jint length);
             static void arraycopy(JString* src,jint srcPos,vector<jchar>* dest,jint length);
-            static void arraycopy(string src,jint srcPos,vector<jchar>* dest,jint length);
+            static void arraycopy(JString src,jint srcPos,vector<jchar>* dest,jint length);
             virtual ~JSystem()=0;
         };
     }

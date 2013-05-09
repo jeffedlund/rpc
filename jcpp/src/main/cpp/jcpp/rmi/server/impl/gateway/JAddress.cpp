@@ -77,12 +77,12 @@ namespace jcpp{
                         return (*s->hostName)==(*hostName) && (*s->port)==(*port);
                     }
 
-                    void JAddress::setHostName(string host){
-                        hostName->setString(host);
+                    void JAddress::setHostName(JString host){
+                        (*hostName)=host;
                     }
 
-                    string JAddress::getHostName(){
-                        return hostName->getString();
+                    JString JAddress::getHostName(){
+                        return JString(hostName);
                     }
 
                     void JAddress::setPHostName(JString* host){
@@ -122,7 +122,7 @@ namespace jcpp{
                         return a;
                     }
 
-                    string JAddress::toString(){
+                    JString JAddress::toString(){
                         return "Address["+hostName->toString()+":"+port->toString()+"]";
                     }
 

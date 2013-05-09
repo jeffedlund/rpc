@@ -1,18 +1,18 @@
 #ifndef JCLASS_H
 #define JCLASS_H
 
-#include "JObject.h"
 #include "JMethod.h"
 #include "JField.h"
-#include "JClassLoader.h"
+#include "JObject.h"
+#include "JString.h"
 #include <vector>
 #include <map>
 #include <iostream>
-#include <string>
 #include "Object.h"
 #include "JCPP.h"
 using namespace std;
 using namespace jcpp::lang::reflect;
+using namespace jcpp::lang;
 
 namespace jcpp{
     namespace lang{
@@ -32,19 +32,19 @@ namespace jcpp{
             void initEnumConstants();
             void initInterfaces();
         protected:
-            string canonicalName;
-            string name;
-            string simpleName;
+            JString canonicalName;
+            JString name;
+            JString simpleName;
             JClassLoader* classLoader;
             JClass* componentType;
             vector<JEnum*>* enumConstants;
-            map<string,JField*>* fields;
+            map<JString,JField*>* fields;
             vector<JField*>* fieldsList;
-            map<string,JField*>* declaredFields;
+            map<JString,JField*>* declaredFields;
             vector<JField*>* declaredFieldsList;
-            map<string,JMethod*>* methods;
+            map<JString,JMethod*>* methods;
             vector<JMethod*>* methodsList;
-            map<string,JMethod*>* declaredMethods;
+            map<JString,JMethod*>* declaredMethods;
             vector<JMethod*>* declaredMethodsList;
             vector<JClass*>* interfaces;
             vector<JClass*>* publicClasses;
@@ -76,25 +76,25 @@ namespace jcpp{
          public:
 
             static JClass* getClazz();
-            virtual string getSignature();
-            virtual string getCanonicalName();
-            virtual string getName();
-            virtual string getSimpleName();
+            virtual JString getSignature();
+            virtual JString getCanonicalName();
+            virtual JString getName();
+            virtual JString getSimpleName();
             virtual JClassLoader* getClassLoader();
             virtual JClass* getComponentType();
             virtual vector<JEnum*>* getEnumConstants();
-            virtual JEnum* valueOf(string value);
-            virtual JField* getField(string name);
+            virtual JEnum* valueOf(JString value);
+            virtual JField* getField(JString name);
             virtual vector<JField*>* getFields();
-            virtual jbool hasDeclaredField(string name);
-            virtual JField* getDeclaredField(string name);
+            virtual jbool hasDeclaredField(JString name);
+            virtual JField* getDeclaredField(JString name);
             virtual vector<JField*>* getDeclaredFields();
             virtual vector<JClass*>* getInterfaces();
-            virtual bool hasMethod(string name, vector<JClass*>* parameterTypes);
-            virtual JMethod* getMethod(string name, vector<JClass*>* parameterTypes);
+            virtual bool hasMethod(JString name, vector<JClass*>* parameterTypes);
+            virtual JMethod* getMethod(JString name, vector<JClass*>* parameterTypes);
             virtual vector<JMethod*>* getMethods();
-            virtual bool hasDeclaredMethod(string name, vector<JClass*>* parameterTypes);
-            virtual JMethod* getDeclaredMethod(string name, vector<JClass*>* parameterTypes);
+            virtual bool hasDeclaredMethod(JString name, vector<JClass*>* parameterTypes);
+            virtual JMethod* getDeclaredMethod(JString name, vector<JClass*>* parameterTypes);
             virtual vector<JMethod*>* getDeclaredMethods();
             virtual vector<JClass*>* getClasses();
             virtual vector<JClass*>* getDeclaredClasses();
@@ -111,7 +111,7 @@ namespace jcpp{
             virtual JObject* newInstance();
             virtual JClass* getDeclaringClass();
             virtual jlong getSerialVersionUID();
-            virtual string toString();
+            virtual JString toString();
             virtual ~JClass();
         };
     }

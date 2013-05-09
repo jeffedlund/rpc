@@ -548,8 +548,10 @@ namespace jcpp{
                 }
             }
 
-            string outOfBoundsMsg(jint index) {
-                return Object::concat("Index: ",index)+Object::concat(", Size: ",isize);
+            JString outOfBoundsMsg(jint index) {
+                JString s="Index: ";
+                s<<index<<", Size: "<<isize;
+                return s;
             }
 
             void checkForComodification() {
@@ -708,13 +710,13 @@ namespace jcpp{
 
         JList* JArrayList::subList(jint fromIndex, jint toIndex){
             if (fromIndex < 0){
-                throw new JIndexOutOfBoundsException(Object::concat("fromIndex = ",fromIndex));
+                throw new JIndexOutOfBoundsException(JString("fromIndex = ")+fromIndex);
             }
             if (toIndex > size()){
-                throw new JIndexOutOfBoundsException(Object::concat("toIndex = ", toIndex));
+                throw new JIndexOutOfBoundsException(JString("toIndex = ")+ toIndex);
             }
             if (fromIndex > toIndex){
-                throw new JIllegalArgumentException(Object::concat("fromIndex(", fromIndex) +Object::concat(") > toIndex(",toIndex) + ")");
+                throw new JIllegalArgumentException(JString("fromIndex(")+ fromIndex +") > toIndex("+ toIndex + ")");
             }
             return new JArrayListSubList(this,this, 0, fromIndex, toIndex);
         }

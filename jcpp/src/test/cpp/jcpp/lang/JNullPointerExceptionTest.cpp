@@ -5,7 +5,7 @@ namespace jcpp{
         JNullPointerExceptionTest::JNullPointerExceptionTest():JRuntimeExceptionTest(){
         }
 
-        string JNullPointerExceptionTest::getFileName(){
+        JString JNullPointerExceptionTest::getFileName(){
             return "NullPointerException.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JNullPointerException();
         }
 
-        string JNullPointerExceptionTest::getThrowableClassName(){
+        JString JNullPointerExceptionTest::getThrowableClassName(){
             return "java.lang.NullPointerException";
         }
 

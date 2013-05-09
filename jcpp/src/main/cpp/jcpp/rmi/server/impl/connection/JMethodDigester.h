@@ -29,15 +29,15 @@ namespace jcpp{
                 namespace connection{
                     class JCPP_LIBRARY_EXPORT JMethodDigester : public JObject{
                         protected:
-                            map<JClass*, map<long, JMethod*>*>* digestToMethodMap;
-                            map<JClass*, map<JMethod*, long>*>* methodToDigestMap;
+                            map<JClass*, map<jlong, JMethod*>*>* digestToMethodMap;
+                            map<JClass*, map<JMethod*, jlong>*>* methodToDigestMap;
                             void createDigests(JClass* classObject);
 
                         public:
                             JMethodDigester();
                             static JClass* getClazz();
-                            JMethod* getMethodFromDigest(JObject* object, long digest);
-                            long getDigestFromMethod(JMethod* method);
+                            JMethod* getMethodFromDigest(JObject* object, jlong digest);
+                            jlong getDigestFromMethod(JMethod* method);
                             vector<JMethod*>* getMethods(JObject* object);
                             void clear();
                             virtual ~JMethodDigester();

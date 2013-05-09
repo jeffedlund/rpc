@@ -16,23 +16,23 @@ namespace jcpp{
         class JCPP_LIBRARY_EXPORT JBasicPermission : public JPermission {
             protected:
                 jbool wildcard;
-                string path;
+                JString path;
                 jbool exitVM;
-                JBasicPermission(JClass* _class,string name);
+                JBasicPermission(JClass* _class,JString name);
                 JBasicPermission(JClass* _class);
-                void init(string name);
-                string getCanonicalName();
+                void init(JString name);
+                JString getCanonicalName();
                 void readObject(JObjectInputStream* in);
                 friend class JBasicPermissionClass;
 
             public:
                 static JClass* getClazz();
-                JBasicPermission(string name);
+                JBasicPermission(JString name);
                 JBasicPermission();
                 virtual jbool implies(JPermission* permission);
                 virtual jbool equals(JObject* object);
                 virtual jint hashCode();
-                virtual string getActions();
+                virtual JString getActions();
                 virtual JPermissionCollection* newPermissionCollection();
                 virtual ~JBasicPermission();
         };

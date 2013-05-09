@@ -5,7 +5,7 @@ namespace jcpp{
         JClassNotFoundExceptionTest::JClassNotFoundExceptionTest():JExceptionTest(){
         }
 
-        string JClassNotFoundExceptionTest::getFileName(){
+        JString JClassNotFoundExceptionTest::getFileName(){
             return "ClassNotFoundexception.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JClassNotFoundException();
         }
 
-        string JClassNotFoundExceptionTest::getThrowableClassName(){
+        JString JClassNotFoundExceptionTest::getThrowableClassName(){
             return "java.lang.ClassNotFoundException";
         }
 

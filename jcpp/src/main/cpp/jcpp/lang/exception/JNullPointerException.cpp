@@ -1,4 +1,5 @@
 #include "JNullPointerException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace lang{
@@ -32,7 +33,7 @@ namespace jcpp{
         JNullPointerException::JNullPointerException():JRuntimeException(getClazz()){
         }
 
-        JNullPointerException::JNullPointerException(string message):JRuntimeException(getClazz()){
+        JNullPointerException::JNullPointerException(JString message):JRuntimeException(getClazz()){
             this->message=new JString(message);
         }
 

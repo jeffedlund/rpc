@@ -25,6 +25,7 @@
 #include "JProxy.h"
 #include "JBlockDataInputStream.h"
 #include "JInvalidObjectException.h"
+#include "JString.h"
 
 using namespace std;
 using namespace jcpp::lang::reflect;
@@ -131,51 +132,51 @@ namespace jcpp{
                 return desc;
             }
 
-            virtual jbool defaulted(string name){
+            virtual jbool defaulted(JString name){
                 return (getFieldOffset(name, NULL) < 0);
             }
 
-            virtual jbool get(string name, jbool val){
+            virtual jbool get(JString name, jbool val){
                 jint off = getFieldOffset(name, JBoolean::TYPE);
                 return ((off >= 0) ? JBits::getBool(primVals, off) : val);
             }
 
-            virtual jbyte get(string name, jbyte val){
+            virtual jbyte get(JString name, jbyte val){
                 jint off = getFieldOffset(name, JByte::TYPE);
                 return (off >= 0) ? primVals[off] : val;
             }
 
-            virtual jchar get(string name, jchar val){
+            virtual jchar get(JString name, jchar val){
                 jint off = getFieldOffset(name, JChar::TYPE);
                 return (off >= 0) ? JBits::getChar(primVals, off) : val;
             }
 
-            virtual jshort get(string name, jshort val){
+            virtual jshort get(JString name, jshort val){
                 jint off = getFieldOffset(name, JShort::TYPE);
                 return (off >= 0) ? JBits::getShort(primVals, off) : val;
             }
 
-            virtual jint get(string name, jint val){
+            virtual jint get(JString name, jint val){
                 jint off = getFieldOffset(name, JInteger::TYPE);
                 return (off >= 0) ? JBits::getInt(primVals, off) : val;
             }
 
-            virtual jfloat get(string name, jfloat val){
+            virtual jfloat get(JString name, jfloat val){
                 jint off = getFieldOffset(name, JFloat::TYPE);
                 return (off >= 0) ? JBits::getFloat(primVals, off) : val;
             }
 
-            virtual jlong get(string name, jlong val){
+            virtual jlong get(JString name, jlong val){
                 jint off = getFieldOffset(name, JLong::TYPE);
                 return (off >= 0) ? JBits::getLong(primVals, off) : val;
             }
 
-            virtual jdouble get(string name, jdouble val){
+            virtual jdouble get(JString name, jdouble val){
                 jint off = getFieldOffset(name, JDouble::TYPE);
                 return (off >= 0) ? JBits::getDouble(primVals, off) : val;
             }
 
-            virtual JObject* get(string name, JObject* val){
+            virtual JObject* get(JString name, JObject* val){
                 jint off = getFieldOffset(name, JObject::getClazz());
                 if (off >= 0) {
                     jint objHandle = objHandles[off];
@@ -199,7 +200,7 @@ namespace jcpp{
                 in->passHandle = oldHandle;
             }
 
-            jint getFieldOffset(string name, JClass* type) {
+            jint getFieldOffset(JString name, JClass* type) {
                 JObjectStreamField* field = desc->getField(name, type);
                 if (field != NULL) {
                     return field->getOffset();
@@ -246,9 +247,9 @@ namespace jcpp{
             jshort s0 = readShort();
             jshort s1 = readShort();
             if (s0 != STREAM_MAGIC || s1 != STREAM_VERSION) {
-                stringstream ss;
+                JString ss;
                 ss<<"invalid stream header "<<s0<<","<<s1;
-                throw new JStreamCorruptedException(ss.str());
+                throw new JStreamCorruptedException(ss);
             }
             bin->setBlockDataMode(true);
         }
@@ -317,9 +318,9 @@ namespace jcpp{
             if (oldMode) {
                 jint remain = bin->currentBlockRemaining();
                 if (remain > 0) {
-                    stringstream ss;
+                    JString ss;
                     ss<<remain;
-                    throw new JOptionalDataException(ss.str());
+                    throw new JOptionalDataException(ss);
                 }
                 bin->setBlockDataMode(false);
             }
@@ -377,9 +378,9 @@ namespace jcpp{
                 if (oldMode){
                     bin->setBlockDataMode(true);
                     bin->peek();
-                    stringstream ss;
+                    JString ss;
                     ss<<"remaining data block "<<bin->currentBlockRemaining();
-                    throw new JOptionalDataException(ss.str());
+                    throw new JOptionalDataException(ss);
                 }else{
                     throw new JStreamCorruptedException("unexpected block data");
                 }
@@ -394,9 +395,9 @@ namespace jcpp{
 
             default:
                 bin->setBlockDataMode(oldMode);
-                stringstream ss;
+                JString ss;
                 ss<<"invalid type code:"<<tc;
-                throw new JStreamCorruptedException(ss.str());
+                throw new JStreamCorruptedException(ss);
             }
             bin->setBlockDataMode(oldMode);
             return obj;
@@ -414,31 +415,31 @@ namespace jcpp{
         }
 
         JString* JObjectInputStream::readTypeString() {
-            JString* jstring=NULL;
+            JString* str=NULL;
             jint oldHandle=passHandle;
             jbyte tc = bin->peekByte();
             switch (tc) {
                 case TC_STRING:
                 case TC_LONGSTRING:
-                    jstring=readString(false);
+                    str=readString(false);
                     break;
 
                 case TC_NULL:
-                    jstring=(JString*) (readNull());
+                    str=(JString*) (readNull());
                     break;
 
                 case TC_REFERENCE:
-                    jstring=(JString*) (readHandle(false));
+                    str=(JString*) (readHandle(false));
                     break;
 
                 default:
                     passHandle=oldHandle;
-                    stringstream ss;
+                    JString ss;
                     ss<<"stream corrupted: invalid typecode "<<tc;
-                    throw new JStreamCorruptedException(ss.str());
+                    throw new JStreamCorruptedException(ss);
             }
             passHandle=oldHandle;
-            return jstring;
+            return str;
         }
 
         JObject* JObjectInputStream::readUnshared(){
@@ -629,8 +630,7 @@ namespace jcpp{
             }
 
             JString* mname = readString(false);
-            string name = mname->getString();
-            JEnum* en = desc->getJClass()->valueOf(name);
+            JEnum* en = desc->getJClass()->valueOf(*mname);
             if (!unshared){
                 handles->setObject(enumHandle,en);
             }
@@ -656,9 +656,9 @@ namespace jcpp{
                 return readProxyDesc(unshared);
 
             default:
-                stringstream ss;
+                JString ss;
                 ss<<"invalid type code: "<<tc;
-                throw new JStreamCorruptedException(ss.str());
+                throw new JStreamCorruptedException(ss);
             }
         }
 
@@ -671,7 +671,7 @@ namespace jcpp{
             passHandle = NULL_HANDLE;
 
             jint numIfaces = bin->readInt();
-            string *ifaces = new string[numIfaces];
+            JString* ifaces = new JString[numIfaces];
             for (jint i = 0; i < numIfaces; ++i) {
                 ifaces[i] = bin->readUTF();
             }
@@ -777,7 +777,7 @@ namespace jcpp{
                 return;
             }
             vector<JObjectStreamClass::ClassDataSlot*>* dataSlots=desc->getClassDataLayout();
-            for (jint i=0;i<dataSlots->size();i++){
+            for (unsigned int i=0;i<dataSlots->size();i++){
                 JObjectStreamClass::ClassDataSlot* dataSlot=dataSlots->at(i);
                 JObjectStreamClass* slotDesc=dataSlot->desc;
                 if (obj!=NULL && slotDesc->hasReadObjectMethod() && handles->lookupException(passHandle)==NULL){
@@ -948,17 +948,17 @@ namespace jcpp{
             return new JPrimitiveBoolean(readBool());
         }
 
-        string JObjectInputStream::readUTF() {
+        JString JObjectInputStream::readUTF() {
             return bin->readUTF();
         }
 
-        string JObjectInputStream::readLongUTF() {
+        JString JObjectInputStream::readLongUTF() {
             return bin->readLongUTF();
         }
 
         JString* JObjectInputStream::readString(jbool unshared) {
             jbyte tc = bin->readByte();
-            string str;
+            JString str;
             switch (tc) {
             case TC_STRING:
                 str = bin->readUTF();
@@ -969,9 +969,9 @@ namespace jcpp{
                 break;
 
             default:
-                stringstream ss;
+                JString ss;
                 ss<<"invalid type code: "<<tc;
-                throw new JStreamCorruptedException(ss.str());
+                throw new JStreamCorruptedException(ss);
             }
             JString* mstr = new JString(str);
             passHandle = handles->assign((unshared ? unsharedMarker : (JObject*) mstr));
@@ -990,7 +990,7 @@ namespace jcpp{
             return (inputClassLoader->loadClass(desc->getName()));
         }
 
-        JClass *JObjectInputStream::resolveProxyClass(string *ifaces, jint numIfaces) {
+        JClass *JObjectInputStream::resolveProxyClass(JString *ifaces, jint numIfaces) {
             vector<JClass*>* interfaces=new vector<JClass*>();
             for (jint i = 0; i < numIfaces; ++i) {
                 JClass* c=inputClassLoader->loadClass(ifaces[i]);

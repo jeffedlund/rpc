@@ -5,7 +5,7 @@ namespace jcpp{
         JShortTest::JShortTest():JTest(){
         }
 
-        string JShortTest::getFileName(){
+        JString JShortTest::getFileName(){
             return "short.ser";
         }
 

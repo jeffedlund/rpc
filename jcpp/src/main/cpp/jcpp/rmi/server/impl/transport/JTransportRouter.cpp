@@ -36,17 +36,17 @@ namespace jcpp{
                     }
 
                     JTransportRouter::JTransportRouter():JObject(getClazz()){
-                        this->routes=new map<string, map<string, JRoute*>*>();
+                        this->routes=new map<JString, map<JString, JRoute*>*>();
                     }
 
                     void JTransportRouter::addRoute(JString* localSite,JString* remoteSite, JRoute* route){
                         lock();
-                        map<string,JRoute*>* internalMap=getFromMap(routes,localSite->getString());
+                        map<JString,JRoute*>* internalMap=getFromMap(routes,*localSite);
                         if (internalMap==NULL){
-                            internalMap=new map<string,JRoute*>();
-                            routes->insert(pair<string,map<string,JRoute*>*>(localSite->getString(),internalMap));
+                            internalMap=new map<JString,JRoute*>();
+                            routes->insert(pair<JString,map<JString,JRoute*>*>(*localSite,internalMap));
                         }
-                        internalMap->insert(pair<string,JRoute*>(remoteSite->getString(),route));
+                        internalMap->insert(pair<JString,JRoute*>(remoteSite->getString(),route));
                         unlock();
                     }
 
@@ -58,9 +58,9 @@ namespace jcpp{
                                 route=new JRoute();
                                 route->addAddress(new JAddress(remoteEndpoint->getAddress()));
                             }else{
-                                map<string,JRoute*>* internalMap=getFromMap(routes,localSite->getString());
+                                map<JString,JRoute*>* internalMap=getFromMap(routes,*localSite);
                                 if (internalMap!=NULL){
-                                    route=getFromMap(internalMap,remoteEndpoint->getSite()->getString());
+                                    route=getFromMap(internalMap,*remoteEndpoint->getSite());
                                     if (route!=NULL){
                                         route=route->clone();
                                         route->addAddress(new JAddress(remoteEndpoint->getAddress()));
@@ -73,7 +73,7 @@ namespace jcpp{
                     }
 
                     JTransportRouter::~JTransportRouter(){
-                        map<string, map<string, JRoute*>*>::iterator it=routes->begin();
+                        map<JString, map<JString, JRoute*>*>::iterator it=routes->begin();
                         for (;it!=routes->end();it++){
                             deleteMapOfValuePointer((*it).second);
                         }

@@ -7,7 +7,7 @@ namespace jcpp{
             r=NULL;
         }
 
-        string JPrimitiveFloatTest::getFileName(){
+        JString JPrimitiveFloatTest::getFileName(){
             return "PrimitiveFloat.ser";
         }
 

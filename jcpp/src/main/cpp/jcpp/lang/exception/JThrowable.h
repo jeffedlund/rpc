@@ -2,8 +2,8 @@
 #define JTHROWABLE_H
 
 #include "JObject.h"
-#include "JStackTraceElement.h"
 #include "JString.h"
+#include "JStackTraceElement.h"
 #include "JPrimitiveArray.h"
 #include "JSerializable.h"
 #include "JCPP.h"
@@ -24,9 +24,9 @@ namespace jcpp{
 
         public:
             JThrowable();
-            JThrowable(string message);
+            JThrowable(JString message);
             JThrowable(JString* message);
-            JThrowable(string, JThrowable *cause);
+            JThrowable(JString, JThrowable *cause);
             JThrowable(JString*, JThrowable *cause);
             static JClass* getClazz();
             JThrowable *getCause();
@@ -38,8 +38,8 @@ namespace jcpp{
             void printStackTrace(ostream* os);
             JList* getSuppressedExceptions();
             void addSuppressedException(JThrowable* t);
-            virtual bool equals(JObject* other);
-            virtual string toString();
+            virtual jbool equals(JObject* other);
+            virtual JString toString();
             virtual ~JThrowable();
         };
     }

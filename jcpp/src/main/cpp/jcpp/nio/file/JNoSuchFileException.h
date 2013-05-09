@@ -10,8 +10,8 @@ namespace jcpp{
                 public:
                     static JClass* getClazz();
                     JNoSuchFileException();
-                    JNoSuchFileException(string file);
-                    JNoSuchFileException(string file,string other,string reason);
+                    JNoSuchFileException(JString file);
+                    JNoSuchFileException(JString file,JString other,JString reason);
                     virtual ~JNoSuchFileException();
             };
         }

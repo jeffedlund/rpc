@@ -10,8 +10,8 @@ namespace jcpp{
                 public:
                     static JClass* getClazz();
                     JFileAlreadyExistsException();
-                    JFileAlreadyExistsException(string file);
-                    JFileAlreadyExistsException(string file,string other,string reason);
+                    JFileAlreadyExistsException(JString file);
+                    JFileAlreadyExistsException(JString file,JString other,JString reason);
                     virtual ~JFileAlreadyExistsException();
             };
         }

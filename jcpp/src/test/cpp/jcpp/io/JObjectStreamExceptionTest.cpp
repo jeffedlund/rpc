@@ -5,7 +5,7 @@ namespace jcpp{
         JObjectStreamExceptionTest::JObjectStreamExceptionTest():JIOExceptionTest(){
         }
 
-        string JObjectStreamExceptionTest::getFileName(){
+        JString JObjectStreamExceptionTest::getFileName(){
             return "objectstreamException.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JObjectStreamException();
         }
 
-        string JObjectStreamExceptionTest::getThrowableClassName(){
+        JString JObjectStreamExceptionTest::getThrowableClassName(){
             return "java.io.ObjectStreamException";
         }
 

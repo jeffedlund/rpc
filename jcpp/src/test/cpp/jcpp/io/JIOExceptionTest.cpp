@@ -5,7 +5,7 @@ namespace jcpp{
         JIOExceptionTest::JIOExceptionTest():JExceptionTest(){
         }
 
-        string JIOExceptionTest::getFileName(){
+        JString JIOExceptionTest::getFileName(){
             return "IOException.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JIOException();
         }
 
-        string JIOExceptionTest::getThrowableClassName(){
+        JString JIOExceptionTest::getThrowableClassName(){
             return "java.io.IOException";
         }
 

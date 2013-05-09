@@ -5,7 +5,7 @@ namespace jcpp{
         JArrayListTest::JArrayListTest():JTest(){
         }
 
-        string JArrayListTest::getFileName(){
+        JString JArrayListTest::getFileName(){
             return "arraylist.ser";
         }
 

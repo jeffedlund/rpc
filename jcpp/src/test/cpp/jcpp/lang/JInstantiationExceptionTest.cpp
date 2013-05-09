@@ -5,7 +5,7 @@ namespace jcpp{
         JInstantiationExceptionTest::JInstantiationExceptionTest():JRuntimeExceptionTest(){
         }
 
-        string JInstantiationExceptionTest::getFileName(){
+        JString JInstantiationExceptionTest::getFileName(){
             return "InstantiationException.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JInstantiationException();
         }
 
-        string JInstantiationExceptionTest::getThrowableClassName(){
+        JString JInstantiationExceptionTest::getThrowableClassName(){
             return "java.lang.InstantiationException";
         }
 

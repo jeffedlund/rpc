@@ -13,7 +13,7 @@ namespace jcpp{
             JNotActiveException(JClass* _clazz);
         public:
             JNotActiveException();
-            JNotActiveException(string message);
+            JNotActiveException(JString message);
             static JClass* getClazz();
             virtual ~JNotActiveException();
         };

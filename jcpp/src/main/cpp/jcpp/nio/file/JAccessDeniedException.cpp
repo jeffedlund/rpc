@@ -34,10 +34,10 @@ namespace jcpp{
             JAccessDeniedException::JAccessDeniedException():JFileSystemException(getClazz()){
             }
 
-            JAccessDeniedException::JAccessDeniedException(string file):JFileSystemException(getClazz(),file){
+            JAccessDeniedException::JAccessDeniedException(JString file):JFileSystemException(getClazz(),file){
             }
 
-            JAccessDeniedException::JAccessDeniedException(string file,string other,string reason):JFileSystemException(getClazz(),file,other,reason){
+            JAccessDeniedException::JAccessDeniedException(JString file,JString other,JString reason):JFileSystemException(getClazz(),file,other,reason){
             }
 
             JAccessDeniedException::~JAccessDeniedException(){

@@ -57,7 +57,7 @@ namespace jcpp{
         JStringBuilder::JStringBuilder():JAbstractStringBuilder(getClazz()){
         }
 
-        JStringBuilder::JStringBuilder(string str):JAbstractStringBuilder(getClazz()){
+        JStringBuilder::JStringBuilder(JString str):JAbstractStringBuilder(getClazz()){
             append(str);
         }
 
@@ -75,7 +75,7 @@ namespace jcpp{
             return this;
         }
 
-        JStringBuilder* JStringBuilder::append(string str){
+        JStringBuilder* JStringBuilder::append(JString str){
             JAbstractStringBuilder::append(str);
             return this;
         }
@@ -100,7 +100,7 @@ namespace jcpp{
             return this;
         }
 
-        JStringBuilder* JStringBuilder::append(string str,jint offset,jint len){
+        JStringBuilder* JStringBuilder::append(JString str,jint offset,jint len){
             JAbstractStringBuilder::append(str,offset,len);
             return this;
         }
@@ -165,7 +165,7 @@ namespace jcpp{
             return this;
         }
 
-        JStringBuilder* JStringBuilder::insert(jint offset,string str){
+        JStringBuilder* JStringBuilder::insert(jint offset,JString str){
             JAbstractStringBuilder::insert(offset,str);
             return this;
         }
@@ -222,7 +222,7 @@ namespace jcpp{
 
         void JStringBuilder::writeObject(JObjectOutputStream* out){
             out->defaultWriteObject();
-            out->writeInt(value.size());
+            out->writeInt(value.length());
             out->writeObject(getPrimitiveArray());
         }
 

@@ -26,7 +26,7 @@ namespace jcpp{
             return clazz;
         }
 
-        JFileReader::JFileReader(string name):JInputStreamReader(getClazz(),new JFileInputStream(name)){
+        JFileReader::JFileReader(JString name):JInputStreamReader(getClazz(),new JFileInputStream(name)){
         }
 
         JFileReader::JFileReader(JFile* f):JInputStreamReader(getClazz(),new JFileInputStream(f)){

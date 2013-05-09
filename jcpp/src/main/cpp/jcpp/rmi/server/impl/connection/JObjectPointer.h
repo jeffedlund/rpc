@@ -52,7 +52,7 @@ namespace jcpp{
                             void setId(JString* id);
                             virtual bool equals(JObject* other);
                             virtual jint hashCode();
-                            virtual string toString();
+                            virtual JString toString();
                             virtual ~JObjectPointer();
                     };
                 }

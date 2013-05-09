@@ -2,7 +2,6 @@
 #include "JClass.h"
 #include <vector>
 #include <iostream>
-#include <string>
 #include "JSerializable.h"
 using namespace std;
 using namespace jcpp::io;
@@ -113,10 +112,8 @@ namespace jcpp{
             return hashCode(value->get());
         }
 
-        string JChar::toString(){
-            string s="";
-            s.push_back(value->get());
-            return s;
+        JString JChar::toString(){
+            return JString(value->get());
         }
 
         JChar::~JChar(){

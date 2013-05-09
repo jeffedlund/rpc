@@ -6,7 +6,7 @@ namespace jcpp{
         JSerializableTest::JSerializableTest():JTest(){
         }
 
-        string JSerializableTest::getFileName(){
+        JString JSerializableTest::getFileName(){
             return "Serializable.ser";
         }
 

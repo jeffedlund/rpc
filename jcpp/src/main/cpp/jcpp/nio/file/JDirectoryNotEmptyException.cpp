@@ -34,7 +34,7 @@ namespace jcpp{
             JDirectoryNotEmptyException::JDirectoryNotEmptyException():JFileSystemException(getClazz()){
             }
 
-            JDirectoryNotEmptyException::JDirectoryNotEmptyException(string dir):JFileSystemException(getClazz(),dir){
+            JDirectoryNotEmptyException::JDirectoryNotEmptyException(JString dir):JFileSystemException(getClazz(),dir){
             }
 
             JDirectoryNotEmptyException::~JDirectoryNotEmptyException(){

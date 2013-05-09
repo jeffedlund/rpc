@@ -1,4 +1,5 @@
 #include "JIOException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace io{
@@ -35,7 +36,7 @@ namespace jcpp{
         JIOException::JIOException(JClass* _class):JException(_class){
         }
 
-        JIOException::JIOException(string message) : JException(getClazz()){
+        JIOException::JIOException(JString message) : JException(getClazz()){
             this->message=new JString(message);
         }
 

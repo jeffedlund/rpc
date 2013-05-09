@@ -3,7 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <sstream>
-#include <string>
+#include "JString.h"
 using namespace std;
 
 namespace jcpp{
@@ -84,10 +84,10 @@ namespace jcpp{
             return (jint)value;
         }
 
-        string JPrimitiveByte::toString(){
-            stringstream ss;
-            ss<<value;//TODO not extra!
-            return ss.str();
+        JString JPrimitiveByte::toString(){
+            JString ss;
+            ss<<value;
+            return ss;
         }
 
         JPrimitiveByte::~JPrimitiveByte(){

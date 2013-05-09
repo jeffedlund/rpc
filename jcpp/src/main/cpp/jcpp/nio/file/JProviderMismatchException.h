@@ -12,7 +12,7 @@ namespace jcpp{
                 public:
                     static JClass* getClazz();
                     JProviderMismatchException();
-                    JProviderMismatchException(string msg);
+                    JProviderMismatchException(JString msg);
                     virtual ~JProviderMismatchException();
             };
         }

@@ -42,7 +42,7 @@ namespace jcpp{
             virtual jint compareTo(JObject* o);
             virtual bool equals(JObject* other);
             virtual jint hashCode();
-            virtual string toString();
+            virtual JString toString();
             virtual ~JEnum();
         };
     }

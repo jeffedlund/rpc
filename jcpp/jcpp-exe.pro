@@ -12,6 +12,8 @@ TARGET = jcpp-exe
 CONFIG   += console
 CONFIG   -= app_bundle
 
+#QMAKE_CXXFLAGS += -std=c++11
+
 TEMPLATE = app
 
 LIBS+=  -L../jcpp-build-Desktop_Qt_5_0_1_MinGW_32bit-Debug/debug -ljcpp

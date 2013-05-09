@@ -51,7 +51,7 @@ namespace jcpp{
                             void free(JConnection* connection);
                             void kill(JConnection* connection);
                             virtual void run();
-                            string toString();
+                            JString toString();
                             virtual ~JConnections();
                     };
                 }

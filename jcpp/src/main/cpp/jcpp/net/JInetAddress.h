@@ -20,7 +20,7 @@ namespace jcpp{
             static const int IPv6 = 2;
             JInetAddress();
             JInetAddress(JString* host);
-            static JInetAddress* getByName(string host);
+            static JInetAddress* getByName(JString host);
             static JInetAddress* getLocalHost();
             static JClass* getClazz();
             JString* getHostName();
@@ -41,7 +41,7 @@ namespace jcpp{
             bool isReachable(int timeout);
             bool isSiteLocalAddress();
             virtual bool equals(JObject* other);//TODO hashcode
-            virtual string toString();
+            virtual JString toString();
             virtual ~JInetAddress();
         };
     }

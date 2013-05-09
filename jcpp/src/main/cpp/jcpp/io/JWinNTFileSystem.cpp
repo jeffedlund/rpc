@@ -40,9 +40,9 @@ namespace jcpp{
         jchar JWinNTFileSystem::getPathSeparator(){
             /*TODO a way to do it is the following :
              #ifdef _WIN32
-             const std::string os_pathsep(";");
+             const std::String os_pathsep(";");
              #else
-             const std::string os_pathsep(":");
+             const std::String os_pathsep(":");
              #endif
 
              find a better one
@@ -51,43 +51,43 @@ namespace jcpp{
             return ';';
         }
 
-        string JWinNTFileSystem::normalize(string path){
+        JString JWinNTFileSystem::normalize(JString path){
             return path;
         }
 
-        jint JWinNTFileSystem::prefixLength(string path){
+        jint JWinNTFileSystem::prefixLength(JString path){
             return 0;//TODO
         }
 
-        string JWinNTFileSystem::resolve(string parent, string child){
-            stringstream ss;
+        JString JWinNTFileSystem::resolve(JString parent, JString child){
+            JString ss;
             ss<<parent<<getSeparator()<<child;
-            return ss.str();
+            return ss;
         }
 
-        string JWinNTFileSystem::getDefaultParent(){
+        JString JWinNTFileSystem::getDefaultParent(){
             return ""+getSeparator();
         }
 
-        string JWinNTFileSystem::fromURIPath(string path){
+        JString JWinNTFileSystem::fromURIPath(JString path){
             return path;//TODO
         }
 
         jbool JWinNTFileSystem::isAbsolute(JFile* f){
-            QFileInfo info(QString::fromStdString(f->getPath()));
+            QFileInfo info(QString::fromStdString(f->getPath().getString()));
             return info.isAbsolute();
         }
 
-        string JWinNTFileSystem::resolve(JFile* f){
+        JString JWinNTFileSystem::resolve(JFile* f){
             return f->getPath();//TODO
         }
 
-        string JWinNTFileSystem::canonicalize(string path){
+        JString JWinNTFileSystem::canonicalize(JString path){
             return path;//TODO
         }
 
         jint JWinNTFileSystem::getBooleanAttributes(JFile* f){
-            QFileInfo info(QString::fromStdString(f->getPath()));
+            QFileInfo info(QString::fromStdString(f->getPath().getString()));
             jint b=0;
             if (info.exists()){
                 b|=BA_EXISTS;
@@ -105,7 +105,7 @@ namespace jcpp{
         }
 
         jbool JWinNTFileSystem::checkAccess(JFile* f, jint access){
-            QFileInfo info(QString::fromStdString(f->getPath()));
+            QFileInfo info(QString::fromStdString(f->getPath().getString()));
             if (access==ACCESS_READ){
                 return info.isReadable();
             }
@@ -162,43 +162,43 @@ namespace jcpp{
                     }
                 }
             }
-            QFile qfile(QString::fromStdString(f->getPath()));
+            QFile qfile(QString::fromStdString(f->getPath().getString()));
             return qfile.setPermissions(p);
         }
 
         jlong JWinNTFileSystem::getLastModifiedTime(JFile* f){
-            QFileInfo info(QString::fromStdString(f->getPath()));
+            QFileInfo info(QString::fromStdString(f->getPath().getString()));
             return info.lastModified().toMSecsSinceEpoch();
         }
 
         jlong JWinNTFileSystem::getLength(JFile* f){
-            QFileInfo info(QString::fromStdString(f->getPath()));
+            QFileInfo info(QString::fromStdString(f->getPath().getString()));
             return info.size();
         }
 
-        jbool JWinNTFileSystem::createFileExclusively(string pathname){
+        jbool JWinNTFileSystem::createFileExclusively(JString pathname){
             return false;//TODO
         }
 
         jbool JWinNTFileSystem::deleteFile(JFile* f){
-            QFile file(QString::fromStdString(f->getPath()));
+            QFile file(QString::fromStdString(f->getPath().getString()));
             return file.remove();
         }
 
-        vector<string>* JWinNTFileSystem::list(JFile* f){
+        vector<JString>* JWinNTFileSystem::list(JFile* f){
             return NULL;//TODO
         }
 
         jbool JWinNTFileSystem::createDirectory(JFile* f){
-            QDir dir1(QString::fromStdString(f->getPath()));
-            QDir dir2(QString::fromStdString(f->getPath()));
+            QDir dir1(QString::fromStdString(f->getPath().getString()));
+            QDir dir2(QString::fromStdString(f->getPath().getString()));
             dir1.cdUp();
             return dir2.mkdir(dir1.dirName());
         }
 
         jbool JWinNTFileSystem::rename(JFile* f1, JFile* f2){
-            QFile file1(QString::fromStdString(f1->getPath()));
-            QFile file2(QString::fromStdString(f2->getPath()));
+            QFile file1(QString::fromStdString(f1->getPath().getString()));
+            QFile file2(QString::fromStdString(f2->getPath().getString()));
             return QFile::rename(file1.fileName(),file2.fileName());
         }
 
@@ -218,7 +218,7 @@ namespace jcpp{
         }
 
         jlong JWinNTFileSystem::getSpace(JFile* f, jint t){
-            QFileInfo info(QString::fromStdString(f->getPath()));
+            QFileInfo info(QString::fromStdString(f->getPath().getString()));
             return 0;//TODO return total, free,usable
         }
 

@@ -8,12 +8,10 @@ using namespace std;
 
 namespace jcpp{
     namespace lang{
-        class JCPP_LIBRARY_EXPORT JInstantiationException : public JException
-        {
+        class JCPP_LIBRARY_EXPORT JInstantiationException : public JException{
         public:
             JInstantiationException();
-            JInstantiationException(string message);
-
+            JInstantiationException(JString message);
             static JClass* getClazz();
             virtual ~JInstantiationException();
         };

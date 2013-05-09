@@ -58,7 +58,7 @@ namespace jcpp{
                             JSocket* getSocket();
                             jlong getLastUsed();
                             JConnections* getConnections();
-                            string toString();
+                            JString toString();
                             virtual ~JConnection();
                     };
                 }

@@ -5,7 +5,7 @@ namespace jcpp{
         JLongTest::JLongTest():JTest(){
         }
 
-        string JLongTest::getFileName(){
+        JString JLongTest::getFileName(){
             return "Long.ser";
         }
 

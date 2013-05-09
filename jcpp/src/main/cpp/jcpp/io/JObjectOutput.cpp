@@ -1,4 +1,5 @@
 #include "JObjectOutput.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace io{

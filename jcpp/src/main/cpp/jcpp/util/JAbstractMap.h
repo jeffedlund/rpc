@@ -35,7 +35,7 @@ namespace jcpp{
             virtual JSet* entrySet()=0;
             virtual jbool equals(JObject* o);
             virtual jint hashCode();
-            virtual string toString();
+            virtual JString toString();
             virtual JObject* clone()=0;
             virtual ~JAbstractMap();
 
@@ -105,7 +105,7 @@ namespace jcpp{
                            (value == NULL ? 0 : value->hashCode());
                 }
 
-                string toString() {
+                JString toString() {
                     return key->toString() + "=" + value->toString();
                 }
             };
@@ -175,7 +175,7 @@ namespace jcpp{
                            (value == NULL ? 0 : value->hashCode());
                 }
 
-                string toString() {
+                JString toString() {
                     return key->toString() + "=" + value->toString();
                 }
             };

@@ -34,7 +34,7 @@ namespace jcpp{
             JProviderMismatchException::JProviderMismatchException():JIllegalArgumentException(getClazz()){
             }
 
-            JProviderMismatchException::JProviderMismatchException(string msg):JIllegalArgumentException(getClazz()){
+            JProviderMismatchException::JProviderMismatchException(JString msg):JIllegalArgumentException(getClazz()){
                 this->message=new JString(msg);
             }
 

@@ -1,4 +1,5 @@
 #include "JObjectInput.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace io{

@@ -80,7 +80,7 @@ namespace jcpp{
                     return (getKey()==NULL   ? 0 : getKey()->hashCode()) ^ (getValue()==NULL ? 0 : getValue()->hashCode());
                 }
 
-                virtual string toString() {
+                virtual JString toString() {
                     return getKey()->toString() + "=" + getValue()->toString();
                 }
             };

@@ -2,7 +2,6 @@
 #include "JClass.h"
 #include <vector>
 #include <iostream>
-#include <string>
 #include <sstream>
 using namespace std;
 
@@ -85,10 +84,10 @@ namespace jcpp{
             return (jint)value;
         }
 
-        string JPrimitiveFloat::toString(){
-            stringstream ss;
+        JString JPrimitiveFloat::toString(){
+            JString ss;
             ss<<value;
-            return ss.str();
+            return ss;
         }
 
         JPrimitiveFloat::~JPrimitiveFloat(){

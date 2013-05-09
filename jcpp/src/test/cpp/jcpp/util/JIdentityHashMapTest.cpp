@@ -6,7 +6,7 @@ namespace jcpp{
         JIdentityHashMapTest::JIdentityHashMapTest():JTest(){
         }
 
-        string JIdentityHashMapTest::getFileName(){
+        JString JIdentityHashMapTest::getFileName(){
             return "IdentityHashMap.ser";
         }
 

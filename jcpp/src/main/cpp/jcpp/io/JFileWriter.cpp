@@ -27,7 +27,7 @@ namespace jcpp{
             return clazz;
         }
 
-        JFileWriter::JFileWriter(string filename,jbool append):JOutputStreamWriter(getClazz(),new JFileOutputStream(filename,append)){
+        JFileWriter::JFileWriter(JString filename,jbool append):JOutputStreamWriter(getClazz(),new JFileOutputStream(filename,append)){
         }
 
         JFileWriter::JFileWriter(JFile* f,jbool append):JOutputStreamWriter(getClazz(),new JFileOutputStream(f,append)){

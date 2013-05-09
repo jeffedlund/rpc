@@ -1,4 +1,5 @@
 #include "JNoSuchMethodException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace lang{
@@ -32,7 +33,7 @@ namespace jcpp{
         JNoSuchMethodException::JNoSuchMethodException():JException(getClazz()){
         }
 
-        JNoSuchMethodException::JNoSuchMethodException(string message):JException(getClazz()){
+        JNoSuchMethodException::JNoSuchMethodException(JString message):JException(getClazz()){
             this->message=new JString(message);
         }
 

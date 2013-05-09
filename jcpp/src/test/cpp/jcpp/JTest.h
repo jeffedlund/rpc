@@ -31,7 +31,7 @@ namespace jcpp{
             r=defaultRead;
         }
 
-        virtual string getFileName(){
+        virtual JString getFileName(){
             return "";
         }
 

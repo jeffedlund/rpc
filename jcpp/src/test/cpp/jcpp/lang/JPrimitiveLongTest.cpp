@@ -7,7 +7,7 @@ namespace jcpp{
             r=NULL;
         }
 
-        string JPrimitiveLongTest::getFileName(){
+        JString JPrimitiveLongTest::getFileName(){
             return "PrimitiveLong.ser";
         }
 

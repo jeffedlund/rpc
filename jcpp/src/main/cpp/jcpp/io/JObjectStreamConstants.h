@@ -95,7 +95,7 @@ namespace jcpp{
              const static jbyte TC_EXCEPTION = 	(jbyte)0x7B;
 
              /**
-              * Long string.
+              * Long String.
               */
              const static jbyte TC_LONGSTRING = 	(jbyte)0x7C;
 

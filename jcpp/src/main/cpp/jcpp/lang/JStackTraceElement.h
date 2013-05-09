@@ -24,7 +24,7 @@ namespace jcpp{
             JStackTraceElement(JString* declaringClass,JString* methodName,JString* fileName,JPrimitiveInt* lineNumber);
             static JClass* getClazz();
             JString* getDeclaringClass();
-            void setDeclaringClass(JString* declaringClass);//TODO hide JString and show only strings. use friend class
+            void setDeclaringClass(JString* declaringClass);//TODO hide JString and show only strin gs. use friend class
             JString* getMethodName();
             void setMethodName(JString* methodName);
             JString* getFileName();
@@ -33,7 +33,7 @@ namespace jcpp{
             void setLineNumber(JPrimitiveInt* lineNumber);
             virtual bool equals(JObject* other);
             virtual jint hashCode();
-            virtual string toString();
+            virtual JString toString();
             virtual ~JStackTraceElement();
         };
     }

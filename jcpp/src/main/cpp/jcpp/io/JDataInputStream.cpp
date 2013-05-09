@@ -7,6 +7,7 @@
 #include "JBits.h"
 #include "JPushbackInputStream.h"
 #include "JSystem.h"
+#include "JClassLoader.h"
 using namespace jcpp::util;
 using namespace jcpp::lang;
 
@@ -73,7 +74,7 @@ namespace jcpp{
             return total;
         }
 
-        string JDataInputStream::readUTF() {
+        JString JDataInputStream::readUTF() {
             jshort utflen = readUnsignedShort();
             jbyte *bytearr = new jbyte[utflen*2];
             jchar *chararr = new jchar[utflen*2];
@@ -137,7 +138,7 @@ namespace jcpp{
                 cs[i]=(char)chararr[i];
             }
             cs[chararr_count] = '\0';
-            string str(cs);
+            JString str(cs);//TODO
             delete[] bytearr;
             delete[] chararr;
             delete cs;

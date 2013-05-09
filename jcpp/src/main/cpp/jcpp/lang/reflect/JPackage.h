@@ -1,6 +1,7 @@
 #ifndef JPACKAGE_H
 #define JPACKAGE_H
 
+#include "JString.h"
 #include "vector"
 #include <iostream>
 #include "JCPP.h"
@@ -12,12 +13,12 @@ namespace jcpp{
         namespace reflect{
             class JCPP_LIBRARY_EXPORT JPackage{
                 protected:
-                    string name;
+                    JString name;
                     JClass* _class;
                     vector<JClass*>* classes;
                     vector<JPackage*>* packages;
 
-                    JPackage(string name,JClass* _class);
+                    JPackage(JString name,JClass* _class);
                     void addClass(JClass* c);
 
                 public:
@@ -25,7 +26,7 @@ namespace jcpp{
 
                     virtual vector<JPackage*>* getPackages()=0;
 
-                    string toString();
+                    JString toString();
 
                     JClass* getClass();
 

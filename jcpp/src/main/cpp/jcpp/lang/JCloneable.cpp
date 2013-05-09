@@ -1,5 +1,6 @@
 #include "JCloneable.h"
 #include "JInstantiationException.h"
+#include "JClass.h"
 
 namespace jcpp{
     namespace lang{

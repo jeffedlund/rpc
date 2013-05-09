@@ -34,7 +34,7 @@ namespace jcpp{
             JFileSystemLoopException::JFileSystemLoopException():JFileSystemException(getClazz()){
             }
 
-            JFileSystemLoopException::JFileSystemLoopException(string file):JFileSystemException(getClazz(),file){
+            JFileSystemLoopException::JFileSystemLoopException(JString file):JFileSystemException(getClazz(),file){
             }
 
             JFileSystemLoopException::~JFileSystemLoopException(){

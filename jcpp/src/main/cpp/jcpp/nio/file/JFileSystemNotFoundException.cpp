@@ -34,7 +34,7 @@ namespace jcpp{
             JFileSystemNotFoundException::JFileSystemNotFoundException():JRuntimeException(getClazz()){
             }
 
-            JFileSystemNotFoundException::JFileSystemNotFoundException(string msg):JRuntimeException(getClazz()){
+            JFileSystemNotFoundException::JFileSystemNotFoundException(JString msg):JRuntimeException(getClazz()){
                 this->message=new JString(msg);
             }
 

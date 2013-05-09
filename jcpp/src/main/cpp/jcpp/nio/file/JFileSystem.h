@@ -24,12 +24,12 @@ namespace jcpp{
                     virtual void  close()=0;
                     virtual jbool isOpen()=0;
                     virtual jbool isReadOnly()=0;
-                    virtual string getSeparator()=0;
+                    virtual JString getSeparator()=0;
                     virtual JIterable* getRootDirectories()=0;
                     virtual JIterable* getFileStores()=0;
                     virtual JSet* supportedFileAttributeViews()=0;
-                    //TODO virtual JPath* getPath(string first, vector<string>* more)=0;
-                    //TODO virtual JPathMatcher* getPathMatcher(string syntaxAndPattern)=0;
+                    //TODO virtual JPath* getPath(JString first, vector<JString>* more)=0;
+                    //TODO virtual JPathMatcher* getPathMatcher(JString syntaxAndPattern)=0;
                     //TODO virtual JUserPrincipalLookupService* getUserPrincipalLookupService()=0;
                     virtual JWatchService* newWatchService()=0;
                     virtual ~JFileSystem();

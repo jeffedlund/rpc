@@ -12,7 +12,7 @@ namespace jcpp{
         class JCPP_LIBRARY_EXPORT JFilenameFilter : public JInterface  {
             public:
                 static JClass* getClazz();
-                virtual jbool accept(JFile* dir, string name)=0;
+                virtual jbool accept(JFile* dir, JString name)=0;
                 virtual ~JFilenameFilter();
         };
     }

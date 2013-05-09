@@ -10,7 +10,7 @@ namespace jcpp{
         public:
             JExternalizableTest();
 
-            virtual string getFileName();
+            virtual JString getFileName();
 
             virtual JObject* testReflect();
 

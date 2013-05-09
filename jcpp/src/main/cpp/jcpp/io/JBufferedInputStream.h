@@ -1,7 +1,6 @@
 #ifndef JBUFFEREDINPUTSTREAM_H
 #define JBUFFEREDINPUTSTREAM_H
 
-#include <string>
 #include "JObject.h"
 #include "JClass.h"
 #include "Object.h"

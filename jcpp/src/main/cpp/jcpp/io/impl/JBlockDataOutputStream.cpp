@@ -205,7 +205,7 @@ namespace jcpp{
             }
         }
 
-        void JBlockDataOutputStream::writeBytes(string s){
+        void JBlockDataOutputStream::writeBytes(JString s){
             jint endoff = s.length();
             jint cpos = 0;
             jint csize = 0;
@@ -227,12 +227,12 @@ namespace jcpp{
             }
         }
 
-        void JBlockDataOutputStream::getChars( string s,jint srcBegin, jint srcEnd, jchar dest[], jint dstBegin){
-            const char* str = s.c_str();
+        void JBlockDataOutputStream::getChars( JString s,jint srcBegin, jint srcEnd, jchar dest[], jint dstBegin){
+            const char* str = s.getString().c_str();//TODO
             JBits::fromCharToJChar(str,dest,dstBegin,srcEnd-srcBegin);
         }
 
-        void JBlockDataOutputStream::writeChars(string s){
+        void JBlockDataOutputStream::writeChars(JString s){
             jint endoff = s.length();
             for (jint off = 0; off < endoff; ) {
                 jint csize = (endoff - off) < CHAR_BUF_SIZE ? endoff - off : CHAR_BUF_SIZE;
@@ -242,7 +242,7 @@ namespace jcpp{
             }
         }
 
-        jlong JBlockDataOutputStream::getUTFLength(string s){
+        jlong JBlockDataOutputStream::getUTFLength(JString s){
             jint len = s.length();
             jlong utflen = 0;
             for (jint off = 0; off < len; ) {
@@ -263,7 +263,7 @@ namespace jcpp{
             return utflen;
         }
 
-        void JBlockDataOutputStream::writeUTF(string s){
+        void JBlockDataOutputStream::writeUTF(JString s){
             writeUTF(s, getUTFLength(s));
         }
 
@@ -382,7 +382,7 @@ namespace jcpp{
             }
         }
 
-        void JBlockDataOutputStream::writeUTF(string s, jlong utflen){
+        void JBlockDataOutputStream::writeUTF(JString s, jlong utflen){
             if (utflen > 0xFFFFL) {
                 throw new JUTFDataFormatException();
             }
@@ -394,11 +394,11 @@ namespace jcpp{
             }
         }
 
-        void JBlockDataOutputStream::writeLongUTF(string s){
+        void JBlockDataOutputStream::writeLongUTF(JString s){
             writeLongUTF(s, getUTFLength(s));
         }
 
-        void JBlockDataOutputStream::writeLongUTF(string s, jlong utflen){
+        void JBlockDataOutputStream::writeLongUTF(JString s, jlong utflen){
             writeLong(utflen);
             if (utflen == (jlong) s.length()) {
                 writeBytes(s);
@@ -407,7 +407,7 @@ namespace jcpp{
             }
         }
 
-        void JBlockDataOutputStream::writeUTFBody(string s){
+        void JBlockDataOutputStream::writeUTFBody(JString s){
             jint limit = MAX_BLOCK_SIZE - 3;
             jint len = s.length();
             for (jint off = 0; off < len; ) {

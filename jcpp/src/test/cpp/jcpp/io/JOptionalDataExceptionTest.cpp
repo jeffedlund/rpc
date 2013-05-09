@@ -5,7 +5,7 @@ namespace jcpp{
         JOptionalDataExceptionTest::JOptionalDataExceptionTest():JObjectStreamExceptionTest(){
         }
 
-        string JOptionalDataExceptionTest::getFileName(){
+        JString JOptionalDataExceptionTest::getFileName(){
             return "OptionalDataException.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JOptionalDataException();
         }
 
-        string JOptionalDataExceptionTest::getThrowableClassName(){
+        JString JOptionalDataExceptionTest::getThrowableClassName(){
             return "java.io.OptionalDataException";
         }
 

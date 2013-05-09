@@ -3,6 +3,7 @@
 #include "JNullPointerException.h"
 #include "Collections.h"
 #include "JInstantiationException.h"
+#include "JClassLoader.h"
 using namespace jcpp::util;
 
 namespace jcpp{

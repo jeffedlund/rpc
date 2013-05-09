@@ -2,8 +2,8 @@
 #include "JClass.h"
 #include <vector>
 #include <iostream>
-#include <string>
 #include "JSerializable.h"
+#include "JString.h"
 using namespace std;
 using namespace jcpp::io;
 
@@ -83,7 +83,7 @@ namespace jcpp{
             this->value=new JPrimitiveByte(0);
         }
 
-        bool JByte::equals(JObject* other){
+        jbool JByte::equals(JObject* other){
             if (other->getClass()!=getClazz()){
                 return false;
             }
@@ -156,8 +156,8 @@ namespace jcpp{
             return hashCode(value->get());
         }
 
-        string JByte::toString(){
-            return ""+value->get();
+        JString JByte::toString(){
+            return JString(""+value->get());
         }
 
         JByte::~JByte(){

@@ -5,7 +5,7 @@ namespace jcpp{
         JVirtualMachineErrorTest::JVirtualMachineErrorTest():JErrorTest(){
         }
 
-        string JVirtualMachineErrorTest::getFileName(){
+        JString JVirtualMachineErrorTest::getFileName(){
             return "VirtualMachineError.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JVirtualMachineError();
         }
 
-        string JVirtualMachineErrorTest::getThrowableClassName(){
+        JString JVirtualMachineErrorTest::getThrowableClassName(){
             return "java.lang.VirtualMachineError";
         }
 

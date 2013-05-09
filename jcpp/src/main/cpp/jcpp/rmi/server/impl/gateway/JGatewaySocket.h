@@ -84,7 +84,7 @@ namespace jcpp{
                             virtual bool isClosed();
 
 
-                            string toString();
+                            JString toString();
 
                             virtual ~JGatewaySocket();
                     };

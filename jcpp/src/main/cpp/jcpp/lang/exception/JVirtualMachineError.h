@@ -14,8 +14,8 @@ namespace jcpp{
 
         public:
             JVirtualMachineError();
-            JVirtualMachineError(string message);
-            JVirtualMachineError(string message, JThrowable *cause);
+            JVirtualMachineError(JString message);
+            JVirtualMachineError(JString message, JThrowable *cause);
 
             static JClass* getClazz();
 

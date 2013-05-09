@@ -10,7 +10,7 @@ namespace jcpp{
         public:
             JPrimitiveCharTest();
 
-            string getFileName();
+            JString getFileName();
 
             JObject* testReflect();
 

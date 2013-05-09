@@ -34,7 +34,7 @@ namespace jcpp{
             JFileSystemAlreadyExistsException::JFileSystemAlreadyExistsException():JRuntimeException(getClazz()){
             }
 
-            JFileSystemAlreadyExistsException::JFileSystemAlreadyExistsException(string msg):JRuntimeException(getClazz()){
+            JFileSystemAlreadyExistsException::JFileSystemAlreadyExistsException(JString msg):JRuntimeException(getClazz()){
                 this->message=new JString(msg);
             }
 

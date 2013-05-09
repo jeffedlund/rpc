@@ -12,7 +12,7 @@ namespace jcpp{
                 public:
                     static JClass* getClazz();
                     JProviderNotFoundException();
-                    JProviderNotFoundException(string msg);
+                    JProviderNotFoundException(JString msg);
                     virtual ~JProviderNotFoundException();
             };
         }

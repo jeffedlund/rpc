@@ -11,7 +11,7 @@ namespace jcpp{
 
         public:
             JNullPointerException();
-            JNullPointerException(string message);
+            JNullPointerException(JString message);
             JNullPointerException(JString* message);
 
             static JClass* getClazz();

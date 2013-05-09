@@ -39,9 +39,9 @@ namespace jcpp{
             virtual void writeFloat(JPrimitiveFloat* v)=0;
             virtual void writeDouble(jdouble v)=0;
             virtual void writeDouble(JPrimitiveDouble* v)=0;
-            virtual void writeBytes(string s)=0;
-            virtual void writeChars(string s)=0;
-            virtual void writeUTF(string str)=0;
+            virtual void writeBytes(JString s)=0;
+            virtual void writeChars(JString s)=0;
+            virtual void writeUTF(JString str)=0;
             virtual ~JDataOutput();
         };
     }

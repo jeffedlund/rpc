@@ -1,4 +1,5 @@
 #include "JRuntimeException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace lang{
@@ -35,11 +36,11 @@ namespace jcpp{
         JRuntimeException::JRuntimeException(JClass* _class):JException(_class){
         }
 
-        JRuntimeException::JRuntimeException(string message):JException(getClazz()){
+        JRuntimeException::JRuntimeException(JString message):JException(getClazz()){
             this->message=new JString(message);
         }
 
-        JRuntimeException::JRuntimeException(string message,JThrowable* cause):JException(getClazz()){
+        JRuntimeException::JRuntimeException(JString message,JThrowable* cause):JException(getClazz()){
             this->message=new JString(message);
             this->cause=cause;
         }

@@ -42,7 +42,7 @@ namespace jcpp{
             return clazz;
         }
 
-        JPermission::JPermission(JClass* _class,string name):JObject(_class){
+        JPermission::JPermission(JClass* _class,JString name):JObject(_class){
             this->name=new JString(name);
         }
 
@@ -54,21 +54,18 @@ namespace jcpp{
             //TODO
         }
 
-        string JPermission::getName(){
-            return name->getString();
+        JString JPermission::getName(){
+            return JString(name);
         }
 
         JPermissionCollection* JPermission::newPermissionCollection(){
             return NULL;
         }
 
-        string JPermission::toString(){
-            string actions = getActions();
-            if (actions.length() == 0) { // OPTIONAL
-                return "(\"" + getClass()->getName() + "\" \"" + getName() + "\")";
-            } else {
-                return "(\"" + getClass()->getName() + "\" \"" + getName()+ "\" \"" + actions + "\")";
-            }
+        JString JPermission::toString(){
+            JString str="";
+            str<<"(\"" << getClass()->getName() << "\" \"" << getName() << "\" \"" << getActions() << "\")";
+            return str;
         }
 
         JPermission::~JPermission(){

@@ -6,6 +6,7 @@
 #include "JIOException.h"
 #include "JInstantiationException.h"
 #include "JEOFException.h"
+#include "JClassLoader.h"
 using namespace jcpp::util;
 
 namespace jcpp{

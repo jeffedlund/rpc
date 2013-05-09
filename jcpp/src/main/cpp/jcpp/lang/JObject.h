@@ -13,6 +13,7 @@ using namespace std;
 namespace jcpp{
     namespace lang{
         class JClass;
+        class JString;
 
         class JCPP_LIBRARY_EXPORT JObject{
             private:
@@ -39,10 +40,10 @@ namespace jcpp{
 
                 JObject();
                 static JClass* getClazz();
-                JClass* getClass();
+                virtual JClass* getClass();
                 virtual bool operator==(JObject &other);
                 virtual bool operator!=(JObject &other);
-                jbool isInstanceOf(JClass* c);
+                virtual jbool isInstanceOf(JClass* c);
                 void lock();
                 void unlock();
                 void wait();
@@ -51,7 +52,7 @@ namespace jcpp{
                 void notifyAll();
                 virtual jbool equals(JObject* o);
                 virtual jint hashCode();
-                virtual string toString();
+                virtual JString toString();
                 virtual JObject* clone();
                 virtual ~JObject();
         };

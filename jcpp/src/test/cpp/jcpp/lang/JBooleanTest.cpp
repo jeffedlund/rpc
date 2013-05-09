@@ -5,7 +5,7 @@ namespace jcpp{
         JBooleanTest::JBooleanTest():JTest(){
         }
 
-        string JBooleanTest::getFileName(){
+        JString JBooleanTest::getFileName(){
             return "Boolean.ser";
         }
 

@@ -7,13 +7,13 @@ namespace jcpp{
     namespace io{
         class JCPP_LIBRARY_EXPORT JStringBufferInputStream : public JInputStream  {
             protected:
-                string buffer;
+                JString buffer;
                 jint pos;
                 jint count;
 
             public:
                 static JClass* getClazz();
-                JStringBufferInputStream(string s);
+                JStringBufferInputStream(JString s);
                 virtual jint read();
                 virtual jint read(jbyte b[], jint offset, jint len);
                 virtual jlong skip(jlong n);

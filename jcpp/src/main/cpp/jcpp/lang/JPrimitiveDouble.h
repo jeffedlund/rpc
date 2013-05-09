@@ -7,6 +7,7 @@
 #include "JCPP.h"
 #include "JComparable.h"
 #include "JSerializable.h"
+#include "JString.h"
 using namespace std;
 using namespace jcpp::io;
 
@@ -29,7 +30,7 @@ namespace jcpp{
                 virtual jint compareTo(JObject* o);
                 virtual jbool equals(JObject* other);
                 virtual jint hashCode();
-                virtual string toString();
+                virtual JString toString();
                 virtual ~JPrimitiveDouble();
         };
     }

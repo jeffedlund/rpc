@@ -30,7 +30,7 @@ namespace jcpp{
                 virtual jint compareTo(JObject* o);
                 virtual jbool equals(JObject* other);
                 virtual jint hashCode();
-                virtual string toString();
+                virtual JString toString();
                 virtual ~JPrimitiveByte();
         };
     }

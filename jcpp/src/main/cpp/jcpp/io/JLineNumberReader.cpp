@@ -96,11 +96,11 @@ namespace jcpp{
             return n;
         }
 
-        string JLineNumberReader::readLine(){
+        JString JLineNumberReader::readLine(){
             lock->lock();
-            string l = JBufferedReader::readLine(skipLF);
+            JString l = JBufferedReader::readLine(skipLF);
             skipLF = false;
-            if (l.size()>0){
+            if (l.length()>0){
                 lineNumber++;
             }
             lock->unlock();

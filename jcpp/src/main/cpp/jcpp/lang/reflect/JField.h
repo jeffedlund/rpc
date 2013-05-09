@@ -1,16 +1,18 @@
 #ifndef JFIELD_H
 #define JFIELD_H
 
-#include "JObject.h"
 #include "JAccessibleObject.h"
 #include "JCPP.h"
 #include "JMember.h"
+#include "JString.h"
 using namespace std;
 
 //TODO isEnumConstant, toGenericString,getBoolean, getByte, getChar, getShort, getInt, getLong,
 //getFloat, getDouble, +setters
 namespace jcpp{
     namespace lang{
+        class JObject;
+
         namespace reflect{
             class JCPP_LIBRARY_EXPORT JField: public JAccessibleObject, public JMember{
             public:
@@ -18,7 +20,7 @@ namespace jcpp{
                 typedef void (*setter)(JObject* object,JObject* value);
 
             protected:
-                string name;
+                JString name;
                 JClass* type;
                 getter g;
                 setter s;
@@ -26,10 +28,10 @@ namespace jcpp{
                 JClass* declaringClass;
 
             public:
-                JField(string name,JClass* type,JClass* declaringClass);
-                JField(string name,JClass* type,JClass* declaringClass,getter g,setter s);
+                JField(JString name,JClass* type,JClass* declaringClass);
+                JField(JString name,JClass* type,JClass* declaringClass,getter g,setter s);
                 static JClass* getClazz();
-                virtual string getName();
+                virtual JString getName();
                 JClass* getType();
                 virtual JObject* get(JObject* object);
                 virtual void set(JObject* object, JObject* value);
@@ -38,7 +40,7 @@ namespace jcpp{
                 virtual jbool isSynthetic();
                 virtual bool equals(JObject* o);
                 virtual jint hashCode();
-                virtual string toString();
+                virtual JString toString();
                 virtual ~JField();
             };
         }

@@ -2,8 +2,8 @@
 #define JCLASS_CPP
 
 #include "JClass.h"
+#include "JObject.h"
 #include "JClassLoader.h"
-#include "JMethod.h"
 #include "JEnum.h"
 #include "Collections.h"
 #include "JNoSuchFieldException.h"
@@ -23,6 +23,7 @@
 #include <algorithm>
 #include "JNullPointerException.h"
 #include "JModifier.h"
+#include "JString.h"
 using namespace std;
 using namespace jcpp::util;
 
@@ -63,9 +64,9 @@ namespace jcpp{
             return clazz;
         }
 
-        string JClass::getSignature(){
+        JString JClass::getSignature(){
             JClass* _class=this;
-            stringstream ss;
+            JString ss;
             while (_class->isArray()){
                 ss<<"[";
                 _class=_class->getComponentType();
@@ -93,12 +94,11 @@ namespace jcpp{
                     throw new JInternalError();
                 }
             }else{
-                string name=_class->getName();
-                string newName(name);
-                replace(newName.begin(),newName.end(),'/','.');
+                JString name=_class->getName();
+                JString newName=name.replace('/','.');
                 ss<<'L'<<newName<<";";
             }
-            return ss.str();
+            return ss;
         }
 
         JClass::JClass(JClassLoader* classLoader):JObject(JClass::getClazz()){
@@ -124,13 +124,13 @@ namespace jcpp{
             this->bIsPackage=false;
             this->componentType=NULL;
             this->enumConstants=new vector<JEnum*>;
-            this->fields=new map<string,JField*>;
+            this->fields=new map<JString,JField*>;
             this->fieldsList=new vector<JField*>;
-            this->declaredFields=new map<string,JField*>;
+            this->declaredFields=new map<JString,JField*>;
             this->declaredFieldsList=new vector<JField*>;
-            this->methods=new map<string,JMethod*>;
+            this->methods=new map<JString,JMethod*>;
             this->methodsList=new vector<JMethod*>;
-            this->declaredMethods=new map<string,JMethod*>;
+            this->declaredMethods=new map<JString,JMethod*>;
             this->declaredMethodsList=new vector<JMethod*>;
             this->interfaces=new vector<JClass*>;
             this->publicClasses=new vector<JClass*>();
@@ -139,15 +139,15 @@ namespace jcpp{
             this->modifier=0;
         }
 
-        string JClass::getCanonicalName(){
+        JString JClass::getCanonicalName(){
             return canonicalName;
         }
 
-        string JClass::getName(){
+        JString JClass::getName(){
             return name;
         }
 
-        string JClass::getSimpleName(){
+        JString JClass::getSimpleName(){
             return simpleName;
         }
 
@@ -173,18 +173,18 @@ namespace jcpp{
         void JClass::fillEnumConstants(){
         }
 
-        JEnum* JClass::valueOf(string value){
+        JEnum* JClass::valueOf(JString value){
             initEnumConstants();
             for (unsigned int i=0;i<enumConstants->size();i++){
                 JEnum* e=enumConstants->at(i);
-                if (e->getName()->getString()==value){
+                if ((*e->getName())==value){
                     return e;
                 }
             }
             throw new JIllegalArgumentException("No enum constant "+value+" in enum "+getName());
         }
 
-        JField* JClass::getField(string name){
+        JField* JClass::getField(JString name){
             initFields();
             JField* field=getFromMap(fields,name);
             if (field==NULL){
@@ -193,12 +193,12 @@ namespace jcpp{
             return field;
         }
 
-        jbool JClass::hasDeclaredField(string name){
+        jbool JClass::hasDeclaredField(JString name){
             JField* field=getFromMap(declaredFields,name);
             return (field!=NULL);
         }
 
-        JField* JClass::getDeclaredField(string name){
+        JField* JClass::getDeclaredField(JString name){
             JField* field=getFromMap(declaredFields,name);
             if (field==NULL){
                 throw JNoSuchFieldException("field "+name+" not delared in "+getName());
@@ -213,7 +213,7 @@ namespace jcpp{
                     for (unsigned int i=0;i<current->declaredFieldsList->size();i++){
                         JField* f=current->declaredFieldsList->at(i);//TODO add it or check before? ...
                         fieldsList->push_back(f);
-                        fields->insert(pair<string,JField*>(f->getName(),f));
+                        fields->insert(pair<JString,JField*>(f->getName(),f));
                     }
                     current=current->getSuperclass();
                 }
@@ -243,7 +243,7 @@ namespace jcpp{
         void JClass::fillInterfaces(){
         }
 
-        bool JClass::hasMethod(string name, vector<JClass*>*){
+        bool JClass::hasMethod(JString name, vector<JClass*>*){
             initMethods();
             JMethod* method=getFromMap(methods,name);
             if (method==NULL){
@@ -252,7 +252,7 @@ namespace jcpp{
             return true;
         }
 
-        bool JClass::hasDeclaredMethod(string name, vector<JClass*>*){
+        bool JClass::hasDeclaredMethod(JString name, vector<JClass*>*){
             initDeclaredMethods();
             JMethod* method=getFromMap(declaredMethods,name);
             if (method==NULL){
@@ -261,7 +261,7 @@ namespace jcpp{
             return true;
         }
 
-        JMethod* JClass::getMethod(string name, vector<JClass*>*){
+        JMethod* JClass::getMethod(JString name, vector<JClass*>*){
             initMethods();
             JMethod* method=getFromMap(methods,name);
             if (method==NULL){
@@ -270,7 +270,7 @@ namespace jcpp{
             return method;
         }
 
-        JMethod* JClass::getDeclaredMethod(string name, vector<JClass*>*){
+        JMethod* JClass::getDeclaredMethod(JString name, vector<JClass*>*){
             initDeclaredMethods();
             JMethod* method=getFromMap(declaredMethods,name);
             if (method==NULL){
@@ -287,7 +287,7 @@ namespace jcpp{
                     for (unsigned int i=0;i<current->declaredMethodsList->size();i++){
                         JMethod* m=current->declaredMethodsList->at(i);//TODO add it or check before ...
                         methodsList->push_back(m);
-                        methods->insert(pair<string,JMethod*>(m->getName(),m));
+                        methods->insert(pair<JString,JMethod*>(m->getName(),m));
                     }
                     vector<JClass*>* interf=current->getInterfaces();
                     for (unsigned int i=0;i<interf->size();i++){
@@ -296,7 +296,7 @@ namespace jcpp{
                         for (unsigned int j=0;j<c->declaredMethodsList->size();j++){
                             JMethod* m=c->declaredMethodsList->at(j);
                             methodsList->push_back(m);
-                            methods->insert(pair<string,JMethod*>(m->getName(),m));
+                            methods->insert(pair<JString,JMethod*>(m->getName(),m));
                         }
                     }
                     current=current->getSuperclass();
@@ -367,12 +367,12 @@ namespace jcpp{
 
         void JClass::addField(JField* field){
             declaredFieldsList->push_back(field);
-            declaredFields->insert(pair<string,JField*>(field->getName(),field));
+            declaredFields->insert(pair<JString,JField*>(field->getName(),field));
         }
 
         void JClass::addMethod(JMethod* method){
             declaredMethodsList->push_back(method);
-            declaredMethods->insert(pair<string,JMethod*>(method->getName(),method));
+            declaredMethods->insert(pair<JString,JMethod*>(method->getName(),method));
         }
 
         void JClass::addInterface(JClass* interface){
@@ -454,8 +454,8 @@ namespace jcpp{
             return serialVersionUID;
         }
 
-        string JClass::toString(){
-            return (isInterface()?"interface ":(isPrimitive()?"":"class "))+getName();
+        JString JClass::toString(){
+            return JString((isInterface()?"interface ":(isPrimitive()?"":"class "))+getName());
         }
 
         JClass::~JClass(){

@@ -99,7 +99,7 @@ namespace jcpp{
                         return h;
                     }
 
-                    string JObjectPointer::toString(){
+                    JString JObjectPointer::toString(){
                         return "ObjectPointer[" + endPoint->toString() + "[Id:" + id->toString() + "]]";
                     }
 

@@ -11,7 +11,7 @@ namespace jcpp{
         public:
             JPrimitiveArrayTest();
 
-            string getFileName();
+            JString getFileName();
 
             JObject* testReflect();
 

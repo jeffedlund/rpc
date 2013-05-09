@@ -29,8 +29,8 @@ namespace jcpp{
                             JAddress();
                             JAddress(JAddress* adr);
                             static JClass* getClazz();
-                            void setHostName(string host);
-                            string getHostName();
+                            void setHostName(JString host);
+                            JString getHostName();
                             void setPHostName(JString* host);
                             JString* getPHostName();
                             void setPort(jint port);
@@ -40,7 +40,7 @@ namespace jcpp{
                             virtual bool equals(JObject* other);
                             virtual jint hashCode();
                             virtual JAddress* clone();
-                            virtual string toString();
+                            virtual JString toString();
                             virtual ~JAddress();
                     };
                 }

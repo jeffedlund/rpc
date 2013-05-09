@@ -9,7 +9,7 @@ namespace jcpp{
         class JCPP_LIBRARY_EXPORT JFileReader : public JInputStreamReader  {
             public:
                 static JClass* getClazz();
-                JFileReader(string name);
+                JFileReader(JString name);
                 JFileReader(JFile* f);
                 virtual ~JFileReader();
         };

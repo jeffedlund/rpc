@@ -158,7 +158,7 @@ namespace jcpp{
                         scheduledFuture=transport->getScheduledExecutorService()->schedule(this,transport->getTransportConfiguration()->getTimeoutTimerInterval()->get(), transport->getTransportConfiguration()->getTimeoutTimerInterval()->get());
                     }
 
-                    string JConnections::toString(){
+                    JString JConnections::toString(){
                         return "Connections[localEndPoint="+transport->getLocalEndPoint()->toString()+", removeEndPoint="+remoteEndPoint->toString()+"]";
                     }
 

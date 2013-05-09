@@ -1,11 +1,13 @@
 #ifndef JMETHOD_H
 #define JMETHOD_H
 
+#include "JString.h"
 #include "JObject.h"
 #include "JAccessibleObject.h"
 #include "JCPP.h"
 #include "JMember.h"
 using namespace std;
+using namespace jcpp::lang;
 
 //TODO fill modifiers for field/method
 namespace jcpp{
@@ -15,7 +17,7 @@ namespace jcpp{
             public:
                 typedef JObject* (*invocation)(JObject* objet,vector<JObject*>*args);
             private:
-                string name;
+                JString name;
                 JClass* declaringClass;
                 JClass* returnType;
                 vector<JClass*>* parameterType;
@@ -23,9 +25,9 @@ namespace jcpp{
                 jint modifiers;
 
             public:
-                JMethod(string name,JClass* declaringClass,JClass* returnType,vector<JClass*>* parameterType,invocation inv);
+                JMethod(JString name,JClass* declaringClass,JClass* returnType,vector<JClass*>* parameterType,invocation inv);
                 static JClass* getClazz();
-                virtual string getName();
+                virtual JString getName();
                 virtual JClass* getDeclaringClass();
                 virtual jint getModifiers();
                 virtual jbool isSynthetic();
@@ -34,7 +36,7 @@ namespace jcpp{
                 JObject* invoke(JObject* object, vector<JObject*>*args);
                 virtual bool equals(JObject* o);
                 virtual jint hashCode();
-                virtual string toString();
+                virtual JString toString();
                 virtual ~JMethod();
             };
         }

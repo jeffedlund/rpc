@@ -1,4 +1,5 @@
 #include "JIllegalArgumentException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace lang{
@@ -35,8 +36,13 @@ namespace jcpp{
         JIllegalArgumentException::JIllegalArgumentException():JRuntimeException(getClazz()){
         }
 
-        JIllegalArgumentException::JIllegalArgumentException(string message):JRuntimeException(getClazz()){
+        JIllegalArgumentException::JIllegalArgumentException(JString message):JRuntimeException(getClazz()){
             this->message=new JString(message);
+        }
+
+        JIllegalArgumentException::JIllegalArgumentException(JString message,JThrowable* cause):JRuntimeException(getClazz()){
+            this->message=new JString(message);
+            this->cause=cause;
         }
 
         JIllegalArgumentException::~JIllegalArgumentException(){

@@ -7,7 +7,7 @@ namespace jcpp{
             r=NULL;
         }
 
-        string JPrimitiveBooleanTest::getFileName(){
+        JString JPrimitiveBooleanTest::getFileName(){
             return "PrimitiveBoolean.ser";
         }
 

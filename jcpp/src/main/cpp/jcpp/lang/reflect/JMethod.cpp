@@ -2,12 +2,13 @@
 #include "JClass.h"
 #include "JInstantiationException.h"
 #include "JModifier.h"
+#include "JString.h"
 #include <sstream>
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace lang{
         namespace reflect{
-
             class JMethodClass : public JClass{
                 public:
                     JMethodClass():JClass(JClassLoader::getBootClassLoader()){
@@ -31,7 +32,7 @@ namespace jcpp{
                 return clazz;
             }
 
-            JMethod::JMethod(string name,JClass* declaringClass,JClass* returnType,vector<JClass*>* parameterType,invocation inv):JAccessibleObject(getClazz()){
+            JMethod::JMethod(JString name,JClass* declaringClass,JClass* returnType,vector<JClass*>* parameterType,invocation inv):JAccessibleObject(getClazz()){
                 this->name=name;
                 this->declaringClass=declaringClass;
                 this->returnType=returnType;
@@ -39,7 +40,7 @@ namespace jcpp{
                 this->inv=inv;
             }
 
-            string JMethod::getName(){
+            JString JMethod::getName(){
                 return name;
             }
 
@@ -81,13 +82,13 @@ namespace jcpp{
             }
 
             jint JMethod::hashCode() {
-                return JString::hashCode(getDeclaringClass()->getName())^ JString::hashCode(getName());
+                return getDeclaringClass()->getName().hashCode()^ getName().hashCode();
             }
 
-            string JMethod::toString(){
-                stringstream ss;
+            JString JMethod::toString(){
+                JString ss;
                 ss<<returnType->getName()<<" ";
-                ss<<declaringClass<<"."<<name;
+                ss<<declaringClass->toString()<<"."<<name;
                 if (parameterType!=NULL){
                     ss<<"(";
                     for (unsigned int i=0;i<parameterType->size();i++){
@@ -95,7 +96,7 @@ namespace jcpp{
                         ss<<param->getName()+",";
                     }
                 }
-                return ss.str();
+                return ss;
             }
 
             JMethod::~JMethod(){

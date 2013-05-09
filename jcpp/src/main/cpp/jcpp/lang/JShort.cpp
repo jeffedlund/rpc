@@ -2,7 +2,6 @@
 #include "JClass.h"
 #include <vector>
 #include <iostream>
-#include <string>
 #include <sstream>
 #include "JSerializable.h"
 #include "JPrimitiveShort.h"
@@ -151,10 +150,10 @@ namespace jcpp{
             return hashCode(value->get());
         }
 
-        string JShort::toString(){
-            stringstream ss;
+        JString JShort::toString(){
+            JString ss;
             ss<<value->get();
-            return ss.str();
+            return ss;
         }
 
         JShort::~JShort(){

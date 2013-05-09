@@ -8,7 +8,6 @@ class SerialCallbackContext;
 #include "JClassLoader.h"
 #include "JClass.h"
 #include "JObjectStreamClass.h"
-#include "JString.h"
 #include "JEnum.h"
 #include "climits"
 #include "memory.h"
@@ -24,6 +23,9 @@ class SerialCallbackContext;
 #include "JCPP.h"
 
 namespace jcpp{
+    namespace lang{
+        class JString;
+    }
     namespace io{
         class JObjectStreamClass;
         static const jint NULL_HANDLE = -1;
@@ -38,16 +40,16 @@ namespace jcpp{
             public:
                 static JClass* getClazz();
                 virtual JObjectStreamClass* getObjectStreamClass()=0;
-                virtual jbool defaulted(string name)=0;
-                virtual jbool get(string name,jbool val)=0;
-                virtual jbyte get(string name,jbyte val)=0;
-                virtual jchar get(string name,jchar val)=0;
-                virtual jshort get(string name,jshort val)=0;
-                virtual jint get(string name,jint val)=0;
-                virtual jlong get(string name,jlong val)=0;
-                virtual jfloat get(string name,jfloat val)=0;
-                virtual jdouble get(string name,jdouble val)=0;
-                virtual JObject* get(string name,JObject* val)=0;
+                virtual jbool defaulted(JString name)=0;
+                virtual jbool get(JString name,jbool val)=0;
+                virtual jbyte get(JString name,jbyte val)=0;
+                virtual jchar get(JString name,jchar val)=0;
+                virtual jshort get(JString name,jshort val)=0;
+                virtual jint get(JString name,jint val)=0;
+                virtual jlong get(JString name,jlong val)=0;
+                virtual jfloat get(JString name,jfloat val)=0;
+                virtual jdouble get(JString name,jdouble val)=0;
+                virtual JObject* get(JString name,JObject* val)=0;
                 virtual ~JGetField();
             };
 
@@ -62,7 +64,7 @@ namespace jcpp{
 
             jbool enableResolveObject(jbool enable);
             JClass *resolveClass(JObjectStreamClass* jObjectStreamClass);
-            JClass *resolveProxyClass(string* str,jint i);
+            JClass *resolveProxyClass(JString* str,jint i);
             virtual JObject* resolveObject(JObject* jobject);
             JObjectInputStream(JInputStream* inputStrean,JClass* _class);
             void init(JInputStream* in);
@@ -81,7 +83,7 @@ namespace jcpp{
             JObject* readOrdinaryObject(jbool unshared);
             JString* readString(jbool unshared);
             JString* readTypeString();
-            virtual string readLongUTF();
+            virtual JString readLongUTF();
             JIOException* readFatalException();
             JObject* checkResolve(JObject*);
             JObject* readObject0(jbool unshared);
@@ -123,7 +125,7 @@ namespace jcpp{
             virtual void readFully(jbyte b[], jint off, jint len);
             virtual jint skipBytes(jint n);
             virtual jlong skip(jlong n);
-            virtual string readUTF();
+            virtual JString readUTF();
             virtual ~JObjectInputStream();
         };
     }

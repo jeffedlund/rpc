@@ -13,7 +13,7 @@ namespace jcpp{
             JNotSerializableException(JClass* _clazz);
         public:
             JNotSerializableException();
-            JNotSerializableException(string message);
+            JNotSerializableException(JString message);
             static JClass* getClazz();
             virtual ~JNotSerializableException();
         };

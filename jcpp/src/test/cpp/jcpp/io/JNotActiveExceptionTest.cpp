@@ -5,7 +5,7 @@ namespace jcpp{
         JNotActiveExceptionTest::JNotActiveExceptionTest():JObjectStreamExceptionTest(){
         }
 
-        string JNotActiveExceptionTest::getFileName(){
+        JString JNotActiveExceptionTest::getFileName(){
             return "NotActiveException.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JNotActiveException();
         }
 
-        string JNotActiveExceptionTest::getThrowableClassName(){
+        JString JNotActiveExceptionTest::getThrowableClassName(){
             return "java.io.NotActiveException";
         }
 

@@ -5,7 +5,7 @@ namespace jcpp{
         JNoSuchFieldExceptionTest::JNoSuchFieldExceptionTest():JExceptionTest(){
         }
 
-        string JNoSuchFieldExceptionTest::getFileName(){
+        JString JNoSuchFieldExceptionTest::getFileName(){
             return "NoSuchFieldexception.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JNoSuchFieldException();
         }
 
-        string JNoSuchFieldExceptionTest::getThrowableClassName(){
+        JString JNoSuchFieldExceptionTest::getThrowableClassName(){
             return "java.lang.NoSuchFieldException";
         }
 

@@ -33,7 +33,7 @@ namespace jcpp{
             virtual jlong readLong()=0;
             virtual jfloat readFloat()=0;
             virtual jdouble readDouble()=0;
-            virtual string readUTF()=0;
+            virtual JString readUTF()=0;
             virtual JPrimitiveByte* readPrimitiveByte()=0;
             virtual JPrimitiveChar* readPrimitiveChar()=0;
             virtual JPrimitiveDouble* readPrimitiveDouble()=0;

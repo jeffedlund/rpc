@@ -21,7 +21,7 @@ namespace jcpp{
 
             public:
                 static JClass* getClazz();
-                JFileInputStream(string name);
+                JFileInputStream(JString name);
                 JFileInputStream(JFile* file);
                 virtual jint available();
                 virtual jint peek();

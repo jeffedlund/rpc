@@ -18,9 +18,9 @@ namespace jcpp{
                 public:
                     static JClass* getClazz();
                     JInvalidPathException();
-                    JInvalidPathException(string input,string reason,jint index=-1);
-                    virtual string getInput();
-                    virtual string getReason();
+                    JInvalidPathException(JString input,JString reason,jint index=-1);
+                    virtual JString getInput();
+                    virtual JString getReason();
                     virtual jint getIndex();
                     virtual ~JInvalidPathException();
             };

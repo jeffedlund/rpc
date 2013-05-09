@@ -5,7 +5,6 @@
 #include "JClass.h"
 #include "JField.h"
 #include <iostream>
-#include <string.h>
 #include "JString.h"
 #include "Object.h"
 #include "JCPP.h"
@@ -18,20 +17,20 @@ namespace jcpp{
     namespace io{
         class JCPP_LIBRARY_EXPORT JObjectStreamField : public JObject, public JComparable{
         private:
-            string name;
-            string signature;
+            JString name;
+            JString signature;
             JClass* type;
             jbool unshared;
             JField* field;
             jint offset;
-            JString* typeString;
+            JString* typeString;//TODO change?
             void setTypeString();
 
         public:
             JObjectStreamField();
-            JObjectStreamField(string name,JClass* type);
-            JObjectStreamField(string name,JClass* type,jbool unshared);
-            JObjectStreamField(string name,string signature,jbool unshared);
+            JObjectStreamField(JString name,JClass* type);
+            JObjectStreamField(JString name,JClass* type,jbool unshared);
+            JObjectStreamField(JString name,JString signature,jbool unshared);
             JObjectStreamField(JField* field,jbool unshared,jbool showType);
             static JClass* getClazz();
 
@@ -45,7 +44,7 @@ namespace jcpp{
                 return (f1->getName()<f2->getName());
             }
 
-            string getName();
+            JString getName();
             JClass* getType();
             jchar getTypeCode();
             JString* getTypeString();
@@ -54,7 +53,7 @@ namespace jcpp{
             jbool isPrimitive();
             jbool isUnshared();
             JField* getField();
-            string getSignature();
+            JString getSignature();
             virtual jint compareTo(JObject* o);
             virtual ~JObjectStreamField();
         };

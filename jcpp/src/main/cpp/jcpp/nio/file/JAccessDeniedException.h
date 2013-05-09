@@ -10,8 +10,8 @@ namespace jcpp{
                 public:
                     static JClass* getClazz();
                     JAccessDeniedException();
-                    JAccessDeniedException(string file);
-                    JAccessDeniedException(string file,string other,string reason);
+                    JAccessDeniedException(JString file);
+                    JAccessDeniedException(JString file,JString other,JString reason);
                     virtual ~JAccessDeniedException();
             };
         }

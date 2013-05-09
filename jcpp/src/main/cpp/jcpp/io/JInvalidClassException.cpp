@@ -1,4 +1,5 @@
 #include "JInvalidClassException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace io{
@@ -32,7 +33,7 @@ namespace jcpp{
         JInvalidClassException::JInvalidClassException():JObjectStreamException(getClazz()){
         }
 
-        JInvalidClassException::JInvalidClassException(string message) : JObjectStreamException(getClazz()){
+        JInvalidClassException::JInvalidClassException(JString message) : JObjectStreamException(getClazz()){
             this->message=new JString(message);
         }
 

@@ -10,7 +10,7 @@ namespace jcpp{
         public:
             JLongTest();
 
-            string getFileName();
+            JString getFileName();
 
             JObject* testReflect();
 

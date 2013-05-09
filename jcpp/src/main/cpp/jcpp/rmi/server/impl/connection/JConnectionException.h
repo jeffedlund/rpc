@@ -30,8 +30,8 @@ namespace jcpp{
 
                     public:
                         JConnectionException();
-                        JConnectionException(string message);
-                        JConnectionException(string message,JThrowable* cause);
+                        JConnectionException(JString message);
+                        JConnectionException(JString message,JThrowable* cause);
 
                         static JClass* getClazz();
 

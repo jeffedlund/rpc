@@ -1,7 +1,6 @@
 #ifndef JOUTPUTSTREAM_H
 #define JOUTPUTSTREAM_H
 
-#include <string>
 #include "JObject.h"
 #include "JClass.h"
 #include "Object.h"

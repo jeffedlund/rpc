@@ -1,7 +1,6 @@
 #ifndef JBUFFEREDOUTPUTSTREAM_H
 #define JBUFFEREDOUTPUTSTREAM_H
 
-#include <string>
 #include "JObject.h"
 #include "JClass.h"
 #include "Object.h"

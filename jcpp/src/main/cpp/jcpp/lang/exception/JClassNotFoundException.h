@@ -11,8 +11,7 @@ namespace jcpp{
         class JCPP_LIBRARY_EXPORT JClassNotFoundException : public JException{
         public:
             JClassNotFoundException();
-            JClassNotFoundException(string message);
-
+            JClassNotFoundException(JString message);
             static JClass* getClazz();
             virtual ~JClassNotFoundException();
         };

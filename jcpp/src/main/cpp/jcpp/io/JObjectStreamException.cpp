@@ -1,4 +1,5 @@
 #include "JObjectStreamException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace io{
@@ -35,7 +36,7 @@ namespace jcpp{
         JObjectStreamException::JObjectStreamException():JIOException(getClazz()){
         }
 
-        JObjectStreamException::JObjectStreamException(string message) : JIOException(getClazz()){
+        JObjectStreamException::JObjectStreamException(JString message) : JIOException(getClazz()){
             this->message=new JString(message);
         }
 

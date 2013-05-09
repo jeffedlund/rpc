@@ -90,8 +90,8 @@ namespace jcpp{
             this->family=NULL;
         }
 
-        JInetAddress* JInetAddress::getByName(string host){
-            QHostInfo h=QHostInfo::fromName(QString::fromStdString(host));
+        JInetAddress* JInetAddress::getByName(JString host){
+            QHostInfo h=QHostInfo::fromName(QString::fromStdString(host.getString()));
             return new JInetAddress(new JString(h.hostName().toStdString()));
         }
 
@@ -176,7 +176,7 @@ namespace jcpp{
             return false;
         }
 
-        string JInetAddress::toString(){
+        JString JInetAddress::toString(){
             return "InetAddress[HostName:"+hostName->toString()+" , Address:"+address->toString()+" , Family:"+family->toString()+"]";
         }
 

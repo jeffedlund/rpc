@@ -466,14 +466,14 @@ namespace jcpp{
             return h;
         }
 
-        string JAbstractMap::toString(){
+        JString JAbstractMap::toString(){
             JIterator* i = entrySet()->iterator();
             if (!i->hasNext()){
                 delete i;
                 return "{}";
             }
 
-            stringstream ss;
+            JString ss;
             ss<<'{';
             for (;;) {
                 JEntry* e = dynamic_cast<JEntry*>(i->next());
@@ -485,7 +485,7 @@ namespace jcpp{
                 if (! i->hasNext()){
                     delete i;
                     ss<<'}';
-                    return ss.str();
+                    return ss;
                 }
                 ss<<','<<' ';
             }

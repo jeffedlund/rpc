@@ -8,14 +8,14 @@ namespace jcpp{
     namespace io{
         class JCPP_LIBRARY_EXPORT JStringReader : public JReader  {
             protected:
-                string str;
+                JString str;
                 jint length;
                 jint next;
                 jint imark;
 
             public:
                 static JClass* getClazz();
-                JStringReader(string s);
+                JStringReader(JString s);
                 virtual jint read();
                 virtual jint read(jchar cbuf[], jint off, jint len);
                 virtual jlong skip(jlong n);

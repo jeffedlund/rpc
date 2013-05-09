@@ -45,7 +45,7 @@ namespace jcpp{
             virtual void putAll(JMap* m);
             virtual void clear();
             virtual JHashtable* clone();
-            virtual string toString();
+            virtual JString toString();
             virtual JSet* keySet();
             virtual JSet* entrySet();
             virtual JCollection* values();

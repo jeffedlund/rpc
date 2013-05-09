@@ -5,7 +5,7 @@ namespace jcpp{
         JHashSetTest::JHashSetTest():JTest(){
         }
 
-        string JHashSetTest::getFileName(){
+        JString JHashSetTest::getFileName(){
             return "HashSet.ser";
         }
 

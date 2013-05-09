@@ -1,4 +1,5 @@
 #include "JIndexOutOfBoundsException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace lang{
@@ -35,7 +36,7 @@ namespace jcpp{
         JIndexOutOfBoundsException::JIndexOutOfBoundsException():JRuntimeException(getClazz()){
         }
 
-        JIndexOutOfBoundsException::JIndexOutOfBoundsException(string message):JRuntimeException(getClazz()){
+        JIndexOutOfBoundsException::JIndexOutOfBoundsException(JString message):JRuntimeException(getClazz()){
             this->message=new JString(message);
         }
 

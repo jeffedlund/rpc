@@ -76,7 +76,7 @@ namespace jcpp{
             virtual bool addAll(jint index, JCollection* c);
             virtual bool equals(JObject* other);
             virtual jint hashCode();
-            virtual string toString();
+            virtual JString toString();
             virtual JList* subList(jint fromIndex, jint toIndex);
             virtual void removeRange(jint fromIndex, jint toIndex);
             virtual void writeObject(JObjectOutputStream* out);

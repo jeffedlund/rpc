@@ -31,10 +31,10 @@ namespace jcpp{
                 static JInvocationHandler* getInvocationHandler(JObject* proxy);
                 JInvocationHandler* getInvocationHandler();
                 void setInvocationHandler(JInvocationHandler* invocationHandler);
-                JObject* invoke(string method, vector<JObject*>* args);
+                JObject* invoke(JString method, vector<JObject*>* args);
                 virtual jint hashCode();
                 virtual jbool equals(JObject *o);
-                virtual string toString();
+                virtual JString toString();
                 virtual ~JProxy();
             };
         }

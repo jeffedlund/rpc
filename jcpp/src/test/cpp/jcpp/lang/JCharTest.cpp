@@ -5,7 +5,7 @@ namespace jcpp{
         JCharTest::JCharTest():JTest(){
         }
 
-        string JCharTest::getFileName(){
+        JString JCharTest::getFileName(){
             return "Char.ser";
         }
 

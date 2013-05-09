@@ -65,11 +65,11 @@ namespace jcpp{
             lock->unlock();
         }
 
-        void  JWriter::write(string str){
-            write(str,0,str.size());
+        void  JWriter::write(JString str){
+            write(str,0,str.length());
         }
 
-        void  JWriter::write(string str,jint off,jint len){
+        void  JWriter::write(JString str,jint off,jint len){
             lock->lock();
             jchar* cbuf;
             if (len <= 1024) {
@@ -78,7 +78,7 @@ namespace jcpp{
                cbuf = new jchar[len];
             }
             for (jint i=0;i<len;i++){
-                cbuf[i]=(jchar)str.at(off+i);
+                cbuf[i]=(jchar)str.charAt(off+i);
             }
             write(cbuf, 0, len);
             if (len>1024) {

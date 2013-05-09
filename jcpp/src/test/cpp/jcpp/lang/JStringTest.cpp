@@ -5,7 +5,7 @@ namespace jcpp{
         JStringTest::JStringTest():JTest(){
         }
 
-        string JStringTest::getFileName(){
+        JString JStringTest::getFileName(){
             return "String.ser";
         }
 

@@ -5,7 +5,7 @@ namespace jcpp{
         JRuntimeExceptionTest::JRuntimeExceptionTest():JExceptionTest(){
         }
 
-        string JRuntimeExceptionTest::getFileName(){
+        JString JRuntimeExceptionTest::getFileName(){
             return "runtimeexception.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JRuntimeException();
         }
 
-        string JRuntimeExceptionTest::getThrowableClassName(){
+        JString JRuntimeExceptionTest::getThrowableClassName(){
             return "java.lang.RuntimeException";
         }
 

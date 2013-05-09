@@ -42,11 +42,11 @@ namespace jcpp{
 
         jchar JFile::separatorChar = fs->getSeparator();
 
-        string JFile::separator = ""+separatorChar;//TODO
+        JString JFile::separator = ""+separatorChar;//TODO
 
         jchar JFile::pathSeparatorChar = fs->getPathSeparator();
 
-        string JFile::pathSeparator = ""+pathSeparatorChar;
+        JString JFile::pathSeparator = ""+pathSeparatorChar;
 
         JFile::JFile():JObject(getClazz()){
             path=NULL;
@@ -54,25 +54,25 @@ namespace jcpp{
             filePath=NULL;
         }
 
-        JFile::JFile(string pathname,jint prefix):JObject(getClazz()){
+        JFile::JFile(JString pathname,jint prefix):JObject(getClazz()){
             this->path=new JString(pathname);
             this->prefixLength=prefix;
             filePath=NULL;
         }
 
-        JFile::JFile(string child,JFile* parent):JObject(getClazz()){
+        JFile::JFile(JString child,JFile* parent):JObject(getClazz()){
             this->path=new JString(fs->resolve(parent->path->getString(),child));
             this->prefixLength=parent->prefixLength;
             filePath=NULL;
         }
 
-        JFile::JFile(string pathname){
+        JFile::JFile(JString pathname){
             this->path=new JString(fs->normalize(pathname));
             this->prefixLength=fs->prefixLength(this->path->getString());
             filePath=NULL;
         }
 
-        JFile::JFile(string parent,string child){
+        JFile::JFile(JString parent,JString child){
             if (parent=="") {
                 this->path = new JString(fs->resolve(fs->getDefaultParent(),fs->normalize(child)));
             } else {
@@ -81,7 +81,7 @@ namespace jcpp{
             this->prefixLength = fs->prefixLength(this->path->getString());
         }
 
-        JFile::JFile(JFile* parent,string child){
+        JFile::JFile(JFile* parent,JString child){
             if (parent->path->getString()=="") {
                 this->path = new JString(fs->resolve(fs->getDefaultParent(),fs->normalize(child)));
             } else {
@@ -94,7 +94,7 @@ namespace jcpp{
             return prefixLength;
         }
 
-        string JFile::getName(){
+        JString JFile::getName(){
             jint index = path->getString().find_last_of(separatorChar);
             if (index < prefixLength){
                 return path->getString().substr(prefixLength,path->getString().size());
@@ -102,60 +102,60 @@ namespace jcpp{
             return path->getString().substr(index + 1,path->getString().size());
         }
 
-        string JFile::getParent(){
+        JString JFile::getParent(){
             jint index = path->getString().find_last_of(separatorChar);
             if (index < prefixLength) {
                 if ((prefixLength > 0) && (path->length() > prefixLength)){
                     return path->getString().substr(0, prefixLength);
                 }
-                return NULL;
+                return JString("");//TODO should be NULL;
             }
             return path->getString().substr(0, index);
         }
 
         JFile* JFile::getParentFile(){
-            string p=getParent();
+            JString p=getParent();
             if (p==""){
                 return NULL;
             }
             return new JFile(p,prefixLength);
         }
 
-        string JFile::getPath(){
-            return path->getString();
+        JString JFile::getPath(){
+            return JString(path);
         }
 
         jbool JFile::isAbsolute(){
             return fs->isAbsolute(this);
         }
 
-        string JFile::getAbsolutePath(){
+        JString JFile::getAbsolutePath(){
             return fs->resolve(this);
         }
 
         JFile* JFile::getAbsoluteFile(){
-            string absPath=getAbsolutePath();
+            JString absPath=getAbsolutePath();
             return new JFile(absPath,fs->prefixLength(absPath));
         }
 
-        string JFile::getCanonicalPath(){
+        JString JFile::getCanonicalPath(){
             return fs->canonicalize(fs->resolve(this));
         }
 
         JFile* JFile::getCanonicalFile(){
-            string canonPath=getCanonicalPath();
+            JString canonPath=getCanonicalPath();
             return new JFile(canonPath,fs->prefixLength(canonPath));
         }
 
-        string JFile::slashify(string path, jbool isDirectory) {
-            string p = path;
+        JString JFile::slashify(JString path, jbool isDirectory) {
+            JString p = path;
             if (JFile::separatorChar != '/'){
-                std::replace( p.begin(), p.end(), JFile::separatorChar, (jchar)'/');
+                p=p.replace(JFile::separatorChar, (jchar)'/');
             }
-            if (p.find("/")>0){
+            if (p.getString().find("/")>0){//TODO JString.indexOf
                 p = "/" + p;
             }
-            if (p.at(p.size()-1)=='/' && isDirectory){
+            if (p.charAt(p.length()-1)=='/' && isDirectory){
                 p = p + "/";
             }
             return p;
@@ -205,17 +205,17 @@ namespace jcpp{
             //TODO DeleteOnExitHook::add(path)
         }
 
-        vector<string>* JFile::list(){
+        vector<JString>* JFile::list(){
             return fs->list(this);
         }
 
-        vector<string>* JFile::list(JFilenameFilter* filter){
-            vector<string>* names=list();
+        vector<JString>* JFile::list(JFilenameFilter* filter){
+            vector<JString>* names=list();
             if (names->size()==0){
                 return names;
             }
-            vector<string>* newnames=new vector<string>();
-            for (jint i=0;i<names->size();i++){
+            vector<JString>* newnames=new vector<JString>();
+            for (unsigned i=0;i<names->size();i++){
                 if (filter->accept(this,names->at(i))){
                     newnames->push_back(names->at(i));
                 }
@@ -226,8 +226,8 @@ namespace jcpp{
 
         vector<JFile*>* JFile::listFiles(){
             vector<JFile*>* files=new vector<JFile*>();
-            vector<string>* names=list();
-            for (jint i=0;i<names->size();i++){
+            vector<JString>* names=list();
+            for (unsigned i=0;i<names->size();i++){
                 files->push_back(new JFile(names->at(i),this));
             }
             delete names;
@@ -236,8 +236,8 @@ namespace jcpp{
 
         vector<JFile*>* JFile::listFiles(JFilenameFilter* filter){
             vector<JFile*>* files=new vector<JFile*>();
-            vector<string>* names=list();
-            for (jint i=0;i<names->size();i++){
+            vector<JString>* names=list();
+            for (unsigned i=0;i<names->size();i++){
                 if (filter==NULL || filter->accept(this,names->at(i))){
                     files->push_back(new JFile(names->at(i),this));
                 }
@@ -248,8 +248,8 @@ namespace jcpp{
 
         vector<JFile*>* JFile::listFiles(JFileFilter* filter){
             vector<JFile*>* files=new vector<JFile*>();
-            vector<string>* names=list();
-            for (jint i=0;i<names->size();i++){
+            vector<JString>* names=list();
+            for (unsigned i=0;i<names->size();i++){
                 JFile* f=new JFile(names->at(i),this);
                 if (filter==NULL || filter->accept(f)){
                     files->push_back(f);
@@ -338,11 +338,11 @@ namespace jcpp{
             return fs->getSpace(this,jcpp::io::JFileSystem::SPACE_USABLE);
         }
 
-        JFile* JFile::createTempFile(string, string, JFile* ){
+        JFile* JFile::createTempFile(JString, JString, JFile* ){
             return NULL;//TODO
         }
 
-        JFile* JFile::createTempFile(string , string ){
+        JFile* JFile::createTempFile(JString , JString ){
             return NULL;//TODO
         }
 
@@ -365,8 +365,8 @@ namespace jcpp{
             return fs->hashCode(this);
         }
 
-        string JFile::toString(){
-            return getPath();
+        JString JFile::toString(){
+            return JString(getPath());//TODO
         }
 
         void JFile::writeObject(JObjectOutputStream* out){

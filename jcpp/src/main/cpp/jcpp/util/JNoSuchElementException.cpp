@@ -1,4 +1,5 @@
 #include "JNoSuchElementException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace util{
@@ -32,7 +33,7 @@ namespace jcpp{
         JNoSuchElementException::JNoSuchElementException():JRuntimeException(getClazz()){
         }
 
-        JNoSuchElementException::JNoSuchElementException(string message):JRuntimeException(getClazz()){
+        JNoSuchElementException::JNoSuchElementException(JString message):JRuntimeException(getClazz()){
             this->message=new JString(message);
         }
 

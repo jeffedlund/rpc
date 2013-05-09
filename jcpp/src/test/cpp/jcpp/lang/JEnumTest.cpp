@@ -6,7 +6,7 @@ namespace jcpp{
         JEnumTest::JEnumTest():JTest(){
         }
 
-        string JEnumTest::getFileName(){
+        JString JEnumTest::getFileName(){
             return "Enum.ser";
         }
 

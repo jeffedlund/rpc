@@ -123,7 +123,7 @@ namespace jcpp{
                             if (method == NULL) {
                                 exceptionThrown = true;
                                 vector<JMethod*>* methods = objectInformations->getMethodDigester()->getMethods(object);
-                                stringstream ss;
+                                JString ss;
                                 ss<<"No method found for digest: ";
                                 ss<< digest;
                                 ss<< " on object: ";
@@ -136,7 +136,7 @@ namespace jcpp{
                                     JMethod* m=methods->at(i);
                                     ss<< "\t" << m->toString() << ";\n";
                                 }
-                                result = new JConnectionException(ss.str());
+                                result = new JConnectionException(ss);
                             } else {
                                 try {
                                     result = method->invoke(object, args);

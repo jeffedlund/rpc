@@ -3,11 +3,13 @@
 #include "JClass.h"
 #include "JInstantiationException.h"
 #include "JException.h"
+#include "JObject.h"
+#include "JString.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace lang{
         namespace reflect{
-
             class JFieldClass : public JClass{
             public:
                 JFieldClass():JClass(JClassLoader::getBootClassLoader()){
@@ -31,7 +33,7 @@ namespace jcpp{
                 return clazz;
             }
 
-            JField::JField(string name,JClass* type, JClass* declaringClass):JAccessibleObject(getClazz()){
+            JField::JField(JString name,JClass* type, JClass* declaringClass):JAccessibleObject(getClazz()){
                 this->name=name;
                 this->type=type;
                 this->declaringClass=declaringClass;
@@ -39,7 +41,7 @@ namespace jcpp{
                 this->s=NULL;
             }
 
-            JField::JField(string name,JClass* type,JClass* declaringClass, getter g,setter s):JAccessibleObject(getClazz()){
+            JField::JField(JString name,JClass* type,JClass* declaringClass, getter g,setter s):JAccessibleObject(getClazz()){
                 this->name=name;
                 this->type=type;
                 this->declaringClass=declaringClass;
@@ -47,7 +49,7 @@ namespace jcpp{
                 this->s=s;
             }
 
-            string JField::getName(){
+            JString JField::getName(){
                 return name;
             }
 
@@ -93,10 +95,10 @@ namespace jcpp{
             }
 
             jint JField::hashCode(){
-                return JString::hashCode(getDeclaringClass()->getName())^JString::hashCode(getName());
+                return getDeclaringClass()->getName().hashCode()^getName().hashCode();
             }
 
-            string JField::toString(){
+            JString JField::toString(){
                 return getType()->getName()+" "+getDeclaringClass()->getName()+"."+getName();
             }
 

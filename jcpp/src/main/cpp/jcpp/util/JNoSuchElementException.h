@@ -12,7 +12,7 @@ namespace jcpp{
 
         public:
             JNoSuchElementException();
-            JNoSuchElementException(string message);
+            JNoSuchElementException(JString message);
             JNoSuchElementException(JString* message);
 
             static JClass* getClazz();

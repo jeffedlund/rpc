@@ -12,7 +12,7 @@ namespace jcpp{
                 public:
                     static JClass* getClazz();
                     JFileSystemAlreadyExistsException();
-                    JFileSystemAlreadyExistsException(string msg);
+                    JFileSystemAlreadyExistsException(JString msg);
                     virtual ~JFileSystemAlreadyExistsException();
             };
         }

@@ -55,7 +55,7 @@ namespace jcpp{
                         vector<JClass*>* getInterfaces();
                         virtual JObject* invoke(JObject* proxy, JMethod* method, vector<JObject*>* args);
                         void setObjectInformations(JObjectInformations* objectInformations);
-                        virtual string toString();
+                        virtual JString toString();
                         virtual jint hashCode();
                         virtual jbool equals(JObject *o);
                         virtual JObject* clone();

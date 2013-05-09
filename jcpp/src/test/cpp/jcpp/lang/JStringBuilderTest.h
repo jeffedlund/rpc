@@ -11,7 +11,7 @@ namespace jcpp{
         public:
             JStringBuilderTest();
 
-            string getFileName();
+            JString getFileName();
 
             JObject* testReflect();
 

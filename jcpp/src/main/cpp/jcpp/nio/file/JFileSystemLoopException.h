@@ -10,7 +10,7 @@ namespace jcpp{
                 public:
                     static JClass* getClazz();
                     JFileSystemLoopException();
-                    JFileSystemLoopException(string msg);
+                    JFileSystemLoopException(JString msg);
                     virtual ~JFileSystemLoopException();
             };
         }

@@ -42,7 +42,7 @@ namespace jcpp{
             return clazz;
         }
 
-        JWriteAbortedException::JWriteAbortedException(string message,JException* ex):JObjectStreamException(getClazz()){
+        JWriteAbortedException::JWriteAbortedException(JString message,JException* ex):JObjectStreamException(getClazz()){
             this->message=new JString(message);
             this->detail=ex;
         }

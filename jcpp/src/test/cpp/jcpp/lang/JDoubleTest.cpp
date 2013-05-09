@@ -5,7 +5,7 @@ namespace jcpp{
         JDoubleTest::JDoubleTest():JTest(){
         }
 
-        string JDoubleTest::getFileName(){
+        JString JDoubleTest::getFileName(){
             return "Double.ser";
         }
 

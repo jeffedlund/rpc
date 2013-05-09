@@ -1,5 +1,6 @@
 #include "JException.h"
 #include "JClass.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace lang{
@@ -36,11 +37,11 @@ namespace jcpp{
         JException::JException(JClass* _class):JThrowable(_class){
         }
 
-        JException::JException(string message):JThrowable(getClazz()){
+        JException::JException(JString message):JThrowable(getClazz()){
             this->message = new JString(message);
         }
 
-        JException::JException(string message, JThrowable *cause):JThrowable(getClazz()){
+        JException::JException(JString message, JThrowable *cause):JThrowable(getClazz()){
             this->message = new JString(message);
             this->cause = cause;
         }

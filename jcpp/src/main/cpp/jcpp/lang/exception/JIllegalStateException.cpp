@@ -1,4 +1,5 @@
 #include "JIllegalStateException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace lang{
@@ -35,7 +36,7 @@ namespace jcpp{
         JIllegalStateException::JIllegalStateException():JRuntimeException(getClazz()){
         }
 
-        JIllegalStateException::JIllegalStateException(string message):JRuntimeException(getClazz()){
+        JIllegalStateException::JIllegalStateException(JString message):JRuntimeException(getClazz()){
             this->message=new JString(message);
         }
 

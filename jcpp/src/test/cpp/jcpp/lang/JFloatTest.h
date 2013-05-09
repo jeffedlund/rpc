@@ -10,7 +10,7 @@ namespace jcpp{
         public:
             JFloatTest();
 
-            string getFileName();
+            JString getFileName();
 
             JObject* testReflect();
 

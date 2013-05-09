@@ -68,7 +68,7 @@ namespace jcpp{
             void setUncaughtExceptionHandler(JUncaughtExceptionHandler* eh);
             virtual void run();
             void start();
-            string toString();
+            virtual JString toString();
             virtual ~JThread();
         };
     }

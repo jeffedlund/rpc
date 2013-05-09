@@ -14,8 +14,8 @@ namespace jcpp{
 
         public:
             JInternalError();
-            JInternalError(string message);
-            JInternalError(string message, JThrowable *cause);
+            JInternalError(JString message);
+            JInternalError(JString message, JThrowable *cause);
 
             static JClass* getClazz();
 

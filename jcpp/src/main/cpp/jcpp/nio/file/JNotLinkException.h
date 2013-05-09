@@ -10,8 +10,8 @@ namespace jcpp{
                 public:
                     static JClass* getClazz();
                     JNotLinkException();
-                    JNotLinkException(string file);
-                    JNotLinkException(string file,string other,string reason);
+                    JNotLinkException(JString file);
+                    JNotLinkException(JString file,JString other,JString reason);
                     virtual ~JNotLinkException();
             };
         }

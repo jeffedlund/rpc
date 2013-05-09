@@ -2,7 +2,6 @@
 #include "JClass.h"
 #include <vector>
 #include <iostream>
-#include <string>
 #include "JSerializable.h"
 using namespace std;
 using namespace jcpp::io;
@@ -57,7 +56,7 @@ namespace jcpp{
 
         JClass* JBoolean::TYPE = JPrimitiveBoolean::getClazz();
 
-        jbool JBoolean::parseBoolean(string s){
+        jbool JBoolean::parseBoolean(JString s){
             return s=="true";
         }
 
@@ -65,11 +64,11 @@ namespace jcpp{
             return (b ? TRUE : FALSE);
         }
 
-        JBoolean* JBoolean::valueOf(string s){
+        JBoolean* JBoolean::valueOf(JString s){
             return (parseBoolean(s) ? TRUE : FALSE );
         }
 
-        string JBoolean::toString(jbool b){
+        JString JBoolean::toString(jbool b){
             return (b ? "true" : "false");
         }
 
@@ -81,7 +80,7 @@ namespace jcpp{
             return (v1 == v2) ? 0 : (v1 ? 1 : -1);
         }
 
-        jbool JBoolean::getBoolean(string){
+        jbool JBoolean::getBoolean(JString){
             jbool result = false;//TODO  parseBoolean(System.getProperty(name));
             return result;
         }
@@ -132,8 +131,8 @@ namespace jcpp{
             return hashCode(value->get());
         }
 
-        string JBoolean::toString(){
-            return (value!=NULL && value->get()?"true":"false");
+        JString JBoolean::toString(){
+            return JString((value!=NULL && value->get()?"true":"false"));
         }
 
         JBoolean::~JBoolean(){

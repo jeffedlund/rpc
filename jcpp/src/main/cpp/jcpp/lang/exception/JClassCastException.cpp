@@ -1,4 +1,5 @@
 #include "JClassCastException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace lang{
@@ -32,7 +33,7 @@ namespace jcpp{
         JClassCastException::JClassCastException():JRuntimeException(getClazz()){
         }
 
-        JClassCastException::JClassCastException(string message):JRuntimeException(getClazz()){
+        JClassCastException::JClassCastException(JString message):JRuntimeException(getClazz()){
             this->message=new JString(message);
         }
 

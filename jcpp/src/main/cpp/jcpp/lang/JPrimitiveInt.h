@@ -8,13 +8,13 @@
 #include "JCPP.h"
 #include "JComparable.h"
 #include "JSerializable.h"
+#include "JString.h"
 using namespace std;
 using namespace jcpp::io;
 
 namespace jcpp{
     namespace lang{
         class JCPP_LIBRARY_EXPORT JPrimitiveInt : public JObject, public JComparable, public JSerializable{
-
             protected:
                 jint value;
 
@@ -23,7 +23,7 @@ namespace jcpp{
                 JPrimitiveInt(jint value);
                 JPrimitiveInt(JPrimitiveInt* value);
                 jbool operator<(JObject &other);
-                JPrimitiveInt operator+=(jint f);
+                JPrimitiveInt operator+=(jint f);//TODO review the operators return
                 JPrimitiveInt operator-=(jint f);
                 JPrimitiveInt operator*=(jint f);
                 static JClass* getClazz();
@@ -32,7 +32,7 @@ namespace jcpp{
                 virtual jint compareTo(JObject* o);
                 virtual jbool equals(JObject* other);
                 virtual jint hashCode();
-                virtual string toString();
+                virtual JString toString();
                 virtual JPrimitiveInt* clone();
                 virtual ~JPrimitiveInt();
         };

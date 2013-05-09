@@ -34,7 +34,7 @@ namespace jcpp{
             JNotDirectoryException::JNotDirectoryException():JFileSystemException(getClazz()){
             }
 
-            JNotDirectoryException::JNotDirectoryException(string file):JFileSystemException(getClazz(),file){
+            JNotDirectoryException::JNotDirectoryException(JString file):JFileSystemException(getClazz(),file){
             }
 
             JNotDirectoryException::~JNotDirectoryException(){

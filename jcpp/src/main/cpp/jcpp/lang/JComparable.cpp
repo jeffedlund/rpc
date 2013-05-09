@@ -1,5 +1,7 @@
 #include "JComparable.h"
 #include "JInstantiationException.h"
+#include "JObject.h"
+#include "JClass.h"
 
 namespace jcpp{
     namespace lang{

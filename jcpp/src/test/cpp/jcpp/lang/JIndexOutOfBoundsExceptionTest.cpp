@@ -5,7 +5,7 @@ namespace jcpp{
         JIndexOutOfBoundsExceptionTest::JIndexOutOfBoundsExceptionTest():JRuntimeExceptionTest(){
         }
 
-        string JIndexOutOfBoundsExceptionTest::getFileName(){
+        JString JIndexOutOfBoundsExceptionTest::getFileName(){
             return "IndexOutOfBoundsException.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JIndexOutOfBoundsException();
         }
 
-        string JIndexOutOfBoundsExceptionTest::getThrowableClassName(){
+        JString JIndexOutOfBoundsExceptionTest::getThrowableClassName(){
             return "java.lang.IndexOutOfBoundsException";
         }
 

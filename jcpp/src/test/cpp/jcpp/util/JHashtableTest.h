@@ -11,7 +11,7 @@ namespace jcpp{
         public:
             JHashtableTest();
 
-            string getFileName();
+            JString getFileName();
 
             JObject* testReflect();
 

@@ -44,9 +44,9 @@ namespace jcpp{
             }
         }
 
-        void JSystem::arraycopy(string src,jint srcPos, jchar dest[], jint destPos, jint length){
+        void JSystem::arraycopy(JString src,jint srcPos, jchar dest[], jint destPos, jint length){
             for (jint i=0;i<length;i++){
-                dest[destPos+i]=(jchar)src.at(srcPos+i);
+                dest[destPos+i]=(jchar)src.charAt(srcPos+i);
             }
         }
 
@@ -64,13 +64,13 @@ namespace jcpp{
 
         void JSystem::arraycopy(JString* src,jint srcPos,vector<jchar>* dest,jint length){
             for (jint i=0;i<length;i++){
-                dest->push_back((jchar)src->getString().at(srcPos+i));
+                dest->push_back((jchar)src->charAt(srcPos+i));
             }
         }
 
-        void JSystem::arraycopy(string src,jint srcPos,vector<jchar>* dest,jint length){
+        void JSystem::arraycopy(JString src,jint srcPos,vector<jchar>* dest,jint length){
             for (jint i=0;i<length;i++){
-                dest->push_back((jchar)src.at(srcPos+i));
+                dest->push_back((jchar)src.charAt(srcPos+i));
             }
         }
     }

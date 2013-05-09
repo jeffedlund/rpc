@@ -8,6 +8,7 @@
 #include "JCPP.h"
 #include "JComparable.h"
 #include "JSerializable.h"
+#include "JString.h"
 using namespace std;
 using namespace jcpp::io;
 
@@ -28,20 +29,20 @@ namespace jcpp{
                 static JBoolean* TRUE;
                 static JBoolean* FALSE;
                 static JClass* TYPE;
-                static jbool parseBoolean(string s);
+                static jbool parseBoolean(JString s);
                 static JBoolean* valueOf(jbool b);
-                static JBoolean* valueOf(string s);
-                static string toString(jbool b);
+                static JBoolean* valueOf(JString s);
+                static JString toString(jbool b);
                 static jint hashCode(jbool value);
                 static jint compare(jbool v1,jbool v2);
-                static jbool getBoolean(string name);
+                static jbool getBoolean(JString name);
                 void set(jbool value);
                 jbool get();
                 jbool booleanValue();
                 virtual jint compareTo(JObject* o);
                 virtual jbool equals(JObject* other);
                 virtual jint hashCode();
-                virtual string toString();
+                virtual JString toString();
                 virtual ~JBoolean();
         };
     }

@@ -34,10 +34,10 @@ namespace jcpp{
             JNotLinkException::JNotLinkException():JFileSystemException(getClazz()){
             }
 
-            JNotLinkException::JNotLinkException(string file):JFileSystemException(getClazz(),file){
+            JNotLinkException::JNotLinkException(JString file):JFileSystemException(getClazz(),file){
             }
 
-            JNotLinkException::JNotLinkException(string file,string other,string reason):JFileSystemException(getClazz(),file,other,reason){
+            JNotLinkException::JNotLinkException(JString file,JString other,JString reason):JFileSystemException(getClazz(),file,other,reason){
             }
 
             JNotLinkException::~JNotLinkException(){

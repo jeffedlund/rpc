@@ -72,7 +72,7 @@ namespace jcpp{
 
         void setRemoteSample(JIRemoteSample* rs);
 
-        string toString();
+        JString toString();
 
         virtual ~JSampleObject();
     };

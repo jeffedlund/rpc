@@ -5,7 +5,7 @@ namespace jcpp{
         JByteTest::JByteTest():JTest(){
         }
 
-        string JByteTest::getFileName(){
+        JString JByteTest::getFileName(){
             return "Byte.ser";
         }
 

@@ -15,7 +15,7 @@ namespace jcpp{
 
             public:
                 JWriteAbortedException();
-                JWriteAbortedException(string message,JException* ex);
+                JWriteAbortedException(JString message,JException* ex);
                 static JClass* getClazz();
                 virtual JThrowable * getCause();
                 JException* getDetail();

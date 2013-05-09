@@ -7,7 +7,7 @@ namespace jcpp{
             r=NULL;
         }
 
-        string JPrimitiveDoubleTest::getFileName(){
+        JString JPrimitiveDoubleTest::getFileName(){
             return "PrimitiveDouble.ser";
         }
 

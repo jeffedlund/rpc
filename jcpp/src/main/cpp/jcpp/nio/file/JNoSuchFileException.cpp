@@ -34,10 +34,10 @@ namespace jcpp{
             JNoSuchFileException::JNoSuchFileException():JFileSystemException(getClazz()){
             }
 
-            JNoSuchFileException::JNoSuchFileException(string file):JFileSystemException(getClazz(),file){
+            JNoSuchFileException::JNoSuchFileException(JString file):JFileSystemException(getClazz(),file){
             }
 
-            JNoSuchFileException::JNoSuchFileException(string file,string other,string reason):JFileSystemException(getClazz(),file,other,reason){
+            JNoSuchFileException::JNoSuchFileException(JString file,JString other,JString reason):JFileSystemException(getClazz(),file,other,reason){
             }
 
             JNoSuchFileException::~JNoSuchFileException(){

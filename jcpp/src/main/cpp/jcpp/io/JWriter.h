@@ -24,9 +24,9 @@ namespace jcpp{
                 virtual void write(jint c);
                 virtual void write(jchar c[],jint offset,jint length)=0;
                 virtual void write(JString* str);
-                virtual void write(string str);
+                virtual void write(JString str);
                 virtual void write(JString* str,jint off,jint len);
-                virtual void write(string str,jint off,jint len);
+                virtual void write(JString str,jint off,jint len);
                 virtual JWriter* append(JCharSequence* p0 );
                 virtual JWriter* append(JCharSequence* p0, jint start, jint end);
                 virtual JWriter* append(jchar c);

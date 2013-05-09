@@ -45,7 +45,7 @@ namespace jcpp{
                             void clearAddress();
                             virtual bool equals(JObject* other);
                             virtual JRoute* clone();
-                            virtual string toString();
+                            virtual JString toString();
                             virtual ~JRoute();
                     };
                 }

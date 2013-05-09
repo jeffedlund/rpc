@@ -5,7 +5,7 @@ namespace jcpp{
         JInvalidClassExceptionTest::JInvalidClassExceptionTest():JObjectStreamExceptionTest(){
         }
 
-        string JInvalidClassExceptionTest::getFileName(){
+        JString JInvalidClassExceptionTest::getFileName(){
             return "InvalidClassException.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JInvalidClassException();
         }
 
-        string JInvalidClassExceptionTest::getThrowableClassName(){
+        JString JInvalidClassExceptionTest::getThrowableClassName(){
             return "java.io.InvalidClassException";
         }
 

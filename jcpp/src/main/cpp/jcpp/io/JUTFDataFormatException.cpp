@@ -1,4 +1,5 @@
 #include "JUTFDataFormatException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace io{
@@ -32,7 +33,7 @@ namespace jcpp{
         JUTFDataFormatException::JUTFDataFormatException():JIOException(getClazz()){
         }
 
-        JUTFDataFormatException::JUTFDataFormatException(string message) : JIOException(getClazz()){
+        JUTFDataFormatException::JUTFDataFormatException(JString message) : JIOException(getClazz()){
             this->message=new JString(message);
         }
 

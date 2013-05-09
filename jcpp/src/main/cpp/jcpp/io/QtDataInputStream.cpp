@@ -1,5 +1,6 @@
 #include "QtDataInputStream.h"
 #include "JBits.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace io{

@@ -28,7 +28,7 @@ namespace jcpp{
                 static JClass* getClazz();
                 JStringBuffer();
                 JStringBuffer(JString* str);
-                JStringBuffer(string str);
+                JStringBuffer(JString str);
                 JStringBuffer(JCharSequence* cs);
                 virtual jint length();
                 virtual jint capacity();
@@ -40,12 +40,12 @@ namespace jcpp{
                 virtual void setCharAt(jint index,jchar c);
                 virtual JStringBuffer* append(JObject* o);
                 virtual JStringBuffer* append(JString* o);
-                virtual JStringBuffer* append(string str);
+                virtual JStringBuffer* append(JString str);
                 virtual JStringBuffer* append(JStringBuffer* sb);
                 virtual JStringBuffer* append(JCharSequence* s);
                 virtual JStringBuffer* append(JCharSequence* s,jint start,jint end);
                 virtual JStringBuffer* append(jchar str[],jint offset,jint length);
-                virtual JStringBuffer* append(string str,jint offset,jint length);
+                virtual JStringBuffer* append(JString str,jint offset,jint length);
                 virtual JStringBuffer* append(jbool b);
                 virtual JStringBuffer* append(jchar c);
                 virtual JStringBuffer* append(jint i);
@@ -61,7 +61,7 @@ namespace jcpp{
                 virtual JStringBuffer* insert(jint index,jchar str[],jint offset,jint len);
                 virtual JStringBuffer* insert(jint offset,JObject* o);
                 virtual JStringBuffer* insert(jint offset,JString* str);
-                virtual JStringBuffer* insert(jint offset,string str);
+                virtual JStringBuffer* insert(jint offset,JString str);
                 virtual JStringBuffer* insert(jint offset,jchar str[],jint l);
                 virtual JStringBuffer* insert(jint offset,JCharSequence* s);
                 virtual JStringBuffer* insert(jint offset,JCharSequence* s,jint start,jint end);
@@ -76,7 +76,7 @@ namespace jcpp{
                 virtual jint lastIndexOf(JString* str);
                 virtual jint lastIndexOf(JString* str,jint fromIndex);
                 virtual JStringBuffer* reverse();
-                virtual string toString();
+                virtual JString toString();
                 virtual ~JStringBuffer();
         };
     }

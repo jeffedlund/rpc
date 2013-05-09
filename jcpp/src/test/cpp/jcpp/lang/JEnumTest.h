@@ -10,7 +10,7 @@ namespace jcpp{
         public:
             JEnumTest();
 
-            string getFileName();
+            JString getFileName();
 
             JObject* testReflect();
 

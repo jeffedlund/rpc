@@ -5,7 +5,7 @@ namespace jcpp{
         JUnsupportedOperationExceptionTest::JUnsupportedOperationExceptionTest():JRuntimeExceptionTest(){
         }
 
-        string JUnsupportedOperationExceptionTest::getFileName(){
+        JString JUnsupportedOperationExceptionTest::getFileName(){
             return "UnsupportedOperationException.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JUnsupportedOperationException();
         }
 
-        string JUnsupportedOperationExceptionTest::getThrowableClassName(){
+        JString JUnsupportedOperationExceptionTest::getThrowableClassName(){
             return "java.lang.UnsupportedOperationException";
         }
 

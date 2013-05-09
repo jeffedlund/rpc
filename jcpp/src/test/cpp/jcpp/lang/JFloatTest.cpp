@@ -5,7 +5,7 @@ namespace jcpp{
         JFloatTest::JFloatTest():JTest(){
         }
 
-        string JFloatTest::getFileName(){
+        JString JFloatTest::getFileName(){
             return "Float.ser";
         }
 

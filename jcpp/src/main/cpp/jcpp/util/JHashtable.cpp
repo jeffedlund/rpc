@@ -217,14 +217,14 @@ namespace jcpp{
             return h;
         }
 
-        string JHashtable::toString(){
+        JString JHashtable::toString(){
             jint max = size() - 1;
             if (max == -1){
                 return "{}";
             }
 
             lock();
-            stringstream ss;
+            JString ss;
             JIterator* it = entrySet()->iterator();
             ss<<'{';
             while (it->hasNext()) {
@@ -239,7 +239,7 @@ namespace jcpp{
             delete it;
             ss<<'}';
             unlock();
-            return ss.str();
+            return ss;
         }
 
         static JClass* hashtableKeySetImplClass;
@@ -581,7 +581,7 @@ namespace jcpp{
                 return (getKey()==NULL   ? 0 : getKey()->hashCode()) ^ (getValue()==NULL ? 0 : getValue()->hashCode());
             }
 
-            virtual string toString() {
+            virtual JString toString() {
                 return getKey()->toString() + "=" + getValue()->toString();
             }
         };

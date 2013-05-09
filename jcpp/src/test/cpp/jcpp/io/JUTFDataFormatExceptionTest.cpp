@@ -5,7 +5,7 @@ namespace jcpp{
         JUTFDataFormatExceptionTest::JUTFDataFormatExceptionTest():JIOExceptionTest(){
         }
 
-        string JUTFDataFormatExceptionTest::getFileName(){
+        JString JUTFDataFormatExceptionTest::getFileName(){
             return "UTFDataFormatException.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JUTFDataFormatException();
         }
 
-        string JUTFDataFormatExceptionTest::getThrowableClassName(){
+        JString JUTFDataFormatExceptionTest::getThrowableClassName(){
             return "java.io.UTFDataFormatException";
         }
 

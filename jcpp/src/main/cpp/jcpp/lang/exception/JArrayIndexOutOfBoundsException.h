@@ -12,7 +12,7 @@ namespace jcpp{
         class JCPP_LIBRARY_EXPORT JArrayIndexOutOfBoundsException : public JIndexOutOfBoundsException {
         public:
             JArrayIndexOutOfBoundsException();
-            JArrayIndexOutOfBoundsException(string message);
+            JArrayIndexOutOfBoundsException(JString message);
             JArrayIndexOutOfBoundsException(JString* message);
 
             static JClass* getClazz();

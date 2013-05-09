@@ -21,13 +21,13 @@ int main(int argc, char* argv[]){
 
     vector<JString*>* array=new vector<JString*>();
     vector<JFile*>* cp=new vector<JFile*>();
-    string mainClass="";
+    JString mainClass="";
 
     jbool inCp=false;
     jbool inClassName=false;
     int i=1;
     for (i=1;i<argc;i++){
-        string s=argv[i];
+        JString s=argv[i];
         if (s=="-classpath"){
             inCp=true;
             inClassName=false;
@@ -42,11 +42,11 @@ int main(int argc, char* argv[]){
         if (inCp){
             inCp=false;
             jint current;
-            jint next = -1;
+            int next = -1;
             do{
               current = next + 1;
-              next = s.find_first_of( ";", current );
-              cp->push_back(new JFile(s.substr(current, next - current)));
+              next = s.getString().find_first_of( ";", current );//TODO
+              cp->push_back(new JFile(s.substring(current, next - current)));
             }while (next != string::npos);
 
         }else if (inClassName){

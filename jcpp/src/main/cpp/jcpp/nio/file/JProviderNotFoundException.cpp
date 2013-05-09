@@ -34,7 +34,7 @@ namespace jcpp{
             JProviderNotFoundException::JProviderNotFoundException():JRuntimeException(getClazz()){
             }
 
-            JProviderNotFoundException::JProviderNotFoundException(string msg):JRuntimeException(getClazz()){
+            JProviderNotFoundException::JProviderNotFoundException(JString msg):JRuntimeException(getClazz()){
                 this->message=new JString(msg);
             }
 

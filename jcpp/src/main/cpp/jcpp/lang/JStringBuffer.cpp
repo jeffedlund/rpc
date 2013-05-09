@@ -72,7 +72,7 @@ namespace jcpp{
             append(str);
         }
 
-        JStringBuffer::JStringBuffer(string str):JAbstractStringBuilder(getClazz()){
+        JStringBuffer::JStringBuffer(JString str):JAbstractStringBuilder(getClazz()){
             append(str);
         }
 
@@ -145,7 +145,7 @@ namespace jcpp{
             return this;
         }
 
-        JStringBuffer* JStringBuffer::append(string str){
+        JStringBuffer* JStringBuffer::append(JString str){
             lock();
             JAbstractStringBuilder::append(str);
             unlock();
@@ -222,7 +222,7 @@ namespace jcpp{
             return this;
         }
 
-        JStringBuffer* JStringBuffer::append(string str,jint offset,jint length){
+        JStringBuffer* JStringBuffer::append(JString str,jint offset,jint length){
             lock();
             JAbstractStringBuilder::append(str,offset,length);
             unlock();
@@ -292,7 +292,7 @@ namespace jcpp{
             return this;
         }
 
-        JStringBuffer* JStringBuffer::insert(jint offset,string str){
+        JStringBuffer* JStringBuffer::insert(jint offset,JString str){
             lock();
             JAbstractStringBuilder::insert(offset,str);
             unlock();
@@ -397,9 +397,9 @@ namespace jcpp{
             return this;
         }
 
-        string JStringBuffer::toString(){
+        JString JStringBuffer::toString(){
             lock();
-            string str=JAbstractStringBuilder::toString();
+            JString str=JAbstractStringBuilder::toString();
             unlock();
             return str;
         }
@@ -418,7 +418,7 @@ namespace jcpp{
         void JStringBuffer::writeObject(JObjectOutputStream* out){
             JObjectOutputStream::JPutField* fields = out->putFields();
             fields->put("value", getPrimitiveArray());
-            fields->put("count", (jint)value.size());
+            fields->put("count", (jint)value.length());
             fields->put("shared", false);
             out->writeFields();
         }

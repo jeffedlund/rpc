@@ -1,4 +1,5 @@
 #include "JOptionalDataException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace io{
@@ -61,7 +62,7 @@ namespace jcpp{
             this->eof=new JPrimitiveBoolean(false);
         }
 
-        JOptionalDataException::JOptionalDataException(string message) : JObjectStreamException(getClazz()){
+        JOptionalDataException::JOptionalDataException(JString message) : JObjectStreamException(getClazz()){
             this->message=new JString(message);
             this->length=new JPrimitiveInt(0);
             this->eof=new JPrimitiveBoolean(false);

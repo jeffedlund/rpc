@@ -10,7 +10,7 @@ namespace jcpp{
                 public:
                     static JClass* getClazz();
                     JDirectoryNotEmptyException();
-                    JDirectoryNotEmptyException(string dir);
+                    JDirectoryNotEmptyException(JString dir);
                     virtual ~JDirectoryNotEmptyException();
 
             };

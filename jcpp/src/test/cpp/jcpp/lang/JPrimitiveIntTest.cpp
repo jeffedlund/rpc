@@ -7,7 +7,7 @@ namespace jcpp{
             r=NULL;
         }
 
-        string JPrimitiveIntTest::getFileName(){
+        JString JPrimitiveIntTest::getFileName(){
             return "PrimitiveInt.ser";
         }
 

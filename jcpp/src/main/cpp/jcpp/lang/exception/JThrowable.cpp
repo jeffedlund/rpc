@@ -96,7 +96,7 @@ namespace jcpp{
             this->suppressedExceptions=NULL;
         }
 
-        JThrowable::JThrowable(string message):JObject(getClazz()){
+        JThrowable::JThrowable(JString message):JObject(getClazz()){
             this->message = new JString(message);
             this->cause=NULL;
             this->stackTrace=NULL;
@@ -110,7 +110,7 @@ namespace jcpp{
             this->suppressedExceptions=NULL;
         }
 
-        JThrowable::JThrowable(string message, JThrowable *cause):JObject(getClazz()){
+        JThrowable::JThrowable(JString message, JThrowable *cause):JObject(getClazz()){
             this->message = new JString(message);
             this->cause = cause;
             this->stackTrace=NULL;
@@ -124,7 +124,7 @@ namespace jcpp{
             this->suppressedExceptions=NULL;
         }
 
-        bool JThrowable::equals(JObject* o){
+        jbool JThrowable::equals(JObject* o){
             if (!getClazz()->isAssignableFrom(o->getClass())){
                 return false;
             }
@@ -187,18 +187,18 @@ namespace jcpp{
             this->stackTrace=stackTrace;
         }
 
-        void JThrowable::printStackTrace(ostream* os){
-            string str=toString()+"\r\n";
-            os->write(str.c_str(),str.size());
+        void JThrowable::printStackTrace(ostream* os){//TODO JSystem.out
+            JString str=toString()+"\r\n";
+            (*os)<<str;
             if (stackTrace!=NULL){
                 for (int i=0;i<stackTrace->size();i++){
                     JStackTraceElement* s=(JStackTraceElement*)stackTrace->get(i);
                     str="\tat "+s->toString()+"\r\n";
-                    os->write(str.c_str(),str.size());
+                    (*os)<<str;
                 }
                 if (getCause()!=NULL && getCause()!=this){
                     str="Caused by:\r\n";
-                    os->write(str.c_str(),str.size());
+                    (*os)<<str;
                     getCause()->printStackTrace(os);
                 }
             }
@@ -216,8 +216,8 @@ namespace jcpp{
             suppressedExceptions->add(t);
         }
 
-        string JThrowable::toString(){
-            return getClass()->getName()+":"+(message!=NULL?message->getString():"");
+        JString JThrowable::toString(){
+            return JString(getClass()->getName()+":"+(message!=NULL?message->getString():""));
         }
 
         JThrowable::~JThrowable(){

@@ -13,7 +13,7 @@ namespace jcpp{
             JIllegalStateException(JClass* _class);
         public:
             JIllegalStateException();
-            JIllegalStateException(string message);
+            JIllegalStateException(JString message);
 
             static JClass* getClazz();
             virtual ~JIllegalStateException();

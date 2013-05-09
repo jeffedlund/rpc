@@ -1,4 +1,5 @@
 #include "JCloneNotSupportedException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace lang{
@@ -35,11 +36,11 @@ namespace jcpp{
         JCloneNotSupportedException::JCloneNotSupportedException(JClass* _class):JException(_class){
         }
 
-        JCloneNotSupportedException::JCloneNotSupportedException(string message):JException(getClazz()){
+        JCloneNotSupportedException::JCloneNotSupportedException(JString message):JException(getClazz()){
             this->message=new JString(message);
         }
 
-        JCloneNotSupportedException::JCloneNotSupportedException(string message,JThrowable* cause):JException(getClazz()){
+        JCloneNotSupportedException::JCloneNotSupportedException(JString message,JThrowable* cause):JException(getClazz()){
             this->message=new JString(message);
             this->cause=cause;
         }

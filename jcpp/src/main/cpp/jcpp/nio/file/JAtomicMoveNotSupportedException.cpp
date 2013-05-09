@@ -34,7 +34,7 @@ namespace jcpp{
             JAtomicMoveNotSupportedException::JAtomicMoveNotSupportedException():JFileSystemException(getClazz()){
             }
 
-            JAtomicMoveNotSupportedException::JAtomicMoveNotSupportedException(string source,string target,string reason):JFileSystemException(getClazz(),source,target,reason){
+            JAtomicMoveNotSupportedException::JAtomicMoveNotSupportedException(JString source,JString target,JString reason):JFileSystemException(getClazz(),source,target,reason){
             }
 
             JAtomicMoveNotSupportedException::~JAtomicMoveNotSupportedException(){

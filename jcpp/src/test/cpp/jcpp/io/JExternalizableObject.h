@@ -56,7 +56,7 @@ namespace jcpp{
 
             void setI1(JPrimitiveInt* i1);
 
-            string toString();
+            JString toString();
 
             virtual void writeExternal(JObjectOutput* out);
 

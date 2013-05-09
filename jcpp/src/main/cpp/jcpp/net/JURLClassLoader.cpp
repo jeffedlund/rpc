@@ -38,7 +38,7 @@ namespace jcpp{
             JIPackageLoader* packageLoader=NULL;
             for (unsigned int i=0;i<files->size();i++){
                 JFile* file=files->at(i);
-                QFileInfo finfo(QString::fromStdString(file->getAbsolutePath()));
+                QFileInfo finfo(QString::fromStdString(file->getAbsolutePath().getString()));
                 if (finfo.isFile()){
                     QDir dir=finfo.dir();
                     QPluginLoader pluginLoader(dir.absoluteFilePath(finfo.fileName()));
@@ -51,7 +51,7 @@ namespace jcpp{
                     }
 
                 }else{
-                    QDir dir(QString::fromStdString(file->getAbsolutePath()));
+                    QDir dir(QString::fromStdString(file->getAbsolutePath().getString()));
                     foreach (QString fileName, dir.entryList(QDir::Files)){
                         QPluginLoader pluginLoader(dir.absoluteFilePath(fileName));
                         QObject *plugin = pluginLoader.instance();

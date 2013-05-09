@@ -13,8 +13,8 @@ namespace jcpp{
             JIllegalArgumentException(JClass* _class);
         public:
             JIllegalArgumentException();
-            JIllegalArgumentException(string message);
-            JIllegalArgumentException(string message,JThrowable* cause);
+            JIllegalArgumentException(JString message);
+            JIllegalArgumentException(JString message,JThrowable* cause);
 
             static JClass* getClazz();
             virtual ~JIllegalArgumentException();

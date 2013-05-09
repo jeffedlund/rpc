@@ -7,7 +7,7 @@ namespace jcpp{
             r=NULL;
         }
 
-        string JPrimitiveByteTest::getFileName(){
+        JString JPrimitiveByteTest::getFileName(){
             return "PrimitiveByte.ser";
         }
 

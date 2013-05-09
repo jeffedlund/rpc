@@ -18,7 +18,7 @@ namespace jcpp{
             JClassLoader(bool root);
         protected:
             JClassLoader* parent;
-            map<string, JClass*>* classes;
+            map<JString, JClass*>* classes;
             bool bIsBootClassLoader;
             static JClass* getClazz(JClassLoader* classLoader);
             JClassLoader(JClass* _class,JClassLoader* parent);
@@ -30,8 +30,8 @@ namespace jcpp{
             JClassLoader* getParent();
             jbool isBootClassLoader();
             void addClass(JClass* jClass);
-            JClass* loadClass(string string);
-            JClass* loadClassBySignature(string name);
+            JClass* loadClass(JString name);
+            JClass* loadClassBySignature(JString name);
             static JClass* getClazz();
             virtual ~JClassLoader();
         };

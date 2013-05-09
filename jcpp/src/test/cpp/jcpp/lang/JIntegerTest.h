@@ -10,7 +10,7 @@ namespace jcpp{
         public:
             JIntegerTest();
 
-            string getFileName();
+            JString getFileName();
 
             JObject* testReflect();
 

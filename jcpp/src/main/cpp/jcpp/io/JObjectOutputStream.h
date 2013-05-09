@@ -2,7 +2,6 @@
 #define JOBJECTOUTPUTSTREAM_H
 
 #include <map>
-#include "string.h"
 #include "JObjectStreamClass.h"
 #include "JObjectStreamConstants.h"
 #include "JBlockDataOutputStream.h"
@@ -28,15 +27,15 @@ namespace jcpp{
                 }
             public:
                 static JClass* getClazz();
-                virtual void put(string name,jbool val)=0;
-                virtual void put(string name,jbyte val)=0;
-                virtual void put(string name,jchar val)=0;
-                virtual void put(string name,jshort val)=0;
-                virtual void put(string name,jint val)=0;
-                virtual void put(string name,jlong val)=0;
-                virtual void put(string name,jfloat val)=0;
-                virtual void put(string name,jdouble val)=0;
-                virtual void put(string name,JObject* val)=0;
+                virtual void put(JString name,jbool val)=0;
+                virtual void put(JString name,jbyte val)=0;
+                virtual void put(JString name,jchar val)=0;
+                virtual void put(JString name,jshort val)=0;
+                virtual void put(JString name,jint val)=0;
+                virtual void put(JString name,jlong val)=0;
+                virtual void put(JString name,jfloat val)=0;
+                virtual void put(JString name,jdouble val)=0;
+                virtual void put(JString name,JObject* val)=0;
                 virtual void write(JObjectOutput* out)=0;
                 virtual ~JPutField();
             };
@@ -112,9 +111,9 @@ namespace jcpp{
             virtual void writeFloat(jfloat v);
             virtual void writeDouble(jdouble v);
             virtual void writeBoolean(jbool b);
-            virtual void writeUTF(string str);
-            virtual void writeChars(string str);
-            virtual void writeBytes(string str);
+            virtual void writeUTF(JString str);
+            virtual void writeChars(JString str);
+            virtual void writeBytes(JString str);
             virtual ~JObjectOutputStream();
         };
     }

@@ -21,7 +21,7 @@ namespace jcpp{
                 virtual void  reset();
                 virtual vector<jbyte>* toByteArray();
                 virtual jint size();
-                virtual string toString();
+                virtual JString toString();
                 virtual void  close();
                 virtual ~JByteArrayOutputStream();
         };

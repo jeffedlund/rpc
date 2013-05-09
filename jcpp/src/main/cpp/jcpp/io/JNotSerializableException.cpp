@@ -1,4 +1,5 @@
 #include "JNotSerializableException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace io{
@@ -35,7 +36,7 @@ namespace jcpp{
         JNotSerializableException::JNotSerializableException():JObjectStreamException(getClazz()){
         }
 
-        JNotSerializableException::JNotSerializableException(string message) : JObjectStreamException(getClazz()){
+        JNotSerializableException::JNotSerializableException(JString message) : JObjectStreamException(getClazz()){
             this->message=new JString(message);
         }
 

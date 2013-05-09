@@ -48,11 +48,11 @@ namespace jcpp{
             this->actions=new JString();
         }
 
-        JSerializablePermission::JSerializablePermission(string name):JBasicPermission(getClazz(),name){
+        JSerializablePermission::JSerializablePermission(JString name):JBasicPermission(getClazz(),name){
             this->actions=new JString();
         }
 
-        JSerializablePermission::JSerializablePermission(string name,string actions):JBasicPermission(getClazz(),name){
+        JSerializablePermission::JSerializablePermission(JString name,JString actions):JBasicPermission(getClazz(),name){
             this->actions=new JString(actions);
         }
 

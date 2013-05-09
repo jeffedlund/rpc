@@ -40,7 +40,7 @@ namespace jcpp{
         static JEnumSample* E5;
         JString* getFieldString();
         void setFieldString(JString* fieldString);
-        virtual string toString();
+        virtual JString toString();
         virtual ~JEnumSample();
     };
 }

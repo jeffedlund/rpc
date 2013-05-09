@@ -27,9 +27,9 @@ namespace jcpp{
             return clazz;
         }
 
-        JFileInputStream::JFileInputStream(string name):JInputStream(getClazz()){
+        JFileInputStream::JFileInputStream(JString name):JInputStream(getClazz()){
             bIsClosed=false;
-            QString fn=QString::fromStdString(name);
+            QString fn=QString::fromStdString(name.getString());
             file=new QFile(fn);
             file->open(QIODevice::ReadOnly);
             in=new QDataStream(file);
@@ -37,7 +37,7 @@ namespace jcpp{
 
         JFileInputStream::JFileInputStream(JFile* file):JInputStream(getClazz()){
             bIsClosed=false;
-            QString fn=QString::fromStdString(file->getPath());
+            QString fn=QString::fromStdString(file->getPath().getString());//TODO JString.getQString
             this->file=new QFile(fn);
             this->file->open(QIODevice::ReadOnly);
             in=new QDataStream(this->file);

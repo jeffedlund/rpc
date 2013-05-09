@@ -46,7 +46,7 @@ namespace jcpp{
                             JString* getSite();
                             virtual bool equals(JObject* other);
                             virtual jint hashCode();
-                            virtual string toString();
+                            virtual JString toString();
                             virtual ~JEndPoint();
                     };
                 }

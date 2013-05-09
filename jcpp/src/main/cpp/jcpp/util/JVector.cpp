@@ -462,10 +462,10 @@ namespace jcpp{
         JObject* JVector::remove(int index){
             lock();
             if (index >= elementCount->get()){
-                stringstream ss;
+                JString ss;
                 ss<<"index ="<<index<<" size="<<elementCount->get();
                 unlock();
-                throw new JArrayIndexOutOfBoundsException(ss.str());
+                throw new JArrayIndexOutOfBoundsException(ss);
             }
             JObject* o=items->at(index);
             items->erase(items->begin()+index);
@@ -542,9 +542,9 @@ namespace jcpp{
             return h;
         }
 
-        string JVector::toString(){
+        JString JVector::toString(){
             lock();
-            string s=JAbstractList::toString();
+            JString s=JAbstractList::toString();
             unlock();
             return s;
         }

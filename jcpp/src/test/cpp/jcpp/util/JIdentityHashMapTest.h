@@ -15,7 +15,7 @@ namespace jcpp{
                 return false;
             }
 
-            string getFileName();
+            JString getFileName();
 
             JObject* testReflect();
 

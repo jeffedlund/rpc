@@ -14,11 +14,9 @@ namespace jcpp{
 
         public:
             JException();
-            JException(string message);
-            JException(string message, JThrowable *cause);
-
+            JException(JString message);
+            JException(JString message, JThrowable *cause);
             static JClass* getClazz();
-
             virtual ~JException();
         };
     }

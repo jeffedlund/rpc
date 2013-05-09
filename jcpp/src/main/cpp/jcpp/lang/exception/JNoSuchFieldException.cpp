@@ -1,4 +1,5 @@
 #include "JNoSuchFieldException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace lang{
@@ -32,7 +33,7 @@ namespace jcpp{
         JNoSuchFieldException::JNoSuchFieldException():JException(getClazz()){
         }
 
-        JNoSuchFieldException::JNoSuchFieldException(string message):JException(getClazz()){
+        JNoSuchFieldException::JNoSuchFieldException(JString message):JException(getClazz()){
             this->message=new JString(message);
         }
 

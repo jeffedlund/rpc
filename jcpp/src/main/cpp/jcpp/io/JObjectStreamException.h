@@ -13,7 +13,7 @@ namespace jcpp{
             JObjectStreamException(JClass* _clazz);
         public:
             JObjectStreamException();
-            JObjectStreamException(string message);
+            JObjectStreamException(JString message);
             static JClass* getClazz();
             virtual ~JObjectStreamException();
         };

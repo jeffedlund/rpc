@@ -32,7 +32,7 @@ namespace jcpp{
         JIOError::JIOError():JError(getClazz()){
         }
 
-        JIOError::JIOError(string message):JError(getClazz()){
+        JIOError::JIOError(JString message):JError(getClazz()){
             this->message=new JString(message);
         }
 

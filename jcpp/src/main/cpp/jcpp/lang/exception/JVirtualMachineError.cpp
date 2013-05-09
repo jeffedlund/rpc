@@ -1,5 +1,6 @@
 #include "JVirtualMachineError.h"
 #include "JClass.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace lang{
@@ -36,11 +37,11 @@ namespace jcpp{
         JVirtualMachineError::JVirtualMachineError(JClass* _class):JError(_class){
         }
 
-        JVirtualMachineError::JVirtualMachineError(string message):JError(getClazz()){
+        JVirtualMachineError::JVirtualMachineError(JString message):JError(getClazz()){
             this->message = new JString(message);
         }
 
-        JVirtualMachineError::JVirtualMachineError(string message, JThrowable *cause):JError(getClazz()){
+        JVirtualMachineError::JVirtualMachineError(JString message, JThrowable *cause):JError(getClazz()){
             this->message = new JString(message);
             this->cause = cause;
         }

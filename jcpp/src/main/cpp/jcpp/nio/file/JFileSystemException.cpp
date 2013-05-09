@@ -60,12 +60,12 @@ namespace jcpp{
                 return clazz;
             }
 
-            JFileSystemException::JFileSystemException(string file):JIOException(getClazz()){
+            JFileSystemException::JFileSystemException(JString file):JIOException(getClazz()){
                 this->file=new JString(file);
                 this->other=NULL;
             }
 
-            JFileSystemException::JFileSystemException(string file,string other,string reason):JIOException(getClazz()){
+            JFileSystemException::JFileSystemException(JString file,JString other,JString reason):JIOException(getClazz()){
                 this->file=new JString(file);
                 this->other=new JString(other);
                 this->message=new JString(reason);
@@ -76,12 +76,12 @@ namespace jcpp{
                 this->other=NULL;
             }
 
-            JFileSystemException::JFileSystemException(JClass* _class,string file):JIOException(_class){
+            JFileSystemException::JFileSystemException(JClass* _class,JString file):JIOException(_class){
                 this->file=new JString(file);
                 this->other=NULL;
             }
 
-            JFileSystemException::JFileSystemException(JClass* _class,string file,string other,string reason):JIOException(_class){
+            JFileSystemException::JFileSystemException(JClass* _class,JString file,JString other,JString reason):JIOException(_class){
                 this->file=new JString(file);
                 this->other=new JString(other);
                 this->message=new JString(reason);
@@ -92,16 +92,16 @@ namespace jcpp{
                 this->other=NULL;
             }
 
-            string JFileSystemException::getFile(){
-                return file->getString();
+            JString JFileSystemException::getFile(){
+                return file;
             }
 
-            string JFileSystemException::getOtherFile(){
-                return other->getString();
+            JString JFileSystemException::getOtherFile(){
+                return other;
             }
 
-            string JFileSystemException::getReason(){
-                return message->getString();
+            JString JFileSystemException::getReason(){
+                return message;
             }
 
             JFileSystemException::~JFileSystemException(){

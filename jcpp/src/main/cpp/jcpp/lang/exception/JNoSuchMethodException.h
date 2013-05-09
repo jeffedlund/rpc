@@ -12,7 +12,7 @@ namespace jcpp{
         {
         public:
             JNoSuchMethodException();
-            JNoSuchMethodException(string message);
+            JNoSuchMethodException(JString message);
 
             static JClass* getClazz();
             virtual ~JNoSuchMethodException();

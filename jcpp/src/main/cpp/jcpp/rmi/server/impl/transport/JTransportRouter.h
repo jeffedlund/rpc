@@ -23,7 +23,7 @@ namespace jcpp{
                 namespace transport{
                     class JCPP_LIBRARY_EXPORT JTransportRouter : public JObject, public JITransportRouter{
                         protected:
-                            map<string, map<string, JRoute*>*>* routes;
+                            map<JString, map<JString, JRoute*>*>* routes;
 
                         public:
                             JTransportRouter();

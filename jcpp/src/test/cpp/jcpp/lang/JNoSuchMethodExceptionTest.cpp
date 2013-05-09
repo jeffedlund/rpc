@@ -5,7 +5,7 @@ namespace jcpp{
         JNoSuchMethodExceptionTest::JNoSuchMethodExceptionTest():JExceptionTest(){
         }
 
-        string JNoSuchMethodExceptionTest::getFileName(){
+        JString JNoSuchMethodExceptionTest::getFileName(){
             return "NoSuchMethodexception.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JNoSuchMethodException();
         }
 
-        string JNoSuchMethodExceptionTest::getThrowableClassName(){
+        JString JNoSuchMethodExceptionTest::getThrowableClassName(){
             return "java.lang.NoSuchMethodException";
         }
 

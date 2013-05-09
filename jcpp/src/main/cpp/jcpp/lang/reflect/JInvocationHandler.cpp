@@ -1,6 +1,7 @@
 #include "JInvocationHandler.h"
 #include "JClass.h"
 #include "JInstantiationException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace lang{

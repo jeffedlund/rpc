@@ -27,7 +27,7 @@ namespace jcpp{
                 virtual JEnumeration* elements()=0;
                 virtual void setReadOnly();
                 virtual jbool isReadOnly();
-                virtual string toString();
+                virtual JString toString();
                 virtual ~JPermissionCollection();
         };
     }

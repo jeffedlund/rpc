@@ -1,4 +1,5 @@
 #include "JConnectionException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace rmi{
@@ -38,11 +39,11 @@ namespace jcpp{
                     JConnectionException::JConnectionException(JClass* _class):JException(_class){
                     }
 
-                    JConnectionException::JConnectionException(string message):JException(getClazz()){
+                    JConnectionException::JConnectionException(JString message):JException(getClazz()){
                         this->message=new JString(message);
                     }
 
-                    JConnectionException::JConnectionException(string message,JThrowable* cause):JException(getClazz()){
+                    JConnectionException::JConnectionException(JString message,JThrowable* cause):JException(getClazz()){
                         this->message=new JString(message);
                         this->cause=cause;
                     }

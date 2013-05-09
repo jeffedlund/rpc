@@ -29,7 +29,7 @@ namespace jcpp{
                 virtual jshort shortValue() {
                     return (jshort)intValue();
                 }
-                virtual string toString()=0;
+                virtual JString toString()=0;
                 virtual ~JNumber();
         };
     }

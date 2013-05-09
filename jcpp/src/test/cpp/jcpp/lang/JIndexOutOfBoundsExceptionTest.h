@@ -10,13 +10,13 @@ namespace jcpp{
         public:
             JIndexOutOfBoundsExceptionTest();
 
-            virtual string getFileName();
+            virtual JString getFileName();
 
             virtual JThrowable* createFirstCause();
 
             virtual JThrowable* createSecondCause();
 
-            virtual string getThrowableClassName();
+            virtual JString getThrowableClassName();
 
             virtual ~JIndexOutOfBoundsExceptionTest();
         };

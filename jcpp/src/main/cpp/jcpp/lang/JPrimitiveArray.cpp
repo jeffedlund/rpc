@@ -26,8 +26,8 @@ namespace jcpp{
             public:
               JPrimitiveArrayClass(JClass* componentType){
                   this->componentType=componentType;
-                  string cn=componentType->getCanonicalName();
-                  if (!cn.empty()){
+                  JString cn=componentType->getCanonicalName();
+                  if (!cn.isEmpty()){
                       this->canonicalName=cn+"[]";
                   }else{
                       canonicalName="";
@@ -48,7 +48,7 @@ namespace jcpp{
         };
 
         static JObject* lockObject = NULL;
-        static map<string,JPrimitiveArrayClass*>* jPrimitiveArrayClasses;
+        static map<JString,JPrimitiveArrayClass*>* jPrimitiveArrayClasses;
         static JObject* getLockObject(){
             if (lockObject==NULL){
                 lockObject=new JObject();
@@ -59,12 +59,12 @@ namespace jcpp{
         JClass* JPrimitiveArray::getClazz(JClass* componentType){
             getLockObject()->lock();
             if (jPrimitiveArrayClasses==NULL){
-                jPrimitiveArrayClasses=new map<string,JPrimitiveArrayClass*>();
+                jPrimitiveArrayClasses=new map<JString,JPrimitiveArrayClass*>();
             }
             JPrimitiveArrayClass* jPrimitiveArrayClass=getFromMap(jPrimitiveArrayClasses,componentType->getName());
             if (jPrimitiveArrayClass==NULL){
                 jPrimitiveArrayClass=new JPrimitiveArrayClass(componentType);
-                jPrimitiveArrayClasses->insert(pair<string,JPrimitiveArrayClass*>(componentType->getName(),jPrimitiveArrayClass));
+                jPrimitiveArrayClasses->insert(pair<JString,JPrimitiveArrayClass*>(componentType->getName(),jPrimitiveArrayClass));
             }
             getLockObject()->unlock();
             return jPrimitiveArrayClass;

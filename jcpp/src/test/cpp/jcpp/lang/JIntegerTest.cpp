@@ -5,7 +5,7 @@ namespace jcpp{
         JIntegerTest::JIntegerTest():JTest(){
         }
 
-        string JIntegerTest::getFileName(){
+        JString JIntegerTest::getFileName(){
             return "Integer.ser";
         }
 

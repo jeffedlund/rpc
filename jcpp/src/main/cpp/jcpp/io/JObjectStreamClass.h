@@ -32,7 +32,7 @@ namespace jcpp{
                     }
             };
 
-            string name;
+            JString name;
             jlong suid;
             jbool bIsProxy;
             jbool bIsEnum;
@@ -66,7 +66,7 @@ namespace jcpp{
             JObjectStreamClass* getLocalDesc();
             JObjectStreamField* getField(jint i);
             vector<JObjectStreamField*>* getFields();
-            JObjectStreamField* getField(string name,JClass* type);
+            JObjectStreamField* getField(JString name,JClass* type);
             jbool isEnum();
             jbool isProxy();
             jbool hasReadObjectMethod();
@@ -97,9 +97,9 @@ namespace jcpp{
         public:
             static JClass* getClazz();
             static JObjectStreamClass* lookup(JClass* obj,jbool all);
-            string getName();
+            JString getName();
             JClass* getJClass();
-            string toString();
+            JString toString();
             virtual ~JObjectStreamClass();
         };
     }

@@ -9,7 +9,7 @@ namespace jcpp{
         class JCPP_LIBRARY_EXPORT JIOError : public JError {
             public:
                 static JClass* getClazz();
-                JIOError(string message);
+                JIOError(JString message);
                 JIOError();
                 JIOError(JThrowable* cause);
                 virtual ~JIOError();

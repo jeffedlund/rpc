@@ -15,7 +15,7 @@ namespace jcpp{
 
         public:
             JConcurrentModificationException();
-            JConcurrentModificationException(string message);
+            JConcurrentModificationException(JString message);
             JConcurrentModificationException(JString* message);
 
             static JClass* getClazz();

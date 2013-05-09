@@ -30,7 +30,7 @@ namespace jcpp{
             virtual bool removeAll(JCollection* c);
             virtual bool retainAll(JCollection* c);
             virtual void clear();
-            virtual string toString();
+            virtual JString toString();
             virtual ~JAbstractCollection();
         };
     }

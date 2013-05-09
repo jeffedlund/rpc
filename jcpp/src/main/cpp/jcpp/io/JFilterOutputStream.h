@@ -1,7 +1,6 @@
 #ifndef JFILTEROUTPUTSTREAM_H
 #define JFILTEROUTPUTSTREAM_H
 
-#include <string>
 #include "JObject.h"
 #include "JClass.h"
 #include "Object.h"

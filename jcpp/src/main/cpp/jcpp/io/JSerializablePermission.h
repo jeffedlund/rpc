@@ -14,8 +14,8 @@ namespace jcpp{
                 friend class JSerializablePermissionClass;
             public:
                 static JClass* getClazz();
-                JSerializablePermission(string name);
-                JSerializablePermission(string name,string actions);
+                JSerializablePermission(JString name);
+                JSerializablePermission(JString name,JString actions);
                 virtual ~JSerializablePermission();
         };
     }

@@ -268,8 +268,8 @@ namespace jcpp{
             this->i1=i1;
         }
 
-        string JExternalizableObject::toString(){
-            stringstream ss;
+        JString JExternalizableObject::toString(){
+            JString ss;
             ss<<"bool1="<<(bool1!=NULL?bool1->toString():"")<<"\r\n";
             ss<<"byte1="<<(byte1!=NULL?byte1->toString():"")<<"\r\n";
             ss<<"c1="<<(c1!=NULL?c1->toString():"NULL")<<"\r\n";
@@ -278,7 +278,7 @@ namespace jcpp{
             ss<<"l1="<<(l1!=NULL?l1->toString():"NULL")<<"\r\n";
             ss<<"s1="<<(s1!=NULL?s1->toString():"NULL")<<"\r\n";
             ss<<"i1="<<(i1!=NULL?i1->toString():"NULL")<<"\r\n";
-            return ss.str();
+            return ss;
         }
 
         void JExternalizableObject::writeExternal(JObjectOutput* out){

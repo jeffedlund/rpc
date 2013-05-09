@@ -2,7 +2,6 @@
 #include "JClass.h"
 #include <vector>
 #include <iostream>
-#include <string>
 #include <sstream>
 #include "JSerializable.h"
 #include "JPrimitiveInt.h"
@@ -189,11 +188,11 @@ namespace jcpp{
             return result;
         }
 
-        string JStackTraceElement::toString(){
-            stringstream ss;
+        JString JStackTraceElement::toString(){
+            JString ss;
             ss<<getDeclaringClass()->getString()<<"."<<getMethodName()->getString();
             ss<<"("<<getFileName()->getString()<<":"<<getLineNumber()->toString()<<")";
-            return ss.str();
+            return ss;
         }
 
         JStackTraceElement::~JStackTraceElement(){

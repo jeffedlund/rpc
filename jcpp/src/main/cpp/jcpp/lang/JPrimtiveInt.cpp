@@ -3,7 +3,6 @@
 #include <vector>
 #include <iostream>
 #include <sstream>
-#include <string>
 #include "Object.h"
 using namespace std;
 
@@ -93,10 +92,10 @@ namespace jcpp{
             return value;
         }
 
-        string JPrimitiveInt::toString(){
-            stringstream sstr;
+        JString JPrimitiveInt::toString(){
+            JString sstr;
             sstr<<value;
-            return sstr.str();
+            return sstr;
         }
 
         JPrimitiveInt::~JPrimitiveInt(){

@@ -91,7 +91,7 @@ namespace jcpp{
                         lifecycle->unexport(this);
                     }
 
-                    string JObjectInformation::toString(){
+                    JString JObjectInformation::toString(){
                         return "ObjectInformation[Id[" + id->toString() + "], Object[" + object->toString() + "]]";
                     }
 

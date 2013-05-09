@@ -28,7 +28,7 @@ namespace jcpp{
             return clazz;
         }
 
-        JStringReader::JStringReader(string str):JReader(getClazz()){
+        JStringReader::JStringReader(JString str):JReader(getClazz()){
             this->str=str;
             this->length=str.length();
             next=0;
@@ -41,7 +41,7 @@ namespace jcpp{
                 lock->unlock();
                 return -1;
             }
-            jint i=(jint)str.at(next++);
+            jint i=(jint)str.charAt(next++);
             lock->unlock();
             return i;
         }

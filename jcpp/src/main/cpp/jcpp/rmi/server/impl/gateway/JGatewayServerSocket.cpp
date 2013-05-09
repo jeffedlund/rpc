@@ -41,7 +41,7 @@ namespace jcpp{
                         return new JGatewaySocket(socket,socket->getInputStream(),gatewayConfiguration);//TODO handle HTTP
                     }
 
-                    string JGatewayServerSocket::toString(){
+                    JString JGatewayServerSocket::toString(){
                         return "GatewayServerSocket[ServerSocket:" + JServerSocket::toString() + "]";
                     }
 

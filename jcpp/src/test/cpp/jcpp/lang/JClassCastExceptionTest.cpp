@@ -5,7 +5,7 @@ namespace jcpp{
         JClassCastExceptionTest::JClassCastExceptionTest():JRuntimeExceptionTest(){
         }
 
-        string JClassCastExceptionTest::getFileName(){
+        JString JClassCastExceptionTest::getFileName(){
             return "ClassCastException.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JClassCastException();
         }
 
-        string JClassCastExceptionTest::getThrowableClassName(){
+        JString JClassCastExceptionTest::getThrowableClassName(){
             return "java.lang.ClassCastException";
         }
 

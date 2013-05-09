@@ -187,7 +187,7 @@ namespace jcpp{
                         return connections;
                     }
 
-                    string JConnection::toString(){
+                    JString JConnection::toString(){
                         return "Connection["+connections->toString()+","+socket->toString()+"]";
                     }
 

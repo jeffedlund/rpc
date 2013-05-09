@@ -5,7 +5,7 @@ namespace jcpp{
         JErrorTest::JErrorTest():JThrowableTest(){
         }
 
-        string JErrorTest::getFileName(){
+        JString JErrorTest::getFileName(){
             return "error.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JError();
         }
 
-        string JErrorTest::getThrowableClassName(){
+        JString JErrorTest::getThrowableClassName(){
             return "java.lang.Error";
         }
 

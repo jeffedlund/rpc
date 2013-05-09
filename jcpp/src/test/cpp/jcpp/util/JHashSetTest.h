@@ -10,7 +10,7 @@ namespace jcpp{
         public:
             JHashSetTest();
 
-            string getFileName();
+            JString getFileName();
 
             JObject* testReflect();
 

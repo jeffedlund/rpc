@@ -4,6 +4,7 @@
 #include "Collections.h"
 #include "JBits.h"
 #include <QThread>
+#include "JClassLoader.h"
 using namespace jcpp::util;
 
 namespace jcpp{

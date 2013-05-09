@@ -7,7 +7,7 @@ namespace jcpp{
             r=NULL;
         }
 
-        string JPrimitiveCharTest::getFileName(){
+        JString JPrimitiveCharTest::getFileName(){
             return "PrimitiveChar.ser";
         }
 

@@ -25,7 +25,7 @@ namespace jcpp{
             return clazz;
         }
 
-        JStringBufferInputStream::JStringBufferInputStream(string s):JInputStream(getClazz()){
+        JStringBufferInputStream::JStringBufferInputStream(JString s):JInputStream(getClazz()){
             this->buffer=s;
             this->count=s.length();
             this->pos=0;
@@ -33,7 +33,7 @@ namespace jcpp{
 
         jint JStringBufferInputStream::read(){
             lock();
-            jint i=(pos < count) ? (buffer.at(pos++) & 0xFF) : -1;
+            jint i=(pos < count) ? (buffer.charAt(pos++) & 0xFF) : -1;
             unlock();
             return i;
         }
@@ -51,10 +51,10 @@ namespace jcpp{
                 unlock();
                 return 0;
             }
-            string  s = buffer;
+            JString  s = buffer;
             jint cnt = len;
             while (--cnt >= 0) {
-                b[off++] = (jbyte)s.at(pos++);
+                b[off++] = (jbyte)s.charAt(pos++);
             }
             unlock();
             return len;

@@ -11,7 +11,7 @@ namespace jcpp{
         class JCPP_LIBRARY_EXPORT JUTFDataFormatException : public JIOException{
         public:
             JUTFDataFormatException();
-            JUTFDataFormatException(string message);
+            JUTFDataFormatException(JString message);
             static JClass* getClazz();
             virtual ~JUTFDataFormatException();
         };

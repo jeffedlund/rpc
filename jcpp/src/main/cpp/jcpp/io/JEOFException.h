@@ -10,7 +10,7 @@ namespace jcpp{
         class JCPP_LIBRARY_EXPORT JEOFException : public JIOException{
         public:
             JEOFException();
-            JEOFException(string message);
+            JEOFException(JString message);
             static JClass* getClazz();
             virtual ~JEOFException();
         };

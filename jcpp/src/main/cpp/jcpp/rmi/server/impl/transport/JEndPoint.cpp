@@ -63,7 +63,7 @@ namespace jcpp{
                     }
 
                     JEndPoint::JEndPoint(JDataInputStream* in):JObject(getClazz()){
-                        string host=in->readUTF();
+                        JString host=in->readUTF();
                         int port=in->readInt();
                         this->site=new JString(in->readUTF());
                         this->address=new JAddress();
@@ -123,7 +123,7 @@ namespace jcpp{
                         return address->getPHostName()->hashCode()+address->getPPort()->get()+site->hashCode();
                     }
 
-                    string JEndPoint::toString(){
+                    JString JEndPoint::toString(){
                         return "EndPoint["+address->toString()+":"+site->toString()+"]";
                     }
 

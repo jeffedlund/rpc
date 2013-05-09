@@ -173,8 +173,8 @@ namespace jcpp{
             thread->start();
         }
 
-        string JThread::toString(){
-            return "TODO";
+        JString JThread::toString(){
+            return JString("TODO");
         }
 
         JThread::~JThread(){

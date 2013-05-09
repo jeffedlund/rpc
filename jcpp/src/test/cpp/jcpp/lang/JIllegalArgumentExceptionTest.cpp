@@ -5,7 +5,7 @@ namespace jcpp{
         JIllegalArgumentExceptionTest::JIllegalArgumentExceptionTest():JRuntimeExceptionTest(){
         }
 
-        string JIllegalArgumentExceptionTest::getFileName(){
+        JString JIllegalArgumentExceptionTest::getFileName(){
             return "IllegalArgumentException.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JIllegalArgumentException();
         }
 
-        string JIllegalArgumentExceptionTest::getThrowableClassName(){
+        JString JIllegalArgumentExceptionTest::getThrowableClassName(){
             return "java.lang.IllegalArgumentException";
         }
 

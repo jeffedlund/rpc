@@ -10,13 +10,13 @@ namespace jcpp{
         public:
             JNoSuchMethodExceptionTest();
 
-            virtual string getFileName();
+            virtual JString getFileName();
 
             virtual JThrowable* createFirstCause();
 
             virtual JThrowable* createSecondCause();
 
-            virtual string getThrowableClassName();
+            virtual JString getThrowableClassName();
 
             virtual ~JNoSuchMethodExceptionTest();
         };

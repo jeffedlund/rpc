@@ -69,9 +69,9 @@ namespace jcpp{
             return i;
         }
 
-        string JByteArrayOutputStream::toString(){
+        JString JByteArrayOutputStream::toString(){
             lock();
-            string str(buf->begin(),buf->end());//TODO test it ...
+            JString str(buf);//TODO test
             unlock();
             return str;
         }

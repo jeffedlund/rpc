@@ -5,7 +5,7 @@ namespace jcpp{
         JHashtableTest::JHashtableTest():JTest(){
         }
 
-        string JHashtableTest::getFileName(){
+        JString JHashtableTest::getFileName(){
             return "Hashtable.ser";
         }
 

@@ -171,8 +171,8 @@ namespace jcpp{
                         return socket->isClosed();
                     }
 
-                    string JGatewaySocket::toString(){
-                        string strSocketType = "GatewaySocket";
+                    JString JGatewaySocket::toString(){
+                        JString strSocketType = "GatewaySocket";
                         strSocketType += bSendSocket ? "(SendSocket)" : "(ReceiveSocket)";
                         return strSocketType + "[socket:" + socket->toString() + "]";
                     }

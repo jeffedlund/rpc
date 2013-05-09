@@ -2,7 +2,7 @@
 #include "JClass.h"
 #include <vector>
 #include <iostream>
-#include <string>
+#include <JString.h>
 #include "JSerializable.h"
 using namespace std;
 using namespace jcpp::io;
@@ -71,8 +71,8 @@ namespace jcpp{
             return (value ? 1231 : 1237);
         }
 
-        string JPrimitiveBoolean::toString(){
-            return (this->value?"true":"false");
+        JString JPrimitiveBoolean::toString(){
+            return JString((this->value?"true":"false"));
         }
 
         JPrimitiveBoolean::~JPrimitiveBoolean(){

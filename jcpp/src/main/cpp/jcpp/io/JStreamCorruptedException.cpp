@@ -1,4 +1,5 @@
 #include "JStreamCorruptedException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace io{
@@ -35,7 +36,7 @@ namespace jcpp{
         JStreamCorruptedException::JStreamCorruptedException():JObjectStreamException(getClazz()){
         }
 
-        JStreamCorruptedException::JStreamCorruptedException(string message) : JObjectStreamException(getClazz()){
+        JStreamCorruptedException::JStreamCorruptedException(JString message) : JObjectStreamException(getClazz()){
             this->message=new JString(message);
         }
 

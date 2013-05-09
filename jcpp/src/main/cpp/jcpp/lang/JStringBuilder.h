@@ -24,16 +24,16 @@ namespace jcpp{
             public:
                 static JClass* getClazz();
                 JStringBuilder();
-                JStringBuilder(string str);
+                JStringBuilder(JString str);
                 JStringBuilder(JCharSequence* seq);
                 virtual JStringBuilder* append(JObject *o);
                 virtual JStringBuilder* append(JString *o);
-                virtual JStringBuilder* append(string str);
+                virtual JStringBuilder* append(JString str);
                 virtual JStringBuilder* append(JStringBuffer* sb);
                 virtual JStringBuilder* append(JCharSequence* sq);
                 virtual JStringBuilder* append(JCharSequence* sq,jint start,jint end);
                 virtual JStringBuilder* append(jchar str[],jint offset,jint len);
-                virtual JStringBuilder* append(string str,jint offset,jint len);
+                virtual JStringBuilder* append(JString str,jint offset,jint len);
                 virtual JStringBuilder* append(jbool b);
                 virtual JStringBuilder* append(jchar c);
                 virtual JStringBuilder* append(jint i);
@@ -46,7 +46,7 @@ namespace jcpp{
                 virtual JStringBuilder* insert(jint index,jchar str[],jint offset,jint len);
                 virtual JStringBuilder* insert(jint offset,JObject* o);
                 virtual JStringBuilder* insert(jint offset,JString* str);
-                virtual JStringBuilder* insert(jint offset,string str);
+                virtual JStringBuilder* insert(jint offset,JString str);
                 virtual JStringBuilder* insert(jint offset,jchar str[],jint l);
                 virtual JStringBuilder* insert(jint offset,JCharSequence* s);
                 virtual JStringBuilder* insert(jint offset,JCharSequence* s,jint start,jint end);

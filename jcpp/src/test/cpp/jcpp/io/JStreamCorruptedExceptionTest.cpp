@@ -5,7 +5,7 @@ namespace jcpp{
         JStreamCorruptedExceptionTest::JStreamCorruptedExceptionTest():JObjectStreamExceptionTest(){
         }
 
-        string JStreamCorruptedExceptionTest::getFileName(){
+        JString JStreamCorruptedExceptionTest::getFileName(){
             return "StreamCorruptedException.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JStreamCorruptedException();
         }
 
-        string JStreamCorruptedExceptionTest::getThrowableClassName(){
+        JString JStreamCorruptedExceptionTest::getThrowableClassName(){
             return "java.io.StreamCorruptedException";
         }
 

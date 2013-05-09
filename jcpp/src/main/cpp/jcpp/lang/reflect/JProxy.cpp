@@ -3,11 +3,11 @@
 #include "JClass.h"
 #include "JNoSuchMethodException.h"
 #include <vector>
-#include <string>
 #include "Collections.h"
 #include <sstream>
 #include "JNullPointerException.h"
 #include "JIllegalArgumentException.h"
+#include "JClassLoader.h"
 using namespace jcpp::util;
 using namespace jcpp::io;
 using namespace jcpp::lang::reflect;
@@ -107,7 +107,7 @@ namespace jcpp{
                 return p->getInvocationHandler();
             }
 
-            JObject* JProxy::invoke(string method,vector<JObject*>* args){
+            JObject* JProxy::invoke(JString method,vector<JObject*>* args){
                 JMethod* jMethod=NULL;
                 for (unsigned int i=0;i<getClass()->getInterfaces()->size();i++){
                     JClass* jclass=getClass()->getInterfaces()->at(i);
@@ -146,8 +146,8 @@ namespace jcpp{
                 return myh->equals(oyh);
             }
 
-            string JProxy::toString(){
-                stringstream ss;
+            JString JProxy::toString(){
+                JString ss;
                 JObject* o=dynamic_cast<JObject*>(invocationHandler);
                 ss<<"Proxy[InvocationHandler:"<<o->toString()<<"][Interfaces:";
                 for (unsigned int i=0;i<getClass()->getInterfaces()->size();i++){
@@ -155,7 +155,7 @@ namespace jcpp{
                     ss<<jclass->getName()<<",";
                 }
                 ss<<"]";
-                return ss.str();
+                return ss;
             }
 
             JProxy::~JProxy() {

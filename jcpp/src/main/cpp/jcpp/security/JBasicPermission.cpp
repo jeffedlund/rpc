@@ -45,30 +45,30 @@ namespace jcpp{
         JBasicPermission::JBasicPermission(JClass* _class):JPermission(_class){
         }
 
-        JBasicPermission::JBasicPermission(JClass* _class,string name):JPermission(_class,name){
+        JBasicPermission::JBasicPermission(JClass* _class,JString name):JPermission(_class,name){
             init(name);
         }
 
-        JBasicPermission::JBasicPermission(string name):JPermission(getClazz(),name){
+        JBasicPermission::JBasicPermission(JString name):JPermission(getClazz(),name){
             init(name);
         }
 
         JBasicPermission::JBasicPermission():JPermission(getClazz(),""){
         }
 
-        void JBasicPermission::init(string name){
+        void JBasicPermission::init(JString name){
             jint len = name.length();
             if (len == 0) {
                 throw new JIllegalArgumentException("name can't be empty");
             }
-            jchar last = (jchar)name.at(len - 1);
+            jchar last = (jchar)name.charAt(len - 1);
 
-            if (last == '*' && (len == 1 || name.at(len - 2) == '.')) {
+            if (last == '*' && (len == 1 || name.charAt(len - 2) == '.')) {
                 wildcard = true;
                 if (len == 1) {
                     path = "";
                 } else {
-                    path = name.substr(0, len - 1);
+                    path = name.substring(0, len - 1);
                 }
             } else {
                 if (name=="exitVM") {
@@ -81,7 +81,7 @@ namespace jcpp{
             }
         }
 
-        string JBasicPermission::getCanonicalName(){
+        JString JBasicPermission::getCanonicalName(){
             return exitVM ? "exitVM.*" : getName();
         }
 
@@ -122,7 +122,7 @@ namespace jcpp{
             return JString::hashCode(getName());
         }
 
-        string JBasicPermission::getActions(){
+        JString JBasicPermission::getActions(){
             return "";
         }
 

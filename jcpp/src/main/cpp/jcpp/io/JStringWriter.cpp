@@ -46,16 +46,16 @@ namespace jcpp{
             buf->append((JString*)str);
         }
 
-        void JStringWriter::write(string str){
-            buf->append((string)str);
+        void JStringWriter::write(JString str){
+            buf->append((JString)str);
         }
 
         void JStringWriter::write(JString* str,jint off,jint len){
             buf->append(dynamic_cast<JCharSequence*>(str),off,len);
         }
 
-        void JStringWriter::write(string str,jint off,jint len){
-            buf->append((string)str,off,len);
+        void JStringWriter::write(JString str,jint off,jint len){
+            buf->append((JString)str,off,len);
         }
 
         JStringWriter* JStringWriter::append(JCharSequence* csq){
@@ -77,7 +77,7 @@ namespace jcpp{
             return this;
         }
 
-        string JStringWriter::toString(){
+        JString JStringWriter::toString(){
             return buf->toString();
         }
 

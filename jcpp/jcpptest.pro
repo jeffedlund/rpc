@@ -12,6 +12,8 @@ QT       -= gui
 
 QT += network
 
+#QMAKE_CXXFLAGS += -std=c++11
+
 #TARGET = jcpptest
 TARGET = $$qtLibraryTarget(jipackageloader)
 CONFIG   += console

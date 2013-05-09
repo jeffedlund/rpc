@@ -74,13 +74,13 @@ namespace jcpp{
         }
 
         JClassLoader::JClassLoader(JClass* _class,JClassLoader* parent):JObject(_class){
-            this->classes=new map<string,JClass*>();
+            this->classes=new map<JString,JClass*>();
             this->bIsBootClassLoader=false;
             this->parent=(parent!=NULL ? parent : getBootClassLoader());
         }
 
         JClassLoader::JClassLoader(bool root):JObject(true){
-            this->classes=new map<string,JClass*>();
+            this->classes=new map<JString,JClass*>();
             this->_class=getClazz(this);
             this->bIsBootClassLoader=root;
             this->parent=NULL;
@@ -95,7 +95,7 @@ namespace jcpp{
             if (tmp!=NULL && tmp!=jClass){
                 throw new JIllegalArgumentException("class "+jClass->toString()+" already defined in classlaoder "+toString());
             }
-            classes->insert(pair<string,JClass*>(jClass->getName(),jClass));
+            classes->insert(pair<JString,JClass*>(jClass->getName(),jClass));
             jClass->classLoader=this;
         }
 
@@ -113,8 +113,8 @@ namespace jcpp{
             }
         }
 
-        JClass* JClassLoader::loadClass(string name){
-            if (name.at(0)=='['){
+        JClass* JClassLoader::loadClass(JString name){
+            if (name.charAt(0)=='['){
                 return loadClassBySignature(name);
             }
             JClass* jClass=NULL;
@@ -140,15 +140,15 @@ namespace jcpp{
             return jClass;
         }
 
-        JClass* JClassLoader::loadClassBySignature(string name){
-            if (name.at(0)=='['){
+        JClass* JClassLoader::loadClassBySignature(JString name){
+            if (name.charAt(0)=='['){
                 int nbArray=0;
-                string classname;
-                for (unsigned int i=0;i<name.size();i++){
-                    if (name.at(i)=='['){
+                JString classname;
+                for (jint i=0;i<name.length();i++){
+                    if (name.charAt(i)=='['){
                         nbArray++;
                     }else{
-                        classname=name.substr(i,name.size());
+                        classname=name.substring(i,name.length());
                         break;
                     }
                 }
@@ -171,9 +171,9 @@ namespace jcpp{
                     componentClass= JPrimitiveBoolean::getClazz();
                 }else if (classname=="V"){
                     componentClass= JVoid::getClazz();
-                }else if (classname.at(0)=='L'){
-                    classname=classname.substr(1,classname.size()-2);//remove ;
-                    replace(classname.begin(),classname.end(),'/','.');
+                }else if (classname.charAt(0)=='L'){
+                    classname=classname.substring(1,classname.length()-2);//remove ;
+                    classname.replace('/','.');
                     componentClass=loadClass(classname);
                 }else{
                     throw new JInternalError();

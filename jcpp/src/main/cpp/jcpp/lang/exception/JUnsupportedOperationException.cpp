@@ -1,4 +1,5 @@
 #include "JUnsupportedOperationException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace lang{
@@ -35,7 +36,7 @@ namespace jcpp{
         JUnsupportedOperationException::JUnsupportedOperationException():JRuntimeException(getClazz()){
         }
 
-        JUnsupportedOperationException::JUnsupportedOperationException(string message):JRuntimeException(getClazz()){
+        JUnsupportedOperationException::JUnsupportedOperationException(JString message):JRuntimeException(getClazz()){
             this->message=new JString(message);
         }
 

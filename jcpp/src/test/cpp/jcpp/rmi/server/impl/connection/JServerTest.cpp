@@ -96,11 +96,11 @@ namespace jcpp{
                         cout.flush();
                         JIRemoteSample* irs2=so->getRemoteSample();
                         JIRemoteSample* localrs2=(JIRemoteSample*)(rs2);
-                        JObject* oo2=(JObject*)(irs2);
+                        JObject* oo2=dynamic_cast<JObject*>(irs2);
                         cout<<oo2->getClass()->toString();
                         cout<<"\r\n";
                         cout.flush();
-                        oo2=(JObject*)(rs2);
+                        oo2=dynamic_cast<JObject*>(rs2);
                         cout<<oo2->getClass()->toString();
                         cout<<"\r\n";
                         cout.flush();

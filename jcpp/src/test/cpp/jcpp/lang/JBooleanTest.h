@@ -10,7 +10,7 @@ namespace jcpp{
         public:
             JBooleanTest();
 
-            string getFileName();
+            JString getFileName();
 
             JObject* testReflect();
 

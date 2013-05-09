@@ -14,14 +14,14 @@ namespace jcpp{
                     class JCPP_LIBRARY_EXPORT JKind : public JInterface{
                     public:
                         static JClass* getClazz();
-                        virtual string getName()=0;
+                        virtual JString getName()=0;
                         virtual JClass* type()=0;
                     };
 
                     class JCPP_LIBRARY_EXPORT JModifier : public JInterface{
                     public:
                         static JClass* getClazz();
-                        virtual string getName()=0;
+                        virtual JString getName()=0;
                     };
 
                     static JClass* getClazz();

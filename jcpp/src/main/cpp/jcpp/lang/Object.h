@@ -30,13 +30,6 @@ namespace jcpp{
                 assert(sizeof(jfloat)==4);
                 assert(sizeof(jdouble)==8);
             }
-
-            //TODO do we keep it here or in JString?
-            static string concat(string s, jint i){
-                stringstream ss;
-                ss<<s<<i;
-                return ss.str();
-            }
         };
     }
 }

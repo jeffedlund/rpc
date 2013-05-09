@@ -312,7 +312,7 @@ namespace jcpp{
                         }
                     }
 
-                    string JServer::toString(){
+                    JString JServer::toString(){
                         return this->endPoint->toString();
                     }
 

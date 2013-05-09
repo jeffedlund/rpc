@@ -178,10 +178,10 @@ namespace jcpp{
                 mutex->unlock();
             }
 
-            string toString() {
+            JString toString() {
                 mutex->lock();
                 JObject* o=dynamic_cast<JObject*>(c);
-                string s=o->toString();
+                JString s=o->toString();
                 mutex->unlock();
                 return s;
             }

@@ -5,7 +5,7 @@ namespace jcpp{
         JInternalErrorTest::JInternalErrorTest():JVirtualMachineErrorTest(){
         }
 
-        string JInternalErrorTest::getFileName(){
+        JString JInternalErrorTest::getFileName(){
             return "InternalError.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JInternalError();
         }
 
-        string JInternalErrorTest::getThrowableClassName(){
+        JString JInternalErrorTest::getThrowableClassName(){
             return "java.lang.InternalError";
         }
 

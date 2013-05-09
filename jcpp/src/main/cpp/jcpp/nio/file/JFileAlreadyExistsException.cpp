@@ -34,10 +34,10 @@ namespace jcpp{
             JFileAlreadyExistsException::JFileAlreadyExistsException():JFileSystemException(getClazz()){
             }
 
-            JFileAlreadyExistsException::JFileAlreadyExistsException(string file):JFileSystemException(getClazz(),file){
+            JFileAlreadyExistsException::JFileAlreadyExistsException(JString file):JFileSystemException(getClazz(),file){
             }
 
-            JFileAlreadyExistsException::JFileAlreadyExistsException(string file,string other,string reason):JFileSystemException(getClazz(),file,other,reason){
+            JFileAlreadyExistsException::JFileAlreadyExistsException(JString file,JString other,JString reason):JFileSystemException(getClazz(),file,other,reason){
             }
 
             JFileAlreadyExistsException::~JFileAlreadyExistsException(){

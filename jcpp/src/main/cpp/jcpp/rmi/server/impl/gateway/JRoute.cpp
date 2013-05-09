@@ -139,7 +139,7 @@ namespace jcpp{
                         return route;
                     }
 
-                    string JRoute::toString(){
+                    JString JRoute::toString(){
                         return "AddressList["+addressList->toString()+"][IsHttp:"+bIsHttp->toString()+"]";
                     }
 

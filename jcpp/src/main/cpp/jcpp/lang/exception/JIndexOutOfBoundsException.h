@@ -15,7 +15,7 @@ namespace jcpp{
 
         public:
             JIndexOutOfBoundsException();
-            JIndexOutOfBoundsException(string message);
+            JIndexOutOfBoundsException(JString message);
             JIndexOutOfBoundsException(JString* message);
 
             static JClass* getClazz();

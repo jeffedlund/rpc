@@ -37,9 +37,9 @@ namespace jcpp{
 
         jint HandleList::get(jint index) {
             if (index >= size || index < 0) {
-                stringstream ss;
+                JString ss;
                 ss<<"size:"<<size<<" index:"<<index;
-                throw new JIndexOutOfBoundsException(ss.str());
+                throw new JIndexOutOfBoundsException(ss);
             }
             return list[index];
         }

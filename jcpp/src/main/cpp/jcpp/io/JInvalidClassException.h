@@ -10,7 +10,7 @@ namespace jcpp{
         class JCPP_LIBRARY_EXPORT JInvalidClassException : public JObjectStreamException{
         public:
             JInvalidClassException();
-            JInvalidClassException(string message);
+            JInvalidClassException(JString message);
             static JClass* getClazz();
             virtual ~JInvalidClassException();
         };

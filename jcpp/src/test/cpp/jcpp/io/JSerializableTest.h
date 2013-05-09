@@ -9,7 +9,7 @@ namespace jcpp{
         public:
             JSerializableTest();
 
-            virtual string getFileName();
+            virtual JString getFileName();
 
             virtual JObject* testReflect();
 

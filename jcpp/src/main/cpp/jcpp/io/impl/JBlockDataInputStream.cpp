@@ -113,9 +113,9 @@ namespace jcpp{
                     in->read(hbuf,0,5);
                     jint len = JBits::getInt(hbuf,1);
                     if (len < 0) {
-                        stringstream ss;
+                        JString ss;
                         ss<<"illegal block data header length: "<< len;
-                        throw new JStreamCorruptedException(ss.str());
+                        throw new JStreamCorruptedException(ss);
                     }
                     return len;
                 }
@@ -126,9 +126,9 @@ namespace jcpp{
 
                 default:
                     if (tc >= 0 && (tc < JObjectStreamConstants::TC_BASE || tc > JObjectStreamConstants::TC_MAX)) {
-                        stringstream ss;
+                        JString ss;
                         ss<<"invalid type code: "<<tc;
-                        throw new JStreamCorruptedException(ss.str());
+                        throw new JStreamCorruptedException(ss);
                     }
                     return -1;
                 }
@@ -419,7 +419,7 @@ namespace jcpp{
             return (v != 0);
         }
 
-        string JBlockDataInputStream::readUTFBody(jlong utflen) {
+        JString JBlockDataInputStream::readUTFBody(jlong utflen) {
             vector<jchar>* sbuf=new vector<jchar>();
             if (!blkmode) {
                 end = pos = 0;
@@ -446,13 +446,13 @@ namespace jcpp{
             }
 
             jchar* jc=new jchar[sbuf->size()];//not extra
-            for (jint i=0;i<sbuf->size();i++){
+            for (unsigned int i=0;i<sbuf->size();i++){
                 jc[i]=sbuf->at(i);
             }
             char* cs=new char[sbuf->size()+1];
             cs[sbuf->size()] = '\0';
             JBits::fromJChartoChar(jc,cs,0,sbuf->size());
-            string str(cs);
+            JString str(cs);
             delete cs;
             delete sbuf;
             delete jc;
@@ -574,11 +574,11 @@ namespace jcpp{
         }
 
 
-        string JBlockDataInputStream::readUTF() {
+        JString JBlockDataInputStream::readUTF() {
             return readUTFBody(readUnsignedShort());
         }
 
-        string JBlockDataInputStream::readLongUTF() {
+        JString JBlockDataInputStream::readLongUTF() {
             return readUTFBody(readLong());
         }
 

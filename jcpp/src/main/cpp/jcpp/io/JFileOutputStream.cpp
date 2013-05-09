@@ -27,9 +27,9 @@ namespace jcpp{
             return clazz;
         }
 
-        JFileOutputStream::JFileOutputStream(string name,jbool append):JOutputStream(getClazz()){
+        JFileOutputStream::JFileOutputStream(JString name,jbool append):JOutputStream(getClazz()){
             this->bIsClosed=false;
-            QString fname=QString::fromStdString(name);
+            QString fname=QString::fromStdString(name.getString());//TODO
             file=new QFile(fname);
             file->open(QIODevice::WriteOnly | (append ? QIODevice::Append : QIODevice::Truncate));
             this->out=new QDataStream(file);
@@ -37,7 +37,7 @@ namespace jcpp{
 
         JFileOutputStream::JFileOutputStream(JFile* file,jbool append):JOutputStream(getClazz()){
             this->bIsClosed=false;
-            QString fname=QString::fromStdString(file->getPath());
+            QString fname=QString::fromStdString(file->getPath().getString());//TODO
             this->file=new QFile(fname);
             this->file->open(QIODevice::WriteOnly | (append ? QIODevice::Append : QIODevice::Truncate));
             this->out=new QDataStream(this->file);        }

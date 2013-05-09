@@ -8,6 +8,7 @@
 #include "memory.h"
 #include "Object.h"
 #include "JDataInputStream.h"
+#include "JString.h"
 #include "JCPP.h"
 using namespace std;
 
@@ -31,8 +32,8 @@ namespace jcpp{
             jbool getBlockDataMode();
             void skipBlockData();
             jint read(jbyte b[], jint off, jint len, jbool copy);
-            string readLongUTF();
-            string readUTFBody(jlong len);
+            JString readLongUTF();
+            JString readUTFBody(jlong len);
             void arraycopy(jbyte src[],jint srcPos, jbyte dest[], jint destPos, jint length);
             void readBools(jbool *v, jint off, jint len);
             void readChars(jchar *v, jint off, jint len);
@@ -71,7 +72,7 @@ namespace jcpp{
             virtual jfloat readFloat();
             virtual jlong readLong();
             virtual jdouble readDouble();
-            virtual string readUTF();
+            virtual JString readUTF();
             virtual ~JBlockDataInputStream();
         };
     }

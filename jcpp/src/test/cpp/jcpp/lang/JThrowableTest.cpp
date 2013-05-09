@@ -5,7 +5,7 @@ namespace jcpp{
         JThrowableTest::JThrowableTest():JTest(){
         }
 
-        string JThrowableTest::getFileName(){
+        JString JThrowableTest::getFileName(){
             return "throwable.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JThrowable();
         }
 
-        string JThrowableTest::getThrowableClassName(){
+        JString JThrowableTest::getThrowableClassName(){
             return "java.lang.Throwable";
         }
 

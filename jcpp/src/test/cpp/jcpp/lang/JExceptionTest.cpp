@@ -5,7 +5,7 @@ namespace jcpp{
         JExceptionTest::JExceptionTest():JThrowableTest(){
         }
 
-        string JExceptionTest::getFileName(){
+        JString JExceptionTest::getFileName(){
             return "exception.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JException();
         }
 
-        string JExceptionTest::getThrowableClassName(){
+        JString JExceptionTest::getThrowableClassName(){
             return "java.lang.Exception";
         }
 

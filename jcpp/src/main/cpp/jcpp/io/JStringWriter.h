@@ -21,13 +21,13 @@ namespace jcpp{
                 virtual void write(jint c);
                 virtual void write(jchar buf[],jint off,jint len);
                 virtual void write(JString* str);
-                virtual void write(string str);
+                virtual void write(JString str);
                 virtual void write(JString* str,jint off,jint len);
-                virtual void write(string str,jint off,jint len);
+                virtual void write(JString str,jint off,jint len);
                 virtual JStringWriter* append(JCharSequence* csq);
                 virtual JStringWriter* append(JCharSequence* csq,jint start,jint end);
                 virtual JStringWriter* append(jchar c);
-                virtual string toString();
+                virtual JString toString();
                 virtual JStringBuffer* getBuffer();
                 virtual void flush();
                 virtual void close();

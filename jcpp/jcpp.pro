@@ -18,6 +18,8 @@ DEFINES += JCPP_LIBRARY
 
 TEMPLATE = lib
 
+#QMAKE_CXXFLAGS += -std=c++0x
+
 LIBS += -lws2_32
 
 INCLUDEPATH += \

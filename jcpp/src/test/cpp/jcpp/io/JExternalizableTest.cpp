@@ -6,7 +6,7 @@ namespace jcpp{
         JExternalizableTest::JExternalizableTest():JTest(){
         }
 
-        string JExternalizableTest::getFileName(){
+        JString JExternalizableTest::getFileName(){
             return "externalizable.ser";
         }
 

@@ -2,7 +2,6 @@
 #include "JClass.h"
 #include <vector>
 #include <iostream>
-#include <string>
 #include <sstream>
 #include "JSerializable.h"
 #include "JByte.h"
@@ -150,10 +149,10 @@ namespace jcpp{
             return hashCode(value->get());
         }
 
-        string JFloat::toString(){
-            stringstream ss;
+        JString JFloat::toString(){
+            JString ss;
             ss<<value->get();
-            return ss.str();
+            return ss;
         }
 
         JFloat::~JFloat(){

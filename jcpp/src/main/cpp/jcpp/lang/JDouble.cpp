@@ -3,7 +3,6 @@
 #include "JClass.h"
 #include <vector>
 #include <iostream>
-#include <string>
 #include <sstream>
 #include "JSerializable.h"
 #include "JByte.h"
@@ -151,10 +150,10 @@ namespace jcpp{
             return hashCode(value->get());
         }
 
-        string JDouble::toString(){
-            stringstream ss;
+        JString JDouble::toString(){
+            JString ss;
             ss<<value->get();
-            return ss.str();
+            return ss;
         }
 
         JDouble::~JDouble(){

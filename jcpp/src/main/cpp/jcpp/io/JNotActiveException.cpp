@@ -1,4 +1,5 @@
 #include "JNotActiveException.h"
+#include "JClassLoader.h"
 
 namespace jcpp{
     namespace io{
@@ -35,7 +36,7 @@ namespace jcpp{
         JNotActiveException::JNotActiveException():JObjectStreamException(getClazz()){
         }
 
-        JNotActiveException::JNotActiveException(string message) : JObjectStreamException(getClazz()){
+        JNotActiveException::JNotActiveException(JString message) : JObjectStreamException(getClazz()){
             this->message=new JString(message);
         }
 

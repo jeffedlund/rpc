@@ -5,7 +5,7 @@ namespace jcpp{
         JIllegalStateExceptionTest::JIllegalStateExceptionTest():JRuntimeExceptionTest(){
         }
 
-        string JIllegalStateExceptionTest::getFileName(){
+        JString JIllegalStateExceptionTest::getFileName(){
             return "IllegalStateException.ser";
         }
 
@@ -17,7 +17,7 @@ namespace jcpp{
             return new JIllegalStateException();
         }
 
-        string JIllegalStateExceptionTest::getThrowableClassName(){
+        JString JIllegalStateExceptionTest::getThrowableClassName(){
             return "java.lang.IllegalStateException";
         }
 

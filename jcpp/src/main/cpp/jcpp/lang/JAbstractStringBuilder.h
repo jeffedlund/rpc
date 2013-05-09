@@ -13,7 +13,7 @@ namespace jcpp{
         //TODO full test cases
         class JCPP_LIBRARY_EXPORT JAbstractStringBuilder : public JObject  , public JAppendable  , public JCharSequence  {
             protected:
-                string value;
+                JString value;
                 JPrimitiveArray* pvalue;
                 JAbstractStringBuilder(JClass* _class);
                 JPrimitiveArray* getPrimitiveArray();
@@ -31,12 +31,12 @@ namespace jcpp{
                 virtual void setCharAt(jint index,jchar c);
                 virtual JAbstractStringBuilder* append(JObject* o);
                 virtual JAbstractStringBuilder* append(JString* o);
-                virtual JAbstractStringBuilder* append(string str);
+                virtual JAbstractStringBuilder* append(JString str);
                 virtual JAbstractStringBuilder* append(JStringBuffer* sb);
                 virtual JAbstractStringBuilder* append(JCharSequence* s);
                 virtual JAbstractStringBuilder* append(JCharSequence* s,jint start,jint end);
                 virtual JAbstractStringBuilder* append(jchar str[],jint offset,jint length);
-                virtual JAbstractStringBuilder* append(string str,jint offset,jint length);
+                virtual JAbstractStringBuilder* append(JString str,jint offset,jint length);
                 virtual JAbstractStringBuilder* append(jbool b);
                 virtual JAbstractStringBuilder* append(jchar c);
                 virtual JAbstractStringBuilder* append(jint i);
@@ -52,7 +52,7 @@ namespace jcpp{
                 virtual JAbstractStringBuilder* insert(jint index,jchar str[],jint offset,jint len);
                 virtual JAbstractStringBuilder* insert(jint offset,JObject* o);
                 virtual JAbstractStringBuilder* insert(jint offset,JString* str);
-                virtual JAbstractStringBuilder* insert(jint offset,string str);
+                virtual JAbstractStringBuilder* insert(jint offset,JString str);
                 virtual JAbstractStringBuilder* insert(jint offset,jchar str[],jint l);
                 virtual JAbstractStringBuilder* insert(jint offset,JCharSequence* s);
                 virtual JAbstractStringBuilder* insert(jint offset,JCharSequence* s,jint start,jint end);
@@ -67,7 +67,7 @@ namespace jcpp{
                 virtual jint lastIndexOf(JString* str);
                 virtual jint lastIndexOf(JString* str,jint fromIndex);
                 virtual JAbstractStringBuilder* reverse();
-                virtual string toString();
+                virtual JString toString();
                 virtual jbool equals(JObject *o);
                 virtual ~JAbstractStringBuilder();
         };

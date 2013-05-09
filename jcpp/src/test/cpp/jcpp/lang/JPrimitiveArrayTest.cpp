@@ -7,7 +7,7 @@ namespace jcpp{
         JPrimitiveArrayTest::JPrimitiveArrayTest():JTest(){
         }
 
-        string JPrimitiveArrayTest::getFileName(){
+        JString JPrimitiveArrayTest::getFileName(){
             return "PrimitiveArray.ser";
         }
 

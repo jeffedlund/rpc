@@ -11,7 +11,7 @@ namespace jcpp{
         public:
             JStringBufferTest();
 
-            string getFileName();
+            JString getFileName();
 
             JObject* testReflect();
 

@@ -15,9 +15,8 @@ namespace jcpp{
 
         public:
             JCloneNotSupportedException();
-            JCloneNotSupportedException(string message);
-            JCloneNotSupportedException(string message,JThrowable* cause);
-
+            JCloneNotSupportedException(JString message);
+            JCloneNotSupportedException(JString message,JThrowable* cause);
             static JClass* getClazz();
             virtual ~JCloneNotSupportedException();
         };

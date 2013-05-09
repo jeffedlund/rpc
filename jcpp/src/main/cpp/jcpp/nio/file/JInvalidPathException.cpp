@@ -65,18 +65,18 @@ namespace jcpp{
                 index=NULL;
             }
 
-            JInvalidPathException::JInvalidPathException(string input,string reason,jint index):JIllegalArgumentException(getClazz()){
+            JInvalidPathException::JInvalidPathException(JString input,JString reason,jint index):JIllegalArgumentException(getClazz()){
                 this->input=new JString(input);
                 this->index=new JPrimitiveInt(index);
                 this->message=new JString(reason);
             }
 
-            string JInvalidPathException::getInput(){
-                return input->getString();
+            JString JInvalidPathException::getInput(){
+                return input;
             }
 
-            string JInvalidPathException::getReason(){
-                return message->getString();
+            JString JInvalidPathException::getReason(){
+                return message;
             }
 
             jint JInvalidPathException::getIndex(){

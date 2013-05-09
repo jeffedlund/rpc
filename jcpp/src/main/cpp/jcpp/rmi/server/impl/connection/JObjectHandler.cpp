@@ -123,17 +123,19 @@ namespace jcpp{
                         invocationListener = objectInformations->getInvocationListener();
                     }
 
-                    string JObjectHandler::toString(){
-                        string strInterfaces = "";
+                    JString JObjectHandler::toString(){
+                        JString strInterfaces = "";
+                        strInterfaces <<"Proxy[" << invoker->getObjectPointer()->toString() << ", Interfaces[";
                         if (getInterfaces()!=NULL && getInterfaces()->size()>0){
                             for (unsigned int i = 0; i < (getInterfaces()->size() - 1); i++) {
                                 JClass* c=getInterfaces()->at(i);
-                                strInterfaces += c->getName() + ", ";
+                                strInterfaces << c->getName() << ", ";
                             }
                             JClass* c=getInterfaces()->at(getInterfaces()->size()-1);
-                            strInterfaces += c->getName();
+                            strInterfaces << c->getName();
                         }
-                        return "Proxy[" + invoker->getObjectPointer()->toString() + ", Interfaces[" + strInterfaces + "]]";
+                        strInterfaces<<"]]";
+                        return strInterfaces;
                     }
 
                     jint JObjectHandler::hashCode(){

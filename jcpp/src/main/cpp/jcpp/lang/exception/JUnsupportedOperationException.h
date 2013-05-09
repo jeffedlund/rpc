@@ -14,8 +14,8 @@ namespace jcpp{
             JUnsupportedOperationException(JClass* _class);
         public:
             JUnsupportedOperationException();
-            JUnsupportedOperationException(string message);
-            JUnsupportedOperationException(string message,JThrowable* cause);
+            JUnsupportedOperationException(JString message);
+            JUnsupportedOperationException(JString message,JThrowable* cause);
 
             static JClass* getClazz();
             virtual ~JUnsupportedOperationException();
