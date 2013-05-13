@@ -33,7 +33,7 @@ namespace jcpp{
                     JGatewaySocket::JGatewaySocket(JRoute* route,JGatewayConfiguration* gatewayConfiguration):JSocket(getClazz()){
                         JAddress* address = route->popAddress();
                         this->gatewayConfiguration = gatewayConfiguration;
-                        this->socket = new JSocket(address->getPHostName(),address->getPPort(),gatewayConfiguration->getConnectionTimeout()->get());
+                        this->socket = new JSocket(*address->getHostName(),address->getPort(),gatewayConfiguration->getConnectionTimeout()->get());//TODO
                         this->output = new JGatewayCompressionOutputStream(socket->getOutputStream(), route);
                         this->input = socket->getInputStream();
                         this->bSendSocket = true;
@@ -72,11 +72,11 @@ namespace jcpp{
                         return socket->getLocalAddress();
                     }
 
-                    JPrimitiveInt* JGatewaySocket::getPort(){
+                    jint JGatewaySocket::getPort(){
                         return socket->getPort();
                     }
 
-                    JPrimitiveInt* JGatewaySocket::getLocalPort(){
+                    jint JGatewaySocket::getLocalPort(){
                         return socket->getLocalPort();
                     }
 

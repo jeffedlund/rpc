@@ -2,6 +2,7 @@
 #include "JClass.h"
 #include <cstdio>
 #include "Collections.h"
+#include "JVoid.h"
 
 namespace jcpp{
     namespace util{

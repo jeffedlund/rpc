@@ -13,7 +13,6 @@ namespace jcpp{
         public:
             JClassCastException();
             JClassCastException(JString message);
-
             static JClass* getClazz();
             virtual ~JClassCastException();
         };

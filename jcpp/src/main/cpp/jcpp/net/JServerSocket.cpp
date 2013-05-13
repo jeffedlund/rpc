@@ -28,24 +28,24 @@ namespace jcpp{
             return clazz;
         }
 
-        JServerSocket::JServerSocket(JString* host, JPrimitiveInt* port,JPrimitiveInt* backlog,JClass* _class):JObject(_class){
+        JServerSocket::JServerSocket(JString host, jint port,jint backlog,JClass* _class):JObject(_class){
             this->bIsClosed=false;
-            this->host=host;
-            this->port=port;
-            this->backlog=backlog;
-            server=new QTcpServer();
-            server->setMaxPendingConnections(backlog->get());
-            this->localInetAddress=new JInetAddress(new JString(server->serverAddress().toString().toStdString()));
+            this->host=new JString(host);
+            this->port=new JPrimitiveInt(port);
+            this->backlog=new JPrimitiveInt(backlog);
+            this->server=new QTcpServer();
+            this->server->setMaxPendingConnections(backlog);
+            this->localInetAddress=new JInetAddress(server->serverAddress().toString().toStdString());
         }
 
-        JServerSocket::JServerSocket(JString* host, JPrimitiveInt* port,JPrimitiveInt* backlog):JObject(getClazz()){
+        JServerSocket::JServerSocket(JString host, jint port,jint backlog):JObject(getClazz()){
             this->bIsClosed=false;
-            this->host=host;
-            this->port=port;
-            this->backlog=backlog;
+            this->host=new JString(host);
+            this->port=new JPrimitiveInt(port);
+            this->backlog=new JPrimitiveInt(backlog);
             server=new QTcpServer();
-            server->setMaxPendingConnections(backlog->get());
-            this->localInetAddress=new JInetAddress(new JString(server->serverAddress().toString().toStdString()));
+            server->setMaxPendingConnections(backlog);
+            this->localInetAddress=new JInetAddress(server->serverAddress().toString().toStdString());
         }
 
         void JServerSocket::takeOwner(){
@@ -64,8 +64,8 @@ namespace jcpp{
             return localInetAddress;
         }
 
-        JPrimitiveInt* JServerSocket::getLocalPort(){
-            return port;
+        jint JServerSocket::getLocalPort(){
+            return port->get();
         }
 
         void JServerSocket::connect(){
@@ -84,24 +84,24 @@ namespace jcpp{
             return NULL;
         }
 
-        void JServerSocket::setSoTimeout(int){//TODO
+        void JServerSocket::setSoTimeout(jint){//TODO
         }
 
-        int JServerSocket::getSoTimeout(){
+        jint JServerSocket::getSoTimeout(){
             return 0;
         }
 
-        void JServerSocket::setReuseAddress(bool){//TODO
+        void JServerSocket::setReuseAddress(jbool){//TODO
         }
 
-        bool JServerSocket::getReuseAddress(){
+        jbool JServerSocket::getReuseAddress(){
             return false;
         }
 
-        void JServerSocket::setReceiveBufferSize(int){//TODO
+        void JServerSocket::setReceiveBufferSize(jint){//TODO
         }
 
-        int JServerSocket::getReceiveBufferSize(){
+        jint JServerSocket::getReceiveBufferSize(){
             return 0;
         }
 
@@ -110,12 +110,15 @@ namespace jcpp{
             server->close();
         }
 
-        bool JServerSocket::isClosed(){
+        jbool JServerSocket::isClosed(){
             return bIsClosed;
         }
 
         JServerSocket::~JServerSocket() {
             QObjectHolder::getQObjectHolder()->deleteObject(getQObject());
+            delete host;
+            delete port;
+            delete backlog;
             delete server;
             delete localInetAddress;
         }

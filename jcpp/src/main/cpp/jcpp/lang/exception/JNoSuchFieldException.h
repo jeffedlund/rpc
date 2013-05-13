@@ -13,7 +13,6 @@ namespace jcpp{
         public:
             JNoSuchFieldException();
             JNoSuchFieldException(JString message);
-
             static JClass* getClazz();
             virtual ~JNoSuchFieldException();
         };

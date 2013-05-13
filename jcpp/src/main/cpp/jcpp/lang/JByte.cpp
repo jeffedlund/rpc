@@ -91,17 +91,17 @@ namespace jcpp{
             return (*value)==(*b->value);
         }
 
-        JByte JByte::operator+=(jbyte f){
+        JByte& JByte::operator+=(jbyte f){
             (*value)+=f;
             return *this;
         }
 
-        JByte JByte::operator-=(jbyte f){
+        JByte& JByte::operator-=(jbyte f){
             (*value)-=f;
             return *this;
         }
 
-        JByte JByte::operator*=(jbyte f){
+        JByte& JByte::operator*=(jbyte f){
             (*value)*=f;
             return *this;
         }
@@ -157,7 +157,9 @@ namespace jcpp{
         }
 
         JString JByte::toString(){
-            return JString(""+value->get());
+            JString s("");
+            s<<value->get();
+            return s;
         }
 
         JByte::~JByte(){

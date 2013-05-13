@@ -61,19 +61,19 @@ namespace jcpp{
                         this->iregistry = registry;
                         vector<JClass*>* inter=new vector<JClass*>();
                         inter->push_back(JIRegistry::getClazz());
-                        this->registry->bind(JString::intern(JIRegistry::getClazz()->getName()), (JObject*)registry, inter);
+                        this->registry->bind(new JString(JIRegistry::getClazz()->getName()), (JObject*)registry, inter);
 
                         inter=new vector<JClass*>();
                         inter->push_back(JIServer::getClazz());
-                        this->registry->bind(JString::intern(JIServer::getClazz()->getName()), this, inter);
+                        this->registry->bind(new JString(JIServer::getClazz()->getName()), this, inter);
 
                         inter=new vector<JClass*>();
                         inter->push_back(JIGC::getClazz());
-                        this->registry->bind(JString::intern(JIGC::getClazz()->getName()), gc, inter);
+                        this->registry->bind(new JString(JIGC::getClazz()->getName()), gc, inter);
 
                         inter=new vector<JClass*>();
                         inter->push_back(JIGCClient::getClazz());
-                        this->registry->bind(JString::intern(JIGCClient::getClazz()->getName()), gcClient, inter);
+                        this->registry->bind(new JString(JIGCClient::getClazz()->getName()), gcClient, inter);
                     }
 
                     JIServer* JServer::getRemoteServer(JObject* object){
@@ -90,12 +90,12 @@ namespace jcpp{
                         return objectHandler->getInvoker()->getObjectInformations()->getServer();
                     }
 
-                    JString* JServer::getHost(JObject* object){
-                        return getEndPoint(object)->getAddress()->getPHostName();
+                    JString* JServer::getHost(JObject* object){//TODO be careful who will delete?
+                        return getEndPoint(object)->getAddress()->getHostName();
                     }
 
-                    JPrimitiveInt* JServer::getPort(JObject* object){
-                        return getEndPoint(object)->getAddress()->getPPort();
+                    jint JServer::getPort(JObject* object){
+                        return getEndPoint(object)->getAddress()->getPort();
                     }
 
                     JString* JServer::getSite(JObject* object){
@@ -121,7 +121,7 @@ namespace jcpp{
                     JObject* JServer::lookup(JEndPoint* endPoint, JClass* clazz){
                         vector<JClass*>* inter=new vector<JClass*>();
                         inter->push_back(clazz);
-                        JObjectHandler* objectHandler = new JObjectHandler(objectInformations, inter, new JObjectPointer(endPoint, JString::intern(clazz->getName())));
+                        JObjectHandler* objectHandler = new JObjectHandler(objectInformations, inter, new JObjectPointer(endPoint, new JString(clazz->getName())));
                         return objectHandler->getProxy();
                     }
 

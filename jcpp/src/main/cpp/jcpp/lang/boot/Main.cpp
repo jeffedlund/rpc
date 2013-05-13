@@ -46,7 +46,8 @@ int main(int argc, char* argv[]){
             do{
               current = next + 1;
               next = s.getString().find_first_of( ";", current );//TODO
-              cp->push_back(new JFile(s.substring(current, next - current)));
+              JString fn=s.substring(current, next - current);
+              cp->push_back(new JFile(fn));
             }while (next != string::npos);
 
         }else if (inClassName){

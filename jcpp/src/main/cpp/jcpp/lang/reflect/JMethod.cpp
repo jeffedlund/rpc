@@ -33,14 +33,14 @@ namespace jcpp{
             }
 
             JMethod::JMethod(JString name,JClass* declaringClass,JClass* returnType,vector<JClass*>* parameterType,invocation inv):JAccessibleObject(getClazz()){
-                this->name=name;
+                this->name=new JString(name);
                 this->declaringClass=declaringClass;
                 this->returnType=returnType;
                 this->parameterType=parameterType;
                 this->inv=inv;
             }
 
-            JString JMethod::getName(){
+            JString* JMethod::getName(){
                 return name;
             }
 
@@ -68,10 +68,10 @@ namespace jcpp{
                 return inv(object,args);
             }
 
-            bool JMethod::equals(JObject* obj) {
+            jbool JMethod::equals(JObject* obj) {
                 if (obj != NULL && getClazz()!=obj->getClass()) {
                     JMethod* other = dynamic_cast<JMethod*>(obj);
-                    if (getDeclaringClass()->equals(other->getDeclaringClass()) && (getName() == other->getName())) {
+                    if (getDeclaringClass()->equals(other->getDeclaringClass()) && getName()->equals(other->getName())) {
                         if (!returnType->equals(other->getReturnType())){
                             return false;
                         }
@@ -82,24 +82,25 @@ namespace jcpp{
             }
 
             jint JMethod::hashCode() {
-                return getDeclaringClass()->getName().hashCode()^ getName().hashCode();
+                return getDeclaringClass()->getName().hashCode()^ getName()->hashCode();
             }
 
             JString JMethod::toString(){
-                JString ss;
+                JString ss=JString("");
                 ss<<returnType->getName()<<" ";
                 ss<<declaringClass->toString()<<"."<<name;
                 if (parameterType!=NULL){
                     ss<<"(";
                     for (unsigned int i=0;i<parameterType->size();i++){
                         JClass* param=parameterType->at(i);
-                        ss<<param->getName()+",";
+                        ss<<param->getName()<<",";
                     }
                 }
                 return ss;
             }
 
             JMethod::~JMethod(){
+                delete name;
                 delete parameterType;
             }
         }

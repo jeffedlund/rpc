@@ -7,16 +7,15 @@
 #include "JAbstractStringBuilder.h"
 #include "JObject.h"
 #include "JString.h"
-
 using namespace jcpp::io;
 
+//TODO write test cases
 namespace jcpp{
     namespace io{
         class JObjectOutputStream;
         class JObjectInputStream;
     }
     namespace lang{
-    //TODO write test cases
         class JCPP_LIBRARY_EXPORT JStringBuffer : public JAbstractStringBuilder  , public JSerializable{
             protected:
                 static JPrimitiveArray* getSerialPersistentFields();
@@ -55,9 +54,9 @@ namespace jcpp{
                 virtual JStringBuffer* deleteChar(jint start,jint end);
                 virtual JStringBuffer* deleteCharAt(jint index);
                 virtual JStringBuffer* replace(jint start,jint end,JString* str);
-                virtual JString* substring(jint start);
+                virtual JString substring(jint start);
                 virtual JCharSequence* subSequence(jint start,jint end);
-                virtual JString* substring(jint start,jint end);
+                virtual JString substring(jint start,jint end);
                 virtual JStringBuffer* insert(jint index,jchar str[],jint offset,jint len);
                 virtual JStringBuffer* insert(jint offset,JObject* o);
                 virtual JStringBuffer* insert(jint offset,JString* str);

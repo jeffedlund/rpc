@@ -21,9 +21,9 @@ namespace jcpp{
             public:
                 JPrimitiveShort();
                 JPrimitiveShort(jshort value);
-                JPrimitiveShort operator+=(jshort f);
-                JPrimitiveShort operator-=(jshort f);
-                JPrimitiveShort operator*=(jshort f);
+                JPrimitiveShort& operator+=(jshort f);
+                JPrimitiveShort& operator-=(jshort f);
+                JPrimitiveShort& operator*=(jshort f);
                 static JClass* getClazz();
                 void set(jshort value);
                 jshort get();

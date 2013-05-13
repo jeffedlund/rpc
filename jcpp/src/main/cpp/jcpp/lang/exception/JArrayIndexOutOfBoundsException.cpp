@@ -36,10 +36,6 @@ namespace jcpp{
             this->message=new JString(message);
         }
 
-        JArrayIndexOutOfBoundsException::JArrayIndexOutOfBoundsException(JString* message):JIndexOutOfBoundsException(getClazz()){
-            this->message=message;
-        }
-
         JArrayIndexOutOfBoundsException::~JArrayIndexOutOfBoundsException(){
         }
     }

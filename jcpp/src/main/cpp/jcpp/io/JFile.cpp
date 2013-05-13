@@ -42,11 +42,11 @@ namespace jcpp{
 
         jchar JFile::separatorChar = fs->getSeparator();
 
-        JString JFile::separator = ""+separatorChar;//TODO
+        JString JFile::separator = JString(separatorChar);//TODO
 
         jchar JFile::pathSeparatorChar = fs->getPathSeparator();
 
-        JString JFile::pathSeparator = ""+pathSeparatorChar;
+        JString JFile::pathSeparator = JString(pathSeparatorChar);
 
         JFile::JFile():JObject(getClazz()){
             path=NULL;
@@ -61,14 +61,14 @@ namespace jcpp{
         }
 
         JFile::JFile(JString child,JFile* parent):JObject(getClazz()){
-            this->path=new JString(fs->resolve(parent->path->getString(),child));
+            this->path=new JString(fs->resolve(*parent->path,child));
             this->prefixLength=parent->prefixLength;
             filePath=NULL;
         }
 
         JFile::JFile(JString pathname){
             this->path=new JString(fs->normalize(pathname));
-            this->prefixLength=fs->prefixLength(this->path->getString());
+            this->prefixLength=fs->prefixLength(*this->path);
             filePath=NULL;
         }
 
@@ -78,16 +78,16 @@ namespace jcpp{
             } else {
                 this->path = new JString(fs->resolve(fs->normalize(parent),fs->normalize(child)));
             }
-            this->prefixLength = fs->prefixLength(this->path->getString());
+            this->prefixLength = fs->prefixLength(this->path);
         }
 
         JFile::JFile(JFile* parent,JString child){
-            if (parent->path->getString()=="") {
+            if ((*parent->path)=="") {
                 this->path = new JString(fs->resolve(fs->getDefaultParent(),fs->normalize(child)));
             } else {
-                this->path = new JString(fs->resolve(parent->path->getString(),fs->normalize(child)));
+                this->path = new JString(fs->resolve(parent->path,fs->normalize(child)));
             }
-            this->prefixLength = fs->prefixLength(this->path->getString());
+            this->prefixLength = fs->prefixLength(this->path);
         }
 
         jint JFile::getPrefixLength(){

@@ -1,9 +1,11 @@
 #ifndef JINETADDRESS_H
 #define JINETADDRESS_H
 
-#include "JLANG.h"
-#include "JIO.h"
 #include "JCPP.h"
+#include "JString.h"
+#include "JPrimitiveInt.h"
+#include "JObject.h"
+#include "JSerializable.h"
 
 //TODO implement other
 namespace jcpp{
@@ -14,33 +16,38 @@ namespace jcpp{
             JPrimitiveInt* address;
             JPrimitiveInt* family;
             JInetAddress(JClass* _class);
+            virtual JPrimitiveInt* getPAddress();
+            virtual void setPAddress(JPrimitiveInt* a);
+            virtual JPrimitiveInt* getPFamily();
+            virtual void setPFamily(JPrimitiveInt* f);
+            friend class JInetAddressClass;
 
         public:
             static const int IPv4 = 1;
             static const int IPv6 = 2;
             JInetAddress();
-            JInetAddress(JString* host);
+            JInetAddress(JString host);
             static JInetAddress* getByName(JString host);
             static JInetAddress* getLocalHost();
             static JClass* getClazz();
-            JString* getHostName();
-            void setHostName(JString* h);
-            JPrimitiveInt* getAddress();
-            void setAddress(JPrimitiveInt* a);
-            JPrimitiveInt* getFamily();
-            void setFamily(JPrimitiveInt* f);
-            bool isAnyLocalAddress();
-            bool isLinkLocalAddress();
-            bool isLoopbackAddress();
-            bool isMCGlobal();
-            bool isMCLinkLocal();
-            bool isMCNodeLocal();
-            bool isMCOrgLocal();
-            bool isMCSiteLocal();
-            bool isMulticastAddress();
-            bool isReachable(int timeout);
-            bool isSiteLocalAddress();
-            virtual bool equals(JObject* other);//TODO hashcode
+            virtual JString* getHostName();
+            virtual void setHostName(JString* h);
+            virtual jint getAddress();
+            virtual void setAddress(jint a);
+            virtual jint getFamily();
+            virtual void setFamily(jint f);
+            virtual jbool isAnyLocalAddress();
+            virtual jbool isLinkLocalAddress();
+            virtual jbool isLoopbackAddress();
+            virtual jbool isMCGlobal();
+            virtual jbool isMCLinkLocal();
+            virtual jbool isMCNodeLocal();
+            virtual jbool isMCOrgLocal();
+            virtual jbool isMCSiteLocal();
+            virtual jbool isMulticastAddress();
+            virtual jbool isReachable(jint timeout);
+            virtual jbool isSiteLocalAddress();
+            virtual jbool equals(JObject* other);//TODO hashcode
             virtual JString toString();
             virtual ~JInetAddress();
         };

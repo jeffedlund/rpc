@@ -7,6 +7,7 @@
 #include "JBoolean.h"
 #include "JObjectInputStream.h"
 #include "JObjectOutputStream.h"
+#include "JVoid.h"
 
 namespace jcpp{
     namespace lang{
@@ -250,9 +251,9 @@ namespace jcpp{
             return this;
         }
 
-        JString* JStringBuffer::substring(jint start){
+        JString JStringBuffer::substring(jint start){
             lock();
-            JString* str=JAbstractStringBuilder::substring(start);
+            JString str=JAbstractStringBuilder::substring(start);
             unlock();
             return str;
         }
@@ -264,9 +265,9 @@ namespace jcpp{
             return s;
         }
 
-        JString* JStringBuffer::substring(jint start,jint end){
+        JString JStringBuffer::substring(jint start,jint end){
             lock();
-            JString* str=JAbstractStringBuilder::substring(start,end);
+            JString str=JAbstractStringBuilder::substring(start,end);
             unlock();
             return str;
         }

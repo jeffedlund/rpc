@@ -1,13 +1,15 @@
 #ifndef JSERVERSOCKET_H
 #define JSERVERSOCKET_H
 
-#include "JLANG.h"
 #include "JInetAddress.h"
-#include "JIO.h"
 #include <QTcpSocket>
 #include <QTcpServer>
 #include "JSocket.h"
 #include "JCPP.h"
+#include "JInputStream.h"
+#include "JOutputStream.h"
+#include "JObject.h"
+#include "QObjectAware.h"
 
 namespace jcpp{
     namespace net{
@@ -15,44 +17,37 @@ namespace jcpp{
 
         class JCPP_LIBRARY_EXPORT JServerSocket : public JObject, public QObjectAware{
         protected:
-            bool bIsClosed;
+            jbool bIsClosed;
             JString* host;
             JPrimitiveInt* port;
             JPrimitiveInt* backlog;
             JInetAddress* localInetAddress;
             QTcpServer* server;
-            JServerSocket(JString* host, JPrimitiveInt* port,JPrimitiveInt* backlog,JClass* _class);
+            JServerSocket(JString host, jint port,jint backlog,JClass* _class);
             bool isListening();
             bool waitForNewConnection(int m, bool* t);
             QTcpSocket* nextPendingConnection();
 
         public:
-            JServerSocket(JString* host, JPrimitiveInt* port,JPrimitiveInt* backlog);
+            JServerSocket(JString host, jint port,jint backlog);
             static JClass* getClazz();
-
             virtual void takeOwner();
             virtual void releaseOwner();
             virtual QObject* getQObject();
             virtual JInetAddress* getInetAddress();
-            virtual JPrimitiveInt* getLocalPort();
+            virtual jint getLocalPort();
             virtual void connect();
             virtual JSocket* accept();
-
-            virtual void setSoTimeout(int s);
-            virtual int getSoTimeout();
-
-            virtual void setReuseAddress(bool on);
-            virtual bool getReuseAddress();
-
-            virtual void setReceiveBufferSize(int size);
-            virtual int getReceiveBufferSize();
-
+            virtual void setSoTimeout(jint s);
+            virtual jint getSoTimeout();
+            virtual void setReuseAddress(jbool on);
+            virtual jbool getReuseAddress();
+            virtual void setReceiveBufferSize(jint size);
+            virtual jint getReceiveBufferSize();
             //TODO static setSocketFactory()
-
             virtual void close();
-            virtual bool isClosed();
+            virtual jbool isClosed();
             virtual ~JServerSocket();
-
         };
     }
 }

@@ -9,7 +9,7 @@ namespace jcpp{
             objects=new map<QObject*,Present*>();
         }
 
-        static QObjectHolder* instance;
+        static QObjectHolder* instance=NULL;
 
         QObjectHolder* QObjectHolder::getQObjectHolder(){
             if (instance==NULL){

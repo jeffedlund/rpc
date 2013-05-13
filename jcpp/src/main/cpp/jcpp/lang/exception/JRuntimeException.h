@@ -17,7 +17,6 @@ namespace jcpp{
             JRuntimeException();
             JRuntimeException(JString message);
             JRuntimeException(JString message,JThrowable* cause);
-
             static JClass* getClazz();
             virtual ~JRuntimeException();
         };

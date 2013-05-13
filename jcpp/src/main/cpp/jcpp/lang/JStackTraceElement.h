@@ -18,20 +18,23 @@ namespace jcpp{
             JString* methodName;
             JString* fileName;
             JPrimitiveInt* lineNumber;
+            JPrimitiveInt* getPLineNumber();
+            void setPLineNumber(JPrimitiveInt* lineNumber);
+            friend class JStackTraceElementClass;
 
         public:
             JStackTraceElement();
-            JStackTraceElement(JString* declaringClass,JString* methodName,JString* fileName,JPrimitiveInt* lineNumber);
+            JStackTraceElement(JString declaringClass,JString methodName,JString fileName,jint lineNumber);
             static JClass* getClazz();
             JString* getDeclaringClass();
-            void setDeclaringClass(JString* declaringClass);//TODO hide JString and show only strin gs. use friend class
+            void setDeclaringClass(JString* declaringClass);
             JString* getMethodName();
             void setMethodName(JString* methodName);
             JString* getFileName();
             void setFileName(JString* fileName);
-            JPrimitiveInt* getLineNumber();
-            void setLineNumber(JPrimitiveInt* lineNumber);
-            virtual bool equals(JObject* other);
+            jint getLineNumber();
+            void setLineNumber(jint lineNumber);
+            virtual jbool equals(JObject* other);
             virtual jint hashCode();
             virtual JString toString();
             virtual ~JStackTraceElement();

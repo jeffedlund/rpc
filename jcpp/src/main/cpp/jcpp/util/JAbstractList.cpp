@@ -6,6 +6,10 @@
 #include "JNoSuchElementException.h"
 #include "JConcurrentModificationException.h"
 #include "JRandomAccess.h"
+#include "JIndexOutOfBoundsException.h"
+#include "JIllegalStateException.h"
+#include "JUnsupportedOperationException.h"
+#include "JIllegalArgumentException.h"
 using namespace std;
 
 namespace jcpp{

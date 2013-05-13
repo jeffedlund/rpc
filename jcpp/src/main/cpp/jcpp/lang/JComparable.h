@@ -12,8 +12,6 @@ namespace jcpp{
         class JObject;
 
         class JCPP_LIBRARY_EXPORT JComparable : public JInterface{
-        protected:
-
         public:
             static JClass* getClazz();
             virtual jint compareTo(JObject*)=0;

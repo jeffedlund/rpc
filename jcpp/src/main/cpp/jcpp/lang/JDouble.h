@@ -30,9 +30,9 @@ namespace jcpp{
                 static JClass* TYPE;
                 static jint hashCode(jdouble);
                 static jint compare(jdouble d1,jdouble d2);
-                JDouble operator+=(jdouble f);
-                JDouble operator-=(jdouble f);
-                JDouble operator*=(jdouble f);
+                JDouble& operator+=(jdouble f);
+                JDouble& operator-=(jdouble f);
+                JDouble& operator*=(jdouble f);
                 void set(jdouble value);
                 jdouble get();
                 virtual jbyte byteValue();

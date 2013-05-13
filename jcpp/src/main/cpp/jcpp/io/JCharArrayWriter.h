@@ -20,11 +20,10 @@ namespace jcpp{
                 virtual void write(jint c);
                 virtual void write(jchar c[], jint offset, jint len);
                 virtual void write(JString* str, jint offset, jint len);
-                virtual void write(JString str, jint offset, jint len);
                 virtual void writeTo(JWriter* out);
                 virtual JCharArrayWriter* append(JCharSequence* csq);
                 virtual JCharArrayWriter* append(JCharSequence* csq,jint offset,jint len);
-                virtual JCharArrayWriter * append(jchar c);
+                virtual JCharArrayWriter* append(jchar c);
                 virtual void reset();
                 virtual vector<jchar>* toCharArray();
                 virtual jint size();

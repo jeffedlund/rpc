@@ -12,7 +12,7 @@ namespace jcpp{
                 static JClass* getClazz();
                 virtual jchar charAt(jint i)=0;
                 virtual jint length()=0;
-                virtual JCharSequence * subSequence(jint start, jint end)=0;
+                virtual JCharSequence* subSequence(jint start, jint end)=0;
                 virtual JString toString()=0;
                 virtual ~JCharSequence();
         };

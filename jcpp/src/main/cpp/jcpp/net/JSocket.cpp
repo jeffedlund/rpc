@@ -40,18 +40,18 @@ namespace jcpp{
             this->remotePort=NULL;
         }
 
-        JSocket::JSocket(JString* host, JPrimitiveInt* port,jint timeout){
+        JSocket::JSocket(JString host, jint port,jint timeout){
             this->bIsClosed=false;
-            this->host=host;
-            this->port=port;
+            this->host=new JString(host);
+            this->port=new JPrimitiveInt(port);
             this->socket=new QTcpSocket();
-            socket->connectToHost(QString::fromStdString(host->getString()),port->get());
+            socket->connectToHost(QString::fromStdString(this->host->getString()),this->port->get());
             while (!socket->waitForConnected(300000)){//TODO use timeout
                 timeout=timeout;
                 //throw new JIOException("cannot connect to hot "+host->toString()+" port "+port->toString());
             }
-            this->localInetAddress=new JInetAddress(new JString(socket->localAddress().toString().toStdString()));
-            this->remoteInetAddress=new JInetAddress(new JString(socket->peerAddress().toString().toStdString()));
+            this->localInetAddress=new JInetAddress(socket->localAddress().toString().toStdString());
+            this->remoteInetAddress=new JInetAddress(socket->peerAddress().toString().toStdString());
             this->in=new QtDataInputStream(new QDataStream(socket));
             this->out=new QtDataOutputStream(new QDataStream(socket),socket);
             this->remotePort=new JPrimitiveInt(socket->peerPort());
@@ -59,11 +59,11 @@ namespace jcpp{
 
         JSocket::JSocket(QTcpSocket* socket, JServerSocket* serverSocket){
             this->bIsClosed=false;
-            this->host=serverSocket->getInetAddress()->getHostName();
-            this->port=serverSocket->getLocalPort();
+            this->host=new JString(serverSocket->getInetAddress()->getHostName());
+            this->port=new JPrimitiveInt(serverSocket->getLocalPort());
             this->socket=socket;
-            this->localInetAddress=new JInetAddress(new JString(socket->localAddress().toString().toStdString()));
-            this->remoteInetAddress=new JInetAddress(new JString(socket->peerAddress().toString().toStdString()));
+            this->localInetAddress=new JInetAddress(socket->localAddress().toString().toStdString());
+            this->remoteInetAddress=new JInetAddress(socket->peerAddress().toString().toStdString());
             this->in=new QtDataInputStream(new QDataStream(this->socket));
             this->out=new QtDataOutputStream(new QDataStream(this->socket),this->socket);
             this->remotePort=new JPrimitiveInt(socket->peerPort());
@@ -89,12 +89,12 @@ namespace jcpp{
             return localInetAddress;
         }
 
-        JPrimitiveInt* JSocket::getPort(){
-            return remotePort;
+        jint JSocket::getPort(){
+            return remotePort->get();
         }
 
-        JPrimitiveInt* JSocket::getLocalPort(){
-            return this->port;
+        jint JSocket::getLocalPort(){
+            return this->port->get();
         }
 
         JInputStream* JSocket::getInputStream(){
@@ -105,7 +105,7 @@ namespace jcpp{
             return out;
         }
 
-        void JSocket::setTcpNoDelay(bool on){
+        void JSocket::setTcpNoDelay(jbool on){
             socket->setSocketOption(QAbstractSocket::LowDelayOption,QVariant(on));
         }
 
@@ -115,72 +115,72 @@ namespace jcpp{
         }
 
         //TODO
-        void JSocket::setSoLinger(bool, int){
+        void JSocket::setSoLinger(jbool, jint){
         }
 
         //TODO
-        int JSocket::getSoLinger(){
+        jint JSocket::getSoLinger(){
             return 0;
         }
 
         //TODO
-        void JSocket::setOOBInline(bool){
+        void JSocket::setOOBInline(jbool){
         }
 
         //TODO
-        bool JSocket::getOOBInline(){
+        jbool JSocket::getOOBInline(){
             return false;
         }
 
-        void JSocket::setSoTimeout(int){
+        void JSocket::setSoTimeout(jint){
         }
 
         //TODO
-        int JSocket::getSoTimeout(){
+        jint JSocket::getSoTimeout(){
             return 0;
         }
 
         //TODO
-        void JSocket::setSendBufferSize(int){
+        void JSocket::setSendBufferSize(jint){
         }
 
         //TODO
-        int JSocket::getSendBufferSize(){
+        jint JSocket::getSendBufferSize(){
             return 0;
         }
 
-        void JSocket::setReceiveBufferSize(int size){
+        void JSocket::setReceiveBufferSize(jint size){
             socket->setReadBufferSize(size);
         }
 
-        int JSocket::getReceiveBufferSize(){
+        jint JSocket::getReceiveBufferSize(){
             return socket->readBufferSize();
         }
 
-        void JSocket::setKeepAlive(bool on){
+        void JSocket::setKeepAlive(jbool on){
             socket->setSocketOption(QAbstractSocket::KeepAliveOption, QVariant(on));
         }
 
-        bool JSocket::getKeepAlive(){
+        jbool JSocket::getKeepAlive(){
             QVariant v=socket->socketOption(QAbstractSocket::KeepAliveOption);
             return v.toBool();
         }
 
         //TODO
-        void JSocket::setTrafficClass(int){
+        void JSocket::setTrafficClass(jint){
         }
 
         //TODO
-        int JSocket::getTrafficClass(){
+        jint JSocket::getTrafficClass(){
             return 0;
         }
 
         //TODO
-        void JSocket::setReuseAddress(bool){
+        void JSocket::setReuseAddress(jbool){
         }
 
         //TODO
-        bool JSocket::getReuseAddress(){
+        jbool JSocket::getReuseAddress(){
             return false;
         }
 
@@ -203,7 +203,7 @@ namespace jcpp{
             unlock();
         }
 
-        bool JSocket::isClosed(){
+        jbool JSocket::isClosed(){
             lock();
             jbool b=bIsClosed;
             unlock();
@@ -212,6 +212,8 @@ namespace jcpp{
 
         JSocket::~JSocket() {
             QObjectHolder::getQObjectHolder()->deleteObject(getQObject());
+            delete host;
+            delete port;
             delete socket;
             delete localInetAddress;
             delete remoteInetAddress;

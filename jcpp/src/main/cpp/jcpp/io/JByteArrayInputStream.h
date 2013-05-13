@@ -20,9 +20,9 @@ namespace jcpp{
                 virtual jlong skip(jlong l);
                 virtual jint available();
                 virtual jbool markSupported();
-                virtual void  mark(jint m);
-                virtual void  reset();
-                virtual void  close();
+                virtual void mark(jint m);
+                virtual void reset();
+                virtual void close();
                 virtual ~JByteArrayInputStream();
         };
     }

@@ -3,6 +3,7 @@
 #include <cstdio>
 #include "JInstantiationException.h"
 #include <sstream>
+#include "JUnsupportedOperationException.h"
 
 namespace jcpp{
     namespace util{

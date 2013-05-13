@@ -15,7 +15,6 @@ using namespace jcpp::io;
 namespace jcpp{
     namespace lang{
         class JCPP_LIBRARY_EXPORT JPrimitiveChar : public JObject, public JComparable, public JSerializable{
-
             protected:
                 jchar value;
 

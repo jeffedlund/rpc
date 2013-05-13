@@ -16,9 +16,7 @@ namespace jcpp{
             JError();
             JError(JString message);
             JError(JString message, JThrowable *cause);
-
             static JClass* getClazz();
-
             virtual ~JError();
         };
     }

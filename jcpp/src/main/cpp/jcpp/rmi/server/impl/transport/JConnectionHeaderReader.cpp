@@ -4,6 +4,7 @@
 #include "JConnection.h"
 #include "JITransportDispatcher.h"
 #include "JIGatewaySocket.h"
+#include "JEOFException.h"
 using namespace jcpp::io;
 using namespace jcpp::lang;
 

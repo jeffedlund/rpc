@@ -76,7 +76,7 @@ namespace jcpp{
             this->value=new JPrimitiveInt(0);
         }
 
-        bool JInteger::equals(JObject* other){
+        jbool JInteger::equals(JObject* other){
             if (other->getClass()==getClazz()){
                 JInteger* s=dynamic_cast<JInteger*>(other);
                 return (*value)==(*s->value);
@@ -84,17 +84,17 @@ namespace jcpp{
             return false;
         }
 
-        JInteger JInteger::operator+=(jint f){
+        JInteger& JInteger::operator+=(jint f){
             (*value)+=f;
             return *this;
         }
 
-        JInteger JInteger::operator-=(jint f){
+        JInteger& JInteger::operator-=(jint f){
             (*value)-=f;
             return *this;
         }
 
-        JInteger JInteger::operator*=(jint f){
+        JInteger& JInteger::operator*=(jint f){
             (*value)*=f;
             return *this;
         }

@@ -103,22 +103,8 @@ namespace jcpp{
             this->suppressedExceptions=NULL;
         }
 
-        JThrowable::JThrowable(JString* message):JObject(getClazz()){
-            this->message = message;
-            this->cause=NULL;
-            this->stackTrace=NULL;
-            this->suppressedExceptions=NULL;
-        }
-
         JThrowable::JThrowable(JString message, JThrowable *cause):JObject(getClazz()){
             this->message = new JString(message);
-            this->cause = cause;
-            this->stackTrace=NULL;
-            this->suppressedExceptions=NULL;
-        }
-
-        JThrowable::JThrowable(JString* message, JThrowable *cause):JObject(getClazz()){
-            this->message = message;
             this->cause = cause;
             this->stackTrace=NULL;
             this->suppressedExceptions=NULL;
@@ -188,17 +174,14 @@ namespace jcpp{
         }
 
         void JThrowable::printStackTrace(ostream* os){//TODO JSystem.out
-            JString str=toString()+"\r\n";
-            (*os)<<str;
+            (*os)<<toString()<<"\r\n";//TODO use lineseparator property
             if (stackTrace!=NULL){
                 for (int i=0;i<stackTrace->size();i++){
                     JStackTraceElement* s=(JStackTraceElement*)stackTrace->get(i);
-                    str="\tat "+s->toString()+"\r\n";
-                    (*os)<<str;
+                    (*os)<<"\tat "<<s->toString()<<"\r\n";
                 }
                 if (getCause()!=NULL && getCause()!=this){
-                    str="Caused by:\r\n";
-                    (*os)<<str;
+                    (*os)<<"Caused by:\r\n";
                     getCause()->printStackTrace(os);
                 }
             }
@@ -217,13 +200,24 @@ namespace jcpp{
         }
 
         JString JThrowable::toString(){
-            return JString(getClass()->getName()+":"+(message!=NULL?message->getString():""));
+            JString str("");
+            str<<getClass()->getName()<<":";
+            if (message!=NULL){
+                str<<*message;
+            }
+            return str;
         }
 
         JThrowable::~JThrowable(){
-            delete stackTrace;
-            delete cause;
-            delete message;
+            if (stackTrace!=NULL){
+                delete stackTrace;
+            }
+            if (cause!=NULL){
+                delete cause;
+            }
+            if (message!=NULL){
+                delete message;
+            }
             if (suppressedExceptions!=NULL){
                 delete suppressedExceptions;
             }

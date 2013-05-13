@@ -22,9 +22,9 @@ namespace jcpp{
                 virtual jlong skip(jlong n);
                 virtual jbool ready();
                 virtual jbool markSupported();
-                virtual void  mark(jint m);
-                virtual void  reset();
-                virtual void  close();
+                virtual void mark(jint m);
+                virtual void reset();
+                virtual void close();
                 virtual ~JCharArrayReader();
         };
     }

@@ -9,47 +9,47 @@ using namespace std;
 
 namespace jcpp{
     namespace lang{
-        static JObject* staticGetDeclaringClass(JObject* object){
-            JStackTraceElement* e=(JStackTraceElement*)object;
-            return e->getDeclaringClass();
-        }
-
-        static void staticSetDeclaringClass(JObject* object,JObject* value){
-            JStackTraceElement* th=(JStackTraceElement*)object;
-            th->setDeclaringClass((JString*)value);
-        }
-
-        static JObject* getMethodName(JObject* object){
-            JStackTraceElement* e=(JStackTraceElement*)object;
-            return e->getMethodName();
-        }
-
-        static void setMethodName(JObject* object,JObject* value){
-            JStackTraceElement* th=(JStackTraceElement*)object;
-            th->setMethodName((JString*)value);
-        }
-
-        static JObject* getFileName(JObject* object){
-            JStackTraceElement* e=(JStackTraceElement*)object;
-            return e->getFileName();
-        }
-
-        static void setFileName(JObject* object,JObject* value){
-            JStackTraceElement* th=(JStackTraceElement*)object;
-            th->setFileName((JString*)value);
-        }
-
-        static JObject* getLineNumber(JObject* object){
-            JStackTraceElement* e=(JStackTraceElement*)object;
-            return e->getLineNumber();
-        }
-
-        static void setLineNumber(JObject* object,JObject* value){
-            JStackTraceElement* th=(JStackTraceElement*)object;
-            th->setLineNumber((JPrimitiveInt*)value);
-        }
-
         class JStackTraceElementClass : public JClass{
+            protected:
+                static JObject* staticGetDeclaringClass(JObject* object){
+                    JStackTraceElement* e=(JStackTraceElement*)object;
+                    return e->getDeclaringClass();
+                }
+
+                static void staticSetDeclaringClass(JObject* object,JObject* value){
+                    JStackTraceElement* th=(JStackTraceElement*)object;
+                    th->setDeclaringClass((JString*)value);
+                }
+
+                static JObject* getMethodName(JObject* object){
+                    JStackTraceElement* e=(JStackTraceElement*)object;
+                    return e->getMethodName();
+                }
+
+                static void setMethodName(JObject* object,JObject* value){
+                    JStackTraceElement* th=(JStackTraceElement*)object;
+                    th->setMethodName((JString*)value);
+                }
+
+                static JObject* getFileName(JObject* object){
+                    JStackTraceElement* e=(JStackTraceElement*)object;
+                    return e->getFileName();
+                }
+
+                static void setFileName(JObject* object,JObject* value){
+                    JStackTraceElement* th=(JStackTraceElement*)object;
+                    th->setFileName((JString*)value);
+                }
+
+                static JObject* getLineNumber(JObject* object){
+                    JStackTraceElement* e=(JStackTraceElement*)object;
+                    return e->getPLineNumber();
+                }
+
+                static void setLineNumber(JObject* object,JObject* value){
+                    JStackTraceElement* th=(JStackTraceElement*)object;
+                    th->setPLineNumber((JPrimitiveInt*)value);
+                }
           public:
             JStackTraceElementClass():JClass(){
                 this->canonicalName="java.lang.StackTraceElement";
@@ -88,14 +88,14 @@ namespace jcpp{
             lineNumber=NULL;
         }
 
-        JStackTraceElement::JStackTraceElement(JString* declaringClass,JString* methodName,JString* fileName,JPrimitiveInt* lineNumber):JObject(getClazz()){
-            this->declaringClass=declaringClass;
-            this->methodName=methodName;
-            this->fileName=fileName;
-            this->lineNumber=lineNumber;
+        JStackTraceElement::JStackTraceElement(JString declaringClass,JString methodName,JString fileName,jint lineNumber):JObject(getClazz()){
+            this->declaringClass=new JString(declaringClass);
+            this->methodName=new JString(methodName);
+            this->fileName=new JString(fileName);
+            this->lineNumber=new JPrimitiveInt(lineNumber);
         }
 
-        bool JStackTraceElement::equals(JObject* other){
+        jbool JStackTraceElement::equals(JObject* other){
             if (other->getClass()!=JStackTraceElement::getClazz()){
                 return false;
             }
@@ -170,15 +170,23 @@ namespace jcpp{
             this->fileName=fileName;
         }
 
-        JPrimitiveInt* JStackTraceElement::getLineNumber(){
+        JPrimitiveInt* JStackTraceElement::getPLineNumber(){
             return lineNumber;
         }
 
-        void JStackTraceElement::setLineNumber(JPrimitiveInt* lineNumber){
+        void JStackTraceElement::setPLineNumber(JPrimitiveInt* lineNumber){
             if (this->lineNumber!=NULL){
                 delete this->lineNumber;
             }
             this->lineNumber=lineNumber;
+        }
+
+        jint JStackTraceElement::getLineNumber(){
+            return lineNumber->get();
+        }
+
+        void JStackTraceElement::setLineNumber(jint lineNumber){
+            this->lineNumber->set(lineNumber);
         }
 
         jint JStackTraceElement::hashCode(){
@@ -191,7 +199,7 @@ namespace jcpp{
         JString JStackTraceElement::toString(){
             JString ss;
             ss<<getDeclaringClass()->getString()<<"."<<getMethodName()->getString();
-            ss<<"("<<getFileName()->getString()<<":"<<getLineNumber()->toString()<<")";
+            ss<<"("<<getFileName()->getString()<<":"<<getPLineNumber()->toString()<<")";
             return ss;
         }
 

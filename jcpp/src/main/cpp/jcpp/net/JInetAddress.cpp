@@ -3,37 +3,37 @@
 
 namespace jcpp{
     namespace net{
-        static JObject* staticGetHostName(JObject* object){
-            JInetAddress* s=(JInetAddress*)object;
-            return s->getHostName();
-        }
-
-        static void staticSetHostName(JObject* object,JObject* value){
-            JInetAddress* s=(JInetAddress*)object;
-            s->setHostName((JString*)value);
-        }
-
-        static JObject* staticGetAddress(JObject* object){
-            JInetAddress* s=(JInetAddress*)object;
-            return s->getAddress();
-        }
-
-        static void staticSetAddress(JObject* object,JObject* value){
-            JInetAddress* s=(JInetAddress*)object;
-            s->setAddress((JPrimitiveInt*)value);
-        }
-
-        static JObject* staticGetFamily(JObject* object){
-            JInetAddress* s=(JInetAddress*)object;
-            return s->getFamily();
-        }
-
-        static void staticSetFamily(JObject* object,JObject* value){
-            JInetAddress* s=(JInetAddress*)object;
-            s->setFamily((JPrimitiveInt*)value);
-        }
-
         class JInetAddressClass : public JClass{
+        protected:
+            static JObject* staticGetHostName(JObject* object){
+                JInetAddress* s=(JInetAddress*)object;
+                return s->getHostName();
+            }
+
+            static void staticSetHostName(JObject* object,JObject* value){
+                JInetAddress* s=(JInetAddress*)object;
+                s->setHostName((JString*)value);
+            }
+
+            static JObject* staticGetAddress(JObject* object){
+                JInetAddress* s=(JInetAddress*)object;
+                return s->getPAddress();
+            }
+
+            static void staticSetAddress(JObject* object,JObject* value){
+                JInetAddress* s=(JInetAddress*)object;
+                s->setPAddress((JPrimitiveInt*)value);
+            }
+
+            static JObject* staticGetFamily(JObject* object){
+                JInetAddress* s=(JInetAddress*)object;
+                return s->getPFamily();
+            }
+
+            static void staticSetFamily(JObject* object,JObject* value){
+                JInetAddress* s=(JInetAddress*)object;
+                s->setPFamily((JPrimitiveInt*)value);
+            }
         public:
           JInetAddressClass(){
               this->canonicalName="java.net.InetAddress";
@@ -64,7 +64,7 @@ namespace jcpp{
             return clazz;
         }
 
-        bool JInetAddress::equals(JObject* other){
+        jbool JInetAddress::equals(JObject* other){
             if (!(other->getClazz()==getClass())){
                 return false;
             }
@@ -84,8 +84,8 @@ namespace jcpp{
             this->family=NULL;
         }
 
-        JInetAddress::JInetAddress(JString* host):JObject(getClazz()){
-            this->hostName=host;
+        JInetAddress::JInetAddress(JString host):JObject(getClazz()){
+            this->hostName=new JString(host);
             this->address=NULL;
             this->family=NULL;
         }
@@ -113,66 +113,82 @@ namespace jcpp{
             this->hostName=h;
         }
 
-        JPrimitiveInt* JInetAddress::getAddress(){
+        JPrimitiveInt* JInetAddress::getPAddress(){
             return this->address;
         }
 
-        void JInetAddress::setAddress(JPrimitiveInt* a){
+        void JInetAddress::setPAddress(JPrimitiveInt* a){
             delete this->address;
             this->address=a;
         }
 
-        JPrimitiveInt* JInetAddress::getFamily(){
+        JPrimitiveInt* JInetAddress::getPFamily(){
             return family;
         }
 
-        void JInetAddress::setFamily(JPrimitiveInt* f){
+        void JInetAddress::setPFamily(JPrimitiveInt* f){
             delete this->family;
             this->family=f;
         }
 
+        jint JInetAddress::getAddress(){
+            return this->address->get();
+        }
+
+        void JInetAddress::setAddress(jint a){
+            this->address->set(a);
+        }
+
+        jint JInetAddress::getFamily(){
+            return family->get();
+        }
+
+        void JInetAddress::setFamily(jint f){
+            this->family->set(f);
+        }
+
         //TODO all these ones
-        bool JInetAddress::isAnyLocalAddress(){
+        jbool JInetAddress::isAnyLocalAddress(){
             return false;
         }
 
-        bool JInetAddress::isLinkLocalAddress(){
+        jbool JInetAddress::isLinkLocalAddress(){
             return false;
         }
 
-        bool JInetAddress::isLoopbackAddress(){
+        jbool JInetAddress::isLoopbackAddress(){
             return false;
         }
 
-        bool JInetAddress::isMCGlobal(){
+        jbool JInetAddress::isMCGlobal(){
             return false;
         }
 
-        bool JInetAddress::isMCLinkLocal(){
+        jbool JInetAddress::isMCLinkLocal(){
             return false;
         }
 
-        bool JInetAddress::isMCNodeLocal(){
+        jbool JInetAddress::isMCNodeLocal(){
             return false;
         }
 
-        bool JInetAddress::isMCOrgLocal(){
+        jbool JInetAddress::isMCOrgLocal(){
             return false;
         }
 
-        bool JInetAddress::isMCSiteLocal(){
+        jbool JInetAddress::isMCSiteLocal(){
             return false;
         }
 
-        bool JInetAddress::isMulticastAddress(){
+        jbool JInetAddress::isMulticastAddress(){
             return false;
         }
 
-        bool JInetAddress::isReachable(int){
+        jbool JInetAddress::isReachable(int){
             return false;
         }
 
-        bool JInetAddress::isSiteLocalAddress(){
+        jbool JInetAddress::isSiteLocalAddress(){
             return false;
         }
 

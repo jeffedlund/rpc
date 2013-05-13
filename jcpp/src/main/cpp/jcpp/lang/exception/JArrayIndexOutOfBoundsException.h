@@ -13,8 +13,6 @@ namespace jcpp{
         public:
             JArrayIndexOutOfBoundsException();
             JArrayIndexOutOfBoundsException(JString message);
-            JArrayIndexOutOfBoundsException(JString* message);
-
             static JClass* getClazz();
             virtual ~JArrayIndexOutOfBoundsException();
         };

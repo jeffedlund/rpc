@@ -5,6 +5,10 @@
 #include "JNoSuchElementException.h"
 #include "JConcurrentModificationException.h"
 #include "Object.h"
+#include "JVoid.h"
+#include "JIllegalStateException.h"
+#include "JIndexOutOfBoundsException.h"
+#include "JIllegalArgumentException.h"
 
 namespace jcpp{
     namespace util{

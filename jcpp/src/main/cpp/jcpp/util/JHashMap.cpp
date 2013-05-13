@@ -6,6 +6,8 @@
 #include "JConcurrentModificationException.h"
 #include "JAbstractSet.h"
 #include "JInvalidObjectException.h"
+#include "JVoid.h"
+#include "JIllegalArgumentException.h"
 
 namespace jcpp{
     namespace util{

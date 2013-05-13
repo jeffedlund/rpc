@@ -1,5 +1,7 @@
 group:
 ------
+-create LocalContext<JObject*> helper, JObject::NULL, JObject::isNull(), isNull(JObject*),
+-JString.isShared?
 -wiki pages on how to generate classes
 -wiki page on rmi package, samples + tutorial
 -develop java boot loading + translate it for jcpp

@@ -7,6 +7,8 @@
 #include <sstream>
 #include "JCollections.h"
 #include "JConcurrentModificationException.h"
+#include "JVoid.h"
+#include "JIllegalStateException.h"
 
 namespace jcpp{
     namespace util{

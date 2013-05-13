@@ -79,7 +79,7 @@ namespace jcpp{
         }
 
         void JAbstractStringBuilder::setCharAt(jint index,jchar c){
-            value.getString().assign(index,c);//TODO JString.setCharAt
+            value.setCharAt(index,c);
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::append(JObject* o){
@@ -91,12 +91,12 @@ namespace jcpp{
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::append(JString str){
-            value+=str;
+            value<<str;
             return this;
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::append(JStringBuffer* sb){
-            value+=sb->value;
+            value<<sb->value;
             return this;
         }
 
@@ -106,89 +106,92 @@ namespace jcpp{
 
         JAbstractStringBuilder* JAbstractStringBuilder::append(JCharSequence* s,jint start,jint end){
             for (jint i=0;i<end-start;i++){
-                value.getString().push_back(s->charAt(start+i));//TODO
+                value<<s->charAt(start+i);
             }
             return this;
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::append(jchar str[],jint offset,jint length){
             for (jint i=0;i<length;i++){
-                value.getString().push_back(str[offset+i]);//TODO
+                value<<str[offset+i];
             }
             return this;
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::append(JString str,jint offset,jint length){
             for (jint i=0;i<length;i++){
-                value.getString().push_back(str.charAt(offset+i));//TODO
+                value<<str.charAt(offset+i);
             }
             return this;
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::append(jbool b){
             if (b){
-                value+="true";
+                value<<"true";
             }else{
-                value+="false";
+                value<<"false";
             }
             return this;
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::append(jchar c){
-            value.getString().push_back(c);//TODO
+            value<<c;
             return this;
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::append(jint i){
-            value+=i;
+            value<<i;
             return this;
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::append(jlong l){
-            value+=l;
+            value<<l;
             return this;
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::append(jfloat f){
-            value+=f;
+            value<<f;
             return this;
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::append(jdouble d){
-            value+=d;
+            value<<d;
             return this;
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::deleteChar(jint start,jint end){
-            value.getString().erase(value.getString().begin()+start,value.getString().begin()+end);//TODO
+            value.deleteChar(start,end);
             return this;
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::deleteCharAt(jint index){
-            value.getString().erase(value.getString().begin()+index);//TODO
+            value.deleteChar(index,value.length());
             return this;
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::replace(jint start,jint end,JString* str){
-            value.getString().replace(value.getString().begin()+start,value.getString().begin()+end,str->getString());//TODO everything is super bugged in that class ...
+            JString s1=value.substring(start,end);
+            JString s2=value.substring(end,value.length());
+            value=s1+*str+s2;
             return this;
         }
 
-        JString* JAbstractStringBuilder::substring(jint start){
-            return new JString(value.substring(start,value.length()-start));
+        JString JAbstractStringBuilder::substring(jint start){
+            return value.substring(start,value.length()-start);
         }
 
         JCharSequence* JAbstractStringBuilder::subSequence(jint start,jint end){
-            return dynamic_cast<JCharSequence*>(substring(start,end));
+            JString* s=new JString(substring(start,end));
+            return dynamic_cast<JCharSequence*>(s);
         }
 
-        JString* JAbstractStringBuilder::substring(jint start,jint end){
-            return new JString(value.substring(start,end));
+        JString JAbstractStringBuilder::substring(jint start,jint end){
+            return value.substring(start,end);
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::insert(jint index,jchar str[],jint offset,jint len){
             for (jint i=0;i<len;i++){
-                value.getString().insert(index+i,1,str[offset+i]);
+                value.insertChar(index+i,str[offset+i]);
             }
             return this;
         }
@@ -204,15 +207,15 @@ namespace jcpp{
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::insert(jint offset,JString str){
-            for (unsigned int i=0;i<str.length();i++){
-                //value.insert(i+offset,1,str.at(i));//TODO!!!!!!!!!!
+            for (int i=0;i<str.length();i++){
+                value.insertChar(i+offset,str.charAt(i));
             }
             return this;
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::insert(jint offset,jchar str[],jint l){
             for (jint i=0;i<l;i++){
-                value.getString().insert(i+offset,1,str[i]);
+                value.insertChar(i+offset,str[i]);
             }
             return this;
         }
@@ -224,7 +227,7 @@ namespace jcpp{
 
         JAbstractStringBuilder* JAbstractStringBuilder::insert(jint offset,JCharSequence* s,jint start,jint end){
             for (jint i=0;i<end-start;i++){
-                value.getString().insert(i+offset,1,s->charAt(i));
+                value.insertChar(i+offset,s->charAt(i+start));
             }
             return this;
         }
@@ -235,64 +238,60 @@ namespace jcpp{
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::insert(jint offset,jchar c){
-            value.getString().insert(offset,1,c);
+            value.insertChar(offset,c);
             return this;
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::insert(jint offset,jint i){
-            insert(offset,""+i);
+            insert(offset,JString()<<i);
             return this;
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::insert(jint offset,jlong l){
-            insert(offset,""+l);
+            insert(offset,JString()<<l);
             return this;
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::insert(jint offset,jfloat f){
-            JString ss;
-            ss<<f;
-            insert(offset,ss);
+            insert(offset,JString()<<f);
             return this;
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::insert(jint offset,jdouble d){
-            JString ss;
-            ss<<d;
-            insert(offset,ss);
+            insert(offset,JString()<<d);
             return this;
         }
 
-        jint JAbstractStringBuilder::indexOf(JString* str){
+        jint JAbstractStringBuilder::indexOf(JString str){
             return indexOf(str,0);
         }
 
-        jint JAbstractStringBuilder::indexOf(JString* str,jint fromIndex){
-            return value.getString().find(str->getString(),fromIndex);
+        jint JAbstractStringBuilder::indexOf(JString str,jint fromIndex){
+            return value.indexOf(str,fromIndex);
         }
 
-        jint JAbstractStringBuilder::lastIndexOf(JString* str){
+        jint JAbstractStringBuilder::lastIndexOf(JString str){
             return lastIndexOf(str,0);
         }
 
-        jint JAbstractStringBuilder::lastIndexOf(JString* str,jint fromIndex){
-            return value.getString().find_last_of(str->getString(),fromIndex);
+        jint JAbstractStringBuilder::lastIndexOf(JString str,jint fromIndex){
+            return value.lastIndexOf(str,fromIndex);
         }
 
         JAbstractStringBuilder* JAbstractStringBuilder::reverse(){
-            std::reverse(value.getString().begin(), value.getString().end());
+            value=value.reverse();
             return this;
         }
 
         JString JAbstractStringBuilder::toString(){
-            return value;//TODO use JString value; or jchar[] ?
+            return value;
         }
 
         jbool JAbstractStringBuilder::equals(JObject *o){
             if (getClass()!=o->getClass()){
                 return false;
             }
-            return value==((dynamic_cast<JAbstractStringBuilder*>(o))->value);
+            return value.equals((dynamic_cast<JAbstractStringBuilder*>(o))->value);
         }
 
         JAbstractStringBuilder::~JAbstractStringBuilder(){

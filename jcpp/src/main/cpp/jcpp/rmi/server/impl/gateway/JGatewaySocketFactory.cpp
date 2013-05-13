@@ -40,7 +40,7 @@ namespace jcpp{
                         }
                     }
 
-                    JServerSocket* JGatewaySocketFactory::createServerSocket(JString* host, JPrimitiveInt* port,JGatewayConfiguration* gatewayConfiguration){
+                    JServerSocket* JGatewaySocketFactory::createServerSocket(JString host, jint port,JGatewayConfiguration* gatewayConfiguration){
                         return new JGatewayServerSocket(host,port,gatewayConfiguration);
                     }
 

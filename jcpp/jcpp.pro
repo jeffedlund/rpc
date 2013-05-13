@@ -56,9 +56,6 @@ SOURCES += \
     src/main/cpp/jcpp/lang/exception/JException.cpp \
     src/main/cpp/jcpp/lang/JString.cpp \
     src/main/cpp/jcpp/lang/JEnum.cpp \
-    src/main/cpp/jcpp/util/JArrayList.cpp \
-    src/main/cpp/jcpp/io/JSerializable.cpp \
-    src/main/cpp/jcpp/util/JHashtable.cpp \
     src/main/cpp/jcpp/lang/JPrimitiveBoolean.cpp \
     src/main/cpp/jcpp/lang/JBoolean.cpp \
     src/main/cpp/jcpp/lang/JPrimitiveByte.cpp \
@@ -74,12 +71,8 @@ SOURCES += \
     src/main/cpp/jcpp/lang/JPrimitiveLong.cpp \
     src/main/cpp/jcpp/lang/JLong.cpp \
     src/main/cpp/jcpp/lang/JPrimitiveShort.cpp \
+    src/main/cpp/jcpp/lang/JPrimitiveArray.cpp \
     src/main/cpp/jcpp/lang/JShort.cpp \
-    src/main/cpp/jcpp/io/JInputStream.cpp \
-    src/main/cpp/jcpp/io/JDataInputStream.cpp \
-    src/main/cpp/jcpp/io/QtDataInputStream.cpp \
-    src/main/cpp/jcpp/io/JObjectStreamClass.cpp \
-    src/main/cpp/jcpp/io/JObjectInputStream.cpp \
     src/main/cpp/jcpp/lang/exception/JNoSuchFieldException.cpp \
     src/main/cpp/jcpp/lang/exception/JNoSuchMethodException.cpp \
     src/main/cpp/jcpp/lang/exception/JInstantiationException.cpp \
@@ -89,61 +82,128 @@ SOURCES += \
     src/main/cpp/jcpp/lang/JStackTraceElement.cpp \
     src/main/cpp/jcpp/lang/exception/JThrowable.cpp \
     src/main/cpp/jcpp/lang/exception/JRuntimeException.cpp \
+    src/main/cpp/jcpp/lang/exception/JError.cpp \
+    src/main/cpp/jcpp/lang/exception/JVirtualMachineError.cpp \
+    src/main/cpp/jcpp/lang/exception/JInternalError.cpp \
+    src/main/cpp/jcpp/lang/exception/JIllegalStateException.cpp \
+    src/main/cpp/jcpp/lang/exception/JUnsupportedOperationException.cpp \
+    src/main/cpp/jcpp/lang/exception/JClassCastException.cpp \
+    src/main/cpp/jcpp/lang/JInterface.cpp \
+    src/main/cpp/jcpp/lang/reflect/JAccessibleObject.cpp \
+    src/main/cpp/jcpp/lang/reflect/JPackage.cpp \
+    src/main/cpp/jcpp/lang/JVoid.cpp \
+    src/main/cpp/jcpp/lang/JLANG.cpp \
+    src/main/cpp/jcpp/lang/reflect/JREFLECT.cpp \
+    src/main/cpp/jcpp/lang/JRunnable.cpp \
+    src/main/cpp/jcpp/lang/JThread.cpp \
+    src/main/cpp/jcpp/lang/QObjectAware.cpp \
+    src/main/cpp/jcpp/lang/JSystem.cpp \
+    src/main/cpp/jcpp/lang/QObjectHolder.cpp \
+    src/main/cpp/jcpp/lang/exception/JArrayIndexOutOfBoundsException.cpp \
+    src/main/cpp/jcpp/lang/JIterable.cpp \
+    src/main/cpp/jcpp/lang/JCloneable.cpp \
+    src/main/cpp/jcpp/lang/exception/JCloneNotSupportedException.cpp \
+    src/main/cpp/jcpp/lang/JComparable.cpp \
+    src/main/cpp/jcpp/lang/JThreadLocal.cpp \
+    src/main/cpp/jcpp/lang/reflect/JMember.cpp \
+    src/main/cpp/jcpp/lang/reflect/JModifier.cpp \
+    src/main/cpp/jcpp/lang/JAutoCloseable.cpp \
+    src/main/cpp/jcpp/lang/JAppendable.cpp \
+    src/main/cpp/jcpp/lang/JCharSequence.cpp \
+    src/main/cpp/jcpp/lang/JStringBuilder.cpp \
+    src/main/cpp/jcpp/lang/JStringBuffer.cpp \
+    src/main/cpp/jcpp/lang/JAbstractStringBuilder.cpp \
+    src/main/cpp/jcpp/lang/JReadable.cpp \
+    src/main/cpp/jcpp/io/JSerializable.cpp \
+    src/main/cpp/jcpp/io/JInputStream.cpp \
+    src/main/cpp/jcpp/io/JDataInputStream.cpp \
+    src/main/cpp/jcpp/io/QtDataInputStream.cpp \
+    src/main/cpp/jcpp/io/JObjectStreamClass.cpp \
+    src/main/cpp/jcpp/io/JObjectInputStream.cpp \
     src/main/cpp/jcpp/io/JUTFDataFormatException.cpp \
     src/main/cpp/jcpp/io/JIOException.cpp \
     src/main/cpp/jcpp/io/JEOFException.cpp \
-    src/main/cpp/jcpp/lang/JPrimitiveArray.cpp \
     src/main/cpp/jcpp/io/impl/SerialCallbackContext.cpp \
     src/main/cpp/jcpp/io/impl/HandleTable.cpp \
     src/main/cpp/jcpp/io/impl/HandleList.cpp \
     src/main/cpp/jcpp/io/JObjectStreamException.cpp \
     src/main/cpp/jcpp/io/JInvalidClassException.cpp \
-    src/main/cpp/jcpp/lang/exception/JError.cpp \
-    src/main/cpp/jcpp/lang/exception/JVirtualMachineError.cpp \
-    src/main/cpp/jcpp/lang/exception/JInternalError.cpp \
     src/main/cpp/jcpp/io/JStreamCorruptedException.cpp \
     src/main/cpp/jcpp/io/JOptionalDataException.cpp \
     src/main/cpp/jcpp/io/JNotActiveException.cpp \
-    src/main/cpp/jcpp/lang/exception/JIllegalStateException.cpp \
-    src/main/cpp/jcpp/lang/exception/JUnsupportedOperationException.cpp \
-    src/main/cpp/jcpp/lang/exception/JClassCastException.cpp \
     src/main/cpp/jcpp/io/JOutputStream.cpp \
     src/main/cpp/jcpp/io/JDataOutputStream.cpp \
     src/main/cpp/jcpp/io/impl/OutputHandleTable.cpp \
     src/main/cpp/jcpp/io/JObjectOutputStream.cpp \
     src/main/cpp/jcpp/io/JObjectStreamField.cpp \
-    src/main/cpp/jcpp/lang/JVoid.cpp \
     src/main/cpp/jcpp/io/JExternalizable.cpp \
     src/main/cpp/jcpp/io/JNotSerializableException.cpp \
     src/main/cpp/jcpp/io/QtDataOutputStream.cpp \
-    src/main/cpp/jcpp/lang/JInterface.cpp \
-    src/main/cpp/jcpp/lang/reflect/JAccessibleObject.cpp \
-    src/main/cpp/jcpp/lang/reflect/JPackage.cpp \
     src/main/cpp/jcpp/io/JIO.cpp \
-    src/main/cpp/jcpp/lang/JLANG.cpp \
-    src/main/cpp/jcpp/lang/reflect/JREFLECT.cpp \
+    src/main/cpp/jcpp/io/JWriter.cpp \
+    src/main/cpp/jcpp/io/JStringWriter.cpp \
+    src/main/cpp/jcpp/io/JBufferedWriter.cpp \
+    src/main/cpp/jcpp/io/JByteArrayInputStream.cpp \
+    src/main/cpp/jcpp/io/JByteArrayOutputStream.cpp \
+    src/main/cpp/jcpp/io/JCharArrayWriter.cpp \
+    src/main/cpp/jcpp/io/JOutputStreamWriter.cpp \
+    src/main/cpp/jcpp/io/JStringBufferInputStream.cpp \
+    src/main/cpp/jcpp/io/JSequenceInputStream.cpp \
+    src/main/cpp/jcpp/io/JSerializablePermission.cpp \
+    src/main/cpp/jcpp/io/JPushbackInputStream.cpp \
+    src/main/cpp/jcpp/io/JPipedOutputStream.cpp \
+    src/main/cpp/jcpp/io/JPipedInputStream.cpp \
+    src/main/cpp/jcpp/io/JReader.cpp \
+    src/main/cpp/jcpp/io/JStringReader.cpp \
+    src/main/cpp/jcpp/io/JFilterWriter.cpp \
+    src/main/cpp/jcpp/io/JFilterReader.cpp \
+    src/main/cpp/jcpp/io/JBufferedReader.cpp \
+    src/main/cpp/jcpp/io/JCharArrayReader.cpp \
+    src/main/cpp/jcpp/io/JPushbackReader.cpp \
+    src/main/cpp/jcpp/io/JPipedWriter.cpp \
+    src/main/cpp/jcpp/io/JPipedReader.cpp \
+    src/main/cpp/jcpp/io/JInputStreamReader.cpp \
+    src/main/cpp/jcpp/io/JLineNumberReader.cpp \
+    src/main/cpp/jcpp/io/JFile.cpp \
+    src/main/cpp/jcpp/io/JFileFilter.cpp \
+    src/main/cpp/jcpp/io/JFilenameFilter.cpp \
+    src/main/cpp/jcpp/io/JIOFileSystem.cpp \
+    src/main/cpp/jcpp/io/JFileOutputStream.cpp \
+    src/main/cpp/jcpp/io/JFileInputStream.cpp \
+    src/main/cpp/jcpp/io/JFileWriter.cpp \
+    src/main/cpp/jcpp/io/JFileReader.cpp \
+    src/main/cpp/jcpp/io/JDefaultFileSystem.cpp \
+    src/main/cpp/jcpp/io/JWinNTFileSystem.cpp \
+    src/main/cpp/jcpp/io/JObjectStreamConstants.cpp \
+    src/main/cpp/jcpp/io/JFilterInputStream.cpp \
+    src/main/cpp/jcpp/io/JFilterOutputStream.cpp \
+    src/main/cpp/jcpp/io/JBufferedInputStream.cpp \
+    src/main/cpp/jcpp/io/JBufferedOutputStream.cpp \
+    src/main/cpp/jcpp/io/JInvalidObjectException.cpp \
+    src/main/cpp/jcpp/io/impl/JBlockDataInputStream.cpp \
+    src/main/cpp/jcpp/io/impl/JBlockDataOutputStream.cpp \
+    src/main/cpp/jcpp/io/JDataInput.cpp \
+    src/main/cpp/jcpp/io/JDataOutput.cpp \
+    src/main/cpp/jcpp/io/JObjectInput.cpp \
+    src/main/cpp/jcpp/io/JObjectOutput.cpp \
+    src/main/cpp/jcpp/io/JBits.cpp \
+    src/main/cpp/jcpp/io/JFlushable.cpp \
+    src/main/cpp/jcpp/io/JCloseable.cpp \
+    src/main/cpp/jcpp/io/JObjectInputValidation.cpp \
+    src/main/cpp/jcpp/io/JIOError.cpp \
+    src/main/cpp/jcpp/io/JWriteAbortedException.cpp \
+    src/main/cpp/jcpp/io/JUnsupportedEncodingException.cpp \
+    src/main/cpp/jcpp/io/JSyncFailedException.cpp \
+    src/main/cpp/jcpp/io/JInterruptedIOException.cpp \
+    src/main/cpp/jcpp/io/JFileNotFoundException.cpp \
+    src/main/cpp/jcpp/io/JCharConversionException.cpp \
+    src/main/cpp/jcpp/util/JArrayList.cpp \
+    src/main/cpp/jcpp/util/JHashtable.cpp \
     src/main/cpp/jcpp/util/JUTIL.cpp \
-    src/main/cpp/jcpp/rmi/server/impl/gateway/JAddress.cpp \
     src/main/cpp/jcpp/util/JCollection.cpp \
     src/main/cpp/jcpp/util/JList.cpp \
     src/main/cpp/jcpp/util/JAbstractCollection.cpp \
     src/main/cpp/jcpp/util/JAbstractList.cpp \
-    src/main/cpp/jcpp/rmi/server/impl/gateway/JRoute.cpp \
-    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayInputStream.cpp \
-    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayOutputStream.cpp \
-    src/main/cpp/jcpp/net/JInetAddress.cpp \
-    src/main/cpp/jcpp/net/JSocket.cpp \
-    src/main/cpp/jcpp/net/JNET.cpp \
-    src/main/cpp/jcpp/rmi/JRMI.cpp \
-    src/main/cpp/jcpp/rmi/server/impl/JIMPL.cpp \
-    src/main/cpp/jcpp/rmi/server/impl/gateway/JGATEWAY.cpp \
-    src/main/cpp/jcpp/net/JServerSocket.cpp \
-    src/main/cpp/jcpp/lang/JRunnable.cpp \
-    src/main/cpp/jcpp/lang/JThread.cpp \
-    src/main/cpp/jcpp/lang/QObjectAware.cpp \
-    src/main/cpp/jcpp/net/JInet4Address.cpp \
-    src/main/cpp/jcpp/net/JInet6Address.cpp \
-    src/main/cpp/jcpp/rmi/server/impl/transport/JEndPoint.cpp \
     src/main/cpp/jcpp/util/concurrent/JExecutor.cpp \
     src/main/cpp/jcpp/util/concurrent/JCallable.cpp \
     src/main/cpp/jcpp/util/concurrent/JExecutorService.cpp \
@@ -159,9 +219,35 @@ SOURCES += \
     src/main/cpp/jcpp/util/concurrent/JCONCURRENT.cpp \
     src/main/cpp/jcpp/util/JTimerTask.cpp \
     src/main/cpp/jcpp/util/JTimer.cpp \
-    src/main/cpp/jcpp/lang/JSystem.cpp \
     src/main/cpp/jcpp/util/concurrent/JRunnableScheduledFuture.cpp \
     src/main/cpp/jcpp/util/concurrent/JScheduledFutureTask.cpp \
+    src/main/cpp/jcpp/util/JIterator.cpp \
+    src/main/cpp/jcpp/util/JListIterator.cpp \
+    src/main/cpp/jcpp/util/JRandomAccess.cpp \
+    src/main/cpp/jcpp/util/JNoSuchElementException.cpp \
+    src/main/cpp/jcpp/util/JConcurrentModificationException.cpp \
+    src/main/cpp/jcpp/util/JVector.cpp \
+    src/main/cpp/jcpp/util/JEnumeration.cpp \
+    src/main/cpp/jcpp/util/JCollections.cpp \
+    src/main/cpp/jcpp/util/JSet.cpp \
+    src/main/cpp/jcpp/util/JAbstractSet.cpp \
+    src/main/cpp/jcpp/util/JHashSet.cpp \
+    src/main/cpp/jcpp/util/JMap.cpp \
+    src/main/cpp/jcpp/util/JAbstractMap.cpp \
+    src/main/cpp/jcpp/util/JHashMap.cpp \
+    src/main/cpp/jcpp/util/JDictionary.cpp \
+    src/main/cpp/jcpp/util/JComparator.cpp \
+    src/main/cpp/jcpp/util/JQueue.cpp \
+    src/main/cpp/jcpp/util/JAbstractQueue.cpp \
+    src/main/cpp/jcpp/util/JIdentityHashMap.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JAddress.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JRoute.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayInputStream.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGatewayOutputStream.cpp \
+    src/main/cpp/jcpp/rmi/JRMI.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/JIMPL.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/gateway/JGATEWAY.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/transport/JEndPoint.cpp \
     src/main/cpp/jcpp/rmi/server/impl/transport/JITransportRouter.cpp \
     src/main/cpp/jcpp/rmi/server/impl/transport/JTransportRouter.cpp \
     src/main/cpp/jcpp/rmi/server/impl/transport/JConnection.cpp \
@@ -206,102 +292,29 @@ SOURCES += \
     src/main/cpp/jcpp/rmi/server/impl/connection/JGCClientEndPointInfo.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/JConnectionTransportDispatcher.cpp \
     src/main/cpp/jcpp/rmi/server/JSERVER_PACKAGE.cpp \
-    src/main/cpp/jcpp/security/MD5.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/JMethodDigester.cpp \
-    src/main/cpp/jcpp/lang/QObjectHolder.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/JCONNECTION_PACKAGE.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/serialization/JCONNECTION_SERIALIZATION_PACKAGE.cpp \
-    src/main/cpp/jcpp/JCPP_PACKAGE.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/JIRegistryProxy.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/JIGCProxy.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/JIGCClientProxy.cpp \
     src/main/cpp/jcpp/rmi/server/impl/connection/JIServerProxy.cpp \
-    src/main/cpp/jcpp/io/JObjectStreamConstants.cpp \
-    src/main/cpp/jcpp/io/JFilterInputStream.cpp \
-    src/main/cpp/jcpp/io/JFilterOutputStream.cpp \
-    src/main/cpp/jcpp/io/JBufferedInputStream.cpp \
-    src/main/cpp/jcpp/io/JBufferedOutputStream.cpp \
-    src/main/cpp/jcpp/lang/JIterable.cpp \
-    src/main/cpp/jcpp/util/JIterator.cpp \
-    src/main/cpp/jcpp/util/JListIterator.cpp \
-    src/main/cpp/jcpp/util/JRandomAccess.cpp \
-    src/main/cpp/jcpp/lang/JCloneable.cpp \
-    src/main/cpp/jcpp/util/JNoSuchElementException.cpp \
-    src/main/cpp/jcpp/util/JConcurrentModificationException.cpp \
-    src/main/cpp/jcpp/util/JVector.cpp \
-    src/main/cpp/jcpp/util/JEnumeration.cpp \
-    src/main/cpp/jcpp/lang/exception/JArrayIndexOutOfBoundsException.cpp \
-    src/main/cpp/jcpp/util/JCollections.cpp \
-    src/main/cpp/jcpp/lang/exception/JCloneNotSupportedException.cpp \
-    src/main/cpp/jcpp/lang/JComparable.cpp \
-    src/main/cpp/jcpp/util/JSet.cpp \
-    src/main/cpp/jcpp/util/JAbstractSet.cpp \
-    src/main/cpp/jcpp/util/JHashSet.cpp \
-    src/main/cpp/jcpp/util/JMap.cpp \
-    src/main/cpp/jcpp/util/JAbstractMap.cpp \
-    src/main/cpp/jcpp/util/JHashMap.cpp \
-    src/main/cpp/jcpp/util/JDictionary.cpp \
-    src/main/cpp/jcpp/io/JInvalidObjectException.cpp \
-    src/main/cpp/jcpp/util/JComparator.cpp \
-    src/main/cpp/jcpp/util/JQueue.cpp \
-    src/main/cpp/jcpp/util/JAbstractQueue.cpp \
-    src/main/cpp/jcpp/lang/JThreadLocal.cpp \
-    src/main/cpp/jcpp/util/JIdentityHashMap.cpp \
-    src/main/cpp/jcpp/lang/reflect/JMember.cpp \
-    src/main/cpp/jcpp/lang/reflect/JModifier.cpp \
-    src/main/cpp/jcpp/io/impl/JBlockDataInputStream.cpp \
-    src/main/cpp/jcpp/io/impl/JBlockDataOutputStream.cpp \
-    src/main/cpp/jcpp/io/JDataInput.cpp \
-    src/main/cpp/jcpp/io/JDataOutput.cpp \
-    src/main/cpp/jcpp/lang/JAutoCloseable.cpp \
-    src/main/cpp/jcpp/io/JObjectInput.cpp \
-    src/main/cpp/jcpp/io/JObjectOutput.cpp \
-    src/main/cpp/jcpp/io/JBits.cpp \
-    src/main/cpp/jcpp/io/JFlushable.cpp \
-    src/main/cpp/jcpp/io/JCloseable.cpp \
-    src/main/cpp/jcpp/io/JObjectInputValidation.cpp \
-    src/main/cpp/jcpp/io/JIOError.cpp \
-    src/main/cpp/jcpp/io/JWriteAbortedException.cpp \
-    src/main/cpp/jcpp/io/JUnsupportedEncodingException.cpp \
-    src/main/cpp/jcpp/io/JSyncFailedException.cpp \
-    src/main/cpp/jcpp/io/JInterruptedIOException.cpp \
-    src/main/cpp/jcpp/io/JFileNotFoundException.cpp \
-    src/main/cpp/jcpp/io/JCharConversionException.cpp \
-    src/main/cpp/jcpp/lang/JAppendable.cpp \
-    src/main/cpp/jcpp/lang/JCharSequence.cpp \
-    src/main/cpp/jcpp/io/JWriter.cpp \
-    src/main/cpp/jcpp/io/JStringWriter.cpp \
-    src/main/cpp/jcpp/lang/JStringBuilder.cpp \
-    src/main/cpp/jcpp/lang/JStringBuffer.cpp \
-    src/main/cpp/jcpp/lang/JAbstractStringBuilder.cpp \
-    src/main/cpp/jcpp/io/JBufferedWriter.cpp \
-    src/main/cpp/jcpp/io/JByteArrayInputStream.cpp \
-    src/main/cpp/jcpp/io/JByteArrayOutputStream.cpp \
-    src/main/cpp/jcpp/io/JCharArrayWriter.cpp \
-    src/main/cpp/jcpp/io/JOutputStreamWriter.cpp \
-    src/main/cpp/jcpp/io/JStringBufferInputStream.cpp \
-    src/main/cpp/jcpp/io/JSequenceInputStream.cpp \
+    src/main/cpp/jcpp/rmi/server/impl/connection/JIGC.cpp \
+    src/main/cpp/jcpp/net/JInetAddress.cpp \
+    src/main/cpp/jcpp/net/JSocket.cpp \
+    src/main/cpp/jcpp/net/JNET.cpp \
+    src/main/cpp/jcpp/net/JServerSocket.cpp \
+    src/main/cpp/jcpp/net/JInet4Address.cpp \
+    src/main/cpp/jcpp/net/JInet6Address.cpp \
+    src/main/cpp/jcpp/net/JURLClassLoader.cpp \
+    src/main/cpp/jcpp/JCPP_PACKAGE.cpp \
+    src/main/cpp/jcpp/security/MD5.cpp \
+    src/main/cpp/jcpp/security/JSecureClassLoader.cpp \
     src/main/cpp/jcpp/security/JGuard.cpp \
     src/main/cpp/jcpp/security/JSECURITY_PACKAGE.cpp \
     src/main/cpp/jcpp/security/JPermission.cpp \
     src/main/cpp/jcpp/security/JPermissionCollection.cpp \
     src/main/cpp/jcpp/security/JBasicPermission.cpp \
-    src/main/cpp/jcpp/io/JSerializablePermission.cpp \
-    src/main/cpp/jcpp/io/JPushbackInputStream.cpp \
-    src/main/cpp/jcpp/io/JPipedOutputStream.cpp \
-    src/main/cpp/jcpp/io/JPipedInputStream.cpp \
-    src/main/cpp/jcpp/io/JReader.cpp \
-    src/main/cpp/jcpp/lang/JReadable.cpp \
-    src/main/cpp/jcpp/io/JStringReader.cpp \
-    src/main/cpp/jcpp/io/JFilterWriter.cpp \
-    src/main/cpp/jcpp/io/JFilterReader.cpp \
-    src/main/cpp/jcpp/io/JBufferedReader.cpp \
-    src/main/cpp/jcpp/io/JCharArrayReader.cpp \
-    src/main/cpp/jcpp/io/JPushbackReader.cpp \
-    src/main/cpp/jcpp/io/JPipedWriter.cpp \
-    src/main/cpp/jcpp/io/JPipedReader.cpp \
-    src/main/cpp/jcpp/io/JInputStreamReader.cpp \
-    src/main/cpp/jcpp/io/JLineNumberReader.cpp \
     src/main/cpp/jcpp/nio/JNIO_PACKAGE.cpp \
     src/main/cpp/jcpp/nio/file/JNIO_FILE_PACKAGE.cpp \
     src/main/cpp/jcpp/nio/file/JWatchEvent.cpp \
@@ -340,20 +353,7 @@ SOURCES += \
     src/main/cpp/jcpp/nio/file/JFileVisitor.cpp \
     src/main/cpp/jcpp/nio/file/JFileSystem.cpp \
     src/main/cpp/jcpp/nio/file/JPathMatcher.cpp \
-    src/main/cpp/jcpp/nio/file/JPath.cpp \
-    src/main/cpp/jcpp/io/JFile.cpp \
-    src/main/cpp/jcpp/io/JFileFilter.cpp \
-    src/main/cpp/jcpp/io/JFilenameFilter.cpp \
-    src/main/cpp/jcpp/io/JIOFileSystem.cpp \
-    src/main/cpp/jcpp/io/JFileOutputStream.cpp \
-    src/main/cpp/jcpp/io/JFileInputStream.cpp \
-    src/main/cpp/jcpp/io/JFileWriter.cpp \
-    src/main/cpp/jcpp/io/JFileReader.cpp \
-    src/main/cpp/jcpp/rmi/server/impl/connection/JIGC.cpp \
-    src/main/cpp/jcpp/security/JSecureClassLoader.cpp \
-    src/main/cpp/jcpp/net/JURLClassLoader.cpp \
-    src/main/cpp/jcpp/io/JDefaultFileSystem.cpp \
-    src/main/cpp/jcpp/io/JWinNTFileSystem.cpp
+    src/main/cpp/jcpp/nio/file/JPath.cpp
     
     
 HEADERS += \

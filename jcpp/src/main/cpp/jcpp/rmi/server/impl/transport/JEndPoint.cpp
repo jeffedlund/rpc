@@ -96,9 +96,8 @@ namespace jcpp{
                     }
 
                     void JEndPoint::write(JDataOutputStream* out){
-                        out->writeUTF(address->getHostName());
-                        out->writeInt(address->getPort());
-                        out->writeUTF(site->getString());
+                        address->write(out);
+                        out->writeUTF(site);
                     }
 
                     void JEndPoint::setAddress(JAddress* a){
@@ -120,7 +119,7 @@ namespace jcpp{
                     }
 
                     jint JEndPoint::hashCode(){
-                        return address->getPHostName()->hashCode()+address->getPPort()->get()+site->hashCode();
+                        return address->getHostName()->hashCode()+address->getPort()+site->hashCode();
                     }
 
                     JString JEndPoint::toString(){

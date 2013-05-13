@@ -96,7 +96,9 @@ namespace jcpp{
             }else{
                 JString name=_class->getName();
                 JString newName=name.replace('/','.');
-                ss<<'L'<<newName<<";";
+                ss<<'L';
+                ss<<newName;
+                ss<<";";
             }
             return ss;
         }
@@ -243,7 +245,7 @@ namespace jcpp{
         void JClass::fillInterfaces(){
         }
 
-        bool JClass::hasMethod(JString name, vector<JClass*>*){
+        jbool JClass::hasMethod(JString name, vector<JClass*>*){
             initMethods();
             JMethod* method=getFromMap(methods,name);
             if (method==NULL){
@@ -252,7 +254,7 @@ namespace jcpp{
             return true;
         }
 
-        bool JClass::hasDeclaredMethod(JString name, vector<JClass*>*){
+        jbool JClass::hasDeclaredMethod(JString name, vector<JClass*>*){
             initDeclaredMethods();
             JMethod* method=getFromMap(declaredMethods,name);
             if (method==NULL){
@@ -385,19 +387,19 @@ namespace jcpp{
             interfaces->push_back(interface);
         }
 
-        bool JClass::isArray(){
+        jbool JClass::isArray(){
             return bIsArray;
         }
 
-        bool JClass::isProxy(){
+        jbool JClass::isProxy(){
             return bIsProxy;
         }
 
-        bool JClass::isEnum(){
+        jbool JClass::isEnum(){
             return bIsEnum;
         }
 
-        bool JClass::isAssignableFrom(JClass* clazz){
+        jbool JClass::isAssignableFrom(JClass* clazz){
             JClass* current=clazz;
             while (current!=NULL){
                 if (current==this){
@@ -418,7 +420,7 @@ namespace jcpp{
             return false;
         }
 
-        bool JClass::isInstance(JObject* o){
+        jbool JClass::isInstance(JObject* o){
             if (o==NULL){
                 throw new JNullPointerException();
             }
@@ -426,15 +428,15 @@ namespace jcpp{
             return isAssignableFrom(c);
         }
 
-        bool JClass::isInterface(){
+        jbool JClass::isInterface(){
             return bIsInterface;
         }
 
-        bool JClass::isPrimitive(){
+        jbool JClass::isPrimitive(){
             return bIsPrimitive;
         }
 
-        bool JClass::isPackage(){
+        jbool JClass::isPackage(){
             return bIsPackage;
         }
 

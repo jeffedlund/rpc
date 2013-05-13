@@ -1,14 +1,14 @@
 #ifndef JSOCKET_H
 #define JSOCKET_H
 
-#include "JLANG.h"
 #include "JInetAddress.h"
-#include "JIO.h"
 #include <QTcpSocket>
 #include "JServerSocket.h"
 #include "QObjectAware.h"
 #include "JInetAddress.h"
 #include "JCPP.h"
+#include "JInputStream.h"
+#include "JOutputStream.h"
 using namespace jcpp::lang;
 
 namespace jcpp{
@@ -17,7 +17,7 @@ namespace jcpp{
 
         class JCPP_LIBRARY_EXPORT JSocket : public JObject, public QObjectAware{
         protected:
-            bool bIsClosed;
+            jbool bIsClosed;
             JString* host;
             JPrimitiveInt* port;
             JInetAddress* localInetAddress;
@@ -27,54 +27,42 @@ namespace jcpp{
             JInputStream* in;
             JOutputStream* out;
             JSocket(JClass* _class);
+            JSocket(QTcpSocket* socket, JServerSocket* serverSocket);
+            friend class JServerSocket;
 
         public:
-            JSocket(JString* host, JPrimitiveInt* port,jint timeout);
-            JSocket(QTcpSocket* socket, JServerSocket* serverSocket);
+            JSocket(JString host, jint port,jint timeout);
             static JClass* getClazz();
-
             virtual void takeOwner();
             virtual void releaseOwner();
             virtual QObject* getQObject();
             virtual JInetAddress* getInetAddress();
             virtual JInetAddress* getLocalAddress();
-            virtual JPrimitiveInt* getPort();
-            virtual JPrimitiveInt* getLocalPort();
-
+            virtual jint getPort();
+            virtual jint getLocalPort();
             virtual JInputStream* getInputStream();
             virtual JOutputStream* getOutputStream();
-
-            virtual void setTcpNoDelay(bool on);
-            virtual bool getTcpNoDelay();
-
-            virtual void setSoLinger(bool on, int linger);
-            virtual int getSoLinger();
-
-            virtual void setOOBInline(bool on);
-            virtual bool getOOBInline();
-
-            virtual void setSoTimeout(int s);
-            virtual int getSoTimeout();
-
-            virtual void setSendBufferSize(int size);
-            virtual int getSendBufferSize();
-
-            virtual void setReceiveBufferSize(int size);
-            virtual int getReceiveBufferSize();
-
-            virtual void setKeepAlive(bool on);
-            virtual bool getKeepAlive();
-
-            virtual void setTrafficClass(int tc);
-            virtual int getTrafficClass();
-
-            virtual void setReuseAddress(bool on);
-            virtual bool getReuseAddress();
-
+            virtual void setTcpNoDelay(jbool on);
+            virtual jbool getTcpNoDelay();
+            virtual void setSoLinger(jbool on, jint linger);
+            virtual jint getSoLinger();
+            virtual void setOOBInline(jbool on);
+            virtual jbool getOOBInline();
+            virtual void setSoTimeout(jint s);
+            virtual jint getSoTimeout();
+            virtual void setSendBufferSize(jint size);
+            virtual jint getSendBufferSize();
+            virtual void setReceiveBufferSize(jint size);
+            virtual jint getReceiveBufferSize();
+            virtual void setKeepAlive(jbool on);
+            virtual jbool getKeepAlive();
+            virtual void setTrafficClass(jint tc);
+            virtual jint getTrafficClass();
+            virtual void setReuseAddress(jbool on);
+            virtual jbool getReuseAddress();
             virtual void close();
-            virtual bool isClosed();
+            virtual jbool isClosed();
             virtual ~JSocket();
-
         };
     }
 }

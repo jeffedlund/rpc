@@ -85,17 +85,17 @@ namespace jcpp{
             return false;
         }
 
-        JDouble JDouble::operator+=(jdouble f){
+        JDouble& JDouble::operator+=(jdouble f){
             (*value)+=f;
             return *this;
         }
 
-        JDouble JDouble::operator-=(jdouble f){
+        JDouble& JDouble::operator-=(jdouble f){
             (*value)-=f;
             return *this;
         }
 
-        JDouble JDouble::operator*=(jdouble f){
+        JDouble& JDouble::operator*=(jdouble f){
             (*value)*=f;
             return *this;
         }

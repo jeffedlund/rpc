@@ -7,27 +7,28 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace gateway{
-                    static JObject* staticGetHostName(JObject* object){
-                        JAddress* s=(JAddress*)object;
-                        return s->getPHostName();
-                    }
-
-                    static void staticSetHostName(JObject* object,JObject* value){
-                        JAddress* s=(JAddress*)object;
-                        s->setPHostName((JString*)value);
-                    }
-
-                    static JObject* staticGetPort(JObject* object){
-                        JAddress* s=(JAddress*)object;
-                        return s->getPPort();
-                    }
-
-                    static void staticSetPort(JObject* object,JObject* value){
-                        JAddress* s=(JAddress*)object;
-                        s->setPPort((JPrimitiveInt*)value);
-                    }
-
                     class JAddressClass : public JClass{
+                      protected:
+                        static JObject* staticGetHostName(JObject* object){
+                            JAddress* s=(JAddress*)object;
+                            return s->getPHostName();
+                        }
+
+                        static void staticSetHostName(JObject* object,JObject* value){
+                            JAddress* s=(JAddress*)object;
+                            s->setPHostName((JString*)value);
+                        }
+
+                        static JObject* staticGetPort(JObject* object){
+                            JAddress* s=(JAddress*)object;
+                            return s->getPPort();
+                        }
+
+                        static void staticSetPort(JObject* object,JObject* value){
+                            JAddress* s=(JAddress*)object;
+                            s->setPPort((JPrimitiveInt*)value);
+                        }
+
                       public:
                         JAddressClass(){
                             this->canonicalName="jcpp.rmi.server.impl.gateway.Address";
@@ -64,6 +65,11 @@ namespace jcpp{
                         this->port=new JPrimitiveInt();
                     }
 
+                    JAddress::JAddress(const JString& host, jint port):JObject(getClazz()){
+                        this->hostName=new JString(host);
+                        this->port=new JPrimitiveInt(port);
+                    }
+
                     JAddress::JAddress(JAddress* adr):JObject(getClazz()){
                         this->hostName=new JString(adr->hostName);
                         this->port=new JPrimitiveInt(adr->port);
@@ -77,12 +83,13 @@ namespace jcpp{
                         return (*s->hostName)==(*hostName) && (*s->port)==(*port);
                     }
 
-                    void JAddress::setHostName(JString host){
-                        (*hostName)=host;
+                    void JAddress::setHostName(const JString& host){
+                        delete this->hostName;
+                        hostName=new JString(host);
                     }
 
-                    JString JAddress::getHostName(){
-                        return JString(hostName);
+                    JString* JAddress::getHostName(){
+                        return hostName;
                     }
 
                     void JAddress::setPHostName(JString* host){
@@ -111,14 +118,17 @@ namespace jcpp{
                         return port;
                     }
 
+                    void JAddress::write(JDataOutputStream* out){
+                        out->writeUTF(getPHostName());
+                        out->writeInt(getPPort());
+                    }
+
                     jint JAddress::hashCode(){
                         return (hostName!=NULL?hostName->hashCode()*37+port->get():port->get());
                     }
 
                     JAddress* JAddress::clone(){
-                        JAddress* a=new JAddress();
-                        a->hostName=hostName->clone();
-                        a->port=port->clone();
+                        JAddress* a=new JAddress(this);
                         return a;
                     }
 

@@ -23,9 +23,9 @@ namespace jcpp{
                 JPrimitiveInt(jint value);
                 JPrimitiveInt(JPrimitiveInt* value);
                 jbool operator<(JObject &other);
-                JPrimitiveInt operator+=(jint f);//TODO review the operators return
-                JPrimitiveInt operator-=(jint f);
-                JPrimitiveInt operator*=(jint f);
+                JPrimitiveInt& operator+=(jint f);
+                JPrimitiveInt& operator-=(jint f);
+                JPrimitiveInt& operator*=(jint f);
                 static JClass* getClazz();
                 void set(jint value);
                 jint get();

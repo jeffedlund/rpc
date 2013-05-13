@@ -1,5 +1,7 @@
 #include "JSequenceInputStream.h"
 #include "JClass.h"
+#include "JNullPointerException.h"
+#include "JIndexOutOfBoundsException.h"
 
 namespace jcpp{
     namespace io{

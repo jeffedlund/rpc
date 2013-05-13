@@ -76,7 +76,7 @@ namespace jcpp{
             this->value=new JPrimitiveFloat(0);
         }
 
-        bool JFloat::equals(JObject* other){
+        jbool JFloat::equals(JObject* other){
             if (other->getClass()==getClazz()){
                 JFloat* s=dynamic_cast<JFloat*>(other);
                 return (*value)==(*s->value);
@@ -84,26 +84,26 @@ namespace jcpp{
             return false;
         }
 
-        JFloat JFloat::operator+=(jfloat f){
+        JFloat& JFloat::operator+=(jfloat f){
             (*value)+=f;
             return *this;
         }
 
-        JFloat JFloat::operator-=(jfloat f){
+        JFloat& JFloat::operator-=(jfloat f){
             (*value)-=f;
             return *this;
         }
 
-        JFloat JFloat::operator*=(jfloat f){
+        JFloat& JFloat::operator*=(jfloat f){
             (*value)*=f;
             return *this;
         }
 
-        void JFloat::set(float value){
+        void JFloat::set(jfloat value){
             this->value->set(value);
         }
 
-        float JFloat::get(){
+        jfloat JFloat::get(){
             return value->get();
         }
 

@@ -276,10 +276,10 @@ namespace jcpp{
             return fields;
         }
 
-        JObjectStreamField* JObjectStreamClass::getField(JString name,JClass* type){
+        JObjectStreamField* JObjectStreamClass::getField(const JString& name,JClass* type){
             for (unsigned int i=0;i<fields->size();i++){
                 JObjectStreamField* f=fields->at(i);
-                if (f->getName()==name){
+                if (f->getName()->equals(name)){
                     if (type==NULL || (type==JObject::getClazz() && !f->isPrimitive())){
                         return f;
                     }
@@ -440,7 +440,7 @@ namespace jcpp{
         }
 
         void JObjectStreamClass::writeNonProxy(JObjectOutputStream* out){
-            out->writeUTF(name);
+            out->writeUTF(&name);
             out->writeLong(suid);
 
             jbyte flags = 0;

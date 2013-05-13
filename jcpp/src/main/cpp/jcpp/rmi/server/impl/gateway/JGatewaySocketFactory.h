@@ -28,7 +28,7 @@ namespace jcpp{
                         public:
                         static JClass* getClazz();
                         static JSocket* createSocket(JRoute* route,JGatewayConfiguration* gatewayConfiguration);
-                        static JServerSocket* createServerSocket(JString* host, JPrimitiveInt* port,JGatewayConfiguration* gatewayConfiguration);
+                        static JServerSocket* createServerSocket(JString host, jint port,JGatewayConfiguration* gatewayConfiguration);
                         virtual ~JGatewaySocketFactory();
                     };
                 }

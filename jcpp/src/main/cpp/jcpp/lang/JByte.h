@@ -34,9 +34,9 @@ namespace jcpp{
                 static jlong toUnsignedLong(jbyte x);
                 static jint SIZE;
                 static jint BYTES;
-                JByte operator+=(jbyte f);
-                JByte operator-=(jbyte f);
-                JByte operator*=(jbyte f);
+                JByte& operator+=(jbyte f);
+                JByte& operator-=(jbyte f);
+                JByte& operator*=(jbyte f);
                 void set(jbyte value);
                 jbyte get();
                 virtual jbyte byteValue();

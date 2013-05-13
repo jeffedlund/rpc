@@ -35,7 +35,7 @@ namespace jcpp{
             this->size=size;
             nChars=size;
             nextChar=0;
-            lineSeparator="/r/n";//TODO fetch from system.property(line.separator)
+            lineSeparator=new JString("/r/n");//TODO fetch from system.property(line.separator)
         }
 
         void JBufferedWriter::ensureOpen(){

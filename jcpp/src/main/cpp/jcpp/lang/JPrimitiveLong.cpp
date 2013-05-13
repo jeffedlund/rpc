@@ -57,17 +57,17 @@ namespace jcpp{
             return value==s->value;
         }
 
-        JPrimitiveLong JPrimitiveLong::operator+=(jlong f){
+        JPrimitiveLong& JPrimitiveLong::operator+=(jlong f){
             value+=f;
             return *this;
         }
 
-        JPrimitiveLong JPrimitiveLong::operator-=(jlong f){
+        JPrimitiveLong& JPrimitiveLong::operator-=(jlong f){
             value-=f;
             return *this;
         }
 
-        JPrimitiveLong JPrimitiveLong::operator*=(jlong f){
+        JPrimitiveLong& JPrimitiveLong::operator*=(jlong f){
             value*=f;
             return *this;
         }

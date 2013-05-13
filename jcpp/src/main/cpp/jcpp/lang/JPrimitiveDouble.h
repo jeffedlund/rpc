@@ -14,16 +14,15 @@ using namespace jcpp::io;
 namespace jcpp{
     namespace lang{
         class JCPP_LIBRARY_EXPORT JPrimitiveDouble : public JObject, public JComparable, public JSerializable{
-
             protected:
                 jdouble value;
 
             public:
                 JPrimitiveDouble();
                 JPrimitiveDouble(jdouble value);
-                JPrimitiveDouble operator+=(jdouble f);
-                JPrimitiveDouble operator-=(jdouble f);
-                JPrimitiveDouble operator*=(jdouble f);
+                JPrimitiveDouble& operator+=(jdouble f);
+                JPrimitiveDouble& operator-=(jdouble f);
+                JPrimitiveDouble& operator*=(jdouble f);
                 static JClass* getClazz();
                 void set(jdouble value);
                 jdouble get();

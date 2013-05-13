@@ -46,7 +46,7 @@ namespace jcpp{
             this->value=false;
         }
 
-        bool JPrimitiveBoolean::equals(JObject* other){
+        jbool JPrimitiveBoolean::equals(JObject* other){
             if (other->getClass()!=getClazz()){
                 return false;
             }

@@ -16,9 +16,7 @@ namespace jcpp{
             JInternalError();
             JInternalError(JString message);
             JInternalError(JString message, JThrowable *cause);
-
             static JClass* getClazz();
-
             virtual ~JInternalError();
         };
     }

@@ -3,6 +3,9 @@
 #include <cstdio>
 #include "JInstantiationException.h"
 #include "JNoSuchElementException.h"
+#include "JIllegalStateException.h"
+#include "JNullPointerException.h"
+#include "JIllegalArgumentException.h"
 using namespace std;
 
 namespace jcpp{

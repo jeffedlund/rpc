@@ -25,7 +25,7 @@ namespace jcpp{
                 virtual jint getLineNumber();
                 virtual jint read();
                 virtual jint read(jchar cbuf[], jint off, jint len);
-                virtual JString readLine();
+                virtual JString* readLine();
                 virtual jlong skip(jlong n);
                 virtual void mark(jint m);
                 virtual void reset();

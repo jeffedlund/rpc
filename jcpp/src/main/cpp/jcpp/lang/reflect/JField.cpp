@@ -34,7 +34,7 @@ namespace jcpp{
             }
 
             JField::JField(JString name,JClass* type, JClass* declaringClass):JAccessibleObject(getClazz()){
-                this->name=name;
+                this->name=new JString(name);
                 this->type=type;
                 this->declaringClass=declaringClass;
                 this->g=NULL;
@@ -42,14 +42,14 @@ namespace jcpp{
             }
 
             JField::JField(JString name,JClass* type,JClass* declaringClass, getter g,setter s):JAccessibleObject(getClazz()){
-                this->name=name;
+                this->name=new JString(name);
                 this->type=type;
                 this->declaringClass=declaringClass;
                 this->g=g;
                 this->s=s;
             }
 
-            JString JField::getName(){
+            JString* JField::getName(){
                 return name;
             }
 
@@ -90,19 +90,22 @@ namespace jcpp{
                     return false;
                 }
                 JField* f=dynamic_cast<JField*>(o);
-                return this->getName()==f->getName() && this->getType()==f->getType() &&
+                return this->getName()->equals(f->getName()) && this->getType()==f->getType() &&
                        this->getDeclaringClass()==f->getDeclaringClass();
             }
 
             jint JField::hashCode(){
-                return getDeclaringClass()->getName().hashCode()^getName().hashCode();
+                return getDeclaringClass()->getName().hashCode()^getName()->hashCode();
             }
 
             JString JField::toString(){
-                return getType()->getName()+" "+getDeclaringClass()->getName()+"."+getName();
+                JString s("");
+                s<<getType()->getName()<<" "<<getDeclaringClass()->getName()<<"."<<*getName();
+                return s;
             }
 
              JField::~JField(){
+                 delete name;
              }
         }
     }

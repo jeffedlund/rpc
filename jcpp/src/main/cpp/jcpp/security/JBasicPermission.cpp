@@ -1,5 +1,7 @@
 #include "JBasicPermission.h"
 #include "JClass.h"
+#include "JIllegalArgumentException.h"
+#include "JVoid.h"
 
 namespace jcpp{
     namespace security{

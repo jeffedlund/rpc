@@ -11,8 +11,6 @@ using namespace jcpp::util;
 namespace jcpp{
     namespace lang{
         class JCPP_LIBRARY_EXPORT JIterable : public JInterface{
-        protected:
-
         public:
             static JClass* getClazz();
             virtual JIterator* iterator()=0;

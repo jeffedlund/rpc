@@ -205,8 +205,8 @@ namespace jcpp{
             }
         }
 
-        void JBlockDataOutputStream::writeBytes(JString s){
-            jint endoff = s.length();
+        void JBlockDataOutputStream::writeBytes(JString* s){
+            jint endoff = s->length();
             jint cpos = 0;
             jint csize = 0;
             for (jint off = 0; off < endoff; ) {
@@ -227,13 +227,13 @@ namespace jcpp{
             }
         }
 
-        void JBlockDataOutputStream::getChars( JString s,jint srcBegin, jint srcEnd, jchar dest[], jint dstBegin){
-            const char* str = s.getString().c_str();//TODO
+        void JBlockDataOutputStream::getChars(JString* s,jint srcBegin, jint srcEnd, jchar dest[], jint dstBegin){
+            const char* str = s->getString().c_str();//TODO
             JBits::fromCharToJChar(str,dest,dstBegin,srcEnd-srcBegin);
         }
 
-        void JBlockDataOutputStream::writeChars(JString s){
-            jint endoff = s.length();
+        void JBlockDataOutputStream::writeChars(JString* s){
+            jint endoff = s->length();
             for (jint off = 0; off < endoff; ) {
                 jint csize = (endoff - off) < CHAR_BUF_SIZE ? endoff - off : CHAR_BUF_SIZE;
                 getChars(s, off, off + csize, cbuf, 0);
@@ -242,8 +242,8 @@ namespace jcpp{
             }
         }
 
-        jlong JBlockDataOutputStream::getUTFLength(JString s){
-            jint len = s.length();
+        jlong JBlockDataOutputStream::getUTFLength(JString* s){
+            jint len = s->length();
             jlong utflen = 0;
             for (jint off = 0; off < len; ) {
                 jint csize = (len - off) < CHAR_BUF_SIZE ? (len - off) : CHAR_BUF_SIZE;
@@ -263,7 +263,7 @@ namespace jcpp{
             return utflen;
         }
 
-        void JBlockDataOutputStream::writeUTF(JString s){
+        void JBlockDataOutputStream::writeUTF(JString* s){
             writeUTF(s, getUTFLength(s));
         }
 
@@ -382,34 +382,34 @@ namespace jcpp{
             }
         }
 
-        void JBlockDataOutputStream::writeUTF(JString s, jlong utflen){
+        void JBlockDataOutputStream::writeUTF(JString* s, jlong utflen){
             if (utflen > 0xFFFFL) {
                 throw new JUTFDataFormatException();
             }
             writeShort((jint) utflen);
-            if (utflen == (jlong) s.length()) {
+            if (utflen == (jlong) s->length()) {
                 writeBytes(s);
             } else {
                 writeUTFBody(s);
             }
         }
 
-        void JBlockDataOutputStream::writeLongUTF(JString s){
+        void JBlockDataOutputStream::writeLongUTF(JString* s){
             writeLongUTF(s, getUTFLength(s));
         }
 
-        void JBlockDataOutputStream::writeLongUTF(JString s, jlong utflen){
+        void JBlockDataOutputStream::writeLongUTF(JString* s, jlong utflen){
             writeLong(utflen);
-            if (utflen == (jlong) s.length()) {
+            if (utflen == (jlong) s->length()) {
                 writeBytes(s);
             } else {
                 writeUTFBody(s);
             }
         }
 
-        void JBlockDataOutputStream::writeUTFBody(JString s){
+        void JBlockDataOutputStream::writeUTFBody(JString* s){
             jint limit = MAX_BLOCK_SIZE - 3;
-            jint len = s.length();
+            jint len = s->length();
             for (jint off = 0; off < len; ) {
                 jint csize = len - off < CHAR_BUF_SIZE ? len - off  : CHAR_BUF_SIZE;
                 getChars(s, off, off + csize, cbuf, 0);

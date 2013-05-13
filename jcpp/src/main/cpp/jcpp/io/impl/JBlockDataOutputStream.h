@@ -38,13 +38,13 @@ namespace jcpp{
             void writeFloats(jfloat v[], jint off, jint len);
             void writeLongs(jlong v[], jint off, jint len);
             void writeDoubles(jdouble v[], jint off, jint len);
-            jlong getUTFLength(JString s);
-            void writeUTF(JString s);
-            void writeUTF(JString s, jlong utflen);
-            void writeLongUTF(JString s);
-            void writeLongUTF(JString s, jlong utflen);
-            void writeUTFBody(JString s);
-            void getChars(JString s,jint srcBegin, jint srcEnd, jchar dest[], jint dstBegin);
+            jlong getUTFLength(JString* s);
+            void writeUTF(JString* s);
+            void writeUTF(JString* s, jlong utflen);
+            void writeLongUTF(JString* s);
+            void writeLongUTF(JString* s, jlong utflen);
+            void writeUTFBody(JString* s);
+            void getChars(JString* s,jint srcBegin, jint srcEnd, jchar dest[], jint dstBegin);
             friend class JObjectOutputStream;
             friend class JPutFieldImpl;
 
@@ -62,8 +62,8 @@ namespace jcpp{
             void writeLong(jlong v);
             void writeFloat(jfloat v);
             void writeDouble(jdouble v);
-            void writeBytes(JString s);
-            void writeChars(JString s);
+            void writeBytes(JString* s);
+            void writeChars(JString* s);
             virtual ~JBlockDataOutputStream();
         };
     }

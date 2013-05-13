@@ -78,9 +78,9 @@ namespace jcpp{
                     }
 
                     void JTransport::startExport(){
-                        serverSocket = JGatewaySocketFactory::createServerSocket(localEndPoint->getAddress()->getPHostName(),localEndPoint->getAddress()->getPPort(), transportConfiguration->getGatewayConfiguration());
+                        serverSocket = JGatewaySocketFactory::createServerSocket(localEndPoint->getAddress()->getHostName(),localEndPoint->getAddress()->getPort(), transportConfiguration->getGatewayConfiguration());//TODO why create new objects?
                         serverSocket->connect();
-                        localEndPoint->getAddress()->setPort(serverSocket->getLocalPort()->get());
+                        localEndPoint->getAddress()->setPort(serverSocket->getLocalPort());
                         serverSocket->releaseOwner();
                         future=executorService->submit(this);
                     }

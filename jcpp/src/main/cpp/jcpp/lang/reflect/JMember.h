@@ -17,7 +17,7 @@ namespace jcpp{
                 static jint PUBLIC;
                 static jint DECLARED;
                 virtual JClass* getDeclaringClass()=0;
-                virtual JString getName()=0;
+                virtual JString* getName()=0;
                 virtual jint getModifiers()=0;
                 virtual jbool isSynthetic()=0;
                 virtual ~JMember();

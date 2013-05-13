@@ -29,9 +29,9 @@ namespace jcpp{
                 static JProxy* newProxyInstance(vector<JClass*>* interfaces, JInvocationHandler* i);
                 static jbool isProxyClass(JClass* cl);
                 static JInvocationHandler* getInvocationHandler(JObject* proxy);
-                JInvocationHandler* getInvocationHandler();
-                void setInvocationHandler(JInvocationHandler* invocationHandler);
-                JObject* invoke(JString method, vector<JObject*>* args);
+                virtual JInvocationHandler* getInvocationHandler();
+                virtual void setInvocationHandler(JInvocationHandler* invocationHandler);
+                virtual JObject* invoke(JString method, vector<JObject*>* args);
                 virtual jint hashCode();
                 virtual jbool equals(JObject *o);
                 virtual JString toString();

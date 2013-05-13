@@ -17,7 +17,7 @@ namespace jcpp{
             public:
                 typedef JObject* (*invocation)(JObject* objet,vector<JObject*>*args);
             private:
-                JString name;
+                JString* name;
                 JClass* declaringClass;
                 JClass* returnType;
                 vector<JClass*>* parameterType;
@@ -27,14 +27,14 @@ namespace jcpp{
             public:
                 JMethod(JString name,JClass* declaringClass,JClass* returnType,vector<JClass*>* parameterType,invocation inv);
                 static JClass* getClazz();
-                virtual JString getName();
+                virtual JString* getName();
                 virtual JClass* getDeclaringClass();
                 virtual jint getModifiers();
                 virtual jbool isSynthetic();
-                JClass* getReturnType();
-                vector<JClass*>* getParameterType();
-                JObject* invoke(JObject* object, vector<JObject*>*args);
-                virtual bool equals(JObject* o);
+                virtual JClass* getReturnType();
+                virtual vector<JClass*>* getParameterType();
+                virtual JObject* invoke(JObject* object, vector<JObject*>*args);
+                virtual jbool equals(JObject* o);
                 virtual jint hashCode();
                 virtual JString toString();
                 virtual ~JMethod();

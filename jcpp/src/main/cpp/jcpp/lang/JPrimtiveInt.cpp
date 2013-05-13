@@ -53,7 +53,7 @@ namespace jcpp{
             return get()-s->get();
         }
 
-        bool JPrimitiveInt::equals(JObject* other){
+        jbool JPrimitiveInt::equals(JObject* other){
             if (other->getClass()!=getClazz()){
                 return false;
             }
@@ -61,17 +61,17 @@ namespace jcpp{
             return value==s->value;
         }
 
-        JPrimitiveInt JPrimitiveInt::operator+=(jint f){
+        JPrimitiveInt& JPrimitiveInt::operator+=(jint f){
             value+=f;
             return *this;
         }
 
-        JPrimitiveInt JPrimitiveInt::operator-=(jint f){
+        JPrimitiveInt& JPrimitiveInt::operator-=(jint f){
             value-=f;
             return *this;
         }
 
-        JPrimitiveInt JPrimitiveInt::operator*=(jint f){
+        JPrimitiveInt& JPrimitiveInt::operator*=(jint f){
             value*=f;
             return *this;
         }

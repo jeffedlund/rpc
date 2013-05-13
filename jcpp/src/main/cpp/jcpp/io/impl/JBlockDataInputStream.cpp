@@ -419,7 +419,7 @@ namespace jcpp{
             return (v != 0);
         }
 
-        JString JBlockDataInputStream::readUTFBody(jlong utflen) {
+        JString* JBlockDataInputStream::readUTFBody(jlong utflen) {
             vector<jchar>* sbuf=new vector<jchar>();
             if (!blkmode) {
                 end = pos = 0;
@@ -452,7 +452,7 @@ namespace jcpp{
             char* cs=new char[sbuf->size()+1];
             cs[sbuf->size()] = '\0';
             JBits::fromJChartoChar(jc,cs,0,sbuf->size());
-            JString str(cs);
+            JString* str=new JString(cs);
             delete cs;
             delete sbuf;
             delete jc;
@@ -574,11 +574,11 @@ namespace jcpp{
         }
 
 
-        JString JBlockDataInputStream::readUTF() {
+        JString* JBlockDataInputStream::readUTF() {
             return readUTFBody(readUnsignedShort());
         }
 
-        JString JBlockDataInputStream::readLongUTF() {
+        JString* JBlockDataInputStream::readLongUTF() {
             return readUTFBody(readLong());
         }
 

@@ -11,7 +11,6 @@ namespace jcpp{
             class JCPP_LIBRARY_EXPORT JAccessibleObject: public JObject{
             protected:
                 JAccessibleObject(JClass* clazz);
-
             public:
                 static JClass* getClazz();
                 virtual ~JAccessibleObject();

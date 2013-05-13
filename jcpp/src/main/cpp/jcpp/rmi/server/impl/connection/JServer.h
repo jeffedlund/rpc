@@ -81,7 +81,7 @@ namespace jcpp{
                         static JIServer* getRemoteServer(JObject* object);
                         static JIServer* getLocalServer(JObject* object);
                         static JString* getHost(JObject* object);
-                        static JPrimitiveInt* getPort(JObject* object);
+                        static jint getPort(JObject* object);
                         static JString* getSite(JObject* object);
                         static JEndPoint* getEndPoint(JObject* object);
                         static JString* getId(JObject* object);

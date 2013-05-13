@@ -30,9 +30,9 @@ namespace jcpp{
                 static JClass* TYPE;
                 static jint hashCode(jshort);
                 static jint compare(jshort x,jshort y);
-                JShort operator+=(jshort f);
-                JShort operator-=(jshort f);
-                JShort operator*=(jshort f);
+                JShort& operator+=(jshort f);
+                JShort& operator-=(jshort f);
+                JShort& operator*=(jshort f);
                 void set(jshort value);
                 jshort get();
                 virtual jbyte byteValue();
@@ -42,7 +42,7 @@ namespace jcpp{
                 virtual jfloat floatValue();
                 virtual jdouble doubleValue();
                 virtual jint compareTo(JObject* o);
-                virtual bool equals(JObject* other);
+                virtual jbool equals(JObject* other);
                 virtual jint hashCode();
                 virtual JString toString();
                 virtual ~JShort();

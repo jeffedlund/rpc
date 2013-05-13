@@ -82,7 +82,7 @@ namespace jcpp{
             return compare(get(),s->get());
         }
 
-        bool JShort::equals(JObject* other){
+        jbool JShort::equals(JObject* other){
             if (other->getClass()==getClazz()){
                 JShort* s=dynamic_cast<JShort*>(other);
                 return (*value)==(*s->value);
@@ -90,17 +90,17 @@ namespace jcpp{
             return false;
         }
 
-        JShort JShort::operator+=(jshort f){
+        JShort& JShort::operator+=(jshort f){
             (*value)+=f;
             return *this;
         }
 
-        JShort JShort::operator-=(jshort f){
+        JShort& JShort::operator-=(jshort f){
             (*value)-=f;
             return *this;
         }
 
-        JShort JShort::operator*=(jshort f){
+        JShort& JShort::operator*=(jshort f){
             (*value)*=f;
             return *this;
         }

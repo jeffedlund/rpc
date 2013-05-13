@@ -32,9 +32,9 @@ namespace jcpp{
                 static jint SIZE;
                 static jint BYTES;
                 static JClass* TYPE;
-                JInteger operator+=(jint f);
-                JInteger operator-=(jint f);
-                JInteger operator*=(jint f);
+                JInteger& operator+=(jint f);
+                JInteger& operator-=(jint f);
+                JInteger& operator*=(jint f);
                 void set(jint value);
                 jint get();
                 virtual jbyte byteValue();
@@ -44,7 +44,7 @@ namespace jcpp{
                 virtual jfloat floatValue();
                 virtual jdouble doubleValue();
                 virtual jint compareTo(JObject* o);
-                virtual bool equals(JObject* other);
+                virtual jbool equals(JObject* other);
                 virtual jint hashCode();
                 virtual JString toString();
                 virtual ~JInteger();

@@ -10,7 +10,6 @@
 namespace jcpp{
     namespace lang{
         class JStringBuffer;
-        //TODO full test cases
         class JCPP_LIBRARY_EXPORT JAbstractStringBuilder : public JObject  , public JAppendable  , public JCharSequence  {
             protected:
                 JString value;
@@ -46,9 +45,9 @@ namespace jcpp{
                 virtual JAbstractStringBuilder* deleteChar(jint start,jint end);
                 virtual JAbstractStringBuilder* deleteCharAt(jint index);
                 virtual JAbstractStringBuilder* replace(jint start,jint end,JString* str);
-                virtual JString* substring(jint start);
+                virtual JString substring(jint start);
                 virtual JCharSequence* subSequence(jint start,jint end);
-                virtual JString* substring(jint start,jint end);
+                virtual JString substring(jint start,jint end);
                 virtual JAbstractStringBuilder* insert(jint index,jchar str[],jint offset,jint len);
                 virtual JAbstractStringBuilder* insert(jint offset,JObject* o);
                 virtual JAbstractStringBuilder* insert(jint offset,JString* str);
@@ -62,10 +61,10 @@ namespace jcpp{
                 virtual JAbstractStringBuilder* insert(jint offset,jlong l);
                 virtual JAbstractStringBuilder* insert(jint offset,jfloat f);
                 virtual JAbstractStringBuilder* insert(jint offset,jdouble d);
-                virtual jint indexOf(JString* str);
-                virtual jint indexOf(JString* str,jint fromIndex);
-                virtual jint lastIndexOf(JString* str);
-                virtual jint lastIndexOf(JString* str,jint fromIndex);
+                virtual jint indexOf(JString str);
+                virtual jint indexOf(JString str,jint fromIndex);
+                virtual jint lastIndexOf(JString str);
+                virtual jint lastIndexOf(JString str,jint fromIndex);
                 virtual JAbstractStringBuilder* reverse();
                 virtual JString toString();
                 virtual jbool equals(JObject *o);

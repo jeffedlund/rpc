@@ -44,17 +44,17 @@ namespace jcpp{
             this->value=0;
         }
 
-        JPrimitiveByte JPrimitiveByte::operator+=(jbyte f){
+        JPrimitiveByte& JPrimitiveByte::operator+=(jbyte f){
             value+=f;
             return *this;
         }
 
-        JPrimitiveByte JPrimitiveByte::operator-=(jbyte f){
+        JPrimitiveByte& JPrimitiveByte::operator-=(jbyte f){
             value-=f;
             return *this;
         }
 
-        JPrimitiveByte JPrimitiveByte::operator*=(jbyte f){
+        JPrimitiveByte& JPrimitiveByte::operator*=(jbyte f){
             value*=f;
             return *this;
         }
@@ -72,7 +72,7 @@ namespace jcpp{
             return get()-b->get();
         }
 
-        bool JPrimitiveByte::equals(JObject* other){
+        jbool JPrimitiveByte::equals(JObject* other){
             if (other->getClass()!=getClazz()){
                 return false;
             }

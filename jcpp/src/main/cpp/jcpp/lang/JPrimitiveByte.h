@@ -14,16 +14,15 @@ using namespace jcpp::io;
 namespace jcpp{
     namespace lang{
         class JCPP_LIBRARY_EXPORT JPrimitiveByte : public JObject, public JComparable, public JSerializable{
-
             protected:
                 jbyte value;
 
             public:
                 JPrimitiveByte();
                 JPrimitiveByte(jbyte value);
-                JPrimitiveByte operator+=(jbyte f);
-                JPrimitiveByte operator-=(jbyte f);
-                JPrimitiveByte operator*=(jbyte f);
+                JPrimitiveByte& operator+=(jbyte f);
+                JPrimitiveByte& operator-=(jbyte f);
+                JPrimitiveByte& operator*=(jbyte f);
                 static JClass* getClazz();
                 void set(jbyte value);
                 jbyte get();

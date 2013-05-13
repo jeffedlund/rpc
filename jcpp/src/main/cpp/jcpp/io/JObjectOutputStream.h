@@ -9,7 +9,6 @@
 #include "JDataOutputStream.h"
 #include "SerialCallbackContext.h"
 #include "OutputHandleTable.h"
-#include "JLANG.h"
 #include "Object.h"
 #include "JCPP.h"
 #include "JObjectOutput.h"
@@ -111,9 +110,9 @@ namespace jcpp{
             virtual void writeFloat(jfloat v);
             virtual void writeDouble(jdouble v);
             virtual void writeBoolean(jbool b);
-            virtual void writeUTF(JString str);
-            virtual void writeChars(JString str);
-            virtual void writeBytes(JString str);
+            virtual void writeUTF(JString* str);
+            virtual void writeChars(JString* str);
+            virtual void writeBytes(JString* str);
             virtual ~JObjectOutputStream();
         };
     }

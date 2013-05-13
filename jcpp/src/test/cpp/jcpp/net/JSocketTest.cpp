@@ -9,7 +9,7 @@ namespace jcpp{
         public:
             JServerSocket* server;
             ServerSocketRunnable(JString host, int port){
-                this->server=new JServerSocket(new JString(host), new JPrimitiveInt(port),new JPrimitiveInt(200));
+                this->server=new JServerSocket(host, port,200);
                 server->connect();
             }
 
@@ -44,7 +44,7 @@ namespace jcpp{
             JSocket* socket;
             ClientSocketRunnable(JString host,int port){
                 JThread::sleep(5);
-                this->socket=new JSocket(new JString(host),new JPrimitiveInt(port),0);
+                this->socket=new JSocket(host,port,0);
             }
 
             void run(){

@@ -76,7 +76,7 @@ namespace jcpp{
             this->value=new JPrimitiveLong(0);
         }
 
-        bool JLong::equals(JObject* other){
+        jbool JLong::equals(JObject* other){
             if (other->getClass()==getClazz()){
                 JLong* s=dynamic_cast<JLong*>(other);
                 return (*value)==(*s->value);
@@ -84,17 +84,17 @@ namespace jcpp{
             return false;
         }
 
-        JLong JLong::operator+=(jlong f){
+        JLong& JLong::operator+=(jlong f){
             (*value)+=f;
             return *this;
         }
 
-        JLong JLong::operator-=(jlong f){
+        JLong& JLong::operator-=(jlong f){
             (*value)-=f;
             return *this;
         }
 
-        JLong JLong::operator*=(jlong f){
+        JLong& JLong::operator*=(jlong f){
             (*value)*=f;
             return *this;
         }

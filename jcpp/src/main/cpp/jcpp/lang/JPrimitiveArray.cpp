@@ -85,7 +85,7 @@ namespace jcpp{
             }
         }
 
-        bool JPrimitiveArray::equals(JObject* other){
+        jbool JPrimitiveArray::equals(JObject* other){
             if (!other->getClass()->isArray()){
                 return false;
             }

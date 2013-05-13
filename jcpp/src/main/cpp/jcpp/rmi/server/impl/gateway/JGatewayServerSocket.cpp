@@ -29,7 +29,7 @@ namespace jcpp{
                         return clazz;
                     }
 
-                    JGatewayServerSocket::JGatewayServerSocket(JString* host, JPrimitiveInt* port,JGatewayConfiguration* gatewayConfiguration):JServerSocket(host,port,new JPrimitiveInt(gatewayConfiguration->getBackLog()->get()),getClazz()){
+                    JGatewayServerSocket::JGatewayServerSocket(JString host, jint port,JGatewayConfiguration* gatewayConfiguration):JServerSocket(host,port,gatewayConfiguration->getBackLog()->get(),getClazz()){
                         this->gatewayConfiguration=gatewayConfiguration;
                     }
 

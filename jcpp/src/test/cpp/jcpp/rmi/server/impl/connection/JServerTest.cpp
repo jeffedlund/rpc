@@ -24,7 +24,7 @@ namespace jcpp{
                         JRemoteSample* rs=new JRemoteSample();
                         JPrimitiveArray* i=new JPrimitiveArray(JClass::getClazz(),1);
                         i->set(0,JIRemoteSample::getClazz());
-                        server1->getIRegistry()->bind(JString::intern(JIRemoteSample::getClazz()->getName()),rs,i);
+                        server1->getIRegistry()->bind(new JString(JIRemoteSample::getClazz()->getName()),rs,i);
                         */
 
                         JEndPoint* localEndPoint2=new JEndPoint();
@@ -38,7 +38,7 @@ namespace jcpp{
                         JRemoteSample* rs2=new JRemoteSample();
                         JPrimitiveArray* i2=new JPrimitiveArray(JClass::getClazz(),1);
                         i2->set(0,JIRemoteSample::getClazz());
-                        server2->getIRegistry()->bind(JString::intern(JIRemoteSample::getClazz()->getName()),rs2,i2);
+                        server2->getIRegistry()->bind(new JString(JIRemoteSample::getClazz()->getName()),rs2,i2);
 
                         JObject* obj=server2->lookup(localEndPoint1,JIRegistry::getClazz());
                         cout<<obj->getClass()->getName();

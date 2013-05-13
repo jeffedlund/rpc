@@ -6,7 +6,6 @@
 namespace jcpp{
     namespace lang{
         namespace reflect{
-
             class JAccessibleObjectClass : public JClass{
             public:
                 JAccessibleObjectClass():JClass(JClassLoader::getBootClassLoader()){

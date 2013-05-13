@@ -31,9 +31,9 @@ namespace jcpp{
                 static JClass* TYPE;
                 static jint hashCode(jlong l);
                 static jint compare(jlong x,jlong y);
-                JLong operator+=(jlong f);
-                JLong operator-=(jlong f);
-                JLong operator*=(jlong f);
+                JLong& operator+=(jlong f);
+                JLong& operator-=(jlong f);
+                JLong& operator*=(jlong f);
                 void set(jlong value);
                 jlong get();
                 virtual jbyte byteValue();
@@ -43,7 +43,7 @@ namespace jcpp{
                 virtual jfloat floatValue();
                 virtual jdouble doubleValue();
                 virtual jint compareTo(JObject* o);
-                virtual bool equals(JObject* other);
+                virtual jbool equals(JObject* other);
                 virtual jint hashCode();
                 virtual JString toString();
                 virtual ~JLong();

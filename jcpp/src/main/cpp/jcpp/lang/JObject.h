@@ -23,17 +23,17 @@ namespace jcpp{
             protected:
                 JClass* _class;
                 JObject(JClass* _class);
-                JObject(bool root);
+                JObject(jbool root);
 
             public:
                 struct POINTER_COMPARATOR{//TODO CRITICAL POSSIBLE BUG if 2 objects have the same hashcode in hashmap?
-                    bool operator()(JObject* e1, JObject* e2){
+                    jbool operator()(JObject* e1, JObject* e2){
                         return (e1==NULL ? (e2==NULL ? true : 0<e2->hashCode()): e1->hashCode()<e2->hashCode());
                     }
                 };
 
                 struct POINTER_ID_COMPARATOR{
-                    bool operator()(JObject* e1, JObject* e2){
+                    jbool operator()(JObject* e1, JObject* e2){
                         return (e1==NULL ? (e2==NULL ? true : 0<(jint)e2): (jint)e1<(jint)e2);
                     }
                 };
@@ -41,8 +41,8 @@ namespace jcpp{
                 JObject();
                 static JClass* getClazz();
                 virtual JClass* getClass();
-                virtual bool operator==(JObject &other);
-                virtual bool operator!=(JObject &other);
+                virtual jbool operator==(JObject& other);
+                virtual jbool operator!=(JObject& other);
                 virtual jbool isInstanceOf(JClass* c);
                 void lock();
                 void unlock();

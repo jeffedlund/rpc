@@ -8,18 +8,18 @@
 using namespace std;
 using namespace jcpp::lang::reflect;
 
+//TODO getResource, getResources, findResource, findResources,
+//getSystemResource, getSystemResources, getResourceAsStream, getSystemResourceAsStream,
+//getSystemClassLoader, findLibrary
 namespace jcpp{
     namespace lang{
-    //TODO getResource, getResources, findResource, findResources,
-    //getSystemResource, getSystemResources, getResourceAsStream, getSystemResourceAsStream,
-    //getSystemClassLoader, findLibrary
         class JCPP_LIBRARY_EXPORT JClassLoader : public JObject{
         private:
-            JClassLoader(bool root);
+            JClassLoader(jbool root);
         protected:
             JClassLoader* parent;
             map<JString, JClass*>* classes;
-            bool bIsBootClassLoader;
+            jbool bIsBootClassLoader;
             static JClass* getClazz(JClassLoader* classLoader);
             JClassLoader(JClass* _class,JClassLoader* parent);
             void initClasses(JPackage* p);

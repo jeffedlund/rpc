@@ -71,7 +71,7 @@ namespace jcpp{
 
         JString JByteArrayOutputStream::toString(){
             lock();
-            JString str(buf);//TODO test
+            JString str=JString(buf);
             unlock();
             return str;
         }

@@ -11,6 +11,7 @@
 #include "JSerializable.h"
 #include "JCPP.h"
 #include "JCloneable.h"
+#include "JDataOutputStream.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;
@@ -24,20 +25,23 @@ namespace jcpp{
                         protected:
                             JString* hostName;
                             JPrimitiveInt* port;
+                            void setPHostName(JString* host);
+                            JString* getPHostName();
+                            void setPPort(JPrimitiveInt* port);
+                            JPrimitiveInt* getPPort();
+                            friend class JAddressClass;
 
                         public:
                             JAddress();
+                            JAddress(const JString& host, jint port);
                             JAddress(JAddress* adr);
                             static JClass* getClazz();
-                            void setHostName(JString host);
-                            JString getHostName();
-                            void setPHostName(JString* host);
-                            JString* getPHostName();
+                            void setHostName(const JString& host);
+                            JString* getHostName();
                             void setPort(jint port);
                             jint getPort();
-                            void setPPort(JPrimitiveInt* port);
-                            JPrimitiveInt* getPPort();
-                            virtual bool equals(JObject* other);
+                            void write(JDataOutputStream* out);
+                            virtual jbool equals(JObject* other);
                             virtual jint hashCode();
                             virtual JAddress* clone();
                             virtual JString toString();

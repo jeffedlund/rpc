@@ -12,7 +12,6 @@ using namespace std;
 namespace jcpp{
     namespace lang{
         class JObject;
-
         namespace reflect{
             class JCPP_LIBRARY_EXPORT JField: public JAccessibleObject, public JMember{
             public:
@@ -20,7 +19,7 @@ namespace jcpp{
                 typedef void (*setter)(JObject* object,JObject* value);
 
             protected:
-                JString name;
+                JString* name;
                 JClass* type;
                 getter g;
                 setter s;
@@ -31,14 +30,14 @@ namespace jcpp{
                 JField(JString name,JClass* type,JClass* declaringClass);
                 JField(JString name,JClass* type,JClass* declaringClass,getter g,setter s);
                 static JClass* getClazz();
-                virtual JString getName();
-                JClass* getType();
+                virtual JString* getName();
+                virtual JClass* getType();
                 virtual JObject* get(JObject* object);
                 virtual void set(JObject* object, JObject* value);
                 virtual JClass* getDeclaringClass();
                 virtual jint getModifiers();
                 virtual jbool isSynthetic();
-                virtual bool equals(JObject* o);
+                virtual jbool equals(JObject* o);
                 virtual jint hashCode();
                 virtual JString toString();
                 virtual ~JField();
@@ -46,4 +45,5 @@ namespace jcpp{
         }
     }
 }
+
 #endif // JFIELD_H

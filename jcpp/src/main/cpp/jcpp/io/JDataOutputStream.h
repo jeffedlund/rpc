@@ -52,10 +52,10 @@ namespace jcpp{
             virtual void writeLong(JPrimitiveLong* v);
             virtual void writeFloat(JPrimitiveFloat* v);
             virtual void writeDouble(JPrimitiveDouble* v);
-            virtual void writeBytes(JString s);
-            virtual void writeChars(JString s);
-            virtual void writeUTF(JString str);
-            virtual jint writeUTF(JString str, JOutputStream* out);
+            virtual void writeBytes(JString* s);
+            virtual void writeChars(JString* s);
+            virtual void writeUTF(JString* str);
+            virtual jint writeUTF(JString* str, JOutputStream* out);
             virtual jint size();
             virtual ~JDataOutputStream();
         };

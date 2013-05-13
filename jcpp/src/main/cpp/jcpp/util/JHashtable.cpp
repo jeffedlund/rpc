@@ -6,6 +6,10 @@
 #include "JNoSuchElementException.h"
 #include "JInvalidObjectException.h"
 #include "JCollections.h"
+#include "JVoid.h"
+#include "JIllegalArgumentException.h"
+#include "JNullPointerException.h"
+#include "JClassCastException.h"
 
 namespace jcpp{
     namespace util{

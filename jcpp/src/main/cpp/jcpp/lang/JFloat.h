@@ -13,7 +13,6 @@ using namespace std;
 namespace jcpp{
     namespace lang{
         class JCPP_LIBRARY_EXPORT JFloat : public JNumber, public JComparable{
-
             protected:
                 JPrimitiveFloat* value;
                 void setPrimitiveFloat(JPrimitiveFloat* value);
@@ -31,11 +30,11 @@ namespace jcpp{
                 static JClass* TYPE;
                 static jint hashCode(jfloat f);
                 static jint compare(jfloat f1,jfloat f2);
-                JFloat operator+=(jfloat f);
-                JFloat operator-=(jfloat f);
-                JFloat operator*=(jfloat f);
-                void set(float value);
-                float get();
+                JFloat& operator+=(jfloat f);
+                JFloat& operator-=(jfloat f);
+                JFloat& operator*=(jfloat f);
+                void set(jfloat value);
+                jfloat get();
                 virtual jbyte byteValue();
                 virtual jshort shortValue();
                 virtual jint intValue();
@@ -43,7 +42,7 @@ namespace jcpp{
                 virtual jfloat floatValue();
                 virtual jdouble doubleValue();
                 virtual jint compareTo(JObject* o);
-                virtual bool equals(JObject* other);
+                virtual jbool equals(JObject* other);
                 virtual jint hashCode();
                 virtual JString toString();
                 virtual ~JFloat();

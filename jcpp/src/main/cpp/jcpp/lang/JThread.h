@@ -45,7 +45,7 @@ namespace jcpp{
             };
 
             QThread* thread;
-            bool deletable;
+            jbool deletable;
             JRunnable* runnable;
             JUncaughtExceptionHandler* ueh;
             JThread(QThread* thread);

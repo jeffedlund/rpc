@@ -57,17 +57,17 @@ namespace jcpp{
             return value==s->value;
         }
 
-        JPrimitiveFloat JPrimitiveFloat::operator+=(jfloat f){
+        JPrimitiveFloat& JPrimitiveFloat::operator+=(jfloat f){
             value+=f;
             return *this;
         }
 
-        JPrimitiveFloat JPrimitiveFloat::operator-=(jfloat f){
+        JPrimitiveFloat& JPrimitiveFloat::operator-=(jfloat f){
             value-=f;
             return *this;
         }
 
-        JPrimitiveFloat JPrimitiveFloat::operator*=(jfloat f){
+        JPrimitiveFloat& JPrimitiveFloat::operator*=(jfloat f){
             value*=f;
             return *this;
         }

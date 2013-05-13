@@ -177,7 +177,7 @@ namespace jcpp{
             return n;
         }
 
-        JString JBufferedReader::readLine(jbool ignoreLF){
+        JString* JBufferedReader::readLine(jbool ignoreLF){
             JStringBuffer* s = NULL;
             jint startChar=0;
             ensureOpen();
@@ -192,10 +192,10 @@ namespace jcpp{
                 if (nextChar >= nChars) {
                     if (s != NULL && s->length() > 0){
                         lock->unlock();
-                        return s->toString();
+                        return new JString(s->toString());
                     }else{
                         lock->unlock();
-                        return JString("");//TODO should be NULL;
+                        return NULL;
                     }
                 }
                 jbool eol = false;
@@ -220,12 +220,12 @@ namespace jcpp{
                 nextChar = i;
 
                 if (eol) {
-                    JString str;
+                    JString* str;
                     if (s == NULL) {
-                        str=JString(cb,startChar,i-startChar);
+                        str=new JString(cb,startChar,i-startChar);
                     } else {
                         s->append(cb, startChar, i - startChar);
-                        str = s->toString();
+                        str = new JString(s->toString());
                     }
                     nextChar++;
                     if (c == '\r') {
@@ -242,7 +242,7 @@ namespace jcpp{
              }
         }
 
-        JString JBufferedReader::readLine(){
+        JString* JBufferedReader::readLine(){
             return readLine(false);
         }
 

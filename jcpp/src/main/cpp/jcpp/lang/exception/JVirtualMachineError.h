@@ -16,9 +16,7 @@ namespace jcpp{
             JVirtualMachineError();
             JVirtualMachineError(JString message);
             JVirtualMachineError(JString message, JThrowable *cause);
-
             static JClass* getClazz();
-
             virtual ~JVirtualMachineError();
         };
     }

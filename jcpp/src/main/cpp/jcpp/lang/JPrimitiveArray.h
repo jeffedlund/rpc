@@ -25,7 +25,7 @@ namespace jcpp{
             JObject* get(jint i);
             vector<JObject*>* getObjects();
             void set(jint i,JObject* value);
-            virtual bool equals(JObject* other);
+            virtual jbool equals(JObject* other);
             virtual ~JPrimitiveArray();
         };
     }

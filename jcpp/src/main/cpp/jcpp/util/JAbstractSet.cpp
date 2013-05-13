@@ -6,6 +6,8 @@
 #include "JNoSuchElementException.h"
 #include "JConcurrentModificationException.h"
 #include "JRandomAccess.h"
+#include "JClassCastException.h"
+#include "JNullPointerException.h"
 using namespace std;
 
 namespace jcpp{

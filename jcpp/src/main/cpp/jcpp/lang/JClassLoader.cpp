@@ -2,10 +2,17 @@
 #include "Collections.h"
 #include "JClassNotFoundException.h"
 #include <algorithm>
-#include "JIO.h"
-#include "JLANG.h"
-#include "JREFLECT.h"
-#include "JUTIL.h"
+#include "JCPP_PACKAGE.h"
+#include "JIllegalArgumentException.h"
+#include "JPrimitiveByte.h"
+#include "JPrimitiveLong.h"
+#include "JPrimitiveFloat.h"
+#include "JPrimitiveDouble.h"
+#include "JPrimitiveShort.h"
+#include "JPrimitiveChar.h"
+#include "JPrimitiveBoolean.h"
+#include "JVoid.h"
+#include "JInternalError.h"
 using namespace std;
 using namespace jcpp::util;
 
@@ -79,7 +86,7 @@ namespace jcpp{
             this->parent=(parent!=NULL ? parent : getBootClassLoader());
         }
 
-        JClassLoader::JClassLoader(bool root):JObject(true){
+        JClassLoader::JClassLoader(jbool root):JObject(true){
             this->classes=new map<JString,JClass*>();
             this->_class=getClazz(this);
             this->bIsBootClassLoader=root;

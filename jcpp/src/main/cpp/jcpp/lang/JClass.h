@@ -14,14 +14,13 @@ using namespace std;
 using namespace jcpp::lang::reflect;
 using namespace jcpp::lang;
 
+//TODO implement JClass::forName,, getPackage, getenclosingMethod,getEnclosingConstructor,
+//getDeclaringClass,isAnonymousClass,isLocalClass,isMemberClass,getClasses, getDeclaredClasses,
+//getResourceAsStream, getResource,getPrimitiveClass, cast,annotations,
 namespace jcpp{
     namespace lang{
         class JEnum;
         class JClassLoader;
-
-        //TODO implement JClass::forName,, getPackage, getenclosingMethod,getEnclosingConstructor,
-        //getDeclaringClass,isAnonymousClass,isLocalClass,isMemberClass,getClasses, getDeclaredClasses,
-        //getResourceAsStream, getResource,getPrimitiveClass, cast,annotations,
         class JCPP_LIBRARY_EXPORT JClass : public JObject{
         private:
             void init(JClassLoader* cl);
@@ -31,6 +30,7 @@ namespace jcpp{
             void initInheritedPublicClasses();
             void initEnumConstants();
             void initInterfaces();
+
         protected:
             JString canonicalName;
             JString name;
@@ -50,17 +50,17 @@ namespace jcpp{
             vector<JClass*>* publicClasses;
             vector<JClass*>* inheritedPublicClasses;
             vector<JClass*>* declaredClasses;
-            bool bIsArray;
-            bool bIsProxy;
-            bool bIsEnum;
-            bool bIsInterface;
-            bool bIsPrimitive;
-            bool bIsPackage;
+            jbool bIsArray;
+            jbool bIsProxy;
+            jbool bIsEnum;
+            jbool bIsInterface;
+            jbool bIsPrimitive;
+            jbool bIsPackage;
             jlong serialVersionUID;
             jint modifier;
             JClass(JClassLoader* classLoader);
             JClass();
-            JClass(bool root);
+            JClass(jbool root);
 
             void addEnumConstant(JEnum* enumConstant);
             void addField(JField* field);
@@ -90,23 +90,23 @@ namespace jcpp{
             virtual JField* getDeclaredField(JString name);
             virtual vector<JField*>* getDeclaredFields();
             virtual vector<JClass*>* getInterfaces();
-            virtual bool hasMethod(JString name, vector<JClass*>* parameterTypes);
+            virtual jbool hasMethod(JString name, vector<JClass*>* parameterTypes);
             virtual JMethod* getMethod(JString name, vector<JClass*>* parameterTypes);
             virtual vector<JMethod*>* getMethods();
-            virtual bool hasDeclaredMethod(JString name, vector<JClass*>* parameterTypes);
+            virtual jbool hasDeclaredMethod(JString name, vector<JClass*>* parameterTypes);
             virtual JMethod* getDeclaredMethod(JString name, vector<JClass*>* parameterTypes);
             virtual vector<JMethod*>* getDeclaredMethods();
             virtual vector<JClass*>* getClasses();
             virtual vector<JClass*>* getDeclaredClasses();
             virtual JClass* getSuperclass()=0;
-            virtual bool isArray();
-            virtual bool isProxy();
-            virtual bool isEnum();
-            virtual bool isAssignableFrom(JClass* clazz);
-            virtual bool isInstance(JObject* o);
-            virtual bool isInterface();
-            virtual bool isPrimitive();
-            virtual bool isPackage();
+            virtual jbool isArray();
+            virtual jbool isProxy();
+            virtual jbool isEnum();
+            virtual jbool isAssignableFrom(JClass* clazz);
+            virtual jbool isInstance(JObject* o);
+            virtual jbool isInterface();
+            virtual jbool isPrimitive();
+            virtual jbool isPackage();
             virtual jint getModifiers();
             virtual JObject* newInstance();
             virtual JClass* getDeclaringClass();

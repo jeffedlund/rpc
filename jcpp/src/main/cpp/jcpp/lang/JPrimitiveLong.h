@@ -21,9 +21,9 @@ namespace jcpp{
             public:
                 JPrimitiveLong();
                 JPrimitiveLong(jlong value);
-                JPrimitiveLong operator+=(jlong f);
-                JPrimitiveLong operator-=(jlong f);
-                JPrimitiveLong operator*=(jlong f);
+                JPrimitiveLong& operator+=(jlong f);
+                JPrimitiveLong& operator-=(jlong f);
+                JPrimitiveLong& operator*=(jlong f);
                 static JClass* getClazz();
                 void set(jlong value);
                 jlong get();

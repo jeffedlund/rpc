@@ -23,15 +23,10 @@ namespace jcpp{
             QObjectHolder();
 
         public:
-
             static QObjectHolder* getQObjectHolder();
-
             void releaseOwner(QObject* obj);
-
             void takeOwner(QObject* obj);
-
             void deleteObject(QObject* obj);
-
             virtual void run();
         };
     }

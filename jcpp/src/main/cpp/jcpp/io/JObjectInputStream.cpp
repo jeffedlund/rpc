@@ -26,6 +26,15 @@
 #include "JBlockDataInputStream.h"
 #include "JInvalidObjectException.h"
 #include "JString.h"
+#include "JBoolean.h"
+#include "JByte.h"
+#include "JChar.h"
+#include "JShort.h"
+#include "JInteger.h"
+#include "JFloat.h"
+#include "JLong.h"
+#include "JDouble.h"
+#include "JIllegalArgumentException.h"
 
 using namespace std;
 using namespace jcpp::lang::reflect;

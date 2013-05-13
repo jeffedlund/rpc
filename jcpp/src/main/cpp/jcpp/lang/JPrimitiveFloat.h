@@ -15,16 +15,15 @@ using namespace jcpp::io;
 namespace jcpp{
     namespace lang{
         class JCPP_LIBRARY_EXPORT JPrimitiveFloat : public JObject, public JComparable, public JSerializable{
-
             protected:
                 jfloat value;
 
             public:
                 JPrimitiveFloat();
                 JPrimitiveFloat(jfloat value);
-                JPrimitiveFloat operator+=(jfloat f);
-                JPrimitiveFloat operator-=(jfloat f);
-                JPrimitiveFloat operator*=(jfloat f);
+                JPrimitiveFloat& operator+=(jfloat f);
+                JPrimitiveFloat& operator-=(jfloat f);
+                JPrimitiveFloat& operator*=(jfloat f);
                 static JClass* getClazz();
                 void set(jfloat value);
                 jfloat get();

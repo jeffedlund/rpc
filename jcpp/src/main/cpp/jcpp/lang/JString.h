@@ -5,14 +5,14 @@
 #include "JComparable.h"
 #include "JCPP.h"
 #include "JCloneable.h"
+#include "QString"
 using namespace std;
 
-//TODO implement more method + charsequence
+//TODO implement more method + JCharSequence
 namespace jcpp{
     namespace lang{
-        //TODO implement JCharSequence
         class JCPP_LIBRARY_EXPORT JString : public JObject, public JComparable, public JCloneable{
-            string str;
+            string str;//TODO use QString+encoding instead
 
         public:
             struct POINTER_COMPARATOR{//TODO better way?
@@ -41,22 +41,23 @@ namespace jcpp{
             jint length();
             jbool isEmpty();
             jchar charAt(jint index);
-            jbool operator<(const JString& other) const;
-            JString& operator+(string& s);
-            JString& operator+(string s);
-            JString& operator+(JString& s);
-            JString& operator+(JString s);
-            JString& operator+(const char* s);
-            JString& operator+=(string& s);
-            JString& operator+=(JString s);
-            JString& operator+=(const char* s);
-            JString& operator=(string& s);
+            void setCharAt(jint index,jchar c);
+            void deleteChar(jint start,jint end);
+            void insertChar(jint index,jchar c);
+            jint indexOf(JString str,jint from);
+            jint lastIndexOf(JString str,jint from);
+            JString reverse();
             JString& operator=(JString s);
             JString& operator=(const char* s);
-            jbool operator==(string s);
-            jbool operator==(string& s);
-            jbool operator==(JString s);
-            jbool operator==(const char*);
+            JString& operator+=(JString s);
+            jbool operator<(JString other) const;
+            jbool operator>(JString other);
+            jbool operator!=(JString other);
+            jbool operator<=(JString other);
+            jbool operator>=(JString other);
+            jbool operator==(JString other);
+            jbool operator==(const char* c);
+            JString operator+(JString s);
             JString& operator<<(JString s);
             JString& operator<<(jbyte l);
             JString& operator<<(jchar l);
@@ -74,6 +75,7 @@ namespace jcpp{
             virtual jint compareTo(JObject* o);
             virtual JString* clone();
             virtual jbool equals(JObject* other);
+            virtual jbool equals(JString other);
             virtual jint hashCode();
             virtual JString toString();
             virtual ~JString();

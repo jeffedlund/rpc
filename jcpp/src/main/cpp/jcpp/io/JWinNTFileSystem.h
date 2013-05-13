@@ -4,6 +4,7 @@
 #include "JString.h"
 #include "JIOFileSystem.h"
 #include "JFile.h"
+#include "JStringBuffer.h"
 
 using namespace jcpp::lang;
 

@@ -9,8 +9,6 @@ using namespace std;
 namespace jcpp{
     namespace lang{
         class JCPP_LIBRARY_EXPORT JRunnable : public JInterface{
-        protected:
-
         public:
             static JClass* getClazz();
             virtual void run()=0;

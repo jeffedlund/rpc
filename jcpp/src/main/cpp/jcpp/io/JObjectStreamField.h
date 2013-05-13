@@ -17,8 +17,8 @@ namespace jcpp{
     namespace io{
         class JCPP_LIBRARY_EXPORT JObjectStreamField : public JObject, public JComparable{
         private:
-            JString name;
-            JString signature;
+            JString* name;
+            JString* signature;
             JClass* type;
             jbool unshared;
             JField* field;
@@ -44,7 +44,7 @@ namespace jcpp{
                 return (f1->getName()<f2->getName());
             }
 
-            JString getName();
+            JString* getName();
             JClass* getType();
             jchar getTypeCode();
             JString* getTypeString();
@@ -53,7 +53,7 @@ namespace jcpp{
             jbool isPrimitive();
             jbool isUnshared();
             JField* getField();
-            JString getSignature();
+            JString* getSignature();
             virtual jint compareTo(JObject* o);
             virtual ~JObjectStreamField();
         };

@@ -14,6 +14,7 @@
 #include "JDataOutputStream.h"
 #include "JGatewayConfiguration.h"
 #include "JCPP.h"
+#include "JLong.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::io;

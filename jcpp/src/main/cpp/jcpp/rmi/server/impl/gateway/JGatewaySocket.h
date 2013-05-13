@@ -47,8 +47,8 @@ namespace jcpp{
                             virtual QObject* getQObject();
                             virtual JInetAddress* getInetAddress();
                             virtual JInetAddress* getLocalAddress();
-                            virtual JPrimitiveInt* getPort();
-                            virtual JPrimitiveInt* getLocalPort();
+                            virtual jint getPort();
+                            virtual jint getLocalPort();
 
                             virtual JInputStream* getInputStream();
                             virtual JOutputStream* getOutputStream();

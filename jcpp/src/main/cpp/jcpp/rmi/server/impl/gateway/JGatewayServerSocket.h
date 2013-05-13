@@ -26,7 +26,7 @@ namespace jcpp{
                             JGatewayConfiguration* gatewayConfiguration;
 
                         public:
-                            JGatewayServerSocket(JString* host, JPrimitiveInt* port,JGatewayConfiguration* gatewayConfiguration);
+                            JGatewayServerSocket(JString host, jint port,JGatewayConfiguration* gatewayConfiguration);
                             static JClass* getClazz();
                             virtual JSocket* accept();
                             JString toString();

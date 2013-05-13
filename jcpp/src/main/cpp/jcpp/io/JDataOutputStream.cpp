@@ -160,35 +160,35 @@ namespace jcpp{
             writeInt(i->get());
         }
 
-        void JDataOutputStream::writeBytes(JString s){
-            jint len = s.length();
+        void JDataOutputStream::writeBytes(JString* s){
+            jint len = s->length();
             jbyte b;
             for (jint i = 0 ; i < len ; i++) {
-                JBits::fromCharToJByte(&b,s.charAt(i));//TODO
+                JBits::fromCharToJByte(&b,s->charAt(i));//TODO
                 write(b);
             }
         }
 
-        void JDataOutputStream::writeChars(JString s){
-            jint len = s.length();
+        void JDataOutputStream::writeChars(JString* s){
+            jint len = s->length();
             for (jint i = 0 ; i < len ; i++) {
-                jint v = s.charAt(i);
+                jint v = s->charAt(i);
                 write((v >> 8) & 0xFF);
                 write((v >> 0) & 0xFF);
             }
         }
 
-        void JDataOutputStream::writeUTF(JString str){
+        void JDataOutputStream::writeUTF(JString* str){
             writeUTF(str, this);
         }
 
-        jint JDataOutputStream::writeUTF(JString str, JOutputStream *out){
-            jint strlen = str.length();
+        jint JDataOutputStream::writeUTF(JString* str, JOutputStream *out){
+            jint strlen = str->length();
             jint utflen = 0;
             jint c, count = 0;
 
             for (jint i = 0; i < strlen; i++) {
-                c = str.charAt(i);
+                c = str->charAt(i);
                 if ((c >= 0x0001) && (c <= 0x007F)) {
                     utflen++;
                 } else if (c > 0x07FF) {
@@ -219,12 +219,12 @@ namespace jcpp{
 
             jint i=0;
             for (i=0; i < strlen; i++) {
-               c = str.charAt(i);
+               c = str->charAt(i);
                if (!((c >= 0x0001) && (c <= 0x007F))) break;
                bytearr[count++] = (jbyte) c;
             }
             for (;i < strlen; i++){
-               c = str.charAt(i);
+               c = str->charAt(i);
                 if ((c >= 0x0001) && (c <= 0x007F)) {
                     bytearr[count++] = (jbyte) c;
 

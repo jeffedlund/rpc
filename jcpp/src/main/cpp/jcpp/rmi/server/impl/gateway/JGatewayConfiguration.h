@@ -13,6 +13,7 @@
 #include "JSocket.h"
 #include "JRoute.h"
 #include "JCPP.h"
+#include "JInteger.h"
 using namespace std;
 using namespace jcpp::lang;
 using namespace jcpp::util;

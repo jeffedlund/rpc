@@ -34,7 +34,7 @@ namespace jcpp{
             return ordinal - e->getOrdinal();
         }
 
-        bool JEnum::equals(JObject* other){
+        jbool JEnum::equals(JObject* other){
             if (other->getClass()==getClass()){
                 JEnum* s=dynamic_cast<JEnum*>(other);
                 return (*name)==(*s->name) && (*ordinal)==(*s->ordinal);

@@ -74,7 +74,7 @@ namespace jcpp{
             this->value=new JPrimitiveChar((jchar)0);
         }
 
-        bool JChar::equals(JObject* other){
+        jbool JChar::equals(JObject* other){
             if (other->getClass()==getClazz()){
                 JChar* s=dynamic_cast<JChar*>(other);
                 return (*value)==(*s->value);
@@ -113,7 +113,9 @@ namespace jcpp{
         }
 
         JString JChar::toString(){
-            return JString(value->get());
+            JString s("");
+            s<<value->get();
+            return s;
         }
 
         JChar::~JChar(){

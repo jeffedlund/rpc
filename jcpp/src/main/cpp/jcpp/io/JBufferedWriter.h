@@ -15,19 +15,19 @@ namespace jcpp{
                 jint size;
                 jint nChars;
                 jint nextChar;
-                JString lineSeparator;
+                JString* lineSeparator;
                 void ensureOpen();
                 void flushBuffer();
 
             public:
                 static JClass* getClazz();
                 JBufferedWriter(JWriter* out,jint size=8192);
-                virtual void  write(jint c);
-                virtual void  write(jchar cbuf[], jint off, jint len);
-                virtual void  write(JString* str, jint off, jint len);
-                virtual void  newLine();
-                virtual void  flush();
-                virtual void  close();
+                virtual void write(jint c);
+                virtual void write(jchar cbuf[], jint off, jint len);
+                virtual void write(JString* str, jint off, jint len);
+                virtual void newLine();
+                virtual void flush();
+                virtual void close();
                 virtual ~JBufferedWriter();
         };
     }

@@ -85,7 +85,7 @@ namespace jcpp{
             return result;
         }
 
-        JBoolean::JBoolean(bool value):JObject(getClazz()){
+        JBoolean::JBoolean(jbool value):JObject(getClazz()){
             this->value=new JPrimitiveBoolean(value);
         }
 
@@ -93,7 +93,7 @@ namespace jcpp{
             this->value=new JPrimitiveBoolean(false);
         }
 
-        bool JBoolean::equals(JObject* other){
+        jbool JBoolean::equals(JObject* other){
             if (other->getClass()!=getClazz()){
                 return false;
             }

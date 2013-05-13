@@ -79,7 +79,7 @@ namespace jcpp{
             return get()-s->get();
         }
 
-        bool JPrimitiveChar::equals(JObject* other){
+        jbool JPrimitiveChar::equals(JObject* other){
             if (other->getClass()!=getClazz()){
                 return false;
             }

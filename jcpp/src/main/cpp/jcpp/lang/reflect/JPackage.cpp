@@ -31,7 +31,7 @@ namespace jcpp{
             }
 
             JPackage::JPackage(JString name,JClass* _class){
-                this->name=name;
+                this->name=new JString(name);
                 this->_class=_class;
                 this->classes=new vector<JClass*>();
                 this->packages=new vector<JPackage*>();
@@ -42,7 +42,9 @@ namespace jcpp{
             }
 
             JString JPackage::toString(){
-                return "package "+name;
+                JString s=JString("");
+                s<<"package "<<name;
+                return s;
             }
 
             JClass* JPackage::getClass(){
@@ -54,6 +56,7 @@ namespace jcpp{
             }
 
             JPackage::~JPackage() {
+                delete name;
                 delete classes;
                 delete packages;
             }

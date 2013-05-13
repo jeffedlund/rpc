@@ -1,5 +1,6 @@
 #include "JStringBuilder.h"
 #include "JClass.h"
+#include "JVoid.h"
 
 namespace jcpp{
     namespace lang{

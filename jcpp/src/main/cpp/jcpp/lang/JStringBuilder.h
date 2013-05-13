@@ -26,8 +26,8 @@ namespace jcpp{
                 JStringBuilder();
                 JStringBuilder(JString str);
                 JStringBuilder(JCharSequence* seq);
-                virtual JStringBuilder* append(JObject *o);
-                virtual JStringBuilder* append(JString *o);
+                virtual JStringBuilder* append(JObject* o);
+                virtual JStringBuilder* append(JString* o);
                 virtual JStringBuilder* append(JString str);
                 virtual JStringBuilder* append(JStringBuffer* sb);
                 virtual JStringBuilder* append(JCharSequence* sq);

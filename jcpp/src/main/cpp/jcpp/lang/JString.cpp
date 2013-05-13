@@ -50,14 +50,14 @@ namespace jcpp{
             JString* js=getFromMap(internStrings,s);
             if (js==NULL){
                 js=new JString(s);
-                internStrings->insert(pair<JString,JString*>(s,js));
+                internStrings->insert(pair<JString,JString*>(*js,js));
             }
             getClazz()->unlock();
             return js;
         }
 
         jint JString::hashCode(JString s){
-            jint h=0;//TODO cache it
+            jint h=0;
             for (jint i=0;i<s.length();i++){
                 h=31*h+(jint)s.charAt(i);
             }
@@ -121,7 +121,7 @@ namespace jcpp{
 
         JString::JString(jchar c):JObject(false){
             this->str=string();
-            str.push_back(c);
+            str.push_back(c);//TODO encoding + test
         }
 
         JClass* JString::getClass(){
@@ -140,87 +140,79 @@ namespace jcpp{
             return (jchar)str.at(index);
         }
 
-        bool JString::equals(JObject* other){
-            if (other->getClass()==getClazz()){
-                JString* s=dynamic_cast<JString*>(other);
-                return (str==s->str);
-            }
-            return false;
+        void JString::setCharAt(jint index,jchar c){
+            str.assign(index,c);
         }
 
-        bool JString::operator<(const JString &other) const{
-            return str<other.str;
+        void JString::deleteChar(jint start,jint end){
+            str.erase(str.begin()+start,str.begin()+end);
         }
 
-        JString& JString::operator+(string& s){
-            this->str+=s;
-            return *this;
+        void JString::insertChar(jint index,jchar c){
+            str.insert(index,1,c);
         }
 
-        JString& JString::operator+(string s){
-            this->str+=s;
-            return *this;
+        jint JString::indexOf(JString str,jint from){
+            return this->str.find(str.str,from);
         }
 
-        JString& JString::operator+(JString& s){
-            this->str+=s.getString();
-            return *this;
+        jint JString::lastIndexOf(JString str,jint from){
+            return this->str.find_last_of(str.str,from);
         }
 
-        JString& JString::operator+(JString s){
-            this->str+=s.getString();
-            return *this;
-        }
-
-        JString& JString::operator+(const char* s){
-            this->str+=s;
-            return *this;
-        }
-
-        JString& JString::operator+=(string& s){
-            this->str+=s;
-            return *this;
-        }
-
-        JString& JString::operator+=(JString s){
-            this->str+=s.getString();
-            return *this;
-        }
-
-        JString& JString::operator+=(const char* s){
-            this->str+=s;
-            return *this;
-        }
-
-        JString& JString::operator=(string& s){
-            this->str=s;
-            return *this;
+        JString JString::reverse(){
+            string s=string(str);
+            std::reverse(s.begin(),s.end());
+            return JString(s);
         }
 
         JString& JString::operator=(JString s){
-            this->str=s.getString();
+            str=s.str;
             return *this;
         }
 
         JString& JString::operator=(const char* s){
-            this->str=string(s);
+            str=string(s);
             return *this;
         }
 
-        jbool JString::operator==(string s){
-            return str==s;
+        JString& JString::operator+=(JString s){
+            str+=s.str;
+            return *this;
         }
 
-        jbool JString::operator==(string& s){
-            return str==s;
+        jbool JString::operator<(JString other) const{
+            return str<other.str;
+        }
+
+        jbool JString::operator>(JString other){
+            return str>other.str;
+        }
+
+        jbool JString::operator!=(JString other){
+            return str!=other.str;
+        }
+
+        jbool JString::operator<=(JString other){
+            return str<=other.str;
+        }
+
+        jbool JString::operator>=(JString other){
+            return str>=other.str;
+        }
+
+        jbool JString::operator==(JString other){
+            return str==other.str;
         }
 
         jbool JString::operator==(const char* c){
             return str==string(c);
         }
 
-        jbool JString::operator==(JString s){
-            return str==s.str;
+        JString JString::operator+(JString s){
+            JString ss=JString(str);
+            ss<<s;
+            return ss;
         }
 
         JString& JString::operator<<(JString s){
@@ -284,7 +276,16 @@ namespace jcpp{
             return *this;
         }
 
-        JString::~JString() {
+        bool JString::equals(JObject* other){
+            if (other->getClass()==getClazz()){
+                JString* s=dynamic_cast<JString*>(other);
+                return (str==s->str);
+            }
+            return false;
+        }
+
+        jbool JString::equals(JString other){
+            return str==other.str;
         }
 
         string JString::getString(){
@@ -304,7 +305,7 @@ namespace jcpp{
         }
 
         JString JString::substring(jint start,jint end){
-            return JString(this->str.substr(start,end));//TODO
+            return JString(this->str.substr(start,end));
         }
 
         void JString::setString(string str) {
@@ -317,8 +318,7 @@ namespace jcpp{
         }
 
         JString* JString::clone(){
-            JString* jstr=new JString();
-            jstr->str=str.c_str();
+            JString* jstr=new JString(this);
             return jstr;
         }
 
@@ -327,19 +327,24 @@ namespace jcpp{
         }
 
         JString JString::toString(){
-            return JString(str);
+            return JString(this);
+        }
+
+        JString::~JString(){
         }
     }
 }
 
 JString jcpp::lang::operator+(string s,jcpp::lang::JString str) {
-    str.setString(s+str.getString());
-    return str;
+    JString ss=JString(s);
+    ss<<str;
+    return ss;
 }
 
 JString jcpp::lang::operator+(const char* s,jcpp::lang::JString str) {
-    str.setString(s+str.getString());
-    return str;
+    JString ss=JString(s);
+    ss<<str;
+    return ss;
 }
 
 ostream& jcpp::lang::operator<<(ostream& os,jcpp::lang::JString o) {

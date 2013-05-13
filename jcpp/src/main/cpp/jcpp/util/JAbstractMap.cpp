@@ -4,6 +4,8 @@
 #include "JInstantiationException.h"
 #include <sstream>
 #include "JAbstractSet.h"
+#include "JClassCastException.h"
+#include "JNullPointerException.h"
 
 namespace jcpp{
     namespace util{

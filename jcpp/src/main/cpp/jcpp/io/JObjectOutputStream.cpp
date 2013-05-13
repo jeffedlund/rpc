@@ -10,11 +10,20 @@
 #include "JSerializable.h"
 #include "JArrayList.h"
 #include "JNotSerializableException.h"
-#include "JLANG.h"
 #include "JExternalizable.h"
 #include "Object.h"
 #include "Collections.h"
 #include "JNotActiveException.h"
+#include "JBoolean.h"
+#include "JByte.h"
+#include "JChar.h"
+#include "JShort.h"
+#include "JInteger.h"
+#include "JFloat.h"
+#include "JLong.h"
+#include "JDouble.h"
+#include "JIllegalArgumentException.h"
+#include "JInternalError.h"
 using namespace jcpp::util;
 
 namespace jcpp{
@@ -457,7 +466,8 @@ namespace jcpp{
             bout->writeInt(interfaces->size());
             for(unsigned int i = 0; i < interfaces->size(); ++i){
                 JClass* clazz=interfaces->at(i);
-                bout->writeUTF(clazz->getName());
+                JString s=clazz->getName();
+                bout->writeUTF(&s);
             }
 
             bout->setBlockDataMode(true);
@@ -684,25 +694,25 @@ namespace jcpp{
 
         void JObjectOutputStream::writeString(JString* str,jbool unshared){
             handles->assign((unshared?NULL : str));
-            jlong utflen = bout->getUTFLength(str->getString());
+            jlong utflen = bout->getUTFLength(str);
             if(utflen <= 0xFFFF){
                 bout->writeByte(TC_STRING);
-                bout->writeUTF(str->getString(), utflen);
+                bout->writeUTF(str, utflen);
             }else{
                 bout->writeByte(TC_LONGSTRING);
-                bout->writeLongUTF(str->getString(), utflen);
+                bout->writeLongUTF(str, utflen);
             }
         }
 
-        void JObjectOutputStream::writeUTF(JString str){
+        void JObjectOutputStream::writeUTF(JString* str){
             bout->writeUTF(str);
         }
 
-        void JObjectOutputStream::writeBytes(JString str){
+        void JObjectOutputStream::writeBytes(JString* str){
             bout->writeBytes(str);
         }
 
-        void JObjectOutputStream::writeChars(JString str){
+        void JObjectOutputStream::writeChars(JString* str){
             bout->writeChars(str);
         }
 

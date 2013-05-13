@@ -1,7 +1,7 @@
 #include "JObjectStreamField.h"
 #include "JObjectStreamClass.h"
-#include "JLANG.h"
 #include "Object.h"
+#include "JIllegalArgumentException.h"
 
 namespace jcpp{
     namespace io{
@@ -33,6 +33,8 @@ namespace jcpp{
         }
 
         JObjectStreamField::JObjectStreamField():JObject(getClazz()){
+            this->name=NULL;
+            this->signature=NULL;
             this->type=NULL;
             this->unshared=false;
             this->field=NULL;
@@ -40,26 +42,26 @@ namespace jcpp{
         }
 
         JObjectStreamField::JObjectStreamField(JString name,JClass* type):JObject(getClazz()){
-            this->name=name;
+            this->name=new JString(name);
             this->type=type;
             this->unshared=false;
-            this->signature=type->getSignature();
+            this->signature=new JString(type->getSignature());
             this->field=NULL;
             setTypeString();
         }
 
         JObjectStreamField::JObjectStreamField(JString name,JClass* type,jbool unshared):JObject(getClazz()){
-            this->name=name;
+            this->name=new JString(name);
             this->type=type;
             this->unshared=unshared;
-            this->signature=type->getSignature();
+            this->signature=new JString(type->getSignature());
             this->field=NULL;
             setTypeString();
         }
 
         JObjectStreamField::JObjectStreamField(JString name,JString signature,jbool unshared):JObject(getClazz()){
-            this->name=name;
-            this->signature=signature;
+            this->name=new JString(name);
+            this->signature=new JString(signature);
             this->unshared=unshared;
             this->field=NULL;
             switch(signature.charAt(0)){
@@ -103,11 +105,11 @@ namespace jcpp{
             this->name=field->getName();
             JClass* ftype=field->getType();
             type=(showType||ftype->isPrimitive()?ftype:JObject::getClazz());
-            signature=ftype->getSignature();
+            signature=new JString(ftype->getSignature());
             setTypeString();
         }
 
-        JString JObjectStreamField::getName(){
+        JString* JObjectStreamField::getName(){
             return name;
         }
 
@@ -116,11 +118,15 @@ namespace jcpp{
         }
 
         jchar JObjectStreamField::getTypeCode(){
-            return (jchar)signature.charAt(0);
+            return (jchar)signature->charAt(0);
         }
 
         void JObjectStreamField::setTypeString(){
-            typeString=new JString(isPrimitive()?"":signature);
+            if (isPrimitive()){
+                typeString=new JString("");
+            }else{
+                typeString=new JString(signature);
+            }
         }
 
         JString* JObjectStreamField::getTypeString(){
@@ -136,7 +142,7 @@ namespace jcpp{
         }
 
         jbool JObjectStreamField::isPrimitive(){
-            jchar tcode=(jchar)signature.charAt(0);
+            jchar tcode=(jchar)signature->charAt(0);
             return (tcode!='L') && (tcode!='[');
         }
 
@@ -148,7 +154,7 @@ namespace jcpp{
             return field;
         }
 
-        JString JObjectStreamField::getSignature(){
+        JString* JObjectStreamField::getSignature(){
             return signature;
         }
 
@@ -162,6 +168,12 @@ namespace jcpp{
         }
 
         JObjectStreamField::~JObjectStreamField(){
+            if (name!=NULL){
+                delete name;
+            }
+            if (signature!=NULL){
+                delete signature;
+            }
             delete typeString;
         }
     }

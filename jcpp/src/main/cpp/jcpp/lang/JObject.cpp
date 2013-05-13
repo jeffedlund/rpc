@@ -50,7 +50,7 @@ namespace jcpp{
             this->waitCondition=new QWaitCondition();
         }
 
-        JObject::JObject(bool){
+        JObject::JObject(jbool){
             this->mutex=new QMutex(QMutex::NonRecursive);
             this->waitCondition=new QWaitCondition();
         }
@@ -59,12 +59,12 @@ namespace jcpp{
             return this->_class;
         }
 
-        bool JObject::operator==(JObject &other){
+        jbool JObject::operator==(JObject &other){
             return equals(&other);
         }
 
-        bool JObject::operator!=(JObject &other){
-            return !(*this==other);
+        jbool JObject::operator!=(JObject &other){
+            return !equals(&other);
         }
 
         jbool JObject::isInstanceOf(JClass* c){
@@ -75,7 +75,7 @@ namespace jcpp{
         }
 
         JString JObject::toString(){
-            JString s;
+            JString s=JString("");
             s<<getClass()->getName();
             s<<"@";
             s<<(jlong)this;

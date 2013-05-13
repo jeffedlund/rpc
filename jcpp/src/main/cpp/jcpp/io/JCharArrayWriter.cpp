@@ -54,12 +54,6 @@ namespace jcpp{
             lock->unlock();
         }
 
-        void JCharArrayWriter::write(JString str, jint offset, jint len){
-            lock->lock();
-            JSystem::arraycopy(str,offset,buf,len);
-            lock->unlock();
-        }
-
         void JCharArrayWriter::writeTo(JWriter* out){
             lock->lock();
             out->write(buf->data(),0,buf->size());
@@ -74,7 +68,7 @@ namespace jcpp{
             JCharSequence* tmp=csq->subSequence(offset,len);
             JString s=tmp->toString();
             delete tmp;
-            write(s,0,s.length());
+            write(&s,0,s.length());
             return this;
         }
 
@@ -105,7 +99,7 @@ namespace jcpp{
 
         JString JCharArrayWriter::toString(){
             lock->lock();
-            JString s(buf);//TODO test
+            JString s=JString(buf);
             lock->unlock();
             return s;
         }

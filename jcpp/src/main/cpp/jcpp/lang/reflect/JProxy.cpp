@@ -68,7 +68,9 @@ namespace jcpp{
                 for (unsigned int i=0;i<interfaces->size();i++){
                     JClass* ci=interfaces->at(i);
                     try{
-                        JClass* c=ci->getClassLoader()->loadClass(ci->getName()+"Proxy");//maybe define getProxyClass in interfaces ...
+                        JString proxyName(ci->getName());
+                        proxyName<<"Proxy";
+                        JClass* c=ci->getClassLoader()->loadClass(proxyName);//maybe define getProxyClass in interfaces ...
                         if (JProxy::getClazz()->isAssignableFrom(c)){
                             pc=c;
                             break;
@@ -147,7 +149,7 @@ namespace jcpp{
             }
 
             JString JProxy::toString(){
-                JString ss;
+                JString ss=JString("");
                 JObject* o=dynamic_cast<JObject*>(invocationHandler);
                 ss<<"Proxy[InvocationHandler:"<<o->toString()<<"][Interfaces:";
                 for (unsigned int i=0;i<getClass()->getInterfaces()->size();i++){

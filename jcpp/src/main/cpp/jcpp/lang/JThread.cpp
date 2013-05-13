@@ -5,6 +5,7 @@
 #include "Collections.h"
 #include "QObjectHolder.h"
 #include "JIdentityHashMap.h"
+#include "JInteger.h"
 using namespace std;
 using namespace jcpp::util;
 
@@ -68,7 +69,7 @@ namespace jcpp{
         JThread::JUncaughtExceptionHandler::~JUncaughtExceptionHandler(){
         }
 
-        static JThread::JUncaughtExceptionHandler* staticUEH =NULL;
+        static JThread::JUncaughtExceptionHandler* staticUEH = NULL;
         JThread::JUncaughtExceptionHandler* JThread::getDefaultUncaughtExceptionHandler(){
             return staticUEH;
         }

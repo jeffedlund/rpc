@@ -23,7 +23,7 @@ namespace jcpp{
                 void ensureOpen();
                 void fill();
                 jint read1(jchar cbuf[], jint off,jint len);
-                JString readLine(jbool ignoreLF);
+                JString* readLine(jbool ignoreLF);
                 JBufferedReader(JClass* _class,JReader* in,jint sz=8192);
 
             public:
@@ -31,13 +31,13 @@ namespace jcpp{
                 JBufferedReader(JReader* in,jint sz=8192);
                 virtual jint read();
                 virtual jint read(jchar cbuf[], jint off,jint len);
-                virtual JString readLine();
+                virtual JString* readLine();
                 virtual jlong skip(jlong n);
                 virtual jbool ready();
                 virtual jbool markSupported();
-                virtual void  mark(jint m);
-                virtual void  reset();
-                virtual void  close();
+                virtual void mark(jint m);
+                virtual void reset();
+                virtual void close();
                 virtual ~JBufferedReader();
         };
     }

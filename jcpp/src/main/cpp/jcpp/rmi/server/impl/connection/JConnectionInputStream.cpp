@@ -6,6 +6,7 @@
 #include "JObjectHandler.h"
 #include "JGCClient.h"
 #include "JInvoker.h"
+#include "JNotSerializableException.h"
 using namespace jcpp::io;
 
 namespace jcpp{

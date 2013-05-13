@@ -66,7 +66,7 @@ namespace jcpp{
             JObjectStreamClass* getLocalDesc();
             JObjectStreamField* getField(jint i);
             vector<JObjectStreamField*>* getFields();
-            JObjectStreamField* getField(JString name,JClass* type);
+            JObjectStreamField* getField(const JString& name,JClass* type);
             jbool isEnum();
             jbool isProxy();
             jbool hasReadObjectMethod();

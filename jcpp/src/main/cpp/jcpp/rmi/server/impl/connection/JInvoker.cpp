@@ -5,6 +5,7 @@
 #include "JConnectionException.h"
 #include "JConnectionOutputStream.h"
 #include "JConnectionInputStream.h"
+#include "JEOFException.h"
 using namespace jcpp::io;
 
 namespace jcpp{
@@ -88,7 +89,7 @@ namespace jcpp{
                         connection->startCall();
 
                         JConnectionOutputStream* oos = new JConnectionOutputStream(connection->getOutputStream(), objectInformations, connection->getConnections()->getRemoteEndPoint());
-                        oos->writeUTF(objectPointer->getId()->getString());
+                        oos->writeUTF(objectPointer->getId());
                         oos->writeLong(digest);
                         JPrimitiveArray* array=new JPrimitiveArray(JObject::getClazz(),args);
                         oos->writeObject(array);

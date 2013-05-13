@@ -17,7 +17,6 @@ class SerialCallbackContext;
 #include "HandleTable.h"
 #include "JBlockDataInputStream.h"
 #include "JIOException.h"
-#include "JLANG.h"
 #include "Object.h"
 #include "JObjectInput.h"
 #include "JCPP.h"

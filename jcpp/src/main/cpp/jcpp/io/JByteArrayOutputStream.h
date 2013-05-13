@@ -15,14 +15,14 @@ namespace jcpp{
             public:
                 static JClass* getClazz();
                 JByteArrayOutputStream();
-                virtual void  write(jint b);
-                virtual void  write(jbyte b[], jint off, jint l);
-                virtual void  writeTo(JOutputStream* out);
-                virtual void  reset();
+                virtual void write(jint b);
+                virtual void write(jbyte b[], jint off, jint l);
+                virtual void writeTo(JOutputStream* out);
+                virtual void reset();
                 virtual vector<jbyte>* toByteArray();
                 virtual jint size();
                 virtual JString toString();
-                virtual void  close();
+                virtual void close();
                 virtual ~JByteArrayOutputStream();
         };
     }

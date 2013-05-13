@@ -40,7 +40,7 @@ namespace jcpp{
             JString* getName();
             JPrimitiveInt* getOrdinal();
             virtual jint compareTo(JObject* o);
-            virtual bool equals(JObject* other);
+            virtual jbool equals(JObject* other);
             virtual jint hashCode();
             virtual JString toString();
             virtual ~JEnum();

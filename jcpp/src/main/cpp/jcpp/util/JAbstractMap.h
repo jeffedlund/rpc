@@ -9,6 +9,7 @@
 #include "JObjectOutputStream.h"
 #include "JCollection.h"
 #include "JCPP.h"
+#include "JUnsupportedOperationException.h"
 using namespace std;
 using namespace jcpp::io;
 
