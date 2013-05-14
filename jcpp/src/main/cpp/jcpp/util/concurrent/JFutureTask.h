@@ -17,8 +17,8 @@ namespace jcpp{
         namespace concurrent{
             class JCPP_LIBRARY_EXPORT JFutureTask : public JRunnableFuture, public JObject{
             protected:
-                bool bCancel;
-                bool bDone;
+                jbool bCancel;
+                jbool bDone;
                 JCallable* callable;
                 JRunnable* runnable;
                 JObject* result;
@@ -29,11 +29,10 @@ namespace jcpp{
                 JFutureTask(JCallable* c);
                 JFutureTask(JRunnable* r,JObject* result);
                 static JClass* getClazz();
-
                 void run();
-                bool cancel();
-                bool isCancelled();
-                bool isDone();
+                jbool cancel();
+                jbool isCancelled();
+                jbool isDone();
                 JObject* get();
                 virtual ~JFutureTask();
             };

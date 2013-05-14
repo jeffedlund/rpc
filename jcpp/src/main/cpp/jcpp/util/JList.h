@@ -13,23 +13,22 @@ using namespace std;
 namespace jcpp{
     namespace util{
         class JCPP_LIBRARY_EXPORT JList : public JCollection{
-
         public:
             static JClass* getClazz();
             virtual jint size()=0;
-            virtual bool isEmpty()=0;
-            virtual bool contains(JObject* o)=0;
+            virtual jbool isEmpty()=0;
+            virtual jbool contains(JObject* o)=0;
             virtual JIterator* iterator()=0;
             virtual JPrimitiveArray* toArray()=0;
-            virtual bool add(JObject* e)=0;
-            virtual bool remove(JObject* o)=0;
-            virtual bool containsAll(JCollection* c)=0;
-            virtual bool addAll(JCollection* c)=0;
-            virtual bool addAll(jint index, JCollection* c)=0;
-            virtual bool removeAll(JCollection* c)=0;
-            virtual bool retainAll(JCollection* c)=0;
+            virtual jbool add(JObject* e)=0;
+            virtual jbool remove(JObject* o)=0;
+            virtual jbool containsAll(JCollection* c)=0;
+            virtual jbool addAll(JCollection* c)=0;
+            virtual jbool addAll(jint index, JCollection* c)=0;
+            virtual jbool removeAll(JCollection* c)=0;
+            virtual jbool retainAll(JCollection* c)=0;
             virtual void clear()=0;
-            virtual bool equals(JObject* o)=0;
+            virtual jbool equals(JObject* o)=0;
             virtual jint hashCode()=0;
             virtual JObject* get(jint index)=0;
             virtual JObject* set(jint index, JObject* element)=0;

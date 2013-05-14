@@ -14,7 +14,6 @@ namespace jcpp{
     namespace util{
         namespace concurrent{
             class JCPP_LIBRARY_EXPORT JScheduledFuture : public JFuture, public JDelayed{
-
             public:
                 static JClass* getClazz();
                 virtual ~JScheduledFuture();

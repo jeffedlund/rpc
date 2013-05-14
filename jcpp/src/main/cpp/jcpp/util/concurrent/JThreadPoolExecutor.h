@@ -19,16 +19,16 @@ namespace jcpp{
         namespace concurrent{
             class JCPP_LIBRARY_EXPORT JThreadPoolExecutor : public JAbstractExecutorService{
             protected:
-                bool bShutdown;
+                jbool bShutdown;
                 QThreadPool* threadPool;
-                JThreadPoolExecutor(int maxPoolSize,int expiryTimeout,JClass* _class);
+                JThreadPoolExecutor(jint maxPoolSize,jint expiryTimeout,JClass* _class);
 
             public:
                 JThreadPoolExecutor();
-                JThreadPoolExecutor(int maxPoolSize,int expiryTimeout);
+                JThreadPoolExecutor(jint maxPoolSize,jint expiryTimeout);
                 static JClass* getClazz();
                 virtual void execute(JRunnable *command);
-                virtual bool isShutdown();
+                virtual jbool isShutdown();
                 virtual void shutdown();
                 virtual ~JThreadPoolExecutor();
             };

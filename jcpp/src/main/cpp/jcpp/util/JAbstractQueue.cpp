@@ -37,7 +37,7 @@ namespace jcpp{
         JAbstractQueue::JAbstractQueue(JClass* _class):JAbstractCollection(_class){
         }
 
-        bool JAbstractQueue::add(JObject* e){
+        jbool JAbstractQueue::add(JObject* e){
             if (offer(e)){
                 return true;
             }else{

@@ -16,10 +16,9 @@ namespace jcpp{
     namespace util{
         namespace concurrent{
             class JCPP_LIBRARY_EXPORT JRunnableScheduledFuture : public JRunnableFuture, public JScheduledFuture{
-
             public:
                 static JClass* getClazz();
-                virtual bool isPeriodic()=0;
+                virtual jbool isPeriodic()=0;
                 virtual ~JRunnableScheduledFuture();
             };
         }

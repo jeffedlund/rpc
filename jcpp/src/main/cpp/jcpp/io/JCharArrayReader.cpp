@@ -36,7 +36,9 @@ namespace jcpp{
         }
 
         void JCharArrayReader::ensureOpen(){
+            lock->lock();
             if (buf == NULL){
+                lock->unlock();
                 throw new JIOException("Stream closed");
             }
         }
@@ -122,11 +124,14 @@ namespace jcpp{
         }
 
         void JCharArrayReader::close(){
+            delete[] buf;
             buf=NULL;
         }
 
         JCharArrayReader::~JCharArrayReader(){
-            delete[] buf;
+            if (buf!=NULL){
+                delete[] buf;
+            }
         }
     }
 }

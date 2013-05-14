@@ -12,9 +12,9 @@ namespace jcpp{
         class JCPP_LIBRARY_EXPORT JListIterator : public JIterator{
         public:
             static JClass* getClazz();
-            virtual bool hasNext()=0;
+            virtual jbool hasNext()=0;
             virtual JObject* next()=0;
-            virtual bool hasPrevious()=0;
+            virtual jbool hasPrevious()=0;
             virtual JObject* previous()=0;
             virtual jint nextIndex()=0;
             virtual jint previousIndex()=0;

@@ -74,7 +74,7 @@ namespace jcpp{
             return total;
         }
 
-        JString JDataInputStream::readUTF() {
+        JString* JDataInputStream::readUTF() {
             jshort utflen = readUnsignedShort();
             jbyte *bytearr = new jbyte[utflen*2];
             jchar *chararr = new jchar[utflen*2];
@@ -87,7 +87,9 @@ namespace jcpp{
 
             while (count < utflen) {
                 c = (jint) bytearr[count] & 0xff;
-                if (c > 127) break;
+                if (c > 127){
+                    break;
+                }
                 count++;
                 chararr[chararr_count++] = (jchar)c;
             }
@@ -132,16 +134,9 @@ namespace jcpp{
                 }
             }
 
-            // The number of chars produced may be less than utflen
-            char* cs=new char[chararr_count+1];
-            for (jint i=0;i<chararr_count;i++){
-                cs[i]=(char)chararr[i];
-            }
-            cs[chararr_count] = '\0';
-            JString str(cs);//TODO
+            JString* str=new JString(chararr,0,chararr_count);
             delete[] bytearr;
             delete[] chararr;
-            delete cs;
             return str;
         }
 

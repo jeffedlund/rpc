@@ -13,7 +13,6 @@ namespace jcpp{
     namespace util{
         namespace concurrent{
             class JCPP_LIBRARY_EXPORT JRunnableFuture : public JRunnable, public JFuture{
-
             public:
                 static JClass* getClazz();
                 virtual ~JRunnableFuture();

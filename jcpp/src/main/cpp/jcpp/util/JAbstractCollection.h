@@ -20,15 +20,15 @@ namespace jcpp{
 
         public:
             static JClass* getClazz();
-            virtual bool isEmpty();
-            virtual bool contains(JObject* o);
+            virtual jbool isEmpty();
+            virtual jbool contains(JObject* o);
             virtual JPrimitiveArray* toArray();
-            virtual bool add(JObject* e);
-            virtual bool remove(JObject* o);
-            virtual bool containsAll(JCollection* c);
-            virtual bool addAll(JCollection* c);
-            virtual bool removeAll(JCollection* c);
-            virtual bool retainAll(JCollection* c);
+            virtual jbool add(JObject* e);
+            virtual jbool remove(JObject* o);
+            virtual jbool containsAll(JCollection* c);
+            virtual jbool addAll(JCollection* c);
+            virtual jbool removeAll(JCollection* c);
+            virtual jbool retainAll(JCollection* c);
             virtual void clear();
             virtual JString toString();
             virtual ~JAbstractCollection();

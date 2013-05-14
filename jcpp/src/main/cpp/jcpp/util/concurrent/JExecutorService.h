@@ -15,12 +15,10 @@ namespace jcpp{
     namespace util{
         namespace concurrent{
             class JCPP_LIBRARY_EXPORT JExecutorService : public JExecutor{
-            protected:
-
             public:
                 static JClass* getClazz();
                 virtual void shutdown()=0;
-                virtual bool isShutdown()=0;
+                virtual jbool isShutdown()=0;
                 virtual JFuture* submit(JCallable* task)=0;
                 virtual JFuture* submit(JRunnable* task,JObject* result)=0;
                 virtual JFuture* submit(JRunnable* task)=0;

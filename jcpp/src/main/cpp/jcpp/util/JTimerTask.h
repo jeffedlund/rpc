@@ -15,15 +15,15 @@ namespace jcpp{
         class JTimer;
         class JCPP_LIBRARY_EXPORT JTimerTask : public JRunnable, public JObject{
         protected:
-            bool bCancelled;
+            jbool bCancelled;
             JTimer* timer;
             JTimerTask(JClass* _class);
             friend class JTimer;
 
         public:
             static JClass* getClazz();
-            virtual bool cancel();
-            bool isCancelled();
+            virtual jbool cancel();
+            jbool isCancelled();
             virtual void run()=0;
             virtual ~JTimerTask()=0;
         };

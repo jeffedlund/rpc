@@ -23,7 +23,7 @@ namespace jcpp{
         }
 
         template <class E>
-        bool deleteFromVector(vector<E*>* v, E* e) {
+        jbool deleteFromVector(vector<E*>* v, E* e) {
             if (v!=NULL){
               JObject* oe=dynamic_cast<JObject*>(e);
               typename vector<E*>::iterator i;
@@ -126,7 +126,7 @@ namespace jcpp{
         }
 
         template<class K, class V, class Z>
-        bool hasValueFromMap(map<K*,V*,Z>* elements, V* v){
+        jbool hasValueFromMap(map<K*,V*,Z>* elements, V* v){
             typename map<K*,V*,Z>::iterator i;
             for(i = elements->begin(); i != elements->end(); ++i){
                 if (v==NULL){
@@ -181,22 +181,22 @@ namespace jcpp{
         }
 
         template<class K>
-        void arraycopy(vector<K>* src,int ofsrc, vector<K>* dest,int ofdes, int nb){
-            for (int i=0;i<nb;i++){
+        void arraycopy(vector<K>* src,jint ofsrc, vector<K>* dest,jint ofdes, jint nb){
+            for (jint i=0;i<nb;i++){
                 dest->at(i+ofdes)=src->at(i+ofsrc);
             }
         }
 
         template<class K>
-        void arraycopy(vector<K>* src,int ofsrc, K dest[],int ofdes, int nb){
-            for (int i=0;i<nb;i++){
+        void arraycopy(vector<K>* src,jint ofsrc, K dest[],jint ofdes, jint nb){
+            for (jint i=0;i<nb;i++){
                 dest[i+ofdes]=src->at(i+ofsrc);
             }
         }
 
         template<class K>
-        void arraycopy(K src[],int ofsrc, vector<K>* dest,int ofdes, int nb){
-            for (int i=0;i<nb;i++){
+        void arraycopy(K src[],jint ofsrc, vector<K>* dest,jint ofdes, jint nb){
+            for (jint i=0;i<nb;i++){
                 dest->at(i+ofdes)=src[i+ofsrc];
             }
         }

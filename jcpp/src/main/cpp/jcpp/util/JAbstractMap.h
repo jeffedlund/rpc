@@ -102,8 +102,7 @@ namespace jcpp{
                 }
 
                 jint hashCode() {
-                    return (key   == NULL ? 0 :   key->hashCode()) ^
-                           (value == NULL ? 0 : value->hashCode());
+                    return (key   == NULL ? 0 :   key->hashCode()) ^ (value == NULL ? 0 : value->hashCode());
                 }
 
                 JString toString() {
@@ -167,13 +166,11 @@ namespace jcpp{
                         return false;
                     }
                     JEntry* e = dynamic_cast<JEntry*>(o);
-                    return (key==NULL ? e->getKey()==NULL : key->equals(e->getKey())) &&
-                           (value==NULL ? e->getValue()==NULL : value->equals(e->getValue()));
+                    return (key==NULL ? e->getKey()==NULL : key->equals(e->getKey())) && (value==NULL ? e->getValue()==NULL : value->equals(e->getValue()));
                 }
 
                 jint hashCode() {
-                    return (key   == NULL ? 0 :   key->hashCode()) ^
-                           (value == NULL ? 0 : value->hashCode());
+                    return (key   == NULL ? 0 :   key->hashCode()) ^ (value == NULL ? 0 : value->hashCode());
                 }
 
                 JString toString() {

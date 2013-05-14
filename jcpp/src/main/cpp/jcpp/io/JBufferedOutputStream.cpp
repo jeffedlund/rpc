@@ -74,7 +74,6 @@ namespace jcpp{
 
         JBufferedOutputStream::~JBufferedOutputStream() {
             delete buf;
-            delete out;
         }
     }
 }

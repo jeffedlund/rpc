@@ -76,7 +76,7 @@ namespace jcpp{
             return str;
         }
 
-        void  JByteArrayOutputStream::close(){
+        void JByteArrayOutputStream::close(){
         }
 
         JByteArrayOutputStream::~JByteArrayOutputStream(){

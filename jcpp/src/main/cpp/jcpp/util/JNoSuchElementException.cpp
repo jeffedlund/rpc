@@ -37,10 +37,6 @@ namespace jcpp{
             this->message=new JString(message);
         }
 
-        JNoSuchElementException::JNoSuchElementException(JString* message):JRuntimeException(getClazz()){
-            this->message=message;
-        }
-
         JNoSuchElementException::~JNoSuchElementException(){
         }
     }

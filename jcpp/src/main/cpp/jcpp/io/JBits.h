@@ -17,13 +17,7 @@ namespace jcpp{
                 b[off] = (jbyte) (val ? 1 : 0);
             }
 
-            static void fromCharToJByte(jbyte b[], char bc[], jint off, jint len){
-                for (jint i=0;i<len;i++){
-                    b[off+i]=(jbyte)bc[i];
-                }
-            }
-
-            static void fromCharToJByte(jbyte b[], char c){
+            static void putChar(jbyte b[], char c){
                 b[0]=(jbyte)c;
             }
 
@@ -32,28 +26,15 @@ namespace jcpp{
                 b[off + 0] = (jbyte) (val >> 8);
             }
 
-            static void fromJChartoChar(jchar b[], char dest[], jint off, jint len) {
+            static void putCharFromJChar(char dest[], jchar b[], jint off, jint len) {
                 for (jint i=0;i<len;i++){
                     dest[off+i]=(char)b[i];
                 }
             }
 
-            static void fromCharToJChar(const char str[],jchar dest[],jint off,jint len){
+            static void putJCharFromChar(jchar dest[],const char str[],jint off,jint len){
                 for (jint i=0;i<len;i++){
                     dest[i+off]=str[i];
-                }
-            }
-
-            static void fromJBytetoChar(jbyte b[], char dest[], jint off, jint len) {
-                for (jint i=0;i<len;i++){
-                    dest[off+i]=(char)b[i];
-                }
-            }
-
-            static void fromCharToJByte(char str[],jbyte dest[],jint off,jint len){
-                for (jint i=0;i<len;i++){
-                    jbyte* b=(jbyte*)&dest[i+off];
-                    b[0]=str[i]>>0;
                 }
             }
 

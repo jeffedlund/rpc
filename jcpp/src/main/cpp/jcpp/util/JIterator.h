@@ -11,7 +11,7 @@ namespace jcpp{
         class JCPP_LIBRARY_EXPORT JIterator : public JInterface{
         public:
             static JClass* getClazz();
-            virtual bool hasNext()=0;
+            virtual jbool hasNext()=0;
             virtual JObject* next()=0;
             virtual void remove()=0;
             virtual ~JIterator();

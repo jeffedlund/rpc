@@ -127,7 +127,7 @@ namespace jcpp{
 
         jbool JHashtable::isEmpty(){
             lock();
-            bool b=table->size()==0;
+            jbool b=table->size()==0;
             unlock();
             return b;
         }
@@ -239,6 +239,7 @@ namespace jcpp{
                 ss<<'=';
                 ss<<(value == this ? "(this Map)" : value->toString());
                 ss<<", ";
+                delete e;
             }
             delete it;
             ss<<'}';
@@ -445,6 +446,7 @@ namespace jcpp{
                     JEntry* e = dynamic_cast<JEntry*>(i->next());
                     JObject* key = e->getKey();
                     JObject* value = e->getValue();
+                    delete e;
                     if (value == NULL) {
                         if (!(t->get(key)==NULL && t->containsKey(key))){
                             delete i;
@@ -460,10 +462,12 @@ namespace jcpp{
                     }
                 }
             } catch (JClassCastException* unused)   {
+                delete unused;
                 delete i;
                 unlock();
                 return false;
             } catch (JNullPointerException* unused) {
+                delete unused;
                 delete i;
                 unlock();
                 return false;
@@ -483,6 +487,7 @@ namespace jcpp{
             while (i->hasNext()) {
                 JEntry* e = dynamic_cast<JEntry*>(i->next());
                 h+=e->hashCode();
+                delete e;
             }
             delete i;
             unlock();
@@ -499,6 +504,7 @@ namespace jcpp{
                     JEntry* e=dynamic_cast<JEntry*>(i->next());
                     out->writeObject(e->getKey());
                     out->writeObject(e->getValue());
+                    delete e;
                 }
                 delete i;
             }

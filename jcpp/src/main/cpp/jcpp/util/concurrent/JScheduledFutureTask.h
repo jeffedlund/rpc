@@ -21,7 +21,7 @@ namespace jcpp{
             protected:
                 jlong initialDelay;
                 jlong period;
-                bool bDone;
+                jbool bDone;
                 JCallable* callable;
                 JRunnable* runnable;
                 JObject* initialResult;
@@ -30,18 +30,17 @@ namespace jcpp{
                 virtual void setResult(JObject *result);
 
             public:
-                JScheduledFutureTask(JCallable* c,long initialDelay, jlong period);
-                JScheduledFutureTask(JRunnable* r,JObject* result,long initialDelay, jlong period);
+                JScheduledFutureTask(JCallable* c,jlong initialDelay, jlong period);
+                JScheduledFutureTask(JRunnable* r,JObject* result,jlong initialDelay, jlong period);
                 static JClass* getClazz();
-
                 virtual void run();
-                virtual bool cancel();
-                virtual bool isCancelled();
-                bool isDone();
+                virtual jbool cancel();
+                virtual jbool isCancelled();
+                jbool isDone();
                 JObject* get();
-                bool isPeriodic();
+                jbool isPeriodic();
                 jlong getDelay();
-                long getPeriod();
+                jlong getPeriod();
                 virtual ~JScheduledFutureTask();
             };
         }

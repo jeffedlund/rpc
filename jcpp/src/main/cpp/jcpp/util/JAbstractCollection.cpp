@@ -35,11 +35,11 @@ namespace jcpp{
         JAbstractCollection::JAbstractCollection(JClass* _class):JObject(_class){
         }
 
-        bool JAbstractCollection::isEmpty(){
+        jbool JAbstractCollection::isEmpty(){
             return size()==0;
         }
 
-        bool JAbstractCollection::contains(JObject* o){
+        jbool JAbstractCollection::contains(JObject* o){
             JIterator* e = iterator();
             if (o==NULL) {
                 while (e->hasNext()){
@@ -59,7 +59,6 @@ namespace jcpp{
             return false;
         }
 
-
         JPrimitiveArray* JAbstractCollection::toArray(){
             JClass* _class=NULL;
             JPrimitiveArray* r=NULL;
@@ -68,8 +67,9 @@ namespace jcpp{
                 JObject* o=it->next();
                 _class=o->getClass();
                 r=new JPrimitiveArray(_class,size());
+                r->set(0,o);
             }
-            for (int i = 1; i < r->size(); i++) {
+            for (jint i = 1; i < r->size(); i++) {
                 it->hasNext();
                 JObject* o=it->next();
                 r->set(i,o);
@@ -78,11 +78,11 @@ namespace jcpp{
             return r;
         }
 
-        bool JAbstractCollection::add(JObject*){
+        jbool JAbstractCollection::add(JObject*){
             throw new JUnsupportedOperationException();
         }
 
-        bool JAbstractCollection::remove(JObject* o) {
+        jbool JAbstractCollection::remove(JObject* o) {
             JIterator* e = iterator();
             if (o==NULL) {
                 while (e->hasNext()) {
@@ -105,7 +105,7 @@ namespace jcpp{
             return false;
         }
 
-        bool JAbstractCollection::containsAll(JCollection* c){
+        jbool JAbstractCollection::containsAll(JCollection* c){
             JIterator* e = c->iterator();
             while (e->hasNext()){
                 if (!contains(e->next())){
@@ -117,8 +117,8 @@ namespace jcpp{
             return true;
         }
 
-        bool JAbstractCollection::addAll(JCollection* c){
-            bool modified = false;
+        jbool JAbstractCollection::addAll(JCollection* c){
+            jbool modified = false;
             JIterator* e = c->iterator();
             while (e->hasNext()) {
                 if (add(e->next())){
@@ -129,8 +129,8 @@ namespace jcpp{
             return modified;
         }
 
-        bool JAbstractCollection::removeAll(JCollection* c){
-            bool modified = false;
+        jbool JAbstractCollection::removeAll(JCollection* c){
+            jbool modified = false;
             JIterator* e = iterator();
             while (e->hasNext()) {
                 if (c->contains(e->next())) {
@@ -142,8 +142,8 @@ namespace jcpp{
             return modified;
         }
 
-        bool JAbstractCollection::retainAll(JCollection* c){
-            bool modified = false;
+        jbool JAbstractCollection::retainAll(JCollection* c){
+            jbool modified = false;
             JIterator* e = iterator();
             while (e->hasNext()) {
                 if (!c->contains(e->next())) {

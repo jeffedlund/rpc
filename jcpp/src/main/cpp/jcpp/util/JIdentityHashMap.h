@@ -29,7 +29,7 @@ namespace jcpp{
             JIdentityHashMap(JMap* c);
             static JClass* getClazz();
             virtual jint size();
-            virtual bool isEmpty();
+            virtual jbool isEmpty();
             virtual JObject* get(JObject* key);
             virtual jbool containsKey(JObject* key);
             virtual jbool containsValue(JObject* value);

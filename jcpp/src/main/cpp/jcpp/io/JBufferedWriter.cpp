@@ -35,11 +35,13 @@ namespace jcpp{
             this->size=size;
             nChars=size;
             nextChar=0;
-            lineSeparator=new JString("/r/n");//TODO fetch from system.property(line.separator)
+            lineSeparator="/r/n";//TODO fetch from system.property(line.separator)
         }
 
         void JBufferedWriter::ensureOpen(){
+            lock->lock();
             if (out==NULL){
+                lock->unlock();
                 throw new JIOException("stream closed");
             }
         }
@@ -127,7 +129,7 @@ namespace jcpp{
         }
 
         void  JBufferedWriter::newLine(){
-            JWriter::write(lineSeparator);
+            JWriter::write(&lineSeparator);
         }
 
         void  JBufferedWriter::flush(){

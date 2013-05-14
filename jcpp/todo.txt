@@ -1,5 +1,6 @@
 group:
 ------
+-code review: io, net, nio, rmi, security
 -create LocalContext<JObject*> helper, JObject::NULL, JObject::isNull(), isNull(JObject*),
 -JString.isShared?
 -wiki pages on how to generate classes
@@ -7,6 +8,8 @@ group:
 -develop java boot loading + translate it for jcpp
 -dont expose JPrimitiveXX, look for then and set them protected and look that pattern everywhere and change it
 -compilation takes too much time, check other build systems like cmake
+-check leak when catching exception and no delete
+-checker delete des JEntry
 
 group:
 -------

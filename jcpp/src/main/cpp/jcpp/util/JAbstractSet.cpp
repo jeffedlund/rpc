@@ -102,8 +102,10 @@ namespace jcpp{
             try {
                 return containsAll(c);
             } catch (JClassCastException* unused)   {
+                delete unused;
                 return false;
             } catch (JNullPointerException* unused) {
+                delete unused;
                 return false;
             }
         }

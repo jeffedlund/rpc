@@ -15,7 +15,7 @@ namespace jcpp{
                 jint size;
                 jint nChars;
                 jint nextChar;
-                JString* lineSeparator;
+                JString lineSeparator;
                 void ensureOpen();
                 void flushBuffer();
 

@@ -203,6 +203,7 @@ namespace jcpp{
             while (i->hasNext()){
                 JEntry* e=dynamic_cast<JEntry*>(i->next());
                 put(e->getKey(), e->getValue());
+                delete e;
             }
             delete i;
         }
@@ -612,6 +613,7 @@ namespace jcpp{
                     JEntry* e=dynamic_cast<JEntry*>(i->next());
                     out->writeObject(e->getKey());
                     out->writeObject(e->getValue());
+                    delete e;
                 }
                 delete i;
             }

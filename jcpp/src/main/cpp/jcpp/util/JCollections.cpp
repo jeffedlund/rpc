@@ -98,23 +98,23 @@ namespace jcpp{
                 this->mutex = mutex;
             }
 
-            int size() {
+            jint size() {
                 mutex->lock();
                 jint p=c->size();
                 mutex->unlock();
                 return p;
             }
 
-            bool isEmpty() {
+            jbool isEmpty() {
                 mutex->lock();
-                bool b=c->isEmpty();
+                jbool b=c->isEmpty();
                 mutex->unlock();
                 return b;
             }
 
-            bool contains(JObject* o) {
+            jbool contains(JObject* o) {
                 mutex->lock();
-                bool b=c->contains(o);
+                jbool b=c->contains(o);
                 mutex->unlock();
                 return b;
             }
@@ -123,44 +123,44 @@ namespace jcpp{
                 return c->iterator();
             }
 
-            bool add(JObject* e) {
+            jbool add(JObject* e) {
                 mutex->lock();
-                bool b=c->add(e);
+                jbool b=c->add(e);
                 mutex->unlock();
                 return b;
             }
 
-            bool remove(JObject* o) {
+            jbool remove(JObject* o) {
                 mutex->lock();
-                bool b=c->remove(o);
+                jbool b=c->remove(o);
                 mutex->unlock();
                 return b;
             }
 
-            bool containsAll(JCollection* coll) {
+            jbool containsAll(JCollection* coll) {
                 mutex->lock();
-                bool b=c->containsAll(coll);
+                jbool b=c->containsAll(coll);
                 mutex->unlock();
                 return b;
             }
 
-            bool addAll(JCollection* coll) {
+            jbool addAll(JCollection* coll) {
                 mutex->lock();
-                bool b=c->addAll(coll);
+                jbool b=c->addAll(coll);
                 mutex->unlock();
                 return b;
             }
 
-            bool removeAll(JCollection* coll) {
+            jbool removeAll(JCollection* coll) {
                 mutex->lock();
-                bool b=c->removeAll(coll);
+                jbool b=c->removeAll(coll);
                 mutex->unlock();
                 return b;
             }
 
-            bool retainAll(JCollection* coll) {
+            jbool retainAll(JCollection* coll) {
                 mutex->lock();
-                bool b=c->retainAll(coll);
+                jbool b=c->retainAll(coll);
                 mutex->unlock();
                 return b;
             }
@@ -241,39 +241,39 @@ namespace jcpp{
                 this->list = list;
             }
 
-            int size() {
+            jint size() {
                 return JSynchronizedCollection::size();
             }
 
-            bool isEmpty() {
+            jbool isEmpty() {
                 return JSynchronizedCollection::isEmpty();
             }
 
-            bool contains(JObject* o) {
+            jbool contains(JObject* o) {
                 return JSynchronizedCollection::contains(o);
             }
 
-            bool add(JObject* e){
+            jbool add(JObject* e){
                 return JSynchronizedCollection::add(e);
             }
 
-            bool remove(JObject* o){
+            jbool remove(JObject* o){
                 return JSynchronizedCollection::remove(o);
             }
 
-            bool containsAll(JCollection* c){
+            jbool containsAll(JCollection* c){
                 return JSynchronizedCollection::containsAll(c);
             }
 
-            bool addAll(JCollection* c){
+            jbool addAll(JCollection* c){
                 return JSynchronizedCollection::addAll(c);
             }
 
-            bool removeAll(JCollection* c){
+            jbool removeAll(JCollection* c){
                 return JSynchronizedCollection::removeAll(c);
             }
 
-            bool retainAll(JCollection* c){
+            jbool retainAll(JCollection* c){
                 return JSynchronizedCollection::retainAll(c);
             }
 
@@ -285,12 +285,12 @@ namespace jcpp{
                 return JSynchronizedCollection::clear();
             }
 
-            bool equals(JObject* o) {
+            jbool equals(JObject* o) {
                 if (o==this){
                     return true;
                 }
                 mutex->lock();
-                bool b=list->equals(o);
+                jbool b=list->equals(o);
                 mutex->unlock();
                 return b;
             }
@@ -343,9 +343,9 @@ namespace jcpp{
                 return i;
             }
 
-            bool addAll(jint index, JCollection* c) {
+            jbool addAll(jint index, JCollection* c) {
                 mutex->lock();
-                bool b=list->addAll(index, c);
+                jbool b=list->addAll(index, c);
                 mutex->unlock();
                 return b;
             }
@@ -453,7 +453,7 @@ namespace jcpp{
             JEmptyIterator():JObject(getClazz()){
             }
 
-            bool hasNext(){
+            jbool hasNext(){
                 return false;
             }
 
@@ -506,14 +506,13 @@ namespace jcpp{
             JEmptyEnumeration():JObject(getClazz()){
             }
 
-            bool hasMoreElements(){
+            jbool hasMoreElements(){
                 return false;
             }
 
             JObject* nextElement(){
                 throw new JNoSuchElementException();
             }
-
 
             ~JEmptyEnumeration(){
             }

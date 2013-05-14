@@ -7,7 +7,6 @@ namespace jcpp{
     namespace util{
         namespace concurrent{
             class JFutureTaskClass : public JClass{
-
             public:
                 JFutureTaskClass(){
                     this->canonicalName="java.util.concurrent.FutureTask";
@@ -67,8 +66,8 @@ namespace jcpp{
                 }
             }
 
-            bool JFutureTask::cancel(){//TODO not ideal, should call threadpool to avoid running it
-                bool r=false;
+            jbool JFutureTask::cancel(){//TODO not ideal, should call threadpool to avoid running it
+                jbool r=false;
                 lock();
                 if (!bDone){
                     this->bCancel=true;
@@ -78,16 +77,16 @@ namespace jcpp{
                 return r;
             }
 
-            bool JFutureTask::isCancelled(){
-                bool b;
+            jbool JFutureTask::isCancelled(){
+                jbool b;
                 lock();
                 b=this->bCancel;
                 unlock();
                 return b;
             }
 
-            bool JFutureTask::isDone(){
-                bool b;
+            jbool JFutureTask::isDone(){
+                jbool b;
                 lock();
                 b=bDone;
                 unlock();

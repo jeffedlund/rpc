@@ -17,11 +17,10 @@ using namespace jcpp::io;
 namespace jcpp{
     namespace util{
         class JCPP_LIBRARY_EXPORT JQueue : public JCollection{
-
         public:
             static JClass* getClazz();
-            virtual bool add(JObject* e)=0;
-            virtual bool offer(JObject* e)=0;
+            virtual jbool add(JObject* e)=0;
+            virtual jbool offer(JObject* e)=0;
             virtual JObject* remove()=0;
             virtual JObject* poll()=0;
             virtual JObject* element()=0;

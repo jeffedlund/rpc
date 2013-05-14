@@ -17,9 +17,9 @@ namespace jcpp{
                 virtual void setResult(JObject* result)=0;
             public:
                 static JClass* getClazz();
-                virtual bool cancel()=0;
-                virtual bool isCancelled()=0;
-                virtual bool isDone()=0;
+                virtual jbool cancel()=0;
+                virtual jbool isCancelled()=0;
+                virtual jbool isDone()=0;
                 virtual JObject* get()=0;
                 virtual ~JFuture();
             };

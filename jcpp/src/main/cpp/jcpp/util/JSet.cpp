@@ -7,7 +7,6 @@
 namespace jcpp{
     namespace util{
         class JSetClass : public JClass{
-
         public:
           JSetClass(){
               this->canonicalName="java.util.Set";

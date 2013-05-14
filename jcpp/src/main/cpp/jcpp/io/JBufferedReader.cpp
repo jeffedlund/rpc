@@ -57,7 +57,9 @@ namespace jcpp{
         }
 
         void JBufferedReader::ensureOpen(){
+            lock->lock();
             if (in == NULL){
+                lock->unlock();
                 throw new JIOException("Stream closed");
             }
         }
@@ -220,7 +222,7 @@ namespace jcpp{
                 nextChar = i;
 
                 if (eol) {
-                    JString* str;
+                    JString* str=NULL;
                     if (s == NULL) {
                         str=new JString(cb,startChar,i-startChar);
                     } else {
@@ -300,7 +302,7 @@ namespace jcpp{
             return true;
         }
 
-        void  JBufferedReader::mark(jint m){
+        void JBufferedReader::mark(jint m){
             ensureOpen();
             lock->lock();
             this->readAheadLimit = m;
@@ -313,8 +315,10 @@ namespace jcpp{
             ensureOpen();
             lock->lock();
             if (markedChar < 0){
+                JString m("");
+                m<<((markedChar == INVALIDATED) ? "Mark invalid" : "Stream not marked");
                 lock->unlock();
-                throw new JIOException((markedChar == INVALIDATED) ? "Mark invalid" : "Stream not marked");
+                throw new JIOException(m);
             }
             nextChar = markedChar;
             skipLF = markedSkipLF;

@@ -26,14 +26,13 @@ namespace jcpp{
                 jlong nextTime;
             public:
                 TimerItem(JTimerTask* task,jlong delay,jlong period);
-
                 JTimerTask* getTask();
                 jlong getNextTime();
-                bool setNextTime();
+                jbool setNextTime();
                 void run();
             };
 
-            bool cancelled;
+            jbool cancelled;
             QMutex* mutex;
             QWaitCondition* waitCondition;
             JThread* thread;
@@ -46,7 +45,7 @@ namespace jcpp{
             JTimer();
             static JClass* getClazz();
             void cancel();
-            bool isCancelled();
+            jbool isCancelled();
             void schedule(JTimerTask* task, jlong delay);
             void schedule(JTimerTask* task, jlong delay, jlong period);
             virtual ~JTimer();

@@ -5,6 +5,7 @@
 #include "QString"
 #include <algorithm>
 #include "JObject.h"
+#include "JBits.h"
 using namespace jcpp::io;
 using namespace jcpp::util;
 
@@ -101,10 +102,13 @@ namespace jcpp{
         }
 
         JString::JString(jchar* c,jint offset,jint length):JObject(false){
-            this->str=string("");//TODO encoding
-            for (jint i=offset;i<length;i++){
-                str.push_back(c[i]);
+            char* cs=new char[length+1];
+            for (jint i=0;i<length;i++){
+                cs[i+offset]=(char)c[i];
             }
+            cs[length] = '\0';
+            this->str=string(cs);//TODO encoding + test
+            delete cs;
         }
 
         JString::JString(vector<jbyte>* bytes):JObject(false){
@@ -112,7 +116,14 @@ namespace jcpp{
         }
 
         JString::JString(vector<jchar>* chars):JObject(false){
-            this->str=string(chars->begin(),chars->end());//TODO encoding + test
+            jchar* jc=new jchar[chars->size()];//not extra
+            for (unsigned int i=0;i<chars->size();i++){
+                jc[i]=chars->at(i);
+            }
+            char* cs=new char[chars->size()+1];//TODO  encoding+test
+            cs[chars->size()] = '\0';
+            JBits::putCharFromJChar(cs,jc,0,chars->size());
+            this->str=string(cs);
         }
 
         JString::JString(const JString& s):JObject(false){
@@ -293,9 +304,9 @@ namespace jcpp{
         }
 
         void JString::getChars(jint srcBegin, jint srcEnd, jchar dst[], jint dstBegin){
-            for (jint i=0;i<srcEnd-srcBegin;i++){
-                dst[dstBegin+i]=(jchar)str.at(srcBegin+i);
-            }
+            string s=str.substr(srcBegin,srcEnd);
+            const char* cs = s.c_str();//TODO encoding+test
+            JBits::putJCharFromChar(dst,cs,dstBegin,srcEnd-srcBegin);
         }
 
         JString JString::replace(jchar oldchar,jchar newchar){

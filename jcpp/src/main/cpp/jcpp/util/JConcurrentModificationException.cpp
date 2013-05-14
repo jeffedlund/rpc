@@ -40,10 +40,6 @@ namespace jcpp{
             this->message=new JString(message);
         }
 
-        JConcurrentModificationException::JConcurrentModificationException(JString* message):JRuntimeException(getClazz()){
-            this->message=message;
-        }
-
         JConcurrentModificationException::~JConcurrentModificationException(){
         }
     }

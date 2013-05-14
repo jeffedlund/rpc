@@ -164,7 +164,7 @@ namespace jcpp{
             jint len = s->length();
             jbyte b;
             for (jint i = 0 ; i < len ; i++) {
-                JBits::fromCharToJByte(&b,s->charAt(i));//TODO
+                JBits::putChar(&b,s->charAt(i));
                 write(b);
             }
         }

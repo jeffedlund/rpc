@@ -82,7 +82,7 @@ namespace jcpp{
             JObject* readOrdinaryObject(jbool unshared);
             JString* readString(jbool unshared);
             JString* readTypeString();
-            virtual JString readLongUTF();
+            virtual JString* readLongUTF();
             JIOException* readFatalException();
             JObject* checkResolve(JObject*);
             JObject* readObject0(jbool unshared);
@@ -124,7 +124,7 @@ namespace jcpp{
             virtual void readFully(jbyte b[], jint off, jint len);
             virtual jint skipBytes(jint n);
             virtual jlong skip(jlong n);
-            virtual JString readUTF();
+            virtual JString* readUTF();
             virtual ~JObjectInputStream();
         };
     }

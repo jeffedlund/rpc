@@ -39,7 +39,7 @@ namespace jcpp{
                 timer=new JTimer();
             }
 
-            JScheduledThreadPoolExecutor::JScheduledThreadPoolExecutor(int maxPoolSize,int expiryTimeout):JThreadPoolExecutor(maxPoolSize,expiryTimeout,getClazz()){
+            JScheduledThreadPoolExecutor::JScheduledThreadPoolExecutor(jint maxPoolSize,jint expiryTimeout):JThreadPoolExecutor(maxPoolSize,expiryTimeout,getClazz()){
                 timer=new JTimer();
             }
 
@@ -47,7 +47,7 @@ namespace jcpp{
                 JThreadPoolExecutor::execute(command);
             }
 
-            bool JScheduledThreadPoolExecutor::isShutdown(){
+            jbool JScheduledThreadPoolExecutor::isShutdown(){
                 return JThreadPoolExecutor::isShutdown();
             }
 

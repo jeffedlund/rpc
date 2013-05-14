@@ -444,18 +444,8 @@ namespace jcpp{
                     }
                 }
             }
-
-            jchar* jc=new jchar[sbuf->size()];//not extra
-            for (unsigned int i=0;i<sbuf->size();i++){
-                jc[i]=sbuf->at(i);
-            }
-            char* cs=new char[sbuf->size()+1];
-            cs[sbuf->size()] = '\0';
-            JBits::fromJChartoChar(jc,cs,0,sbuf->size());
-            JString* str=new JString(cs);
-            delete cs;
+            JString* str=new JString(sbuf);
             delete sbuf;
-            delete jc;
             return str;
         }
 
@@ -514,6 +504,7 @@ namespace jcpp{
                     }
                 }
             } catch (JThrowable* ex){//ideally JArrayIndexOutOfBoundsException*
+                delete ex;
                 outOfBounds = true;
             }
             if (outOfBounds || (pos - start) > utflen) {
@@ -738,6 +729,7 @@ namespace jcpp{
             delete[] hbuf;
             delete[] cbuf;
             delete din;
+            delete in;
         }
     }
 }

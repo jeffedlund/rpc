@@ -21,7 +21,7 @@ namespace jcpp{
 
         public:
             static JClass* getClazz();
-            virtual bool add(JObject* e);
+            virtual jbool add(JObject* e);
             virtual JObject* remove();
             virtual JObject* element();
             virtual void clear();

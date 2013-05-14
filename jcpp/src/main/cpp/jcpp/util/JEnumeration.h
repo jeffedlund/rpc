@@ -11,7 +11,7 @@ namespace jcpp{
         class JCPP_LIBRARY_EXPORT JEnumeration : public JInterface{
         public:
             static JClass* getClazz();
-            virtual bool hasMoreElements()=0;
+            virtual jbool hasMoreElements()=0;
             virtual JObject* nextElement()=0;
             virtual ~JEnumeration();
         };

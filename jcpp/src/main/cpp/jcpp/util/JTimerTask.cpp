@@ -33,7 +33,7 @@ namespace jcpp{
             this->bCancelled=false;
         }
 
-        bool JTimerTask::cancel(){
+        jbool JTimerTask::cancel(){
             lock();
             this->bCancelled=true;
             unlock();
@@ -43,8 +43,8 @@ namespace jcpp{
             return true;
         }
 
-        bool JTimerTask::isCancelled(){
-            bool b;
+        jbool JTimerTask::isCancelled(){
+            jbool b;
             lock();
             b=bCancelled;
             unlock();

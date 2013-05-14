@@ -17,7 +17,6 @@ using namespace jcpp::io;
 namespace jcpp{
     namespace util{
         class JCPP_LIBRARY_EXPORT JSet : public JCollection{
-
         public:
             static JClass* getClazz();
             virtual jint size()=0;

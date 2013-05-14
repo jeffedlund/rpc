@@ -49,7 +49,7 @@ namespace jcpp{
             return nextTime;
         }
 
-        bool JTimer::TimerItem::setNextTime(){
+        jbool JTimer::TimerItem::setNextTime(){
             if (period>0){
                 this->nextTime=nextTime+period;
                 return true;
@@ -133,8 +133,8 @@ namespace jcpp{
             mutex->unlock();
         }
 
-        bool JTimer::isCancelled(){
-            bool b;
+        jbool JTimer::isCancelled(){
+            jbool b;
             mutex->lock();
             b=this->cancelled;
             mutex->unlock();

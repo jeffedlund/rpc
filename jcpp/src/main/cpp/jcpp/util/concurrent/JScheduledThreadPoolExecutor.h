@@ -26,10 +26,10 @@ namespace jcpp{
 
             public:
                 JScheduledThreadPoolExecutor();
-                JScheduledThreadPoolExecutor(int maxPoolSize,int expiryTimeout);
+                JScheduledThreadPoolExecutor(jint maxPoolSize,jint expiryTimeout);
                 static JClass* getClazz();
                 virtual void execute(JRunnable *command);
-                virtual bool isShutdown();
+                virtual jbool isShutdown();
                 virtual void shutdown();
                 virtual JFuture* submit(JRunnable* task);
                 virtual JFuture* submit(JRunnable* task, JObject* result);

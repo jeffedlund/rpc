@@ -228,8 +228,7 @@ namespace jcpp{
         }
 
         void JBlockDataOutputStream::getChars(JString* s,jint srcBegin, jint srcEnd, jchar dest[], jint dstBegin){
-            const char* str = s->getString().c_str();//TODO
-            JBits::fromCharToJChar(str,dest,dstBegin,srcEnd-srcBegin);
+            s->getChars(srcBegin,srcEnd,dest,dstBegin);
         }
 
         void JBlockDataOutputStream::writeChars(JString* s){
@@ -450,6 +449,7 @@ namespace jcpp{
             delete[] hbuf;
             delete[] cbuf;
             delete dout;
+            delete out;
         }
     }
 }

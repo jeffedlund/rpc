@@ -18,7 +18,6 @@ using namespace jcpp::io;
 namespace jcpp{
     namespace util{
         class JCPP_LIBRARY_EXPORT JMap : public JInterface{
-
         public:
             class JCPP_LIBRARY_EXPORT JEntry : public JInterface {
             public:

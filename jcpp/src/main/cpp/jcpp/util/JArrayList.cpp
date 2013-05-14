@@ -47,12 +47,15 @@ namespace jcpp{
               addInterface(JSerializable::getClazz());
               addInterface(JRandomAccess::getClazz());
               addInterface(JCloneable::getClazz());
+
               vector<JClass*>* paramType=new vector<JClass*>();
               paramType->push_back(JObjectInputStream::getClazz());
               addMethod(new JMethod("readObject",this,JVoid::getClazz(),paramType,invokeReadObject));
+
               paramType=new vector<JClass*>;
               paramType->push_back(JObjectOutputStream::getClazz());
               addMethod(new JMethod("writeObject",this,JVoid::getClazz(),paramType,invokeWriteObject));
+
               addField(new JField("size",JPrimitiveInt::getClazz(),this,staticGetSize,staticSetSize));
           }
 
@@ -76,7 +79,7 @@ namespace jcpp{
             return clazz;
         }
 
-        JArrayList::JArrayList(int):JAbstractList(getClazz()){
+        JArrayList::JArrayList(jint):JAbstractList(getClazz()){
             items=new vector<JObject*>();
             isize=new JPrimitiveInt(0);
         }
@@ -103,7 +106,7 @@ namespace jcpp{
             modCount++;
         }
 
-        bool JArrayList::contains(JObject* o){
+        jbool JArrayList::contains(JObject* o){
             return indexOf(o)>=0;
         }
 
@@ -148,37 +151,37 @@ namespace jcpp{
             return old;
         }
 
-        bool JArrayList::isEmpty(){
+        jbool JArrayList::isEmpty(){
             return items->empty();
         }
 
-        JObject* JArrayList::get(int index){
+        JObject* JArrayList::get(jint index){
             return items->at(index);
         }
 
-        bool JArrayList::add(JObject* item){
+        jbool JArrayList::add(JObject* item){
             items->push_back(item);
             isize->set(isize->get()+1);
             modCount++;
             return true;
         }
 
-        void JArrayList::add(int index,JObject* o){
+        void JArrayList::add(jint index,JObject* o){
             vector<JObject*>::iterator iterator1=items->begin();
             items->insert(iterator1+index , o);
             isize->set(isize->get()+1);
             modCount++;
         }
 
-        JObject* JArrayList::remove(int index){
+        JObject* JArrayList::remove(jint index){
             JObject* o=items->at(index);
             remove(o);
             return o;
         }
 
-        bool JArrayList::remove(JObject* e){
+        jbool JArrayList::remove(JObject* e){
             modCount++;
-            bool b=deleteFromVector(items,e);
+            jbool b=deleteFromVector(items,e);
             isize->set(items->size());
             return b;
         }
@@ -212,8 +215,8 @@ namespace jcpp{
             return true;
         }
 
-        bool JArrayList::addAll(jint index, JCollection* c){
-            int i=0;
+        jbool JArrayList::addAll(jint index, JCollection* c){
+            jint i=0;
             JIterator* it=c->iterator();
             while (it->hasNext()){
                 JObject* o=it->next();
@@ -317,6 +320,7 @@ namespace jcpp{
                     lastRet = -1;
                     expectedModCount = list->modCount;
                 } catch (JIndexOutOfBoundsException* ex) {
+                    delete ex;
                     throw new JConcurrentModificationException();
                 }
             }
@@ -559,11 +563,11 @@ namespace jcpp{
             }
 
             void checkForComodification() {
-                if (list->modCount != this->modCount)
+                if (list->modCount != this->modCount){
                     throw new JConcurrentModificationException();
+                }
             }
         };
-
 
         static JClass* arrayListSubListListIteratorClazz;
         class JArrayListSubListIterator : public JObject, public JListIterator {
@@ -657,6 +661,7 @@ namespace jcpp{
                     lastRet = -1;
                     expectedModCount = list->modCount;
                 } catch (JIndexOutOfBoundsException* ex) {
+                    delete ex;
                     throw new JConcurrentModificationException();
                 }
             }
@@ -669,6 +674,7 @@ namespace jcpp{
                 try {
                     list->set(offset + lastRet, e);
                 } catch (JIndexOutOfBoundsException* ex) {
+                    delete ex;
                     throw new JConcurrentModificationException();
                 }
             }
@@ -683,6 +689,7 @@ namespace jcpp{
                     lastRet = -1;
                     expectedModCount = list->modCount;
                 } catch (JIndexOutOfBoundsException* ex) {
+                    delete ex;
                     throw new JConcurrentModificationException();
                 }
             }

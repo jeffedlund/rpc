@@ -25,27 +25,27 @@ namespace jcpp{
             friend class JArrayListSubList;
 
         public:
-            JArrayList(int initialCapacity = 10);
+            JArrayList(jint initialCapacity = 10);
             JArrayList(JCollection* c);
             static JClass* getClazz();
             virtual void trimToSize();
             virtual void ensureCapacity(jint minCapacity);
             virtual jint size();
-            virtual bool isEmpty();
-            virtual bool contains(JObject* o);
+            virtual jbool isEmpty();
+            virtual jbool contains(JObject* o);
             virtual jint indexOf(JObject* o);
             virtual jint lastIndexOf(JObject* o);
             virtual JArrayList* clone();
             virtual JPrimitiveArray* toArray();
-            virtual JObject* get(int index);
+            virtual JObject* get(jint index);
             virtual JObject* set(jint index, JObject* element);
-            virtual bool add(JObject* item);
-            virtual void add(int index,JObject* item);
-            virtual JObject* remove(int index);
-            virtual bool remove(JObject* e);
+            virtual jbool add(JObject* item);
+            virtual void add(jint index,JObject* item);
+            virtual JObject* remove(jint index);
+            virtual jbool remove(JObject* e);
             virtual void clear();
-            virtual bool addAll(JCollection* c);
-            virtual bool addAll(jint index, JCollection* c);
+            virtual jbool addAll(JCollection* c);
+            virtual jbool addAll(jint index, JCollection* c);
             virtual void writeObject(JObjectOutputStream* out);
             virtual void readObject(JObjectInputStream* in);
             virtual JListIterator* listIterator();

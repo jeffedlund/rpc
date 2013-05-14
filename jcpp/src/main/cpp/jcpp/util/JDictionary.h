@@ -17,7 +17,7 @@ namespace jcpp{
         public:
             static JClass* getClazz();
             virtual jint size()=0;
-            virtual bool isEmpty()=0;
+            virtual jbool isEmpty()=0;
             virtual JEnumeration* keys()=0;
             virtual JEnumeration* elements()=0;
             virtual JObject* get(JObject* key)=0;

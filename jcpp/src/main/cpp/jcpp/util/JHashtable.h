@@ -27,13 +27,12 @@ namespace jcpp{
             friend class JHashtableValues;
             friend class JHashtableEntrySetImpl;
 
-
         public:
             JHashtable(jint initialCapacity = 10, jfloat loadFactor=0.75);
             JHashtable(JMap* c);
             static JClass* getClazz();
             virtual jint size();
-            virtual bool isEmpty();
+            virtual jbool isEmpty();
             virtual JEnumeration* keys();
             virtual JEnumeration* elements();
             virtual jbool contains(JObject* value);

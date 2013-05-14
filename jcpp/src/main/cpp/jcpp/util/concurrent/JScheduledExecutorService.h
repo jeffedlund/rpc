@@ -16,8 +16,6 @@ namespace jcpp{
     namespace util{
         namespace concurrent{
             class JCPP_LIBRARY_EXPORT JScheduledExecutorService : public JExecutorService{
-            protected:
-
             public:
                 static JClass* getClazz();
                 virtual JScheduledFuture* schedule(JCallable* callable, jlong delay)=0;

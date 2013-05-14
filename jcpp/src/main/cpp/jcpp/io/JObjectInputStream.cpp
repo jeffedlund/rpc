@@ -957,11 +957,11 @@ namespace jcpp{
             return new JPrimitiveBoolean(readBool());
         }
 
-        JString JObjectInputStream::readUTF() {
+        JString* JObjectInputStream::readUTF() {
             return bin->readUTF();
         }
 
-        JString JObjectInputStream::readLongUTF() {
+        JString* JObjectInputStream::readLongUTF() {
             return bin->readLongUTF();
         }
 

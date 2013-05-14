@@ -30,7 +30,7 @@ namespace jcpp{
                 return clazz;
             }
 
-            JScheduledFutureTask::JScheduledFutureTask(JCallable* c,long initialDelay, jlong period):JTimerTask(getClazz()){
+            JScheduledFutureTask::JScheduledFutureTask(JCallable* c,jlong initialDelay, jlong period):JTimerTask(getClazz()){
                 this->callable=c;
                 this->runnable=NULL;
                 this->initialResult=NULL;
@@ -39,7 +39,7 @@ namespace jcpp{
                 this->period=period;
             }
 
-            JScheduledFutureTask::JScheduledFutureTask(JRunnable* r,JObject* result,long initialDelay, jlong period):JTimerTask(getClazz()){
+            JScheduledFutureTask::JScheduledFutureTask(JRunnable* r,JObject* result,jlong initialDelay, jlong period):JTimerTask(getClazz()){
                 this->callable=NULL;
                 this->runnable=r;
                 this->initialResult=result;
@@ -70,8 +70,8 @@ namespace jcpp{
                 }
             }
 
-            bool JScheduledFutureTask::cancel(){
-                bool b=false;
+            jbool JScheduledFutureTask::cancel(){
+                jbool b=false;
                 lock();
                 if ((period<=0 && !bDone) || period>0){
                     JTimerTask::cancel();
@@ -81,12 +81,12 @@ namespace jcpp{
                 return b;
             }
 
-            bool JScheduledFutureTask::isCancelled(){
+            jbool JScheduledFutureTask::isCancelled(){
                 return JTimerTask::isCancelled();
             }
 
-            bool JScheduledFutureTask::isDone(){
-                bool b;
+            jbool JScheduledFutureTask::isDone(){
+                jbool b;
                 lock();
                 b=bDone;
                 unlock();
@@ -114,7 +114,7 @@ namespace jcpp{
                 return r;
             }
 
-            bool JScheduledFutureTask::isPeriodic(){
+            jbool JScheduledFutureTask::isPeriodic(){
                 return period!=0;
             }
 
@@ -122,7 +122,7 @@ namespace jcpp{
                 return initialDelay;
             }
 
-            long JScheduledFutureTask::getPeriod(){
+            jlong JScheduledFutureTask::getPeriod(){
                 return period;
             }
 

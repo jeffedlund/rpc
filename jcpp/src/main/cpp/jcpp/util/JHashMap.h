@@ -109,7 +109,7 @@ namespace jcpp{
             static JClass* getClazz();
             virtual void init();
             virtual jint size();
-            virtual bool isEmpty();
+            virtual jbool isEmpty();
             virtual JObject* get(JObject* key);
             virtual jbool containsKey(JObject* key);
             virtual JObject* put(JObject* key, JObject* value);

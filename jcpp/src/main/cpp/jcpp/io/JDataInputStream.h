@@ -39,7 +39,7 @@ namespace jcpp{
             virtual JPrimitiveLong* readPrimitiveLong();
             virtual JPrimitiveShort* readPrimitiveShort();
             virtual JPrimitiveBoolean* readPrimitiveBool();
-            virtual JString readUTF();
+            virtual JString* readUTF();
             virtual jint available();
             virtual jint peek();
             virtual void close();

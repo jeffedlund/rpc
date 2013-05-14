@@ -13,7 +13,6 @@
 namespace jcpp{
     namespace util{
         class JVectorClass : public JClass{
-
             static JObject* invokeWriteObject(JObject* object,vector<JObject*>* args){
                 JVector* arrayList=(JVector*)object;
                 arrayList->writeObject((JObjectOutputStream*)args->at(0));
@@ -77,7 +76,7 @@ namespace jcpp{
             return clazz;
         }
 
-        JVector::JVector(int,int c):JAbstractList(getClazz()){
+        JVector::JVector(jint,jint c):JAbstractList(getClazz()){
             items=new vector<JObject*>();
             elementCount=new JPrimitiveInt(0);
             capacityIncrement=new JPrimitiveInt(c);
@@ -174,9 +173,9 @@ namespace jcpp{
             return i;
         }
 
-        bool JVector::isEmpty() {
+        jbool JVector::isEmpty() {
             lock();
-            bool b=elementCount->get() == 0;
+            jbool b=elementCount->get() == 0;
             unlock();
             return b;
         }
@@ -224,7 +223,7 @@ namespace jcpp{
                 return enumerationImplClazz;
             }
 
-            bool hasMoreElements() {
+            jbool hasMoreElements() {
                 return count < v->size();
             }
 
@@ -247,7 +246,7 @@ namespace jcpp{
             return new JEnumerationImpl(this);
         }
 
-        bool JVector::contains(JObject* o){
+        jbool JVector::contains(JObject* o){
             return indexOf(o)>=0;
         }
 
@@ -388,7 +387,7 @@ namespace jcpp{
             unlock();
         }
 
-        bool JVector::removeElement(JObject* obj) {
+        jbool JVector::removeElement(JObject* obj) {
             lock();
             modCount++;
             jint i = indexOf(obj);
@@ -429,7 +428,7 @@ namespace jcpp{
             return a;
         }
 
-        JObject* JVector::get(int index){
+        JObject* JVector::get(jint index){
             lock();
             JObject* o=items->at(index);
             unlock();
@@ -444,7 +443,7 @@ namespace jcpp{
             return old;
         }
 
-        bool JVector::add(JObject* item){
+        jbool JVector::add(JObject* item){
             lock();
             modCount++;
             items->push_back(item);
@@ -453,15 +452,15 @@ namespace jcpp{
             return true;
         }
 
-        bool JVector::remove(JObject* e){
+        jbool JVector::remove(JObject* e){
             return removeElement(e);
         }
 
-        void JVector::add(int index,JObject* o){
+        void JVector::add(jint index,JObject* o){
             insertElementAt(o,index);
         }
 
-        JObject* JVector::remove(int index){
+        JObject* JVector::remove(jint index){
             lock();
             if (index >= elementCount->get()){
                 JString ss;
@@ -479,14 +478,14 @@ namespace jcpp{
             removeAllElements();
         }
 
-        bool JVector::containsAll(JCollection *c){
+        jbool JVector::containsAll(JCollection *c){
             lock();
-            bool b=JAbstractList::containsAll(c);
+            jbool b=JAbstractList::containsAll(c);
             unlock();
             return b;
         }
 
-        bool JVector::addAll(JCollection *c){
+        jbool JVector::addAll(JCollection *c){
             JIterator* i=c->iterator();
             lock();
             modCount++;
@@ -499,23 +498,23 @@ namespace jcpp{
             return true;
         }
 
-        bool JVector::removeAll(JCollection *c){
+        jbool JVector::removeAll(JCollection *c){
             lock();
-            bool b=JAbstractList::removeAll(c);
+            jbool b=JAbstractList::removeAll(c);
             unlock();
             return b;
         }
 
-        bool JVector::retainAll(JCollection *c){
+        jbool JVector::retainAll(JCollection *c){
             lock();
-            bool b=JAbstractList::retainAll(c);
+            jbool b=JAbstractList::retainAll(c);
             unlock();
             return b;
         }
 
-        bool JVector::addAll(jint index,JCollection* c){
+        jbool JVector::addAll(jint index,JCollection* c){
             lock();
-            int i=0;
+            jint i=0;
             JIterator* it=c->iterator();
             while (it->hasNext()){
                 JObject* o=it->next();
@@ -530,9 +529,9 @@ namespace jcpp{
             return true;
         }
 
-        bool JVector::equals(JObject *other){
+        jbool JVector::equals(JObject *other){
             lock();
-            bool q=JAbstractList::equals(other);
+            jbool q=JAbstractList::equals(other);
             unlock();
             return q;
         }

@@ -36,10 +36,10 @@ namespace jcpp{
             virtual jbool retainAll(JCollection* c);
             virtual jbool equals(JObject* c);
             virtual jint hashCode();
-            virtual bool isEmpty();
-            virtual bool contains(JObject* o);
-            virtual bool add(JObject* item);
-            virtual bool remove(JObject* e);
+            virtual jbool isEmpty();
+            virtual jbool contains(JObject* o);
+            virtual jbool add(JObject* item);
+            virtual jbool remove(JObject* e);
             virtual void clear();
             virtual JHashSet* clone();
             virtual void writeObject(JObjectOutputStream* out);

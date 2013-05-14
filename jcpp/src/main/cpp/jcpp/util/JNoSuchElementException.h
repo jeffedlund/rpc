@@ -13,8 +13,6 @@ namespace jcpp{
         public:
             JNoSuchElementException();
             JNoSuchElementException(JString message);
-            JNoSuchElementException(JString* message);
-
             static JClass* getClazz();
             virtual ~JNoSuchElementException();
         };

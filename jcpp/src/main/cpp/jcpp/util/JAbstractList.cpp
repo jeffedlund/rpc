@@ -15,7 +15,6 @@ using namespace std;
 namespace jcpp{
     namespace util{
         class JAbstractListClass : public JClass{
-
         public:
           JAbstractListClass(){
               this->canonicalName="java.util.AbstractList";
@@ -45,9 +44,9 @@ namespace jcpp{
         class JItr : public JObject ,public JIterator{
         protected:
             JAbstractList* list;
-            int cursor;
-            int lastRet;
-            int expectedModCount;
+            jint cursor;
+            jint lastRet;
+            jint expectedModCount;
 
             class JAbstractListItrClass : public JClass{
             public:
@@ -90,7 +89,7 @@ namespace jcpp{
                 return itrClazz;
             }
 
-            bool hasNext() {
+            jbool hasNext() {
                 return cursor != list->size();
             }
 
@@ -103,6 +102,7 @@ namespace jcpp{
                     cursor=i+1;
                     return next;
                 } catch (JIndexOutOfBoundsException* e) {
+                    delete e;
                     checkForComodification();
                     throw new JNoSuchElementException();
                 }
@@ -121,6 +121,7 @@ namespace jcpp{
                     lastRet = -1;
                     expectedModCount = list->modCount;
                 } catch (JIndexOutOfBoundsException* e) {
+                    delete e;
                     throw new JConcurrentModificationException();
                 }
             }
@@ -156,7 +157,7 @@ namespace jcpp{
 
         public:
 
-            JListItr(JAbstractList* list,int index) : JItr(list,getClazz()){
+            JListItr(JAbstractList* list,jint index) : JItr(list,getClazz()){
                 cursor = index;
             }
 
@@ -167,7 +168,7 @@ namespace jcpp{
                 return listItrClazz;
             }
 
-            bool hasNext(){
+            jbool hasNext(){
                 return JItr::hasNext();
             }
 
@@ -179,18 +180,19 @@ namespace jcpp{
                 JItr::remove();
             }
 
-            bool hasPrevious() {
+            jbool hasPrevious() {
                 return cursor != 0;
             }
 
             JObject* previous() {
                 checkForComodification();
                 try {
-                    int i = cursor - 1;
+                    jint i = cursor - 1;
                     JObject* previous = list->get(i);
                     lastRet = cursor = i;
                     return previous;
                 } catch (JIndexOutOfBoundsException* e) {
+                    delete e;
                     checkForComodification();
                     throw new JNoSuchElementException();
                 }
@@ -209,11 +211,11 @@ namespace jcpp{
                     throw new JIllegalStateException();
                 }
                 checkForComodification();
-
                 try {
                     list->set(lastRet, e);
                     expectedModCount = list->modCount;
                 } catch (JIndexOutOfBoundsException* ex) {
+                    delete ex;
                     throw new JConcurrentModificationException();
                 }
             }
@@ -227,6 +229,7 @@ namespace jcpp{
                     cursor=i+1;
                     expectedModCount = list->modCount;
                 } catch (JIndexOutOfBoundsException* ex) {
+                    delete ex;
                     throw new JConcurrentModificationException();
                 }
             }
@@ -354,15 +357,15 @@ namespace jcpp{
                 modCount++;
             }
 
-            bool addAll(JCollection* c) {
+            jbool addAll(JCollection* c) {
                 return addAll(isize, c);
             }
 
-            bool addAll(jint index, JCollection* c) {
+            jbool addAll(jint index, JCollection* c) {
                 if (index<0 || index>isize){
                     throw new JIndexOutOfBoundsException();
                 }
-                int cSize = c->size();
+                jint cSize = c->size();
                 if (cSize==0){
                     return false;
                 }
@@ -542,11 +545,11 @@ namespace jcpp{
             this->modCount=0;
         }
 
-        bool JAbstractList::isEmpty(){
+        jbool JAbstractList::isEmpty(){
             return JAbstractCollection::isEmpty();
         }
 
-        bool JAbstractList::add(JObject* e){
+        jbool JAbstractList::add(JObject* e){
             add(size(), e);
             return true;
         }
@@ -559,7 +562,7 @@ namespace jcpp{
             throw new JUnsupportedOperationException();
         }
 
-        bool JAbstractList::remove(JObject* o){
+        jbool JAbstractList::remove(JObject* o){
             return JAbstractCollection::remove(o);
         }
 
@@ -567,19 +570,19 @@ namespace jcpp{
             throw new JUnsupportedOperationException();
         }
 
-        bool JAbstractList::contains(JObject* o){
+        jbool JAbstractList::contains(JObject* o){
             return JAbstractCollection::contains(o);
         }
 
-        bool JAbstractList::containsAll(JCollection* c){
+        jbool JAbstractList::containsAll(JCollection* c){
             return JAbstractCollection::containsAll(c);
         }
 
-        bool JAbstractList::removeAll(JCollection* c){
+        jbool JAbstractList::removeAll(JCollection* c){
             return JAbstractCollection::removeAll(c);
         }
 
-        bool JAbstractList::retainAll(JCollection* c){
+        jbool JAbstractList::retainAll(JCollection* c){
             return JAbstractCollection::retainAll(c);
         }
 
@@ -633,8 +636,8 @@ namespace jcpp{
             removeRange(0, size());
         }
 
-        bool JAbstractList::addAll(jint index, JCollection* c){
-            bool modified = false;
+        jbool JAbstractList::addAll(jint index, JCollection* c){
+            jbool modified = false;
             JIterator* e = c->iterator();
             while (e->hasNext()) {
                 add(index++, e->next());
@@ -670,7 +673,7 @@ namespace jcpp{
             return new JSubList(this,fromIndex,toIndex);
         }
 
-        bool JAbstractList::equals(JObject* o){
+        jbool JAbstractList::equals(JObject* o){
             if (o == this){
                 return true;
             }
@@ -680,7 +683,7 @@ namespace jcpp{
             JListIterator* e1 = listIterator();
             JList* l2=dynamic_cast<JList*>(o);
             JListIterator* e2 = l2->listIterator();
-            while(e1->hasNext() && e2->hasNext()) {
+            while (e1->hasNext() && e2->hasNext()) {
                 JObject* o1 = e1->next();
                 JObject* o2 = e2->next();
                 if (!(o1==NULL ? o2==NULL : o1->equals(o2))){
@@ -689,7 +692,7 @@ namespace jcpp{
                     return false;
                 }
             }
-            bool eq=!(e1->hasNext() || e2->hasNext());
+            jbool eq=!(e1->hasNext() || e2->hasNext());
             delete e1;
             delete e2;
             return eq;
@@ -708,7 +711,7 @@ namespace jcpp{
 
         void JAbstractList::removeRange(jint fromIndex, jint toIndex){
             JListIterator* it = listIterator(fromIndex);
-            for (int i=0, n=toIndex-fromIndex; i<n; i++) {
+            for (jint i=0, n=toIndex-fromIndex; i<n; i++) {
                 it->next();
                 it->remove();
             }
