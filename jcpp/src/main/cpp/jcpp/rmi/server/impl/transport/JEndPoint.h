@@ -30,21 +30,21 @@ namespace jcpp{
 
                         public:
                             struct POINTER_COMPARATOR{//TODO better way?
-                                bool operator()(JEndPoint* e1, JEndPoint* e2){
+                                jbool operator()(JEndPoint* e1, JEndPoint* e2){
                                     return (*e1)<(*e2);
                                 }
                             };
                             JEndPoint();
                             JEndPoint(JDataInputStream* in);
                             JEndPoint(JAddress* a, JString* s);
-                            bool operator<(JEndPoint &other);
+                            jbool operator<(JEndPoint &other);
                             static JClass* getClazz();
                             void write(JDataOutputStream* out);
                             void setAddress(JAddress* a);
                             JAddress* getAddress();
                             void setSite(JString* site);
                             JString* getSite();
-                            virtual bool equals(JObject* other);
+                            virtual jbool equals(JObject* other);
                             virtual jint hashCode();
                             virtual JString toString();
                             virtual ~JEndPoint();

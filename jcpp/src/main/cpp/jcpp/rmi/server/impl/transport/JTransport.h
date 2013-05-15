@@ -48,7 +48,6 @@ namespace jcpp{
                         public:
                             JTransport(JEndPoint* localEndPoint,JITransportRouter* transportRouter,JITransportDispatcher* transportDispatcher,JExecutorService* executorService,JScheduledExecutorService* scheduledExecutorService,JTransportConfiguration* transportConfiguration);
                             static JClass* getClazz();
-
                             JConnections* getConnections(JEndPoint* remoteEndPoint);
                             JEndPoint* getLocalEndPoint();
                             JScheduledExecutorService* getScheduledExecutorService();

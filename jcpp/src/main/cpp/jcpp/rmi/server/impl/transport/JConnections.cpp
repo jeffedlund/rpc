@@ -57,6 +57,8 @@ namespace jcpp{
                                 takenConnectionList->push_back(connection);
                                 connection->getSocket()->setSoTimeout(socketTimeout);
                                 break;
+                            }else{
+                                connection->kill();
                             }
                         }
                         if (connection==NULL){
@@ -99,6 +101,7 @@ namespace jcpp{
                        freeConnectionList->clear();
                        remove();
                        unlock();
+                       delete this;
                     }
 
                     JEndPoint* JConnections::getRemoteEndPoint(){
@@ -148,6 +151,7 @@ namespace jcpp{
                                 } catch (JIOException* ex) {
                                     //TODO log
                                     ex->printStackTrace(&cout);
+                                    delete ex;
                                 }
                             }
                         }

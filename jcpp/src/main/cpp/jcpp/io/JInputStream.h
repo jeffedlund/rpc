@@ -7,9 +7,9 @@
 #include "JCPP.h"
 using namespace jcpp::lang;
 
+//TODO create socket+serversocket adapeters?
 namespace jcpp{
     namespace io{
-        //TODO create socket+serversocket adapeters?
         class JCPP_LIBRARY_EXPORT JInputStream : public JObject{
         protected:
             static const jint SKIP_BUFFER_SIZE = 2048;

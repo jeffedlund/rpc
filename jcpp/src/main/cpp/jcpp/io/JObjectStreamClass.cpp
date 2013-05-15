@@ -58,7 +58,7 @@ namespace jcpp{
             return clazz;
         }
 
-        static map<JClass*, JObjectStreamClass*>* allObjectStreamClass;
+        static map<JClass*, JObjectStreamClass*>* allObjectStreamClass=NULL;
 
         JObjectStreamClass* JObjectStreamClass::lookup(JClass* meta, jbool all){
             if(meta == NULL){
@@ -276,7 +276,7 @@ namespace jcpp{
             return fields;
         }
 
-        JObjectStreamField* JObjectStreamClass::getField(const JString& name,JClass* type){
+        JObjectStreamField* JObjectStreamClass::getField(JString name,JClass* type){
             for (unsigned int i=0;i<fields->size();i++){
                 JObjectStreamField* f=fields->at(i);
                 if (f->getName()->equals(name)){
@@ -313,7 +313,9 @@ namespace jcpp{
         }
 
         void JObjectStreamClass::readNonProxy(JObjectInputStream *in) {
-            name = in->readUTF();
+            JString* str=in->readUTF();
+            name = JString(str);
+            delete str;
             suid = in->readLong();
             bIsProxy = false;
 
@@ -343,22 +345,22 @@ namespace jcpp{
                 fields = new vector<JObjectStreamField*>();
                 for (jint i = 0; i < numFields; ++i) {
                     jchar tcode=(jchar) in->readByte();;
-                    JString fname=in->readUTF();
+                    JString* fname=in->readUTF();
                     JString signature;
                     if ((tcode=='L' || (tcode=='['))){
                         JString* readString=in->readTypeString();
                         signature=JString(readString);
-                        //TODO bug review all new/delete : delete readString;
                     }else{
                         signature=JString(tcode);
                     }
-                    fields->push_back(new JObjectStreamField(fname,signature,false));
+                    fields->push_back(new JObjectStreamField(JString(fname),signature,false));
+                    delete fname;
                 }
             }
             computeFieldOffsets();
         }
 
-        void JObjectStreamClass::initNonProxy(JObjectStreamClass * const model,JClass* jClass,JClassNotFoundException* resolveEx,JObjectStreamClass* superDesc){
+        void JObjectStreamClass::initNonProxy(JObjectStreamClass * model,JClass* jClass,JClassNotFoundException* resolveEx,JObjectStreamClass* superDesc){
             this->jClass = jClass;
             this->resolveEx=resolveEx;
             this->superDesc = superDesc;

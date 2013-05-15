@@ -26,24 +26,25 @@ namespace jcpp{
                         protected:
                             JArrayList* addressList;
                             JPrimitiveBoolean* bIsHttp;
+                            JPrimitiveBoolean* getPIsHttp();
+                            void setPIsHttp(JPrimitiveBoolean* h);
+                            friend class JRouteClass;
 
                         public:
                             JRoute();
                             static JClass* getClazz();
-                            void setIsHttp(bool h);
-                            bool isHttp();
-                            JPrimitiveBoolean* getPIsHttp();
-                            void setPIsHttp(JPrimitiveBoolean* h);
-                            void addAddress(JAddress* a);
-                            void removeAddress(JAddress* a);
-                            JArrayList* getAddressList();
-                            void setAddressList(JArrayList* al);
-                            JAddress* peakAddress();
-                            JAddress* popAddress();
-                            void pushAddress(JAddress* a);
-                            int addressSize();
-                            void clearAddress();
-                            virtual bool equals(JObject* other);
+                            virtual void setIsHttp(jbool h);
+                            virtual jbool isHttp();
+                            virtual void addAddress(JAddress* a);
+                            virtual void removeAddress(JAddress* a);
+                            virtual JArrayList* getAddressList();
+                            virtual void setAddressList(JArrayList* al);
+                            virtual JAddress* peakAddress();
+                            virtual JAddress* popAddress();
+                            virtual void pushAddress(JAddress* a);
+                            virtual jint addressSize();
+                            virtual void clearAddress();
+                            virtual jbool equals(JObject* other);
                             virtual JRoute* clone();
                             virtual JString toString();
                             virtual ~JRoute();

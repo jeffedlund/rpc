@@ -39,9 +39,9 @@ namespace jcpp{
                         this->bIsRunning = false;
                     }
 
-                    bool JGCEndPointInfo::isUpdated(){
+                    jbool JGCEndPointInfo::isUpdated(){
                         lock();
-                        bool b=previousPingId != lastPingId;
+                        jbool b=previousPingId != lastPingId;
                         unlock();
                         return b;
                     }
@@ -64,7 +64,7 @@ namespace jcpp{
 
                     void JGCEndPointInfo::unexport(JObjectInformation* objInfo){
                         JObjectInformation* removedObjInfo;
-                        int size;
+                        jint size;
                         lock();
                         removedObjInfo=getFromMap(exportedObjects,objInfo->getId());
                         exportedObjects->erase(objInfo->getId());
@@ -115,15 +115,15 @@ namespace jcpp{
                         unlock();
                     }
 
-                    bool JGCEndPointInfo::isRunning(){
-                        bool b;
+                    jbool JGCEndPointInfo::isRunning(){
+                        jbool b;
                         lock();
                         b=this->bIsRunning;
                         unlock();
                         return b;
                     }
 
-                    void JGCEndPointInfo::setRunning(bool b){
+                    void JGCEndPointInfo::setRunning(jbool b){
                         lock();
                         this->bIsRunning=b;
                         unlock();

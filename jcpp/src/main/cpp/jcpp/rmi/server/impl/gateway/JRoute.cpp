@@ -7,28 +7,29 @@ namespace jcpp{
         namespace server{
             namespace impl{
                 namespace gateway{
-                    static JObject* staticGetAddressList(JObject* object){
-                        JRoute* s=(JRoute*)object;
-                        return s->getAddressList();
-                    }
-
-                    static void staticSetAddressList(JObject* object,JObject* value){
-                        JRoute* s=(JRoute*)object;
-                        s->setAddressList((JArrayList*)value);
-                    }
-
-                    static JObject* staticGetIsHttp(JObject* object){
-                        JRoute* s=(JRoute*)object;
-                        return s->getPIsHttp();
-                    }
-
-                    static void staticSetIsHttp(JObject* object,JObject* value){
-                        JRoute* s=(JRoute*)object;
-                        s->setPIsHttp((JPrimitiveBoolean*)value);
-                    }
-
                     class JRouteClass : public JClass{
-                      public:
+                        protected:
+                            static JObject* staticGetAddressList(JObject* object){
+                                JRoute* s=(JRoute*)object;
+                                return s->getAddressList();
+                            }
+
+                            static void staticSetAddressList(JObject* object,JObject* value){
+                                JRoute* s=(JRoute*)object;
+                                s->setAddressList((JArrayList*)value);
+                            }
+
+                            static JObject* staticGetIsHttp(JObject* object){
+                                JRoute* s=(JRoute*)object;
+                                return s->getPIsHttp();
+                            }
+
+                            static void staticSetIsHttp(JObject* object,JObject* value){
+                                JRoute* s=(JRoute*)object;
+                                s->setPIsHttp((JPrimitiveBoolean*)value);
+                            }
+
+                        public:
                         JRouteClass(){
                             this->canonicalName="jcpp.rmi.server.impl.gateway.Route";
                             this->name="jcpp.rmi.server.impl.gateway.Route";
@@ -64,7 +65,7 @@ namespace jcpp{
                         this->bIsHttp=new JPrimitiveBoolean();
                     }
 
-                    bool JRoute::equals(JObject* other){
+                    jbool JRoute::equals(JObject* other){
                         if (other->getClass()!=getClazz()){
                             return false;
                         }
@@ -72,11 +73,11 @@ namespace jcpp{
                         return (*s->addressList)==(*addressList) && (*s->bIsHttp)==(*bIsHttp);
                     }
 
-                    void JRoute::setIsHttp(bool h){
+                    void JRoute::setIsHttp(jbool h){
                         bIsHttp->set(h);
                     }
 
-                    bool JRoute::isHttp(){
+                    jbool JRoute::isHttp(){
                         return bIsHttp->get();
                     }
 
@@ -125,7 +126,7 @@ namespace jcpp{
                         addressList->add(0,a);
                     }
 
-                    int JRoute::addressSize(){
+                    jint JRoute::addressSize(){
                         return addressList->size();
                     }
 

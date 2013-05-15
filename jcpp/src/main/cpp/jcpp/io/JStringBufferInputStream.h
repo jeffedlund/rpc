@@ -18,7 +18,7 @@ namespace jcpp{
                 virtual jint read(jbyte b[], jint offset, jint len);
                 virtual jlong skip(jlong n);
                 virtual jint available();
-                virtual void  reset();
+                virtual void reset();
                 virtual ~JStringBufferInputStream();
 
         };

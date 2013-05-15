@@ -30,7 +30,7 @@ namespace jcpp{
                             JSocket* socket;
                             JInputStream* input;
                             JOutputStream* output;
-                            bool bSendSocket;
+                            jbool bSendSocket;
                             JRoute* route;
                             JGatewayConfiguration* gatewayConfiguration;
                             void setSocketSetting();
@@ -38,54 +38,37 @@ namespace jcpp{
                         public:
                             JGatewaySocket(JRoute* route,JGatewayConfiguration* gatewayConfiguration);
                             JGatewaySocket(JSocket* socket,JInputStream* in,JGatewayConfiguration* gatewayConfiguration);
-
                             static JClass* getClazz();
-
-                            JRoute* getRoute();
-                            bool isReusable();
-
+                            virtual JRoute* getRoute();
+                            virtual jbool isReusable();
                             virtual QObject* getQObject();
                             virtual JInetAddress* getInetAddress();
                             virtual JInetAddress* getLocalAddress();
                             virtual jint getPort();
                             virtual jint getLocalPort();
-
                             virtual JInputStream* getInputStream();
                             virtual JOutputStream* getOutputStream();
-
-                            virtual void setTcpNoDelay(bool on);
-                            virtual bool getTcpNoDelay();
-
-                            virtual void setSoLinger(bool on, int linger);
-                            virtual int getSoLinger();
-
-                            virtual void setOOBInline(bool on);
-                            virtual bool getOOBInline();
-
-                            virtual void setSoTimeout(int s);
-                            virtual int getSoTimeout();
-
-                            virtual void setSendBufferSize(int size);
-                            virtual int getSendBufferSize();
-
-                            virtual void setReceiveBufferSize(int size);
-                            virtual int getReceiveBufferSize();
-
-                            virtual void setKeepAlive(bool on);
-                            virtual bool getKeepAlive();
-
-                            virtual void setTrafficClass(int tc);
-                            virtual int getTrafficClass();
-
-                            virtual void setReuseAddress(bool on);
-                            virtual bool getReuseAddress();
-
+                            virtual void setTcpNoDelay(jbool on);
+                            virtual jbool getTcpNoDelay();
+                            virtual void setSoLinger(jbool on, jint linger);
+                            virtual jint getSoLinger();
+                            virtual void setOOBInline(jbool on);
+                            virtual jbool getOOBInline();
+                            virtual void setSoTimeout(jint s);
+                            virtual jint getSoTimeout();
+                            virtual void setSendBufferSize(jint size);
+                            virtual jint getSendBufferSize();
+                            virtual void setReceiveBufferSize(jint size);
+                            virtual jint getReceiveBufferSize();
+                            virtual void setKeepAlive(jbool on);
+                            virtual jbool getKeepAlive();
+                            virtual void setTrafficClass(jint tc);
+                            virtual jint getTrafficClass();
+                            virtual void setReuseAddress(jbool on);
+                            virtual jbool getReuseAddress();
                             virtual void close();
-                            virtual bool isClosed();
-
-
-                            JString toString();
-
+                            virtual jbool isClosed();
+                            virtual JString toString();
                             virtual ~JGatewaySocket();
                     };
                 }

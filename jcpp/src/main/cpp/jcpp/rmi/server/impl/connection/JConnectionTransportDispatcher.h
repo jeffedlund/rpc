@@ -37,19 +37,19 @@ namespace jcpp{
                             JObject* object;
                             JMethod* method;
                             JObject* result;
-                            bool exceptionThrown;
+                            jbool exceptionThrown;
                         public:
-                            InvocationResult(JObject* object, JMethod* method, JObject* result, bool exceptionThrown);
+                            InvocationResult(JObject* object, JMethod* method, JObject* result, jbool exceptionThrown);
                             JObject* getObject();
                             JMethod* getMethod();
                             JObject* getResult();
-                            bool isExceptionThrown();
+                            jbool isExceptionThrown();
                         };
 
                         JConnectionTransportDispatcher(JObjectInformations* objectInformations);
                         static JClass* getClazz();
                         virtual void dispatch(JEndPoint* fromEndPoint, JEndPoint* toEndPoint, JConnection* connection);
-                        InvocationResult* invokeMethod(JString* id, jlong digest, vector<JObject*>* args, JEndPoint* endPoint);
+                        virtual InvocationResult* invokeMethod(JString* id, jlong digest, vector<JObject*>* args, JEndPoint* endPoint);
                         virtual ~JConnectionTransportDispatcher();
                     };
                 }

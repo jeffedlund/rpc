@@ -28,11 +28,8 @@ namespace jcpp{
                         public:
                             JTransportRouter();
                             static JClass* getClazz();
-
-                            void addRoute(JString* localSite,JString* remoteSite, JRoute* route);
-
-                            virtual JRoute* findRoute(JString* localSite, JEndPoint* remoteEndpoint);
-
+                            virtual void addRoute(JString localSite,JString remoteSite, JRoute* route);
+                            virtual JRoute* findRoute(JString localSite, JEndPoint* remoteEndpoint);
                             virtual ~JTransportRouter();
                     };
                 }

@@ -25,7 +25,7 @@ namespace jcpp{
                         public:
                         static JClass* getClazz();
                         virtual JRoute* getRoute()=0;
-                        virtual bool isReusable()=0;
+                        virtual jbool isReusable()=0;
                         virtual ~JIGatewaySocket();
                     };
                 }

@@ -36,7 +36,7 @@ namespace jcpp{
                     public:
                         JConnectionInputStream(JInputStream* in, JObjectInformations* objectInformations, JEndPoint* remoteEndPoint);
                         static JClass* getClazz();
-                        void done();
+                        virtual void done();
                         virtual JObject* resolveObject(JObject* obj);
                         virtual ~JConnectionInputStream();
                     };

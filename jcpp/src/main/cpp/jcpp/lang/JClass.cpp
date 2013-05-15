@@ -215,7 +215,7 @@ namespace jcpp{
                     for (unsigned int i=0;i<current->declaredFieldsList->size();i++){
                         JField* f=current->declaredFieldsList->at(i);//TODO add it or check before? ...
                         fieldsList->push_back(f);
-                        fields->insert(pair<JString,JField*>(f->getName(),f));
+                        fields->insert(pair<JString,JField*>(*f->getName(),f));
                     }
                     current=current->getSuperclass();
                 }
@@ -289,7 +289,7 @@ namespace jcpp{
                     for (unsigned int i=0;i<current->declaredMethodsList->size();i++){
                         JMethod* m=current->declaredMethodsList->at(i);//TODO add it or check before ...
                         methodsList->push_back(m);
-                        methods->insert(pair<JString,JMethod*>(m->getName(),m));
+                        methods->insert(pair<JString,JMethod*>(*m->getName(),m));
                     }
                     vector<JClass*>* interf=current->getInterfaces();
                     for (unsigned int i=0;i<interf->size();i++){
@@ -298,7 +298,7 @@ namespace jcpp{
                         for (unsigned int j=0;j<c->declaredMethodsList->size();j++){
                             JMethod* m=c->declaredMethodsList->at(j);
                             methodsList->push_back(m);
-                            methods->insert(pair<JString,JMethod*>(m->getName(),m));
+                            methods->insert(pair<JString,JMethod*>(*m->getName(),m));
                         }
                     }
                     current=current->getSuperclass();
@@ -369,12 +369,12 @@ namespace jcpp{
 
         void JClass::addField(JField* field){
             declaredFieldsList->push_back(field);
-            declaredFields->insert(pair<JString,JField*>(field->getName(),field));
+            declaredFields->insert(pair<JString,JField*>(*field->getName(),field));
         }
 
         void JClass::addMethod(JMethod* method){
             declaredMethodsList->push_back(method);
-            declaredMethods->insert(pair<JString,JMethod*>(method->getName(),method));
+            declaredMethods->insert(pair<JString,JMethod*>(*method->getName(),method));
         }
 
         void JClass::addInterface(JClass* interface){

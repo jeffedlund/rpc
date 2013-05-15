@@ -33,7 +33,7 @@ namespace jcpp{
                             JConnections* connections;
                             JDataOutputStream* out;
                             JDataInputStream* in;
-                            bool opened;
+                            jbool opened;
                             JTransport* transport;
                             JGatewayConfiguration* gatewayConfiguration;
                             void sendPing();
@@ -42,19 +42,18 @@ namespace jcpp{
                             JConnection(JRoute* route, JConnections* connections,JGatewayConfiguration* gatewayConfiguration);
                             JConnection(JSocket* socket, JTransport* transport,JGatewayConfiguration* gatewayConfiguration);
                             static JClass* getClazz();
-
                             void free();
                             void kill();
-                            bool openConnection();
+                            jbool openConnection();
                             void startCall();
                             void finishCall();
                             void sendOk();
-                            bool readOk();
-                            bool isDead();
+                            jbool readOk();
+                            jbool isDead();
                             JDataOutputStream* getOutputStream();
                             JDataInputStream* getInputStream();
                             void setLastUsed();
-                            bool isReusable();
+                            jbool isReusable();
                             JSocket* getSocket();
                             jlong getLastUsed();
                             JConnections* getConnections();

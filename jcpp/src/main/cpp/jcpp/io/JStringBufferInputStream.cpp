@@ -51,7 +51,7 @@ namespace jcpp{
                 unlock();
                 return 0;
             }
-            JString  s = buffer;
+            JString s = buffer;
             jint cnt = len;
             while (--cnt >= 0) {
                 b[off++] = (jbyte)s.charAt(pos++);

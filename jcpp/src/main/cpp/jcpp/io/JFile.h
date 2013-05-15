@@ -20,7 +20,7 @@ namespace jcpp{
         }
     }
     namespace io{
-        class JCPP_LIBRARY_EXPORT JFile : public JObject  , public JSerializable  , public JComparable  {
+        class JCPP_LIBRARY_EXPORT JFile : public JObject, public JSerializable, public JComparable  {
             protected:
                 static jcpp::io::JFileSystem* fs;
                 JString* path;
@@ -50,7 +50,7 @@ namespace jcpp{
                 JFile(JFile* parent,JString child);
                 //TODO JFile(JURI* uri);
                 virtual JString getName();
-                virtual JString getParent();
+                virtual JString* getParent();
                 virtual JFile* getParentFile();
                 virtual JString getPath();
                 virtual jbool isAbsolute();

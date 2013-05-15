@@ -39,28 +39,28 @@ namespace jcpp{
                         this->routes=new map<JString, map<JString, JRoute*>*>();
                     }
 
-                    void JTransportRouter::addRoute(JString* localSite,JString* remoteSite, JRoute* route){
+                    void JTransportRouter::addRoute(JString localSite,JString remoteSite, JRoute* route){
                         lock();
-                        map<JString,JRoute*>* internalMap=getFromMap(routes,*localSite);
+                        map<JString,JRoute*>* internalMap=getFromMap(routes,localSite);
                         if (internalMap==NULL){
                             internalMap=new map<JString,JRoute*>();
-                            routes->insert(pair<JString,map<JString,JRoute*>*>(*localSite,internalMap));
+                            routes->insert(pair<JString,map<JString,JRoute*>*>(localSite,internalMap));
                         }
-                        internalMap->insert(pair<JString,JRoute*>(remoteSite->getString(),route));
+                        internalMap->insert(pair<JString,JRoute*>(remoteSite,route));
                         unlock();
                     }
 
-                    JRoute* JTransportRouter::findRoute(JString* localSite, JEndPoint* remoteEndpoint){
+                    JRoute* JTransportRouter::findRoute(JString localSite, JEndPoint* remoteEndpoint){
                         JRoute* route=NULL;
                         lock();
-                        if (localSite!=NULL && remoteEndpoint!=NULL){
-                            if (localSite->getString()==remoteEndpoint->getSite()->getString()){
+                        if (remoteEndpoint!=NULL){
+                            if (localSite==remoteEndpoint->getSite()){
                                 route=new JRoute();
                                 route->addAddress(new JAddress(remoteEndpoint->getAddress()));
                             }else{
-                                map<JString,JRoute*>* internalMap=getFromMap(routes,*localSite);
+                                map<JString,JRoute*>* internalMap=getFromMap(routes,localSite);
                                 if (internalMap!=NULL){
-                                    route=getFromMap(internalMap,*remoteEndpoint->getSite());
+                                    route=getFromMap(internalMap,remoteEndpoint->getSite());
                                     if (route!=NULL){
                                         route=route->clone();
                                         route->addAddress(new JAddress(remoteEndpoint->getAddress()));

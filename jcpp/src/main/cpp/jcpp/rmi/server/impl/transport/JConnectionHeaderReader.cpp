@@ -53,11 +53,12 @@ namespace jcpp{
                         socket->takeOwner();
                         JConnection* connection = NULL;
                         JDataInputStream* in = new JDataInputStream(socket->getInputStream());
-                        int magicNumber = in->readInt();
+                        jint magicNumber = in->readInt();
                         if (magicNumber != JTransportConfiguration::MAGIC_NUMBER) {
+                            delete in;
                             throw new JEOFException();
                         }
-                        JEndPoint* remoteEndPoint = new JEndPoint(in);
+                        JEndPoint* remoteEndPoint = new JEndPoint(in);//TODO lifecycle  of remtoeEndPoint? when to delete
                         connection = new JConnection(socket, transport, transport->getTransportConfiguration()->getGatewayConfiguration());
 
                         if (connection->isReusable()) {
@@ -75,7 +76,7 @@ namespace jcpp{
                                 transport->getTransportDispatcher()->dispatch(remoteEndPoint, transport->getLocalEndPoint(), connection);
 
                                 if (!connection->isReusable()) {
-                                    connection->sendOk(); // OK for magic number
+                                    connection->sendOk();
                                 }
                                 connection->getOutputStream()->flush();
                             } else {
@@ -88,6 +89,8 @@ namespace jcpp{
                             connection->kill();
                         }
                         transport->remove(this);
+                        delete connection;
+                        delete this;
                     }
 
                     JConnectionHeaderReader::~JConnectionHeaderReader(){

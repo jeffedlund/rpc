@@ -30,7 +30,6 @@ namespace jcpp{
                         public:
                             JConnectionHeaderReader(JSocket* socket, JTransport* transport);
                             static JClass* getClazz();
-
                             void unexport();
                             virtual void run();
                             virtual ~JConnectionHeaderReader();

@@ -64,7 +64,7 @@ namespace jcpp{
 
                     JEndPoint::JEndPoint(JDataInputStream* in):JObject(getClazz()){
                         JString host=in->readUTF();
-                        int port=in->readInt();
+                        jint port=in->readInt();
                         this->site=new JString(in->readUTF());
                         this->address=new JAddress();
                         address->setHostName(host);
@@ -76,7 +76,7 @@ namespace jcpp{
                         this->site=s;
                     }
 
-                    bool JEndPoint::equals(JObject* other){
+                    jbool JEndPoint::equals(JObject* other){
                         if (other->getClass()!=getClazz()){
                             return false;
                         }
@@ -84,7 +84,7 @@ namespace jcpp{
                         return (*s->address)==(*address) && (*s->site)==(*site);
                     }
 
-                    bool JEndPoint::operator<(JEndPoint &other){
+                    jbool JEndPoint::operator<(JEndPoint &other){
                         if (getSite()->getString()<other.getSite()->getString()){
                             if (getAddress()->getHostName()<other.getAddress()->getHostName()){
                                 if (getAddress()->getPort()<other.getAddress()->getPort()){

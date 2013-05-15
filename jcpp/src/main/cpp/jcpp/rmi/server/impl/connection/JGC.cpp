@@ -43,7 +43,7 @@ namespace jcpp{
                         JPrimitiveArray* ar;
                         lock();
                         ar=new JPrimitiveArray(JEndPoint::getClazz(),endPointInfos->size());
-                        int i=0;
+                        jint i=0;
                         map<JEndPoint*,JGCEndPointInfo*,JEndPoint::POINTER_COMPARATOR>::iterator it=endPointInfos->begin();
                         for (;it!=endPointInfos->end();it++){
                             ar->set(i,(*it).first);

@@ -21,7 +21,7 @@ namespace jcpp{
                 static JClass* getClazz();
                 JLineNumberReader(JReader* in,jint sz);
                 JLineNumberReader(JReader* in);
-                virtual void  setLineNumber(jint lineNumber);
+                virtual void setLineNumber(jint lineNumber);
                 virtual jint getLineNumber();
                 virtual jint read();
                 virtual jint read(jchar cbuf[], jint off, jint len);

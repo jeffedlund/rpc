@@ -145,13 +145,17 @@ namespace jcpp{
                 return;
             }
             in->close();
+            delete in;
             in = NULL;
+            delete[] buf;
             buf = NULL;
             unlock();
         }
 
         JPushbackInputStream::~JPushbackInputStream(){
-            delete[] buf;
+            if (buf!=NULL){
+                delete[] buf;
+            }
         }
     }
 }

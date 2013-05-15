@@ -38,7 +38,7 @@ namespace jcpp{
                         return clazz;
                     }
 
-                    JConnectionTransportDispatcher::InvocationResult::InvocationResult(JObject* object, JMethod* method, JObject* result, bool exceptionThrown){
+                    JConnectionTransportDispatcher::InvocationResult::InvocationResult(JObject* object, JMethod* method, JObject* result, jbool exceptionThrown){
                         this->object=object;
                         this->method=method;
                         this->result=result;
@@ -57,7 +57,7 @@ namespace jcpp{
                         return result;
                     }
 
-                    bool JConnectionTransportDispatcher::InvocationResult::isExceptionThrown(){
+                    jbool JConnectionTransportDispatcher::InvocationResult::isExceptionThrown(){
                         return exceptionThrown;
                     }
 
@@ -72,7 +72,7 @@ namespace jcpp{
                         JPrimitiveArray* args = NULL;
                         JThrowable* readException = NULL;
                         try {
-                            objectId = new JString(ois->readUTF());
+                            objectId = ois->readUTF();
                             digest = ois->readLong();
                             args = (JPrimitiveArray*) ois->readObject();
                         } catch (JThrowable* e) {
@@ -103,6 +103,7 @@ namespace jcpp{
                         try {
                             oos->done();
                         } catch (JThrowable* throwable) {
+                            delete throwable;
                             //TODO log
                         }
                     }
@@ -111,7 +112,7 @@ namespace jcpp{
                         JObject* object = NULL;
                         JMethod* method = NULL;
                         JObject* result = NULL;
-                        bool exceptionThrown = false;
+                        jbool exceptionThrown = false;
 
                         JObjectInformation* objectInformation = objectInformations->getObjectInformation(id);
                         if (objectInformation == NULL) {

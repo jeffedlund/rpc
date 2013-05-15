@@ -42,16 +42,16 @@ namespace jcpp{
                             static const jlong GCCLIENT_TIMEOUT = 1 * 60000;
                             static const jint GCCLIENT_EXCEPTION_THRESHOLD  = 10;
                             static const jint EXECUTOR_CORE_POOL_SIZE       = 2;
-                            JTransportConfiguration* getTransportConfiguration();
-                            void setTransportConfiguration(JTransportConfiguration* tc);
-                            JLong* getGcTimeout();
-                            void setGcTimeout(JLong* gcTimeout);
-                            JLong* getGcClientTimeout();
-                            void setGcClientTimeout(JLong* gcTimeout);
-                            JInteger* getGcClientExceptionThreshold();
-                            void setGcClientExceptionThreshold(JInteger* t);
-                            JInteger* getExecutorCorePoolSize();
-                            void setExecutorCorePoolSize(JInteger* s);
+                            virtual JTransportConfiguration* getTransportConfiguration();
+                            virtual void setTransportConfiguration(JTransportConfiguration* tc);
+                            virtual JLong* getGcTimeout();
+                            virtual void setGcTimeout(JLong* gcTimeout);
+                            virtual JLong* getGcClientTimeout();
+                            virtual void setGcClientTimeout(JLong* gcTimeout);
+                            virtual JInteger* getGcClientExceptionThreshold();
+                            virtual void setGcClientExceptionThreshold(JInteger* t);
+                            virtual JInteger* getExecutorCorePoolSize();
+                            virtual void setExecutorCorePoolSize(JInteger* s);
                             virtual ~JConnectionConfiguration();
                     };
                 }

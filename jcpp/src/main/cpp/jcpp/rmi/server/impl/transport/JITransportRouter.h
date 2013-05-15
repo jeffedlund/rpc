@@ -19,7 +19,7 @@ namespace jcpp{
                     class JCPP_LIBRARY_EXPORT JITransportRouter : public JInterface{
                     public:
                         static JClass* getClazz();
-                        virtual JRoute* findRoute(JString* localSite, JEndPoint* remoteEndpoint)=0;
+                        virtual JRoute* findRoute(JString localSite, JEndPoint* remoteEndpoint)=0;
                         virtual ~JITransportRouter();
                     };
                 }

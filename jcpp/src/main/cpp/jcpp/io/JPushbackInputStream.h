@@ -17,14 +17,14 @@ namespace jcpp{
                 JPushbackInputStream(JInputStream* in,jint size=1);
                 virtual jint read();
                 virtual jint read(jbyte b[], jint off, jint len);
-                virtual void  unread(jint b);
-                virtual void  unread(jbyte b[],jint off,jint len);
+                virtual void unread(jint b);
+                virtual void unread(jbyte b[],jint off,jint len);
                 virtual jint available();
                 virtual jlong skip(jlong n);
                 virtual jbool markSupported();
-                virtual void  mark(jint r);
-                virtual void  reset();
-                virtual void  close();
+                virtual void mark(jint r);
+                virtual void reset();
+                virtual void close();
                 virtual ~JPushbackInputStream();
         };
     }

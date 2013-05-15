@@ -29,7 +29,7 @@ namespace jcpp{
                             JGatewayServerSocket(JString host, jint port,JGatewayConfiguration* gatewayConfiguration);
                             static JClass* getClazz();
                             virtual JSocket* accept();
-                            JString toString();
+                            virtual JString toString();
                             virtual ~JGatewayServerSocket();
                     };
                 }

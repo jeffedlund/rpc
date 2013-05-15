@@ -41,7 +41,6 @@ namespace jcpp{
                         public:
                             JConnections(JEndPoint* remoteEndPoint, JTransport* transport);
                             static JClass* getClazz();
-
                             JConnection* createConnection();
                             jlong getConnectionTimeout();
                             void freeAll();

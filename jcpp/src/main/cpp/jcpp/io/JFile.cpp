@@ -42,7 +42,7 @@ namespace jcpp{
 
         jchar JFile::separatorChar = fs->getSeparator();
 
-        JString JFile::separator = JString(separatorChar);//TODO
+        JString JFile::separator = JString(separatorChar);
 
         jchar JFile::pathSeparatorChar = fs->getPathSeparator();
 
@@ -95,22 +95,22 @@ namespace jcpp{
         }
 
         JString JFile::getName(){
-            jint index = path->getString().find_last_of(separatorChar);
+            jint index = path->getString().find_last_of(separatorChar);//TODO remove usage of getString
             if (index < prefixLength){
                 return path->getString().substr(prefixLength,path->getString().size());
             }
             return path->getString().substr(index + 1,path->getString().size());
         }
 
-        JString JFile::getParent(){
+        JString* JFile::getParent(){
             jint index = path->getString().find_last_of(separatorChar);
             if (index < prefixLength) {
                 if ((prefixLength > 0) && (path->length() > prefixLength)){
-                    return path->getString().substr(0, prefixLength);
+                    return new JString(path->substring(0, prefixLength));
                 }
-                return JString("");//TODO should be NULL;
+                return NULL;
             }
-            return path->getString().substr(0, index);
+            return new JString(path->substring(0, index));
         }
 
         JFile* JFile::getParentFile(){

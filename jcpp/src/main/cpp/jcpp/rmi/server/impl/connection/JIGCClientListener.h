@@ -30,13 +30,9 @@ namespace jcpp{
                     public:
                         static JClass* getClazz();
                         virtual void objectAlive(JEndPoint* endPoint, vector<JObject*>* objects)=0;
-
                         virtual void objectMaybeDead(JEndPoint* endPoint, vector<JObject*>* objects, JThrowable* throwable)=0;
-
                         virtual void objectDead(JEndPoint* endPoint, vector<JObject*>* objects,  JThrowable* throwable)=0;
-
                         virtual void objectDead(JEndPoint* endPoint, vector<JObject*>* objects)=0;
-
                         virtual ~JIGCClientListener();
                     };
                 }

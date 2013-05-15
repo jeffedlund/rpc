@@ -52,7 +52,7 @@ namespace jcpp{
                     JObject* JConnectionOutputStream::replaceObject(JObject* obj){
                         JObjectInformation* objInfo = objectInformations->getObjectInformation(obj);
                         if ((objInfo == NULL) && (obj != NULL) && !(JSerializable::getClazz()->isAssignableFrom(obj->getClass()))) {
-                            bool isExported = false;
+                            jbool isExported = false;
                             JINotExportedObjectListener* notExportedObjectListener = objectInformations->getServer()->getNotExportedObjectListener();
                             if (notExportedObjectListener != NULL) {
                                 isExported = notExportedObjectListener->handleNotExportedObject(obj);

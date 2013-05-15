@@ -32,9 +32,7 @@ namespace jcpp{
                         JConnectionException();
                         JConnectionException(JString message);
                         JConnectionException(JString message,JThrowable* cause);
-
                         static JClass* getClazz();
-
                         virtual ~JConnectionException();
                     };
                 }

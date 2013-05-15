@@ -24,9 +24,6 @@ namespace jcpp{
             JInetAddress* localInetAddress;
             QTcpServer* server;
             JServerSocket(JString host, jint port,jint backlog,JClass* _class);
-            bool isListening();
-            bool waitForNewConnection(int m, bool* t);
-            QTcpSocket* nextPendingConnection();
 
         public:
             JServerSocket(JString host, jint port,jint backlog);

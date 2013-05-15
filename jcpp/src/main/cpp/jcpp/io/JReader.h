@@ -24,9 +24,9 @@ namespace jcpp{
                 virtual jlong skip(jlong n);
                 virtual jbool ready();
                 virtual jbool markSupported();
-                virtual void  mark(jint);
-                virtual void  reset();
-                virtual void  close()=0;
+                virtual void mark(jint);
+                virtual void reset();
+                virtual void close()=0;
                 virtual ~JReader();
         };
     }

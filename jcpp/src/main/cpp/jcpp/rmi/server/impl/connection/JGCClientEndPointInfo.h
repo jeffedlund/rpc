@@ -36,8 +36,8 @@ namespace jcpp{
                         JServer* localServer;
                         JFuture* future;
                         JIGC* gc;
-                        int gcExceptionCount;
-                        bool bIsRunning;
+                        jint gcExceptionCount;
+                        jbool bIsRunning;
                         map<JString*, JObject*,JString::POINTER_COMPARATOR>* objects;
                         JEndPoint* remoteEndPoint;
                         JScheduledFuture* scheduledFuture;
@@ -49,10 +49,10 @@ namespace jcpp{
                         static JClass* getClazz();
                         void doExport(JString* id, JObject* object);
                         void unexport(JString* id);
-                        bool ping();
+                        jbool ping();
                         void unexport();
-                        bool isRunning();
-                        void setRunning(bool);
+                        jbool isRunning();
+                        void setRunning(jbool);
                         vector<JObject*>* getObjects();
                         virtual void run();
                         virtual ~JGCClientEndPointInfo();

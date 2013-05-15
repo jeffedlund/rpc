@@ -11,7 +11,7 @@ namespace jcpp{
 
                     class MyTransportRouter : public JITransportRouter{
                     public:
-                        JRoute* findRoute(JString*, JEndPoint*){
+                        JRoute* findRoute(JString, JEndPoint*){
                             return NULL;
                         }
                         ~MyTransportRouter(){

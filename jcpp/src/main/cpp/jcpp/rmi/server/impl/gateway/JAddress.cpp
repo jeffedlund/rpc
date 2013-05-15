@@ -65,7 +65,7 @@ namespace jcpp{
                         this->port=new JPrimitiveInt();
                     }
 
-                    JAddress::JAddress(const JString& host, jint port):JObject(getClazz()){
+                    JAddress::JAddress(JString host, jint port):JObject(getClazz()){
                         this->hostName=new JString(host);
                         this->port=new JPrimitiveInt(port);
                     }
@@ -83,7 +83,7 @@ namespace jcpp{
                         return (*s->hostName)==(*hostName) && (*s->port)==(*port);
                     }
 
-                    void JAddress::setHostName(const JString& host){
+                    void JAddress::setHostName(JString host){
                         delete this->hostName;
                         hostName=new JString(host);
                     }

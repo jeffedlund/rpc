@@ -40,7 +40,7 @@ namespace jcpp{
                         JGC* gc;
                         map<JString*, JObjectInformation*,JString::POINTER_COMPARATOR>* exportedObjects;
                         JFuture* future;
-                        bool bIsRunning;
+                        jbool bIsRunning;
                         jlong lastPingId;
                         jlong previousPingId;
                         JEndPoint* remoteEndPoint;
@@ -49,15 +49,15 @@ namespace jcpp{
                     public:
                         JGCEndPointInfo(JGC* gc,JEndPoint* remoteEndPoint);
                         static JClass* getClazz();
-                        bool isUpdated();
+                        jbool isUpdated();
                         JEndPoint* getRemoteEndPoint();
                         void doExport(JObjectInformation* objInfo);
                         void unexport(JObjectInformation* objInfo);
                         void unexport();
                         void update();
                         void ping(JPrimitiveArray* returnPing, JPrimitiveArray* ids);
-                        bool isRunning();
-                        void setRunning(bool);
+                        jbool isRunning();
+                        void setRunning(jbool);
                         virtual void run();
                         virtual ~JGCEndPointInfo();
                     };

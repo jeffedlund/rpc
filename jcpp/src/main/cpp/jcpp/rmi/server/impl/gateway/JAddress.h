@@ -33,10 +33,10 @@ namespace jcpp{
 
                         public:
                             JAddress();
-                            JAddress(const JString& host, jint port);
+                            JAddress(JString host, jint port);
                             JAddress(JAddress* adr);
                             static JClass* getClazz();
-                            void setHostName(const JString& host);
+                            void setHostName(JString host);
                             JString* getHostName();
                             void setPort(jint port);
                             jint getPort();

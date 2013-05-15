@@ -23,7 +23,7 @@ namespace jcpp{
             jbool unshared;
             JField* field;
             jint offset;
-            JString* typeString;//TODO change?
+            JString* typeString;
             void setTypeString();
 
         public:

@@ -1,6 +1,7 @@
 group:
 ------
--code review: io, net, nio, rmi, security
+
+-code review: rmi, security, review JFile and JWinNTFS, nio
 -create LocalContext<JObject*> helper, JObject::NULL, JObject::isNull(), isNull(JObject*),
 -JString.isShared?
 -wiki pages on how to generate classes

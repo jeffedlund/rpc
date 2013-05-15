@@ -39,7 +39,7 @@ namespace jcpp{
                     public:
                         JConnectionOutputStream(JOutputStream* out, JObjectInformations* objectInformations, JEndPoint* remoteEndPoint);
                         static JClass* getClazz();
-                        void done();
+                        virtual void done();
                         virtual JObject* replaceObject(JObject* obj);
                         virtual ~JConnectionOutputStream();
                     };

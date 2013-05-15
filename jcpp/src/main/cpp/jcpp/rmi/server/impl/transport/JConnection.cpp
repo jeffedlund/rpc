@@ -75,9 +75,10 @@ namespace jcpp{
                             connections->kill(this);
                         }
                         socket->close();
+                        delete this;
                     }
 
-                    bool JConnection::openConnection(){
+                    jbool JConnection::openConnection(){
                         if (!opened){
                             opened=true;
                             getOutputStream();
@@ -92,7 +93,7 @@ namespace jcpp{
                                 }else{
                                     socket->setSoTimeout(connections->getTransport()->getTransportConfiguration()->getPingTimeout()->get());
                                 }
-                                bool b=readOk();
+                                jbool b=readOk();
                                 socket->setSoTimeout(oldTimeout);
                                 return b;
                             }
@@ -118,7 +119,7 @@ namespace jcpp{
                         }
                     }
 
-                    bool JConnection::readOk(){
+                    jbool JConnection::readOk(){
                         getInputStream();
                         jbyte okByte=in->readByte();
                         if (okByte!= JTransportConfiguration::MSG_TYPE_OK){
@@ -127,9 +128,9 @@ namespace jcpp{
                         return true;
                     }
 
-                    bool JConnection::isDead(){
-                        bool isDead=false;
-                        int oldTimeout=socket->getSoTimeout();
+                    jbool JConnection::isDead(){
+                        jbool isDead=false;
+                        jint oldTimeout=socket->getSoTimeout();
                         try{
                             sendPing();
                             if (connections==NULL){
@@ -141,6 +142,7 @@ namespace jcpp{
                                 isDead = true;
                             }
                         }catch(JIOException* e){
+                            delete e;
                             isDead=true;
                         }
                         if (isDead && !socket->isClosed()){
@@ -170,7 +172,7 @@ namespace jcpp{
                         this->lastUsed=JSystem::currentTimeMillis();
                     }
 
-                    bool JConnection::isReusable(){
+                    jbool JConnection::isReusable(){
                         JIGatewaySocket* s=dynamic_cast<JIGatewaySocket*>(socket);
                         return s->isReusable();
                     }
@@ -199,6 +201,7 @@ namespace jcpp{
                     JConnection::~JConnection(){
                         delete in;
                         delete out;
+                        delete socket;
                     }
                 }
             }

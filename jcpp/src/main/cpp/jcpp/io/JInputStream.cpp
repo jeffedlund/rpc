@@ -109,7 +109,7 @@ namespace jcpp{
         }
 
         JInputStream::~JInputStream() {
-            delete skipBuffer;
+            delete[] skipBuffer;
         }
     }
 }

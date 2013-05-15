@@ -58,7 +58,7 @@ namespace jcpp{
             JObjectStreamClass* getVariantFor(JClass* cl);
             vector<ClassDataSlot*>* getClassDataLayout0();
             void initProxy(JClass* jClass,JClassNotFoundException* resolveEx,JObjectStreamClass* jObjectStreamClass);
-            void initNonProxy(JObjectStreamClass* const objectStreamClass,JClass* jClass,JClassNotFoundException* resolveEx,JObjectStreamClass* jObjectStreamClass);
+            void initNonProxy(JObjectStreamClass* objectStreamClass,JClass* jClass,JClassNotFoundException* resolveEx,JObjectStreamClass* jObjectStreamClass);
             void readNonProxy(JObjectInputStream* objectInputStream);
             void writeNonProxy(JObjectOutputStream* out);
             JClassNotFoundException* getResolveException();
@@ -66,7 +66,7 @@ namespace jcpp{
             JObjectStreamClass* getLocalDesc();
             JObjectStreamField* getField(jint i);
             vector<JObjectStreamField*>* getFields();
-            JObjectStreamField* getField(const JString& name,JClass* type);
+            JObjectStreamField* getField(JString name,JClass* type);
             jbool isEnum();
             jbool isProxy();
             jbool hasReadObjectMethod();

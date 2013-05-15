@@ -61,8 +61,8 @@ namespace jcpp{
                         unlock();
                     }
 
-                    bool JGCClientEndPointInfo::ping(){
-                        bool bresult=true;
+                    jbool JGCClientEndPointInfo::ping(){
+                        jbool bresult=true;
                         throwable = NULL;
                         lock();
                         JPrimitiveArray* idsArray = new JPrimitiveArray(JString::getClazz(),objects->size());
@@ -114,8 +114,8 @@ namespace jcpp{
                         unlock();
                     }
 
-                    bool JGCClientEndPointInfo::isRunning(){
-                        bool b;
+                    jbool JGCClientEndPointInfo::isRunning(){
+                        jbool b;
                         lock();
                         b=this->bIsRunning;
                         unlock();

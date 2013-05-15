@@ -56,7 +56,7 @@ namespace jcpp{
                         return route;
                     }
 
-                    bool JGatewaySocket::isReusable(){
+                    jbool JGatewaySocket::isReusable(){
                         return true;
                     }
 
@@ -88,75 +88,75 @@ namespace jcpp{
                         return output;
                     }
 
-                    void JGatewaySocket::setTcpNoDelay(bool on){
+                    void JGatewaySocket::setTcpNoDelay(jbool on){
                         socket->setTcpNoDelay(on);
                     }
 
-                    bool JGatewaySocket::getTcpNoDelay(){
+                    jbool JGatewaySocket::getTcpNoDelay(){
                         return socket->getTcpNoDelay();
                     }
 
-                    void JGatewaySocket::setSoLinger(bool on, int linger){
+                    void JGatewaySocket::setSoLinger(jbool on, jint linger){
                         socket->setSoLinger(on,linger);
                     }
 
-                    int JGatewaySocket::getSoLinger(){
+                    jint JGatewaySocket::getSoLinger(){
                         return socket->getSoLinger();
                     }
 
-                    void JGatewaySocket::setOOBInline(bool on){
+                    void JGatewaySocket::setOOBInline(jbool on){
                         socket->setOOBInline(on);
                     }
 
-                    bool JGatewaySocket::getOOBInline(){
+                    jbool JGatewaySocket::getOOBInline(){
                         return socket->getOOBInline();
                     }
 
-                    void JGatewaySocket::setSoTimeout(int s){
+                    void JGatewaySocket::setSoTimeout(jint s){
                         socket->setSoTimeout(s);
                     }
 
-                    int JGatewaySocket::getSoTimeout(){
+                    jint JGatewaySocket::getSoTimeout(){
                         return socket->getSoTimeout();
                     }
 
-                    void JGatewaySocket::setSendBufferSize(int size){
+                    void JGatewaySocket::setSendBufferSize(jint size){
                         socket->setSendBufferSize(size);
                     }
 
-                    int JGatewaySocket::getSendBufferSize(){
+                    jint JGatewaySocket::getSendBufferSize(){
                         return socket->getSendBufferSize();
                     }
 
-                    void JGatewaySocket::setReceiveBufferSize(int size){
+                    void JGatewaySocket::setReceiveBufferSize(jint size){
                         socket->setReceiveBufferSize(size);
                     }
 
-                    int JGatewaySocket::getReceiveBufferSize(){
+                    jint JGatewaySocket::getReceiveBufferSize(){
                         return socket->getReceiveBufferSize();
                     }
 
-                    void JGatewaySocket::setKeepAlive(bool on){
+                    void JGatewaySocket::setKeepAlive(jbool on){
                         socket->setKeepAlive(on);
                     }
 
-                    bool JGatewaySocket::getKeepAlive(){
+                    jbool JGatewaySocket::getKeepAlive(){
                         return socket->getKeepAlive();
                     }
 
-                    void JGatewaySocket::setTrafficClass(int tc){
+                    void JGatewaySocket::setTrafficClass(jint tc){
                         socket->setTrafficClass(tc);
                     }
 
-                    int JGatewaySocket::getTrafficClass(){
+                    jint JGatewaySocket::getTrafficClass(){
                         return socket->getTrafficClass();
                     }
 
-                    void JGatewaySocket::setReuseAddress(bool on){
+                    void JGatewaySocket::setReuseAddress(jbool on){
                         socket->setReuseAddress(on);
                     }
 
-                    bool JGatewaySocket::getReuseAddress(){
+                    jbool JGatewaySocket::getReuseAddress(){
                         return socket->getReuseAddress();
                     }
 
@@ -167,7 +167,7 @@ namespace jcpp{
                         JSocket::close();
                     }
 
-                    bool JGatewaySocket::isClosed(){
+                    jbool JGatewaySocket::isClosed(){
                         return socket->isClosed();
                     }
 

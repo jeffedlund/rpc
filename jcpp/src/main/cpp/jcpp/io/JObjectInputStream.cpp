@@ -640,6 +640,7 @@ namespace jcpp{
 
             JString* mname = readString(false);
             JEnum* en = desc->getJClass()->valueOf(*mname);
+            delete mname;
             if (!unshared){
                 handles->setObject(enumHandle,en);
             }
@@ -988,9 +989,6 @@ namespace jcpp{
             return mstr;
         }
 
-        /**
-         * Clears internal data structures.
-         */
         void JObjectInputStream::clear() {
             handles->clear();
         }

@@ -18,12 +18,12 @@ namespace jcpp{
                 virtual jint read();
                 virtual jint read(jchar cbuf[], jint off, jint len);
                 virtual void unread(jint c);
-                virtual void  unread(jchar cbuf[], jint off, jint len);
+                virtual void unread(jchar cbuf[], jint off, jint len);
                 virtual jbool ready();
-                virtual void  mark(jint m);
-                virtual void  reset();
+                virtual void mark(jint m);
+                virtual void reset();
                 virtual jbool markSupported();
-                virtual void  close();
+                virtual void close();
                 virtual jlong skip(jlong n);
                 virtual ~JPushbackReader();
         };
