@@ -1,6 +1,9 @@
 #include "JUTIL.h"
 #include "JCPP_PACKAGE.h"
+#include "JLOGGING_PACKAGE.h"
 using namespace jcpp::util::concurrent;
+using namespace jcpp::util::logging;
+
 namespace jcpp{
     namespace util{
         JUTIL::JUTIL():JPackage("jcpp.util",JPackage::getClazz()){//better class
@@ -40,6 +43,7 @@ namespace jcpp{
         vector<JPackage*>* JUTIL::getPackages(){
             if (packages->size()==0){
                 packages->push_back(JCONCURRENT::getPackage());
+                packages->push_back(JLOGGING_PACKAGE::getPackage());
             }
             return packages;
         }

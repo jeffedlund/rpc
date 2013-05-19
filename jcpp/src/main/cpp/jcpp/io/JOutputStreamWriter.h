@@ -17,7 +17,7 @@ namespace jcpp{
 
             public:
                 static JClass* getClazz();
-                JOutputStreamWriter(JOutputStream* out);
+                JOutputStreamWriter(JOutputStream* out,JString encoding="");
                 virtual void write(jchar c[],jint offset,jint length);
                 virtual void flush();
                 virtual void close();

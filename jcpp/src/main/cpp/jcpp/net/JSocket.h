@@ -31,7 +31,7 @@ namespace jcpp{
             friend class JServerSocket;
 
         public:
-            JSocket(JString host, jint port,jint timeout);
+            JSocket(JString host, jint port,jint timeout=100000);//TODO timeout...
             static JClass* getClazz();
             virtual void takeOwner();
             virtual void releaseOwner();

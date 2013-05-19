@@ -29,7 +29,7 @@ namespace jcpp{
             this->out=out;
         }
 
-        JOutputStreamWriter::JOutputStreamWriter(JOutputStream* out):JWriter(getClazz()){
+        JOutputStreamWriter::JOutputStreamWriter(JOutputStream* out,JString):JWriter(getClazz()){
             this->out=out;
         }
 

@@ -36,6 +36,7 @@ namespace jcpp{
             virtual JList* getSuppressedExceptions();
             virtual void addSuppressedException(JThrowable* t);
             virtual void printStackTrace(ostream* os);
+            virtual void printStackTrace();
             virtual jbool equals(JObject* other);
             virtual JString toString();
             virtual ~JThrowable();

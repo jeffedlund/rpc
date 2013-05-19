@@ -44,6 +44,7 @@ namespace jcpp{
             void setCharAt(jint index,jchar c);
             void deleteChar(jint start,jint end);
             void insertChar(jint index,jchar c);
+            jint indexOf(JString str);
             jint indexOf(JString str,jint from);
             jint lastIndexOf(JString str,jint from);
             JString reverse();
@@ -70,6 +71,7 @@ namespace jcpp{
             string getString();
             void getChars(jint srcBegin, jint srcEnd, jchar dst[], jint dstBegin);
             JString replace(jchar oldchar,jchar newchar);
+            JString substring(jint start);
             JString substring(jint start,jint end);
             void setString(string str);
             virtual jint compareTo(JObject* o);

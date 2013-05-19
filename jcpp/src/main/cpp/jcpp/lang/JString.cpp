@@ -163,6 +163,10 @@ namespace jcpp{
             str.insert(index,1,c);
         }
 
+        jint JString::indexOf(JString str){
+            return this->str.find(str.str,0);
+        }
+
         jint JString::indexOf(JString str,jint from){
             return this->str.find(str.str,from);
         }
@@ -313,6 +317,10 @@ namespace jcpp{
             string s=this->str;
             std::replace(s.begin(),s.end(),oldchar,newchar);
             return JString(s);
+        }
+
+        JString JString::substring(jint start){
+            return JString(this->str.substr(start,str.size()));
         }
 
         JString JString::substring(jint start,jint end){

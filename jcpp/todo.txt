@@ -1,11 +1,9 @@
 group:
 ------
-
 -code review: rmi, security, review JFile and JWinNTFS, nio
 -create LocalContext<JObject*> helper, JObject::NULL, JObject::isNull(), isNull(JObject*),
 -JString.isShared?
 -wiki pages on how to generate classes
--wiki page on rmi package, samples + tutorial
 -develop java boot loading + translate it for jcpp
 -dont expose JPrimitiveXX, look for then and set them protected and look that pattern everywhere and change it
 -compilation takes too much time, check other build systems like cmake

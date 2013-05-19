@@ -188,6 +188,10 @@ namespace jcpp{
             os->flush();
         }
 
+        void JThrowable::printStackTrace(){//TODO JSystem.out
+            printStackTrace(&cout);
+        }
+
         JList* JThrowable::getSuppressedExceptions(){
             return suppressedExceptions;
         }

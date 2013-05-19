@@ -29,6 +29,7 @@ INCLUDEPATH += \
 	src/main/cpp/jcpp/io/impl \
 	src/main/cpp/jcpp/util \
         src/main/cpp/jcpp/util/concurrent \
+        src/main/cpp/jcpp/util/logging \
 	src/main/cpp/jcpp/lang/exception \
 	src/main/cpp/jcpp/lang/reflect \
         src/main/cpp/jcpp/rmi/ \
@@ -353,7 +354,22 @@ SOURCES += \
     src/main/cpp/jcpp/nio/file/JFileVisitor.cpp \
     src/main/cpp/jcpp/nio/file/JFileSystem.cpp \
     src/main/cpp/jcpp/nio/file/JPathMatcher.cpp \
-    src/main/cpp/jcpp/nio/file/JPath.cpp
+    src/main/cpp/jcpp/nio/file/JPath.cpp \
+    src/main/cpp/jcpp/util/logging/JLOGGING_PACKAGE.cpp \
+    src/main/cpp/jcpp/util/logging/JLevel.cpp \
+    src/main/cpp/jcpp/util/logging/JLogRecord.cpp \
+    src/main/cpp/jcpp/util/logging/JFilter.cpp \
+    src/main/cpp/jcpp/util/logging/JErrorManager.cpp \
+    src/main/cpp/jcpp/util/logging/JFormatter.cpp \
+    src/main/cpp/jcpp/util/logging/JHandler.cpp \
+    src/main/cpp/jcpp/util/logging/JLogManager.cpp \
+    src/main/cpp/jcpp/util/logging/JLogger.cpp \
+    src/main/cpp/jcpp/util/logging/JStreamHandler.cpp \
+    src/main/cpp/jcpp/util/logging/JSimpleFormatter.cpp \
+    src/main/cpp/jcpp/util/logging/JXMLFormatter.cpp \
+    src/main/cpp/jcpp/util/logging/JSocketHandler.cpp \
+    src/main/cpp/jcpp/util/logging/JMemoryHandler.cpp \
+    src/main/cpp/jcpp/util/logging/JConsoleHandler.cpp
     
     
 HEADERS += \
@@ -670,7 +686,22 @@ HEADERS += \
     src/main/cpp/jcpp/security/JSecureClassLoader.h \
     src/main/cpp/jcpp/net/JURLClassLoader.h \
     src/main/cpp/jcpp/io/JDefaultFileSystem.h \
-    src/main/cpp/jcpp/io/JWinNTFileSystem.h
+    src/main/cpp/jcpp/io/JWinNTFileSystem.h \
+    src/main/cpp/jcpp/util/logging/JLOGGING_PACKAGE.h \
+    src/main/cpp/jcpp/util/logging/JLevel.h \
+    src/main/cpp/jcpp/util/logging/JLogRecord.h \
+    src/main/cpp/jcpp/util/logging/JFilter.h \
+    src/main/cpp/jcpp/util/logging/JErrorManager.h \
+    src/main/cpp/jcpp/util/logging/JFormatter.h \
+    src/main/cpp/jcpp/util/logging/JHandler.h \
+    src/main/cpp/jcpp/util/logging/JLogManager.h \
+    src/main/cpp/jcpp/util/logging/JLogger.h \
+    src/main/cpp/jcpp/util/logging/JStreamHandler.h \
+    src/main/cpp/jcpp/util/logging/JSimpleFormatter.h \
+    src/main/cpp/jcpp/util/logging/JXMLFormatter.h \
+    src/main/cpp/jcpp/util/logging/JSocketHandler.h \
+    src/main/cpp/jcpp/util/logging/JMemoryHandler.h \
+    src/main/cpp/jcpp/util/logging/JConsoleHandler.h
     
     
 OTHER_FILES += \
