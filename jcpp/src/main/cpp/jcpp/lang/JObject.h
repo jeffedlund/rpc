@@ -8,6 +8,7 @@
 #include "Object.h"
 #include "JCPP.h"
 #include <QThreadStorage>
+#include "gc_cpp.h"
 using namespace std;
 
 namespace jcpp{
@@ -15,7 +16,7 @@ namespace jcpp{
         class JClass;
         class JString;
 
-        class JCPP_LIBRARY_EXPORT JObject{
+        class JCPP_LIBRARY_EXPORT JObject : public gc_cleanup{
             private:
                 QMutex* mutex;
                 QWaitCondition* waitCondition;

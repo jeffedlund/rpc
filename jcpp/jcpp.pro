@@ -20,7 +20,9 @@ TEMPLATE = lib
 
 #QMAKE_CXXFLAGS += -std=c++0x
 
-LIBS += -lws2_32
+LIBS += -lws2_32 -L../gc-7.2/.libs -lcygcord-1 -lcyggc-1
+
+QMAKE_CXXFLAGS += -Wno-unused-parameter -Wno-unused-variable
 
 INCLUDEPATH += \
         src/main/cpp/jcpp/ \
@@ -43,6 +45,7 @@ INCLUDEPATH += \
         src/main/cpp/jcpp/security \
         src/main/cpp/jcpp/nio \
         src/main/cpp/jcpp/nio/file \
+        ../gc-7.2/include \
 
 SOURCES += \
     src/main/cpp/jcpp/lang/JClass.cpp \

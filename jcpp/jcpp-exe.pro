@@ -14,9 +14,11 @@ CONFIG   -= app_bundle
 
 #QMAKE_CXXFLAGS += -std=c++11
 
+QMAKE_CXXFLAGS += -Wno-unused-parameter -Wno-unused-variable
+
 TEMPLATE = app
 
-LIBS+=  -L../jcpp-build-Desktop_Qt_5_0_1_MinGW_32bit-Debug/debug -ljcpp
+LIBS+=  -L../jcpp-build-Desktop_Qt_5_0_1_MinGW_32bit-Debug/debug -ljcpp -L../gc-7.2/.libs -lcygcord-1 -lcyggc-1
 
 INCLUDEPATH += \
         src/main/cpp/jcpp/ \
@@ -37,6 +39,7 @@ INCLUDEPATH += \
         src/main/cpp/jcpp/rmi/server/impl/connection/serialization \
         src/main/cpp/jcpp/net \
         src/main/cpp/jcpp/security \
+        ../gc-7.2/include \
 
 SOURCES += \
     src/main/cpp/jcpp/lang/boot/Main.cpp

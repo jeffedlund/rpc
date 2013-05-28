@@ -23,7 +23,9 @@ CONFIG   -= app_bundle
 TEMPLATE = lib
 #TEMPLATE = app
 
-LIBS+=  -L../jcpp-build-Desktop_Qt_5_0_1_MinGW_32bit-Debug/debug -ljcpp
+LIBS+=  -L../jcpp-build-Desktop_Qt_5_0_1_MinGW_32bit-Debug/debug -ljcpp  -L../gc-7.2/.libs -lcygcord-1 -lcyggc-1
+
+QMAKE_CXXFLAGS += -Wno-unused-parameter -Wno-unused-variable
 
 INCLUDEPATH += \
         src/main/cpp/jcpp/ \
@@ -48,7 +50,8 @@ INCLUDEPATH += \
 	src/test/cpp/jcpp/lang \
         src/test/cpp/jcpp/io \
         src/test/cpp/jcpp/util \
-        src/test/cpp/jcpp/rmi/server/impl/connection
+        src/test/cpp/jcpp/rmi/server/impl/connection \
+        ../gc-7.2/include \
 
 SOURCES += \
     src/test/cpp/jcpp/JSampleObject.cpp \
