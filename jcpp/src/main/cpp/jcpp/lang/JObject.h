@@ -4,11 +4,12 @@
 #include <QMutex>
 #include <QWaitCondition>
 #include <vector>
+#include <map>
 #include <iostream>
 #include "Object.h"
 #include "JCPP.h"
 #include <QThreadStorage>
-#include "gc_cpp.h"
+#include <mutex>
 using namespace std;
 
 namespace jcpp{
@@ -16,15 +17,43 @@ namespace jcpp{
         class JClass;
         class JString;
 
-        class JCPP_LIBRARY_EXPORT JObject : public gc_cleanup{
+        class JCPP_LIBRARY_EXPORT JObject{
             private:
-                QMutex* mutex;
+                QMutex* qmutex;
                 QWaitCondition* waitCondition;
+                recursive_mutex* memoryMutex;
+                class JINT{
+                private:
+                    jint value;
+                public:
+                    JINT(jint v){
+                        this->value=v;
+                    }
+
+                    jint getValue(){
+                        return value;
+                    }
+
+                    void increment(){
+                        value++;
+                    }
+
+                    void decrement(){
+                        value--;
+                    }
+
+                    ~JINT(){
+                    }
+                };
+                map<JObject*,JINT*>* fromObject;
+                map<JObject*,JINT*>* toObject;
 
             protected:
                 JClass* _class;
                 JObject(JClass* _class);
                 JObject(jbool root);
+                void link(JObject* o);
+                void unlink(JObject* o);
 
             public:
                 struct POINTER_COMPARATOR{//TODO CRITICAL POSSIBLE BUG if 2 objects have the same hashcode in hashmap?
@@ -51,6 +80,7 @@ namespace jcpp{
                 void wait(jlong);
                 void notify();
                 void notifyAll();
+                void finalize();
                 virtual jbool equals(JObject* o);
                 virtual jint hashCode();
                 virtual JString toString();

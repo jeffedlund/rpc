@@ -34,7 +34,7 @@ namespace jcpp{
         }
 
         JInstantiationException::JInstantiationException(JString message):JException(getClazz()){
-            this->message=new JString(message);
+            setMessage(new JString(message));
         }
 
         JInstantiationException::~JInstantiationException(){

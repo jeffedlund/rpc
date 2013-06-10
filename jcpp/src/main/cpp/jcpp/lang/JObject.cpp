@@ -8,6 +8,8 @@
 #include "JThread.h"
 #include "JNullPointerException.h"
 #include "JString.h"
+#include <memory>
+#include "Collections.h"
 using namespace std;
 
 namespace jcpp{
@@ -40,19 +42,73 @@ namespace jcpp{
 
         JObject::JObject(){
             this->_class=JObject::getClazz();
-            this->mutex=new QMutex(QMutex::NonRecursive);
+            this->qmutex=new QMutex(QMutex::NonRecursive);
             this->waitCondition=new QWaitCondition();
+            this->fromObject=new map<JObject*,JINT*>();
+            this->toObject=new map<JObject*,JINT*>();
+            this->memoryMutex=new recursive_mutex();
         }
 
         JObject::JObject(JClass* _class){
             this->_class=_class;
-            this->mutex=new QMutex(QMutex::NonRecursive);
+            this->qmutex=new QMutex(QMutex::NonRecursive);
             this->waitCondition=new QWaitCondition();
+            this->fromObject=new map<JObject*,JINT*>();
+            this->toObject=new map<JObject*,JINT*>();
+            this->memoryMutex=new recursive_mutex();
         }
 
         JObject::JObject(jbool){
-            this->mutex=new QMutex(QMutex::NonRecursive);
+            this->qmutex=new QMutex(QMutex::NonRecursive);
             this->waitCondition=new QWaitCondition();
+            this->fromObject=new map<JObject*,JINT*>();
+            this->toObject=new map<JObject*,JINT*>();
+            this->memoryMutex=new recursive_mutex();
+        }
+
+        void JObject::link(JObject* o){
+            if (o!=NULL){
+                memoryMutex->lock();
+                JINT* i=getFromMap(toObject,o);
+                if (i==NULL){
+                    i=new JINT(0);
+                    toObject->insert(pair<JObject*,JINT*>(o,i));
+                }
+                i->increment();
+
+                JINT* j=getFromMap(o->fromObject,this);
+                if (j==NULL){
+                    j=new JINT(0);
+                    o->fromObject->insert(pair<JObject*,JINT*>(this,j));
+                }
+                j->increment();
+                memoryMutex->unlock();
+            }
+        }
+
+        void JObject::unlink(JObject* o){
+            if (o!=NULL){
+                memoryMutex->lock();
+                JINT* i=getFromMap(toObject,o);
+                if (i!=NULL){
+                    i->decrement();
+                    if (i->getValue()==0){
+                        toObject->erase(o);
+                        delete i;
+                    }
+                }
+
+                JINT* j=getFromMap(o->fromObject,this);
+                if (j!=NULL){
+                    j->decrement();
+                    if (j->getValue()==0){
+                        o->fromObject->erase(this);
+                        delete j;
+                        o->finalize();
+                    }
+                }
+                memoryMutex->unlock();
+            }
         }
 
         JClass* JObject::getClass(){
@@ -84,22 +140,22 @@ namespace jcpp{
 
         void JObject::lock(){
             if (JThread::addObjectLocked(this)){
-                mutex->lock();
+                qmutex->lock();
             }
         }
 
         void JObject::unlock(){
             if (JThread::removeObjectLocked(this)){
-                mutex->unlock();
+                qmutex->unlock();
             }
         }
 
         void JObject::wait(){//we don't lock/unlock here, but at the caller level
-            waitCondition->wait(mutex);
+            waitCondition->wait(qmutex);
         }
 
         void JObject::wait(jlong time){
-            waitCondition->wait(mutex,time);
+            waitCondition->wait(qmutex,time);
         }
 
         void JObject::notify(){
@@ -108,6 +164,19 @@ namespace jcpp{
 
         void JObject::notifyAll(){
             waitCondition->wakeAll();
+        }
+
+        void JObject::finalize(){
+            memoryMutex->lock();
+            if (fromObject->size()==0){
+                vector<JObject*>* keys=getKeys(toObject);
+                for (vector<JObject*>::size_type i=0;i<keys->size();i++){
+                    unlink(keys->at(i));
+                }
+                delete keys;
+                delete this;
+            }
+            memoryMutex->unlock();
         }
 
         jbool JObject::equals(JObject* o){
@@ -126,8 +195,11 @@ namespace jcpp{
         }
 
         JObject::~JObject(){
-            delete mutex;
+            delete qmutex;
             delete waitCondition;
+            delete fromObject;
+            delete toObject;
+            delete memoryMutex;
         }
     }
 }

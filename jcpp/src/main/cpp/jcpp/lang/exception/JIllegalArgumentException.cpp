@@ -37,12 +37,12 @@ namespace jcpp{
         }
 
         JIllegalArgumentException::JIllegalArgumentException(JString message):JRuntimeException(getClazz()){
-            this->message=new JString(message);
+            setMessage(new JString(message));
         }
 
         JIllegalArgumentException::JIllegalArgumentException(JString message,JThrowable* cause):JRuntimeException(getClazz()){
-            this->message=new JString(message);
-            this->cause=cause;
+            setMessage(new JString(message));
+            setCause(cause);
         }
 
         JIllegalArgumentException::~JIllegalArgumentException(){

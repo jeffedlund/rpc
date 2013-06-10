@@ -34,7 +34,7 @@ namespace jcpp{
         }
 
         JNoSuchMethodException::JNoSuchMethodException(JString message):JException(getClazz()){
-            this->message=new JString(message);
+            setMessage(new JString(message));
         }
 
         JNoSuchMethodException::~JNoSuchMethodException(){

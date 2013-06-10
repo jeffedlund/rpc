@@ -37,12 +37,12 @@ namespace jcpp{
         }
 
         JError::JError(JString message):JThrowable(getClazz()){
-            this->message = new JString(message);
+            setMessage(new JString(message));
         }
 
         JError::JError(JString message, JThrowable *cause):JThrowable(getClazz()){
-            this->message = new JString(message);
-            this->cause = cause;
+            setMessage(new JString(message));
+            setCause(cause);
         }
 
         JError::~JError(){

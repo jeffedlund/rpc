@@ -38,12 +38,12 @@ namespace jcpp{
         }
 
         JInternalError::JInternalError(JString message):JVirtualMachineError(getClazz()){
-            this->message = new JString(message);
+            setMessage(new JString(message));
         }
 
         JInternalError::JInternalError(JString message, JThrowable *cause):JVirtualMachineError(getClazz()){
-            this->message = new JString(message);
-            this->cause = cause;
+            setMessage(new JString(message));
+            setCause(cause);
         }
 
         JInternalError::~JInternalError(){

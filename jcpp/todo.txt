@@ -2,6 +2,7 @@ group:
 ------
 -code review: rmi, security, review JFile and JWinNTFS, nio
 -create LocalContext<JObject*> helper, JObject::NULL, JObject::isNull(), isNull(JObject*),
+-remove dependencies on Qt and use C++11 features
 -JString.isShared?
 -wiki pages on how to generate classes
 -develop java boot loading + translate it for jcpp

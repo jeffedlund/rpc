@@ -18,9 +18,10 @@ DEFINES += JCPP_LIBRARY
 
 TEMPLATE = lib
 
-#QMAKE_CXXFLAGS += -std=c++0x
+QMAKE_CXXFLAGS += -std=c++11
 
-LIBS += -lws2_32 -L../gc-7.2/.libs -lcygcord-1 -lcyggc-1
+LIBS += -lws2_32
+#-L../gc-7.2/.libs -lcygcord-1 -lcyggc-1
 
 QMAKE_CXXFLAGS += -Wno-unused-parameter -Wno-unused-variable
 

@@ -58,7 +58,7 @@ namespace jcpp{
 
         jchar JChar::MIN_VALUE = (jchar)0;
 
-        jchar JChar::MAX_VALUE = (jchar)'\uffff';
+        jchar JChar::MAX_VALUE = (jchar)65535;
 
         JClass* JChar::TYPE = JPrimitiveChar::getClazz();
 

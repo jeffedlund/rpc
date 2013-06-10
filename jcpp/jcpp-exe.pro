@@ -15,10 +15,12 @@ CONFIG   -= app_bundle
 #QMAKE_CXXFLAGS += -std=c++11
 
 QMAKE_CXXFLAGS += -Wno-unused-parameter -Wno-unused-variable
+QMAKE_CXXFLAGS += -std=c++11
 
 TEMPLATE = app
 
-LIBS+=  -L../jcpp-build-Desktop_Qt_5_0_1_MinGW_32bit-Debug/debug -ljcpp -L../gc-7.2/.libs -lcygcord-1 -lcyggc-1
+LIBS+= -L../jcpp-build-Desktop_Qt_5_0_1_MinGW_32bit-Debug/debug -ljcpp
+#-L../gc-7.2/.libs -lcygcord-1 -lcyggc-1
 
 INCLUDEPATH += \
         src/main/cpp/jcpp/ \

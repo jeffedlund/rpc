@@ -37,12 +37,12 @@ namespace jcpp{
         }
 
         JRuntimeException::JRuntimeException(JString message):JException(getClazz()){
-            this->message=new JString(message);
+            setMessage(new JString(message));
         }
 
         JRuntimeException::JRuntimeException(JString message,JThrowable* cause):JException(getClazz()){
-            this->message=new JString(message);
-            this->cause=cause;
+            setMessage(new JString(message));
+            setCause(cause);
         }
 
         JRuntimeException::~JRuntimeException(){

@@ -34,7 +34,7 @@ namespace jcpp{
         }
 
         JClassCastException::JClassCastException(JString message):JRuntimeException(getClazz()){
-            this->message=new JString(message);
+            setMessage(new JString(message));
         }
 
         JClassCastException::~JClassCastException(){

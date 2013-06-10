@@ -34,7 +34,7 @@ namespace jcpp{
         }
 
         JNoSuchFieldException::JNoSuchFieldException(JString message):JException(getClazz()){
-            this->message=new JString(message);
+            setMessage(new JString(message));
         }
 
         JNoSuchFieldException::~JNoSuchFieldException(){

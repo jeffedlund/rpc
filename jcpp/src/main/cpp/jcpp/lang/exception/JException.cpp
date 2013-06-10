@@ -38,12 +38,12 @@ namespace jcpp{
         }
 
         JException::JException(JString message):JThrowable(getClazz()){
-            this->message = new JString(message);
+            setMessage(new JString(message));
         }
 
         JException::JException(JString message, JThrowable *cause):JThrowable(getClazz()){
-            this->message = new JString(message);
-            this->cause = cause;
+            setMessage(new JString(message));
+            setCause(cause);
         }
 
         JException::~JException(){

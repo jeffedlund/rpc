@@ -65,7 +65,7 @@ namespace jcpp{
             void addEnumConstant(JEnum* enumConstant);
             void addField(JField* field);
             void addMethod(JMethod* method);
-            void addInterface(JClass* interface);
+            void addInterface(JClass* inter);
             void addDeclaredClass(JClass* c);
             virtual void fillDeclaredMethods();
             virtual void fillDeclaredClasses();

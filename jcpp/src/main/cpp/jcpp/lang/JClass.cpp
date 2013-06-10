@@ -377,14 +377,14 @@ namespace jcpp{
             declaredMethods->insert(pair<JString,JMethod*>(*method->getName(),method));
         }
 
-        void JClass::addInterface(JClass* interface){
-            if (!interface->isInterface()){
-                throw new JIllegalArgumentException("class "+interface->getName()+" is not typed as an interface");
+        void JClass::addInterface(JClass* inter){
+            if (!inter->isInterface()){
+                throw new JIllegalArgumentException("class "+inter->getName()+" is not typed as an interface");
             }
-            if (!interface->getSuperclass()->isInterface()){
-                throw new JIllegalArgumentException("class "+interface->getName()+" doesnt not declare "+JInterface::getClazz()->getName()+" as its parent class");
+            if (!inter->getSuperclass()->isInterface()){
+                throw new JIllegalArgumentException("class "+inter->getName()+" doesnt not declare "+JInterface::getClazz()->getName()+" as its parent class");
             }
-            interfaces->push_back(interface);
+            interfaces->push_back(inter);
         }
 
         jbool JClass::isArray(){
